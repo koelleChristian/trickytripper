@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/create_trip_view_tableLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/edit_trip_view_label_name_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_trip_view_label_name_input" />
+
+    <EditText
+        android:id="@+id/edit_trip_view_editText_tripName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_trip_view_label_name_input"
+        android:inputType="text" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/edit_trip_view_label_base_currency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_trip_view_editText_tripName"
+        android:text="@string/edit_trip_view_label_base_currency" />
+
+    <EditText
+        android:id="@+id/edit_trip_view_editText_base_currency"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_trip_view_label_base_currency"
+        android:enabled="false"
+        android:inputType="text" >
+    </EditText>
+
+    <LinearLayout
+        android:id="@+id/footer"
+        style="@android:style/ButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/edit_trip_view_button_positive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/edit_trip_view_create_positive_button" />
+
+        <Button
+            android:id="@+id/edit_trip_view_button_positive_and_load"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/edit_trip_view_create_positive_button_and_load" />
+
+        <Button
+            android:id="@+id/edit_trip_view_button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/edit_trip_view_create_negative_button" />
+    </LinearLayout>
+
+</RelativeLayout>

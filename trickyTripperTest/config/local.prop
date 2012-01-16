@@ -1,0 +1,3 @@
+log.tag.TT=DEBUG
+log.tag.TT_INPUT=DEBUG
+log.tag.TT_DB=DEBUG

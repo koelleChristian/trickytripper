@@ -1,0 +1,24 @@
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/payment_edit_payer_row_view" >
+
+    <Button
+        android:id="@+id/payment_edit_payer_row_view_button_currency"
+        android:layout_column="0"
+        android:gravity="center"
+        android:onClick="notPartOfThisRelease"
+        android:text="€"
+        android:width="50dp" />
+
+    <EditText
+        android:id="@+id/payment_edit_payer_row_view_input_amount"
+        android:layout_column="1"
+        android:width="100dp" />
+
+    <TextView
+        android:id="@+id/payment_edit_payer_row_view_output_name"
+        android:layout_column="2"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="10dp"
+        android:singleLine="false" />
+
+</TableRow>

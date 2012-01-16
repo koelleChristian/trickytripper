@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/paymentView_textView_heading_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/payment_view_heading_create_payment"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/paymentView_textView_heading_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/payment_view_heading_edit_payment"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:fillViewport="false"
+        android:scrollbars="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TableLayout
+                android:id="@+id/paymentView_createPaymentPayerTableLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/paymentView_textView_heading_create"
+                android:stretchColumns="2" >
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/paymentView_textView_label_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_gravity="bottom"
+                        android:paddingLeft="5dp"
+                        android:text="@string/payment_edit_view_textView_label_amount" />
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="fill_parent"
+                        android:layout_height="38dp"
+                        android:layout_column="2"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/paymentView_textView_label_payed_by"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_weight="1"
+                            android:paddingLeft="10dp"
+                            android:text="@string/payment_edit_view_label_payed_by" />
+
+                        <Button
+                            android:id="@+id/paymentView_button_add_further_payees"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/symbol_arrow_down"
+                            android:width="40dp" />
+                    </LinearLayout>
+                </TableRow>
+
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090" />
+
+                <View
+                    android:layout_height="5dp"
+                    android:background="@android:color/black" />
+            </TableLayout>
+
+            <RelativeLayout
+                android:id="@+id/payment_edit_view_total_payment_sum_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/paymentView_createPaymentPayerTableLayout" >
+
+                <TextView
+                    style="@style/LargeFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:text="@string/common_label_total_amount" />
+
+                <TextView
+                    android:id="@+id/paymentView_createPaymentPayerTableLayout_total_sum_value"
+                    style="@style/LargeFont"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="3dip" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/paymentView_textView_label_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/payment_edit_view_total_payment_sum_layout"
+                android:text="@string/payment_edit_view_label_category_desciption" />
+            <!-- Category/Description -->
+
+            <Spinner
+                android:id="@+id/paymentView_spinnerPaymentCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/paymentView_textView_label_description"
+                android:layout_marginBottom="17dp" />
+
+            <EditText
+                android:id="@+id/paymentView_editTextPaymentDescription"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/paymentView_spinnerPaymentCategory"
+                android:layout_alignBottom="@id/paymentView_spinnerPaymentCategory"
+                android:layout_toRightOf="@id/paymentView_spinnerPaymentCategory"
+                android:inputType="text" >
+            </EditText>
+
+            <TextView
+                android:id="@+id/paymentView_textViewLabelTravellersCharged"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/paymentView_spinnerPaymentCategory"
+                android:text="@string/payment_edit_view_label_travellers_charged" />
+
+            <RadioGroup
+                android:id="@+id/paymentView_radioGroupTravelllersCharged"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/paymentView_textViewLabelTravellersCharged"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/paymentView_radioTravellersChargedSplitEvenly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/payment_edit_view_label_radio_split_evenly" />
+
+                <RadioButton
+                    android:id="@+id/paymentView_radioTravellersChargedCustom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/payment_edit_view_label_radio_custom_split" />
+            </RadioGroup>
+
+            <TableLayout
+                android:id="@+id/paymentView_createSpendingTableLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/paymentView_radioGroupTravelllersCharged"
+                android:stretchColumns="2" >
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/paymentView_textView_payee_label_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_gravity="bottom"
+                        android:paddingLeft="5dp"
+                        android:text="@string/payment_edit_view_textView_payee_label_amount" />
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="fill_parent"
+                        android:layout_height="38dp"
+                        android:layout_column="2"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/paymentView_textView_payee_label_payed_by"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_weight="1"
+                            android:paddingLeft="10dp"
+                            android:text="@string/payment_edit_view_textView_payee_label_spent_by" />
+
+                        <Button
+                            android:id="@+id/paymentView_button_payee_add_further_payees"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/symbol_arrow_down"
+                            android:width="40dp" />
+                    </LinearLayout>
+                </TableRow>
+
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090" />
+
+                <View
+                    android:layout_height="5dp"
+                    android:background="@android:color/black" />
+            </TableLayout>
+
+            <RelativeLayout
+                android:id="@+id/payment_edit_view_total_spending_sum_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/paymentView_createSpendingTableLayout" >
+
+                <Button
+                    android:id="@+id/paymentView_button_divide_remaining_spending"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="divideRest"
+                    android:text="@string/payment_edit_view_button_divide_rest"
+                    android:width="40dp" />
+
+                <TextView
+                    android:id="@+id/paymentView_payee_createPaymentPayerTableLayout_total_sum_label"
+                    style="@style/LargeFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/paymentView_button_divide_remaining_spending"
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:text="@string/common_label_total_amount" />
+
+                <TextView
+                    android:id="@+id/paymentView_payee_createPaymentPayerTableLayout_total_sum_value"
+                    style="@style/LargeFont"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/paymentView_button_divide_remaining_spending"
+                    android:layout_toRightOf="@id/paymentView_payee_createPaymentPayerTableLayout_total_sum_label"
+                    android:gravity="right"
+                    android:padding="3dip" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/footer"
+                style="@android:style/ButtonBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/payment_edit_view_total_spending_sum_layout"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/paymentView_buttonCreate"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="saveEdit"
+                    android:text="@string/common_button_create" />
+
+                <Button
+                    android:id="@+id/paymentView_buttonSave"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="saveEdit"
+                    android:text="@string/common_button_save" />
+
+                <Button
+                    android:id="@+id/paymentView_buttonCancel"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="cancelEdit"
+                    android:text="@string/common_button_cancel" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

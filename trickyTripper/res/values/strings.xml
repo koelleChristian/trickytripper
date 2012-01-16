@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Not to be translated -->
+    <string name="app_name">Tricky Tripper</string>
+    <string name="spinner_null_value_default"></string>
+    <string name="symbol_arrow_down">∨</string>
+    <!-- To be translated ff -->
+    <string name="common_button_cancel">Cancel</string>
+    <string name="common_button_yes">Yes</string>
+    <string name="common_button_no">No</string>
+    <string name="common_button_ok">OK</string>
+    <string name="common_button_create">Create</string>
+    <string name="common_button_save">Save</string>
+    <string name="common_label_total_amount">Total:</string>
+    <string name="common_label_inactive_addon">[Inactive]</string>       
+    <string name="common_toast_currency_not_part_of_this_release">The currency selection is not part of this release.</string>
+    <string name="progress_dialog_text_loading">Loading …</string>
+    <string name="activity_label_participants">Travelers</string>
+    <string name="activity_label_report">Report</string>
+    <string name="activity_label_payments">Payments</string>
+    <string name="activity_label_create_payment">Create payment</string>
+    <string name="activity_label_edit_payment">Edit payment</string>
+    <string name="label_enum_payment_category_housing">Housing</string>
+    <string name="label_enum_payment_category_food">Food</string>
+    <string name="label_enum_payment_category_beverages">Beverages</string>
+    <string name="label_enum_payment_category_gas">Gasoline</string>
+    <string name="label_enum_payment_category_public_transport">Public transport</string>
+    <string name="label_enum_payment_category_other">Various</string>
+    <string name="label_enum_payment_category_rentals">Rentals</string>
+    <string name="label_enum_payment_category_money_transfer">Money transfer</string>
+    <string name="participant_options_view_fktn_create_traveller">Create</string>
+    <string name="fktn_glob_help_info">Help &amp; Info</string>
+    <!-- ===============================  Participant tab view =============================== -->
+    <string name="participant_tab_row_view_label_spent">Spent:</string>
+    <string name="participant_tab_row_view_label_paid">Paid:</string>
+    <string name="participant_tab_msg_no_participants_in_trip">Long-tap on the traveler tab to create new travelers. Afterwards you can long-tap on the created traveler to create a payment.</string>
+    <!-- ===============================  Report view =============================== -->
+    <string name="report_view_subheading_spendings_by_category">Spending by category</string>
+    <string name="report_view_subheading_spendings">Spending</string>
+    <string name="report_view_subheading_owing_debts_by_traveller">Owing debts</string>
+    <string name="report_view_entry_report_spinner_null_value">all travelers</string>
+    <string name="report_view_label_report_spinner_prompt">Choose traveler for report</string>
+    <string name="report_view_label_report_spinner">Report for:</string>
+    <string name="report_view_label_payment_count">Payment count:</string>
+    <string name="report_view_label_total_spent">Total spent:</string>
+    <string name="report_view_label_no_spendings">No Spending</string>
+    <!-- ===============================  Payment view =============================== -->
+    <string name="payment_view_heading_create_payment">Create Payment</string>
+    <string name="payment_view_heading_edit_payment">Edit Payment</string>
+    <string name="payment_view_spinner_prompt">Select a payment category</string>
+    <string name="payment_view_popup">Select a payment category</string>
+    <string name="payment_view_msg_cannot_save_title">Cannot save</string>
+    <string name="payment_view_msg_cannot_save_msg">The payment cannot be saved whilst the payment value is 0. Use cancel to leave the dialog.</string>
+
+    <!-- ===============================  Money transfer view =============================== -->
+    <string name="money_transfer_view_heading">Money transfer</string>
+    <string name="money_transfer_view_label_from">from:</string>
+    <string name="money_transfer_view_output_participant_from">Select a payment category</string>
+    <string name="money_transfer_view_button_transfer">Transfer</string>
+    <string name="money_transfer_list_view_label_name">to:</string>
+    <string name="money_transfer_list_view_label_amount">Amount</string>
+    <string name="money_transfer_list_view_label_due">&lt; Due</string>
+
+    <!-- ===============================  Payment list view =============================== -->
+    <string name="payment_view_label_payed_by">Paid by:</string>
+    <string name="payment_view_label_debited_to">Debited to:</string>
+    <string name="payment_view_label_category">Category:</string>
+    <string name="payment_view_label_transfer_from">From:</string>
+    <string name="payment_view_label_transfer_to">To:</string>
+    <string name="payment_view_delete_confirmation_payment">Are you sure you want to delete the selected payment?</string>
+    <string name="payment_view_delete_confirmation_transfer">Are you sure you want to delete the selected money transfer?</string>
+    <!-- ===============================  Payment edit =============================== -->
+    <string name="payment_edit_view_label_category_desciption">Category/Description</string>
+    <string name="payment_edit_view_label_travellers_charged">Travelers charged:</string>
+    <string name="payment_edit_view_label_radio_split_evenly">Split evenly</string>
+    <string name="payment_edit_view_label_radio_custom_split">Custom split</string>
+    <string name="payment_edit_view_textView_payee_label_amount">Amount</string>
+    <string name="payment_edit_view_textView_payee_label_spent_by">Debited to:</string>
+    <string name="payment_edit_view_label_payed_by">Payed by</string>
+    <string name="payment_edit_view_textView_label_amount">Amount</string>
+    <string name="payment_edit_view_button_divide_rest">Divide rest among blanks</string>
+    <!-- ==================== Context menu participants ====================== -->
+    <string name="fktn_participant_create_payment">Create payment</string>
+    <string name="fktn_participant_transfer_money">Transfer money</string>
+    <string name="fktn_participant_show_report">Show report</string>
+    <string name="fktn_participant_delete">Delete</string>
+    <string name="fktn_participant_deactivate">Deactivate (for costs)</string>
+    <string name="fktn_participant_activate">Activate (for costs)</string>
+    <string name="fktn_participant_edit">Edit</string>
+    <!-- ==================== Context menu Payment List ====================== -->
+    <string name="manageTripsView__heading">Manage trips</string>
+    <string name="manage_trips_view_label_long_click_to_edit">Tap to load, long-tap to edit</string>
+    <string name="manage_trips_view_button_create_new_trip">Create new trip</string>
+    <string name="manage_trips_view_fktn_edit">Edit</string>
+    <string name="manage_trips_view_fktn_delete">Delete</string>
+    <string name="manage_trips_view_delete_confirmation">Are  you sure you want to delete the selected trip including all its travelers and statistics?</string>
+    <!-- ==================== Context menu participant edit====================== -->
+    <string name="edit_participant_view_label_name">Name:</string>
+    <string name="edit_participant_view_heading_create">Create traveler</string>
+    <string name="edit_participant_view_heading_edit">Edit traveler</string>
+    <string name="edit_participant_view_positive_button_create">Create</string>
+    <string name="edit_participant_view_positive_button_edit">Save</string>
+    <string name="edit_participant_view_msg_denial">A participant with the name entered already exists in this trip. Please modify your input.</string>
+    <!-- ==================== edit trip view ====================== -->
+    <string name="edit_trip_view_label_name_input">Name:</string>
+    <string name="edit_trip_view_label_base_currency">Base currency:</string>
+    <string name="edit_trip_view_edit_heading">Edit trip</string>
+    <string name="edit_trip_view_edit_positive_button">Save</string>
+    <string name="edit_trip_view_edit_positive_button_and_load">Save &amp; load</string>
+    <string name="edit_trip_view_create_heading">Create new trip</string>
+    <string name="edit_trip_view_create_positive_button">Create</string>
+    <string name="edit_trip_view_create_positive_button_and_load">Create &amp; load</string>
+    <string name="edit_trip_view_create_negative_button">Cancel</string>
+    <string name="edit_trip_view_msg">A trip with the name entered already exists. Please modify your input.</string>
+    <!-- ==================== Context menu Payment List ====================== -->
+    <string name="fktn_payment_list_edit_payment">Edit payment</string>
+    <string name="fktn_payment_list_delete_payment">Delete payment</string>
+    <string name="fktn_payment_list_edit_transfer">Edit money transfer</string>
+    <string name="fktn_payment_list_delete_transfer">Delete money transfer</string>
+    <!-- ==================== Messages ====================== -->
+    <string name="msg_delete_not_possible_inbalance">The user cannot be deleted as his/her account is not balanced.</string>
+    <!-- ==================== Context menu participant selection ====================== -->
+    <string name="participant_selection_popup_traveler_selection_title">Select travelers</string>
+    <string name="participant_selection_popup_payer_selection_msg">Select all travelers who spend/spent the money and vice versa</string>
+    <string name="participant_selection_popup_traveler_to_debit_msg">Select all travelers to debit the payment to and vice versa.</string>
+    <string name="participant_selection_popup_traveler_divide_amount">Divide among selection: </string>
+
+    <!-- ==================== Initial data ====================== -->
+    <string name="initial_data_trip_name">My first trip</string>
+
+</resources>
