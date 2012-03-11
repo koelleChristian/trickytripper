@@ -249,11 +249,10 @@ public class ManageTripsActivity extends Activity {
         int titleId = R.string.edit_trip_view_create_heading;
         int positiveButtonLabelId = R.string.edit_trip_view_create_positive_button;
         int positiveAndLoadButtonLabelId = R.string.edit_trip_view_create_positive_button_and_load;
-        int negativeButtonLabelId = R.string.common_button_cancel;
         int layoutId = R.layout.edit_trip_view;
 
         return createTripEditPopup(titleId, positiveButtonLabelId, positiveAndLoadButtonLabelId,
-                negativeButtonLabelId, layoutId);
+                layoutId);
     }
 
     private Dialog createEditPopup() {
@@ -262,16 +261,15 @@ public class ManageTripsActivity extends Activity {
                 R.string.edit_trip_view_edit_positive_button;
         int positiveAndLoadButtonLabelId =
                 R.string.edit_trip_view_edit_positive_button_and_load;
-        int negativeButtonLabelId = R.string.common_button_cancel;
         int layoutId = R.layout.edit_trip_view;
 
         return createTripEditPopup(titleId, positiveButtonLabelId,
                 positiveAndLoadButtonLabelId,
-                negativeButtonLabelId, layoutId);
+                layoutId);
     }
 
     private Dialog createTripEditPopup(int titleId,
-            int positiveButtonLabelId, int positiveAndLoadButtonLabelId, int negativeButtonLabelId, int layoutId) {
+            int positiveButtonLabelId, int positiveAndLoadButtonLabelId, int layoutId) {
         final View viewInf = inflate(layoutId);
 
         Button buttonPositive = (Button) viewInf.findViewById(R.id.edit_trip_view_button_positive);
@@ -284,8 +282,7 @@ public class ManageTripsActivity extends Activity {
         buttonPositive.setText(positiveButtonLabelId);
         buttonPositiveAndLoad.setText(positiveAndLoadButtonLabelId);
 
-        final AlertDialog dialog = createDialog(titleId, positiveButtonLabelId,
-                negativeButtonLabelId,
+        final AlertDialog dialog = createDialog(titleId,
                 viewInf,
                 ManageTripsActivity.this);
 
@@ -409,8 +406,7 @@ public class ManageTripsActivity extends Activity {
         return viewInf;
     }
 
-    private AlertDialog createDialog(int titleId, int positiveButtonLabelId,
-            int negativeButtonLabelId, final View viewInf, Context context) {
+    private AlertDialog createDialog(int titleId, final View viewInf, Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         builder

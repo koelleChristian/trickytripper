@@ -78,12 +78,6 @@ public class TripReportLogic {
 
     /* ================= Debt logic ============================ */
 
-    public Map<Participant, Debts> createDebts(List<Participant> participants, List<Payment> payments) {
-        Map<Participant, Debts> result = new HashMap<Participant, Debts>();
-        refreshDebts(participants, payments, result);
-        return result;
-    }
-
     public Map<Participant, Debts> createDebts2(List<Participant> participants, Map<Participant, Amount> balanceByUser) {
         Map<Participant, Debts> result = new HashMap<Participant, Debts>();
         Map<Participant, Amount> balanceClone = new HashMap<Participant, Amount>();

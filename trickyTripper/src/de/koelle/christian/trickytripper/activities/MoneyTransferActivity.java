@@ -117,6 +117,12 @@ public class MoneyTransferActivity extends Activity {
         addDynamicRows(transferer, allParticipants, debtsOfTransferer, listView);
     }
 
+    /**
+     * View method.
+     * 
+     * @param view
+     *            Required parameter.
+     */
     public void notPartOfThisRelease(View view) {
         Toast.makeText(
                 getApplicationContext(),
@@ -124,10 +130,22 @@ public class MoneyTransferActivity extends Activity {
                 Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * View method.
+     * 
+     * @param view
+     *            Required parameter.
+     */
     public void cancel(View view) {
         finish();
     }
 
+    /**
+     * View method.
+     * 
+     * @param view
+     *            Required parameter.
+     */
     public void transfer(View view) {
         createNewPayments();
         finish();

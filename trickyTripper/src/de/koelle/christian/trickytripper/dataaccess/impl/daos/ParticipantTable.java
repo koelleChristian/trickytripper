@@ -29,6 +29,7 @@ public class ParticipantTable {
         db.execSQL(sb.toString());
     }
 
+    @SuppressWarnings("unused")
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + ParticipantTable.TABLE_NAME);
         ParticipantTable.onCreate(db);

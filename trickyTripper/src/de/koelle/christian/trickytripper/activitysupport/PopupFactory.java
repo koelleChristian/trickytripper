@@ -95,24 +95,20 @@ public class PopupFactory {
         return urlToHelp;
     }
 
-    public static Dialog createAndShowEditParticipantPopupCreateMode(final Activity activity,
-            TripExpensesFktnController fktnController) {
+    public static Dialog createAndShowEditParticipantPopupCreateMode(final Activity activity) {
         int titleId = R.string.edit_participant_view_heading_create;
         int positiveButtonLabelId = R.string.edit_participant_view_positive_button_create;
-        return createAndShowEditParticipantPopup(titleId, positiveButtonLabelId, activity,
-                fktnController);
+        return createAndShowEditParticipantPopup(titleId, positiveButtonLabelId, activity);
     }
 
-    public static Dialog createAndShowEditParticipantPopupEditMode(final Activity activity,
-            TripExpensesFktnController fktnController) {
+    public static Dialog createAndShowEditParticipantPopupEditMode(final Activity activity) {
         int titleId = R.string.edit_participant_view_heading_edit;
         int positiveButtonLabelId = R.string.edit_participant_view_positive_button_edit;
-        return createAndShowEditParticipantPopup(titleId, positiveButtonLabelId, activity,
-                fktnController);
+        return createAndShowEditParticipantPopup(titleId, positiveButtonLabelId, activity);
     }
 
     private static Dialog createAndShowEditParticipantPopup(int titleId, int positiveButtonLabelId,
-            final Activity activity, final TripExpensesFktnController fktnController) {
+            final Activity activity) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 

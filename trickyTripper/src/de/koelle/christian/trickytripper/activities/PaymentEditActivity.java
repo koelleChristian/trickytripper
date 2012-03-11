@@ -86,19 +86,19 @@ public class PaymentEditActivity extends Activity {
     private Payment payment;
     private boolean divideEqually;
 
-    private Amount amountTotalPayer;
-    private Amount amountTotalSpending;
+    private Amount amountTotalPayments;
+    private Amount amountTotalDebits;
 
     private boolean selectParticipantMakesSense = false;
     private final boolean spendingInputInitialized = false;
 
     private List<Participant> allRelevantParticipants;
 
-    private final List<View> payerRows = new ArrayList<View>();
-    private final List<View> spentRows = new ArrayList<View>();
+    private final List<View> paymentRows = new ArrayList<View>();
+    private final List<View> debitRows = new ArrayList<View>();
 
     private final Map<Participant, EditText> amountPayedParticipantToWidget = new HashMap<Participant, EditText>();
-    private final Map<Participant, EditText> amountSpentParticipantToWidget = new HashMap<Participant, EditText>();
+    private final Map<Participant, EditText> amountDebitorParticipantToWidget = new HashMap<Participant, EditText>();
 
     @Override
     public Object onRetainNonConfigurationInstance() {
@@ -152,7 +152,7 @@ public class PaymentEditActivity extends Activity {
         bindParticipantSelectionButtons();
         addRadioListener();
 
-        buildSpendingInput();
+        buildDebitorInput();
         buildPaymentInput();
 
         setVisibilitySpendingTable(!divideEqually);
@@ -270,19 +270,19 @@ public class PaymentEditActivity extends Activity {
 
         Map<Participant, Amount> amountMap = payment.getParticipantToPayment();
         Map<Participant, EditText> widgetMap = amountPayedParticipantToWidget;
-        List<View> rowHolder = payerRows;
+        List<View> rowHolder = paymentRows;
 
         refreshRows(tableLayout, amountMap, widgetMap, rowHolder, true);
 
         updatePayerSum();
     }
 
-    private void buildSpendingInput() {
+    private void buildDebitorInput() {
         TableLayout tableLayout = (TableLayout) findViewById(R.id.paymentView_createSpendingTableLayout);
 
         Map<Participant, Amount> amountMap = payment.getParticipantToSpending();
-        Map<Participant, EditText> widgetMap = amountSpentParticipantToWidget;
-        List<View> rowHolder = spentRows;
+        Map<Participant, EditText> widgetMap = amountDebitorParticipantToWidget;
+        List<View> rowHolder = debitRows;
 
         refreshRows(tableLayout, amountMap, widgetMap, rowHolder, false);
 
@@ -349,6 +349,12 @@ public class PaymentEditActivity extends Activity {
         return viewInf;
     }
 
+    /**
+     * View method.
+     * 
+     * @param view
+     *            Required parameter.
+     */
     public void notPartOfThisRelease(View view) {
         Toast.makeText(
                 getApplicationContext(),
@@ -409,7 +415,7 @@ public class PaymentEditActivity extends Activity {
                 ArrayList<Participant> participantsInUse = new ArrayList<Participant>(payment
                         .getParticipantToPayment().keySet());
                 showDialog(DIALOG_SELECT_PAYERS,
-                        createBundleForParticipantSelection(participantsInUse, amountTotalPayer, true));
+                        createBundleForParticipantSelection(participantsInUse, amountTotalPayments, true));
             }
         });
         button = (Button) findViewById(R.id.paymentView_button_payee_add_further_payees);
@@ -418,12 +424,18 @@ public class PaymentEditActivity extends Activity {
                 ArrayList<Participant> participantsInUse = new ArrayList<Participant>(payment
                         .getParticipantToSpending().keySet());
                 showDialog(DIALOG_SELECT_DEBITORS,
-                        createBundleForParticipantSelection(participantsInUse, amountTotalPayer, false));
+                        createBundleForParticipantSelection(participantsInUse, amountTotalPayments, false));
             }
         });
 
     }
 
+    /**
+     * View method.
+     * 
+     * @param view
+     *            Required parameter.
+     */
     public void saveEdit(View view) {
         Amount amountTotal = calculateTotalSumPayer();
 
@@ -457,13 +469,25 @@ public class PaymentEditActivity extends Activity {
 
     }
 
+    /**
+     * View method.
+     * 
+     * @param view
+     *            Required parameter.
+     */
     public void cancelEdit(View view) {
         finish();
     }
 
+    /**
+     * View method.
+     * 
+     * @param view
+     *            Required parameter.
+     */
     public void divideRest(View view) {
-        Double rest = NumberUtils.round(amountTotalPayer.getValue()
-                - Math.abs(amountTotalSpending.getValue()));
+        Double rest = NumberUtils.round(amountTotalPayments.getValue()
+                - Math.abs(amountTotalDebits.getValue()));
 
         int countBlanks = 0;
         List<Participant> participantsWithBlanks = new ArrayList<Participant>();
@@ -487,7 +511,7 @@ public class PaymentEditActivity extends Activity {
             }
             Participant p = participantsWithBlanks.get(i);
             EditText editText =
-                    amountSpentParticipantToWidget.get(p);
+                    amountDebitorParticipantToWidget.get(p);
             writeAmountToEditText(getAmountFac().createAmount(valueToBeUsed), editText);
             payment.getParticipantToSpending().get(p).setValue(valueToBeUsed);
 
@@ -697,7 +721,7 @@ public class PaymentEditActivity extends Activity {
             updatePayerSum();
         }
         else {
-            buildSpendingInput();
+            buildDebitorInput();
             updateSpentSum();
         }
     }
@@ -749,8 +773,8 @@ public class PaymentEditActivity extends Activity {
     }
 
     protected void updatePayerSum() {
-        amountTotalPayer = calculateTotalSumPayer();
-        Amount amountHere = amountTotalPayer;
+        amountTotalPayments = calculateTotalSumPayer();
+        Amount amountHere = amountTotalPayments;
         int viewId = R.id.paymentView_createPaymentPayerTableLayout_total_sum_value;
         updateSumText(amountHere, viewId);
         updateSaveButtonState();
@@ -758,8 +782,8 @@ public class PaymentEditActivity extends Activity {
     }
 
     protected void updateSpentSum() {
-        amountTotalSpending = calculateTotalSumSpending();
-        Amount amountHere = amountTotalSpending;
+        amountTotalDebits = calculateTotalSumSpending();
+        Amount amountHere = amountTotalDebits;
         int viewId = R.id.paymentView_payee_createPaymentPayerTableLayout_total_sum_value;
         updateSumText(amountHere, viewId);
         updateSaveButtonState();
@@ -783,21 +807,21 @@ public class PaymentEditActivity extends Activity {
     }
 
     private boolean isPaymentSaveable() {
-        return isAmountBiggerZero(amountTotalPayer)
-                && (divideEqually || (amountTotalSpending != null && amountTotalPayer.getValue().doubleValue() == Math
-                        .abs(amountTotalSpending
+        return isAmountBiggerZero(amountTotalPayments)
+                && (divideEqually || (amountTotalDebits != null && amountTotalPayments.getValue().doubleValue() == Math
+                        .abs(amountTotalDebits
                                 .getValue().doubleValue())));
     }
 
     private boolean areBlankDebitors() {
-        if (amountTotalPayer == null
-                || amountTotalPayer.getValue() <= 0) {
+        if (amountTotalPayments == null
+                || amountTotalPayments.getValue() <= 0) {
             return false;
         }
-        Double totalAmountSpendingAbs = Math.abs(amountTotalSpending.getValue());
-        Double totalAmountPaid = amountTotalPayer.getValue();
+        Double totalAmountSpendingAbs = Math.abs(amountTotalDebits.getValue());
+        Double totalAmountPaid = amountTotalPayments.getValue();
 
-        if (amountTotalSpending != null
+        if (amountTotalDebits != null
                 && (totalAmountPaid.equals(totalAmountSpendingAbs) || totalAmountSpendingAbs > totalAmountPaid)) {
             return false;
         }

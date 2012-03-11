@@ -289,12 +289,12 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     private void logPayment(String tag, String addition, Payment newPayment) {
         Log.d(TAG_FKTN, addition + " Cat=" + newPayment.getCategory().toString());
         for (Entry<Participant, Amount> entry : newPayment.getParticipantToPayment().entrySet()) {
-            Log.d(TAG_FKTN,
+            Log.d(tag,
                     addition + " payment[" + " participant=" + entry.getKey().getName() + ", amount="
                             + entry.getValue() + "]");
         }
         for (Entry<Participant, Amount> entry : newPayment.getParticipantToSpending().entrySet()) {
-            Log.d(TAG_FKTN,
+            Log.d(tag,
                     addition + " spending[" + " participant=" + entry.getKey().getName() + ", amount="
                             + entry.getValue() + "]");
         }
@@ -415,6 +415,7 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
      */
     public void persistPayment(Payment payment) {
         payment.removeBlankEntries();
+        // TODO(ckoelle) Move check to logging Method.
         if (Log.isLoggable(TAG_FKTN, Log.DEBUG)) {
             logPayment(TAG_FKTN, "persistPayment()", payment);
         }

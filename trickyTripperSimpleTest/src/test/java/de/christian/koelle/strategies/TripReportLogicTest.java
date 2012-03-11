@@ -704,18 +704,6 @@ public class TripReportLogicTest {
 
     }
 
-    private void updateAllTransientData2(Trip tripToBeEdited2, TripReportLogic tripReportLogic) {
-        amountFactory.setCurrency(tripToBeEdited.getBaseCurrency());
-        tripReportLogic.setAmountFactory(amountFactory);
-
-        List<Participant> participants = tripToBeEdited2.getParticipant();
-        List<Payment> payments = tripToBeEdited2.getPayments();
-
-        tripToBeEdited2.setSumReport(tripReportLogic.createSumReport(participants, payments));
-        tripToBeEdited2.setDebts(tripReportLogic.createDebts(participants, payments));
-
-    }
-
     private void updateAllTransientData(Trip tripToBeEdited2, TripReportLogic tripReportLogic) {
         amountFactory.setCurrency(tripToBeEdited.getBaseCurrency());
         tripReportLogic.setAmountFactory(amountFactory);

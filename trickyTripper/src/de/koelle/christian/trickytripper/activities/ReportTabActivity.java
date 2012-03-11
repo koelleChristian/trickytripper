@@ -189,13 +189,13 @@ public class ReportTabActivity extends Activity {
 
         removeDynamicRows(tableLayout);
 
-        addDynamicCategoryRows(app, participantSelected, locale, tableLayout, heading, delimiterLine);
+        addDynamicCategoryRows(app, participantSelected, locale, tableLayout, delimiterLine);
         addDynamicDebtRows(app, participantSelected, locale, tableLayout, heading, delimiterLine);
 
     }
 
     private void addDynamicCategoryRows(TrickyTripperApp app, Participant participantSelected, Locale locale,
-            TableLayout tableLayout, TextView heading, View delimiterLine) {
+            TableLayout tableLayout, View delimiterLine) {
 
         SumReport sumReport = app.getTripToBeEdited().getSumReport();
         Map<PaymentCategory, Amount> categorySpending;
