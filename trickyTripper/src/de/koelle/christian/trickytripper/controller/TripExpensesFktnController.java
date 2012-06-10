@@ -1,11 +1,14 @@
 package de.koelle.christian.trickytripper.controller;
 
+import java.io.File;
 import java.text.Collator;
 import java.util.Currency;
 import java.util.List;
 import java.util.Map;
 
+import android.app.Activity;
 import de.koelle.christian.trickytripper.model.Debts;
+import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.Trip;
@@ -23,6 +26,8 @@ public interface TripExpensesFktnController {
     public boolean isParticipantDeleteable(Participant participant);
 
     List<Participant> getAllParticipants(boolean onlyActive);
+
+    List<Participant> getAllParticipants(boolean onlyActive, boolean sorted);
 
     /* ========= Payment related functions. ========= */
 
@@ -54,6 +59,11 @@ public interface TripExpensesFktnController {
 
     Map<Participant, Debts> getDebts();
 
+    /* ================ Export ==================== */
+    ExportSettings getDefaultExportSettings();
+
+    List<File> exportReport(ExportSettings settings, Participant selectedParticipant, Activity activity);
+
     /* ================ Misc ==================== */
 
     Currency getDefaultBaseCurrency();
@@ -61,4 +71,7 @@ public interface TripExpensesFktnController {
     Collator getDefaultStringCollator();
 
     boolean checkIfInAssets(String assetName);
+
+    boolean hasLoadedTripPayments();
+
 }

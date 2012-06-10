@@ -23,4 +23,13 @@ public class StringUtils {
         clone.trim();
         return clone.length() < 1;
     }
+
+    public static StringBuilder generateString(int amount, String txtHeadingSymbol) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < amount; i++) {
+            result.append(txtHeadingSymbol);
+        }
+        /**/;
+        return result;
+    }
 }

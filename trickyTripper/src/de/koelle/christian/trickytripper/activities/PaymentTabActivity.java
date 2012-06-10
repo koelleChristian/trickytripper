@@ -37,7 +37,8 @@ public class PaymentTabActivity extends ListActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.general_options, menu);
+        inflater.inflate(R.layout.payment_tab_options, menu);
+        menu.findItem(R.id.general_options_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
         return true;
     }
 
@@ -46,6 +47,8 @@ public class PaymentTabActivity extends ListActivity {
         switch (item.getItemId()) {
         case R.id.general_options_help:
             getParent().showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
+        case R.id.general_options_export:
+            getApp().getViewController().openExport();
         default:
             return super.onOptionsItemSelected(item);
         }

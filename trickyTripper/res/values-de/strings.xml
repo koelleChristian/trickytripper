@@ -13,9 +13,9 @@
     <string name="common_button_create">Erstellen</string>
     <string name="common_button_save">Speichern</string>
     <string name="common_label_total_amount">Summe:</string>
-    <string name="common_label_inactive_addon">[Inaktiv]</string>      
+    <string name="common_label_inactive_addon">[Inaktiv]</string>
     <string name="common_toast_currency_not_part_of_this_release">Die Währungsauswahl ist nicht Teil dieses Releases.</string>
-    <string name="progress_dialog_text_loading">Lade …</string>    
+    <string name="progress_dialog_text_loading">Lade …</string>
     <string name="activity_label_participants">Reisende</string>
     <string name="activity_label_report">Bericht</string>
     <string name="activity_label_payments">Zahlungen</string>
@@ -27,14 +27,63 @@
     <string name="label_enum_payment_category_gas">Tanken</string>
     <string name="label_enum_payment_category_public_transport">Öffentl. Verkehr</string>
     <string name="label_enum_payment_category_other">Verschiedenes</string>
-    <string name="label_enum_payment_category_rentals">Mieten</string>
+    <string name="label_enum_payment_category_rentals">Miete</string>
+    <string name="label_enum_payment_category_culture">Kultur</string>
+    <string name="label_enum_payment_category_entrance_fee">Eintrittgeld</string>
     <string name="label_enum_payment_category_money_transfer">Geldtransfer</string>
     <string name="participant_options_view_fktn_create_traveller">Erstellen</string>
-    <string name="fktn_glob_help_info">Hilfe &#38; Info</string>    
+    <string name="fktn_glob_help_info">Hilfe &amp; Info</string>
+    <string name="fktn_glob_export">Export</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Ausgegeben:</string>
     <string name="participant_tab_row_view_label_paid">Bezahlt:</string>
     <string name="participant_tab_msg_no_participants_in_trip">Erstelle neue Reisende mit einem Lang-Tap auf den Reisende-Tab-Reiter. Anschließend kannst Du mit einem Lang-Tap auf den erzeugten Reisenden eine Zahlung erstellen.</string>
+    <!-- ===============================  export view =============================== -->
+    <string name="exportViewTextViewHeading">Export</string>
+    <string name="exportViewTextViewSubHeadingContent">Was?</string>
+    <string name="exportViewCheckboxContentPayments">Zahlungen</string>
+    <string name="exportViewCheckboxContentSpendingReport">Ausgaben</string>
+    <string name="exportViewCheckboxContentOwingDebts">Schulden</string>
+    <string name="exportViewTextViewSubHeadingScope">Umfang?</string>
+    <string name="exportViewTextViewSubHeadingFormat">Format?</string>
+    <string name="exportViewCheckboxFormatCsv">CSV (für Excel, etc.)</string>
+    <string name="exportViewCheckboxFormatHtml">HTML</string>
+    <string name="exportViewCheckboxSeparateFilesForIndividuals">Individualle Dateien für jeden Reisenden</string>
+    <string name="exportViewCheckboxShowTripSumOnIndividualSpendingReport">Ausgaben: Gesamtsummen der Reise in individuelle Dateien einfügen</string>
+    <string name="exportViewSpinnerPromptScope">Wähle Reisenden für Export</string>
+    <string name="exportViewButtonExecuteExport">Exportieren</string>
+    <string name="exportViewIntentChooserHeader">Wähle Dienst für Export</string>
+    <!-- ===============================  Save 2 SD receiver =============================== -->
+    <string name="save2SdReceiverLabel">Aufs Telefon speichern</string>
+    <!-- ===============================  file export =============================== -->
+    <string name="fileExportPrefix">TTE</string>
+    <string name="fileExportFileHeading">Tricky Tripper Bericht</string>
+    <string name="fileExportFileSummaryEventPrefix">Reise/Event:</string>
+    <string name="fileExportFileSummaryReportForPrefix">Bericht für</string>
+    <string name="fileExportFileSummaryReportForPrefixAll">alle Reisenden</string>    
+    <string name="fileExportPostfix_Payments">Z</string>
+    <string name="fileExportPostfix_Spendings">A</string>
+    <string name="fileExportPostfix_Debts">S</string>
+    <string name="fileExportTableHeadingPayments">Zahlungen</string>
+    <string name="fileExportTableHeadingSpendings">Ausgaben</string>
+    <string name="fileExportTableHeadingDebts">Schulden</string>
+    <string name="fileExportrFix_Scope_All">Alle</string>
+    <string name="fileExportEmailSubjectPrefix">Tricky Tripper Bericht</string>
+    <string name="fileExportPaymentsHeadingPaymentName">Zahlung</string>
+    <string name="fileExportPaymentsHeadingCategory">Kategorie</string>
+    <string name="fileExportPaymentsHeadingAmount">Betrag</string>
+    <string name="fileExportPaymentsHeadingPaidBy">Zahlung von</string>
+    <string name="fileExportPaymentsHeadingDebitedTo">Belastet</string>
+    <!-- xxx -->
+    <string name="fileExportSpendingsHeadingSpendingGlobal">Ausgaben</string>
+    <string name="fileExportSpendingsHeadingSpendingByCategory">Ausgaben nach Kategorie</string>
+    <string name="fileExportSpendingsHeadingAll">Alle Reisenden</string>
+    <string name="fileExportSpendingsHeadingTotalSpent">Gesamtsumme</string>
+    <string name="fileExportSpendingsHeadingTotalCount">Gesamtanzahl</string>
+    <!-- xxx -->
+    <string name="fileExportOwingDebtsHeadingDebtor">Reisender</string>
+    <string name="fileExportOwingDebtsHeadingCreditor">schuldet</string>
+    <string name="fileExportOwingDebtsHeadingAmount">den Betrag</string>
     <!-- ===============================  Report view =============================== -->
     <string name="report_view_subheading_spendings_by_category">Ausgaben nach Kategorie</string>
     <string name="report_view_subheading_spendings">Ausgaben</string>
@@ -42,8 +91,8 @@
     <string name="report_view_label_report_spinner_prompt">Wähle Reisenden für Bericht</string>
     <string name="report_view_entry_report_spinner_null_value">alle Reisenden</string>
     <string name="report_view_label_report_spinner">Bericht für:</string>
-    <string name="report_view_label_payment_count">Anzahl Ausgaben:</string>
-    <string name="report_view_label_total_spent">Summe Ausgaben:</string>
+    <string name="report_view_label_payment_count">Gesamtanzahl:</string>
+    <string name="report_view_label_total_spent">Gesamtsumme:</string>
     <string name="report_view_label_no_spendings">Keine Ausgaben</string>
     <!-- ===============================  Payment view =============================== -->
     <string name="payment_view_heading_create_payment">Zahlung erstellen</string>
@@ -60,7 +109,7 @@
     <string name="money_transfer_view_button_transfer">Transferieren</string>
     <string name="money_transfer_list_view_label_name">an:</string>
     <string name="money_transfer_list_view_label_amount">Betrag</string>
-    <string name="money_transfer_list_view_label_due">&#60; Fällig</string>
+    <string name="money_transfer_list_view_label_due">&lt; Fällig</string>
     <!-- ===============================  Payment list view =============================== -->
     <string name="payment_view_label_payed_by">Zahlung von:</string>
     <string name="payment_view_label_debited_to">Belastet:</string>
@@ -106,10 +155,10 @@
     <string name="edit_trip_view_label_base_currency">Stammwährung:</string>
     <string name="edit_trip_view_edit_heading">Reise bearbeiten</string>
     <string name="edit_trip_view_edit_positive_button">Speichern</string>
-    <string name="edit_trip_view_edit_positive_button_and_load">Speichern &#38; Laden</string>
+    <string name="edit_trip_view_edit_positive_button_and_load">Speichern &amp; Laden</string>
     <string name="edit_trip_view_create_heading">Neue Reise erstellen</string>
     <string name="edit_trip_view_create_positive_button">Erstellen</string>
-    <string name="edit_trip_view_create_positive_button_and_load">Erstellen &#38; Laden</string>
+    <string name="edit_trip_view_create_positive_button_and_load">Erstellen &amp; Laden</string>
     <string name="edit_trip_view_create_negative_button">Abbr.</string>
     <string name="edit_trip_view_msg">Eine Reise mit dem gewünschten Namen existiert bereits. Bitte gib einen noch nicht vorhandenen Reisenamen ein.</string>
     <!-- ==================== Context menu Payment List ====================== -->

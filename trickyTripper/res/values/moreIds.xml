@@ -3,5 +3,4 @@
 
     <item name="payment_edit_selection_dialog_checkbox" type="id"/>
     <item name="payment_edit_selection_dialog_list_view" type="id"/>
-
 </resources>

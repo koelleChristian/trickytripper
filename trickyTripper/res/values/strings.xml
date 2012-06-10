@@ -13,7 +13,7 @@
     <string name="common_button_create">Create</string>
     <string name="common_button_save">Save</string>
     <string name="common_label_total_amount">Total:</string>
-    <string name="common_label_inactive_addon">[Inactive]</string>       
+    <string name="common_label_inactive_addon">[Inactive]</string>
     <string name="common_toast_currency_not_part_of_this_release">The currency selection is not part of this release.</string>
     <string name="progress_dialog_text_loading">Loading …</string>
     <string name="activity_label_participants">Travelers</string>
@@ -28,21 +28,71 @@
     <string name="label_enum_payment_category_public_transport">Public transport</string>
     <string name="label_enum_payment_category_other">Various</string>
     <string name="label_enum_payment_category_rentals">Rentals</string>
+    <string name="label_enum_payment_category_culture">Culture</string>
+    <string name="label_enum_payment_category_entrance_fee">Entrance Fee</string>
     <string name="label_enum_payment_category_money_transfer">Money transfer</string>
     <string name="participant_options_view_fktn_create_traveller">Create</string>
     <string name="fktn_glob_help_info">Help &amp; Info</string>
+    <string name="fktn_glob_export">Export</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Spent:</string>
     <string name="participant_tab_row_view_label_paid">Paid:</string>
     <string name="participant_tab_msg_no_participants_in_trip">Long-tap on the traveler tab to create new travelers. Afterwards you can long-tap on the created traveler to create a payment.</string>
+    <!-- ===============================  export view =============================== -->
+    <string name="exportViewTextViewHeading">Export</string>
+    <string name="exportViewTextViewSubHeadingContent">What?</string>
+    <string name="exportViewCheckboxContentPayments">Payments</string>
+    <string name="exportViewCheckboxContentSpendingReport">Spendings</string>
+    <string name="exportViewCheckboxContentOwingDebts">Owing debts</string>
+    <string name="exportViewTextViewSubHeadingScope">Extent?</string>
+    <string name="exportViewTextViewSubHeadingFormat">Format?</string>
+    <string name="exportViewCheckboxFormatCsv">CSV (for Excel, etc.)</string>
+    <string name="exportViewCheckboxFormatHtml">HTML</string>
+    <string name="exportViewCheckboxFormatTxt">TXT (Text)</string>
+    <string name="exportViewCheckboxSeparateFilesForIndividuals">Separate file(s) for every traveler</string>
+    <string name="exportViewCheckboxShowTripSumOnIndividualSpendingReport">Spendings: Show full trip sums on individual files</string>
+    <string name="exportViewSpinnerPromptScope">Choose traveler for export</string>
+    <string name="exportViewButtonExecuteExport">Do export</string>
+    <string name="exportViewIntentChooserHeader">Choose service to export to</string>
+    <!-- ===============================  Save 2 SD receiver =============================== -->
+    <string name="save2SdReceiverLabel">Save to storage</string>
+    <!-- ===============================  file export =============================== -->
+    <string name="fileExportPrefix">TTE</string>
+    <string name="fileExportFileHeading">Tricky Tripper Report</string>
+    <string name="fileExportFileSummaryEventPrefix">Trip/Event:</string>
+    <string name="fileExportFileSummaryReportForPrefix">Report for</string>
+    <string name="fileExportFileSummaryReportForPrefixAll">all travelers.</string>
+    <string name="fileExportPostfix_Payments">P</string>
+    <string name="fileExportPostfix_Spendings">S</string>
+    <string name="fileExportPostfix_Debts">D</string>
+    <string name="fileExportTableHeadingPayments">Payments</string>
+    <string name="fileExportTableHeadingSpendings">Spendings</string>
+    <string name="fileExportTableHeadingDebts">Owing debts</string>
+    <string name="fileExportrFix_Scope_All">All</string>
+    <string name="fileExportEmailSubjectPrefix">Tricky Tripper Export</string>
+    <string name="fileExportPaymentsHeadingPaymentName">Payment</string>
+    <string name="fileExportPaymentsHeadingCategory">Category</string>
+    <string name="fileExportPaymentsHeadingAmount">Amount</string>
+    <string name="fileExportPaymentsHeadingPaidBy">Paid by</string>
+    <string name="fileExportPaymentsHeadingDebitedTo">Debited to</string>
+    <!-- xxx -->
+    <string name="fileExportSpendingsHeadingSpendingGlobal">Expenditure</string>
+    <string name="fileExportSpendingsHeadingSpendingByCategory">Spending by category</string>
+    <string name="fileExportSpendingsHeadingAll">All travelers</string>
+    <string name="fileExportSpendingsHeadingTotalSpent">Total spent</string>
+    <string name="fileExportSpendingsHeadingTotalCount">Total payment count</string>
+    <!-- xxx -->
+    <string name="fileExportOwingDebtsHeadingDebtor">Traveler</string>
+    <string name="fileExportOwingDebtsHeadingCreditor">owes</string>
+    <string name="fileExportOwingDebtsHeadingAmount">the amount</string>
     <!-- ===============================  Report view =============================== -->
     <string name="report_view_subheading_spendings_by_category">Spending by category</string>
-    <string name="report_view_subheading_spendings">Spending</string>
+    <string name="report_view_subheading_spendings">Expenditure</string>
     <string name="report_view_subheading_owing_debts_by_traveller">Owing debts</string>
     <string name="report_view_entry_report_spinner_null_value">all travelers</string>
     <string name="report_view_label_report_spinner_prompt">Choose traveler for report</string>
     <string name="report_view_label_report_spinner">Report for:</string>
-    <string name="report_view_label_payment_count">Payment count:</string>
+    <string name="report_view_label_payment_count">Total payment count:</string>
     <string name="report_view_label_total_spent">Total spent:</string>
     <string name="report_view_label_no_spendings">No Spending</string>
     <!-- ===============================  Payment view =============================== -->

@@ -34,6 +34,7 @@ import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.Trip;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
+import de.koelle.christian.trickytripper.modelutils.CurrencyViewUtils;
 
 public class TrickyTripperActivity extends TabActivity {
 
@@ -248,8 +249,7 @@ public class TrickyTripperActivity extends TabActivity {
     private void updateButtonText() {
         Button button = (Button) findViewById(R.id.mainView_trip_button);
         Trip trip = getApp().getFktnController().getTripLoaded();
-        button.setText(trip.getName() + " ["
-                + trip.getBaseCurrency().getSymbol() + "]");
+        button.setText(trip.getName() + " " + CurrencyViewUtils.getCurrencySymbolInBrackets(trip.getBaseCurrency()));
     }
 
     private TrickyTripperApp getApp() {

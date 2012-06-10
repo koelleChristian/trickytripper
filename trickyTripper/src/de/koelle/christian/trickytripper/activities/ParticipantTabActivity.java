@@ -68,6 +68,7 @@ public class ParticipantTabActivity extends ListActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.layout.participant_tab_options, menu);
+        menu.findItem(R.id.general_options_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
         return true;
     }
 
@@ -78,8 +79,10 @@ public class ParticipantTabActivity extends ListActivity {
             getParent().showDialog(TrickyTripperTabConstants.DIALOG_CREATE_PARTICIPANT,
                     TabDialogSupport.createBundleWithParticipantSelected(new Participant()));
             return true;
-        case R.id.traveller_options_help:
+        case R.id.general_options_help:
             getParent().showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
+        case R.id.general_options_export:
+            getApp().getViewController().openExport();
         default:
             return super.onOptionsItemSelected(item);
         }

@@ -1,9 +1,6 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -20,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -28,6 +24,7 @@ import android.widget.TextView;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.activitysupport.ReportViewSupport;
 import de.koelle.christian.trickytripper.constants.TrickyTripperTabConstants;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Debts;
@@ -35,7 +32,6 @@ import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.strategies.SumReport;
-import de.koelle.christian.trickytripper.ui.model.SpinnerObject;
 
 public class ReportTabActivity extends Activity {
 
@@ -54,7 +50,8 @@ public class ReportTabActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.general_options, menu);
+        inflater.inflate(R.layout.report_tab_options, menu);
+        menu.findItem(R.id.general_options_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
         return true;
     }
 
@@ -63,6 +60,8 @@ public class ReportTabActivity extends Activity {
         switch (item.getItemId()) {
         case R.id.general_options_help:
             getParent().showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
+        case R.id.general_options_export:
+            getApp().getViewController().openExport();
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -88,13 +87,13 @@ public class ReportTabActivity extends Activity {
 
         participantsInSpinner = new ArrayList<Participant>();
         participantsInSpinner.add(null);
-        participantsInSpinner.addAll(getAllRelevantParticipantsInOrder());
+        participantsInSpinner.addAll(app.getFktnController().getAllParticipants(false, true));
 
-        Spinner spinner = (Spinner) findViewById(R.id.reportViewBaseSpinner);
-        ArrayAdapter<SpinnerObject> adapter = new ArrayAdapter<SpinnerObject>(this,
-                android.R.layout.simple_spinner_item, createSpinnerObjects(participantsInSpinner));
-        adapter.setDropDownViewResource(R.layout.selection_list_medium);
-        spinner.setAdapter(adapter);
+        Spinner spinner = ReportViewSupport.configureReportSelectionSpinner(
+                this,
+                this,
+                R.id.reportViewBaseSpinner,
+                participantsInSpinner);
 
         Participant p = app.getDialogState().getParticipantReporting(); // can
                                                                         // be
@@ -140,18 +139,6 @@ public class ReportTabActivity extends Activity {
             }
         }
         return 0;
-    }
-
-    private List<Participant> getAllRelevantParticipantsInOrder() {
-        List<Participant> participantsInvolved = new ArrayList<Participant>(getApp().getFktnController()
-                .getAllParticipants(false));
-        final Collator collator = getApp().getFktnController().getDefaultStringCollator();
-        Collections.sort(participantsInvolved, new Comparator<Participant>() {
-            public int compare(Participant object1, Participant object2) {
-                return collator.compare(object1.getName(), object2.getName());
-            }
-        });
-        return participantsInvolved;
     }
 
     private TrickyTripperApp getApp() {
@@ -355,28 +342,6 @@ public class ReportTabActivity extends Activity {
                 tableLayout.removeView(dynamicRow);
             }
         }
-    }
-
-    private List<SpinnerObject> createSpinnerObjects(List<Participant> participants) {
-        List<SpinnerObject> result = new ArrayList<SpinnerObject>();
-        SpinnerObject spinnerObject;
-        for (Participant participant : participants) {
-            String name;
-            long id;
-            if (participant == null) {
-                id = -1;
-                name = getResources().getString(R.string.report_view_entry_report_spinner_null_value);
-            }
-            else {
-                name = participant.getName();
-                id = participant.getId();
-            }
-            spinnerObject = new SpinnerObject();
-            spinnerObject.setId(id);
-            spinnerObject.setStringToDisplay(name);
-            result.add(spinnerObject);
-        }
-        return result;
     }
 
 }

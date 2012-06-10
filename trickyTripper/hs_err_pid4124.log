@@ -1,0 +1,106 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (classFileParser.cpp:3494), pid=4124, tid=3008
+#  Error: ShouldNotReachHere()
+#
+# JRE version: 6.0_26-b03
+# Java VM: Java HotSpot(TM) Client VM (20.1-b02 mixed mode windows-x86 )
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x01309800):  JavaThread "Unknown thread" [_thread_in_vm, id=3008, stack(0x00330000,0x00380000)]
+
+Stack: [0x00330000,0x00380000],  sp=0x0037f86c,  free space=318k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x13379a]
+V  [jvm.dll+0x12e6fb]
+V  [jvm.dll+0x163fe]
+V  [jvm.dll+0x17c1f]
+V  [jvm.dll+0x26cc5]
+V  [jvm.dll+0x27506]
+V  [jvm.dll+0x278b5]
+V  [jvm.dll+0x27949]
+V  [jvm.dll+0x27a0c]
+V  [jvm.dll+0x27a8a]
+V  [jvm.dll+0x27b6d]
+V  [jvm.dll+0x27e39]
+V  [jvm.dll+0x6c523]
+V  [jvm.dll+0x6c8fc]
+V  [jvm.dll+0xf9d5c]
+V  [jvm.dll+0x11864b]
+V  [jvm.dll+0x9ec30]
+C  [javaw.exe+0x1657]
+C  [javaw.exe+0x1e2c]
+C  [javaw.exe+0x8644]
+C  [kernel32.dll+0x4ed6c]  BaseThreadInitThunk+0x12
+C  [ntdll.dll+0x6377b]  RtlInitializeExceptionChain+0xef
+C  [ntdll.dll+0x6374e]  RtlInitializeExceptionChain+0xc2
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x01309800 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=3008, stack(0x00330000,0x00380000)]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Dynamic libraries:
+0x00400000 - 0x00424000 	C:\Program Files\Java\jdk1.6.0_26\bin\javaw.exe
+0x771c0000 - 0x772fc000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x76340000 - 0x76414000 	C:\WINDOWS\system32\kernel32.dll
+0x75450000 - 0x7549a000 	C:\WINDOWS\system32\KERNELBASE.dll
+0x76f80000 - 0x77020000 	C:\WINDOWS\system32\ADVAPI32.dll
+0x76760000 - 0x7680c000 	C:\WINDOWS\system32\msvcrt.dll
+0x76b50000 - 0x76b69000 	C:\WINDOWS\SYSTEM32\sechost.dll
+0x766a0000 - 0x76741000 	C:\WINDOWS\system32\RPCRT4.dll
+0x770f0000 - 0x771b9000 	C:\WINDOWS\system32\USER32.dll
+0x76420000 - 0x7646e000 	C:\WINDOWS\system32\GDI32.dll
+0x756e0000 - 0x756ea000 	C:\WINDOWS\system32\LPK.dll
+0x75640000 - 0x756dd000 	C:\WINDOWS\system32\USP10.dll
+0x76810000 - 0x7682f000 	C:\WINDOWS\system32\IMM32.DLL
+0x77020000 - 0x770ec000 	C:\WINDOWS\system32\MSCTF.dll
+0x7c340000 - 0x7c396000 	C:\Program Files\Java\jdk1.6.0_26\jre\bin\msvcr71.dll
+0x6d8a0000 - 0x6db4f000 	C:\Program Files\Java\jdk1.6.0_26\jre\bin\client\jvm.dll
+0x73560000 - 0x73592000 	C:\WINDOWS\system32\WINMM.dll
+0x75210000 - 0x7525c000 	C:\WINDOWS\system32\apphelp.dll
+0x6d850000 - 0x6d85c000 	C:\Program Files\Java\jdk1.6.0_26\jre\bin\verify.dll
+0x6d3d0000 - 0x6d3ef000 	C:\Program Files\Java\jdk1.6.0_26\jre\bin\java.dll
+0x77310000 - 0x77315000 	C:\WINDOWS\system32\PSAPI.DLL
+0x6d890000 - 0x6d89f000 	C:\Program Files\Java\jdk1.6.0_26\jre\bin\zip.dll
+
+VM Arguments:
+jvm_args: -Dfile.encoding=Cp1252 -Xbootclasspath:C:\Program Files\Android\android-sdk-windows\platforms\android-8\android.jar 
+java_command: de.koelle.christian.common.ascii.AsciToStringHelper
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk1.6.0_26
+PATH=C:/Program Files/Java/jdk1.6.0_26/bin/../jre/bin/client;C:/Program Files/Java/jdk1.6.0_26/bin/../jre/bin;C:/Program Files/Java/jdk1.6.0_26/bin/../jre/lib/i386;C:\oraclexe\app\oracle\product\10.2.0\server\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Graphviz2.26.3\bin;C:\Program Files\TortoiseGit\bin;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Lenovo\Access Connections\;C:\SWTOOLS\ReadyApps;C:\Program Files\TortoiseSVN\bin;C:\Program Files\Java\jdk1.6.0_26/bin;C:\Program Files\apache_maven\apache-maven-3.0.4/bin;C:\oraclexe\app\oracle\product\10.2.0\server\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Graphviz2.26.3\bin;C:\Program Files\TortoiseGit\bin;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Lenovo\Access Connections\;C:\SWTOOLS\ReadyApps;C:\Program Files\TortoiseSVN\bin;C:\Users\ckoelle\_cmds;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\eclipse\372Adt;
+USERNAME=ckoelle
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 37 Stepping 5, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 Build 7601 Service Pack 1
+
+CPU:total 4 (2 cores per cpu, 2 threads per core) family 6 model 37 stepping 5, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, ht
+
+Memory: 4k page, physical 3002032k(973488k free), swap 7501780k(4659580k free)
+
+vm_info: Java HotSpot(TM) Client VM (20.1-b02) for windows-x86 JRE (1.6.0_26-b03), built on May  4 2011 00:50:59 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Fri Jun 08 21:43:26 2012
+elapsed time: 0 seconds
+

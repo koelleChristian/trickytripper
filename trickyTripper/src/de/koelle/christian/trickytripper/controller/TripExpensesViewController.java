@@ -16,4 +16,6 @@ public interface TripExpensesViewController {
 
     void openTransferMoney(Participant participant);
 
+    void openExport();
+
 }

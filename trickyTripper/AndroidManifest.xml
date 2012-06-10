@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:installLocation="preferExternal"
     package="de.koelle.christian.trickytripper"
+    android:installLocation="preferExternal"
     android:versionCode="2"
     android:versionName="1.1" >
 
@@ -19,6 +19,7 @@
             android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -37,9 +38,38 @@
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
+            android:name=".activities.ExportActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
             android:name=".activities.MoneyTransferActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
+        <activity
+            android:name=".activities.SaveToSdCardActivity"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:label="@string/save2SdReceiverLabel" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/*" />                
+            </intent-filter>
+        </activity>
+
+<!--         <receiver -->
+<!--             android:name=".receiver.SdCardStorageReceiver" -->
+<!--             android:icon="@drawable/ic_launcher" -->
+<!--             android:label="@string/save2SdReceiverLabel" -->
+<!--             android:process=":tricky_tripper_background" > -->
+<!--             <intent-filter> -->
+<!--                 <action android:name="android.intent.action.ACTION_SEND_MULTIPLE" /> -->
+<!--             </intent-filter> -->
+<!--         </receiver> -->
+
+        <provider
+            android:name=".provider.TrickyTripperFileProvider"
+            android:authorities="de.koelle.christian.trickytripperfileprovider" >
+        </provider>
     </application>
 
 </manifest>

@@ -20,11 +20,11 @@ public class UiUtils {
     public static void makeProperNumberInput(final EditText editText, final Locale locale) {
         editText.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
         editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        editText.setFilters(new InputFilter[] { new DecimalDigitsInputFilter(2, new DecimalFormatSymbols(locale)
-                .getDecimalSeparator()) });
+        char decimalSeparator = new
+                DecimalFormatSymbols(locale).getDecimalSeparator();
+        editText.setFilters(new InputFilter[] { new DecimalDigitsInputFilter(2, decimalSeparator) });
         StringBuilder pattern = new StringBuilder("0123456789");
-        pattern.append(new
-                DecimalFormatSymbols(locale).getDecimalSeparator());
+        pattern.append(decimalSeparator);
         editText.setKeyListener(DigitsKeyListener.getInstance(pattern.toString()));
     }
 
