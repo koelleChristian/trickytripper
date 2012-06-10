@@ -44,8 +44,12 @@ public class ExporterImplTest {
             "^\\d{10}_\\w+_\\w+_\\d{12}\\.html$");
     private final Pattern patternHtmlAll = Pattern.compile(
             "^\\d{10}_\\w+\\d{10}_\\d{12}\\.html$");
+    private final Pattern patternTxtIndividual = Pattern.compile(
+            "^\\d{10}_\\w+_\\w+_\\d{12}\\.txt$");
+    private final Pattern patternTxtAll = Pattern.compile(
+            "^\\d{10}_\\w+\\d{10}_\\d{12}\\.txt$");
 
-    private final boolean deleteCreatedFiles = false;
+    private final boolean deleteCreatedFiles = true;
 
     private Exporter exporter;
     private Trip tripToExport;
@@ -108,7 +112,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputEverythingForAll() {
-        ExportSettings exportSettings = createExportSettings(true, true, true, true, true, false, false);
+        ExportSettings exportSettings = createExportSettings(true, true, true, true, true, false, false, true);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -121,11 +125,12 @@ public class ExporterImplTest {
 
         Throwable exceptionCaught = null;
         try {
-            Assert.assertEquals(4, result.size());
+            Assert.assertEquals(5, result.size());
             Assert.assertTrue(patternCsvAll.matcher(result.get(0).getName()).matches());
             Assert.assertTrue(patternCsvAll.matcher(result.get(1).getName()).matches());
             Assert.assertTrue(patternCsvAll.matcher(result.get(2).getName()).matches());
             Assert.assertTrue(patternHtmlAll.matcher(result.get(3).getName()).matches());
+            Assert.assertTrue(patternTxtAll.matcher(result.get(4).getName()).matches());
             for (File f : result) {
                 Assert.assertTrue(nameContains(f, resourceResolver.resolve(R.string.fileExportrFix_Scope_All)));
             }
@@ -143,7 +148,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputCsvForAll() {
-        ExportSettings exportSettings = createExportSettings(true, true, true, true, false, false, false);
+        ExportSettings exportSettings = createExportSettings(true, true, true, true, false, false, false, false);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -177,7 +182,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputHtmlForAll() {
-        ExportSettings exportSettings = createExportSettings(true, true, true, false, true, false, false);
+        ExportSettings exportSettings = createExportSettings(true, true, true, false, true, false, false, false);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -206,8 +211,38 @@ public class ExporterImplTest {
     }
 
     @Test
+    public void testOutputTxtForAll() {
+        ExportSettings exportSettings = createExportSettings(true, true, true, false, false, false, false, true);
+        List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
+                resourceResolver,
+                new ActivityResolver() {
+
+                    public Object getActivity() {
+                        return null;
+                    }
+                },
+                amountFactory);
+
+        Throwable exceptionCaught = null;
+        try {
+            Assert.assertEquals(1, result.size());
+            Assert.assertTrue(patternTxtAll.matcher(result.get(0).getName()).matches());
+            Assert.assertTrue(nameContains(result.get(0), resourceResolver.resolve(R.string.fileExportrFix_Scope_All)));
+        }
+        catch (Exception e) {
+            exceptionCaught = e;
+        }
+        finally {
+            deleteCreatedFiles(result);
+        }
+        if (exceptionCaught != null) {
+            throw new RuntimeException(exceptionCaught);
+        }
+    }
+
+    @Test
     public void testOutputPaymentsForAll() {
-        ExportSettings exportSettings = createExportSettings(false, false, true, true, true, false, false);
+        ExportSettings exportSettings = createExportSettings(false, false, true, true, true, false, false, false);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -241,7 +276,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputSpendingsForAll() {
-        ExportSettings exportSettings = createExportSettings(false, true, false, true, true, false, false);
+        ExportSettings exportSettings = createExportSettings(false, true, false, true, true, false, false, true);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -254,9 +289,10 @@ public class ExporterImplTest {
 
         Throwable exceptionCaught = null;
         try {
-            Assert.assertEquals(2, result.size());
+            Assert.assertEquals(3, result.size());
             Assert.assertTrue(patternCsvAll.matcher(result.get(0).getName()).matches());
             Assert.assertTrue(patternHtmlAll.matcher(result.get(1).getName()).matches());
+            Assert.assertTrue(patternTxtAll.matcher(result.get(2).getName()).matches());
             for (File f : result) {
                 Assert.assertTrue(nameContains(f, resourceResolver.resolve(R.string.fileExportrFix_Scope_All)));
             }
@@ -276,7 +312,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputDebtsForAll() {
-        ExportSettings exportSettings = createExportSettings(true, false, false, true, true, false, false);
+        ExportSettings exportSettings = createExportSettings(true, false, false, true, true, false, false, true);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -289,9 +325,10 @@ public class ExporterImplTest {
 
         Throwable exceptionCaught = null;
         try {
-            Assert.assertEquals(2, result.size());
+            Assert.assertEquals(3, result.size());
             Assert.assertTrue(patternCsvAll.matcher(result.get(0).getName()).matches());
             Assert.assertTrue(patternHtmlAll.matcher(result.get(1).getName()).matches());
+            Assert.assertTrue(patternTxtAll.matcher(result.get(2).getName()).matches());
             for (File f : result) {
                 Assert.assertTrue(nameContains(f, resourceResolver.resolve(R.string.fileExportrFix_Scope_All)));
             }
@@ -311,7 +348,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputSpendingsAndDebtsForAll() {
-        ExportSettings exportSettings = createExportSettings(true, true, false, true, true, false, false);
+        ExportSettings exportSettings = createExportSettings(true, true, false, true, true, false, false, true);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -324,10 +361,11 @@ public class ExporterImplTest {
 
         Throwable exceptionCaught = null;
         try {
-            Assert.assertEquals(3, result.size());
+            Assert.assertEquals(4, result.size());
             Assert.assertTrue(patternCsvAll.matcher(result.get(0).getName()).matches());
             Assert.assertTrue(patternCsvAll.matcher(result.get(1).getName()).matches());
             Assert.assertTrue(patternHtmlAll.matcher(result.get(2).getName()).matches());
+            Assert.assertTrue(patternTxtAll.matcher(result.get(3).getName()).matches());
             for (File f : result) {
                 Assert.assertTrue(nameContains(f, resourceResolver.resolve(R.string.fileExportrFix_Scope_All)));
             }
@@ -349,7 +387,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputSpendingsAndDebtsOnlyHtmlForAll() {
-        ExportSettings exportSettings = createExportSettings(true, true, false, false, true, false, false);
+        ExportSettings exportSettings = createExportSettings(true, true, false, false, true, false, false, false);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -379,7 +417,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputSpendingsAndDebtsOnlyCsvForAll() {
-        ExportSettings exportSettings = createExportSettings(true, true, false, true, false, false, false);
+        ExportSettings exportSettings = createExportSettings(true, true, false, true, false, false, false, false);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -415,8 +453,8 @@ public class ExporterImplTest {
     }
 
     @Test
-    public void testOutputEverythingForAllSplit() {
-        ExportSettings exportSettings = createExportSettings(true, true, true, true, true, true, false);
+    public void testOutputSpendingsAndDebtsOnlyTxtForAll() {
+        ExportSettings exportSettings = createExportSettings(true, true, false, false, false, false, false, true);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -429,28 +467,93 @@ public class ExporterImplTest {
 
         Throwable exceptionCaught = null;
         try {
-            Assert.assertEquals(12, result.size());
+            Assert.assertEquals(1, result.size());
+            Assert.assertTrue(patternTxtAll.matcher(result.get(0).getName()).matches());
+            Assert.assertTrue(nameContains(result.get(0), resourceResolver.resolve(R.string.fileExportrFix_Scope_All)));
+        }
+        catch (Exception e) {
+            exceptionCaught = e;
+        }
+        finally {
+            deleteCreatedFiles(result);
+        }
+        if (exceptionCaught != null) {
+            throw new RuntimeException(exceptionCaught);
+        }
+    }
+
+    @Test
+    public void testOutputSpendingsAndDebtsHtmlAndTxtForAll() {
+        ExportSettings exportSettings = createExportSettings(true, true, false, false, true, false, false, true);
+        List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
+                resourceResolver,
+                new ActivityResolver() {
+
+                    public Object getActivity() {
+                        return null;
+                    }
+                },
+                amountFactory);
+
+        Throwable exceptionCaught = null;
+        try {
+            Assert.assertEquals(2, result.size());
+            Assert.assertTrue(patternHtmlAll.matcher(result.get(0).getName()).matches());
+            Assert.assertTrue(patternTxtAll.matcher(result.get(1).getName()).matches());
+            Assert.assertTrue(nameContains(result.get(0), resourceResolver.resolve(R.string.fileExportrFix_Scope_All)));
+            Assert.assertTrue(nameContains(result.get(1), resourceResolver.resolve(R.string.fileExportrFix_Scope_All)));
+        }
+        catch (Exception e) {
+            exceptionCaught = e;
+        }
+        finally {
+            deleteCreatedFiles(result);
+        }
+        if (exceptionCaught != null) {
+            throw new RuntimeException(exceptionCaught);
+        }
+    }
+
+    @Test
+    public void testOutputEverythingForAllSplit() {
+        ExportSettings exportSettings = createExportSettings(true, true, true, true, true, true, false, true);
+        List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
+                resourceResolver,
+                new ActivityResolver() {
+
+                    public Object getActivity() {
+                        return null;
+                    }
+                },
+                amountFactory);
+
+        Throwable exceptionCaught = null;
+        try {
+            Assert.assertEquals(15, result.size());
             Assert.assertTrue(patternCsvIndividual.matcher(result.get(0).getName()).matches());
             Assert.assertTrue(patternCsvIndividual.matcher(result.get(1).getName()).matches());
             Assert.assertTrue(patternCsvIndividual.matcher(result.get(2).getName()).matches());
             Assert.assertTrue(patternHtmlIndividual.matcher(result.get(3).getName()).matches());
+            Assert.assertTrue(patternTxtIndividual.matcher(result.get(4).getName()).matches());
 
-            Assert.assertTrue(patternCsvIndividual.matcher(result.get(4).getName()).matches());
             Assert.assertTrue(patternCsvIndividual.matcher(result.get(5).getName()).matches());
             Assert.assertTrue(patternCsvIndividual.matcher(result.get(6).getName()).matches());
-            Assert.assertTrue(patternHtmlIndividual.matcher(result.get(7).getName()).matches());
+            Assert.assertTrue(patternCsvIndividual.matcher(result.get(7).getName()).matches());
+            Assert.assertTrue(patternHtmlIndividual.matcher(result.get(8).getName()).matches());
+            Assert.assertTrue(patternTxtIndividual.matcher(result.get(9).getName()).matches());
 
-            Assert.assertTrue(patternCsvIndividual.matcher(result.get(8).getName()).matches());
-            Assert.assertTrue(patternCsvIndividual.matcher(result.get(9).getName()).matches());
             Assert.assertTrue(patternCsvIndividual.matcher(result.get(10).getName()).matches());
-            Assert.assertTrue(patternHtmlIndividual.matcher(result.get(11).getName()).matches());
+            Assert.assertTrue(patternCsvIndividual.matcher(result.get(11).getName()).matches());
+            Assert.assertTrue(patternCsvIndividual.matcher(result.get(12).getName()).matches());
+            Assert.assertTrue(patternHtmlIndividual.matcher(result.get(13).getName()).matches());
+            Assert.assertTrue(patternTxtIndividual.matcher(result.get(14).getName()).matches());
 
             for (int i = 0; i < result.size(); i++) {
                 String name = null;
-                if (i <= 3) {
+                if (i <= 4) {
                     name = factory.chris.getName();
                 }
-                else if (i <= 7) {
+                else if (i <= 9) {
                     name = factory.niko.getName();
                 }
                 else {
@@ -472,7 +575,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputPaymentsForAllSplit() {
-        ExportSettings exportSettings = createExportSettings(false, false, true, true, true, true, false);
+        ExportSettings exportSettings = createExportSettings(false, false, true, true, true, true, false, true);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -485,29 +588,32 @@ public class ExporterImplTest {
 
         Throwable exceptionCaught = null;
         try {
-            Assert.assertEquals(6, result.size());
+            Assert.assertEquals(9, result.size());
             Assert.assertTrue(patternCsvIndividual.matcher(result.get(0).getName()).matches());
             Assert.assertTrue(patternHtmlIndividual.matcher(result.get(1).getName()).matches());
+            Assert.assertTrue(patternTxtIndividual.matcher(result.get(2).getName()).matches());
 
-            Assert.assertTrue(patternCsvIndividual.matcher(result.get(2).getName()).matches());
-            Assert.assertTrue(patternHtmlIndividual.matcher(result.get(3).getName()).matches());
+            Assert.assertTrue(patternCsvIndividual.matcher(result.get(3).getName()).matches());
+            Assert.assertTrue(patternHtmlIndividual.matcher(result.get(4).getName()).matches());
+            Assert.assertTrue(patternTxtIndividual.matcher(result.get(5).getName()).matches());
 
-            Assert.assertTrue(patternCsvIndividual.matcher(result.get(4).getName()).matches());
-            Assert.assertTrue(patternHtmlIndividual.matcher(result.get(5).getName()).matches());
+            Assert.assertTrue(patternCsvIndividual.matcher(result.get(6).getName()).matches());
+            Assert.assertTrue(patternHtmlIndividual.matcher(result.get(7).getName()).matches());
+            Assert.assertTrue(patternTxtIndividual.matcher(result.get(8).getName()).matches());
 
             for (int i = 0; i < result.size(); i++) {
                 String name = null;
-                if (i <= 1) {
+                if (i <= 2) {
                     name = factory.chris.getName();
                 }
-                else if (i <= 3) {
+                else if (i <= 5) {
                     name = factory.niko.getName();
                 }
                 else {
                     name = factory.wolfram.getName();
                 }
                 Assert.assertTrue(nameContains(result.get(i), name));
-                if (i % 2 == 0) {
+                if (i % 3 == 0) {
                     Assert.assertTrue(nameContains(result.get(i),
                             resourceResolver.resolve(R.string.fileExportPostfix_Payments)));
                 }
@@ -526,7 +632,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputPaymentsAndSpendingsForAllSplit() {
-        ExportSettings exportSettings = createExportSettings(false, true, true, true, true, true, false);
+        ExportSettings exportSettings = createExportSettings(false, true, true, true, true, true, false, true);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -539,36 +645,39 @@ public class ExporterImplTest {
 
         Throwable exceptionCaught = null;
         try {
-            Assert.assertEquals(9, result.size());
+            Assert.assertEquals(12, result.size());
             Assert.assertTrue(patternCsvIndividual.matcher(result.get(0).getName()).matches());
             Assert.assertTrue(patternCsvIndividual.matcher(result.get(1).getName()).matches());
             Assert.assertTrue(patternHtmlIndividual.matcher(result.get(2).getName()).matches());
+            Assert.assertTrue(patternTxtIndividual.matcher(result.get(3).getName()).matches());
 
-            Assert.assertTrue(patternCsvIndividual.matcher(result.get(3).getName()).matches());
             Assert.assertTrue(patternCsvIndividual.matcher(result.get(4).getName()).matches());
-            Assert.assertTrue(patternHtmlIndividual.matcher(result.get(5).getName()).matches());
+            Assert.assertTrue(patternCsvIndividual.matcher(result.get(5).getName()).matches());
+            Assert.assertTrue(patternHtmlIndividual.matcher(result.get(6).getName()).matches());
+            Assert.assertTrue(patternTxtIndividual.matcher(result.get(7).getName()).matches());
 
-            Assert.assertTrue(patternCsvIndividual.matcher(result.get(6).getName()).matches());
-            Assert.assertTrue(patternCsvIndividual.matcher(result.get(7).getName()).matches());
-            Assert.assertTrue(patternHtmlIndividual.matcher(result.get(8).getName()).matches());
+            Assert.assertTrue(patternCsvIndividual.matcher(result.get(8).getName()).matches());
+            Assert.assertTrue(patternCsvIndividual.matcher(result.get(9).getName()).matches());
+            Assert.assertTrue(patternHtmlIndividual.matcher(result.get(10).getName()).matches());
+            Assert.assertTrue(patternTxtIndividual.matcher(result.get(11).getName()).matches());
 
             for (int i = 0; i < result.size(); i++) {
                 String name = null;
-                if (i <= 2) {
+                if (i <= 3) {
                     name = factory.chris.getName();
                 }
-                else if (i <= 5) {
+                else if (i <= 7) {
                     name = factory.niko.getName();
                 }
                 else {
                     name = factory.wolfram.getName();
                 }
                 Assert.assertTrue(nameContains(result.get(i), name));
-                if (i % 3 == 0) {
+                if (i % 4 == 0) {
                     Assert.assertTrue(nameContains(result.get(i),
                             resourceResolver.resolve(R.string.fileExportPostfix_Payments)));
                 }
-                else if (i % 3 == 1) {
+                else if (i % 4 == 1) {
                     Assert.assertTrue(nameContains(result.get(i),
                             resourceResolver.resolve(R.string.fileExportPostfix_Spendings)));
                 }
@@ -587,7 +696,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputPaymentsAndSpendingsOnlyHtmlForAllSplit() {
-        ExportSettings exportSettings = createExportSettings(false, true, true, false, true, true, false);
+        ExportSettings exportSettings = createExportSettings(false, true, true, false, true, true, false, false);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -631,8 +740,53 @@ public class ExporterImplTest {
     }
 
     @Test
+    public void testOutputPaymentsAndSpendingsOnlyTxtForAllSplit() {
+        ExportSettings exportSettings = createExportSettings(false, true, true, false, false, true, false, true);
+        List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
+                resourceResolver,
+                new ActivityResolver() {
+
+                    public Object getActivity() {
+                        return null;
+                    }
+                },
+                amountFactory);
+
+        Throwable exceptionCaught = null;
+        try {
+            Assert.assertEquals(3, result.size());
+            Assert.assertTrue(patternTxtIndividual.matcher(result.get(0).getName()).matches());
+            Assert.assertTrue(patternTxtIndividual.matcher(result.get(1).getName()).matches());
+            Assert.assertTrue(patternTxtIndividual.matcher(result.get(2).getName()).matches());
+
+            for (int i = 0; i < result.size(); i++) {
+                String name = null;
+                if (i == 0) {
+                    name = factory.chris.getName();
+                }
+                else if (i == 1) {
+                    name = factory.niko.getName();
+                }
+                else {
+                    name = factory.wolfram.getName();
+                }
+                Assert.assertTrue(nameContains(result.get(i), name));
+            }
+        }
+        catch (Exception e) {
+            exceptionCaught = e;
+        }
+        finally {
+            deleteCreatedFiles(result);
+        }
+        if (exceptionCaught != null) {
+            throw new RuntimeException(exceptionCaught);
+        }
+    }
+
+    @Test
     public void testOutputPaymentsAndSpendingsOnlyCsvForAllSplit() {
-        ExportSettings exportSettings = createExportSettings(false, true, true, true, false, true, false);
+        ExportSettings exportSettings = createExportSettings(false, true, true, true, false, true, false, false);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -690,7 +844,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputCsvForAllSplit() {
-        ExportSettings exportSettings = createExportSettings(true, true, true, true, false, true, false);
+        ExportSettings exportSettings = createExportSettings(true, true, true, true, false, true, false, false);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -743,7 +897,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputHtmlForAllSplit() {
-        ExportSettings exportSettings = createExportSettings(true, true, true, false, true, true, false);
+        ExportSettings exportSettings = createExportSettings(true, true, true, false, true, true, false, false);
         List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
                 resourceResolver,
                 new ActivityResolver() {
@@ -787,8 +941,53 @@ public class ExporterImplTest {
     }
 
     @Test
+    public void testOutputTxtForAllSplit() {
+        ExportSettings exportSettings = createExportSettings(true, true, true, false, false, true, false, true);
+        List<File> result = exporter.exportReport(exportSettings, tripToExport.getParticipant(), tripToExport,
+                resourceResolver,
+                new ActivityResolver() {
+
+                    public Object getActivity() {
+                        return null;
+                    }
+                },
+                amountFactory);
+
+        Throwable exceptionCaught = null;
+        try {
+            Assert.assertEquals(3, result.size());
+            Assert.assertTrue(patternTxtIndividual.matcher(result.get(0).getName()).matches());
+            Assert.assertTrue(patternTxtIndividual.matcher(result.get(1).getName()).matches());
+            Assert.assertTrue(patternTxtIndividual.matcher(result.get(2).getName()).matches());
+
+            for (int i = 0; i < result.size(); i++) {
+                String name = null;
+                if (i == 0) {
+                    name = factory.chris.getName();
+                }
+                else if (i == 1) {
+                    name = factory.niko.getName();
+                }
+                else {
+                    name = factory.wolfram.getName();
+                }
+                Assert.assertTrue(nameContains(result.get(i), name));
+            }
+        }
+        catch (Exception e) {
+            exceptionCaught = e;
+        }
+        finally {
+            deleteCreatedFiles(result);
+        }
+        if (exceptionCaught != null) {
+            throw new RuntimeException(exceptionCaught);
+        }
+    }
+
+    @Test
     public void testOutputEverythingForOneParticipant() {
-        ExportSettings exportSettings = createExportSettings(true, true, true, true, true, false, false);
+        ExportSettings exportSettings = createExportSettings(true, true, true, true, true, false, false, true);
         List<Participant> participants = new ArrayList<Participant>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
@@ -802,11 +1001,12 @@ public class ExporterImplTest {
 
         Throwable exceptionCaught = null;
         try {
-            Assert.assertEquals(4, result.size());
+            Assert.assertEquals(5, result.size());
             Assert.assertTrue(match(result.get(0), patternCsvIndividual));
             Assert.assertTrue(match(result.get(1), patternCsvIndividual));
             Assert.assertTrue(match(result.get(2), patternCsvIndividual));
             Assert.assertTrue(match(result.get(3), patternHtmlIndividual));
+            Assert.assertTrue(match(result.get(4), patternTxtIndividual));
             for (File f : result) {
                 Assert.assertTrue(nameContains(f, participant.getName()));
             }
@@ -824,7 +1024,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputPaymentsForOneParticipant() {
-        ExportSettings exportSettings = createExportSettings(false, false, true, true, true, false, false);
+        ExportSettings exportSettings = createExportSettings(false, false, true, true, true, false, false, true);
         List<Participant> participants = new ArrayList<Participant>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
@@ -838,9 +1038,10 @@ public class ExporterImplTest {
 
         Throwable exceptionCaught = null;
         try {
-            Assert.assertEquals(2, result.size());
+            Assert.assertEquals(3, result.size());
             Assert.assertTrue(match(result.get(0), patternCsvIndividual));
             Assert.assertTrue(match(result.get(1), patternHtmlIndividual));
+            Assert.assertTrue(match(result.get(2), patternTxtIndividual));
             for (File f : result) {
                 Assert.assertTrue(nameContains(f, participant.getName()));
             }
@@ -860,7 +1061,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputSpendingsForOneParticipant() {
-        ExportSettings exportSettings = createExportSettings(false, true, false, true, true, false, false);
+        ExportSettings exportSettings = createExportSettings(false, true, false, true, true, false, false, true);
         List<Participant> participants = new ArrayList<Participant>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
@@ -874,9 +1075,10 @@ public class ExporterImplTest {
 
         Throwable exceptionCaught = null;
         try {
-            Assert.assertEquals(2, result.size());
+            Assert.assertEquals(3, result.size());
             Assert.assertTrue(match(result.get(0), patternCsvIndividual));
             Assert.assertTrue(match(result.get(1), patternHtmlIndividual));
+            Assert.assertTrue(match(result.get(2), patternTxtIndividual));
             for (File f : result) {
                 Assert.assertTrue(nameContains(f, participant.getName()));
             }
@@ -897,7 +1099,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputDebtsForOneParticipant() {
-        ExportSettings exportSettings = createExportSettings(true, false, false, true, true, false, false);
+        ExportSettings exportSettings = createExportSettings(true, false, false, true, true, false, false, true);
         List<Participant> participants = new ArrayList<Participant>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
@@ -911,9 +1113,10 @@ public class ExporterImplTest {
 
         Throwable exceptionCaught = null;
         try {
-            Assert.assertEquals(2, result.size());
+            Assert.assertEquals(3, result.size());
             Assert.assertTrue(match(result.get(0), patternCsvIndividual));
             Assert.assertTrue(match(result.get(1), patternHtmlIndividual));
+            Assert.assertTrue(match(result.get(2), patternTxtIndividual));
             for (File f : result) {
                 Assert.assertTrue(nameContains(f, participant.getName()));
             }
@@ -933,7 +1136,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputPaymentsAndDebtsForOneParticipant() {
-        ExportSettings exportSettings = createExportSettings(true, false, true, true, true, false, false);
+        ExportSettings exportSettings = createExportSettings(true, false, true, true, true, false, false, true);
         List<Participant> participants = new ArrayList<Participant>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
@@ -947,10 +1150,11 @@ public class ExporterImplTest {
 
         Throwable exceptionCaught = null;
         try {
-            Assert.assertEquals(3, result.size());
+            Assert.assertEquals(4, result.size());
             Assert.assertTrue(match(result.get(0), patternCsvIndividual));
             Assert.assertTrue(match(result.get(1), patternCsvIndividual));
             Assert.assertTrue(match(result.get(2), patternHtmlIndividual));
+            Assert.assertTrue(match(result.get(3), patternTxtIndividual));
             for (File f : result) {
                 Assert.assertTrue(nameContains(f, participant.getName()));
             }
@@ -970,7 +1174,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputPaymentsAndDebtsOnlyHtmlForOneParticipant() {
-        ExportSettings exportSettings = createExportSettings(true, false, true, false, true, false, false);
+        ExportSettings exportSettings = createExportSettings(true, false, true, false, true, false, false, false);
         List<Participant> participants = new ArrayList<Participant>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
@@ -1001,7 +1205,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputPaymentsAndDebtsOnlyCsvForOneParticipant() {
-        ExportSettings exportSettings = createExportSettings(true, false, true, true, false, false, false);
+        ExportSettings exportSettings = createExportSettings(true, false, true, true, false, false, false, false);
         List<Participant> participants = new ArrayList<Participant>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
@@ -1036,8 +1240,41 @@ public class ExporterImplTest {
     }
 
     @Test
+    public void testOutputPaymentsAndDebtsOnlyTxtForOneParticipant() {
+        ExportSettings exportSettings = createExportSettings(true, false, true, false, false, false, false, true);
+        List<Participant> participants = new ArrayList<Participant>();
+        participants.add(participant);
+        List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
+                new ActivityResolver() {
+
+                    public Object getActivity() {
+                        return null;
+                    }
+                },
+                amountFactory);
+
+        Throwable exceptionCaught = null;
+        try {
+            Assert.assertEquals(1, result.size());
+            Assert.assertTrue(match(result.get(0), patternTxtIndividual));
+            for (File f : result) {
+                Assert.assertTrue(nameContains(f, participant.getName()));
+            }
+        }
+        catch (Exception e) {
+            exceptionCaught = e;
+        }
+        finally {
+            deleteCreatedFiles(result);
+        }
+        if (exceptionCaught != null) {
+            throw new RuntimeException(exceptionCaught);
+        }
+    }
+
+    @Test
     public void testOutputCsvForOneParticipant() {
-        ExportSettings exportSettings = createExportSettings(true, true, true, true, false, false, false);
+        ExportSettings exportSettings = createExportSettings(true, true, true, true, false, false, false, false);
         List<Participant> participants = new ArrayList<Participant>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
@@ -1072,7 +1309,7 @@ public class ExporterImplTest {
 
     @Test
     public void testOutputHtmlForOneParticipant() {
-        ExportSettings exportSettings = createExportSettings(true, true, true, false, true, false, false);
+        ExportSettings exportSettings = createExportSettings(true, true, true, false, true, false, false, false);
         List<Participant> participants = new ArrayList<Participant>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
@@ -1088,6 +1325,37 @@ public class ExporterImplTest {
         try {
             Assert.assertEquals(1, result.size());
             Assert.assertTrue(match(result.get(0), patternHtmlIndividual));
+            Assert.assertTrue(nameContains(result.get(0), participant.getName()));
+        }
+        catch (Exception e) {
+            exceptionCaught = e;
+        }
+        finally {
+            deleteCreatedFiles(result);
+        }
+        if (exceptionCaught != null) {
+            throw new RuntimeException(exceptionCaught);
+        }
+    }
+
+    @Test
+    public void testOutputTxtForOneParticipant() {
+        ExportSettings exportSettings = createExportSettings(true, true, true, false, false, false, false, true);
+        List<Participant> participants = new ArrayList<Participant>();
+        participants.add(participant);
+        List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
+                new ActivityResolver() {
+
+                    public Object getActivity() {
+                        return null;
+                    }
+                },
+                amountFactory);
+
+        Throwable exceptionCaught = null;
+        try {
+            Assert.assertEquals(1, result.size());
+            Assert.assertTrue(match(result.get(0), patternTxtIndividual));
             Assert.assertTrue(nameContains(result.get(0), participant.getName()));
         }
         catch (Exception e) {
@@ -1121,13 +1389,15 @@ public class ExporterImplTest {
 
     private ExportSettings createExportSettings(boolean exportDebts, boolean exportSpendings, boolean exportPayments,
             boolean formatCsv,
-            boolean formatHtml, boolean separateFilesForIndividuals, boolean showGlobalSumsOnIndividualSpendingReport) {
+            boolean formatHtml, boolean separateFilesForIndividuals, boolean showGlobalSumsOnIndividualSpendingReport,
+            boolean formatTxt) {
         ExportSettings exportSettings = new ExportSettings();
         exportSettings.setExportDebts(exportDebts);
         exportSettings.setExportSpendings(exportSpendings);
         exportSettings.setExportPayments(exportPayments);
         exportSettings.setFormatCsv(formatCsv);
         exportSettings.setFormatHtml(formatHtml);
+        exportSettings.setFormatTxt(formatTxt);
         exportSettings.setSeparateFilesForIndividuals(separateFilesForIndividuals);
         exportSettings.setShowGlobalSumsOnIndividualSpendingReport(showGlobalSumsOnIndividualSpendingReport);
         return exportSettings;

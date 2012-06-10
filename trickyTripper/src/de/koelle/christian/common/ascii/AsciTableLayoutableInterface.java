@@ -3,8 +3,8 @@ package de.koelle.christian.common.ascii;
 /**
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++ </p> The original
  * version of this class has been provided by Heiner Kücker via his homepage: <a
- * href=" http://www.heinerkuecker.de/AsciiTable.html">
- * http://www.heinerkuecker.de/AsciiTable.html</a>
+ * href=" http://www.heinerkuecker.de/AsciTable.html">
+ * http://www.heinerkuecker.de/AsciTable.html</a>
  * <p/>
  * 
  * 

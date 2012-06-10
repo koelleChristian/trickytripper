@@ -19,7 +19,11 @@ public class StreamSenderImpl implements StreamSender {
                 sendIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
             }
             if (content != null) {
-                sendIntent.putExtra(Intent.EXTRA_TEXT, android.text.Html.fromHtml(content));
+                /*
+                 * Unfortunately you cannot transfer a Html-table into the
+                 * ordinary interpreter of the intent like into the email.
+                 */
+                sendIntent.putExtra(Intent.EXTRA_TEXT, content);
             }
             if (attachmentUris != null & !attachmentUris.isEmpty()) {
                 ArrayList<Uri> uris = new ArrayList<Uri>();

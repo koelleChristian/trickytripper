@@ -4,7 +4,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import de.koelle.christian.trickytripper.export.impl.model.AsciTableRow;
+import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTableRow;
 import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTable;
 import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTableWrapper;
 
@@ -50,19 +50,10 @@ public class Table2AsiiTest {
         System.out.println(report.getOutput());
     }
 
-    @Test
-    public void myJunk() {
-        String s = "Zahlung%Kategorie%Betrag [EUR]%Zahlung von [EUR]%%%Belastet [EUR]%% ";
-        String[] array = s.split("%");
-        for (String s1 : array) {
-            System.out.println(">" + s1 + "<");
-        }
-    }
-
     private void addRows(ReportAsciTable table, int rows, int columns, Random randomContent) {
-        AsciTableRow row;
+        ReportAsciTableRow row;
         for (int j = 0; j < rows; j++) {
-            row = new AsciTableRow();
+            row = new ReportAsciTableRow();
             for (int i = 0; i < columns; i++) {
                 if (i % 3 == 2) {
                     row.addContent(randomContent.nextInt(10000) + ",00");

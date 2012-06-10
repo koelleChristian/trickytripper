@@ -7,8 +7,8 @@ import java.util.regex.Pattern;
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++
  * </p>
  * The original version of this class has been provided by Heiner Kücker via his
- * homepage: <a href=" http://www.heinerkuecker.de/AsciiTable.html">
- * http://www.heinerkuecker.de/AsciiTable.html</a>
+ * homepage: <a href=" http://www.heinerkuecker.de/AsciTable.html">
+ * http://www.heinerkuecker.de/AsciTable.html</a>
  * <p/>
  * 
  * 
@@ -49,12 +49,12 @@ public class AsciToStringHelper {
         {
             return " first entry is null ";
         }
-        AsciiTable.Cell[][] table = new AsciiTable.Cell[pObjArr.length + 1][pObj.asciTableColumnNames().length];
+        AsciTable.Cell[][] table = new AsciTable.Cell[pObjArr.length + 1][pObj.asciTableColumnNames().length];
 
         for (int i = 0; i < pObj.asciTableColumnNames().length; i++)
         {
-            table[0][i] = new AsciiTable.Cell(pObj.asciTableColumnNames()[i]);
-            table[0][i].setAlignment(AsciiTable.LEFT_ALIGNMENT); /* added */
+            table[0][i] = new AsciTable.Cell(pObj.asciTableColumnNames()[i]);
+            table[0][i].setAlignment(AsciTable.LEFT_ALIGNMENT); /* added */
         }
         for (int i = 0; i < pObjArr.length; i++)
         {
@@ -75,19 +75,19 @@ public class AsciToStringHelper {
                     else {
                         cellStr = (cellValue != null) ? String.valueOf(cellValue).trim() : String.valueOf(cellValue);
                     }
-                    table[j][k] = new AsciiTable.Cell(cellStr);
+                    table[j][k] = new AsciTable.Cell(cellStr);
                     if (isNumeric(cellStr)) {
-                        table[j][k].setAlignment(AsciiTable.RIGHT_ALIGNMENT);
+                        table[j][k].setAlignment(AsciTable.RIGHT_ALIGNMENT);
                     }
                 }
             }
         }
-        return AsciiTable.buildLayout(// --
-                table, AsciiTable.SINGLE_LINE, // --
-                AsciiTable.SINGLE_LINE, // --
-                AsciiTable.SINGLE_LINE, // --
-                AsciiTable.SINGLE_LINE, // --
-                AsciiTable.SINGLE_LINE);
+        return AsciTable.buildLayout(// --
+                table, AsciTable.SINGLE_LINE, // --
+                AsciTable.SINGLE_LINE, // --
+                AsciTable.SINGLE_LINE, // --
+                AsciTable.SINGLE_LINE, // --
+                AsciTable.SINGLE_LINE);
     }
 
     private static boolean isNumeric(final Object value) {

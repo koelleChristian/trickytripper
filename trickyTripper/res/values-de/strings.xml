@@ -48,6 +48,7 @@
     <string name="exportViewTextViewSubHeadingFormat">Format?</string>
     <string name="exportViewCheckboxFormatCsv">CSV (für Excel, etc.)</string>
     <string name="exportViewCheckboxFormatHtml">HTML</string>
+    <string name="exportViewCheckboxFormatTxt">TXT</string>
     <string name="exportViewCheckboxSeparateFilesForIndividuals">Individualle Dateien für jeden Reisenden</string>
     <string name="exportViewCheckboxShowTripSumOnIndividualSpendingReport">Ausgaben: Gesamtsummen der Reise in individuelle Dateien einfügen</string>
     <string name="exportViewSpinnerPromptScope">Wähle Reisenden für Export</string>
@@ -69,18 +70,17 @@
     <string name="fileExportTableHeadingDebts">Schulden</string>
     <string name="fileExportrFix_Scope_All">Alle</string>
     <string name="fileExportEmailSubjectPrefix">Tricky Tripper Bericht</string>
+    <string name="fileExportEmailContent">… exportierte Dateien im Anhang.</string>
     <string name="fileExportPaymentsHeadingPaymentName">Zahlung</string>
     <string name="fileExportPaymentsHeadingCategory">Kategorie</string>
     <string name="fileExportPaymentsHeadingAmount">Betrag</string>
     <string name="fileExportPaymentsHeadingPaidBy">Zahlung von</string>
     <string name="fileExportPaymentsHeadingDebitedTo">Belastet</string>
-    <!-- xxx -->
     <string name="fileExportSpendingsHeadingSpendingGlobal">Ausgaben</string>
     <string name="fileExportSpendingsHeadingSpendingByCategory">Ausgaben nach Kategorie</string>
     <string name="fileExportSpendingsHeadingAll">Alle Reisenden</string>
     <string name="fileExportSpendingsHeadingTotalSpent">Gesamtsumme</string>
     <string name="fileExportSpendingsHeadingTotalCount">Gesamtanzahl</string>
-    <!-- xxx -->
     <string name="fileExportOwingDebtsHeadingDebtor">Reisender</string>
     <string name="fileExportOwingDebtsHeadingCreditor">schuldet</string>
     <string name="fileExportOwingDebtsHeadingAmount">den Betrag</string>
@@ -88,8 +88,8 @@
     <string name="report_view_subheading_spendings_by_category">Ausgaben nach Kategorie</string>
     <string name="report_view_subheading_spendings">Ausgaben</string>
     <string name="report_view_subheading_owing_debts_by_traveller">Schulden</string>
-    <string name="report_view_label_report_spinner_prompt">Wähle Reisenden für Bericht</string>
     <string name="report_view_entry_report_spinner_null_value">alle Reisenden</string>
+    <string name="report_view_label_report_spinner_prompt">Wähle Reisenden für Bericht</string>
     <string name="report_view_label_report_spinner">Bericht für:</string>
     <string name="report_view_label_payment_count">Gesamtanzahl:</string>
     <string name="report_view_label_total_spent">Gesamtsumme:</string>
@@ -101,7 +101,6 @@
     <string name="payment_view_popup">Kategorie wählen</string>
     <string name="payment_view_msg_cannot_save_title">Speichern nicht möglich</string>
     <string name="payment_view_msg_cannot_save_msg">Die Zahlung kann nicht gespeichert werden, weil kein Betrag angegeben ist. (Mit Abbrechen kann der Vorgang abgeborchen werden.)</string>
-
     <!-- ===============================  Money transfer view =============================== -->
     <string name="money_transfer_view_heading">Geldtransfer</string>
     <string name="money_transfer_view_label_from">von:</string>
@@ -173,7 +172,6 @@
     <string name="participant_selection_popup_payer_selection_msg">Selektiere all die Reisenden, die das Geld ausgeben/ausgegeben haben und umgekehrt.</string>
     <string name="participant_selection_popup_traveler_to_debit_msg">Selektiere all die Reisenden, die belastet werden sollen und umgekehrt.</string>
     <string name="participant_selection_popup_traveler_divide_amount">Auf die Auswahl verteilen: </string>
-
     <!-- ==================== Initial data ====================== -->
     <string name="initial_data_trip_name">Meine erste Reise</string>
 

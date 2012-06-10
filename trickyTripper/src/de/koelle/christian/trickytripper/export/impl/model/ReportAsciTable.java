@@ -6,17 +6,17 @@ import java.util.List;
 import de.koelle.christian.common.ascii.AsciTableLayoutableInterface;
 import de.koelle.christian.common.ascii.AsciToStringHelper;
 
-public class ReportAsciTable implements AsciTableHeadingCallback {
+public class ReportAsciTable implements ReportAsciTableHeadingCallback {
 
     private final List<String> headings = new ArrayList<String>();
-    private final List<AsciTableRow> rows = new ArrayList<AsciTableRow>();
+    private final List<ReportAsciTableRow> rows = new ArrayList<ReportAsciTableRow>();
 
     @Override
     public String toString() {
         return AsciToStringHelper.asciToString(rows.toArray(new AsciTableLayoutableInterface[rows.size()]));
     }
 
-    public void addRow(AsciTableRow row) {
+    public void addRow(ReportAsciTableRow row) {
         row.setCallback(this);
         this.rows.add(row);
     }

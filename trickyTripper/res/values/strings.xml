@@ -48,7 +48,7 @@
     <string name="exportViewTextViewSubHeadingFormat">Format?</string>
     <string name="exportViewCheckboxFormatCsv">CSV (for Excel, etc.)</string>
     <string name="exportViewCheckboxFormatHtml">HTML</string>
-    <string name="exportViewCheckboxFormatTxt">TXT (Text)</string>
+    <string name="exportViewCheckboxFormatTxt">TXT</string>
     <string name="exportViewCheckboxSeparateFilesForIndividuals">Separate file(s) for every traveler</string>
     <string name="exportViewCheckboxShowTripSumOnIndividualSpendingReport">Spendings: Show full trip sums on individual files</string>
     <string name="exportViewSpinnerPromptScope">Choose traveler for export</string>
@@ -70,18 +70,17 @@
     <string name="fileExportTableHeadingDebts">Owing debts</string>
     <string name="fileExportrFix_Scope_All">All</string>
     <string name="fileExportEmailSubjectPrefix">Tricky Tripper Export</string>
+    <string name="fileExportEmailContent">… see exported files attached.</string>
     <string name="fileExportPaymentsHeadingPaymentName">Payment</string>
     <string name="fileExportPaymentsHeadingCategory">Category</string>
     <string name="fileExportPaymentsHeadingAmount">Amount</string>
     <string name="fileExportPaymentsHeadingPaidBy">Paid by</string>
     <string name="fileExportPaymentsHeadingDebitedTo">Debited to</string>
-    <!-- xxx -->
     <string name="fileExportSpendingsHeadingSpendingGlobal">Expenditure</string>
     <string name="fileExportSpendingsHeadingSpendingByCategory">Spending by category</string>
     <string name="fileExportSpendingsHeadingAll">All travelers</string>
     <string name="fileExportSpendingsHeadingTotalSpent">Total spent</string>
     <string name="fileExportSpendingsHeadingTotalCount">Total payment count</string>
-    <!-- xxx -->
     <string name="fileExportOwingDebtsHeadingDebtor">Traveler</string>
     <string name="fileExportOwingDebtsHeadingCreditor">owes</string>
     <string name="fileExportOwingDebtsHeadingAmount">the amount</string>
@@ -102,7 +101,6 @@
     <string name="payment_view_popup">Select a payment category</string>
     <string name="payment_view_msg_cannot_save_title">Cannot save</string>
     <string name="payment_view_msg_cannot_save_msg">The payment cannot be saved whilst the payment value is 0. Use cancel to leave the dialog.</string>
-
     <!-- ===============================  Money transfer view =============================== -->
     <string name="money_transfer_view_heading">Money transfer</string>
     <string name="money_transfer_view_label_from">from:</string>
@@ -111,7 +109,6 @@
     <string name="money_transfer_list_view_label_name">to:</string>
     <string name="money_transfer_list_view_label_amount">Amount</string>
     <string name="money_transfer_list_view_label_due">&lt; Due</string>
-
     <!-- ===============================  Payment list view =============================== -->
     <string name="payment_view_label_payed_by">Paid by:</string>
     <string name="payment_view_label_debited_to">Debited to:</string>
@@ -175,7 +172,6 @@
     <string name="participant_selection_popup_payer_selection_msg">Select all travelers who spend/spent the money and vice versa</string>
     <string name="participant_selection_popup_traveler_to_debit_msg">Select all travelers to debit the payment to and vice versa.</string>
     <string name="participant_selection_popup_traveler_divide_amount">Divide among selection: </string>
-
     <!-- ==================== Initial data ====================== -->
     <string name="initial_data_trip_name">My first trip</string>
 

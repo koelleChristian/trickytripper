@@ -47,10 +47,4 @@ public class ExporterFileNameUtils {
         return filtered;
     }
 
-    // public static StringBuilder filter2(String input) {
-    // return new StringBuilder(Normalizer.normalize(input,
-    // Normalizer.Form.NFKD).replaceAll(
-    // "\\p{InCombiningDiacriticalMarks}+", ""));
-    // }
-
 }
