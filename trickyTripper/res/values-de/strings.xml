@@ -42,6 +42,7 @@
     <string name="exportViewTextViewHeading">Export</string>
     <string name="exportViewTextViewSubHeadingContent">Was?</string>
     <string name="exportViewCheckboxContentPayments">Zahlungen</string>
+    <string name="exportViewCheckboxContentTransfers">Geldtransfers</string>
     <string name="exportViewCheckboxContentSpendingReport">Ausgaben</string>
     <string name="exportViewCheckboxContentOwingDebts">Schulden</string>
     <string name="exportViewTextViewSubHeadingScope">Umfang?</string>
@@ -54,18 +55,35 @@
     <string name="exportViewSpinnerPromptScope">Wähle Reisenden für Export</string>
     <string name="exportViewButtonExecuteExport">Exportieren</string>
     <string name="exportViewIntentChooserHeader">Wähle Dienst für Export</string>
+    <string name="exportViewTextViewSubHeadingChannel">Ausgabeweg?</string>
+    <string name="exportViewSpinnerPromptChannel">Wähle Ausgabeweg</string>
+    <string name="exportViewSpinnerNotAvailable">nicht verfügbar</string>
+    <string name="exportOutputChannelEnumSave2Sd">Aufs Telefon speichern</string>
+    <string name="exportOutputChannelMail">Mail</string>
+    <string name="exportOutputChannelDropbox">Dropbox</string>
+    <string name="exportOutputChannelEvernote">Evernote</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Aufs Telefon speichern</string>
+    <string name="save2SdReceiverHeading">Export: Verzeichnisauswahl</string>
+    <string name="save2SdReceiverSelect">Wähle</string>
+    <string name="save2SdReceiverProgressHeading">Speichere Export auf Telefon:</string>     
+    <string name="save2SdReceiverResultNothingSaved">Keine Dateien aufs Telefon exportiert</string>     
+    <string name="save2SdReceiverResultSavedPrefix">Erfolgreich</string>
+    <string name="save2SdReceiverResultSavedPostfix">auf das Telefon exportiert</string>     
+    <string name="save2SdReceiverResultSavedFiles">Dateien</string>     
+    <string name="save2SdReceiverResultSavedFile">Datei</string>     
     <!-- ===============================  file export =============================== -->
     <string name="fileExportPrefix">TTE</string>
     <string name="fileExportFileHeading">Tricky Tripper Bericht</string>
     <string name="fileExportFileSummaryEventPrefix">Reise/Event:</string>
     <string name="fileExportFileSummaryReportForPrefix">Bericht für</string>
-    <string name="fileExportFileSummaryReportForPrefixAll">alle Reisenden</string>    
+    <string name="fileExportFileSummaryReportForPrefixAll">alle Reisenden</string>
     <string name="fileExportPostfix_Payments">Z</string>
+    <string name="fileExportPostfix_Transfers">T</string>    
     <string name="fileExportPostfix_Spendings">A</string>
     <string name="fileExportPostfix_Debts">S</string>
     <string name="fileExportTableHeadingPayments">Zahlungen</string>
+    <string name="fileExportTableHeadingTransfers">Geldtransfers</string>    
     <string name="fileExportTableHeadingSpendings">Ausgaben</string>
     <string name="fileExportTableHeadingDebts">Schulden</string>
     <string name="fileExportrFix_Scope_All">Alle</string>
@@ -84,6 +102,9 @@
     <string name="fileExportOwingDebtsHeadingDebtor">Reisender</string>
     <string name="fileExportOwingDebtsHeadingCreditor">schuldet</string>
     <string name="fileExportOwingDebtsHeadingAmount">den Betrag</string>
+    <string name="fileExportTransferHeadingPayer">Reisender</string>
+    <string name="fileExportTransferHeadingReceiver">transferierte an</string>
+    <string name="fileExportTransferHeadingAmount">den Betrag</string>        
     <!-- ===============================  Report view =============================== -->
     <string name="report_view_subheading_spendings_by_category">Ausgaben nach Kategorie</string>
     <string name="report_view_subheading_spendings">Ausgaben</string>

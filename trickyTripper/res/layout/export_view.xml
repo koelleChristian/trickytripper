@@ -72,6 +72,27 @@
                     android:textStyle="bold" />
 
                 <CheckBox
+                    android:id="@+id/exportViewCheckboxContentTransfers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:text="@string/exportViewCheckboxContentTransfers" >
+
+                    <requestFocus />
+                </CheckBox>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:padding="15dip"
+                    android:text=" "
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <CheckBox
                     android:id="@+id/exportViewCheckboxContentSpendingReport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -188,6 +209,42 @@
                     android:layout_height="wrap_content"
                     android:layout_column="2"
                     android:text="@string/exportViewCheckboxFormatTxt" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_span="3"
+                    android:padding="3dip"
+                    android:text="@string/exportViewTextViewSubHeadingChannel"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <Spinner
+                    android:id="@+id/exportViewSpinnerChannel"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:prompt="@string/exportViewSpinnerPromptChannel" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_span="3"
+                    android:padding="3dip"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
             </TableRow>
 
             <TableRow

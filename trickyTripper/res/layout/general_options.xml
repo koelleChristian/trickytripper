@@ -6,10 +6,6 @@
         android:id="@+id/general_options_help"
         android:icon="@android:drawable/ic_menu_help"
         android:title="@string/fktn_glob_help_info"/>
-    
-    <item
-        android:id="@+id/general_options_export"
-        android:icon="@android:drawable/ic_menu_share"
-        android:title="@string/fktn_glob_export"/>
+   
 
 </menu>

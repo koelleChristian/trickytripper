@@ -42,6 +42,7 @@
     <string name="exportViewTextViewHeading">Export</string>
     <string name="exportViewTextViewSubHeadingContent">What?</string>
     <string name="exportViewCheckboxContentPayments">Payments</string>
+    <string name="exportViewCheckboxContentTransfers">Money transfers</string>
     <string name="exportViewCheckboxContentSpendingReport">Spendings</string>
     <string name="exportViewCheckboxContentOwingDebts">Owing debts</string>
     <string name="exportViewTextViewSubHeadingScope">Extent?</string>
@@ -54,8 +55,23 @@
     <string name="exportViewSpinnerPromptScope">Choose traveler for export</string>
     <string name="exportViewButtonExecuteExport">Do export</string>
     <string name="exportViewIntentChooserHeader">Choose service to export to</string>
+    <string name="exportViewTextViewSubHeadingChannel">Output trail?</string>
+    <string name="exportViewSpinnerPromptChannel">Choose your output trail</string>
+    <string name="exportViewSpinnerNotAvailable">not available</string> 
+    <string name="exportOutputChannelEnumSave2Sd">Save to SD card</string>
+    <string name="exportOutputChannelMail">Mail</string>
+    <string name="exportOutputChannelDropbox">Dropbox</string>
+    <string name="exportOutputChannelEvernote">Evernote</string>    
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Save to storage</string>
+    <string name="save2SdReceiverHeading">Export: Choose directory</string>
+    <string name="save2SdReceiverSelect">Choose</string>
+    <string name="save2SdReceiverProgressHeading">Saving export to storage:</string>    
+    <string name="save2SdReceiverResultNothingSaved">Nothing exported to telephone</string>     
+    <string name="save2SdReceiverResultSavedPrefix">Successfully exported</string>
+    <string name="save2SdReceiverResultSavedPostfix">to storage</string>     
+    <string name="save2SdReceiverResultSavedFiles">files</string>     
+    <string name="save2SdReceiverResultSavedFile">file</string>        
     <!-- ===============================  file export =============================== -->
     <string name="fileExportPrefix">TTE</string>
     <string name="fileExportFileHeading">Tricky Tripper Report</string>
@@ -63,9 +79,11 @@
     <string name="fileExportFileSummaryReportForPrefix">Report for</string>
     <string name="fileExportFileSummaryReportForPrefixAll">all travelers.</string>
     <string name="fileExportPostfix_Payments">P</string>
+    <string name="fileExportPostfix_Transfers">T</string>
     <string name="fileExportPostfix_Spendings">S</string>
     <string name="fileExportPostfix_Debts">D</string>
     <string name="fileExportTableHeadingPayments">Payments</string>
+    <string name="fileExportTableHeadingTransfers">Money transfers</string>
     <string name="fileExportTableHeadingSpendings">Spendings</string>
     <string name="fileExportTableHeadingDebts">Owing debts</string>
     <string name="fileExportrFix_Scope_All">All</string>

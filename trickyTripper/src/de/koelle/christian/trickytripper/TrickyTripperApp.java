@@ -21,12 +21,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.os.Environment;
 import android.util.Log;
 import android.util.TypedValue;
 import de.koelle.christian.common.io.impl.AppFileWriter;
 import de.koelle.christian.common.utils.Assert;
+import de.koelle.christian.common.utils.FileUtils;
 import de.koelle.christian.trickytripper.activities.ExportActivity;
 import de.koelle.christian.trickytripper.activities.ManageTripsActivity;
 import de.koelle.christian.trickytripper.activities.MoneyTransferActivity;
@@ -48,6 +52,7 @@ import de.koelle.christian.trickytripper.factories.ModelFactory;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Debts;
 import de.koelle.christian.trickytripper.model.ExportSettings;
+import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
@@ -87,35 +92,14 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     public void onLowMemory() {
         super.onLowMemory();
         safeLoadedTripIdToPrefs();
-        deleteAllFiles();
+        FileUtils.deleteAllFiles(this);
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
         safeLoadedTripIdToPrefs();
-        deleteAllFiles();
-    }
-
-    private void deleteAllFiles() {
-        deleteFiles(Arrays.asList(getFilesDir().listFiles()));
-        deleteFiles(Arrays.asList(getCacheDir().listFiles()));
-    }
-
-    private void deleteFiles(List<File> fileList) {
-        if (fileList != null) {
-            for (File f : fileList) {
-                if (Log.isLoggable(Rc.LT, Log.INFO)) {
-                    Log.i(Rc.LT_IO, "Delete file f=" + f.getAbsolutePath());
-                }
-                /*
-                 * Notes: deleteFile(String name) on this activity only works
-                 * with short names of files existing in the application's data
-                 * directory. It does not work with absolute paths.
-                 */
-                f.delete();
-            }
-        }
+        FileUtils.deleteAllFiles(this);
     }
 
     public SumReport getSumReport() {
@@ -128,7 +112,7 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     public void init() {
 
-        deleteAllFiles();
+        FileUtils.deleteAllFiles(this);
         defaultCollator = Collator.getInstance(getResources().getConfiguration().locale);
         defaultCollator.setStrength(Rc.DEFAULT_COLLATOR_STRENGTH);
 
@@ -511,6 +495,35 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     /* ======================== export ============================== */
     public ExportSettings getDefaultExportSettings() {
         return PrefWritrerReaderUtils.loadExportSettings(getPrefs());
+    }
+
+    public List<ExportOutputChannel> getEnabledExportOutputChannel() {
+        List<ExportOutputChannel> result = new ArrayList<ExportSettings.ExportOutputChannel>();
+        boolean testExport = false;
+        if (testExport) {
+            result.add(ExportOutputChannel.SD_CARD);
+        }
+        else {
+            Intent tweetIntent = new Intent(Rc.STREAM_SENDING_INTENT);
+            tweetIntent.setType(Rc.STREAM_SENDING_MIME);
+            final PackageManager packageManager = getPackageManager();
+            List<ResolveInfo> list = packageManager.queryIntentActivities(
+                    tweetIntent, PackageManager.MATCH_DEFAULT_ONLY);
+            for (ExportOutputChannel channel : ExportOutputChannel.values()) {
+                for (ResolveInfo info : list) {
+                    if (channel.getPackageName().startsWith(info.activityInfo.packageName)) {
+                        result.add(channel);
+                    }
+                }
+            }
+        }
+        File externalStorageDirectory = Environment.getExternalStorageDirectory();
+        if (result.contains(ExportOutputChannel.SD_CARD) && (externalStorageDirectory == null
+                || !externalStorageDirectory.canRead())) {
+            result.remove(ExportOutputChannel.SD_CARD);
+        }
+
+        return result;
     }
 
     public List<File> exportReport(ExportSettings settings, Participant selectedParticipant, Activity activity) {

@@ -28,22 +28,25 @@ public class TrickyTripperFileProvider extends ContentProvider {
     @Override
     public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
 
-        // if (Log.isLoggable(Rc.LT_PROV, Log.DEBUG)) {
-        Log.i(Rc.LT_PROV, "Called with uri: '" + uri + "'." + uri.getLastPathSegment());
-        // }
+        if (Log.isLoggable(Rc.LT_PROV, Log.DEBUG)) {
+            Log.d(Rc.LT_PROV, "Called with uri: '" + uri + "'." + uri.getLastPathSegment());
+        }
 
         switch (uriMatcher.match(uri)) {
 
-        case 1: // match
+        case 1: /* match */
 
-            // 'content://de.koelle.christian.trickytripperfileprovider/Test.txt'
+            /*
+             * e.g.
+             * 'content://de.koelle.christian.trickytripperfileprovider/Test.txt'
+             */
 
             StringBuilder fileLocation = new StringBuilder()
                     .append((isCacheDirNotFileDir) ? getContext().getCacheDir() : getContext().getFilesDir())
                     .append(File.separator)
                     .append(uri.getLastPathSegment());
 
-            // Note:they're only getting read only
+            /* Note:they're only getting read only */
             ParcelFileDescriptor pfd = ParcelFileDescriptor.open(new File(
                     fileLocation.toString()), ParcelFileDescriptor.MODE_READ_ONLY);
             return pfd;
@@ -54,7 +57,7 @@ public class TrickyTripperFileProvider extends ContentProvider {
         }
     }
 
-    /*------------------------- not supported ---------------------------------*/
+    /*------------------------- not supported or not implemented---------------------------------*/
 
     @Override
     public int update(Uri uri, ContentValues contentvalues, String s,

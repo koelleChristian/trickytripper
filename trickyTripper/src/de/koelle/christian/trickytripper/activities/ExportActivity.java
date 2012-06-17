@@ -11,26 +11,32 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
-import de.koelle.christian.trickytripper.activitysupport.ReportViewSupport;
+import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.model.ExportSettings;
+import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
 import de.koelle.christian.trickytripper.model.Participant;
+import de.koelle.christian.trickytripper.ui.model.RowObject;
 
 public class ExportActivity extends Activity {
 
     private List<Participant> participantsInSpinner;
     private Participant participantSelected;
     private ExportSettings exportSettings;
+    private List<ExportOutputChannel> supportedOutputChannels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +46,61 @@ public class ExportActivity extends Activity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.layout.general_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.general_options_help:
+            showDialog(Rc.DIALOG_SHOW_HELP);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id, Bundle args) {
+        Dialog dialog;
+        switch (id) {
+        case Rc.DIALOG_SHOW_HELP:
+            dialog = PopupFactory.createHelpDialog(this, getApp().getFktnController(), Rc.DIALOG_SHOW_HELP);
+            break;
+        default:
+            dialog = null;
+        }
+
+        return dialog;
+    }
+
+    private TrickyTripperApp getApp() {
+        return (TrickyTripperApp) getApplication();
+    }
+
+    @Override
+    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
+        switch (id) {
+        case Rc.DIALOG_SHOW_HELP:
+            // intentionally blank
+            break;
+        default:
+            dialog = null;
+        }
+        super.onPrepareDialog(id, dialog, args);
+    }
+
     private void initPanel() {
         final TrickyTripperApp app = getApp();
         exportSettings = app.getFktnController().getDefaultExportSettings();
         setTripName();
         initAndBindSpinner(app);
+        supportedOutputChannels = app.getFktnController().getEnabledExportOutputChannel();
+        initAndBindOutputChannelSpinner(exportSettings.getOutputChannel(), supportedOutputChannels);
         bindCheckBoxes();
         updateAllCheckboxStates();
         updateButtonState();
@@ -60,7 +116,7 @@ public class ExportActivity extends Activity {
         participantsInSpinner.add(null);
         participantsInSpinner.addAll(app.getFktnController().getAllParticipants(false, true));
 
-        Spinner spinner = ReportViewSupport.configureReportSelectionSpinner(
+        Spinner spinner = SpinnerViewSupport.configureReportSelectionSpinner(
                 this,
                 this,
                 R.id.reportViewBaseSpinner,
@@ -83,8 +139,65 @@ public class ExportActivity extends Activity {
         });
     }
 
+    @SuppressWarnings("rawtypes")
+    private void initAndBindOutputChannelSpinner(ExportOutputChannel selection,
+            final List<ExportOutputChannel> enabledOnes) {
+        final Spinner spinner = (Spinner) findViewById(R.id.exportViewSpinnerChannel);
+
+        List<RowObject> spinnerObjects = SpinnerViewSupport.createSpinnerObjects(selection, false,
+                null, getResources(), getApp().getFktnController()
+                        .getDefaultStringCollator());
+        ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this, android.R.layout.simple_spinner_item,
+                spinnerObjects) {
+            @Override
+            public boolean isEnabled(int position) {
+                return enabledOnes.contains(this.getItem(position).getRowObject());
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView result = (TextView) super.getView(position, convertView, parent);
+                UiUtils.setActiveOrInactive(isEnabled(position), result, R.string.exportViewSpinnerNotAvailable,
+                        getResources());
+                return result;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                TextView result = (TextView) super.getDropDownView(position, convertView, parent);
+                UiUtils.setActiveOrInactive(isEnabled(position), result, R.string.exportViewSpinnerNotAvailable,
+                        getResources());
+                return result;
+            }
+
+        };
+        adapter.setDropDownViewResource(R.layout.selection_list_medium);
+        spinner.setPromptId(R.string.exportViewSpinnerPromptChannel);
+        spinner.setAdapter(adapter);
+        SpinnerViewSupport.setSelection(spinner, selection, adapter);
+
+        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+            @SuppressWarnings("unchecked")
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (position >= 0) {
+                    Object o = spinner.getSelectedItem();
+                    ExportOutputChannel spinnerSelection = ((RowObject<ExportOutputChannel>) o).getRowObject();
+                    ExportActivity.this.exportSettings.setOutputChannel(spinnerSelection);
+                    updateButtonState();
+                }
+            }
+
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // intentionally blank
+            }
+
+        });
+    }
+
     private void bindCheckBoxes() {
         CheckBox contentContentPayments = (CheckBox) findViewById(R.id.exportViewCheckboxContentPayments);
+        CheckBox contentContentTransfers = (CheckBox) findViewById(R.id.exportViewCheckboxContentTransfers);
         CheckBox contentContentSpendingReport = (CheckBox) findViewById(R.id.exportViewCheckboxContentSpendingReport);
         CheckBox contentContentOwingDebts = (CheckBox) findViewById(R.id.exportViewCheckboxContentOwingDebts);
         CheckBox contentFormatCsv = (CheckBox) findViewById(R.id.exportViewCheckboxFormatCsv);
@@ -94,6 +207,7 @@ public class ExportActivity extends Activity {
         CheckBox contentShowGlobalSumsOnIndividualSpendingReports = (CheckBox) findViewById(R.id.exportViewCheckboxShowTripSumOnIndividualSpendingReport);
 
         contentContentPayments.setChecked(exportSettings.isExportPayments());
+        contentContentTransfers.setChecked(exportSettings.isExportTransfers());
         contentContentSpendingReport.setChecked(exportSettings.isExportSpendings());
         contentContentOwingDebts.setChecked(exportSettings.isExportDebts());
         contentFormatCsv.setChecked(exportSettings.isFormatCsv());
@@ -106,6 +220,12 @@ public class ExportActivity extends Activity {
         contentContentPayments.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 exportSettings.setExportPayments(isChecked);
+                updateButtonState();
+            }
+        });
+        contentContentTransfers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                exportSettings.setExportTransfers(isChecked);
                 updateButtonState();
             }
         });
@@ -163,7 +283,7 @@ public class ExportActivity extends Activity {
 
     private void updateButtonState() {
         Button exportButton = (Button) findViewById(R.id.exportViewButtonDoExport);
-        boolean buttonStateToBe = deriveEnableButtonStateFromSettings(exportSettings);
+        boolean buttonStateToBe = deriveEnableButtonStateFromSettings(exportSettings, supportedOutputChannels);
         exportButton.setEnabled(buttonStateToBe);
 
     }
@@ -198,72 +318,29 @@ public class ExportActivity extends Activity {
         }
     }
 
-    private boolean deriveEnableButtonStateFromSettings(ExportSettings exportSettings2) {
+    private boolean deriveEnableButtonStateFromSettings(ExportSettings exportSettings2,
+            List<ExportOutputChannel> supportedOutputChannels2) {
         return (
                 exportSettings2.isExportDebts()
                         || exportSettings2.isExportPayments()
+                        || exportSettings2.isExportTransfers()
                         || exportSettings2.isExportSpendings()
                 ) && (
                 exportSettings2.isFormatTxt()
                         || exportSettings2.isFormatHtml()
                         || exportSettings2.isFormatCsv()
+                ) && (
+                supportedOutputChannels2.contains(exportSettings2.getOutputChannel())
                 );
     }
 
-    public void doExport(View view) {
+    public void doExport(@SuppressWarnings("unused") View view) {
         /* participant selected is null, if nobody is selected. */
         /*
          * Files will be deleted on application's termination as usually files
          * have not be sent on resume here.
          */
         getApp().getFktnController().exportReport(exportSettings, participantSelected, this);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.general_options, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.general_options_help:
-            showDialog(Rc.DIALOG_SHOW_HELP);
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id, Bundle args) {
-        Dialog dialog;
-        switch (id) {
-        case Rc.DIALOG_SHOW_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getFktnController(), Rc.DIALOG_SHOW_HELP);
-            break;
-        default:
-            dialog = null;
-        }
-
-        return dialog;
-    }
-
-    private TrickyTripperApp getApp() {
-        return (TrickyTripperApp) getApplication();
-    }
-
-    @Override
-    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
-        switch (id) {
-        case Rc.DIALOG_SHOW_HELP:
-            // intentionally blank
-            break;
-        default:
-            dialog = null;
-        }
-        super.onPrepareDialog(id, dialog, args);
     }
 
 }

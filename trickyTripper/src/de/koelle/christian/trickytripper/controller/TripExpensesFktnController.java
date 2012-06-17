@@ -9,6 +9,7 @@ import java.util.Map;
 import android.app.Activity;
 import de.koelle.christian.trickytripper.model.Debts;
 import de.koelle.christian.trickytripper.model.ExportSettings;
+import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.Trip;
@@ -63,6 +64,8 @@ public interface TripExpensesFktnController {
     ExportSettings getDefaultExportSettings();
 
     List<File> exportReport(ExportSettings settings, Participant selectedParticipant, Activity activity);
+
+    List<ExportOutputChannel> getEnabledExportOutputChannel();
 
     /* ================ Misc ==================== */
 

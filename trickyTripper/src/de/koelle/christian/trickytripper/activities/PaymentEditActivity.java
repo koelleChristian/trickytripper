@@ -58,6 +58,7 @@ import de.koelle.christian.trickytripper.activitysupport.DivisionResult;
 import de.koelle.christian.trickytripper.activitysupport.MathUtils;
 import de.koelle.christian.trickytripper.activitysupport.PaymentEditActivityState;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
+import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rx;
 import de.koelle.christian.trickytripper.constants.ViewMode;
@@ -67,7 +68,6 @@ import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
-import de.koelle.christian.trickytripper.model.ResourceLabelAwareEnumeration;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
@@ -199,6 +199,7 @@ public class PaymentEditActivity extends Activity {
         switch (item.getItemId()) {
         case R.id.general_options_help:
             showDialog(Rc.DIALOG_SHOW_HELP);
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -853,14 +854,15 @@ public class PaymentEditActivity extends Activity {
     @SuppressWarnings("rawtypes")
     private void initAndBindSpinner(PaymentCategory paymentCategory) {
         final Spinner spinner = (Spinner) findViewById(R.id.paymentView_spinnerPaymentCategory);
-        List<RowObject> spinnerObjects = createSpinnerObjects(PaymentCategory.BEVERAGES, false,
-                Arrays.asList(new Object[] { PaymentCategory.MONEY_TRANSFER }));
+        List<RowObject> spinnerObjects = SpinnerViewSupport.createSpinnerObjects(PaymentCategory.BEVERAGES, false,
+                Arrays.asList(new Object[] { PaymentCategory.MONEY_TRANSFER }), getResources(), getFktnController()
+                        .getDefaultStringCollator());
         ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this, android.R.layout.simple_spinner_item,
                 spinnerObjects);
         adapter.setDropDownViewResource(R.layout.selection_list_medium);
         spinner.setPromptId(R.string.payment_view_spinner_prompt);
         spinner.setAdapter(adapter);
-        setBaseSelection(spinner, paymentCategory, adapter);
+        SpinnerViewSupport.setSelection(spinner, paymentCategory, adapter);
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -878,49 +880,6 @@ public class PaymentEditActivity extends Activity {
             }
 
         });
-    }
-
-    @SuppressWarnings("rawtypes")
-    private void setBaseSelection(Spinner spinner, PaymentCategory paymentCategory, ArrayAdapter<RowObject> adapter) {
-        int position = 0;
-        if (paymentCategory != null) {
-            for (int i = 0; i < adapter.getCount(); i++) {
-                if (paymentCategory.equals(adapter.getItem(i).getRowObject())) {
-                    position = i;
-                    break;
-                }
-            }
-        }
-        spinner.setSelection(position, true);
-    }
-
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    private List<RowObject> createSpinnerObjects(ResourceLabelAwareEnumeration enumeration, boolean addNullValue,
-            List<Object> valuesToBeFiltered) {
-        List<RowObject> result = new ArrayList<RowObject>();
-        RowObject spinnerObject;
-        if (addNullValue) {
-            spinnerObject = new RowObject();
-            spinnerObject.setRowObject(null);
-            spinnerObject.setStringToDisplay(getResources().getString(R.string.spinner_null_value_default));
-            result.add(spinnerObject);
-        }
-        for (ResourceLabelAwareEnumeration o : enumeration.getAllValues()) {
-            if (valuesToBeFiltered == null || !valuesToBeFiltered.contains(o)) {
-                spinnerObject = new RowObject();
-                spinnerObject.setRowObject(o);
-                spinnerObject.setStringToDisplay(getResources().getString(o.getResourceStringId()));
-                result.add(spinnerObject);
-            }
-        }
-        final Collator collator = getFktnController().getDefaultStringCollator();
-        Collections.sort(result, new Comparator<RowObject>() {
-            public int compare(RowObject object1, RowObject object2) {
-                return collator.compare(object1.getStringToDisplay(), object2.getStringToDisplay());
-            }
-
-        });
-        return result;
     }
 
     private TrickyTripperApp getApp() {

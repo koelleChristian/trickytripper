@@ -24,7 +24,7 @@ import android.widget.TextView;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.activitysupport.ReportViewSupport;
+import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.TrickyTripperTabConstants;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Debts;
@@ -60,8 +60,10 @@ public class ReportTabActivity extends Activity {
         switch (item.getItemId()) {
         case R.id.general_options_help:
             getParent().showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
+            return true;
         case R.id.general_options_export:
             getApp().getViewController().openExport();
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -89,7 +91,7 @@ public class ReportTabActivity extends Activity {
         participantsInSpinner.add(null);
         participantsInSpinner.addAll(app.getFktnController().getAllParticipants(false, true));
 
-        Spinner spinner = ReportViewSupport.configureReportSelectionSpinner(
+        Spinner spinner = SpinnerViewSupport.configureReportSelectionSpinner(
                 this,
                 this,
                 R.id.reportViewBaseSpinner,

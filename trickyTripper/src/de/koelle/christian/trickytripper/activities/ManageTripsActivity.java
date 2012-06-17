@@ -88,6 +88,7 @@ public class ManageTripsActivity extends Activity {
         switch (item.getItemId()) {
         case R.id.general_options_help:
             showDialog(Rc.DIALOG_SHOW_HELP);
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }

@@ -145,28 +145,26 @@ public class PaymentTableExporter {
     private List<Payment> deriveRelevantPayments(Trip trip, Collection<Participant> participants) {
         List<Payment> result = new ArrayList<Payment>();
         if (participants.size() > 1) {
-            result.addAll(trip.getPayments());
+            for (Payment payment : trip.getPayments()) {
+                if (!payment.getCategory().isInternal()) {
+                    result.add(payment);
+                    continue;
+                }
+            }
+
         }
         else {
             Participant p = participants.iterator().next();
             for (Payment payment : trip.getPayments()) {
-                if (partOf(p, payment.getParticipantToPayment().entrySet())
-                        || partOf(p, payment.getParticipantToSpending().entrySet())) {
+                if (!payment.getCategory().isInternal()
+                        && (TableExporterUtils.partOf(p, payment.getParticipantToPayment().entrySet())
+                        || TableExporterUtils.partOf(p, payment.getParticipantToSpending().entrySet()))) {
                     result.add(payment);
                     continue;
                 }
             }
         }
         return result;
-    }
-
-    private boolean partOf(Participant p, Set<Entry<Participant, Amount>> entrySet) {
-        for (Entry<Participant, Amount> entry : entrySet) {
-            if (p.getId() == entry.getKey().getId()) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private Amount getAmount(Participant p, Set<Entry<Participant, Amount>> entrySet) {

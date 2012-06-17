@@ -74,6 +74,7 @@ public class TrickyTripperActivity extends TabActivity {
         switch (item.getItemId()) {
         case R.id.general_options_help:
             showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }

@@ -5,6 +5,8 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -78,6 +80,25 @@ public class UiUtils {
     }
 
     public static int getInactiveColor(Context context) {
-        return context.getResources().getColor(android.R.color.darker_gray);
+        return getInactiveColor(context.getResources());
+    }
+
+    public static int getInactiveColor(Resources resources) {
+        return resources.getColor(android.R.color.darker_gray);
+    }
+
+    public static void setActiveOrInactive(boolean enabled, TextView result, int extensionStringId, Resources resources) {
+        if (!enabled) {
+            result.setTextColor(UiUtils.getInactiveColor(resources));
+            result.setTypeface(Typeface.DEFAULT, Typeface.ITALIC);
+            if (extensionStringId > 0) {
+                result.setText(result.getText() + " (" + resources.getString(extensionStringId) + ")");
+            }
+
+        }
+        else {
+            result.setTextColor(Color.BLACK);
+            result.setTypeface(Typeface.DEFAULT, Typeface.NORMAL);
+        }
     }
 }

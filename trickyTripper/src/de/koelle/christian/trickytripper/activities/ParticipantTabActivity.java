@@ -81,8 +81,10 @@ public class ParticipantTabActivity extends ListActivity {
             return true;
         case R.id.general_options_help:
             getParent().showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
+            return true;
         case R.id.general_options_export:
             getApp().getViewController().openExport();
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }

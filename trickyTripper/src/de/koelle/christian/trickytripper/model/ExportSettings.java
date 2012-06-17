@@ -1,15 +1,59 @@
 package de.koelle.christian.trickytripper.model;
 
+import java.util.Arrays;
+import java.util.List;
+
+import de.koelle.christian.trickytripper.R;
+
 public class ExportSettings {
 
+    public enum ExportOutputChannel implements ResourceLabelAwareEnumeration {
+        /***/
+        SD_CARD(R.string.exportOutputChannelEnumSave2Sd, "de.koelle.christian.trickytripper"),
+        /***/
+        MAIL(R.string.exportOutputChannelMail, "com.google.android.gm"),
+        /***/
+        DROPBOX(R.string.exportOutputChannelDropbox, "com.dropbox.android"),
+        /***/
+        EVERNOTE(R.string.exportOutputChannelEvernote, "com.evernote"),
+        /**/
+        ;
+        // com.android.bluetooth
+        // com.google.android.apps.uploader
+        // com.google.android.apps.uploader
+
+        private final int resourceId;
+        private final String packageName;
+
+        private ExportOutputChannel(int resourceId, String packageName) {
+            this.resourceId = resourceId;
+            this.packageName = packageName;
+        }
+
+        public int getResourceStringId() {
+            return this.resourceId;
+        }
+
+        public List<ResourceLabelAwareEnumeration> getAllValues() {
+            return Arrays.asList((ResourceLabelAwareEnumeration[]) values());
+        }
+
+        public String getPackageName() {
+            return packageName;
+        }
+
+    }
+
     private boolean exportPayments = true;
+    private boolean exportTransfers = true;
     private boolean exportSpendings = true;
     private boolean exportDebts = true;
     private boolean formatHtml = true;
-    private boolean formatCsv = true;
-    private boolean formatTxt = true;
+    private boolean formatCsv = false;
+    private boolean formatTxt = false;
     private boolean separateFilesForIndividuals = false;
     private boolean showGlobalSumsOnIndividualSpendingReport = true;
+    private ExportOutputChannel outputChannel = ExportOutputChannel.MAIL;
 
     public boolean isExportSpendings() {
         return exportSpendings;
@@ -75,12 +119,30 @@ public class ExportSettings {
         this.formatTxt = formattxt;
     }
 
+    public ExportOutputChannel getOutputChannel() {
+        return outputChannel;
+    }
+
+    public void setOutputChannel(ExportOutputChannel outputChannel) {
+        this.outputChannel = outputChannel;
+    }
+
+    public boolean isExportTransfers() {
+        return exportTransfers;
+    }
+
+    public void setExportTransfers(boolean exportTransfers) {
+        this.exportTransfers = exportTransfers;
+    }
+
     @Override
     public String toString() {
-        return "ExportSettings [exportPayments=" + exportPayments + ", exportSpendings=" + exportSpendings
-                + ", exportDebts=" + exportDebts + ", formatHtml=" + formatHtml + ", formatCsv=" + formatCsv
-                + ", formatTxt=" + formatTxt + ", separateFilesForIndividuals=" + separateFilesForIndividuals
-                + ", showGlobalSumsOnIndividualSpendingReport=" + showGlobalSumsOnIndividualSpendingReport + "]";
+        return "ExportSettings [exportPayments=" + exportPayments + ", exportTransfers=" + exportTransfers
+                + ", exportSpendings=" + exportSpendings + ", exportDebts=" + exportDebts + ", formatHtml="
+                + formatHtml + ", formatCsv=" + formatCsv + ", formatTxt=" + formatTxt
+                + ", separateFilesForIndividuals=" + separateFilesForIndividuals
+                + ", showGlobalSumsOnIndividualSpendingReport=" + showGlobalSumsOnIndividualSpendingReport
+                + ", outputChannel=" + outputChannel + "]";
     }
 
 }

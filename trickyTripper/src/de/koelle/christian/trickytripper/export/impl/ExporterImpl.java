@@ -8,6 +8,7 @@ import android.app.Activity;
 import de.koelle.christian.common.io.FileWriter;
 import de.koelle.christian.common.utils.FileUtils;
 import de.koelle.christian.trickytripper.R;
+import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.decoupling.ActivityResolver;
 import de.koelle.christian.trickytripper.decoupling.ResourceResolver;
 import de.koelle.christian.trickytripper.export.Exporter;
@@ -15,8 +16,8 @@ import de.koelle.christian.trickytripper.export.StreamSender;
 import de.koelle.christian.trickytripper.export.impl.content.DebtTableExporter;
 import de.koelle.christian.trickytripper.export.impl.content.PaymentTableExporter;
 import de.koelle.christian.trickytripper.export.impl.content.SpendingTableExporter;
-import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTable;
-import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTableRow;
+import de.koelle.christian.trickytripper.export.impl.content.TransferTableExporter;
+import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTableUtils;
 import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTableWrapper;
 import de.koelle.christian.trickytripper.export.impl.res.CsvExportCharResolver;
 import de.koelle.christian.trickytripper.export.impl.res.HtmlExportCharResolver;
@@ -31,9 +32,6 @@ public class ExporterImpl implements Exporter {
 
     private static final String SPACE = " ";
     private static final String FILE_NAME_SEPARATOR = "_";
-    private static final String HTML_EXTENSION = ".html";
-    private static final String CSV_EXTENSION = ".csv";
-    private static final String TXT_EXTENSION = ".txt";
 
     private final FileWriter fileWriter;
 
@@ -113,7 +111,8 @@ public class ExporterImpl implements Exporter {
                     (Activity) activityResolver.getActivity(),
                     exportSubject.toString(),
                     resourceResolver.resolve(R.string.fileExportEmailContent),
-                    FileUtils.getContentUrisFromFiles(filesCreated, TrickyTripperFileProvider.AUTHORITY));
+                    FileUtils.getContentUrisFromFiles(filesCreated, TrickyTripperFileProvider.AUTHORITY),
+                    settings.getOutputChannel());
         }
 
         return filesCreated;
@@ -130,7 +129,11 @@ public class ExporterImpl implements Exporter {
         File writtenFile;
 
         StringBuilder htmlCollector = null;
-        ReportAsciTableWrapper txtCollector = new ReportAsciTableWrapper();
+        ReportAsciTableWrapper txtCollector = null;
+
+        if (settings.isFormatTxt()) {
+            txtCollector = new ReportAsciTableWrapper();
+        }
 
         if (settings.isFormatHtml()) {
             htmlCollector = new StringBuilder();
@@ -149,11 +152,12 @@ public class ExporterImpl implements Exporter {
                         .append(fileNamePrefix2)
                         .append(FILE_NAME_SEPARATOR)
                         .append(resourceResolver.resolve(R.string.fileExportPostfix_Payments))
-                        .append(CSV_EXTENSION);
+                        .append(Rc.CSV_EXTENSION);
                 writtenFile = fileWriter.write(cvsFileName.toString(), contents);
                 filesCreated.add(writtenFile);
             }
             if (settings.isFormatHtml()) {
+
                 paymentExporter.setCharResolver(htmlExportCharResolver);
                 contents = paymentExporter.prepareContents(trip, resourceResolver, participants, amountFactory);
                 htmlCollector
@@ -165,10 +169,51 @@ public class ExporterImpl implements Exporter {
                 /**/;
             }
             if (settings.isFormatTxt()) {
+
                 paymentExporter.setCharResolver(txtExportCharResolver);
                 contents = paymentExporter.prepareContents(trip, resourceResolver, participants, amountFactory);
                 txtCollector.addTable(resourceResolver
-                        .resolve(R.string.fileExportTableHeadingPayments), buildReportAsciiTable(contents));
+                        .resolve(R.string.fileExportTableHeadingPayments),
+                        ReportAsciTableUtils.buildReportAsciiTable(contents));
+                /**/;
+            }
+
+        }
+        if (settings.isExportTransfers()) {
+
+            TransferTableExporter transferExporter = new TransferTableExporter();
+
+            if (settings.isFormatCsv()) {
+
+                transferExporter.setCharResolver(csvExportCharResolver);
+                contents = transferExporter.prepareContents(trip, resourceResolver, participants);
+                StringBuilder cvsFileName = new StringBuilder()
+                        .append(fileNamePrefix2)
+                        .append(FILE_NAME_SEPARATOR)
+                        .append(resourceResolver.resolve(R.string.fileExportPostfix_Transfers))
+                        .append(Rc.CSV_EXTENSION);
+                writtenFile = fileWriter.write(cvsFileName.toString(), contents);
+                filesCreated.add(writtenFile);
+            }
+            if (settings.isFormatHtml()) {
+
+                transferExporter.setCharResolver(htmlExportCharResolver);
+                contents = transferExporter.prepareContents(trip, resourceResolver, participants);
+                htmlCollector
+                        .append(htmlExportCharResolver.wrapInSubHeading(resourceResolver
+                                .resolve(R.string.fileExportTableHeadingTransfers)))
+                        .append(contents)
+                        .append(htmlExportCharResolver.getNewLine())
+                        .append(htmlExportCharResolver.getNewLine())
+                /**/;
+            }
+            if (settings.isFormatTxt()) {
+
+                transferExporter.setCharResolver(txtExportCharResolver);
+                contents = transferExporter.prepareContents(trip, resourceResolver, participants);
+                txtCollector.addTable(resourceResolver
+                        .resolve(R.string.fileExportTableHeadingTransfers),
+                        ReportAsciTableUtils.buildReportAsciiTable(contents));
                 /**/;
             }
         }
@@ -179,18 +224,21 @@ public class ExporterImpl implements Exporter {
 
             boolean hideTotalSum = participants.size() == 1
                     && !settings.isShowGlobalSumsOnIndividualSpendingReport();
+
             if (settings.isFormatCsv()) {
+
                 spendingExporter.setCharResolver(csvExportCharResolver);
                 contents = spendingExporter.prepareContents(trip, resourceResolver, participants, hideTotalSum, true);
                 StringBuilder cvsFileName = new StringBuilder()
                         .append(fileNamePrefix2)
                         .append(FILE_NAME_SEPARATOR)
                         .append(resourceResolver.resolve(R.string.fileExportPostfix_Spendings))
-                        .append(CSV_EXTENSION);
+                        .append(Rc.CSV_EXTENSION);
                 writtenFile = fileWriter.write(cvsFileName.toString(), contents);
                 filesCreated.add(writtenFile);
             }
             if (settings.isFormatHtml()) {
+
                 spendingExporter.setCharResolver(htmlExportCharResolver);
                 contents = spendingExporter.prepareContents(trip, resourceResolver, participants, hideTotalSum, false);
                 htmlCollector
@@ -201,10 +249,12 @@ public class ExporterImpl implements Exporter {
                         .append(htmlExportCharResolver.getNewLine());
             }
             if (settings.isFormatTxt()) {
+
                 spendingExporter.setCharResolver(txtExportCharResolver);
                 contents = spendingExporter.prepareContents(trip, resourceResolver, participants, hideTotalSum, false);
                 txtCollector.addTable(resourceResolver
-                        .resolve(R.string.fileExportTableHeadingSpendings), buildReportAsciiTable(contents));
+                        .resolve(R.string.fileExportTableHeadingSpendings),
+                        ReportAsciTableUtils.buildReportAsciiTable(contents));
                 /**/;
             }
         }
@@ -220,11 +270,12 @@ public class ExporterImpl implements Exporter {
                         .append(fileNamePrefix2)
                         .append(FILE_NAME_SEPARATOR)
                         .append(resourceResolver.resolve(R.string.fileExportPostfix_Debts))
-                        .append(CSV_EXTENSION);
+                        .append(Rc.CSV_EXTENSION);
                 writtenFile = fileWriter.write(cvsFileName.toString(), contents);
                 filesCreated.add(writtenFile);
             }
             if (settings.isFormatHtml()) {
+
                 debtsExporter.setCharResolver(htmlExportCharResolver);
                 contents = debtsExporter.prepareContents(trip, resourceResolver, participants);
                 htmlCollector
@@ -235,10 +286,12 @@ public class ExporterImpl implements Exporter {
                         .append(htmlExportCharResolver.getNewLine());
             }
             if (settings.isFormatTxt()) {
+
                 debtsExporter.setCharResolver(txtExportCharResolver);
                 contents = debtsExporter.prepareContents(trip, resourceResolver, participants);
                 txtCollector.addTable(resourceResolver
-                        .resolve(R.string.fileExportTableHeadingDebts), buildReportAsciiTable(contents));
+                        .resolve(R.string.fileExportTableHeadingDebts),
+                        ReportAsciTableUtils.buildReportAsciiTable(contents));
                 /**/;
             }
         }
@@ -261,7 +314,7 @@ public class ExporterImpl implements Exporter {
 
                 StringBuilder htmlFileName = new StringBuilder()
                         .append(fileNamePrefix2)
-                        .append(HTML_EXTENSION);
+                        .append(Rc.HTML_EXTENSION);
 
                 writtenFile = fileWriter.write(htmlFileName.toString(), finalHtmlFile);
                 filesCreated.add(writtenFile);
@@ -276,38 +329,12 @@ public class ExporterImpl implements Exporter {
 
                 StringBuilder txtFileName = new StringBuilder()
                         .append(fileNamePrefix2)
-                        .append(TXT_EXTENSION);
+                        .append(Rc.TXT_EXTENSION);
 
                 writtenFile = fileWriter.write(txtFileName.toString(), finalTxtFile);
                 filesCreated.add(writtenFile);
             }
         }
-    }
-
-    private ReportAsciTable buildReportAsciiTable(StringBuilder contents) {
-        ReportAsciTable result = new ReportAsciTable();
-
-        String[] rows = contents.toString().split(TxtExportCharResolver.TXT_ROW_END_DELIMITER);
-        for (int i = 0; i < rows.length; i++) {
-            String[] rowValues = rows[i].split(TxtExportCharResolver.TXT_VALUE_DELIMITER);
-            ReportAsciTableRow rowObj = null;
-            if (i != 0) {
-                rowObj = new ReportAsciTableRow();
-            }
-
-            for (String val : rowValues) {
-                if (i == 0) {
-                    result.addHeading(val);
-                }
-                else {
-                    rowObj.addContent(val);
-                }
-            }
-            if (rowObj != null) {
-                result.addRow(rowObj);
-            }
-        }
-        return result;
     }
 
     private String[] getReportMetaInfo(List<Participant> participants, Trip trip, ResourceResolver resourceResolver) {
