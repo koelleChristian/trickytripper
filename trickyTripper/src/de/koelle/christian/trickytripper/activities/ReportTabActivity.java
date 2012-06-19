@@ -48,10 +48,15 @@ public class ReportTabActivity extends Activity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.general_options_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.layout.report_tab_options, menu);
-        menu.findItem(R.id.general_options_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
         return true;
     }
 

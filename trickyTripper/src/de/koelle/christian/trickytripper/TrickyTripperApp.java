@@ -527,8 +527,8 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     }
 
     public List<File> exportReport(ExportSettings settings, Participant selectedParticipant, Activity activity) {
-        if (Log.isLoggable(Rc.LT, Log.INFO)) {
-            Log.i(Rc.LT_INPUT, "exportReport() settings=" + settings + " selected=" + selectedParticipant);
+        if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+            Log.d(Rc.LT_INPUT, "exportReport() settings=" + settings + " selected=" + selectedParticipant);
         }
         List<Participant> participantsForReport = new ArrayList<Participant>();
         if (selectedParticipant != null) {

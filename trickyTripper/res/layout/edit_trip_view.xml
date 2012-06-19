@@ -34,6 +34,7 @@
         android:layout_below="@id/edit_trip_view_label_base_currency"
         android:enabled="false"
         android:inputType="text" >
+        <!-- state_enabled does not work -->
     </EditText>
 
     <LinearLayout

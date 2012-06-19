@@ -134,12 +134,12 @@ public class SumReport {
 
     public void addNewParticipant(Participant participant, Amount freshBlankAmount) {
         spendingByUser.put(participant, freshBlankAmount.clone());
-        spendingByUserCount.put(participant, new Integer(0));
+        spendingByUserCount.put(participant, Integer.valueOf(0));
         spendingByUserByCategory.put(participant, new HashMap<PaymentCategory, Amount>());
         spendingByUserByCategoryCount.put(participant, new HashMap<PaymentCategory, Integer>());
 
         paymentByUser.put(participant, freshBlankAmount.clone());
-        paymentByUserCount.put(participant, new Integer(0));
+        paymentByUserCount.put(participant, Integer.valueOf(0));
         paymentByUserByCategory.put(participant, new HashMap<PaymentCategory, Amount>());
         paymentByUserByCategoryCount.put(participant, new HashMap<PaymentCategory, Integer>());
 

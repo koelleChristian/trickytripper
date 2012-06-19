@@ -50,24 +50,9 @@ public class PopupFactory {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         String urlToHelp = determineHelpFileUrl(activity, fktnController);
 
-        // final ProgressDialog progressDialog = ProgressDialog.show(activity,
-        // activity.getResources().getString(R.string.fktn_glob_help_info),
-        // activity.getResources().getString(R.string.progress_dialog_text_loading));
-
         LayoutInflater inflater = activity.getLayoutInflater();
         final View view = inflater.inflate(R.layout.help_view, null);
         final WebView webViewNested = (WebView) view.findViewById(R.id.help_view_web_view);
-        // webViewNested.setWebViewClient(new WebViewClient() {
-        // @Override
-        // public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        // view.loadUrl(url);
-        // return true;
-        // }
-        //
-        // @Override
-        // public void onPageFinished(WebView view, String url) {
-        // if (progressDialog.isShowing()) {
-        // progressDialog.dismiss();
         builder
                 .setView(view)
                 .setCancelable(false)
@@ -78,10 +63,6 @@ public class PopupFactory {
                     }
                 });
         AlertDialog alert = builder.create();
-        // alert.show();
-        // }
-        // }
-        // });
         webViewNested.loadUrl(urlToHelp);
         return alert;
     }

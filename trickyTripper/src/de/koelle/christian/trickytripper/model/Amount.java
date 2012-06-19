@@ -9,7 +9,7 @@ public class Amount implements Serializable {
 
     private static final long serialVersionUID = 7992193936275624979L;
 
-    private Double value = new Double(0);
+    private Double value = Double.valueOf(0);
     private Currency unit = Currency.getInstance("EUR");
 
     public void addAmount(Amount amountToBeAdded) {
@@ -27,7 +27,7 @@ public class Amount implements Serializable {
         Amount clone;
         clone = new Amount();
         clone.setUnit(this.getUnit());
-        clone.setValue(new Double(this.getValue().doubleValue()));
+        clone.setValue(Double.valueOf(this.getValue().doubleValue()));
         return clone;
     }
 

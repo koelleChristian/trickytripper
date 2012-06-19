@@ -151,7 +151,7 @@ public final class R {
         public static final int general_checked_text_view=0x7f030003;
         public static final int general_options=0x7f030004;
         public static final int help_view=0x7f030005;
-        public static final int manage_trips=0x7f030006;
+        public static final int manage_trips_view=0x7f030006;
         public static final int money_transfer_list_view=0x7f030007;
         public static final int money_transfer_view=0x7f030008;
         public static final int participant_tab_options=0x7f030009;

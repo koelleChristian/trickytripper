@@ -38,11 +38,11 @@ public enum PaymentCategory implements ResourceLabelAwareEnumeration {
     /**
      * Other rentals.
      */
-    CULTURE(R.string.label_enum_payment_category_culture, true),
+    CULTURE(R.string.label_enum_payment_category_culture, false),
     /**
      * Other rentals.
      */
-    ENTRANCE_FEE(R.string.label_enum_payment_category_entrance_fee, true),
+    ENTRANCE_FEE(R.string.label_enum_payment_category_entrance_fee, false),
     /**
      * Other rentals.
      */

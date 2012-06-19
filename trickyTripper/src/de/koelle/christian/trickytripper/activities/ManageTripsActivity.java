@@ -56,7 +56,7 @@ public class ManageTripsActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manage_trips);
+        setContentView(R.layout.manage_trips_view);
 
         TrickyTripperApp app = getApp();
 

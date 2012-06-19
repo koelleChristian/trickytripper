@@ -319,7 +319,7 @@ public class TripReportLogic {
     private Amount cloneAmount(Amount value) {
         Amount result = new Amount();
         result.setUnit(value.getUnit());
-        result.setValue(new Double(value.getValue()));
+        result.setValue(Double.valueOf(value.getValue()));
         return result;
     }
 

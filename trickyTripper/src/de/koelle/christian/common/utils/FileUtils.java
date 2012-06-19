@@ -44,8 +44,8 @@ public class FileUtils {
     private static void deleteFiles(List<File> fileList) {
         if (fileList != null) {
             for (File f : fileList) {
-                if (Log.isLoggable(Rc.LT, Log.INFO)) {
-                    Log.i(Rc.LT_IO, "Delete file f=" + f.getAbsolutePath());
+                if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+                    Log.d(Rc.LT_IO, "Delete file f=" + f.getAbsolutePath());
                 }
                 /*
                  * Notes: deleteFile(String name) on this activity only works
