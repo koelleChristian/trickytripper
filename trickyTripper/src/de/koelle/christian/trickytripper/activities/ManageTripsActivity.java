@@ -1,6 +1,7 @@
 package de.koelle.christian.trickytripper.activities;
 
 import java.text.Collator;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Currency;
 import java.util.List;
@@ -23,15 +24,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.ButtonSupport;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
+import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
 import de.koelle.christian.trickytripper.model.TripSummary;
+import de.koelle.christian.trickytripper.ui.model.RowObject;
+import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
 
 public class ManageTripsActivity extends Activity {
 
@@ -48,6 +54,8 @@ public class ManageTripsActivity extends Activity {
     private static final int MENU_GROUP_DELETE = 2;
 
     private static final String DIALOG_PARAM_TRIP_SUMMARY = "dialogParamTripSummary";
+    private static final String DIALOG_PARAM_IS_NEW = "dialogParamIsNew";
+    private static final String DIALOG_PARAM_HAS_TRIP_PAYMENTS = "dialogParamHasTripPayments";
 
     private ArrayAdapter<TripSummary> arrayAdapterTripSummary;
     private ListView listView;
@@ -166,13 +174,18 @@ public class ManageTripsActivity extends Activity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         TripSummary selectedTripSummary = arrayAdapterTripSummary.getItem(info.position);
+        boolean hasTripPayments = getApp().getFktnController().hasTripPayments(selectedTripSummary);
+        boolean isTripNew = false;
+
         switch (item.getItemId()) {
         case R.string.manage_trips_view_fktn_edit: {
-            showDialog(DIALOG_EDIT, createBundleWithTripSummarySelected(selectedTripSummary));
+            showDialog(DIALOG_EDIT,
+                    createBundleWithTripSummaryForPopup(selectedTripSummary, isTripNew, hasTripPayments));
             return true;
         }
         case R.string.manage_trips_view_fktn_delete: {
-            showDialog(DIALOG_DELETE, createBundleWithTripSummarySelected(selectedTripSummary));
+            showDialog(DIALOG_DELETE,
+                    createBundleWithTripSummaryForPopup(selectedTripSummary, isTripNew, hasTripPayments));
             return true;
         }
         }
@@ -197,7 +210,9 @@ public class ManageTripsActivity extends Activity {
 
     public void createNewTrip(View view) {
         if (R.id.manageTripsView_button_create_new_trip == view.getId()) {
-            showDialog(DIALOG_CREATE, createBundleWithTripSummarySelected(new TripSummary()));
+            TripSummary newTripSummary = new TripSummary();
+            newTripSummary.setBaseCurrency(getApp().getFktnController().getDefaultBaseCurrency());
+            showDialog(DIALOG_CREATE, createBundleWithTripSummaryForPopup(newTripSummary, true, false));
         }
     }
 
@@ -229,19 +244,26 @@ public class ManageTripsActivity extends Activity {
 
     /* ================== Bundle job ================ */
 
-    private Bundle createBundleWithTripSummarySelected(TripSummary selectedTripSummary) {
+    private Bundle createBundleWithTripSummaryForPopup(TripSummary selectedTripSummary, boolean isNew,
+            boolean hasTripPayments) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(DIALOG_PARAM_TRIP_SUMMARY, selectedTripSummary);
+        bundle.putBoolean(DIALOG_PARAM_IS_NEW, isNew);
+        bundle.putBoolean(DIALOG_PARAM_HAS_TRIP_PAYMENTS, hasTripPayments);
         return bundle;
     }
 
     private TripSummary getTripSummaryFromBundle(Bundle args) {
-        if (args == null) {
-            return null; // Create
-        }
-        // Edit
         TripSummary selectedTripSummary = (TripSummary) args.get(DIALOG_PARAM_TRIP_SUMMARY);
         return selectedTripSummary;
+    }
+
+    private boolean isCreateTripNotEdit(Bundle args) {
+        return args.getBoolean(DIALOG_PARAM_IS_NEW);
+    }
+
+    private boolean hasTripPayments(Bundle args) {
+        return args.getBoolean(DIALOG_PARAM_HAS_TRIP_PAYMENTS);
     }
 
     /* ================== Popup job ================ */
@@ -269,6 +291,7 @@ public class ManageTripsActivity extends Activity {
                 layoutId);
     }
 
+    @SuppressWarnings("rawtypes")
     private Dialog createTripEditPopup(int titleId,
             int positiveButtonLabelId, int positiveAndLoadButtonLabelId, int layoutId) {
         final View viewInf = inflate(layoutId);
@@ -276,6 +299,16 @@ public class ManageTripsActivity extends Activity {
         Button buttonPositive = (Button) viewInf.findViewById(R.id.edit_trip_view_button_positive);
         Button buttonPositiveAndLoad = (Button) viewInf.findViewById(R.id.edit_trip_view_button_positive_and_load);
         EditText editTextTripName = (EditText) viewInf.findViewById(R.id.edit_trip_view_editText_tripName);
+        Spinner spinner = (Spinner) viewInf.findViewById(R.id.edit_trip_view_spinner_base_currency);
+
+        List<RowObject> spinnerObjects = wrapCurrenciesInRowObject(CurrencyUtil.getSuportedCurrencies(getResources()));
+
+        ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this, android.R.layout.simple_spinner_item,
+                spinnerObjects);
+
+        adapter.setDropDownViewResource(R.layout.selection_list_medium);
+        spinner.setPromptId(R.string.payment_view_spinner_prompt);
+        spinner.setAdapter(adapter);
 
         ButtonSupport.disableButtonOnBlankInput(editTextTripName, buttonPositive);
         ButtonSupport.disableButtonOnBlankInput(editTextTripName, buttonPositiveAndLoad);
@@ -290,27 +323,38 @@ public class ManageTripsActivity extends Activity {
         return dialog;
     }
 
+    @SuppressWarnings("rawtypes")
+    private List<RowObject> wrapCurrenciesInRowObject(List<Currency> supportedCurrencies) {
+        List<RowObject> result = new ArrayList<RowObject>();
+
+        for (final Currency c : supportedCurrencies) {
+            result.add(new RowObject<Currency>(new RowObjectCallback<Currency>() {
+                public String getStringToDisplay(Currency c) {
+                    return CurrencyUtil.getFullNameToCurrency(getResources(), c);
+                }
+            }, c));
+        }
+        return result;
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     private void updateCreateOrEditDialog(final Dialog dialog, Bundle args) {
-        EditText editTextTripName = (EditText) dialog.findViewById(R.id.edit_trip_view_editText_tripName);
-        EditText editTextBaseCurrency = (EditText) dialog.findViewById(R.id.edit_trip_view_editText_base_currency);
+        final EditText editTextTripName = (EditText) dialog.findViewById(R.id.edit_trip_view_editText_tripName);
+        final Spinner spinnerCurrency = (Spinner) dialog.findViewById(R.id.edit_trip_view_spinner_base_currency);
+        final Button buttonPositive = (Button) dialog.findViewById(R.id.edit_trip_view_button_positive);
+        final Button buttonPositiveAndLoad = (Button) dialog.findViewById(R.id.edit_trip_view_button_positive_and_load);
+        final Button buttonCancel = (Button) dialog.findViewById(R.id.edit_trip_view_button_cancel);
+
         final TripSummary selectedTripSummary = getTripSummaryFromBundle(args);
-        String name;
-        Currency currency;
-        if (selectedTripSummary == null) {
-            name = "";
-            currency = getApp().getFktnController().getDefaultBaseCurrency();
-        }
-        else {
-            name = selectedTripSummary.getName();
-            currency = selectedTripSummary.getBaseCurrency();
-        }
+        final boolean isNew = isCreateTripNotEdit(args);
+        final boolean hasTripPayments = hasTripPayments(args);
 
+        String name = selectedTripSummary.getName();
+        Currency currency = selectedTripSummary.getBaseCurrency();
+
+        spinnerCurrency.setEnabled(isNew || !hasTripPayments);
         editTextTripName.setText(name);
-        editTextBaseCurrency.setText(currency.getSymbol());
-
-        Button buttonPositive = (Button) dialog.findViewById(R.id.edit_trip_view_button_positive);
-        Button buttonPositiveAndLoad = (Button) dialog.findViewById(R.id.edit_trip_view_button_positive_and_load);
-        Button buttonCancel = (Button) dialog.findViewById(R.id.edit_trip_view_button_cancel);
+        SpinnerViewSupport.setSelection(spinnerCurrency, currency, (ArrayAdapter) spinnerCurrency.getAdapter());
 
         buttonPositive.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -331,13 +375,17 @@ public class ManageTripsActivity extends Activity {
         });
     }
 
+    @SuppressWarnings("unchecked")
     private void processButtonClick(final TrickyTripperApp app, final Dialog dialog,
             final ButtonClickMode mode, TripSummary recordInEdit) {
 
-        EditText editTextName = (EditText) dialog.findViewById(R.id.edit_trip_view_editText_tripName);
-        String inputName = editTextName.getText().toString().trim();
+        final EditText editTextName = (EditText) dialog.findViewById(R.id.edit_trip_view_editText_tripName);
+        final Spinner spinnerCurrency = (Spinner) dialog.findViewById(R.id.edit_trip_view_spinner_base_currency);
 
-        Currency inputCurrency = app.getFktnController().getDefaultBaseCurrency();
+        String inputName = editTextName.getText().toString().trim();
+        Object o = spinnerCurrency.getSelectedItem();
+        Currency inputCurrency = ((RowObject<Currency>) o).getRowObject();
+
         TripSummary tripSummary = new TripSummary();
         tripSummary.setId(recordInEdit.getId());
         tripSummary.setName(inputName);

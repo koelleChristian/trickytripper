@@ -18,4 +18,6 @@ public interface TripExpensesViewController {
 
     void openExport();
 
+    void openSettings();
+
 }

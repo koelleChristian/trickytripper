@@ -56,6 +56,9 @@ public class PaymentTabActivity extends ListActivity {
         case R.id.general_options_export:
             getApp().getViewController().openExport();
             return true;
+        case R.id.general_options_preferences:
+            getApp().getViewController().openSettings();
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }

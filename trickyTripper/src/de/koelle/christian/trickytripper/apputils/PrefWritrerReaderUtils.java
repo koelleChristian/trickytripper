@@ -4,13 +4,17 @@ import java.util.Currency;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Resources;
+import de.koelle.christian.common.utils.CurrencyUtil;
+import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
 
 public class PrefWritrerReaderUtils {
 
+    private static final String NULL_VALUE_CURRENCY = "@nothing@";
+
     private static final String PREFS_VALUE_ID_TRIP_LAST_EDITED_ID = "PREFS_VALUE_ID_TRIP_LAST_EDITED_ID";
-    private static final String PREFS_VALUE_ID_BASE_CURRENCY = "PREFS_VALUE_ID_BASE_CURRENCY";
 
     private static final String PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS = "PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS";
     private static final String PREFS_VALUE_EXPORT_SETTINGS_EXPORT_TRANSFERS = "PREFS_VALUE_EXPORT_SETTINGS_EXPORT_TRANSFERS";
@@ -66,14 +70,21 @@ public class PrefWritrerReaderUtils {
         return result;
     }
 
-    public static Currency loadDefaultCurrency(SharedPreferences prefs) {
-        String currencyCode = prefs.getString(PREFS_VALUE_ID_BASE_CURRENCY, "EUR");
-        return Currency.getInstance(currencyCode);
+    public static Currency loadDefaultCurrency(SharedPreferences prefs, Resources resources) {
+
+        String currencyCodeFromPrefs = prefs.getString(Rc.PREFS_VALUE_ID_BASE_CURRENCY, NULL_VALUE_CURRENCY);
+
+        Currency result = (NULL_VALUE_CURRENCY.equals(currencyCodeFromPrefs))
+                ? Currency.getInstance(resources.getConfiguration().locale)
+                : Currency.getInstance(currencyCodeFromPrefs);
+
+        result = ensureCurrencyIsSupported(result, resources);
+        return result;
     }
 
-    public static void saveBaseCurrency(Editor prefsEditor, Currency baseCurrency) {
-        prefsEditor.putString(PREFS_VALUE_ID_BASE_CURRENCY, baseCurrency.getCurrencyCode());
-        prefsEditor.commit();
+    private static Currency ensureCurrencyIsSupported(Currency currency, Resources resources) {
+        boolean isSupported = CurrencyUtil.getSuportedCurrencies(resources).contains(currency);
+        return isSupported ? currency : Currency.getInstance("EUR");
     }
 
     public static void saveIdOfTripLastEdited(Editor prefsEditor, long id) {

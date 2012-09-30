@@ -34,6 +34,7 @@
     <string name="participant_options_view_fktn_create_traveller">Create</string>
     <string name="fktn_glob_help_info">Help &amp; Info</string>
     <string name="fktn_glob_export">Export</string>
+    <string name="fktn_glob_settings">Settings</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Spent:</string>
     <string name="participant_tab_row_view_label_paid">Paid:</string>
@@ -102,6 +103,9 @@
     <string name="fileExportOwingDebtsHeadingDebtor">Traveler</string>
     <string name="fileExportOwingDebtsHeadingCreditor">owes</string>
     <string name="fileExportOwingDebtsHeadingAmount">the amount</string>
+    <string name="fileExportTransferHeadingPayer">Traveler</string>
+    <string name="fileExportTransferHeadingReceiver">transfered to</string>
+    <string name="fileExportTransferHeadingAmount">the amount of</string>        
     <!-- ===============================  Report view =============================== -->
     <string name="report_view_subheading_spendings_by_category">Spending by category</string>
     <string name="report_view_subheading_spendings">Expenditure</string>
@@ -185,6 +189,10 @@
     <string name="fktn_payment_list_delete_transfer">Delete money transfer</string>
     <!-- ==================== Messages ====================== -->
     <string name="msg_delete_not_possible_inbalance">The user cannot be deleted as his/her account is not balanced.</string>
+    <!-- ==================== Preferences ====================== -->
+    <string name="prefs_view_heading_chooser_currency">Choose your default currency</string>
+    <string name="prefs_view_title_currency">Default currency</string>
+    <string name="prefs_view_title_enable_smart_help">Enable smart help</string>    
     <!-- ==================== Context menu participant selection ====================== -->
     <string name="participant_selection_popup_traveler_selection_title">Select travelers</string>
     <string name="participant_selection_popup_payer_selection_msg">Select all travelers who spend/spent the money and vice versa</string>
@@ -192,5 +200,10 @@
     <string name="participant_selection_popup_traveler_divide_amount">Divide among selection: </string>
     <!-- ==================== Initial data ====================== -->
     <string name="initial_data_trip_name">My first trip</string>
+    <!-- ==================== Change Log ======================== -->
+    <string name="changelog_full_title">Change Log</string>
+    <string name="changelog_title">What\'s New</string>
+    <string name="changelog_ok_button">OK</string>
+    <string name="changelog_show_full">more…</string>
 
 </resources>

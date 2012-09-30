@@ -2,6 +2,7 @@ package de.koelle.christian.trickytripper.constants;
 
 import java.text.Collator;
 
+import android.content.Context;
 import android.content.Intent;
 
 public class Rc {
@@ -41,5 +42,11 @@ public class Rc {
 
     public static final String STREAM_SENDING_MIME = "*/*";
     public static final String STREAM_SENDING_INTENT = Intent.ACTION_SEND_MULTIPLE;
+
+    public static final String PREFS_NAME_ID = "PREFS_NAME_ID";
+    public static final int PREFS_MODE = Context.MODE_PRIVATE;
+
+    public static final String PREFS_VALUE_ID_BASE_CURRENCY = "PREFS_VALUE_ID_BASE_CURRENCY";
+    public static final String PREFS_VALUE_ID_ENABLE_SMART_HELP = "PREFS_VALUE_ID_ENABLE_SMART_HELP";
 
 }

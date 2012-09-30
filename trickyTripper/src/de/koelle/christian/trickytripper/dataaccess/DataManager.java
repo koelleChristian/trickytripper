@@ -21,6 +21,8 @@ public interface DataManager {
 
     Trip persistTrip(Trip trip);
 
+    Trip persistTripBySummary(TripSummary tripSummary);
+
     public Participant persistParticipantInTrip(long tripId, Participant participant);
 
     Payment persistPaymentInTrip(long tripId, Payment payment);
@@ -30,5 +32,7 @@ public interface DataManager {
     void deletePayment(long paymentId);
 
     boolean deleteParticipant(long participantId);
+
+    boolean hasTripPayments(long tripId);
 
 }

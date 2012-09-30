@@ -6,16 +6,16 @@ import java.util.ArrayList;
  * <p>
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++
  * </p>
- * The original version of this class has been provided by Heiner Kücker via his
+ * The original version of this class has been provided by Heiner Kï¿½cker via his
  * homepage: <a href=" http://www.heinerkuecker.de/AsciTable.html">
  * http://www.heinerkuecker.de/AsciTable.html</a>
  * <p/>
  * 
  * 
  * The homepage gave the following licence statement (08.06.2012):<blockquote>
- * <q>Die Programme, Quelltexte und Dokumentationen können ohne irgendwelche
+ * <q>Die Programme, Quelltexte und Dokumentationen kï¿½nnen ohne irgendwelche
  * Bedingungen kostenlos verwendet werden. Sie sind Freeware und Open Source.
- * Für Fehler und Folgen wird keinerlei Haftung übernommen.</q> </blockquote>
+ * Fï¿½r Fehler und Folgen wird keinerlei Haftung ï¿½bernommen.</q> </blockquote>
  * 
  * <p>
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Diese Klasse dient zum Layouten einer Tabelle in ASCII-Art . <br>
  * 
  * Durch den rekursiven Aufbau ist die Darstellung verschachtelter Tabellen
- * möglich.<br>
+ * mï¿½glich.<br>
  * 
  * <u>AsciTable</u><br>
  * <br>
@@ -34,30 +34,30 @@ import java.util.ArrayList;
  * Darstellung arbeitet.<br>
  * <br>
  * 
- * Nun wird man sich fragen, wozu man so etwas im 21. Jahrhundert noch benötigt.
+ * Nun wird man sich fragen, wozu man so etwas im 21. Jahrhundert noch benï¿½tigt.
  * Zum einen wollte ich sowas einfach mal programmieren. Andererseits steht beim
- * Logging, Debugging und Fehler-Tracking oft keine grafische Oberfläche zur
- * Verfügung, sondern reine Textausgaben.<br>
+ * Logging, Debugging und Fehler-Tracking oft keine grafische Oberflï¿½che zur
+ * Verfï¿½gung, sondern reine Textausgaben.<br>
  * <br>
  * 
  * Mit dieser kleinen Klasse lassen sich tabellarische Daten in Textform
- * halbwegs übersichtlich darstellen.<br>
+ * halbwegs ï¿½bersichtlich darstellen.<br>
  * <br>
  * 
- * Interessant ist die Möglichkeit hierachische Daten durch das Verschachteln
+ * Interessant ist die Mï¿½glichkeit hierachische Daten durch das Verschachteln
  * der Tabellen abzubilden.<br>
  * <br>
  * 
- * Es gibt Util-Methoden zum Anfügen von Kopf- und Fuss-Zeilen, einer Spalte mit
- * laufenden Nummern und <b>colspan</b> zum Überspannen mehrerer Spalten.<br>
+ * Es gibt Util-Methoden zum Anfï¿½gen von Kopf- und Fuss-Zeilen, einer Spalte mit
+ * laufenden Nummern und <b>colspan</b> zum ï¿½berspannen mehrerer Spalten.<br>
  * <br>
  * 
- * <b>rowspan</b> zum Überspannen mehrerer Zeilen ist (noch) nicht
- * implementiert. Das habe ich bisher nicht benötigt und ist auch etwas
+ * <b>rowspan</b> zum ï¿½berspannen mehrerer Zeilen ist (noch) nicht
+ * implementiert. Das habe ich bisher nicht benï¿½tigt und ist auch etwas
  * komplizierter.<br>
  * <br>
  * 
- * Falls <b>colspan</b> nicht benötigt wird, sollten die buildLayout()-Methoden
+ * Falls <b>colspan</b> nicht benï¿½tigt wird, sollten die buildLayout()-Methoden
  * ohne <b>colspan</b> verwendet werden, da diese schneller und wahrscheinlich
  * auch sicherer (fehlerstabiler) sind.<br>
  * <br>
@@ -84,13 +84,13 @@ import java.util.ArrayList;
  * +===+===+===+===+  Fusslinie  (keine, Leerzeichen, einfach, doppelt)
  * </pre>
  * 
- * Falls jemand einen Fehler findet, würde ich mich über einen entsprechenden
+ * Falls jemand einen Fehler findet, wï¿½rde ich mich ï¿½ber einen entsprechenden
  * Hinweis per e-mail freuen.<br>
  * <br>
  * 
  * <br/>
  * <b>Author:</b> <a href="http://www.heinerkuecker.de" target="_blank">Heiner
- * Kücker</a><br/>
+ * Kï¿½cker</a><br/>
  * <br/>
  */
 public class AsciTable
@@ -152,13 +152,13 @@ public class AsciTable
     public static final int NO_ALIGNMENT = 0;
 
     /**
-     * Ausrichtung linksbündig . <br>
+     * Ausrichtung linksbï¿½ndig . <br>
      * value = 1
      */
     public static final int LEFT_ALIGNMENT = 1;
 
     /**
-     * Ausrichtung rechtsbündig . <br>
+     * Ausrichtung rechtsbï¿½ndig . <br>
      * value = 2
      */
     public static final int RIGHT_ALIGNMENT = 2;
@@ -388,8 +388,8 @@ public class AsciTable
     // -----------------------------------------------------------------------------------------
 
     /**
-     * Diese Methode erzeugt aus dem übergebenen 2-dimensionalen Zellen-Array
-     * einen umgebrochenen Ausgabe-String mit dem Aussehen der gewünschten
+     * Diese Methode erzeugt aus dem ï¿½bergebenen 2-dimensionalen Zellen-Array
+     * einen umgebrochenen Ausgabe-String mit dem Aussehen der gewï¿½nschten
      * Tabelle . <br>
      * <br>
      * Die Tabellen-Trennlinien lassen sich folgendermassen beeinflussen:
@@ -403,7 +403,7 @@ public class AsciTable
      * </pre>
      * 
      * @param pTableCellArrArr
-     * @return String mit Umbrüchen mit layouteter Tabelle
+     * @return String mit Umbrï¿½chen mit layouteter Tabelle
      * @see #NO_LINE
      * @see #EMPTY_LINE
      * @see #SINGLE_LINE
@@ -427,8 +427,8 @@ public class AsciTable
     }
 
     /**
-     * Diese Methode erzeugt aus dem übergebenen 2-dimensionalen Zellen-Array
-     * einen umgebrochenen Ausgabe-String mit dem Aussehen der gewünschten
+     * Diese Methode erzeugt aus dem ï¿½bergebenen 2-dimensionalen Zellen-Array
+     * einen umgebrochenen Ausgabe-String mit dem Aussehen der gewï¿½nschten
      * Tabelle.
      * 
      * <br>
@@ -450,7 +450,7 @@ public class AsciTable
      * besitzen.
      * 
      * @param pTableCellArrArr
-     * @return String mit Umbrüchen mit layouteter Tabelle
+     * @return String mit Umbrï¿½chen mit layouteter Tabelle
      * @see #NO_LINE
      * @see #EMPTY_LINE
      * @see #SINGLE_LINE
@@ -466,7 +466,7 @@ public class AsciTable
     {
         // ---------------------------------------------------
         // Auslayouten:
-        // maximale Höhe der Zellen einer Zeile bestimmen
+        // maximale Hï¿½he der Zellen einer Zeile bestimmen
         // maximale Breite der Zellen einer Spalte bestimmen
         // ---------------------------------------------------
         int[] maxHeightArr = new int[pTableCellArrArr.length];
@@ -492,14 +492,14 @@ public class AsciTable
             strBuff.append('\n');
         }
 
-        // for über Zeilen
+        // for ï¿½ber Zeilen
         for (int iRow = 0; iRow < pTableCellArrArr.length; iRow++)
         {
-            // for über Text-Zeilen je Tabellen-Zeile
+            // for ï¿½ber Text-Zeilen je Tabellen-Zeile
             for (int iCellLine = 0; iCellLine < maxHeightArr[iRow]; iCellLine++)
             {
                 strBuff.append("|"); // links
-                // for über Spalten
+                // for ï¿½ber Spalten
                 for (int iCol = 0; iCol < pTableCellArrArr[iRow].length; iCol++)
                 {
                     if (iCol > 0)
@@ -573,7 +573,7 @@ public class AsciTable
     }
 
     /**
-     * Auslayouten: maximale Höhe der Zellen einer Zeile bestimmen maximale
+     * Auslayouten: maximale Hï¿½he der Zellen einer Zeile bestimmen maximale
      * Breite der Zellen einer Spalte bestimmen
      * 
      * @param pTableCellArrArr
@@ -585,7 +585,7 @@ public class AsciTable
             int[] pMaxHeightArr,
             int[] pMaxWidthArr)
     {
-        // Mindesthöhe 1 einstellen
+        // Mindesthï¿½he 1 einstellen
         for (int i = 0; i < pMaxHeightArr.length; i++)
         {
             pMaxHeightArr[i] = 1;
@@ -597,7 +597,7 @@ public class AsciTable
             {
                 if (pTableCellArrArr[iRow][iCol] != null)
                 {
-                    // Vermerken maximale Höhe
+                    // Vermerken maximale Hï¿½he
                     pMaxHeightArr[iRow] = Math.max(pMaxHeightArr[iRow],
                             pTableCellArrArr[iRow][iCol].getHeight());
 
@@ -616,8 +616,8 @@ public class AsciTable
     // -----------------------------------------------------------------------------------------
 
     /**
-     * Diese Methode erzeugt aus dem übergebenen 2-dimensionalen Zellen-Array
-     * einen umgebrochenen Ausgabe-String mit dem Aussehen der gewünschten
+     * Diese Methode erzeugt aus dem ï¿½bergebenen 2-dimensionalen Zellen-Array
+     * einen umgebrochenen Ausgabe-String mit dem Aussehen der gewï¿½nschten
      * Tabelle . <br>
      * <br>
      * Die Tabellen-Trennlinien lassen sich folgendermassen beeinflussen:
@@ -631,7 +631,7 @@ public class AsciTable
      * </pre>
      * 
      * @param pTableCellArrArr
-     * @return String mit Umbrüchen mit layouteter Tabelle
+     * @return String mit Umbrï¿½chen mit layouteter Tabelle
      * @see #NO_LINE
      * @see #EMPTY_LINE
      * @see #SINGLE_LINE
@@ -655,8 +655,8 @@ public class AsciTable
     }
 
     /**
-     * Diese Methode erzeugt aus dem übergebenen 2-dimensionalen Zellen-Array
-     * einen umgebrochenen Ausgabe-String mit dem Aussehen der gewünschten
+     * Diese Methode erzeugt aus dem ï¿½bergebenen 2-dimensionalen Zellen-Array
+     * einen umgebrochenen Ausgabe-String mit dem Aussehen der gewï¿½nschten
      * Tabelle.
      * 
      * <br>
@@ -678,7 +678,7 @@ public class AsciTable
      * besitzen.
      * 
      * @param pTableCellArrArr
-     * @return String mit Umbrüchen mit layouteter Tabelle
+     * @return String mit Umbrï¿½chen mit layouteter Tabelle
      * @see #NO_LINE
      * @see #EMPTY_LINE
      * @see #SINGLE_LINE
@@ -694,7 +694,7 @@ public class AsciTable
     {
         // ---------------------------------------------------
         // Auslayouten:
-        // maximale Höhe der Zellen einer Zeile bestimmen
+        // maximale Hï¿½he der Zellen einer Zeile bestimmen
         // maximale Breite der Zellen einer Spalte bestimmen
         // ---------------------------------------------------
         int[] maxHeightArr = new int[pTableCellArrArr.length];
@@ -720,14 +720,14 @@ public class AsciTable
             strBuff.append('\n');
         }
 
-        // for über Zeilen
+        // for ï¿½ber Zeilen
         for (int iRow = 0; iRow < pTableCellArrArr.length; iRow++)
         {
-            // for über Text-Zeilen je Tabellen-Zeile
+            // for ï¿½ber Text-Zeilen je Tabellen-Zeile
             for (int iCellLine = 0; iCellLine < maxHeightArr[iRow]; iCellLine++)
             {
                 strBuff.append("|"); // links
-                // for über Spalten
+                // for ï¿½ber Spalten
                 int iColspanOffset = 0;
 
                 for (int iCol = 0; iColspanOffset < maxWidthArr.length
@@ -749,7 +749,7 @@ public class AsciTable
                         {
                             if (iColspan > 0)
                             {
-                                // Lücke mitzählen
+                                // Lï¿½cke mitzï¿½hlen
                                 colspanWidth++;
                             }
                             final int colspanWidthOffset = iColspan + iColspanOffset;
@@ -822,7 +822,7 @@ public class AsciTable
 
     /**
      * Auslayouten mit colspan. <br>
-     * maximale Höhe der Zellen einer Zeile bestimmen<br>
+     * maximale Hï¿½he der Zellen einer Zeile bestimmen<br>
      * maximale Breite der Zellen einer Spalte bestimmen<br>
      * <br>
      * Algorithmus:<br>
@@ -832,12 +832,12 @@ public class AsciTable
      * Bei colspan == 1 wird die maximale Breite in das Merk-Array pMaxWidthArr
      * eingetragen.<br>
      * <br>
-     * Bei höherem colspan wird die vorhandene Breite durch andere Zellen
-     * ausgerechnet. Wenn genug Platz für die colspan-Spalte vorhanden ist, wird
+     * Bei hï¿½herem colspan wird die vorhandene Breite durch andere Zellen
+     * ausgerechnet. Wenn genug Platz fï¿½r die colspan-Spalte vorhanden ist, wird
      * nichts getan.<br>
      * Wenn aber nicht genug Platz vorhanden ist, wird der notwendige Platz auf
      * die anderen Spalten verteilt.<br>
-     * Dann wird der zu bearbeitende colspan erhöht und solannge wiederholt, bis
+     * Dann wird der zu bearbeitende colspan erhï¿½ht und solannge wiederholt, bis
      * alle Zellen verarbeitet wurden.<br>
      * 
      * @param pTableCellArrArr
@@ -849,21 +849,21 @@ public class AsciTable
             int[] pMaxHeightArr,
             int[] pMaxWidthArr)
     {
-        // Mindesthöhe 1 einstellen
+        // Mindesthï¿½he 1 einstellen
         for (int i = 0; i < pMaxHeightArr.length; i++)
         {
             pMaxHeightArr[i] = 1;
         }
 
         // Durch das colspan-Feature ist es zur Laufzeit-Optimierung notwendig,
-        // erst mal alle Höhen zu bestimmen
+        // erst mal alle Hï¿½hen zu bestimmen
         for (int iRow = 0; iRow < pTableCellArrArr.length; iRow++)
         {
             for (int iCol = 0; iCol < pTableCellArrArr[iRow].length; iCol++)
             {
                 if (pTableCellArrArr[iRow][iCol] != null)
                 {
-                    // Vermerken maximale Höhe
+                    // Vermerken maximale Hï¿½he
                     pMaxHeightArr[iRow] = Math.max(pMaxHeightArr[iRow],
                             pTableCellArrArr[iRow][iCol].getHeight());
                 }
@@ -874,7 +874,7 @@ public class AsciTable
         int colspanLevel = 0;
         boolean allCellsComputed = false;
 
-        // ein colspan-Level nach dem anderen aufwärts abarbeiten
+        // ein colspan-Level nach dem anderen aufwï¿½rts abarbeiten
         while (!allCellsComputed)
         {
             colspanLevel++;
@@ -898,7 +898,7 @@ public class AsciTable
                             }
                             else
                             {
-                                // Sammeln der Breiten der überspannten Spalten
+                                // Sammeln der Breiten der ï¿½berspannten Spalten
                                 int istBreite = 0;
 
                                 for (int iColspan = 0; iColspan < colspanLevel
@@ -906,7 +906,7 @@ public class AsciTable
                                 {
                                     if (iColspan > 0)
                                     {
-                                        // Lücke mitzählen
+                                        // Lï¿½cke mitzï¿½hlen
                                         istBreite++;
                                     }
                                     final int colspanWidthOffset = iColspan + iColspanOffset;
@@ -920,7 +920,7 @@ public class AsciTable
                                 {
                                     // der Platz reicht nicht, es muss gespreizt
                                     // werden
-                                    // gleichmässig verteilen
+                                    // gleichmï¿½ssig verteilen
                                     int zuschlag = (int) Math.round(Math.ceil((colWidth - istBreite)
                                             / colspanLevel));
 
@@ -932,7 +932,7 @@ public class AsciTable
                                     {
                                         if (iColspan > 0)
                                         {
-                                            // Lücke mitzählen
+                                            // Lï¿½cke mitzï¿½hlen
                                             istBreite++;
                                         }
                                         final int colspanWidthOffset = iColspan + iColspanOffset;
@@ -943,7 +943,7 @@ public class AsciTable
                                         final int colspaOffsWidth = pMaxWidthArr[colspanWidthOffset];
 
                                         istBreite += colspaOffsWidth; // das
-                                                                      // erhöhte
+                                                                      // erhï¿½hte
                                                                       // aufaddieren
                                     }
                                 }
@@ -953,7 +953,7 @@ public class AsciTable
 
                         else if (colspanLevel < pTableCellArrArr[iRow][iCol].getWidth())
                         {
-                            // es gibt noch Zellen mit höherem colspan
+                            // es gibt noch Zellen mit hï¿½herem colspan
                             allCellsComputed = false;
                         }
                     }
@@ -968,13 +968,13 @@ public class AsciTable
 
     // -----------------------------------------------------------------------------------------
     //
-    // Util - Methoden für interne Verwendung
+    // Util - Methoden fï¿½r interne Verwendung
     //
     // -----------------------------------------------------------------------------------------
 
     /**
-     * Trennlinie entsprechend der gewählten Linien-Betriebsart an den per
-     * Parameter übergebenen Stringbuffer anhängen
+     * Trennlinie entsprechend der gewï¿½hlten Linien-Betriebsart an den per
+     * Parameter ï¿½bergebenen Stringbuffer anhï¿½ngen
      * 
      * @param strBuff
      * @param pKopfMode
@@ -1101,11 +1101,11 @@ public class AsciTable
     // ------------------------ Cell - Klasse ---------------------------------
 
     /**
-     * Diese Klasse repräsentiert eine Tabellenzelle . <br>
+     * Diese Klasse reprï¿½sentiert eine Tabellenzelle . <br>
      * 
      * <br/>
      * <b>Author:</b> <a href="http://www.heinerkuecker.de"
-     * target="_blank">Heiner Kücker</a><br/>
+     * target="_blank">Heiner Kï¿½cker</a><br/>
      * <br/>
      */
     public static class Cell
@@ -1121,7 +1121,7 @@ public class AsciTable
         int alignment;
 
         /**
-         * wie viele Tabellen-Spalten die Zelle überspannt . <br>
+         * wie viele Tabellen-Spalten die Zelle ï¿½berspannt . <br>
          * Minimum ist 1.
          */
         private int colspan = 1;
@@ -1164,7 +1164,7 @@ public class AsciTable
 
         /**
          * Abfrage einer bestimmten Zeile dieser Zelle. Ist die Zeile nicht
-         * vorhanden, wird ein Leerstring zurückgegeben.
+         * vorhanden, wird ein Leerstring zurï¿½ckgegeben.
          * 
          * @param pLineNr
          *            Zeilen-Nummer Basis Null
@@ -1180,7 +1180,7 @@ public class AsciTable
             }
             else
             {
-                // Zeilen-Nummer grösser als Zeilen-Maximum
+                // Zeilen-Nummer grï¿½sser als Zeilen-Maximum
                 retStr = "";
             }
             switch (this.alignment)
@@ -1203,7 +1203,7 @@ public class AsciTable
         }
 
         /**
-         * Höhe der Zelle in Zeilen
+         * Hï¿½he der Zelle in Zeilen
          * 
          * @return
          */
@@ -1223,9 +1223,9 @@ public class AsciTable
         }
 
         /**
-         * Abfragen wie viele Tabellen-Spalten die Zelle überspannt
+         * Abfragen wie viele Tabellen-Spalten die Zelle ï¿½berspannt
          * 
-         * @return wie viele Spalten die Zelle überspannt
+         * @return wie viele Spalten die Zelle ï¿½berspannt
          */
         public int getColspan()
         {
@@ -1233,7 +1233,7 @@ public class AsciTable
         }
 
         /**
-         * Setzen wie viele Tabellen-Spalten die Zelle überspannt
+         * Setzen wie viele Tabellen-Spalten die Zelle ï¿½berspannt
          * 
          * @param pColspan
          *            zu setzender Wert &gt;= 1
@@ -1249,19 +1249,19 @@ public class AsciTable
 
     }
 
-    // --------------------- Util-Methoden öffentlich
+    // --------------------- Util-Methoden ï¿½ffentlich
     // ---------------------------------
 
     /**
-     * Auffüllen mit Spaces oder Abschneiden eines String auf die verlangte
-     * Länge
+     * Auffï¿½llen mit Spaces oder Abschneiden eines String auf die verlangte
+     * Lï¿½nge
      * 
      * @param strPa
      *            auszurichtender String
      * @param intPaLength
-     *            gewünschte Länge
+     *            gewï¿½nschte Lï¿½nge
      * @return ausgerichteter String
-     * @author Heiner Kücker
+     * @author Heiner Kï¿½cker
      */
     public static String strAlign(String strPa, int intPaLength)
     {
@@ -1289,15 +1289,15 @@ public class AsciTable
     }// end method strAlign
 
     /**
-     * Auffüllen mit Spaces am linken Rand oder Abschneiden eines String auf die
-     * verlangte Länge.
+     * Auffï¿½llen mit Spaces am linken Rand oder Abschneiden eines String auf die
+     * verlangte Lï¿½nge.
      * 
      * @param strPa
      *            auszurichtender String
      * @param intPaLength
-     *            gewünschte Länge
+     *            gewï¿½nschte Lï¿½nge
      * @return ausgerichteter String
-     * @author Heiner Kücker
+     * @author Heiner Kï¿½cker
      */
     public static String strLeftAlign(String strPa, int intPaLength)
     {
@@ -1332,7 +1332,7 @@ public class AsciTable
      * @param intPaCount
      *            Anzahl der Wiederholungen
      * @return wiederholter String
-     * @author Heiner Kücker
+     * @author Heiner Kï¿½cker
      */
     public static String strReplicate(String strPa, int intPaCount)
     {
@@ -1352,12 +1352,12 @@ public class AsciTable
     }// end method strReplicate
 
     /**
-     * Den übergebenen String in einzelne Zeilen unterteilen
+     * Den ï¿½bergebenen String in einzelne Zeilen unterteilen
      * 
      * @param pStr
      *            zu unterteilender String
      * @return String-Array mit den einzelnen Zeilen
-     * @author Heiner Kücker
+     * @author Heiner Kï¿½cker
      */
     public static String[] splitForNewline(String pStr)
     {
@@ -1393,7 +1393,7 @@ public class AsciTable
                 break;
 
             default:
-                // Zeichen übernehmen
+                // Zeichen ï¿½bernehmen
                 strBuff.append(charTmp);
                 break;
             }
@@ -1407,7 +1407,7 @@ public class AsciTable
     }
 
     /**
-     * Ermitteln des längsten Strings in einem String-Array
+     * Ermitteln des lï¿½ngsten Strings in einem String-Array
      * 
      * @param pStrArr
      * @return
@@ -1432,12 +1432,12 @@ public class AsciTable
 
     // -----------------------------------------------------------------------------------------
     //
-    // Komfort - Methoden für Kopf, Fuss und laufende Nummer
+    // Komfort - Methoden fï¿½r Kopf, Fuss und laufende Nummer
     //
     // -----------------------------------------------------------------------------------------
 
     /**
-     * Ausstatten eines zweidimensionalen Tabellen-Zellen-Array´s mit einer
+     * Ausstatten eines zweidimensionalen Tabellen-Zellen-Arrays mit einer
      * Kopf-Zeile
      * 
      * @param pTable
@@ -1446,7 +1446,7 @@ public class AsciTable
      *            String-Array mit den Kopf-Texten
      * @return ausgestattete Tabelle
      * 
-     *         TODO noch für AsciTable-Objekt
+     * 
      */
     public static Cell[][] addHeader(Cell[][] pTable, String[] pHeaderStrArr)
     {
@@ -1469,7 +1469,7 @@ public class AsciTable
     }
 
     /**
-     * Ausstatten eines zweidimensionalen Tabellen-Zellen-Array´s mit einer
+     * Ausstatten eines zweidimensionalen Tabellen-Zellen-Arrayï¿½s mit einer
      * Fuss-Zeile
      * 
      * @param pTable
@@ -1478,7 +1478,6 @@ public class AsciTable
      *            String-Array mit den Fuss-Texten
      * @return ausgestattete Tabelle
      * 
-     *         TODO noch für AsciTable-Objekt
      */
     public static Cell[][] addFooter(Cell[][] pTable, String[] pFooterStrArr)
     {
@@ -1510,22 +1509,22 @@ public class AsciTable
      * @param pTopGap
      *            oben freizuhaltende Zeilen (1 oder 0)
      * @param pHeaderStr
-     *            Text für Kopf (optional)
+     *            Text fï¿½r Kopf (optional)
      * @param pBottGap
      *            unten freizuhaltende Zeilen (1 oder 0)
      * @param pFooterStr
-     *            Text für Fuss (optional)
+     *            Text fï¿½r Fuss (optional)
      * @return ausgestattete Tabelle
      * 
-     *         TODO noch für AsciTable-Objekt
+     * 
      */
     public static Cell[][] addCountCol(// -
             Cell[][] pTable, // mit laufender Nummer auszustattende Tabelle
             int pStartNr, // Start-Nummer (0 oder 1)
             int pTopGap, // oben freizuhaltende Zeilen (1 oder 0)
-            String pHeaderStr, // Text für Kopf (optional)
+            String pHeaderStr, // Text fï¿½r Kopf (optional)
             int pBottGap, // unten freizuhaltende Zeilen (1 oder 0)
-            String pFooterStr) // Text für Fuss (optional)
+            String pFooterStr) // Text fï¿½r Fuss (optional)
     {
         Cell[][] retCellArrArr = new Cell[pTable.length][pTable[0].length + 1];
 
@@ -1537,23 +1536,23 @@ public class AsciTable
                 retCellArrArr[i1][i2 + 1] = pTable[i1][i2];
             }
         }
-        // zählen ab Start-Nummer
+        // zï¿½hlen ab Start-Nummer
         int nrCnt = pStartNr;
 
-        // Lücken oben und unten frei lassen
+        // Lï¿½cken oben und unten frei lassen
         for (int i = pTopGap; i < retCellArrArr.length - pBottGap; i++)
         {
             retCellArrArr[i][0] = new Cell("" + nrCnt);
-            // rechtsbündig
+            // rechtsbï¿½ndig
             retCellArrArr[i][0].setAlignment(RIGHT_ALIGNMENT);
             nrCnt++;
         }
-        // Text für Kopf
+        // Text fï¿½r Kopf
         if (pTopGap > 0 && pHeaderStr != null)
         {
             retCellArrArr[0][0] = new Cell(pHeaderStr);
         }
-        // Text für Fuss
+        // Text fï¿½r Fuss
         if (pBottGap > 0 && pFooterStr != null)
         {
             retCellArrArr[retCellArrArr.length - 1][0] = new Cell(pFooterStr);

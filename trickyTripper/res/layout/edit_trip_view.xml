@@ -27,15 +27,14 @@
         android:layout_below="@id/edit_trip_view_editText_tripName"
         android:text="@string/edit_trip_view_label_base_currency" />
 
-    <EditText
-        android:id="@+id/edit_trip_view_editText_base_currency"
+    <Spinner
+        android:id="@+id/edit_trip_view_spinner_base_currency"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_below="@id/edit_trip_view_label_base_currency"
-        android:enabled="false"
-        android:inputType="text" >
-        <!-- state_enabled does not work -->
-    </EditText>
+      />
+
 
     <LinearLayout
         android:id="@+id/footer"

@@ -53,6 +53,12 @@ public class PaymentDao {
                     + " where "
                     + BaseColumns._ID + " = ?";
 
+    private static final String COUNT_PAYMENTS_IN_TRIP =
+            "select count(*) from "
+                    + PaymentTable.TABLE_NAME
+                    + " where "
+                    + PaymentColumns.TRIP_ID + " = ?";
+
     private static final String PAYMENT_TABLE_SHORTY = "p";
     private static final String REL_TABLE_SHORTY = "rel";
     private static final String TRIP_TABLE_SHORTY = "t";
@@ -86,6 +92,7 @@ public class PaymentDao {
     private final SQLiteStatement stmtDelete;
     private final SQLiteStatement stmtInsertRelation;
     private final SQLiteStatement stmtDeleteByPaymentId;
+    private final SQLiteStatement stmtCountPaymentsInTrip;
 
     public PaymentDao(SQLiteDatabase db) {
         this.db = db;
@@ -93,6 +100,7 @@ public class PaymentDao {
         stmtDelete = db.compileStatement(PaymentDao.DELETE);
         stmtInsertRelation = db.compileStatement(INSERT_RELATION);
         stmtDeleteByPaymentId = db.compileStatement(DELETE_PAYMENT_REL);
+        stmtCountPaymentsInTrip = db.compileStatement(COUNT_PAYMENTS_IN_TRIP);
     }
 
     public long create(PaymentReference type) {
@@ -164,6 +172,12 @@ public class PaymentDao {
         stmtDeleteByPaymentId.clearBindings();
         stmtDeleteByPaymentId.bindLong(1, paymentId);
         stmtDeleteByPaymentId.execute();
+    }
+
+    public int countPaymentsInTrip(long tripId) {
+        stmtCountPaymentsInTrip.clearBindings();
+        stmtCountPaymentsInTrip.bindLong(1, tripId);
+        return (int) stmtCountPaymentsInTrip.simpleQueryForLong();
     }
 
     public List<PaymentReference> getAllPaymentsInTrip(long tripId) {

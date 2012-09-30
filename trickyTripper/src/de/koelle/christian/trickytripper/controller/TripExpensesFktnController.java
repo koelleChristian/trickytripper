@@ -60,6 +60,8 @@ public interface TripExpensesFktnController {
 
     Map<Participant, Debts> getDebts();
 
+    boolean hasTripPayments(TripSummary selectedTripSummary);
+
     /* ================ Export ==================== */
     ExportSettings getDefaultExportSettings();
 

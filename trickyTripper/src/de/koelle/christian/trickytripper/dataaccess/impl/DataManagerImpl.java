@@ -24,6 +24,7 @@ import de.koelle.christian.trickytripper.dataaccess.impl.daos.TripTable;
 import de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.ParticipantReference;
 import de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.PaymentParticipantRelationKey;
 import de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.PaymentReference;
+import de.koelle.christian.trickytripper.factories.ModelFactory;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.Trip;
@@ -164,6 +165,26 @@ public class DataManagerImpl implements DataManager {
             result.add(payment);
         }
         return result;
+    }
+
+    public boolean hasTripPayments(long tripId) {
+        return (paymentDao.countPaymentsInTrip(tripId) > 0) ? true : false;
+    }
+
+    public Trip persistTripBySummary(TripSummary tripSummary) {
+        boolean isNew = (1 > tripSummary.getId());
+        Trip trip = null;
+        if (isNew) {
+            trip = ModelFactory.createTrip(tripSummary.getBaseCurrency(), tripSummary.getName());
+        }
+        else {
+            trip = loadTripById(tripSummary.getId());
+            trip.setName(tripSummary.getName());
+            trip.setBaseCurrency(tripSummary.getBaseCurrency());
+        }
+
+        Trip persistedTrip = persistTrip(trip);
+        return persistedTrip;
     }
 
     public Trip persistTrip(Trip trip) {

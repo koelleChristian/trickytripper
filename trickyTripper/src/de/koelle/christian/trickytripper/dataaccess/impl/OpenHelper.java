@@ -3,11 +3,14 @@ package de.koelle.christian.trickytripper.dataaccess.impl;
 import java.util.Currency;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import de.koelle.christian.trickytripper.R;
+import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.ParticipantTable;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.PaymentTable;
@@ -76,9 +79,12 @@ public class OpenHelper extends SQLiteOpenHelper {
 
         /* ====== Initial records ====== */
         TripDao tripDao = new TripDao(db);
-        Currency baseCurrency = Currency.getInstance("EUR");
+        Resources resources = context.getResources();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Rc.PREFS_NAME_ID, Rc.PREFS_MODE);
+        Currency baseCurrency = PrefWritrerReaderUtils.loadDefaultCurrency(
+                sharedPreferences, resources);
         Trip initialTrip = ModelFactory.createTrip(baseCurrency,
-                context.getResources().getString(R.string.initial_data_trip_name));
+                resources.getString(R.string.initial_data_trip_name));
         tripDao.create(initialTrip);
 
     }

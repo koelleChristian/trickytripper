@@ -34,6 +34,7 @@
     <string name="participant_options_view_fktn_create_traveller">Erstellen</string>
     <string name="fktn_glob_help_info">Hilfe &amp; Info</string>
     <string name="fktn_glob_export">Export</string>
+    <string name="fktn_glob_settings">Einstellungen</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Ausgegeben:</string>
     <string name="participant_tab_row_view_label_paid">Bezahlt:</string>
@@ -188,6 +189,10 @@
     <string name="fktn_payment_list_delete_transfer">Geldtransfer löschen</string>
     <!-- ==================== Messages ====================== -->
     <string name="msg_delete_not_possible_inbalance">Der Reisende kann nicht gelöscht werden, da sein Konto nicht ausgeglichen ist.</string>
+        <!-- ==================== Preferences ====================== -->
+    <string name="prefs_view_heading_chooser_currency">Wähle Standard Währung</string>
+    <string name="prefs_view_title_currency">Standard Währung</string>    
+    <string name="prefs_view_title_enable_smart_help">Interaktive Hilfe</string>
     <!-- ==================== Context menu participant selection ====================== -->
     <string name="participant_selection_popup_traveler_selection_title">Reisende auswählen</string>
     <string name="participant_selection_popup_payer_selection_msg">Selektiere all die Reisenden, die das Geld ausgeben/ausgegeben haben und umgekehrt.</string>

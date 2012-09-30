@@ -20,6 +20,7 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
+import de.koelle.christian.common.changelog.ChangeLog;
 import de.koelle.christian.trickytripper.activities.ParticipantTabActivity;
 import de.koelle.christian.trickytripper.activities.PaymentTabActivity;
 import de.koelle.christian.trickytripper.activities.ReportTabActivity;
@@ -59,6 +60,11 @@ public class TrickyTripperActivity extends TabActivity {
         tabHost.setCurrentTab(0);
 
         updateButtonText();
+
+        ChangeLog cl = new ChangeLog(this);
+        if (cl.firstRun()) {
+            cl.getLogDialog().show();
+        }
 
     }
 

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.koelle.christian.trickytripper"
     android:installLocation="preferExternal"
-    android:versionCode="3"
-    android:versionName="1.2" >
+    android:versionCode="4"
+    android:versionName="1.2.3" >
 
     <uses-sdk android:minSdkVersion="8" />
 
@@ -65,10 +65,16 @@
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
 
+        <activity
+            android:name=".activities.PreferencesActivity"            
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+
         <provider
             android:name=".provider.TrickyTripperFileProvider"
             android:authorities="de.koelle.christian.trickytripperfileprovider" >
         </provider>
+
     </application>
 
 </manifest>

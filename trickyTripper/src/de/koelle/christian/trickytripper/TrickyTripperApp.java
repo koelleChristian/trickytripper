@@ -12,12 +12,12 @@ import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -35,6 +35,7 @@ import de.koelle.christian.trickytripper.activities.ExportActivity;
 import de.koelle.christian.trickytripper.activities.ManageTripsActivity;
 import de.koelle.christian.trickytripper.activities.MoneyTransferActivity;
 import de.koelle.christian.trickytripper.activities.PaymentEditActivity;
+import de.koelle.christian.trickytripper.activities.PreferencesActivity;
 import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rt;
@@ -64,8 +65,6 @@ import de.koelle.christian.trickytripper.ui.model.DialogState;
 
 public class TrickyTripperApp extends Application implements TripExpensesViewController, TripExpensesFktnController {
 
-    public static final String PREFS_ID_PRIVATE = "PREFS_ID_PRIVATE";
-
     private static final String TAG_FKTN = "FktnController";
 
     private Trip tripToBeEdited;
@@ -73,7 +72,6 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     private final TripReportLogic tripReportLogic = new TripReportLogic();
     private final DialogState dialogState = new DialogState();
     private final AmountFactory amountFactory = new AmountFactory();
-    private Currency defaultCurrency;
 
     private Collator defaultCollator;
 
@@ -113,15 +111,14 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     public void init() {
 
         FileUtils.deleteAllFiles(this);
-        defaultCollator = Collator.getInstance(getResources().getConfiguration().locale);
+        defaultCollator = Collator.getInstance(getLocale());
         defaultCollator.setStrength(Rc.DEFAULT_COLLATOR_STRENGTH);
 
         SharedPreferences prefs = getPrefs();
-        defaultCurrency = PrefWritrerReaderUtils.loadDefaultCurrency(prefs);
         long tripId = PrefWritrerReaderUtils.getIdOfTripLastEdited(prefs);
 
         if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
-            Log.d(Rc.LT, "init() id of last trip=" + tripId + " defaultCurrency=" + defaultCurrency);
+            Log.d(Rc.LT, "init() id of last trip=" + tripId);
         }
 
         dataManager = new DataManagerImpl(getBaseContext());
@@ -141,8 +138,12 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         initPostTripLoad();
     }
 
+    private Locale getLocale() {
+        return getResources().getConfiguration().locale;
+    }
+
     private SharedPreferences getPrefs() {
-        return getSharedPreferences(PREFS_ID_PRIVATE, Context.MODE_PRIVATE);
+        return getSharedPreferences(Rc.PREFS_NAME_ID, Rc.PREFS_MODE);
     }
 
     private void initPostTripLoad() {
@@ -177,7 +178,7 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     }
 
     public Currency getDefaultBaseCurrency() {
-        return defaultCurrency;
+        return PrefWritrerReaderUtils.loadDefaultCurrency(getPrefs(), getResources());
     }
 
     public Collator getDefaultStringCollator() {
@@ -201,6 +202,12 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
                 .isEmpty());
     }
 
+    public boolean hasTripPayments(TripSummary tripSummary) {
+        Assert.notNull(tripSummary);
+        Assert.notNull(tripSummary.getId());
+        return dataManager.hasTripPayments(tripSummary.getId());
+    }
+
     /* ========================= my interfaces ======================== */
     public void openCreatePayment(Participant p) {
         Class<? extends Activity> activity = PaymentEditActivity.class;
@@ -218,6 +225,11 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     public void openExport() {
         Class<? extends Activity> activity = ExportActivity.class;
+        startActivityWithParams(new HashMap<String, Serializable>(), activity, ViewMode.NONE);
+    }
+
+    public void openSettings() {
+        Class<? extends Activity> activity = PreferencesActivity.class;
         startActivityWithParams(new HashMap<String, Serializable>(), activity, ViewMode.NONE);
     }
 
@@ -305,16 +317,18 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     }
 
     private void logPayment(String tag, String addition, Payment newPayment) {
-        Log.d(TAG_FKTN, addition + " Cat=" + newPayment.getCategory().toString());
-        for (Entry<Participant, Amount> entry : newPayment.getParticipantToPayment().entrySet()) {
-            Log.d(tag,
-                    addition + " payment[" + " participant=" + entry.getKey().getName() + ", amount="
-                            + entry.getValue() + "]");
-        }
-        for (Entry<Participant, Amount> entry : newPayment.getParticipantToSpending().entrySet()) {
-            Log.d(tag,
-                    addition + " spending[" + " participant=" + entry.getKey().getName() + ", amount="
-                            + entry.getValue() + "]");
+        if (Log.isLoggable(tag, Log.DEBUG)) {
+            Log.d(tag, addition + " Cat=" + newPayment.getCategory().toString());
+            for (Entry<Participant, Amount> entry : newPayment.getParticipantToPayment().entrySet()) {
+                Log.d(tag,
+                        addition + " payment[" + " participant=" + entry.getKey().getName() + ", amount="
+                                + entry.getValue() + "]");
+            }
+            for (Entry<Participant, Amount> entry : newPayment.getParticipantToSpending().entrySet()) {
+                Log.d(tag,
+                        addition + " spending[" + " participant=" + entry.getKey().getName() + ", amount="
+                                + entry.getValue() + "]");
+            }
         }
 
     }
@@ -407,6 +421,7 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         else {
             trip = dataManager.loadTripById(summary.getId());
             trip.setName(summary.getName());
+            trip.setBaseCurrency(summary.getBaseCurrency());
         }
 
         dataManager.persistTrip(trip);
@@ -420,23 +435,12 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     }
 
     public boolean persistAndLoadTrip(TripSummary summary) {
-        boolean isNew = (1 > summary.getId());
 
         if (dataManager.doesTripAlreadyExist(summary.getName(), summary.getId())) {
             return false;
         }
-        Trip trip = null;
-        if (isNew) {
-            // TODO(ckoelle) Why not persisting the trip-Summary.
-            trip = ModelFactory.createTrip(defaultCurrency, summary.getName());
-        }
-        else {
-            trip = dataManager.loadTripById(summary.getId());
-            // TODO(ckoelle) This should be moved to the DataManager.
-            trip.setName(summary.getName());
-        }
-
-        tripToBeEdited = dataManager.persistTrip(trip);
+        Trip persistedTrip = dataManager.persistTripBySummary(summary);
+        tripToBeEdited = persistedTrip;
         initPostTripLoad();
 
         return true;
@@ -448,10 +452,9 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
      */
     public void persistPayment(Payment payment) {
         payment.removeBlankEntries();
-        // TODO(ckoelle) Move check to logging Method.
-        if (Log.isLoggable(TAG_FKTN, Log.DEBUG)) {
-            logPayment(TAG_FKTN, "persistPayment()", payment);
-        }
+
+        logPayment(TAG_FKTN, "persistPayment()", payment);
+
         long incomingId = payment.getId();
         boolean isNew = (1 > incomingId);
 

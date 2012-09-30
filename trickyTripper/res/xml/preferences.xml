@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="Settings" >
+        <CheckBoxPreference
+            android:key="PREFS_VALUE_ID_BASE_CURRENCY"
+            android:summary="Ticking this option enables the smart help bubbles"
+            android:title="Show smart help bubbles" />
+    </PreferenceCategory>
+
+<!--     <ListPreference -->
+<!--         android:defaultValue="@string/pref_syncConnectionTypes_default" -->
+<!--         android:dialogTitle="@string/pref_syncConnectionType" -->
+<!--         android:entries="@array/pref_syncConnectionTypes_entries" -->
+<!--         android:entryValues="@array/pref_syncConnectionTypes_values" -->
+<!--         android:key="PREFS_VALUE_ID_BASE_CURRENCY" -->
+<!--         android:title="Your home currency" /> -->
+
+
+</PreferenceScreen>
