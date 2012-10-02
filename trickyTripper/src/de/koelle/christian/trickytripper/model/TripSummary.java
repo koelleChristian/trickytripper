@@ -7,7 +7,7 @@ public class TripSummary implements Comparable<TripSummary>, Serializable {
 
     private static final long serialVersionUID = -353980935866281846L;
     private String name;
-    private Currency baseCurrency = Currency.getInstance("EUR");
+    private Currency baseCurrency;
     private long id;
 
     public String getName() {
@@ -40,10 +40,4 @@ public class TripSummary implements Comparable<TripSummary>, Serializable {
         }
         return name.compareTo(another.getName());
     }
-
-    @Override
-    public String toString() {
-        return name + " [" + getBaseCurrency().getSymbol() + "]";
-    }
-
 }

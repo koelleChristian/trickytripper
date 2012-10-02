@@ -73,6 +73,8 @@ public interface TripExpensesFktnController {
 
     Currency getDefaultBaseCurrency();
 
+    String getCurrencySymbolOfTripLoaded();
+
     Collator getDefaultStringCollator();
 
     boolean checkIfInAssets(String assetName);

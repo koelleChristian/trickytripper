@@ -210,7 +210,7 @@ public class MoneyTransferActivity extends Activity {
             nameTextView.setText(p.getName());
             UiUtils.setFontAndStyle(this, nameTextView, !p.isActive(), android.R.style.TextAppearance_Small);
 
-            buttonCurrency.setText(getFktnController().getTripLoaded().getBaseCurrency().getSymbol());
+            buttonCurrency.setText(getFktnController().getCurrencySymbolOfTripLoaded());
 
             if (amountDue == null) {
                 buttonDueAmount.setEnabled(false);

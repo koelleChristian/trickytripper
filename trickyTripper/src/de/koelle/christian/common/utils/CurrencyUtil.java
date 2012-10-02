@@ -14,30 +14,41 @@ public class CurrencyUtil {
 
     private static String[] currencyCodes;
     private static String[] currencyFullName;
+    private static Map<Currency, String> currency2SymbolMap = new HashMap<Currency, String>();
     private static Map<Currency, String> currency2DisplayNameMap = new HashMap<Currency, String>();
     private static List<Currency> supportedCurrencies = new ArrayList<Currency>();
 
     public static String[] getSupportedCurrencyCodes(Resources resources) {
-        init(resources);
+        initIfRequired(resources);
         return currencyCodes;
     }
 
     public static String[] getSupportedCurrencyFullNames(Resources resources) {
-        init(resources);
+        initIfRequired(resources);
         return currencyFullName;
     }
 
     public static List<Currency> getSuportedCurrencies(Resources resources) {
-        init(resources);
+        initIfRequired(resources);
         return supportedCurrencies;
     }
 
     public static String getFullNameToCurrency(Resources resources, Currency currency) {
-        init(resources);
+        initIfRequired(resources);
         return currency2DisplayNameMap.get(currency);
     }
 
-    private static void init(Resources resources) {
+    public static String getSymbolToCurrency(Resources resources, Currency currency) {
+        initIfRequired(resources);
+        return currency2SymbolMap.get(currency);
+    }
+
+    public static String getSymbolToCurrency(Resources resources, Currency currency, boolean withBrackets) {
+        return (withBrackets) ? "[" + getSymbolToCurrency(resources, currency) + "]" : getSymbolToCurrency(resources,
+                currency);
+    }
+
+    private static void initIfRequired(Resources resources) {
         if (currencyCodes == null) {
             String[] currencyArray = resources.getStringArray(R.array.currencies);
 
@@ -74,6 +85,7 @@ public class CurrencyUtil {
                 currencyFullName.add(fullNameString);
                 currencyCodes.add(currencyCode);
                 currency2DisplayNameMap.put(instance, fullNameString);
+                currency2SymbolMap.put(instance, symbol);
                 supportedCurrencies.add(instance);
             }
             int size = currencyCodes.size();
@@ -84,4 +96,5 @@ public class CurrencyUtil {
         }
 
     }
+
 }

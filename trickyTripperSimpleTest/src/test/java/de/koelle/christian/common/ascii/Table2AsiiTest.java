@@ -4,8 +4,8 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTableRow;
 import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTable;
+import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTableRow;
 import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTableWrapper;
 
 public class Table2AsiiTest {

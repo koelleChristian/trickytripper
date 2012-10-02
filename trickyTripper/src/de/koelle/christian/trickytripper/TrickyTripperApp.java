@@ -30,6 +30,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import de.koelle.christian.common.io.impl.AppFileWriter;
 import de.koelle.christian.common.utils.Assert;
+import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.common.utils.FileUtils;
 import de.koelle.christian.trickytripper.activities.ExportActivity;
 import de.koelle.christian.trickytripper.activities.ManageTripsActivity;
@@ -179,6 +180,10 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     public Currency getDefaultBaseCurrency() {
         return PrefWritrerReaderUtils.loadDefaultCurrency(getPrefs(), getResources());
+    }
+
+    public String getCurrencySymbolOfTripLoaded() {
+        return CurrencyUtil.getSymbolToCurrency(getResources(), tripToBeEdited.getBaseCurrency());
     }
 
     public Collator getDefaultStringCollator() {
