@@ -91,4 +91,13 @@ public class PrefWritrerReaderUtils {
         prefsEditor.putLong(PREFS_VALUE_ID_TRIP_LAST_EDITED_ID, id);
         prefsEditor.commit();
     }
+
+    public static boolean isSmartHelpEnabled(SharedPreferences prefs, Editor prefsEditor) {
+        String key = Rc.PREFS_VALUE_ID_ENABLE_SMART_HELP;
+        if (!prefs.contains(key)) {
+            prefsEditor.putBoolean(key, true);
+            prefsEditor.commit();
+        }
+        return prefs.getBoolean(key, true);
+    }
 }

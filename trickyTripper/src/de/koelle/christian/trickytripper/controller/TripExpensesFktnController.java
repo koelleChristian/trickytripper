@@ -75,6 +75,8 @@ public interface TripExpensesFktnController {
 
     String getCurrencySymbolOfTripLoaded(boolean wrapInBrackets);
 
+    boolean isSmartHelpEnabled();
+
     Collator getDefaultStringCollator();
 
     boolean checkIfInAssets(String assetName);

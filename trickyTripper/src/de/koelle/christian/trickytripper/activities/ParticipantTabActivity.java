@@ -43,11 +43,11 @@ public class ParticipantTabActivity extends ListActivity {
     protected void onResume() {
         super.onResume();
         updateRows();
-        showToastIfNoParticipants();
+        showSmartHelp();
     }
 
-    private void showToastIfNoParticipants() {
-        if (participantRows.isEmpty()) {
+    private void showSmartHelp() {
+        if (participantRows.isEmpty() && getApp().getFktnController().isSmartHelpEnabled()) {
             Toast.makeText(getApplicationContext(),
                     getResources().getString(R.string.participant_tab_msg_no_participants_in_trip), Toast.LENGTH_LONG)
                     .show();
