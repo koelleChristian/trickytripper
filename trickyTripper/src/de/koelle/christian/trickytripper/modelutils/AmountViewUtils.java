@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 import android.content.Context;
+import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.model.Amount;
 
@@ -32,7 +33,7 @@ public class AmountViewUtils {
             StringBuilder result = new StringBuilder();
             NumberFormat nf = NumberFormat.getNumberInstance(locale);
             if (!justTheNumber) {
-                result.append(amount.getUnit().getSymbol()).append(" ");
+                result.append(CurrencyUtil.getSymbolToCurrency(null, amount.getUnit())).append(" ");
             }
             if (forceFraction || value % 1 != 0) {
                 nf.setMinimumFractionDigits(2);

@@ -318,6 +318,9 @@ public class PaymentEditActivity extends Activity {
             editText.setId(dynViewId);
             TextView textView = (TextView) row.findViewById(R.id.payment_edit_payer_row_view_output_name);
 
+            Button buttonCurrency = (Button) row.findViewById(R.id.payment_edit_payer_row_view_button_currency);
+            buttonCurrency.setText(getFktnController().getCurrencySymbolOfTripLoaded(false));
+
             UiUtils.makeProperNumberInput(editText, getLocale());
             writeAmountToEditText(a, editText);
             textView.setText(p.getName());

@@ -21,6 +21,7 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.koelle.christian.common.changelog.ChangeLog;
+import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.activities.ParticipantTabActivity;
 import de.koelle.christian.trickytripper.activities.PaymentTabActivity;
 import de.koelle.christian.trickytripper.activities.ReportTabActivity;
@@ -35,7 +36,6 @@ import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.Trip;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
-import de.koelle.christian.trickytripper.modelutils.CurrencyViewUtils;
 
 public class TrickyTripperActivity extends TabActivity {
 
@@ -256,7 +256,8 @@ public class TrickyTripperActivity extends TabActivity {
     private void updateButtonText() {
         Button button = (Button) findViewById(R.id.mainView_trip_button);
         Trip trip = getApp().getFktnController().getTripLoaded();
-        button.setText(trip.getName() + " " + CurrencyViewUtils.getCurrencySymbolInBrackets(trip.getBaseCurrency()));
+        button.setText(trip.getName() + " "
+                + CurrencyUtil.getSymbolToCurrency(getResources(), trip.getBaseCurrency(), true));
     }
 
     private TrickyTripperApp getApp() {

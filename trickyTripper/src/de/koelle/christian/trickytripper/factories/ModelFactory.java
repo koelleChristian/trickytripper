@@ -24,14 +24,6 @@ public class ModelFactory {
         return trip;
     }
 
-    // public static TripSummary createTripSummary(long id, String name) {
-    // TripSummary summary;
-    // summary = new TripSummary();
-    // summary.setId(id);
-    // summary.setName(name);
-    // return summary;
-    // }
-
     public static Trip createNewTrip(String name, Currency baseCurrency) {
         Trip result = new Trip();
         result.setName(name);

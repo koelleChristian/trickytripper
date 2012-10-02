@@ -182,8 +182,8 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         return PrefWritrerReaderUtils.loadDefaultCurrency(getPrefs(), getResources());
     }
 
-    public String getCurrencySymbolOfTripLoaded() {
-        return CurrencyUtil.getSymbolToCurrency(getResources(), tripToBeEdited.getBaseCurrency());
+    public String getCurrencySymbolOfTripLoaded(boolean wrapInBrackets) {
+        return CurrencyUtil.getSymbolToCurrency(getResources(), tripToBeEdited.getBaseCurrency(), wrapInBrackets);
     }
 
     public Collator getDefaultStringCollator() {

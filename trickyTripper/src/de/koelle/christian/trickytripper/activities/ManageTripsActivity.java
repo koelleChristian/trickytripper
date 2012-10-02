@@ -36,6 +36,7 @@ import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
 import de.koelle.christian.trickytripper.model.TripSummary;
+import de.koelle.christian.trickytripper.model.modelAdapter.TripSummarySymbolResolvingDelegator;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
 
@@ -105,10 +106,12 @@ public class ManageTripsActivity extends Activity {
     private void initListView(ListView listView, TrickyTripperApp app) {
 
         arrayAdapterTripSummary = new ArrayAdapter<TripSummary>(ManageTripsActivity.this,
-                android.R.layout.simple_list_item_1, app.getFktnController().getAllTrips());
+                android.R.layout.simple_list_item_1, new ArrayList<TripSummary>());
 
         listView.setAdapter(arrayAdapterTripSummary);
         listView.setChoiceMode(ListView.CHOICE_MODE_NONE);
+
+        updateList(app.getFktnController().getAllTrips());
         arrayAdapterTripSummary.sort(comparator);
     }
 
@@ -219,7 +222,7 @@ public class ManageTripsActivity extends Activity {
     void updateList(List<TripSummary> currentList) {
         arrayAdapterTripSummary.clear();
         for (TripSummary summary : currentList) {
-            arrayAdapterTripSummary.add(summary);
+            arrayAdapterTripSummary.add(new TripSummarySymbolResolvingDelegator(summary, getResources()));
         }
         arrayAdapterTripSummary.sort(comparator);
         listView.invalidateViews();

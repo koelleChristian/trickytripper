@@ -73,7 +73,7 @@ public interface TripExpensesFktnController {
 
     Currency getDefaultBaseCurrency();
 
-    String getCurrencySymbolOfTripLoaded();
+    String getCurrencySymbolOfTripLoaded(boolean wrapInBrackets);
 
     Collator getDefaultStringCollator();
 

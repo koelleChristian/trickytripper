@@ -8,10 +8,12 @@ import de.koelle.christian.trickytripper.model.TripSummary;
 
 public class TripSummarySymbolResolvingDelegator extends TripSummary {
 
+    private static final long serialVersionUID = -5240274280785431424L;
+
     private final TripSummary nested;
     private final Resources resources;
 
-    private TripSummarySymbolResolvingDelegator(TripSummary nested, Resources resources) {
+    public TripSummarySymbolResolvingDelegator(TripSummary nested, Resources resources) {
         super();
         this.nested = nested;
         this.resources = resources;
@@ -54,6 +56,6 @@ public class TripSummarySymbolResolvingDelegator extends TripSummary {
 
     @Override
     public String toString() {
-        return nested.getName() + CurrencyUtil.getSymbolToCurrency(resources, nested.getBaseCurrency(), true);
+        return nested.getName() + " " + CurrencyUtil.getSymbolToCurrency(resources, nested.getBaseCurrency(), true);
     }
 }
