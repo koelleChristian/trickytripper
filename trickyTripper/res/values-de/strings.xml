@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Not to be translated -->
     <string name="app_name">Tricky Tripper</string>
     <string name="spinner_null_value_default"></string>
     <string name="symbol_arrow_down">∨</string>
@@ -200,5 +199,10 @@
     <string name="participant_selection_popup_traveler_divide_amount">Auf die Auswahl verteilen: </string>
     <!-- ==================== Initial data ====================== -->
     <string name="initial_data_trip_name">Meine erste Reise</string>
+    <!-- ==================== Change Log ======================== -->
+    <string name="changelog_full_title">Änderungshistorie</string>
+    <string name="changelog_title">Was ist neu</string>
+    <string name="changelog_ok_button">OK</string>
+    <string name="changelog_show_full">mehr…</string>
 
 </resources>

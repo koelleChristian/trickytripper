@@ -11,7 +11,6 @@ import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.model.Trip;
-import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.modelutils.CurrencyViewUtils;
 
 public class TransferTableExporter {
@@ -52,10 +51,9 @@ public class TransferTableExporter {
                 resultBuilder.append(charResolver.translateValue(payment.getParticipantToPayment().entrySet()
                         .iterator().next().getKey().getName()));
                 resultBuilder.append(charResolver.getColumnDelimiter(StyleClass.NUMERIC_VALUE));
-                resultBuilder.append(AmountViewUtils.getAmountString(locale, payment.getParticipantToSpending()
+                resultBuilder.append(TableExporterUtils.getAmount(locale, payment.getParticipantToSpending()
                         .entrySet()
-                        .iterator().next().getValue(), true,
-                        true, true, false, true));
+                        .iterator().next().getValue()));
                 resultBuilder.append(charResolver.getRowEndDelimiter());
 
             }

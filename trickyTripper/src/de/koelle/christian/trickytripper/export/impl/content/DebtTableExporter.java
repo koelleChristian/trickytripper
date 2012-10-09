@@ -12,7 +12,6 @@ import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Debts;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Trip;
-import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.modelutils.CurrencyViewUtils;
 
 public class DebtTableExporter {
@@ -50,8 +49,7 @@ public class DebtTableExporter {
                         resultBuilder.append(charResolver.getColumnDelimiter());
                         resultBuilder.append(charResolver.translateValue(debt.getKey().getName()));
                         resultBuilder.append(charResolver.getColumnDelimiter(StyleClass.NUMERIC_VALUE));
-                        resultBuilder.append(AmountViewUtils.getAmountString(locale, debt.getValue(), true,
-                                true, true, false, true));
+                        resultBuilder.append(TableExporterUtils.getAmount(locale, debt.getValue()));
                         resultBuilder.append(charResolver.getRowEndDelimiter());
                     }
                 }

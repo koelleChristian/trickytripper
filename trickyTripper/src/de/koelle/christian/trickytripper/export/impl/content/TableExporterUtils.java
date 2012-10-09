@@ -13,7 +13,7 @@ public class TableExporterUtils {
 
     public static String getAmount(Locale locale, Amount amount) {
         return AmountViewUtils.getAmountString(locale, (amount != null) ? amount : new Amount(),
-                true, /* Just the numer */
+                true, /* Just the number */
                 false, /* blank if zero */
                 false, /* blank if null */
                 true, /* force fraction */

@@ -1,42 +1,50 @@
 <html>
   <head>
     <style type='text/css'>
-      a            { color:#a0a0e0 }
-      div.title    { 
-          color:#C0F0C0; 
+      a                { 
+          color:purple; 
+          font-style:italic; }
+      div.title              { 
+          color:purple; 
+          font-weight:bold;
           font-size:1.2em; 
           font-weight:bold; 
           margin-top:1em; 
           margin-bottom:0.5em; 
           text-align:center }
-      div.subtitle { 
-          color:#C0F0C0; 
+      div.subtitle      { 
+          color:purple; 
+          font-weight:bold;
           font-size:0.8em; 
           margin-bottom:1em; 
           text-align:center }
-      div.freetext { color:#F0F0F0 }
-      div.list     { color:#C0C0F0 }
+      .appinternal          { 
+          font-style:italic; }
+      .app                 {
+          color:purple; 
+          font-weight:bold;}
     </style>
   </head>  
   <body>
   
 $ 1.2.3
 % Version 1.2.3
-  _ 2012-09-17  
-* 'What's New' dialog added.
-* Preference dialog added.
-* New feature to select your trip's base currency.
-* Define your default currency in preferences.
-* Switch smart help on/off via preferences.       
-       
+  _ 2012-10-10  
+* <span class="appinternal">Chang Log</span> is shown after installation.
+* <span class="appinternal">What's New</span> is shown on update.  
+* <span class="appinternal">Settings</span> dialog has been added.
+* Define your default currency (via <span class="appinternal">Settings</span> dialog).
+* Switch smart help on/off (via <span class="appinternal">Settings</span> dialog).    
+* You can select your trip's base currency.
+
 $ 1.2.2
 % Version 1.2.2
-  _ 2012-xx-XX
-* Bugfix for an error occurring during export execution when language was not 'DE'
+  _ 2012-06-22
+* Bugfix for an error occurring during export execution when language was not German.
 
 $ 1.2.1
 % Version 1.2.1
-  _ 2012-01-01
+  _ 2012-06-19
 * Export feature added.
 
 $ END_OF_CHANGE_LOG

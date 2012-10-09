@@ -1,43 +1,51 @@
 <html>
   <head>
     <style type='text/css'>
-      a            { color:#a0a0e0 }
-      div.title    { 
-          color:#C0F0C0; 
+       a                { 
+          color:purple; 
+          font-style:italic; }
+      div.title              { 
+          color:purple; 
+          font-weight:bold;
           font-size:1.2em; 
           font-weight:bold; 
           margin-top:1em; 
           margin-bottom:0.5em; 
           text-align:center }
-      div.subtitle { 
-          color:#C0F0C0; 
+      div.subtitle      { 
+          color:purple; 
+          font-weight:bold;
           font-size:0.8em; 
           margin-bottom:1em; 
           text-align:center }
-      div.freetext { color:#F0F0F0 }
-      div.list     { color:#C0C0F0 }
+      .appinternal          { 
+          font-style:italic; }
+      .app                 {
+          color:purple; 
+          font-weight:bold;}
     </style>
   </head>  
-  <body>
+  <body>   
   
 $ 1.2.3
 % Version 1.2.3
-  _ 2012-09-17  
-* 'What's New' dialog added.
-* Preference dialog added.
-* New feature to select your trip's base currency.
-* Define your default currency in preferences.
-* Switch smart help on/off via preferences.       
+  _ 10.10.2012  
+* <span class="appinternal">Änderungshistorie</span> wird nach Installation angezeigt.
+* <span class="appinternal">Was ist neu</span> wird nach Update angezeigt.
+* Der Dialog <span class="appinternal">Einstellungen</span> wurde hinzugefügt.
+* Die Standardwährung kannst Du jetzt einstellen (über den <span class="appinternal">Einstellungen</span>-Dialog).
+* Die <span class="appinternal">Interaktive Hilfe</span> kann an- und ausgeschaltet werden (über den <span class="appinternal">Einstellungen</span>-Dialog).  
+* Bei Reisen ist die Währung jetzt einstellbar.
        
 $ 1.2.2
 % Version 1.2.2
-  _ 2012-xx-XX
-* Bugfix for an error occurring during export execution when language was not 'DE'
+  _ 22.06.2012
+* Fehler behoben: Export funktionierte nur mit deutscher Spracheinstellung des Telefons.
 
 $ 1.2.1
 % Version 1.2.1
-  _ 2012-01-01
-* Export feature added.
+  _ 19.06.2012
+* Exportfunktion hinzugefügt.
 
 $ END_OF_CHANGE_LOG
   </body>

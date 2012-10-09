@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.webkit.WebView;
@@ -58,7 +59,7 @@ public class ChangeLog {
      * @param sp
      *            the shared preferences to store the last version name into
      */
-    public ChangeLog(Context context, SharedPreferences sp) {
+    public ChangeLog(Context context, final SharedPreferences sp) {
         this.context = context;
 
         // get version numbers
@@ -75,10 +76,19 @@ public class ChangeLog {
         }
         Log.d(TAG, "appVersion: " + this.thisVersion);
 
-        // save new version number to preferences
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString(VERSION_KEY, this.thisVersion);
-        editor.commit();
+        int DELAY = 5000;
+        final String thisFinalVersion = thisVersion;
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            public void run() {
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString(VERSION_KEY, thisFinalVersion);
+                editor.commit();
+            }
+        }, DELAY);
+
     }
 
     /**
@@ -135,8 +145,12 @@ public class ChangeLog {
 
     private AlertDialog getDialog(boolean full) {
         WebView wv = new WebView(this.context);
-        wv.setBackgroundColor(0); // transparent
-        // wv.getSettings().setDefaultTextEncodingName("utf-8");
+        // wv.setBackgroundColor(0); // transparent
+
+        if (!full) {
+            full = this.firstRunEver();
+        }
+
         wv.loadDataWithBaseURL(null, this.getLog(full), "text/html", "UTF-8", null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this.context);

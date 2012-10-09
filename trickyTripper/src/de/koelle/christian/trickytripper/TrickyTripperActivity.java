@@ -61,9 +61,9 @@ public class TrickyTripperActivity extends TabActivity {
 
         updateButtonText();
 
-        ChangeLog cl = new ChangeLog(this);
-        if (cl.firstRun()) {
-            cl.getLogDialog().show();
+        ChangeLog changeLog = new ChangeLog(this);
+        if (changeLog.firstRun()) {
+            changeLog.getLogDialog().show();
         }
 
     }

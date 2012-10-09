@@ -22,12 +22,20 @@ public class UiUtils {
     public static void makeProperNumberInput(final EditText editText, final Locale locale) {
         editText.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
         editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        char decimalSeparator = new
-                DecimalFormatSymbols(locale).getDecimalSeparator();
+        char decimalSeparator = determineDecimalSeparator(locale);
         editText.setFilters(new InputFilter[] { new DecimalDigitsInputFilter(2, decimalSeparator) });
         StringBuilder pattern = new StringBuilder("0123456789");
         pattern.append(decimalSeparator);
         editText.setKeyListener(DigitsKeyListener.getInstance(pattern.toString()));
+    }
+
+    private static char determineDecimalSeparator(final Locale locale) {
+        char decimalSeparator = new
+                DecimalFormatSymbols(locale).getDecimalSeparator();
+        if (!(decimalSeparator == ',' || decimalSeparator == '.')) {
+            decimalSeparator = '.';
+        }
+        return decimalSeparator;
     }
 
     public static TextView setLabelAndValueOnTextView(View result, int viewId, Object label, Object value) {

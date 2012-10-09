@@ -180,11 +180,9 @@ public final class R {
         public static final int activity_label_participants=0x7f08000d;
         public static final int activity_label_payments=0x7f08000f;
         public static final int activity_label_report=0x7f08000e;
-        /**  Not to be translated 
- Not to be translated 
-         */
         public static final int app_name=0x7f080000;
         /**  ==================== Change Log ======================== 
+ ==================== Change Log ======================== 
          */
         public static final int changelog_full_title=0x7f0800b3;
         public static final int changelog_ok_button=0x7f0800b5;

@@ -28,6 +28,7 @@ import android.content.res.Resources;
 import android.os.Environment;
 import android.util.Log;
 import android.util.TypedValue;
+import de.koelle.christian.common.changelog.ChangeLog;
 import de.koelle.christian.common.io.impl.AppFileWriter;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.common.utils.CurrencyUtil;
@@ -187,7 +188,8 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     }
 
     public boolean isSmartHelpEnabled() {
-        return PrefWritrerReaderUtils.isSmartHelpEnabled(getPrefs(), getEditingPrefsEditor());
+        return PrefWritrerReaderUtils.isSmartHelpEnabled(getPrefs(), getEditingPrefsEditor())
+                && !(new ChangeLog(this).firstRun());
     }
 
     public Collator getDefaultStringCollator() {
