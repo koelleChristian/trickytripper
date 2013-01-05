@@ -2,6 +2,7 @@ package de.koelle.christian.common.ascii;
 
 import java.util.Random;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTable;
@@ -10,6 +11,7 @@ import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTableWrappe
 
 public class Table2AsiiTest {
 
+    @Ignore("This is a manual test, which outputs the table on system.out. It can be enabled on demand.")
     @Test
     public void testAsciiTableOutput() {
         ReportAsciTableWrapper report = new ReportAsciTableWrapper();

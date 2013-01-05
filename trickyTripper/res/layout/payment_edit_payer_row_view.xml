@@ -4,9 +4,7 @@
     <Button
         android:id="@+id/payment_edit_payer_row_view_button_currency"
         android:layout_column="0"
-        android:gravity="center"
-        android:onClick="notPartOfThisRelease"
-        android:text="€"
+        android:gravity="center"        
         android:width="50dp" />
 
     <EditText

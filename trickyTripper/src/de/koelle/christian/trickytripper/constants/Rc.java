@@ -28,6 +28,15 @@ public class Rc {
     public static final String ACTIVITY_PARAM_VIEW_MODE_EDIT_MODE = "edit";
     public static final String ACTIVITY_PARAM_VIEW_MODE_CREATE_MODE = "create";
 
+    public static final String ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_VALUE = "activityParamCurrencyCalcInValue";
+    public static final String ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_RESULT_CURRENCY = "activityParamCurrencyCalcInResultCurrency";
+    public static final String ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_RESULT_VIEW_ID = "activityParamCurrencyCalcInResultViewId";
+    public static final String ACTIVITY_PARAM_CURRENCY_CALCULATOR_OUT_VIEW_ID = "activityParamCurrencyCalcOutViewId";
+    public static final String ACTIVITY_PARAM_CURRENCY_CALCULATOR_OUT_AMOUNT = "activityParamCurrencyCalcOutAmount";
+    public static final int ACTIVITY_PARAM_CURRENCY_CALCULATOR_REQUEST_CODE = 532147439;
+
+    public static final String ACTIVITY_PARAM_IMPORT_EXCHANGE_RATES_IN_CURRENCY_LIST = "activityParamImportExchangeRatesInCurrencyList";
+
     public static final int DIALOG_SHOW_HELP = 100;
 
     public static final int DEFAULT_COLLATOR_STRENGTH = Collator.TERTIARY;

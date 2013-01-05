@@ -33,7 +33,9 @@ import de.koelle.christian.common.io.impl.AppFileWriter;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.common.utils.FileUtils;
+import de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity;
 import de.koelle.christian.trickytripper.activities.ExportActivity;
+import de.koelle.christian.trickytripper.activities.ImportExchangeRatesActivity;
 import de.koelle.christian.trickytripper.activities.ManageTripsActivity;
 import de.koelle.christian.trickytripper.activities.MoneyTransferActivity;
 import de.koelle.christian.trickytripper.activities.PaymentEditActivity;
@@ -42,6 +44,7 @@ import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rt;
 import de.koelle.christian.trickytripper.constants.ViewMode;
+import de.koelle.christian.trickytripper.controller.ExchangeRateService;
 import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
 import de.koelle.christian.trickytripper.controller.TripExpensesViewController;
 import de.koelle.christian.trickytripper.dataaccess.DataManager;
@@ -54,8 +57,11 @@ import de.koelle.christian.trickytripper.factories.AmountFactory;
 import de.koelle.christian.trickytripper.factories.ModelFactory;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Debts;
+import de.koelle.christian.trickytripper.model.ExchangeRate;
+import de.koelle.christian.trickytripper.model.ExchangeRateResult;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
+import de.koelle.christian.trickytripper.model.ImportOrigin;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
@@ -65,7 +71,8 @@ import de.koelle.christian.trickytripper.strategies.SumReport;
 import de.koelle.christian.trickytripper.strategies.TripReportLogic;
 import de.koelle.christian.trickytripper.ui.model.DialogState;
 
-public class TrickyTripperApp extends Application implements TripExpensesViewController, TripExpensesFktnController {
+public class TrickyTripperApp extends Application implements TripExpensesViewController, TripExpensesFktnController,
+        ExchangeRateService {
 
     private static final String TAG_FKTN = "FktnController";
 
@@ -234,6 +241,19 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         startActivityWithParams(extras, activity, ViewMode.NONE);
     }
 
+    public void openImportExchangeRates(Currency... currencies) {
+        Class<? extends Activity> activity = ImportExchangeRatesActivity.class;
+        HashMap<String, Serializable> extras = new HashMap<String, Serializable>();
+        if (currencies != null && currencies.length > 0) {
+            ArrayList<Currency> currencyList = new ArrayList<Currency>();
+            for (Currency cur : currencies) {
+                currencyList.add(cur);
+            }
+            extras.put(Rc.ACTIVITY_PARAM_IMPORT_EXCHANGE_RATES_IN_CURRENCY_LIST, currencyList);
+        }
+        startActivityWithParams(extras, activity, ViewMode.NONE);
+    }
+
     public void openExport() {
         Class<? extends Activity> activity = ExportActivity.class;
         startActivityWithParams(new HashMap<String, Serializable>(), activity, ViewMode.NONE);
@@ -248,6 +268,15 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         Class<? extends Activity> activity = ManageTripsActivity.class;
         Map<String, Serializable> extras = new HashMap<String, Serializable>();
         startActivityWithParams(extras, activity, ViewMode.CREATE);
+    }
+
+    public void openMoneyCalculatorView(Amount amount, int resultViewId, Activity caller) {
+        Class<? extends Activity> activity = CurrencyCalculatorActivity.class;
+        Map<String, Serializable> extras = new HashMap<String, Serializable>();
+        extras.put(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_VALUE, amount.getValue());
+        extras.put(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_RESULT_VIEW_ID, resultViewId);
+        startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
+                Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_REQUEST_CODE, caller);
     }
 
     public void openEditPayment(Payment p) {
@@ -306,6 +335,10 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     }
 
     public TripExpensesFktnController getFktnController() {
+        return this;
+    }
+
+    public ExchangeRateService getExchangeRateService() {
         return this;
     }
 
@@ -395,6 +428,20 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         }
         return result;
 
+    }
+
+    private void startActivityWithParamsForResult(Map<String, Serializable> extras, Class<? extends Activity> activity,
+            ViewMode viewMode, int requestCode, Activity caller) {
+        Intent intent = new Intent().setClass(this, activity);
+
+        /* No flag like new task for 'forResult' */
+        for (Entry<String, Serializable> extra : extras.entrySet()) {
+            intent.putExtra(extra.getKey(), extra.getValue());
+        }
+        if (viewMode != null) {
+            intent.putExtra(Rc.ACTIVITY_PARAM_KEY_VIEW_MODE, viewMode);
+        }
+        caller.startActivityForResult(intent, requestCode);
     }
 
     private void startActivityWithParams(Map<String, Serializable> extras, Class<? extends Activity> activity,
@@ -558,6 +605,116 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
                 new ResourceResolverImpl(this.getResources()), new ActivityResolverImpl(activity),
                 getAmountFactory());
 
+    }
+
+    /* =======================Exchange Rate Service ================ */
+    private final List<ExchangeRate> exchangeRateMockResult = new ArrayList<ExchangeRate>();
+
+    public ExchangeRateResult findSuitableRates(Currency currencyFrom, Currency currencyTo) {
+        if (exchangeRateMockResult.isEmpty()) {
+            ExchangeRate rate;
+
+            rate = new ExchangeRate();
+            rate.setCurrencyFrom(currencyFrom);
+            rate.setCurrencyTo(currencyTo);
+            rate.setDescription("Rate 01");
+            rate.setExchangeRate(Double.valueOf(1.2));
+            rate.setId(1);
+            rate.setImportOrigin(ImportOrigin.NONE);
+            rate.setUpdateDate(new Date());
+            exchangeRateMockResult.add(rate);
+
+            rate = new ExchangeRate();
+            rate.setCurrencyFrom(currencyFrom);
+            rate.setCurrencyTo(currencyTo);
+            rate.setDescription("Rate 02");
+            rate.setExchangeRate(Double.valueOf(1.5));
+            rate.setId(2);
+            rate.setImportOrigin(ImportOrigin.NONE);
+            rate.setUpdateDate(new Date());
+            exchangeRateMockResult.add(rate);
+        }
+        else {
+            int size = exchangeRateMockResult.size() + 1;
+            ExchangeRate rate;
+
+            rate = new ExchangeRate();
+            rate.setCurrencyFrom(currencyFrom);
+            rate.setCurrencyTo(currencyTo);
+            rate.setDescription("Rate 0" + size);
+            rate.setExchangeRate(Double.valueOf("1." + size));
+            rate.setId(size);
+            rate.setImportOrigin(ImportOrigin.NONE);
+            rate.setUpdateDate(new Date());
+            exchangeRateMockResult.add(rate);
+        }
+
+        return new ExchangeRateResult(exchangeRateMockResult, exchangeRateMockResult.get(0));
+    }
+
+    public List<ExchangeRate> getAllExchangeRates() {
+        List<ExchangeRate> result = new ArrayList<ExchangeRate>();
+
+        Currency cTry = Currency.getInstance("TRY");
+        Currency cUsd = Currency.getInstance("USD");
+        Currency cEur = Currency.getInstance("EUR");
+
+        findSuitableRates(cUsd, cEur);
+
+        result.addAll(exchangeRateMockResult);
+
+        ExchangeRate rate;
+
+        rate = new ExchangeRate();
+        rate.setCurrencyFrom(cTry);
+        rate.setCurrencyTo(cUsd);
+        rate.setDescription("Google Import");
+        rate.setExchangeRate(Double.valueOf(0.9532));
+        rate.setId(50);
+        rate.setImportOrigin(ImportOrigin.GOOGLE);
+        rate.setUpdateDate(new Date());
+        result.add(rate);
+
+        rate = new ExchangeRate();
+        rate.setCurrencyFrom(cTry);
+        rate.setCurrencyTo(cEur);
+        rate.setDescription("Google Import");
+        rate.setExchangeRate(Double.valueOf(0.7585));
+        rate.setId(51);
+        rate.setImportOrigin(ImportOrigin.GOOGLE);
+        rate.setUpdateDate(new Date());
+        result.add(rate);
+        return result;
+    }
+
+    public void persistExchangeRates(List<ExchangeRate> rates) {
+        for (ExchangeRate rate : rates) {
+            System.out.println(rate);
+        }
+
+    }
+
+    public boolean persistExchangeRate(ExchangeRate rate) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public void saveExchangeRate(ExchangeRate exchangeRate) {
+        exchangeRate.setId(exchangeRateMockResult.size() + 1);
+        exchangeRateMockResult.add(exchangeRate);
+    }
+
+    public ExchangeRate importExchangeRate(Currency currrencyFrom, Currency currencyTo) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Currency getSourceCurrencyUsedLast() {
+        return Currency.getInstance("TRY");
+    }
+
+    public boolean isOnline() {
+        return false;
     }
 
     /* ======================= getter/setter ======================= */

@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,6 +32,7 @@ import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorActivitySupport;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rx;
@@ -107,6 +109,11 @@ public class MoneyTransferActivity extends Activity {
             dialog = null;
         }
         super.onPrepareDialog(id, dialog, args);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        CurrencyCalculatorActivitySupport.onActivityResult(requestCode, resultCode, data, this, getLocale());
     }
 
     private void initView(Participant transferer, List<Participant> allParticipants, Debts debtsOfTransferer) {
@@ -211,6 +218,7 @@ public class MoneyTransferActivity extends Activity {
             UiUtils.setFontAndStyle(this, nameTextView, !p.isActive(), android.R.style.TextAppearance_Small);
 
             buttonCurrency.setText(getFktnController().getCurrencySymbolOfTripLoaded(false));
+            bindCurrencyCalculatorAction(buttonCurrency, inputValueModel, dynViewId);
 
             if (amountDue == null) {
                 buttonDueAmount.setEnabled(false);
@@ -230,6 +238,16 @@ public class MoneyTransferActivity extends Activity {
         }
         updateSum();
         updateSaveButtonState();
+    }
+
+    private void bindCurrencyCalculatorAction(final Button buttonCurrency, final Amount sourceAndTargetAmountReference,
+            final int viewIdForResult) {
+        buttonCurrency.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getApp().getViewController().openMoneyCalculatorView(sourceAndTargetAmountReference, viewIdForResult,
+                        MoneyTransferActivity.this);
+            }
+        });
     }
 
     private void bindPaymentInputAndUpdate(final EditText widget, final Amount amount) {

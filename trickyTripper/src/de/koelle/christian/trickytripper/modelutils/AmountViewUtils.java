@@ -24,24 +24,44 @@ public class AmountViewUtils {
     public static final String getAmountString(Locale locale, Amount amount, boolean justTheNumber,
             boolean blankIfZero, boolean blankIfNull, boolean forceFraction, boolean stripOffSign) {
         if (amount != null) {
-            Double value = (stripOffSign) ? Math.abs(amount.getValue()) : amount.getValue();
-
-            if (blankIfZero && value.equals(Double.valueOf(0))) {
-                return "";
-            }
 
             StringBuilder result = new StringBuilder();
-            NumberFormat nf = NumberFormat.getNumberInstance(locale);
             if (!justTheNumber) {
                 result.append(CurrencyUtil.getSymbolToCurrency(null, amount.getUnit())).append(" ");
             }
-            if (forceFraction || value % 1 != 0) {
-                nf.setMinimumFractionDigits(2);
-            }
-            result.append(nf.format(value));
-            return result.toString();
+            return getDoubleString(locale, amount.getValue(), blankIfZero, blankIfNull, forceFraction, stripOffSign,
+                    result);
         }
         return (blankIfNull) ? "" : null;
+    }
+
+    public static String getDoubleString(Locale locale, Double value, boolean blankIfZero, boolean blankIfNull,
+            boolean forceFraction,
+            boolean stripOffSign) {
+        return getDoubleString(locale, value, blankIfZero, blankIfNull, forceFraction, stripOffSign,
+                new StringBuilder());
+    }
+
+    private static String getDoubleString(Locale locale, Double value, boolean blankIfZero, boolean blankIfNull,
+            boolean forceFraction,
+            boolean stripOffSign, StringBuilder result) {
+        if (value == null) {
+            return (blankIfNull) ? "" : null;
+        }
+        Double valueInternal = (stripOffSign) ? Math.abs(value) : value;
+
+        if (blankIfZero && valueInternal.equals(Double.valueOf(0))) {
+            return "";
+        }
+        NumberFormat nf = NumberFormat.getNumberInstance(locale);
+
+        if (forceFraction || valueInternal % 1 != 0) {
+            nf.setMinimumFractionDigits(2);
+        }
+        String numberFormat = nf.format(valueInternal);
+
+        result.append(numberFormat);
+        return result.toString();
     }
 
     public static final String getAmountString(Locale locale, Amount amount, boolean justTheNumber,

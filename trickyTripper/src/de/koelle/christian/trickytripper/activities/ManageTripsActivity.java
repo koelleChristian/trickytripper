@@ -31,6 +31,7 @@ import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.ButtonSupport;
+import de.koelle.christian.trickytripper.activitysupport.CurrencyViewSupport;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
@@ -38,7 +39,6 @@ import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
 import de.koelle.christian.trickytripper.model.TripSummary;
 import de.koelle.christian.trickytripper.model.modelAdapter.TripSummarySymbolResolvingDelegator;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
-import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
 
 public class ManageTripsActivity extends Activity {
 
@@ -68,7 +68,6 @@ public class ManageTripsActivity extends Activity {
         setContentView(R.layout.manage_trips_view);
 
         TrickyTripperApp app = getApp();
-
         final Collator c = app.getFktnController().getDefaultStringCollator();
         comparator = new Comparator<TripSummary>() {
             public int compare(TripSummary object1, TripSummary object2) {
@@ -304,7 +303,8 @@ public class ManageTripsActivity extends Activity {
         EditText editTextTripName = (EditText) viewInf.findViewById(R.id.edit_trip_view_editText_tripName);
         Spinner spinner = (Spinner) viewInf.findViewById(R.id.edit_trip_view_spinner_base_currency);
 
-        List<RowObject> spinnerObjects = wrapCurrenciesInRowObject(CurrencyUtil.getSuportedCurrencies(getResources()));
+        List<RowObject> spinnerObjects = CurrencyViewSupport.wrapCurrenciesInRowObject(CurrencyUtil
+                .getSuportedCurrencies(getResources()), getResources());
 
         ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this, android.R.layout.simple_spinner_item,
                 spinnerObjects);
@@ -324,20 +324,6 @@ public class ManageTripsActivity extends Activity {
                 ManageTripsActivity.this);
 
         return dialog;
-    }
-
-    @SuppressWarnings("rawtypes")
-    private List<RowObject> wrapCurrenciesInRowObject(List<Currency> supportedCurrencies) {
-        List<RowObject> result = new ArrayList<RowObject>();
-
-        for (final Currency c : supportedCurrencies) {
-            result.add(new RowObject<Currency>(new RowObjectCallback<Currency>() {
-                public String getStringToDisplay(Currency c) {
-                    return CurrencyUtil.getFullNameToCurrency(getResources(), c);
-                }
-            }, c));
-        }
-        return result;
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })

@@ -11,6 +11,8 @@ import de.koelle.christian.trickytripper.activitysupport.DivisionResult;
 
 public class NumberUtils {
 
+    private static final int DEFAULT_SCALE = 2;
+
     public static Double neg(Double value) {
         if (value == null) {
             return null;
@@ -75,6 +77,14 @@ public class NumberUtils {
     }
 
     public static Double divide(Double divident, Double divisor) {
+        return divide(divident, divisor, DEFAULT_SCALE);
+    }
+
+    public static Double divideForExchangeRates(Double divident, Double divisor) {
+        return divide(divident, divisor, divisor.toString().length() - 2);
+    }
+
+    public static Double divide(Double divident, Double divisor, int defaultScale) {
         if (divident == null) {
             return null;
         }
@@ -83,10 +93,10 @@ public class NumberUtils {
         }
         BigDecimal result = null;
         BigDecimal dividentBd = new BigDecimal(divident, MathContext.DECIMAL128);
-        dividentBd.setScale(2, RoundingMode.HALF_EVEN);
+        dividentBd.setScale(defaultScale, RoundingMode.HALF_EVEN);
         BigDecimal divisorBd = new BigDecimal(divisor, MathContext.DECIMAL128);
-        divisorBd.setScale(2, RoundingMode.HALF_EVEN);
-        result = dividentBd.divide(divisorBd, 2, RoundingMode.HALF_EVEN);
+        divisorBd.setScale(defaultScale, RoundingMode.HALF_EVEN);
+        result = dividentBd.divide(divisorBd, defaultScale, RoundingMode.HALF_EVEN);
         return Double.valueOf(result.toString());
     }
 

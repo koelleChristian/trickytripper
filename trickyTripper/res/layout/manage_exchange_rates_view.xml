@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/manageExchangeRatesViewHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/manageExchangeRatesViewTextViewHeading"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="15dp" />
+
+    <!-- This scolling shit only scales properly in conjunction with linear layout. -->
+
+    <ListView
+        android:id="@+id/manageExchangeRatesViewListViewRates"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/footer"
+        style="@android:style/ButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/manageTripsView_button_create_new_tripxxxx"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="importExchangeRates"
+            android:text="xxxx" />
+    </LinearLayout>
+
+</LinearLayout>

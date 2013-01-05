@@ -5,7 +5,7 @@ public enum ImportOrigin {
     /***/
     NONE,
     /***/
-    YAHOO,
+    GOOGLE,
     /**/
     ;
 

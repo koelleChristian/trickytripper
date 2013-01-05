@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+
+    <item
+        android:id="@+id/currency_calc_option_import_exchange_rates"
+        android:icon="@android:drawable/stat_sys_download"
+        android:title="@string/option_currency_calc_import"/>
+
+    <item
+        android:id="@+id/general_options_help"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="@string/fktn_glob_help_info"/>
+
+</menu>

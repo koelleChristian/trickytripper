@@ -7,7 +7,7 @@ import java.util.Locale;
 public class ExporterFileNameUtils {
 
     public static StringBuilder clean(String input) {
-        return toCamelCase(filter(new StringBuilder(input)), " ");
+        return toCamelCase(filterSpecialChars(new StringBuilder(input)), " ");
     }
 
     public static String getTimeStamp(Locale locale) {
@@ -32,14 +32,14 @@ public class ExporterFileNameUtils {
         return sb;
     }
 
-    public static StringBuilder filter(StringBuilder str) {
+    public static StringBuilder filterSpecialChars(StringBuilder str) {
         StringBuilder filtered = new StringBuilder(str.length());
         for (int i = 0; i < str.length(); i++) {
             char current = str.charAt(i);
-            if ((current >= 0x30 && current <= 0x39)
-                    || (current >= 0x41 && current <= 0x5A)
+            if ((current >= 0x30 && current <= 0x39) // 0-9
+                    || (current >= 0x41 && current <= 0x5A) // A-Z
                     || (current == 0x20) // Space
-                    || (current >= 0x61 && current <= 0x7A)) {
+                    || (current >= 0x61 && current <= 0x7A)) { // a-z
                 filtered.append(current);
             }
         }

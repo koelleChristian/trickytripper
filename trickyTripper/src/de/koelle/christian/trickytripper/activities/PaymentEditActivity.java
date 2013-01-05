@@ -19,6 +19,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnShowListener;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
@@ -54,6 +55,7 @@ import de.koelle.christian.common.utils.StringUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorActivitySupport;
 import de.koelle.christian.trickytripper.activitysupport.DivisionResult;
 import de.koelle.christian.trickytripper.activitysupport.MathUtils;
 import de.koelle.christian.trickytripper.activitysupport.PaymentEditActivityState;
@@ -71,6 +73,7 @@ import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
+import de.koelle.christian.trickytripper.ui.utils.AmoutViewUtils;
 
 public class PaymentEditActivity extends Activity {
 
@@ -243,6 +246,11 @@ public class PaymentEditActivity extends Activity {
         super.onPrepareDialog(id, dialog, args);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        CurrencyCalculatorActivitySupport.onActivityResult(requestCode, resultCode, data, this, getLocale());
+    }
+
     private void updateParticipantSelectionDialog(Dialog dialog, Bundle args) {
         ListView listView = (ListView) dialog.findViewById(R.id.payment_edit_selection_dialog_list_view);
         CheckBox checkbox = (CheckBox) dialog.findViewById(R.id.payment_edit_selection_dialog_checkbox);
@@ -301,7 +309,7 @@ public class PaymentEditActivity extends Activity {
 
         TableRow row;
         Participant p;
-        Amount a;
+        Amount amount;
 
         int dynViewId = (isPayment) ? Rx.DYN_ID_PAYMENT_EDIT_PAYER : Rx.DYN_ID_PAYMENT_EDIT_DEBITED_TO;
 
@@ -312,7 +320,7 @@ public class PaymentEditActivity extends Activity {
             }
 
             row = (TableRow) inflate(R.layout.payment_edit_payer_row_view);
-            a = amountMap.get(p);
+            amount = amountMap.get(p);
 
             EditText editText = (EditText) row.findViewById(R.id.payment_edit_payer_row_view_input_amount);
             editText.setId(dynViewId);
@@ -322,10 +330,11 @@ public class PaymentEditActivity extends Activity {
             buttonCurrency.setText(getFktnController().getCurrencySymbolOfTripLoaded(false));
 
             UiUtils.makeProperNumberInput(editText, getLocale());
-            writeAmountToEditText(a, editText);
+            AmoutViewUtils.writeAmountToEditText(amount, editText, getLocale());
             textView.setText(p.getName());
 
-            bindAmountInput(editText, a, isPayment);
+            bindAmountInput(editText, amount, isPayment);
+            bindCurrencyCalculatorAction(buttonCurrency, amount, editText.getId());
 
             widgetMap.put(p, editText);
             previousRows.add(row);
@@ -337,9 +346,20 @@ public class PaymentEditActivity extends Activity {
         }
     }
 
-    private void writeAmountToEditText(Amount amount, EditText editText) {
-        editText.setText(AmountViewUtils.getAmountString(getLocale(), amount, true, true, true, false, true));
+    private void bindCurrencyCalculatorAction(final Button buttonCurrency, final Amount sourceAndTargetAmountReference,
+            final int viewIdForResult) {
+        buttonCurrency.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getApp().getViewController().openMoneyCalculatorView(sourceAndTargetAmountReference, viewIdForResult,
+                        PaymentEditActivity.this);
+            }
+        });
     }
+
+    // private void writeAmountToEditText(Amount amount, EditText editText) {
+    // editText.setText(AmountViewUtils.getAmountString(getLocale(), amount,
+    // true, true, true, false, true));
+    // }
 
     private void removePreviouslyCreatedRows(TableLayout tableLayout, List<View> payerRows2) {
         for (View v : payerRows2) {
@@ -355,6 +375,8 @@ public class PaymentEditActivity extends Activity {
 
     /**
      * View method.
+     * 
+     * TODO(ckoelle) Remove?
      * 
      * @param view
      *            Required parameter.
@@ -516,7 +538,7 @@ public class PaymentEditActivity extends Activity {
             Participant p = participantsWithBlanks.get(i);
             EditText editText =
                     amountDebitorParticipantToWidget.get(p);
-            writeAmountToEditText(getAmountFac().createAmount(valueToBeUsed), editText);
+            AmoutViewUtils.writeAmountToEditText(getAmountFac().createAmount(valueToBeUsed), editText, getLocale());
             payment.getParticipantToSpending().get(p).setValue(valueToBeUsed);
 
         }
@@ -585,6 +607,8 @@ public class PaymentEditActivity extends Activity {
     private Dialog createParticipantSelectionPopup(List<Participant> participants, int idParticipantSelectorTitle,
             int idParticipantSelectorMessage, final boolean isPayment) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // sss
 
         final ListView participantSelectionListView = new ListView(PaymentEditActivity.this);
         final LinearLayout layout = new LinearLayout(PaymentEditActivity.this);

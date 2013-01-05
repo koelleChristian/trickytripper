@@ -3,6 +3,8 @@ package de.koelle.christian.trickytripper.model;
 import java.util.Currency;
 import java.util.Date;
 
+import de.koelle.christian.common.utils.NumberUtils;
+
 public class ExchangeRate {
 
     private long id;
@@ -12,6 +14,7 @@ public class ExchangeRate {
     private String description;
     private Date updateDate;
     private ImportOrigin importOrigin;
+    private boolean inversion;
 
     public long getId() {
         return id;
@@ -69,4 +72,40 @@ public class ExchangeRate {
         this.exchangeRate = exchangeRate;
     }
 
+    @Override
+    public String toString() {
+        return "ExchangeRate [id=" + id + ", currencyFrom=" + currencyFrom + ", currencyTo=" + currencyTo
+                + ", exchangeRate=" + exchangeRate + ", description=" + description + ", updateDate=" + updateDate
+                + ", importOrigin=" + importOrigin + "]";
+    }
+
+    public String getSortString() {
+        return currencyFrom.getCurrencyCode() + currencyTo.getCurrencyCode();
+    }
+
+    public Double getInvertedExchangeRate() {
+
+        return (exchangeRate == null) ? null : NumberUtils.divideForExchangeRates(Double.valueOf(1.0), exchangeRate);
+    }
+
+    public boolean isInversion() {
+        return inversion;
+    }
+
+    public void setInversion(boolean inversion) {
+        this.inversion = inversion;
+    }
+
+    public ExchangeRate cloneToInversion() {
+        ExchangeRate result = new ExchangeRate();
+        result.setCurrencyFrom(getCurrencyTo());
+        result.setCurrencyTo(getCurrencyFrom());
+        result.setDescription(getDescription());
+        result.setExchangeRate(getInvertedExchangeRate());
+        result.setId(id);
+        result.setImportOrigin(getImportOrigin());
+        result.setUpdateDate(getUpdateDate());
+        result.setInversion(!isInversion());
+        return result;
+    }
 }

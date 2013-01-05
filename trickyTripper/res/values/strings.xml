@@ -34,10 +34,27 @@
     <string name="fktn_glob_help_info">Help &amp; Info</string>
     <string name="fktn_glob_export">Export</string>
     <string name="fktn_glob_settings">Settings</string>
+    <string name="option_currency_calc_import">Import exchange rates</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Spent:</string>
     <string name="participant_tab_row_view_label_paid">Paid:</string>
     <string name="participant_tab_msg_no_participants_in_trip">Long-tap on the traveler tab to create new travelers. Afterwards you can long-tap on the created traveler to create a payment.</string>
+    <!-- ===============================  Currency calculator view =============================== -->
+    <string name="currencyCalculatorViewTextViewHeading">Money Exchange Calculation</string>
+    <string name="currencyCalculatorViewTextViewLabelSource">Source</string>
+    <string name="currencyCalculatorViewTextViewLabelTarget">Result</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRate">Exchange rate</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Exchange rate setting</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelOptions">Options</string>
+    <string name="currencyCalculatorViewCheckboxSaveNewRate">Save newly entered exchange rate</string>
+    <string name="currencyCalculatorViewImageViewDescription">Indicates the exchange calculation direction</string>
+    <string name="currencyCalculatorViewButtonUseResult">Use result</string>
+    <!-- ===============================  Manage exchange rates view =============================== -->
+    <string name="manageExchangeRatesViewTextViewHeading">Exchange Rate Management</string>
+    <!-- ===============================  Import exchange rates view =============================== -->
+    <string name="importExchangeRatesViewTextViewHeading">Import Exchange Rates</string>
+    <string name="importExchangeRatesViewCheckboxLabelReplaceExisting">Replace rates already imported</string>
+    <string name="importExchangeRatesViewListViewLabel">Select all exchange relevant currencies</string>
     <!-- ===============================  export view =============================== -->
     <string name="exportViewTextViewHeading">Export</string>
     <string name="exportViewTextViewSubHeadingContent">What?</string>
@@ -57,21 +74,21 @@
     <string name="exportViewIntentChooserHeader">Choose service to export to</string>
     <string name="exportViewTextViewSubHeadingChannel">Output trail?</string>
     <string name="exportViewSpinnerPromptChannel">Choose your output trail</string>
-    <string name="exportViewSpinnerNotAvailable">not available</string> 
+    <string name="exportViewSpinnerNotAvailable">not available</string>
     <string name="exportOutputChannelEnumSave2Sd">Save to SD card</string>
     <string name="exportOutputChannelMail">Mail</string>
     <string name="exportOutputChannelDropbox">Dropbox</string>
-    <string name="exportOutputChannelEvernote">Evernote</string>    
+    <string name="exportOutputChannelEvernote">Evernote</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Save to storage</string>
     <string name="save2SdReceiverHeading">Export: Choose directory</string>
     <string name="save2SdReceiverSelect">Choose</string>
-    <string name="save2SdReceiverProgressHeading">Saving export to storage:</string>    
-    <string name="save2SdReceiverResultNothingSaved">Nothing exported to telephone</string>     
+    <string name="save2SdReceiverProgressHeading">Saving export to storage:</string>
+    <string name="save2SdReceiverResultNothingSaved">Nothing exported to telephone</string>
     <string name="save2SdReceiverResultSavedPrefix">Successfully exported</string>
-    <string name="save2SdReceiverResultSavedPostfix">to storage</string>     
-    <string name="save2SdReceiverResultSavedFiles">files</string>     
-    <string name="save2SdReceiverResultSavedFile">file</string>        
+    <string name="save2SdReceiverResultSavedPostfix">to storage</string>
+    <string name="save2SdReceiverResultSavedFiles">files</string>
+    <string name="save2SdReceiverResultSavedFile">file</string>
     <!-- ===============================  file export =============================== -->
     <string name="fileExportPrefix">TTE</string>
     <string name="fileExportFileHeading">Tricky Tripper Report</string>
@@ -104,7 +121,7 @@
     <string name="fileExportOwingDebtsHeadingAmount">the amount</string>
     <string name="fileExportTransferHeadingPayer">Traveler</string>
     <string name="fileExportTransferHeadingReceiver">transfered to</string>
-    <string name="fileExportTransferHeadingAmount">the amount of</string>        
+    <string name="fileExportTransferHeadingAmount">the amount of</string>
     <!-- ===============================  Report view =============================== -->
     <string name="report_view_subheading_spendings_by_category">Spending by category</string>
     <string name="report_view_subheading_spendings">Expenditure</string>
@@ -189,9 +206,10 @@
     <!-- ==================== Messages ====================== -->
     <string name="msg_delete_not_possible_inbalance">The user cannot be deleted as his/her account is not balanced.</string>
     <!-- ==================== Preferences ====================== -->
+    <string name="prefs_view_title_exchange_rate_management">Exchange Rate Management</string>
     <string name="prefs_view_heading_chooser_currency">Choose your default currency</string>
-    <string name="prefs_view_title_currency">Default currency</string>
-    <string name="prefs_view_title_enable_smart_help">Enable smart help</string>    
+    <string name="prefs_view_title_currency">Default Currency</string>
+    <string name="prefs_view_title_enable_smart_help">Enable Smart Help</string>
     <!-- ==================== Context menu participant selection ====================== -->
     <string name="participant_selection_popup_traveler_selection_title">Select travelers</string>
     <string name="participant_selection_popup_payer_selection_msg">Select all travelers who spend/spent the money and vice versa</string>

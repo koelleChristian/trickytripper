@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:id="@+id/manageExchangeRateRowView_upperLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/manageExchangeRateRowView_output_from"
+            style="@style/LargeFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left" />
+
+        <TextView
+            android:id="@+id/manageExchangeRateRowView_output_direction_indicator"
+            style="@style/LargeFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/manageExchangeRateRowView_output_to"
+            style="@style/LargeFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left" />
+
+        <TextView
+            android:id="@+id/manageExchangeRateRowView_output_main_rate"
+            style="@style/LargeFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="right" />
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/manageExchangeRateRowView_upperLayout" >
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/manageExchangeRateRowView_label_spent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/manageExchangeRateRowView_output_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:paddingLeft="10dp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/manageExchangeRateRowView_label_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="Date: " />
+
+            <TextView
+                android:id="@+id/manageExchangeRateRowView_output_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:paddingLeft="10dp"
+                android:text="17.11.1976" />
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>

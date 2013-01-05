@@ -7,10 +7,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class MiscUtils {
 
+    @Ignore("This is a manual test, intended to investigate aspects of sorting.")
     @Test
     public void testSorting() {
         final Collator collatorSingle = Collator.getInstance(Locale.GERMAN);
@@ -34,7 +36,7 @@ public class MiscUtils {
                 "Christian Koelle A",
                 "Christian Koelle B",
                 "Christian Koelle c",
-                "Christian Kölle",
+                "Christian KÃ¶lle",
                 "Christian Koalle",
                 "Christian Koolle",
                 "Christian Z"
@@ -44,18 +46,21 @@ public class MiscUtils {
         List<String> strings3 = Arrays.asList(input);
 
         Collections.sort(strings1, new Comparator<String>() {
+            @Override
             public int compare(String o1, String o2) {
                 return collatorSingle.compare(o1, o2);
             }
         });
 
         Collections.sort(strings2, new Comparator<String>() {
+            @Override
             public int compare(String o1, String o2) {
                 return collatorDuo.compare(o1, o2);
             }
 
         });
         Collections.sort(strings3, new Comparator<String>() {
+            @Override
             public int compare(String o1, String o2) {
                 return collatorTriple.compare(o1, o2);
             }

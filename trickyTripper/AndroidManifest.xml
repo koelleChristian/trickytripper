@@ -7,6 +7,7 @@
 
     <uses-sdk android:minSdkVersion="8" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -64,9 +65,20 @@
             android:label="@string/save2SdReceiverLabel"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
-
         <activity
-            android:name=".activities.PreferencesActivity"            
+            android:name=".activities.PreferencesActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".activities.ManageExchangeRatesActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".activities.ImportExchangeRatesActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>        
+        <activity
+            android:name=".activities.CurrencyCalculatorActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
 
@@ -74,7 +86,6 @@
             android:name=".provider.TrickyTripperFileProvider"
             android:authorities="de.koelle.christian.trickytripperfileprovider" >
         </provider>
-
     </application>
 
 </manifest>

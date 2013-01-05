@@ -6,7 +6,6 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.trickytripper.activitysupport.DivisionResult;
 
 public class NumberUtilsTest {
@@ -49,6 +48,23 @@ public class NumberUtilsTest {
         Assert.assertEquals(13.33d, NumberUtils.divide(40.00d, 3d));
         Assert.assertEquals(13.35d, NumberUtils.divide(40.05d, 3d));
         Assert.assertEquals(13.35d, NumberUtils.divide(40.06d, 3d));
+    }
+
+    @Test
+    public void testDivisionForExchangeRates() {
+        Assert.assertEquals(0.7585d, NumberUtils.divideForExchangeRates(1d, 1.3184d));
+        Assert.assertEquals(1.3184d, NumberUtils.divideForExchangeRates(1d, 0.7585d));
+        Assert.assertEquals(0.99991802d, NumberUtils.divideForExchangeRates(1d, 1.00008199d));
+        Assert.assertEquals(1.00008199d, NumberUtils.divideForExchangeRates(1d, 0.99991802d));
+        Assert.assertEquals(0.00005873d, NumberUtils.divideForExchangeRates(1d, 17026.2708d));
+        Assert.assertEquals(17027.073046d, NumberUtils.divideForExchangeRates(1d, 0.00005873d));
+    }
+
+    @Test
+    public void testDivisionForExchangeRatesFreaky() {
+        Assert.assertEquals(1d, NumberUtils.divideForExchangeRates(1d, 1d));
+        // Assert.assertEquals(1.3184d, NumberUtils.divideForExchangeRates(1d,
+        // 0d));
     }
 
     public void testRoundingDivisionDoubleInt() {
