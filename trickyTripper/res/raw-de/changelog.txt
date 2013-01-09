@@ -25,7 +25,12 @@
           font-weight:bold;}
     </style>
   </head>  
-  <body>   
+  <body> 
+
+$ 1.2.4
+% Version 1.2.4
+  _ 2013-01-10  
+* Bugfix: Nachkommastellen konnten auf einigen Telefonen nicht editiert werden (bspw. HTC Desire Bravo, Samsung Galaxy S3, Samsung Galaxy 9000). Ursache: Inkonsistente Eingabe-Keyboards.  
   
 $ 1.2.3
 % Version 1.2.3

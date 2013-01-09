@@ -26,6 +26,11 @@
     </style>
   </head>  
   <body>
+
+$ 1.2.4
+% Version 1.2.4
+  _ 2013-01-10  
+* Bugfix: Decimal place could not be edited on some phones due to inconsistent softkeyboard implementations, e.g. HTC Desire Bravo, Samsung Galaxy S3, Samsung Galaxy 9000.
   
 $ 1.2.3
 % Version 1.2.3
