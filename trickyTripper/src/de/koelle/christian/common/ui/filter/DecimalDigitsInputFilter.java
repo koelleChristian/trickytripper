@@ -1,9 +1,7 @@
 package de.koelle.christian.common.ui.filter;
 
 import android.text.InputFilter;
-import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.util.Log;
 import de.koelle.christian.trickytripper.constants.Rc;
 
@@ -38,6 +36,14 @@ public class DecimalDigitsInputFilter implements InputFilter {
 
     }
 
+    private StringBuilder createPotentialResult(CharSequence source, int sourceStart, int sourceEnd,
+            Spanned destination, int destinationStart, int destinationEnd) {
+        return new StringBuilder()
+                .append(destination.subSequence(0, destinationStart))
+                .append(source.subSequence(sourceStart, sourceEnd))
+                .append(destination.subSequence(destinationEnd, destination.length()));
+    }
+
     private void logPotentialResult(StringBuilder potentialResult) {
         if (Log.isLoggable(Rc.LT_INPUT, Log.DEBUG)) {
             Log.d(Rc.LT_INPUT,
@@ -62,38 +68,5 @@ public class DecimalDigitsInputFilter implements InputFilter {
                     + " dend=" + dend);
         }
     }
-    
-            String textToCheck = destination.subSequence(0, destinationStart).  
-            toString() + source.subSequence(sourceStart, sourceEnd) +  
-            destination.subSequence(  
-            destinationEnd, destination.length()).toString(); 
 
-    private StringBuilder createPotentialResult(CharSequence source, int start, int end, Spanned dest, int dstart,
-            int dend) {
-        StringBuilder potentialResult = new StringBuilder();
-        for (int i = 0; i < dest.length(); i++) {
-            if (i >= dstart && i <= dend) {
-                potentialResult.append(source.subSequence(start, end));
-            }
-            else {
-                potentialResult.append(dest.charAt(i));
-            }
-        }
-        if (dstart > dest.length() - 1) {
-            potentialResult.append(source.subSequence(start, end));
-        }
-        SpannableString sp = new SpannableString(s);
-        TextUtils.copySpansFrom((Spanned) source,
-                start, end, null, sp, 0);
-
-        return potentialResult;
-    }
-    
-   private StringBuilder createPotentialResult(CharSequence source, int start, int end, Spanned dest, int dstart,int dend) {
-            String potentialResult = destination.subSequence(0, destinationStart).  
-            toString() + source.subSequence(sourceStart, sourceEnd) +  
-            destination.subSequence(  
-            destinationEnd, destination.length()).toString(); 
-            return potentialResultﬂ
-    }
 }

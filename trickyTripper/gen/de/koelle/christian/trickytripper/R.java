@@ -425,7 +425,6 @@ public final class R {
         public static final int SmallFont=0x7f090000;
     }
     public static final class xml {
-        public static final int num=0x7f040000;
-        public static final int preferences=0x7f040001;
+        public static final int preferences=0x7f040000;
     }
 }
