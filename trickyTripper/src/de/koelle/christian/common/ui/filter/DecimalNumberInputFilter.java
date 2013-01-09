@@ -9,14 +9,14 @@ import de.koelle.christian.trickytripper.constants.Rc;
  * Input filter that accepts input only in case that matches with the provided
  * matcher.
  */
-public class DecimalDigitsInputFilter implements InputFilter {
+public class DecimalNumberInputFilter implements InputFilter {
 
     private final DecimalNumberInputPatternMatcher amountInputPatternMatcher;
 
     /**
      * Constructor.
      */
-    public DecimalDigitsInputFilter(DecimalNumberInputPatternMatcher amountInputPatternMatcher) {
+    public DecimalNumberInputFilter(DecimalNumberInputPatternMatcher amountInputPatternMatcher) {
         this.amountInputPatternMatcher = amountInputPatternMatcher;
     }
 

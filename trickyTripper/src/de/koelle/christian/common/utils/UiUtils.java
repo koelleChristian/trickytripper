@@ -11,7 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import de.koelle.christian.common.ui.filter.DecimalDigitsInputFilter;
+import de.koelle.christian.common.ui.filter.DecimalNumberInputFilter;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputPatternMatcher;
 
 public class UiUtils {
@@ -20,7 +20,7 @@ public class UiUtils {
             DecimalNumberInputPatternMatcher amountInputPatternMatcher) {
         editText.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
         editText.setInputType(InputType.TYPE_CLASS_PHONE | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        editText.setFilters(new InputFilter[] { new DecimalDigitsInputFilter(amountInputPatternMatcher) });
+        editText.setFilters(new InputFilter[] { new DecimalNumberInputFilter(amountInputPatternMatcher) });
     }
 
     public static TextView setLabelAndValueOnTextView(View result, int viewId, Object label, Object value) {
