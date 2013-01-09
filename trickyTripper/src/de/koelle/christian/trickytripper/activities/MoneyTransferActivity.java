@@ -27,6 +27,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
@@ -204,7 +205,7 @@ public class MoneyTransferActivity extends Activity {
             buttonDueAmount = (Button) newRow.findViewById(R.id.money_transfer_list_view_button_due_amount);
             buttonCurrency = (Button) newRow.findViewById(R.id.money_transfer_list_view_button_currency);
 
-            UiUtils.makeProperNumberInput(editText, getLocale());
+            UiUtils.makeProperNumberInput(editText, getDecimalNumberInputUtil().getInputPatternMatcher());
             editText.setId(dynViewId);
             tableLayout.addView(newRow, i + offset);
             nameTextView.setText(p.getName());
@@ -242,7 +243,8 @@ public class MoneyTransferActivity extends Activity {
             }
 
             public void afterTextChanged(Editable s) {
-                amount.setValue(NumberUtils.getStringToDouble(getLocale(), s.toString()));
+                String widgetInput = getDecimalNumberInputUtil().fixInputString(s.toString());
+                amount.setValue(NumberUtils.getStringToDouble(getLocale(), widgetInput));
                 MoneyTransferActivity.this.updateSum();
                 MoneyTransferActivity.this.updateSaveButtonState();
             }
@@ -313,6 +315,10 @@ public class MoneyTransferActivity extends Activity {
     private TrickyTripperApp getApp() {
         TrickyTripperApp app = ((TrickyTripperApp) getApplication());
         return app;
+    }
+
+    private DecimalNumberInputUtil getDecimalNumberInputUtil() {
+        return getApp().getFktnController().getDecimalNumberInputUtil();
     }
 
     private Locale getLocale() {

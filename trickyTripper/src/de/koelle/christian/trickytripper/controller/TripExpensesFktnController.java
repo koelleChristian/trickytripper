@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.trickytripper.model.Debts;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
@@ -78,6 +79,8 @@ public interface TripExpensesFktnController {
     boolean isSmartHelpEnabled();
 
     Collator getDefaultStringCollator();
+
+    DecimalNumberInputUtil getDecimalNumberInputUtil();
 
     boolean checkIfInAssets(String assetName);
 

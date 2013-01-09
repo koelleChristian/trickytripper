@@ -30,6 +30,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import de.koelle.christian.common.changelog.ChangeLog;
 import de.koelle.christian.common.io.impl.AppFileWriter;
+import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.common.utils.FileUtils;
@@ -76,6 +77,7 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     private final AmountFactory amountFactory = new AmountFactory();
 
     private Collator defaultCollator;
+    private DecimalNumberInputUtil decimalNumberInputUtil;
 
     List<String> allAssetsList = null;
 
@@ -115,6 +117,8 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         FileUtils.deleteAllFiles(this);
         defaultCollator = Collator.getInstance(getLocale());
         defaultCollator.setStrength(Rc.DEFAULT_COLLATOR_STRENGTH);
+
+        decimalNumberInputUtil = new DecimalNumberInputUtil(getLocale());
 
         SharedPreferences prefs = getPrefs();
         long tripId = PrefWritrerReaderUtils.getIdOfTripLastEdited(prefs);
@@ -194,6 +198,10 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     public Collator getDefaultStringCollator() {
         return defaultCollator;
+    }
+
+    public DecimalNumberInputUtil getDecimalNumberInputUtil() {
+        return decimalNumberInputUtil;
     }
 
     public boolean checkIfInAssets(String assetName) {

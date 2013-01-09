@@ -1,31 +1,58 @@
 package de.koelle.christian.common.ui.filter;
 
 import android.text.InputFilter;
+import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.util.Log;
 import de.koelle.christian.trickytripper.constants.Rc;
 
 /**
- * Input filter that limits the number of decimal digits that are allowed to be
- * entered.
+ * Input filter that accepts input only in case that matches with the provided
+ * matcher.
  */
 public class DecimalDigitsInputFilter implements InputFilter {
 
-    private final int decimalDigits;
-    private final char decimalDelimiter;
+    private final DecimalNumberInputPatternMatcher amountInputPatternMatcher;
 
     /**
      * Constructor.
-     * 
-     * @param decimalDigits
-     *            maximum decimal digits
      */
-    public DecimalDigitsInputFilter(int decimalDigits, char decimalDelimiter) {
-        this.decimalDigits = decimalDigits;
-        this.decimalDelimiter = decimalDelimiter;
+    public DecimalDigitsInputFilter(DecimalNumberInputPatternMatcher amountInputPatternMatcher) {
+        this.amountInputPatternMatcher = amountInputPatternMatcher;
     }
 
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+
+        logStart(source, start, end, dest, dstart, dend);
+
+        StringBuilder potentialResult = createPotentialResult(source, start, end, dest, dstart, dend);
+
+        logPotentialResult(potentialResult);
+
+        boolean resultAccepted = amountInputPatternMatcher.matches(potentialResult.toString());
+
+        logResult(resultAccepted);
+
+        return resultAccepted ? null : "";
+
+    }
+
+    private void logPotentialResult(StringBuilder potentialResult) {
+        if (Log.isLoggable(Rc.LT_INPUT, Log.DEBUG)) {
+            Log.d(Rc.LT_INPUT,
+                    "potentialResult=" + potentialResult.toString()
+                    );
+        }
+    }
+
+    private void logResult(boolean resultAccepted) {
+        if (Log.isLoggable(Rc.LT_INPUT, Log.DEBUG)) {
+            Log.d(Rc.LT_INPUT, "resultAccepted=" + resultAccepted);
+        }
+    }
+
+    private void logStart(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         if (Log.isLoggable(Rc.LT_INPUT, Log.DEBUG)) {
             Log.d(Rc.LT_INPUT, "source=" + source
                     + " start=" + start
@@ -34,16 +61,15 @@ public class DecimalDigitsInputFilter implements InputFilter {
                     + " dstart=" + dstart
                     + " dend=" + dend);
         }
+    }
+    
+            String textToCheck = destination.subSequence(0, destinationStart).  
+            toString() + source.subSequence(sourceStart, sourceEnd) +  
+            destination.subSequence(  
+            destinationEnd, destination.length()).toString(); 
 
-        int delimiterPositionPre = -1;
-        int lengthPre = dest.length();
-        for (int i = 0; i < lengthPre; i++) {
-            char c = dest.charAt(i);
-            if (c == decimalDelimiter) {
-                delimiterPositionPre = i;
-                break;
-            }
-        }
+    private StringBuilder createPotentialResult(CharSequence source, int start, int end, Spanned dest, int dstart,
+            int dend) {
         StringBuilder potentialResult = new StringBuilder();
         for (int i = 0; i < dest.length(); i++) {
             if (i >= dstart && i <= dend) {
@@ -56,38 +82,18 @@ public class DecimalDigitsInputFilter implements InputFilter {
         if (dstart > dest.length() - 1) {
             potentialResult.append(source.subSequence(start, end));
         }
-        if (Log.isLoggable(Rc.LT_INPUT, Log.DEBUG)) {
-            Log.d(Rc.LT_INPUT,
-                    "potentialResult=" + potentialResult.toString()
-                    );
-        }
+        SpannableString sp = new SpannableString(s);
+        TextUtils.copySpansFrom((Spanned) source,
+                start, end, null, sp, 0);
 
-        if (potentialResult.length() > 12) {
-            return "";
-        }
-
-        int countDelimiter = 0;
-        for (int i = 0; i < potentialResult.length(); i++) {
-            char c = potentialResult.charAt(i);
-            if (c == decimalDelimiter) {
-                countDelimiter++;
-            }
-        }
-
-        if (countDelimiter > 1) {
-            return "";
-        }
-
-        if (delimiterPositionPre >= 0) {
-            // if the text is entered before the dot
-            if (dend <= delimiterPositionPre) {
-                return null;
-            }
-            if (lengthPre - delimiterPositionPre > decimalDigits) {
-                return "";
-            }
-        }
-
-        return null;
+        return potentialResult;
+    }
+    
+   private StringBuilder createPotentialResult(CharSequence source, int start, int end, Spanned dest, int dstart,int dend) {
+            String potentialResult = destination.subSequence(0, destinationStart).  
+            toString() + source.subSequence(sourceStart, sourceEnd) +  
+            destination.subSequence(  
+            destinationEnd, destination.length()).toString(); 
+            return potentialResultﬂ
     }
 }

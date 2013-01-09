@@ -20,10 +20,13 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnShowListener;
 import android.content.res.Resources;
+import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,6 +51,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.common.utils.ObjectUtils;
 import de.koelle.christian.common.utils.StringUtils;
@@ -154,6 +158,7 @@ public class PaymentEditActivity extends Activity {
 
         buildDebitorInput();
         buildPaymentInput();
+
 
         setVisibilitySpendingTable(!divideEqually);
     }
@@ -321,7 +326,7 @@ public class PaymentEditActivity extends Activity {
             Button buttonCurrency = (Button) row.findViewById(R.id.payment_edit_payer_row_view_button_currency);
             buttonCurrency.setText(getFktnController().getCurrencySymbolOfTripLoaded(false));
 
-            UiUtils.makeProperNumberInput(editText, getLocale());
+            UiUtils.makeProperNumberInput(editText, getDecimalNumberInputUtil().getInputPatternMatcher());
             writeAmountToEditText(a, editText);
             textView.setText(p.getName());
 
@@ -761,7 +766,8 @@ public class PaymentEditActivity extends Activity {
             }
 
             public void afterTextChanged(Editable s) {
-                Double valueInput = NumberUtils.getStringToDouble(getLocale(), s.toString());
+                String widgetInput = getDecimalNumberInputUtil().fixInputString(s.toString());
+                Double valueInput = NumberUtils.getStringToDouble(getLocale(), widgetInput);
                 if (!isPayment) {
                     valueInput = NumberUtils.neg(valueInput);
                 }
@@ -895,6 +901,10 @@ public class PaymentEditActivity extends Activity {
         return locale;
     }
 
+    private DecimalNumberInputUtil getDecimalNumberInputUtil() {
+        return getApp().getFktnController().getDecimalNumberInputUtil();
+    }
+
     private AmountFactory getAmountFac() {
         return getApp().getAmountFactory();
     }
@@ -902,4 +912,5 @@ public class PaymentEditActivity extends Activity {
     private TripExpensesFktnController getFktnController() {
         return getApp().getFktnController();
     }
+
 }

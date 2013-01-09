@@ -1,8 +1,5 @@
 package de.koelle.christian.common.utils;
 
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -10,32 +7,20 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.text.method.DigitsKeyListener;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import de.koelle.christian.common.ui.filter.DecimalDigitsInputFilter;
+import de.koelle.christian.common.ui.filter.DecimalNumberInputPatternMatcher;
 
 public class UiUtils {
 
-    public static void makeProperNumberInput(final EditText editText, final Locale locale) {
+    public static void makeProperNumberInput(final EditText editText,
+            DecimalNumberInputPatternMatcher amountInputPatternMatcher) {
         editText.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
-        editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        char decimalSeparator = determineDecimalSeparator(locale);
-        editText.setFilters(new InputFilter[] { new DecimalDigitsInputFilter(2, decimalSeparator) });
-        StringBuilder pattern = new StringBuilder("0123456789");
-        pattern.append(decimalSeparator);
-        editText.setKeyListener(DigitsKeyListener.getInstance(pattern.toString()));
-    }
-
-    private static char determineDecimalSeparator(final Locale locale) {
-        char decimalSeparator = new
-                DecimalFormatSymbols(locale).getDecimalSeparator();
-        if (!(decimalSeparator == ',' || decimalSeparator == '.')) {
-            decimalSeparator = '.';
-        }
-        return decimalSeparator;
+        editText.setInputType(InputType.TYPE_CLASS_PHONE | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        editText.setFilters(new InputFilter[] { new DecimalDigitsInputFilter(amountInputPatternMatcher) });
     }
 
     public static TextView setLabelAndValueOnTextView(View result, int viewId, Object label, Object value) {
