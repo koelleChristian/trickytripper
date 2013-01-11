@@ -6,16 +6,16 @@ import java.util.regex.Pattern;
  * <p>
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++
  * </p>
- * The original version of this class has been provided by Heiner Kücker via his
+ * The original version of this class has been provided by Heiner Kï¿½cker via his
  * homepage: <a href=" http://www.heinerkuecker.de/AsciTable.html">
  * http://www.heinerkuecker.de/AsciTable.html</a>
  * <p/>
  * 
  * 
  * The homepage gave the following licence statement (08.06.2012):<blockquote>
- * <q>Die Programme, Quelltexte und Dokumentationen können ohne irgendwelche
+ * <q>Die Programme, Quelltexte und Dokumentationen kï¿½nnen ohne irgendwelche
  * Bedingungen kostenlos verwendet werden. Sie sind Freeware und Open Source.
- * Für Fehler und Folgen wird keinerlei Haftung übernommen.</q> </blockquote>
+ * Fï¿½r Fehler und Folgen wird keinerlei Haftung ï¿½bernommen.</q> </blockquote>
  * 
  * <p>
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -23,18 +23,32 @@ import java.util.regex.Pattern;
  * Helper class to layout a given object as ascii table.
  * <p/>
  * 
- * @author Heiner Kücker
+ * @author Heiner Kï¿½cker
  */
 public class AsciToStringHelper {
+    private static final Pattern numberPattern;
 
-    private static final Pattern numberPattern = Pattern.compile("^(-)?[0-9]+((,|\\.)([0-9]){2,})?$");
+    static {
+        String patternUSA = "([0-9]{1,3}(\\.[0-9]{3})*(,([0-9]){1,})?)";
+        String patternGer = "([0-9]{1,3}(,[0-9]{3})*(\\.([0-9]){1,})?)";
+        StringBuilder builder = new StringBuilder()
+                .append("^(-)?")
+                .append("(")
+                .append(patternUSA)
+                .append("|")
+                .append(patternGer)
+                .append(")")
+                .append("$")
+        /**/;
+        numberPattern = Pattern.compile(builder.toString());
+    }
 
     public static String asciToString( // --
             final AsciTableLayoutableInterface[] pObjArr)
     {
         if (pObjArr != null)
         {
-            // nur für performance test: return "";
+            // nur fï¿½r performance test: return "";
         }
         if (pObjArr == null)
         {
@@ -94,12 +108,12 @@ public class AsciToStringHelper {
         return value instanceof String && (isNumeric2((String) value));
     }
 
-    private static boolean isNumeric2(String value) {
+    public static boolean isNumeric2(String value) {
         return value != null && numberPattern.matcher(value).matches();
     }
 
     /**
-     * Teilstring von String rechts abschneiden, wenn möglich
+     * Teilstring von String rechts abschneiden, wenn mï¿½glich
      * 
      * @param srcStr
      *            Original-String
