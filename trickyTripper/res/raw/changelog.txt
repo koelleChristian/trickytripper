@@ -26,6 +26,12 @@
     </style>
   </head>  
   <body>
+  
+$ 1.2.5
+% Version 1.2.5
+  _ 2013-01-11  
+* Popups with input fields have been shrinked to improve the accessibility of buttons on modern phones.
+* Bugfix: Existing sums greater than 1000 could not be edited, due to a change in the delimiter handling.
 
 $ 1.2.4
 % Version 1.2.4

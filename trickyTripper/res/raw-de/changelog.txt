@@ -26,6 +26,12 @@
     </style>
   </head>  
   <body> 
+  
+$ 1.2.5
+% Version 1.2.5
+  _ 2013-01-11  
+* Popups mit Eingabefeldern werden jetzt gestaucht, um die Zugänglichkeit Buttons bei eingeblendeter Tastatur auf moderneren Telefonen zu verbessern.
+* Bugfix: Vorhandene Summen größer als 1000 konnten nicht editiert werden.  
 
 $ 1.2.4
 % Version 1.2.4
