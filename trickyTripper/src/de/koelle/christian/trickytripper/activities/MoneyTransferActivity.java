@@ -221,7 +221,8 @@ public class MoneyTransferActivity extends Activity {
                 buttonDueAmount.setText(AmountViewUtils.getAmountString(getLocale(), amountDue, true, true));
                 buttonDueAmount.setOnClickListener(new OnClickListener() {
                     public void onClick(View v) {
-                        editText.setText(AmountViewUtils.getAmountString(getLocale(), amountDue, true, true));
+                        editText.setText(getDecimalNumberInputUtil().fixInputStringModelToWidget(
+                                AmountViewUtils.getAmountString(getLocale(), amountDue, true, true)));
                     }
                 });
             }
@@ -243,7 +244,7 @@ public class MoneyTransferActivity extends Activity {
             }
 
             public void afterTextChanged(Editable s) {
-                String widgetInput = getDecimalNumberInputUtil().fixInputString(s.toString());
+                String widgetInput = getDecimalNumberInputUtil().fixInputStringWidgetToParser(s.toString());
                 amount.setValue(NumberUtils.getStringToDouble(getLocale(), widgetInput));
                 MoneyTransferActivity.this.updateSum();
                 MoneyTransferActivity.this.updateSaveButtonState();

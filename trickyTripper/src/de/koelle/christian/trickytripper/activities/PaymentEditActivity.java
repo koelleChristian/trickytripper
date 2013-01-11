@@ -20,13 +20,10 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnShowListener;
 import android.content.res.Resources;
-import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.SparseBooleanArray;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -158,7 +155,6 @@ public class PaymentEditActivity extends Activity {
 
         buildDebitorInput();
         buildPaymentInput();
-
 
         setVisibilitySpendingTable(!divideEqually);
     }
@@ -328,6 +324,7 @@ public class PaymentEditActivity extends Activity {
 
             UiUtils.makeProperNumberInput(editText, getDecimalNumberInputUtil().getInputPatternMatcher());
             writeAmountToEditText(a, editText);
+
             textView.setText(p.getName());
 
             bindAmountInput(editText, a, isPayment);
@@ -343,7 +340,8 @@ public class PaymentEditActivity extends Activity {
     }
 
     private void writeAmountToEditText(Amount amount, EditText editText) {
-        editText.setText(AmountViewUtils.getAmountString(getLocale(), amount, true, true, true, false, true));
+        editText.setText(getDecimalNumberInputUtil().fixInputStringModelToWidget(
+                AmountViewUtils.getAmountString(getLocale(), amount, true, true, true, false, true)));
     }
 
     private void removePreviouslyCreatedRows(TableLayout tableLayout, List<View> payerRows2) {
@@ -766,7 +764,7 @@ public class PaymentEditActivity extends Activity {
             }
 
             public void afterTextChanged(Editable s) {
-                String widgetInput = getDecimalNumberInputUtil().fixInputString(s.toString());
+                String widgetInput = getDecimalNumberInputUtil().fixInputStringWidgetToParser(s.toString());
                 Double valueInput = NumberUtils.getStringToDouble(getLocale(), widgetInput);
                 if (!isPayment) {
                     valueInput = NumberUtils.neg(valueInput);

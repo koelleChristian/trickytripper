@@ -30,8 +30,12 @@ public class DecimalNumberInputUtil {
         return localizedDelimiter;
     }
 
-    public String fixInputString(String input) {
+    public String fixInputStringWidgetToParser(String input) {
         return input.replace(unintendedDelimiter, localizedDelimiter);
+    }
+
+    public String fixInputStringModelToWidget(String input) {
+        return input.replace(unintendedDelimiter + "", "");
     }
 
     private char getDelimiterInversion(char delimiter) {

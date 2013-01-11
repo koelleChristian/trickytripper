@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/create_trip_view_tableLayout"
-    android:layout_width="fill_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
 
     <TextView
@@ -20,9 +20,9 @@
     <LinearLayout
         android:id="@+id/footer"
         style="@android:style/ButtonBar"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/createParticipantView_autocomplete_name"
         android:orientation="horizontal" >
 
         <Button
