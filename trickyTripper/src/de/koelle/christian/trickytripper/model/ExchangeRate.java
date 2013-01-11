@@ -1,11 +1,14 @@
 package de.koelle.christian.trickytripper.model;
 
+import java.io.Serializable;
 import java.util.Currency;
 import java.util.Date;
 
 import de.koelle.christian.common.utils.NumberUtils;
 
-public class ExchangeRate {
+public class ExchangeRate implements Serializable {
+
+    private static final long serialVersionUID = 2017174474860551532L;
 
     private long id;
     private Currency currencyFrom;
@@ -15,6 +18,10 @@ public class ExchangeRate {
     private Date updateDate;
     private ImportOrigin importOrigin;
     private boolean inversion;
+
+    public boolean isImported() {
+        return ImportOrigin.GOOGLE.equals(getImportOrigin());
+    }
 
     public long getId() {
         return id;

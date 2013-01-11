@@ -220,7 +220,7 @@ public class ReportTabActivity extends Activity {
             tableLayout.addView(newRow, calculatePositionToInsert(tableLayout, delimiterLine));
         }
         else {
-            TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getFktnController()
+            TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getMiscController()
                     .getDefaultStringCollator());
 
             for (Entry<PaymentCategory, Amount> catAmountMapEntry : categorySpending.entrySet()) {
@@ -291,7 +291,7 @@ public class ReportTabActivity extends Activity {
                 tableLayout.addView(newRow, tableLayout.getChildCount() - 1);
             }
             else {
-                TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getFktnController()
+                TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getMiscController()
                         .getDefaultStringCollator());
 
                 for (Entry<Participant, Amount> debt : debts.getLoanerToDepts().entrySet()) {

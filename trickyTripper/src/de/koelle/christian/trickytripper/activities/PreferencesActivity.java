@@ -71,7 +71,7 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
         root.addPreference(intentPref);
 
         /* =============== Default currency picker ================= */
-        Currency defaultBaseCurrency = ((TrickyTripperApp) getApplication()).getFktnController()
+        Currency defaultBaseCurrency = ((TrickyTripperApp) getApplication()).getMiscController()
                 .getDefaultBaseCurrency();
 
         ListPreference listPref = new ListPreference(this);

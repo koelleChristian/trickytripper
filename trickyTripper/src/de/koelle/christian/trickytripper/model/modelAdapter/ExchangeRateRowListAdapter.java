@@ -12,18 +12,19 @@ import de.koelle.christian.common.utils.DateUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
-import de.koelle.christian.trickytripper.model.ImportOrigin;
 import de.koelle.christian.trickytripper.ui.model.ParticipantRow;
 
 public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
 
     private final List<ExchangeRate> rows;
     private final Context context;
+    private final DateUtils dateUtils;
 
     public ExchangeRateRowListAdapter(Context context, int textViewResourceId, List<ExchangeRate> objects) {
         super(context, textViewResourceId, objects);
         this.rows = objects;
         this.context = context;
+        dateUtils = new DateUtils(context.getResources().getConfiguration().locale);
     }
 
     @Override
@@ -67,18 +68,13 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
             value = deriveDescription(row);
             UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
-            viewId = R.id.manageExchangeRateRowView_output_date;
-            label = null;
-            value = "";// row.getUpdateDate();
-            UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
-
         }
         return result;
     }
 
     private String deriveDescription(ExchangeRate row) {
-        if (ImportOrigin.GOOGLE.equals(row.getImportOrigin())) {
-            return "Imported " + DateUtils.date2String(row.getUpdateDate(), getLocale());
+        if (row.isImported()) {
+            return "Imported " + dateUtils.date2String(row.getUpdateDate());
         }
         else {
             return row.getDescription();

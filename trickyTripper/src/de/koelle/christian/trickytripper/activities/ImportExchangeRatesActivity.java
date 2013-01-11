@@ -90,7 +90,7 @@ public class ImportExchangeRatesActivity extends Activity {
                     importer.importExchangeRates(currenciesToBeLoaded, new ExchangeRateImporterResultCallback() {
 
                         public void deliverResult(ExchangeRateImporterResultContainer parameterObject) {
-                            getApp().getExchangeRateService().saveExchangeRate(parameterObject.exchangeRateResult);
+                            getApp().getExchangeRateController().saveExchangeRate(parameterObject.exchangeRateResult);
                             progressBarStatus++;
                         }
                     });

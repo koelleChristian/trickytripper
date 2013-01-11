@@ -21,17 +21,16 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.activitysupport.ImportOptionSupport;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
-import de.koelle.christian.trickytripper.controller.ExchangeRateService;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ExchangeRateResult;
@@ -47,12 +46,13 @@ public class CurrencyCalculatorActivity extends Activity {
     private int resultViewId;
     private Double exchangeRateInput = Double.valueOf(1.0);
     private ExchangeRate exchangeRateSelected;
+    private ImportOptionSupport importOptionSupport;
 
     /* ============== Menu Shit [BGN] ============== */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.currency_calculator_options, menu);
+        inflater.inflate(R.layout.general_options_plus_import, menu);
         return true;
     }
 
@@ -62,13 +62,8 @@ public class CurrencyCalculatorActivity extends Activity {
         case R.id.general_options_help:
             showDialog(Rc.DIALOG_SHOW_HELP);
             return true;
-        case R.id.currency_calc_option_import_exchange_rates:
-
-            // xxx
-
-            Toast.makeText(
-                    getApplicationContext(), "Import", Toast.LENGTH_SHORT).show();
-            return true;
+        case R.id.option_import_exchange_rates:
+            return importOptionSupport.onOptionsItemSelected();
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -79,7 +74,7 @@ public class CurrencyCalculatorActivity extends Activity {
         Dialog dialog;
         switch (id) {
         case Rc.DIALOG_SHOW_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getFktnController(), Rc.DIALOG_SHOW_HELP);
+            dialog = PopupFactory.createHelpDialog(this, getApp(), Rc.DIALOG_SHOW_HELP);
             break;
         default:
             dialog = null;
@@ -108,9 +103,11 @@ public class CurrencyCalculatorActivity extends Activity {
 
         setContentView(R.layout.currency_calculator_view);
 
+        this.importOptionSupport = new ImportOptionSupport(getApp());
+
         readAndSetInput(getIntent());
 
-        Currency sourceCurrencyUsedLast = getExchangeRateService().getSourceCurrencyUsedLast();
+        Currency sourceCurrencyUsedLast = getApp().getSourceCurrencyUsedLast();
         initCurrencySpinner(resultAmount.getUnit(), sourceCurrencyUsedLast);
         inputAmount.setUnit(sourceCurrencyUsedLast);
 
@@ -126,7 +123,7 @@ public class CurrencyCalculatorActivity extends Activity {
     }
 
     private void loadAndInitExchangeRates(Currency sourceCurrency, Currency resultCurrency) {
-        ExchangeRateResult rates = getExchangeRateService().findSuitableRates(sourceCurrency, resultCurrency);
+        ExchangeRateResult rates = getApp().findSuitableRates(sourceCurrency, resultCurrency);
         initExchangeRateSpinner(rates);
     }
 
@@ -356,10 +353,6 @@ public class CurrencyCalculatorActivity extends Activity {
 
     private TrickyTripperApp getApp() {
         return (TrickyTripperApp) getApplication();
-    }
-
-    private ExchangeRateService getExchangeRateService() {
-        return getApp().getExchangeRateService();
     }
 
     private Amount createAmount(Double value, Currency resultCurrency) {

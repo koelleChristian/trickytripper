@@ -24,7 +24,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.constants.Rc;
-import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
+import de.koelle.christian.trickytripper.controller.MiscController;
 import de.koelle.christian.trickytripper.dataaccess.PhoneContactResolver;
 import de.koelle.christian.trickytripper.model.PhoneContact;
 
@@ -45,10 +45,10 @@ public class PopupFactory {
         return alert;
     }
 
-    public static Dialog createHelpDialog(final Activity activity, TripExpensesFktnController fktnController,
+    public static Dialog createHelpDialog(final Activity activity, MiscController miscController,
             final int dialogId) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        String urlToHelp = determineHelpFileUrl(activity, fktnController);
+        String urlToHelp = determineHelpFileUrl(activity, miscController);
 
         LayoutInflater inflater = activity.getLayoutInflater();
         final View view = inflater.inflate(R.layout.help_view, null);
@@ -67,11 +67,11 @@ public class PopupFactory {
         return alert;
     }
 
-    private static String determineHelpFileUrl(Activity activity, TripExpensesFktnController fktnController) {
+    private static String determineHelpFileUrl(Activity activity, MiscController miscController) {
         Locale locale = activity.getResources().getConfiguration().locale;
         locale.getLanguage();
         String localizedHelpFileName = HELP_FILE_NAME_BASE + "_" + locale.getLanguage() + HELP_FILE_NAME_ENDING;
-        String urlToHelp = (fktnController.checkIfInAssets(localizedHelpFileName)) ? HELP_ASSET_URL_BASE
+        String urlToHelp = (miscController.checkIfInAssets(localizedHelpFileName)) ? HELP_ASSET_URL_BASE
                 + localizedHelpFileName : HELP_FILE_URL_EN;
         return urlToHelp;
     }

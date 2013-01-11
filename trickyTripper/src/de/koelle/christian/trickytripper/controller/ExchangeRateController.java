@@ -6,15 +6,17 @@ import java.util.List;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ExchangeRateResult;
 
-public interface ExchangeRateService {
+public interface ExchangeRateController {
 
     ExchangeRateResult findSuitableRates(Currency currencyFrom, Currency currencyTo);
 
-    List<ExchangeRate> getAllExchangeRates();
+    List<ExchangeRate> getAllExchangeRatesWithoutInversion();
 
     void persistExchangeRates(List<ExchangeRate> rates);
 
     boolean persistExchangeRate(ExchangeRate rate);
+
+    boolean deleteExchangeRate(ExchangeRate row);
 
     /**
      * Returns the source currency of the last calculation, if any.
@@ -27,15 +29,4 @@ public interface ExchangeRateService {
 
     ExchangeRate importExchangeRate(Currency currrencyFrom, Currency currencyTo);
 
-    boolean isOnline();
-
-    // public boolean isOnline() {
-    // ConnectivityManager cm =
-    // (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-    // NetworkInfo netInfo = cm.getActiveNetworkInfo();
-    // if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-    // return true;
-    // }
-    // return false;
-    // }
 }

@@ -97,7 +97,7 @@ public class TrickyTripperActivity extends TabActivity {
             dialog = PopupFactory.createAndShowEditParticipantPopupEditMode(this);
             break;
         case TrickyTripperTabConstants.DIALOG_SHOW_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getFktnController(),
+            dialog = PopupFactory.createHelpDialog(this, getApp(),
                     TrickyTripperTabConstants.DIALOG_SHOW_HELP);
             break;
         case TrickyTripperTabConstants.DIALOG_DELETE_PAYMENT:

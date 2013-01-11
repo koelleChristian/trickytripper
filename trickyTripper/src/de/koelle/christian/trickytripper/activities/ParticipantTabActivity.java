@@ -47,7 +47,7 @@ public class ParticipantTabActivity extends ListActivity {
     }
 
     private void showSmartHelp() {
-        if (participantRows.isEmpty() && getApp().getFktnController().isSmartHelpEnabled()) {
+        if (participantRows.isEmpty() && getApp().isSmartHelpEnabled()) {
             Toast.makeText(getApplicationContext(),
                     getResources().getString(R.string.participant_tab_msg_no_participants_in_trip), Toast.LENGTH_LONG)
                     .show();
@@ -101,7 +101,7 @@ public class ParticipantTabActivity extends ListActivity {
     public void updateRows() {
         participantRows.clear();
         refillListFromModel(participantRows, getApp().getFktnController());
-        final Collator collator = getApp().getFktnController().getDefaultStringCollator();
+        final Collator collator = getApp().getDefaultStringCollator();
         adapter.sort(new Comparator<ParticipantRow>() {
             public int compare(ParticipantRow lhs, ParticipantRow rhs) {
                 return collator.compare(lhs.getParticipant().getName(), rhs.getParticipant().getName());
@@ -109,6 +109,10 @@ public class ParticipantTabActivity extends ListActivity {
         });
         adapter.notifyDataSetChanged();
 
+    }
+
+    private TrickyTripperApp getApp() {
+        return (TrickyTripperApp) getApplication();
     }
 
     @Override
@@ -147,10 +151,6 @@ public class ParticipantTabActivity extends ListActivity {
         menu.setGroupEnabled(MENU_GROUP_P_AT_LEAST_ONE,
                 getApp().getFktnController().getAllParticipants(false).size() > 1);
 
-    }
-
-    private TrickyTripperApp getApp() {
-        return (TrickyTripperApp) getApplication();
     }
 
     @Override

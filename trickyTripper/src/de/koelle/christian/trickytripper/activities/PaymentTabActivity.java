@@ -69,7 +69,7 @@ public class PaymentTabActivity extends ListActivity {
         super.onCreate(savedInstanceState);
 
         adapter = new PaymentRowListAdapter(this, R.layout.payment_tab_row_view, paymentRows, getApp()
-                .getAmountFactory(), getApp().getFktnController().getDefaultStringCollator());
+                .getAmountFactory(), getApp().getMiscController().getDefaultStringCollator());
 
         setListAdapter(adapter);
 

@@ -69,7 +69,7 @@ public class ExportActivity extends Activity {
         Dialog dialog;
         switch (id) {
         case Rc.DIALOG_SHOW_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getFktnController(), Rc.DIALOG_SHOW_HELP);
+            dialog = PopupFactory.createHelpDialog(this, getApp(), Rc.DIALOG_SHOW_HELP);
             break;
         default:
             dialog = null;
@@ -96,10 +96,10 @@ public class ExportActivity extends Activity {
 
     private void initPanel() {
         final TrickyTripperApp app = getApp();
-        exportSettings = app.getFktnController().getDefaultExportSettings();
+        exportSettings = app.getDefaultExportSettings();
         setTripName();
         initAndBindSpinner(app);
-        supportedOutputChannels = app.getFktnController().getEnabledExportOutputChannel();
+        supportedOutputChannels = app.getEnabledExportOutputChannel();
         initAndBindOutputChannelSpinner(exportSettings.getOutputChannel(), supportedOutputChannels);
         bindCheckBoxes();
         updateAllCheckboxStates();
@@ -114,7 +114,7 @@ public class ExportActivity extends Activity {
     private void initAndBindSpinner(final TrickyTripperApp app) {
         participantsInSpinner = new ArrayList<Participant>();
         participantsInSpinner.add(null);
-        participantsInSpinner.addAll(app.getFktnController().getAllParticipants(false, true));
+        participantsInSpinner.addAll(app.getAllParticipants(false, true));
 
         Spinner spinner = SpinnerViewSupport.configureReportSelectionSpinner(
                 this,
@@ -145,8 +145,7 @@ public class ExportActivity extends Activity {
         final Spinner spinner = (Spinner) findViewById(R.id.exportViewSpinnerChannel);
 
         List<RowObject> spinnerObjects = SpinnerViewSupport.createSpinnerObjects(selection, false,
-                null, getResources(), getApp().getFktnController()
-                        .getDefaultStringCollator());
+                null, getResources(), getApp().getDefaultStringCollator());
         ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this, android.R.layout.simple_spinner_item,
                 spinnerObjects) {
             @Override
@@ -340,7 +339,7 @@ public class ExportActivity extends Activity {
          * Files will be deleted on application's termination as usually files
          * have not be sent on resume here.
          */
-        getApp().getFktnController().exportReport(exportSettings, participantSelected, this);
+        getApp().exportReport(exportSettings, participantSelected, this);
     }
 
 }

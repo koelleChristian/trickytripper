@@ -2,14 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.koelle.christian.trickytripper"
     android:installLocation="preferExternal"
-    android:versionCode="5"
-    android:versionName="1.2.3" >
+    android:versionCode="7"
+    android:versionName="1.2.5" >
 
     <uses-sdk android:minSdkVersion="8" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".TrickyTripperApp"
@@ -67,6 +68,10 @@
         </activity>
         <activity
             android:name=".activities.PreferencesActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".activities.ExchangeRateEditActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity

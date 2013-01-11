@@ -3,9 +3,9 @@
 
 
     <item
-        android:id="@+id/currency_calc_option_import_exchange_rates"
+        android:id="@+id/option_import_exchange_rates"
         android:icon="@android:drawable/stat_sys_download"
-        android:title="@string/option_currency_calc_import"/>
+        android:title="@string/option_import_exchange_rates"/>
 
     <item
         android:id="@+id/general_options_help"

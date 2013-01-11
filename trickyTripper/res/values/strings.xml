@@ -11,6 +11,8 @@
     <string name="common_button_ok">OK</string>
     <string name="common_button_create">Create</string>
     <string name="common_button_save">Save</string>
+    <string name="common_button_delete">Delete</string>
+    <string name="common_button_edit">Edit</string>
     <string name="common_label_total_amount">Total:</string>
     <string name="common_label_inactive_addon">[Inactive]</string>
     <string name="common_toast_currency_not_part_of_this_release">The currency selection is not part of this release.</string>
@@ -34,7 +36,7 @@
     <string name="fktn_glob_help_info">Help &amp; Info</string>
     <string name="fktn_glob_export">Export</string>
     <string name="fktn_glob_settings">Settings</string>
-    <string name="option_currency_calc_import">Import exchange rates</string>
+    <string name="option_import_exchange_rates">Import exchange rates</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Spent:</string>
     <string name="participant_tab_row_view_label_paid">Paid:</string>
@@ -169,16 +171,12 @@
     <string name="fktn_participant_create_payment">Create payment</string>
     <string name="fktn_participant_transfer_money">Transfer money</string>
     <string name="fktn_participant_show_report">Show report</string>
-    <string name="fktn_participant_delete">Delete</string>
     <string name="fktn_participant_deactivate">Deactivate (for costs)</string>
     <string name="fktn_participant_activate">Activate (for costs)</string>
-    <string name="fktn_participant_edit">Edit</string>
     <!-- ==================== Context menu Payment List ====================== -->
     <string name="manageTripsView__heading">Manage trips</string>
     <string name="manage_trips_view_label_long_click_to_edit">Tap to load, long-tap to edit</string>
     <string name="manage_trips_view_button_create_new_trip">Create new trip</string>
-    <string name="manage_trips_view_fktn_edit">Edit</string>
-    <string name="manage_trips_view_fktn_delete">Delete</string>
     <string name="manage_trips_view_delete_confirmation">Are  you sure you want to delete the selected trip including all its travelers and statistics?</string>
     <!-- ==================== Context menu participant edit====================== -->
     <string name="edit_participant_view_label_name">Name:</string>

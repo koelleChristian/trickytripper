@@ -68,7 +68,7 @@ public class ManageTripsActivity extends Activity {
         setContentView(R.layout.manage_trips_view);
 
         TrickyTripperApp app = getApp();
-        final Collator c = app.getFktnController().getDefaultStringCollator();
+        final Collator c = app.getDefaultStringCollator();
         comparator = new Comparator<TripSummary>() {
             public int compare(TripSummary object1, TripSummary object2) {
                 return c.compare(object1.getName(), object2.getName());
@@ -128,7 +128,7 @@ public class ManageTripsActivity extends Activity {
             dialog = createDeletePopup();
             break;
         case Rc.DIALOG_SHOW_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getFktnController(), Rc.DIALOG_SHOW_HELP);
+            dialog = PopupFactory.createHelpDialog(this, getApp(), Rc.DIALOG_SHOW_HELP);
             break;
         default:
             dialog = null;
@@ -213,7 +213,7 @@ public class ManageTripsActivity extends Activity {
     public void createNewTrip(View view) {
         if (R.id.manageTripsView_button_create_new_trip == view.getId()) {
             TripSummary newTripSummary = new TripSummary();
-            newTripSummary.setBaseCurrency(getApp().getFktnController().getDefaultBaseCurrency());
+            newTripSummary.setBaseCurrency(getApp().getDefaultBaseCurrency());
             showDialog(DIALOG_CREATE, createBundleWithTripSummaryForPopup(newTripSummary, true, false));
         }
     }

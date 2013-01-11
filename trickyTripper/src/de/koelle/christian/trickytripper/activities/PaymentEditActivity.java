@@ -162,7 +162,7 @@ public class PaymentEditActivity extends Activity {
     }
 
     private void sortParticipants(List<Participant> allRelevantParticipants2) {
-        final Collator collator = getFktnController().getDefaultStringCollator();
+        final Collator collator = getApp().getDefaultStringCollator();
         Collections.sort(allRelevantParticipants2, new Comparator<Participant>() {
             public int compare(Participant object1, Participant object2) {
                 return collator.compare(object1.getName(), object2.getName());
@@ -219,7 +219,7 @@ public class PaymentEditActivity extends Activity {
             dialog = createDialogDebitorSelection();
             break;
         case Rc.DIALOG_SHOW_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getFktnController(), Rc.DIALOG_SHOW_HELP);
+            dialog = PopupFactory.createHelpDialog(this, getApp(), Rc.DIALOG_SHOW_HELP);
             break;
         default:
             dialog = null;
@@ -327,7 +327,7 @@ public class PaymentEditActivity extends Activity {
             TextView textView = (TextView) row.findViewById(R.id.payment_edit_payer_row_view_output_name);
 
             Button buttonCurrency = (Button) row.findViewById(R.id.payment_edit_payer_row_view_button_currency);
-            buttonCurrency.setText(getFktnController().getCurrencySymbolOfTripLoaded(false));
+            buttonCurrency.setText(getApp().getCurrencySymbolOfTripLoaded(false));
 
             UiUtils.makeProperNumberInput(editText, getLocale());
             AmoutViewUtils.writeAmountToEditText(amount, editText, getLocale());
@@ -882,7 +882,7 @@ public class PaymentEditActivity extends Activity {
     private void initAndBindSpinner(PaymentCategory paymentCategory) {
         final Spinner spinner = (Spinner) findViewById(R.id.paymentView_spinnerPaymentCategory);
         List<RowObject> spinnerObjects = SpinnerViewSupport.createSpinnerObjects(PaymentCategory.BEVERAGES, false,
-                Arrays.asList(new Object[] { PaymentCategory.MONEY_TRANSFER }), getResources(), getFktnController()
+                Arrays.asList(new Object[] { PaymentCategory.MONEY_TRANSFER }), getResources(), getApp()
                         .getDefaultStringCollator());
         ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this, android.R.layout.simple_spinner_item,
                 spinnerObjects);

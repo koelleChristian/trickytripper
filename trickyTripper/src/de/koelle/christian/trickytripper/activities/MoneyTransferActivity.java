@@ -36,6 +36,7 @@ import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorActiv
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rx;
+import de.koelle.christian.trickytripper.controller.MiscController;
 import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
 import de.koelle.christian.trickytripper.factories.AmountFactory;
 import de.koelle.christian.trickytripper.factories.ModelFactory;
@@ -90,7 +91,7 @@ public class MoneyTransferActivity extends Activity {
         Dialog dialog;
         switch (id) {
         case Rc.DIALOG_SHOW_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getFktnController(), Rc.DIALOG_SHOW_HELP);
+            dialog = PopupFactory.createHelpDialog(this, getApp(), Rc.DIALOG_SHOW_HELP);
             break;
         default:
             dialog = null;
@@ -217,7 +218,7 @@ public class MoneyTransferActivity extends Activity {
             nameTextView.setText(p.getName());
             UiUtils.setFontAndStyle(this, nameTextView, !p.isActive(), android.R.style.TextAppearance_Small);
 
-            buttonCurrency.setText(getFktnController().getCurrencySymbolOfTripLoaded(false));
+            buttonCurrency.setText(getMiscController().getCurrencySymbolOfTripLoaded(false));
             bindCurrencyCalculatorAction(buttonCurrency, inputValueModel, dynViewId);
 
             if (amountDue == null) {
@@ -313,7 +314,7 @@ public class MoneyTransferActivity extends Activity {
                 }
             }
         }
-        final Collator collator = getFktnController().getDefaultStringCollator();
+        final Collator collator = getMiscController().getDefaultStringCollator();
         Collections.sort(result, new Comparator<Participant>() {
             public int compare(Participant object1, Participant object2) {
                 return collator.compare(object1.getName(), object2.getName());
@@ -345,6 +346,10 @@ public class MoneyTransferActivity extends Activity {
 
     private TripExpensesFktnController getFktnController() {
         return getApp().getFktnController();
+    }
+
+    private MiscController getMiscController() {
+        return getApp().getMiscController();
     }
 
 }

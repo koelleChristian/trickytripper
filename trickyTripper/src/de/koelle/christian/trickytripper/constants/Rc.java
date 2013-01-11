@@ -37,6 +37,8 @@ public class Rc {
 
     public static final String ACTIVITY_PARAM_IMPORT_EXCHANGE_RATES_IN_CURRENCY_LIST = "activityParamImportExchangeRatesInCurrencyList";
 
+    public static final String ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_EXCHANGE_RATE = "activityParamEditExchangeRateInExchangeRate";
+
     public static final int DIALOG_SHOW_HELP = 100;
 
     public static final int DEFAULT_COLLATOR_STRENGTH = Collator.TERTIARY;

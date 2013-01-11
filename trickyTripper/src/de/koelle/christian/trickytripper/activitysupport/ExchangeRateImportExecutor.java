@@ -8,18 +8,18 @@ import android.app.ProgressDialog;
 import android.os.Handler;
 import android.os.Message;
 import de.koelle.christian.trickytripper.R;
-import de.koelle.christian.trickytripper.controller.ExchangeRateService;
+import de.koelle.christian.trickytripper.controller.ExchangeRateController;
 import de.koelle.christian.trickytripper.exchangerates.ExchangeRateImporter;
 
 public class ExchangeRateImportExecutor {
 
     private final ExchangeRateImporter exchangeRateImporter;
-    private final ExchangeRateService exchangeRateService;
+    private final ExchangeRateController exchangeRateService;
     private ProgressDialog progressDialog;
     private static Handler progressResultHandler;
 
     private ExchangeRateImportExecutor(ExchangeRateImporter exchangeRateImporter,
-            ExchangeRateService exchangeRateService) {
+            ExchangeRateController exchangeRateService) {
         super();
         this.exchangeRateImporter = exchangeRateImporter;
         this.exchangeRateService = exchangeRateService;

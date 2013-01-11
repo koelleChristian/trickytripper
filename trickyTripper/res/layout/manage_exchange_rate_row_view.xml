@@ -41,45 +41,15 @@
             android:gravity="right" />
     </LinearLayout>
 
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/manageExchangeRateRowView_upperLayout" >
 
-        <TableRow>
-
-            <TextView
-                android:id="@+id/manageExchangeRateRowView_label_spent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="" />
 
             <TextView
                 android:id="@+id/manageExchangeRateRowView_output_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/manageExchangeRateRowView_upperLayout"
                 android:gravity="right"
                 android:paddingLeft="10dp" />
-        </TableRow>
 
-        <TableRow>
-
-            <TextView
-                android:id="@+id/manageExchangeRateRowView_label_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="Date: " />
-
-            <TextView
-                android:id="@+id/manageExchangeRateRowView_output_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:paddingLeft="10dp"
-                android:text="17.11.1976" />
-        </TableRow>
-    </TableLayout>
 
 </RelativeLayout>

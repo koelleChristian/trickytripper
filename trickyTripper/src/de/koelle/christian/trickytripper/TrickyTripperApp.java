@@ -33,7 +33,9 @@ import de.koelle.christian.common.io.impl.AppFileWriter;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.common.utils.FileUtils;
+import de.koelle.christian.common.utils.SystemUtil;
 import de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity;
+import de.koelle.christian.trickytripper.activities.ExchangeRateEditActivity;
 import de.koelle.christian.trickytripper.activities.ExportActivity;
 import de.koelle.christian.trickytripper.activities.ImportExchangeRatesActivity;
 import de.koelle.christian.trickytripper.activities.ManageTripsActivity;
@@ -44,9 +46,12 @@ import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rt;
 import de.koelle.christian.trickytripper.constants.ViewMode;
-import de.koelle.christian.trickytripper.controller.ExchangeRateService;
+import de.koelle.christian.trickytripper.controller.ExchangeRateController;
+import de.koelle.christian.trickytripper.controller.ExportController;
+import de.koelle.christian.trickytripper.controller.MiscController;
 import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
 import de.koelle.christian.trickytripper.controller.TripExpensesViewController;
+import de.koelle.christian.trickytripper.controller.impl.ExchangeRateControllerImpl;
 import de.koelle.christian.trickytripper.dataaccess.DataManager;
 import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;
 import de.koelle.christian.trickytripper.decoupling.impl.ActivityResolverImpl;
@@ -61,7 +66,6 @@ import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ExchangeRateResult;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
-import de.koelle.christian.trickytripper.model.ImportOrigin;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
@@ -72,7 +76,7 @@ import de.koelle.christian.trickytripper.strategies.TripReportLogic;
 import de.koelle.christian.trickytripper.ui.model.DialogState;
 
 public class TrickyTripperApp extends Application implements TripExpensesViewController, TripExpensesFktnController,
-        ExchangeRateService {
+        MiscController, ExportController {
 
     private static final String TAG_FKTN = "FktnController";
 
@@ -88,6 +92,7 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     private DataManager dataManager;
     private Exporter exporter;
+    private ExchangeRateController exchangeRateController;
 
     @Override
     public void onCreate() {
@@ -132,6 +137,8 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
         dataManager = new DataManagerImpl(getBaseContext());
         tripToBeEdited = dataManager.loadTripById(tripId);
+
+        exchangeRateController = new ExchangeRateControllerImpl(getBaseContext(), dataManager);
 
         exporter = new ExporterImpl(new AppFileWriter(getApplicationContext()));
 
@@ -286,6 +293,13 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         startActivityWithParams(extras, activity, ViewMode.EDIT);
     }
 
+    public void openEditExchangeRate(ExchangeRate exchangeRate) {
+        Class<? extends Activity> activity = ExchangeRateEditActivity.class;
+        Map<String, Serializable> extras = new HashMap<String, Serializable>();
+        extras.put(Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_EXCHANGE_RATE, exchangeRate);
+        startActivityWithParams(extras, activity, ViewMode.EDIT);
+    }
+
     public void switchTabs(Rt tabId) {
 
     }
@@ -338,8 +352,12 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         return this;
     }
 
-    public ExchangeRateService getExchangeRateService() {
+    public MiscController getMiscController() {
         return this;
+    }
+
+    public ExchangeRateController getExchangeRateController() {
+        return exchangeRateController;
     }
 
     public boolean oneOrLessTripsLeft() {
@@ -607,90 +625,28 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     }
 
-    /* =======================Exchange Rate Service ================ */
-    private final List<ExchangeRate> exchangeRateMockResult = new ArrayList<ExchangeRate>();
-
-    public ExchangeRateResult findSuitableRates(Currency currencyFrom, Currency currencyTo) {
-        if (exchangeRateMockResult.isEmpty()) {
-            ExchangeRate rate;
-
-            rate = new ExchangeRate();
-            rate.setCurrencyFrom(currencyFrom);
-            rate.setCurrencyTo(currencyTo);
-            rate.setDescription("Rate 01");
-            rate.setExchangeRate(Double.valueOf(1.2));
-            rate.setId(1);
-            rate.setImportOrigin(ImportOrigin.NONE);
-            rate.setUpdateDate(new Date());
-            exchangeRateMockResult.add(rate);
-
-            rate = new ExchangeRate();
-            rate.setCurrencyFrom(currencyFrom);
-            rate.setCurrencyTo(currencyTo);
-            rate.setDescription("Rate 02");
-            rate.setExchangeRate(Double.valueOf(1.5));
-            rate.setId(2);
-            rate.setImportOrigin(ImportOrigin.NONE);
-            rate.setUpdateDate(new Date());
-            exchangeRateMockResult.add(rate);
-        }
-        else {
-            int size = exchangeRateMockResult.size() + 1;
-            ExchangeRate rate;
-
-            rate = new ExchangeRate();
-            rate.setCurrencyFrom(currencyFrom);
-            rate.setCurrencyTo(currencyTo);
-            rate.setDescription("Rate 0" + size);
-            rate.setExchangeRate(Double.valueOf("1." + size));
-            rate.setId(size);
-            rate.setImportOrigin(ImportOrigin.NONE);
-            rate.setUpdateDate(new Date());
-            exchangeRateMockResult.add(rate);
-        }
-
-        return new ExchangeRateResult(exchangeRateMockResult, exchangeRateMockResult.get(0));
+    public boolean isOnline() {
+        return SystemUtil.isOnline(this);
     }
 
-    public List<ExchangeRate> getAllExchangeRates() {
-        List<ExchangeRate> result = new ArrayList<ExchangeRate>();
+    /* =======================Exchange Rate Service ================ */
 
-        Currency cTry = Currency.getInstance("TRY");
-        Currency cUsd = Currency.getInstance("USD");
-        Currency cEur = Currency.getInstance("EUR");
+    public Trip getTripToBeEdited() {
+        return tripToBeEdited;
+    }
 
-        findSuitableRates(cUsd, cEur);
+    public ExchangeRateResult findSuitableRates(Currency currencyFrom, Currency currencyTo) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-        result.addAll(exchangeRateMockResult);
-
-        ExchangeRate rate;
-
-        rate = new ExchangeRate();
-        rate.setCurrencyFrom(cTry);
-        rate.setCurrencyTo(cUsd);
-        rate.setDescription("Google Import");
-        rate.setExchangeRate(Double.valueOf(0.9532));
-        rate.setId(50);
-        rate.setImportOrigin(ImportOrigin.GOOGLE);
-        rate.setUpdateDate(new Date());
-        result.add(rate);
-
-        rate = new ExchangeRate();
-        rate.setCurrencyFrom(cTry);
-        rate.setCurrencyTo(cEur);
-        rate.setDescription("Google Import");
-        rate.setExchangeRate(Double.valueOf(0.7585));
-        rate.setId(51);
-        rate.setImportOrigin(ImportOrigin.GOOGLE);
-        rate.setUpdateDate(new Date());
-        result.add(rate);
-        return result;
+    public List<ExchangeRate> getAllExchangeRatesWithoutInversion() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     public void persistExchangeRates(List<ExchangeRate> rates) {
-        for (ExchangeRate rate : rates) {
-            System.out.println(rate);
-        }
+        // TODO Auto-generated method stub
 
     }
 
@@ -699,9 +655,19 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         return false;
     }
 
+    public boolean deleteExchangeRate(ExchangeRate row) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public Currency getSourceCurrencyUsedLast() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     public void saveExchangeRate(ExchangeRate exchangeRate) {
-        exchangeRate.setId(exchangeRateMockResult.size() + 1);
-        exchangeRateMockResult.add(exchangeRate);
+        // TODO Auto-generated method stub
+
     }
 
     public ExchangeRate importExchangeRate(Currency currrencyFrom, Currency currencyTo) {
@@ -709,19 +675,7 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         return null;
     }
 
-    public Currency getSourceCurrencyUsedLast() {
-        return Currency.getInstance("TRY");
-    }
-
-    public boolean isOnline() {
-        return false;
-    }
-
     /* ======================= getter/setter ======================= */
-
-    public Trip getTripToBeEdited() {
-        return tripToBeEdited;
-    }
 
     public void setTripToBeEdited(Trip tripToBeEdited) {
         this.tripToBeEdited = tripToBeEdited;
