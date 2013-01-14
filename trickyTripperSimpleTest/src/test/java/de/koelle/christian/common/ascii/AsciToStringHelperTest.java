@@ -7,7 +7,7 @@ import org.junit.Test;
 public class AsciToStringHelperTest {
 
     @Test
-    public void testNumberMatchingForIdention() {
+    public void testNumberMatchingForAlignment() {
         Assert.assertEquals(false, AsciToStringHelper.isNumeric2(""));
         Assert.assertEquals(true, AsciToStringHelper.isNumeric2("0"));
         Assert.assertEquals(true, AsciToStringHelper.isNumeric2("10"));
