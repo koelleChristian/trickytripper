@@ -12,9 +12,11 @@ public interface ExchangeRateController {
 
     List<ExchangeRate> getAllExchangeRatesWithoutInversion();
 
-    void persistExchangeRates(List<ExchangeRate> rates);
+    void persitImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported);
 
-    boolean persistExchangeRate(ExchangeRate rate);
+    ExchangeRate persistExchangeRate(ExchangeRate rate);
+
+    boolean doesExchangeRateAlreadyExist(ExchangeRate exchangeRate);
 
     boolean deleteExchangeRate(ExchangeRate row);
 
@@ -25,8 +27,6 @@ public interface ExchangeRateController {
      */
     Currency getSourceCurrencyUsedLast();
 
-    void saveExchangeRate(ExchangeRate exchangeRate);
-
-    ExchangeRate importExchangeRate(Currency currrencyFrom, Currency currencyTo);
+    void persistLastExchangeRateUsageSettings(Currency sourceCurrencyLastUsed, ExchangeRate exchangeRateUsedLast);
 
 }

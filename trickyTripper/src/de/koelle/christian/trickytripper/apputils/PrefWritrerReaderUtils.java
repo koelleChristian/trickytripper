@@ -16,6 +16,8 @@ public class PrefWritrerReaderUtils {
 
     private static final String PREFS_VALUE_ID_TRIP_LAST_EDITED_ID = "PREFS_VALUE_ID_TRIP_LAST_EDITED_ID";
 
+    private static final String PREFS_VALUE_CURRENCY_CALC_SOURCE_CURRENY_USED_LAST = "PREFS_VALUE_CURRENCY_CALC_SOURCE_CURRENY_USED_LAST";
+
     private static final String PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS = "PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS";
     private static final String PREFS_VALUE_EXPORT_SETTINGS_EXPORT_TRANSFERS = "PREFS_VALUE_EXPORT_SETTINGS_EXPORT_TRANSFERS";
     private static final String PREFS_VALUE_EXPORT_SETTINGS_EXPORT_SPENDINGS = "PREFS_VALUE_EXPORT_SETTINGS_EXPORT_SPENDINGS";
@@ -65,15 +67,23 @@ public class PrefWritrerReaderUtils {
         return exportSettings;
     }
 
-    public static long getIdOfTripLastEdited(SharedPreferences prefs) {
+    public static long loadIdOfTripLastEdited(SharedPreferences prefs) {
         long result = prefs.getLong(PREFS_VALUE_ID_TRIP_LAST_EDITED_ID, 1);
         return result;
     }
 
     public static Currency loadDefaultCurrency(SharedPreferences prefs, Resources resources) {
-
         String currencyCodeFromPrefs = prefs.getString(Rc.PREFS_VALUE_ID_BASE_CURRENCY, NULL_VALUE_CURRENCY);
+        return currencyCode2Currency(resources, currencyCodeFromPrefs);
+    }
 
+    public static Currency loadSourceCurrencyUsedLast(SharedPreferences prefs, Resources resources) {
+        String currencyCodeFromPrefs = prefs.getString(PREFS_VALUE_CURRENCY_CALC_SOURCE_CURRENY_USED_LAST,
+                NULL_VALUE_CURRENCY);
+        return currencyCode2Currency(resources, currencyCodeFromPrefs);
+    }
+
+    private static Currency currencyCode2Currency(Resources resources, String currencyCodeFromPrefs) {
         Currency result = (NULL_VALUE_CURRENCY.equals(currencyCodeFromPrefs))
                 ? Currency.getInstance(resources.getConfiguration().locale)
                 : Currency.getInstance(currencyCodeFromPrefs);
@@ -89,6 +99,11 @@ public class PrefWritrerReaderUtils {
 
     public static void saveIdOfTripLastEdited(Editor prefsEditor, long id) {
         prefsEditor.putLong(PREFS_VALUE_ID_TRIP_LAST_EDITED_ID, id);
+        prefsEditor.commit();
+    }
+
+    public static void saveSourceCurrencyUsedLast(Editor prefsEditor, Currency currency) {
+        prefsEditor.putString(PREFS_VALUE_CURRENCY_CALC_SOURCE_CURRENY_USED_LAST, currency.getCurrencyCode());
         prefsEditor.commit();
     }
 

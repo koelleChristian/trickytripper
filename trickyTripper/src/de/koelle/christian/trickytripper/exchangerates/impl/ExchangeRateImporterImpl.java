@@ -138,6 +138,7 @@ public class ExchangeRateImporterImpl implements ExchangeRateImporter {
             result.setExchangeRate(rate);
             result.setImportOrigin(ImportOrigin.GOOGLE);
             result.setUpdateDate(new Date());
+            result.setCreationDate(result.getUpdateDate());
             return result;
         }
     }

@@ -8,11 +8,13 @@ import java.util.Set;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -32,6 +34,7 @@ public class ImportExchangeRatesActivity extends Activity {
     private ArrayAdapter<RowObject> adapter;
 
     private int progressBarStatus;
+    private boolean replaceImportedRecordWhenAlreadyImported;
     private ProgressDialog progressBar;
     private final Handler progressBarHandler = new Handler();
 
@@ -68,11 +71,18 @@ public class ImportExchangeRatesActivity extends Activity {
         importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorGoogleImpl());
 
         progressBar = new ProgressDialog(view.getContext());
-        progressBar.setCancelable(true);
         progressBar.setMessage("Importing exchange rates ...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressBar.setProgress(0);
         progressBar.setMax(progressCeiling);
+        progressBar.setCancelable(false);
+        progressBar.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Toast.makeText(getApplicationContext(), "Canceled TODO", Toast.LENGTH_SHORT).show();
+            }
+        });
         progressBar.show();
 
         progressBarStatus = 0;
@@ -90,7 +100,8 @@ public class ImportExchangeRatesActivity extends Activity {
                     importer.importExchangeRates(currenciesToBeLoaded, new ExchangeRateImporterResultCallback() {
 
                         public void deliverResult(ExchangeRateImporterResultContainer parameterObject) {
-                            getApp().getExchangeRateController().saveExchangeRate(parameterObject.exchangeRateResult);
+                            getApp().getExchangeRateController().persitImportedExchangeRate(
+                                    parameterObject.exchangeRateResult, replaceImportedRecordWhenAlreadyImported);
                             progressBarStatus++;
                         }
                     });

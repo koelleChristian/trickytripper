@@ -1,6 +1,7 @@
 package de.koelle.christian.trickytripper.dataaccess.impl;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,8 @@ import de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.ParticipantRef
 import de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.PaymentParticipantRelationKey;
 import de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.PaymentReference;
 import de.koelle.christian.trickytripper.factories.ModelFactory;
+import de.koelle.christian.trickytripper.model.ExchangeRate;
+import de.koelle.christian.trickytripper.model.ExchangeRateResult;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.Trip;
@@ -304,4 +307,38 @@ public class DataManagerImpl implements DataManager {
     public boolean doesParticipantAlreadyExist(String nameToCheck, long tripId, long participantId) {
         return participantDao.doesParticipantAlreadyExist(nameToCheck, tripId, participantId);
     }
+
+    public ExchangeRateResult findSuitableRates(Currency currencyFrom, Currency currencyTo) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public List<ExchangeRate> getAllExchangeRatesWithoutInversion() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public boolean deleteExchangeRate(ExchangeRate row) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public ExchangeRate persistExchangeRate(ExchangeRate rate) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public boolean doesExchangeRateAlreadyExist(ExchangeRate exchangeRate) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public void persistImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported) {
+        // TODO Auto-generated method stub
+    }
+
+    public void persistExchangeRateUsedLast(ExchangeRate exchangeRateUsedLast) {
+        // TODO Auto-generated method stub
+    }
+
 }

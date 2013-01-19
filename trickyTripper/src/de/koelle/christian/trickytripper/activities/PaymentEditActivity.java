@@ -27,7 +27,6 @@ import android.text.TextWatcher;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +48,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.common.utils.ObjectUtils;
 import de.koelle.christian.common.utils.StringUtils;
@@ -192,15 +192,17 @@ public class PaymentEditActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.general_options, menu);
-        return true;
+        return getApp().getOptionSupport().populateOptionsMenu(
+                new OptionContraints().activity(this).menu(menu)
+                        .options(new int[] {
+                                R.id.option_help
+                        }));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.general_options_help:
+        case R.id.option_help:
             showDialog(Rc.DIALOG_SHOW_HELP);
             return true;
         default:

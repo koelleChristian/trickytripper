@@ -3,6 +3,8 @@ package de.koelle.christian.trickytripper.controller;
 import java.text.Collator;
 import java.util.Currency;
 
+import de.koelle.christian.common.options.OptionsSupport;
+
 public interface MiscController {
 
     Currency getDefaultBaseCurrency();
@@ -16,5 +18,7 @@ public interface MiscController {
     boolean isOnline();
 
     String getCurrencySymbolOfTripLoaded(boolean wrapInBrackets);
+
+    OptionsSupport getOptionSupport();
 
 }

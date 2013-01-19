@@ -11,6 +11,8 @@
     <string name="common_button_ok">OK</string>
     <string name="common_button_create">Erstellen</string>
     <string name="common_button_save">Speichern</string>
+    <string name="common_button_delete">Löschen</string>
+    <string name="common_button_edit">Bearbeiten</string>
     <string name="common_label_total_amount">Summe:</string>
     <string name="common_label_inactive_addon">[Inaktiv]</string>
     <string name="common_toast_currency_not_part_of_this_release">Die Währungsauswahl ist nicht Teil dieses Releases.</string>
@@ -30,14 +32,32 @@
     <string name="label_enum_payment_category_culture">Kultur</string>
     <string name="label_enum_payment_category_entrance_fee">Eintrittgeld</string>
     <string name="label_enum_payment_category_money_transfer">Geldtransfer</string>
-    <string name="participant_options_view_fktn_create_traveller">Erstellen</string>
-    <string name="fktn_glob_help_info">Hilfe &amp; Info</string>
-    <string name="fktn_glob_export">Export</string>
-    <string name="fktn_glob_settings">Einstellungen</string>
+    <string name="option_help">Hilfe &amp; Info</string>
+    <string name="option_settings">Einstellungen</string>
+    <string name="option_export">Export</string>
+    <string name="option_delete">Löschen</string>    
+    <string name="option_create">Erstellen</string>
+    <string name="option_import_exchange_rates">Hilfe &amp; Info</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Ausgegeben:</string>
     <string name="participant_tab_row_view_label_paid">Bezahlt:</string>
     <string name="participant_tab_msg_no_participants_in_trip">Erstelle neue Reisende mit einem Lang-Tap auf den Reisende-Tab-Reiter. Anschließend kannst Du mit einem Lang-Tap auf den erzeugten Reisenden eine Zahlung erstellen.</string>
+    <!-- ===============================  Currency calculator view =============================== -->
+    <string name="currencyCalculatorViewTextViewHeading">Money Exchange Calculation</string>
+    <string name="currencyCalculatorViewTextViewLabelSource">Source</string>
+    <string name="currencyCalculatorViewTextViewLabelTarget">Result</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRate">Exchange rate</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Exchange rate setting</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelOptions">Options</string>
+    <string name="currencyCalculatorViewCheckboxSaveNewRate">Save newly entered exchange rate</string>
+    <string name="currencyCalculatorViewImageViewDescription">Indicates the exchange calculation direction</string>
+    <string name="currencyCalculatorViewButtonUseResult">Use result</string>
+    <!-- ===============================  Manage exchange rates view =============================== -->
+    <string name="manageExchangeRatesViewTextViewHeading">Exchange Rate Management</string>
+    <!-- ===============================  Import exchange rates view =============================== -->
+    <string name="importExchangeRatesViewTextViewHeading">Import Exchange Rates</string>
+    <string name="importExchangeRatesViewCheckboxLabelReplaceExisting">Replace rates already imported</string>
+    <string name="importExchangeRatesViewListViewLabel">Select all exchange relevant currencies</string>
     <!-- ===============================  export view =============================== -->
     <string name="exportViewTextViewHeading">Export</string>
     <string name="exportViewTextViewSubHeadingContent">Was?</string>
@@ -152,16 +172,12 @@
     <string name="fktn_participant_create_payment">Zahlung erzeugen</string>
     <string name="fktn_participant_transfer_money">Geldtransfer</string>
     <string name="fktn_participant_show_report">Bericht</string>
-    <string name="fktn_participant_delete">Löschen</string>
     <string name="fktn_participant_deactivate">Deaktivierung (für Kosten)</string>
     <string name="fktn_participant_activate">Aktivieren (für Kosten)</string>
-    <string name="fktn_participant_edit">Bearbeiten</string>
     <!-- ==================== Context menu Payment List ====================== -->
     <string name="manageTripsView__heading">Reisen verwalten</string>
     <string name="manage_trips_view_label_long_click_to_edit">Tap zum Laden, Lang-Tap zum Editieren</string>
     <string name="manage_trips_view_button_create_new_trip">Neue Reise erstellen</string>
-    <string name="manage_trips_view_fktn_edit">Bearbeiten</string>
-    <string name="manage_trips_view_fktn_delete">Löschen</string>
     <string name="manage_trips_view_delete_confirmation">Soll die ausgewählte Reise einschließlich aller Zahlungen wirklich gelöscht werden?</string>
     <!-- ==================== Context menu participant edit====================== -->
     <string name="edit_participant_view_label_name">Name:</string>
@@ -188,7 +204,8 @@
     <string name="fktn_payment_list_delete_transfer">Geldtransfer löschen</string>
     <!-- ==================== Messages ====================== -->
     <string name="msg_delete_not_possible_inbalance">Der Reisende kann nicht gelöscht werden, da sein Konto nicht ausgeglichen ist.</string>
-        <!-- ==================== Preferences ====================== -->
+    <!-- ==================== Preferences ====================== -->
+    <string name="prefs_view_title_exchange_rate_management">Wechselkurse verwalten</string>	
     <string name="prefs_view_heading_chooser_currency">Wähle Standard Währung</string>
     <string name="prefs_view_title_currency">Standard Währung</string>    
     <string name="prefs_view_title_enable_smart_help">Interaktive Hilfe</string>

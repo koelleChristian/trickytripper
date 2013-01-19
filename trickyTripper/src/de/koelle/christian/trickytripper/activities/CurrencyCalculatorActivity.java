@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.common.utils.NumberUtils;
@@ -51,18 +51,21 @@ public class CurrencyCalculatorActivity extends Activity {
     /* ============== Menu Shit [BGN] ============== */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.general_options_plus_import, menu);
-        return true;
+        return getApp().getOptionSupport().populateOptionsMenu(
+                new OptionContraints().activity(this).menu(menu)
+                        .options(new int[] {
+                                R.id.option_import,
+                                R.id.option_help
+                        }));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.general_options_help:
+        case R.id.option_help:
             showDialog(Rc.DIALOG_SHOW_HELP);
             return true;
-        case R.id.option_import_exchange_rates:
+        case R.id.option_import:
             return importOptionSupport.onOptionsItemSelected();
         default:
             return super.onOptionsItemSelected(item);

@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
@@ -30,6 +29,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import de.koelle.christian.common.changelog.ChangeLog;
 import de.koelle.christian.common.io.impl.AppFileWriter;
+import de.koelle.christian.common.options.OptionsSupport;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.common.utils.FileUtils;
@@ -42,6 +42,7 @@ import de.koelle.christian.trickytripper.activities.ManageTripsActivity;
 import de.koelle.christian.trickytripper.activities.MoneyTransferActivity;
 import de.koelle.christian.trickytripper.activities.PaymentEditActivity;
 import de.koelle.christian.trickytripper.activities.PreferencesActivity;
+import de.koelle.christian.trickytripper.apputils.PrefAccessor;
 import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rt;
@@ -54,6 +55,7 @@ import de.koelle.christian.trickytripper.controller.TripExpensesViewController;
 import de.koelle.christian.trickytripper.controller.impl.ExchangeRateControllerImpl;
 import de.koelle.christian.trickytripper.dataaccess.DataManager;
 import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;
+import de.koelle.christian.trickytripper.decoupling.PrefsResolver;
 import de.koelle.christian.trickytripper.decoupling.impl.ActivityResolverImpl;
 import de.koelle.christian.trickytripper.decoupling.impl.ResourceResolverImpl;
 import de.koelle.christian.trickytripper.export.Exporter;
@@ -87,11 +89,13 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     private final AmountFactory amountFactory = new AmountFactory();
 
     private Collator defaultCollator;
+    private OptionsSupport optionSupport;
 
     List<String> allAssetsList = null;
 
     private DataManager dataManager;
     private Exporter exporter;
+    private PrefsResolver prefsResolver;
     private ExchangeRateController exchangeRateController;
 
     @Override
@@ -128,17 +132,29 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         defaultCollator = Collator.getInstance(getLocale());
         defaultCollator.setStrength(Rc.DEFAULT_COLLATOR_STRENGTH);
 
-        SharedPreferences prefs = getPrefs();
-        long tripId = PrefWritrerReaderUtils.getIdOfTripLastEdited(prefs);
+        prefsResolver = new PrefAccessor(this);
+
+        SharedPreferences prefs = prefsResolver.getPrefs();
+        long tripId = PrefWritrerReaderUtils.loadIdOfTripLastEdited(prefs);
 
         if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
             Log.d(Rc.LT, "init() id of last trip=" + tripId);
         }
 
+        optionSupport = new OptionsSupport(new int[] {
+                R.id.option_create_participant,
+                R.id.option_create_trip,
+                R.id.option_delete,
+                R.id.option_export,
+                R.id.option_help,
+                R.id.option_import,
+                R.id.option_preferences
+        });
+
         dataManager = new DataManagerImpl(getBaseContext());
         tripToBeEdited = dataManager.loadTripById(tripId);
 
-        exchangeRateController = new ExchangeRateControllerImpl(getBaseContext(), dataManager);
+        exchangeRateController = new ExchangeRateControllerImpl(dataManager, prefsResolver, getResources());
 
         exporter = new ExporterImpl(new AppFileWriter(getApplicationContext()));
 
@@ -156,10 +172,6 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     private Locale getLocale() {
         return getResources().getConfiguration().locale;
-    }
-
-    private SharedPreferences getPrefs() {
-        return getSharedPreferences(Rc.PREFS_NAME_ID, Rc.PREFS_MODE);
     }
 
     private void initPostTripLoad() {
@@ -184,17 +196,11 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
             Log.d(Rc.LT, "safeLoadedTripIdToPrefs() id of last trip=" + tripToBeEdited.getId());
         }
-        PrefWritrerReaderUtils.saveIdOfTripLastEdited(getEditingPrefsEditor(), tripToBeEdited.getId());
-    }
-
-    private Editor getEditingPrefsEditor() {
-        SharedPreferences prefs = getPrefs();
-        Editor prefsEditor = prefs.edit();
-        return prefsEditor;
+        PrefWritrerReaderUtils.saveIdOfTripLastEdited(prefsResolver.getEditingPrefsEditor(), tripToBeEdited.getId());
     }
 
     public Currency getDefaultBaseCurrency() {
-        return PrefWritrerReaderUtils.loadDefaultCurrency(getPrefs(), getResources());
+        return PrefWritrerReaderUtils.loadDefaultCurrency(prefsResolver.getPrefs(), getResources());
     }
 
     public String getCurrencySymbolOfTripLoaded(boolean wrapInBrackets) {
@@ -202,7 +208,8 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     }
 
     public boolean isSmartHelpEnabled() {
-        return PrefWritrerReaderUtils.isSmartHelpEnabled(getPrefs(), getEditingPrefsEditor())
+        return PrefWritrerReaderUtils.isSmartHelpEnabled(prefsResolver.getPrefs(),
+                prefsResolver.getEditingPrefsEditor())
                 && !(new ChangeLog(this).firstRun());
     }
 
@@ -573,7 +580,7 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     /* ======================== export ============================== */
     public ExportSettings getDefaultExportSettings() {
-        return PrefWritrerReaderUtils.loadExportSettings(getPrefs());
+        return PrefWritrerReaderUtils.loadExportSettings(prefsResolver.getPrefs());
     }
 
     public List<ExportOutputChannel> getEnabledExportOutputChannel() {
@@ -616,7 +623,7 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         else {
             participantsForReport.addAll(tripToBeEdited.getParticipant());
         }
-        PrefWritrerReaderUtils.saveExportSettings(getEditingPrefsEditor(), settings);
+        PrefWritrerReaderUtils.saveExportSettings(prefsResolver.getEditingPrefsEditor(), settings);
         return exporter.exportReport(settings,
                 participantsForReport,
                 tripToBeEdited,
@@ -676,6 +683,10 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     }
 
     /* ======================= getter/setter ======================= */
+
+    public OptionsSupport getOptionSupport() {
+        return optionSupport;
+    }
 
     public void setTripToBeEdited(Trip tripToBeEdited) {
         this.tripToBeEdited = tripToBeEdited;

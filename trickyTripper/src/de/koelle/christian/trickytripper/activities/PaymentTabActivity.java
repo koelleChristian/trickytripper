@@ -9,12 +9,12 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.TabDialogSupport;
@@ -36,27 +36,31 @@ public class PaymentTabActivity extends ListActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.general_options_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
+        menu.findItem(R.id.option_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.payment_tab_options, menu);
-        return true;
+        return getApp().getOptionSupport().populateOptionsMenu(
+                new OptionContraints().activity(this).menu(menu)
+                        .options(new int[] {
+                                R.id.option_help,
+                                R.id.option_preferences,
+                                R.id.option_export
+                        }));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.general_options_help:
+        case R.id.option_help:
             getParent().showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
             return true;
-        case R.id.general_options_export:
+        case R.id.option_export:
             getApp().getViewController().openExport();
             return true;
-        case R.id.general_options_preferences:
+        case R.id.option_preferences:
             getApp().getViewController().openSettings();
             return true;
         default:

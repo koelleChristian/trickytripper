@@ -12,13 +12,13 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.ImportOptionSupport;
@@ -36,21 +36,29 @@ public class ManageExchangeRatesActivity extends Activity {
     private ImportOptionSupport importOptionSupport;
 
     /* ============== Menu Shit [BGN] ============== */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.general_options_plus_import, menu);
-        return true;
+        return getApp().getOptionSupport().populateOptionsMenu(
+                new OptionContraints().activity(this).menu(menu)
+                        .options(new int[] {
+                                R.id.option_help,
+                                R.id.option_import,
+                                R.id.option_delete
+                        }));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.general_options_help:
+        case R.id.option_delete:
+            Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
+            return true;
+        case R.id.option_import:
+            return importOptionSupport.onOptionsItemSelected();
+        case R.id.option_help:
             showDialog(Rc.DIALOG_SHOW_HELP);
             return true;
-        case R.id.option_import_exchange_rates:
-            return importOptionSupport.onOptionsItemSelected();
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -143,11 +151,11 @@ public class ManageExchangeRatesActivity extends Activity {
         ExchangeRate row = getParticipantByInfo(info);
         menu.setHeaderTitle(getStringOfExchangeRate(row));
 
-        menu.add(CTX_MENU_GROUP_ID_DELETE, CTX_MENU_ID_DELETE, Menu.NONE,
-                getResources().getString(R.string.common_button_delete));
-
         menu.add(CTX_MENU_GROUP_ID_EDIT, CTX_MENU_ID_EDIT, Menu.NONE,
                 getResources().getString(R.string.common_button_edit));
+
+        menu.add(CTX_MENU_GROUP_ID_DELETE, CTX_MENU_ID_DELETE, Menu.NONE,
+                getResources().getString(R.string.common_button_delete));
 
         menu.setGroupEnabled(CTX_MENU_GROUP_ID_EDIT, !row.isImported());
 
@@ -159,18 +167,18 @@ public class ManageExchangeRatesActivity extends Activity {
         TrickyTripperApp app = getApp();
         ExchangeRate row = getParticipantByInfo(info);
         switch (item.getItemId()) {
-        case R.string.common_button_delete: {
-            if (!app.getExchangeRateController().deleteExchangeRate(row)) {
-                Toast.makeText(getApplicationContext(),
-                        getResources().getString(R.string.msg_delete_not_possible_inbalance),
-                        Toast.LENGTH_SHORT)
-                        .show();
-            }
-            else {
-                updateList();
-            }
-            return true;
-        }
+        // case R.string.common_button_delete: {
+        // if (!app.getExchangeRateController().deleteExchangeRate(row)) {
+        // Toast.makeText(getApplicationContext(),
+        // getResources().getString(R.string.msg_delete_not_possible_inbalance),
+        // Toast.LENGTH_SHORT)
+        // .show();
+        // }
+        // else {
+        // updateList();
+        // }
+        // return true;
+        // }
         case R.string.common_button_edit: {
             app.getViewController().openEditExchangeRate(row);
             return true;

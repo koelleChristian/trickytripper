@@ -32,10 +32,11 @@
     <string name="label_enum_payment_category_culture">Culture</string>
     <string name="label_enum_payment_category_entrance_fee">Entrance Fee</string>
     <string name="label_enum_payment_category_money_transfer">Money transfer</string>
-    <string name="participant_options_view_fktn_create_traveller">Create</string>
-    <string name="fktn_glob_help_info">Help &amp; Info</string>
-    <string name="fktn_glob_export">Export</string>
-    <string name="fktn_glob_settings">Settings</string>
+    <string name="option_help">Help &amp; Info</string>
+    <string name="option_settings">Settings</string>
+    <string name="option_export">Export</string>
+    <string name="option_delete">Delete</string>
+    <string name="option_create">Create</string>
     <string name="option_import_exchange_rates">Import exchange rates</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Spent:</string>
@@ -122,7 +123,7 @@
     <string name="fileExportOwingDebtsHeadingCreditor">owes</string>
     <string name="fileExportOwingDebtsHeadingAmount">the amount</string>
     <string name="fileExportTransferHeadingPayer">Traveler</string>
-    <string name="fileExportTransferHeadingReceiver">transfered to</string>
+    <string name="fileExportTransferHeadingReceiver">transferred to</string>
     <string name="fileExportTransferHeadingAmount">the amount of</string>
     <!-- ===============================  Report view =============================== -->
     <string name="report_view_subheading_spendings_by_category">Spending by category</string>
@@ -164,7 +165,7 @@
     <string name="payment_edit_view_label_radio_custom_split">Custom split</string>
     <string name="payment_edit_view_textView_payee_label_amount">Amount</string>
     <string name="payment_edit_view_textView_payee_label_spent_by">Debited to:</string>
-    <string name="payment_edit_view_label_payed_by">Payed by</string>
+    <string name="payment_edit_view_label_payed_by">Paid by</string>
     <string name="payment_edit_view_textView_label_amount">Amount</string>
     <string name="payment_edit_view_button_divide_rest">Divide rest among blanks</string>
     <!-- ==================== Context menu participants ====================== -->

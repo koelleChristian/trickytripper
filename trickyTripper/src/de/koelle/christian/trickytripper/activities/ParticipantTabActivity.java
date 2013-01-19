@@ -10,12 +10,12 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperActivity;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -66,31 +66,36 @@ public class ParticipantTabActivity extends ListActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.general_options_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
+        menu.findItem(R.id.option_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.participant_tab_options, menu);
-        return true;
+        return getApp().getOptionSupport().populateOptionsMenu(
+                new OptionContraints().activity(this).menu(menu)
+                        .options(new int[] {
+                                R.id.option_create_participant,
+                                R.id.option_help,
+                                R.id.option_export,
+                                R.id.option_preferences
+                        }));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.traveller_options_new:
+        case R.id.option_create_participant:
             getParent().showDialog(TrickyTripperTabConstants.DIALOG_CREATE_PARTICIPANT,
                     TabDialogSupport.createBundleWithParticipantSelected(new Participant()));
             return true;
-        case R.id.general_options_help:
+        case R.id.option_help:
             getParent().showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
             return true;
-        case R.id.general_options_export:
+        case R.id.option_export:
             getApp().getViewController().openExport();
             return true;
-        case R.id.general_options_preferences:
+        case R.id.option_preferences:
             getApp().getViewController().openSettings();
             return true;
         default:
@@ -138,13 +143,12 @@ public class ParticipantTabActivity extends ListActivity {
             menu.add(MENU_GROUP_P_STD, R.string.fktn_participant_activate, Menu.NONE,
                     getResources().getString(R.string.fktn_participant_activate));
         }
+        menu.add(MENU_GROUP_P_STD, R.string.common_button_edit, Menu.NONE, getResources()
+                .getString(R.string.common_button_edit));
 
-        menu.add(MENU_GROUP_P_DELETE_ABLE_REQ, R.string.fktn_participant_delete,
+        menu.add(MENU_GROUP_P_DELETE_ABLE_REQ, R.string.common_button_delete,
                 Menu.NONE,
-                getResources().getString(R.string.fktn_participant_delete));
-
-        menu.add(MENU_GROUP_P_STD, R.string.fktn_participant_edit, Menu.NONE, getResources()
-                .getString(R.string.fktn_participant_edit));
+                getResources().getString(R.string.common_button_delete));
 
         menu.setGroupEnabled(MENU_GROUP_P_ACTIVE_REQ, p.isActive());
         menu.setGroupEnabled(MENU_GROUP_P_DELETE_ABLE_REQ, getApp().getFktnController().isParticipantDeleteable(p));
@@ -184,7 +188,7 @@ public class ParticipantTabActivity extends ListActivity {
             adapter.notifyDataSetChanged();
             return true;
         }
-        case R.string.fktn_participant_delete: {
+        case R.string.common_button_delete: {
             if (!app.getFktnController().deleteParticipant(participant)) {
                 Toast.makeText(getApplicationContext(),
                         getResources().getString(R.string.msg_delete_not_possible_inbalance),
@@ -196,7 +200,7 @@ public class ParticipantTabActivity extends ListActivity {
             }
             return true;
         }
-        case R.string.fktn_participant_edit: {
+        case R.string.common_button_edit: {
             getParent().showDialog(TrickyTripperTabConstants.DIALOG_EDIT_PARTICIPANT,
                     TabDialogSupport.createBundleWithParticipantSelected(participant));
 

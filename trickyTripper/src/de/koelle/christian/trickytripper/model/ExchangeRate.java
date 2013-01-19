@@ -11,12 +11,13 @@ public class ExchangeRate implements Serializable {
     private static final long serialVersionUID = 2017174474860551532L;
 
     private long id;
-    private Currency currencyFrom;
-    private Currency currencyTo;
+    private Currency currencyFrom;// a // b
+    private Currency currencyTo; // a // b
     private Double exchangeRate;
-    private String description;
+    private String description; // b keine Dubletten
     private Date updateDate;
-    private ImportOrigin importOrigin;
+    private Date creationDate;
+    private ImportOrigin importOrigin; // b= none
     private boolean inversion;
 
     public boolean isImported() {
@@ -101,6 +102,14 @@ public class ExchangeRate implements Serializable {
 
     public void setInversion(boolean inversion) {
         this.inversion = inversion;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public ExchangeRate cloneToInversion() {

@@ -26,8 +26,8 @@ public class ExporterFileNameUtils {
             if (oneString == null || oneString.length() < 1) {
                 continue;
             }
-            sb.append(oneString.substring(0, 1).toUpperCase());
-            sb.append(oneString.substring(1).toLowerCase());
+            sb.append(oneString.substring(0, 1).toUpperCase(Locale.US));
+            sb.append(oneString.substring(1).toLowerCase(Locale.US));
         }
         return sb;
     }

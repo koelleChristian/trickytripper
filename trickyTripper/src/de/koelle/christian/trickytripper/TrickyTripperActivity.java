@@ -9,9 +9,6 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.AutoCompleteTextView;
@@ -68,23 +65,23 @@ public class TrickyTripperActivity extends TabActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.general_options, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.general_options_help:
-            showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-    }
+    // @Override
+    // public boolean onCreateOptionsMenu(Menu menu) {
+    // MenuInflater inflater = getMenuInflater();
+    // inflater.inflate(R.layout.general_options, menu);
+    // return true;
+    // }
+    //
+    // @Override
+    // public boolean onOptionsItemSelected(MenuItem item) {
+    // switch (item.getItemId()) {
+    // case R.id.option_help:
+    // showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
+    // return true;
+    // default:
+    // return super.onOptionsItemSelected(item);
+    // }
+    // }
 
     @Override
     protected Dialog onCreateDialog(int id, Bundle args) {

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/option_create_participant"
+        android:icon="@android:drawable/ic_input_add"
+        android:title="@string/option_create"/>
+    
+    <item
+        android:id="@+id/option_create_trip"
+        android:icon="@android:drawable/ic_input_add"
+        android:title="@string/option_create"/>    
+    
+    
+    <item
+        android:id="@+id/option_delete"
+        android:icon="@android:drawable/ic_input_delete"
+        android:title="@string/option_delete"/>
+
+    <item
+        android:id="@+id/option_import"
+        android:icon="@android:drawable/stat_sys_download"
+        android:title="@string/option_import_exchange_rates"/>
+
+    <item
+        android:id="@+id/option_export"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="@string/option_export"/>
+
+    <item
+        android:id="@+id/option_preferences"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/option_settings"/>
+
+    <item
+        android:id="@+id/option_help"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="@string/option_help"/>
+
+</menu>

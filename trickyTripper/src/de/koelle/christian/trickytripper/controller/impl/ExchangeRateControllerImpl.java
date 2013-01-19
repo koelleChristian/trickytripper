@@ -1,74 +1,60 @@
 package de.koelle.christian.trickytripper.controller.impl;
 
-import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
-import android.content.Context;
+import android.content.res.Resources;
+import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
 import de.koelle.christian.trickytripper.controller.ExchangeRateController;
 import de.koelle.christian.trickytripper.dataaccess.DataManager;
+import de.koelle.christian.trickytripper.decoupling.PrefsResolver;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ExchangeRateResult;
 
 public class ExchangeRateControllerImpl implements ExchangeRateController {
 
-    private final List<ExchangeRate> exchangeRateMockResult = new ArrayList<ExchangeRate>();
+    private final DataManager dataManager;
+    private final PrefsResolver prefsResolver;
+    private final Resources resources;
 
-    public ExchangeRateControllerImpl(Context baseContext, DataManager dataManager) {
-        // TODO Auto-generated constructor stub
+    public ExchangeRateControllerImpl(DataManager dataManager, PrefsResolver prefsResolver, Resources resources) {
+        this.dataManager = dataManager;
+        this.prefsResolver = prefsResolver;
+        this.resources = resources;
     }
 
     public ExchangeRateResult findSuitableRates(Currency currencyFrom, Currency currencyTo) {
-        List<ExchangeRate> exchangeRateMockResult2 = filter(currencyTo);
-        return new ExchangeRateResult(exchangeRateMockResult2, exchangeRateMockResult.get(0));
+        return dataManager.findSuitableRates(currencyFrom, currencyTo);
     }
 
     public List<ExchangeRate> getAllExchangeRatesWithoutInversion() {
-        return exchangeRateMockResult;
-    }
-
-    public void persistExchangeRates(List<ExchangeRate> rates) {
-        for (ExchangeRate rate : rates) {
-            System.out.println(rate);
-        }
+        return dataManager.getAllExchangeRatesWithoutInversion();
     }
 
     public boolean deleteExchangeRate(ExchangeRate row) {
-        for (ExchangeRate rate : exchangeRateMockResult) {
-            if (row.getId() == rate.getId()) {
-                exchangeRateMockResult.remove(rate);
-                return true;
-            }
-        }
-        throw new RuntimeException("should not be here.");
+        return dataManager.deleteExchangeRate(row);
     }
 
-    public boolean persistExchangeRate(ExchangeRate rate) {
-        // TODO Auto-generated method stub
-        return false;
+    public ExchangeRate persistExchangeRate(ExchangeRate rate) {
+        return dataManager.persistExchangeRate(rate);
     }
 
-    public void saveExchangeRate(ExchangeRate exchangeRate) {
-        exchangeRate.setId(exchangeRateMockResult.size() + 1);
-        exchangeRateMockResult.add(exchangeRate);
+    public boolean doesExchangeRateAlreadyExist(ExchangeRate exchangeRate) {
+        return dataManager.doesExchangeRateAlreadyExist(exchangeRate);
     }
 
-    public ExchangeRate importExchangeRate(Currency currrencyFrom, Currency currencyTo) {
-        // TODO Auto-generated method stub
-        return null;
+    public void persitImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported) {
+        dataManager.persistImportedExchangeRate(rate, replaceWhenAlreadyImported);
     }
 
     public Currency getSourceCurrencyUsedLast() {
-        return Currency.getInstance("TRY");
+        return PrefWritrerReaderUtils.loadSourceCurrencyUsedLast(prefsResolver.getPrefs(), resources);
     }
 
-    private List<ExchangeRate> filter(Currency currencyTo) {
-        List<ExchangeRate> result = new ArrayList<ExchangeRate>();
-        for (ExchangeRate rate : exchangeRateMockResult) {
-            if (currencyTo.getCurrencyCode().equals(rate.getCurrencyTo())) {
-                result.add(rate);
-            }
-        }
-        return result;
+    public void persistLastExchangeRateUsageSettings(Currency sourceCurrencyLastUsed, ExchangeRate exchangeRateUsedLast) {
+        PrefWritrerReaderUtils
+                .saveSourceCurrencyUsedLast(prefsResolver.getEditingPrefsEditor(), sourceCurrencyLastUsed);
+        dataManager.persistExchangeRateUsedLast(exchangeRateUsedLast);
     }
+
 }

@@ -1,7 +1,10 @@
 package de.koelle.christian.trickytripper.dataaccess;
 
+import java.util.Currency;
 import java.util.List;
 
+import de.koelle.christian.trickytripper.model.ExchangeRate;
+import de.koelle.christian.trickytripper.model.ExchangeRateResult;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.Trip;
@@ -34,5 +37,21 @@ public interface DataManager {
     boolean deleteParticipant(long participantId);
 
     boolean hasTripPayments(long tripId);
+
+    /* ========= Exchange Rates ============ */
+
+    ExchangeRateResult findSuitableRates(Currency currencyFrom, Currency currencyTo);
+
+    List<ExchangeRate> getAllExchangeRatesWithoutInversion();
+
+    boolean deleteExchangeRate(ExchangeRate row);
+
+    ExchangeRate persistExchangeRate(ExchangeRate rate);
+
+    boolean doesExchangeRateAlreadyExist(ExchangeRate exchangeRate);
+
+    void persistImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported);
+
+    void persistExchangeRateUsedLast(ExchangeRate exchangeRateUsedLast);
 
 }

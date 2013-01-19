@@ -15,7 +15,6 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,6 +26,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -86,15 +86,18 @@ public class ManageTripsActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.general_options, menu);
-        return true;
+        return getApp().getOptionSupport().populateOptionsMenu(
+                new OptionContraints().activity(this).menu(menu)
+                        .options(new int[] {
+                                R.id.option_help,
+                                R.id.option_create_trip
+                        }));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.general_options_help:
+        case R.id.option_help:
             showDialog(Rc.DIALOG_SHOW_HELP);
             return true;
         default:
@@ -163,11 +166,11 @@ public class ManageTripsActivity extends Activity {
         TripSummary p = arrayAdapterTripSummary.getItem(info.position);
         menu.setHeaderTitle(p.getName());
 
-        menu.add(MENU_GROUP_STD, R.string.manage_trips_view_fktn_edit, Menu.NONE,
-                getResources().getString(R.string.manage_trips_view_fktn_edit));
+        menu.add(MENU_GROUP_STD, R.string.common_button_edit, Menu.NONE,
+                getResources().getString(R.string.common_button_edit));
 
-        menu.add(MENU_GROUP_DELETE, R.string.manage_trips_view_fktn_delete, Menu.NONE,
-                getResources().getString(R.string.manage_trips_view_fktn_delete));
+        menu.add(MENU_GROUP_DELETE, R.string.common_button_delete, Menu.NONE,
+                getResources().getString(R.string.common_button_delete));
 
         menu.setGroupEnabled(MENU_GROUP_DELETE, !getApp().getFktnController().oneOrLessTripsLeft());
     }
@@ -180,12 +183,12 @@ public class ManageTripsActivity extends Activity {
         boolean isTripNew = false;
 
         switch (item.getItemId()) {
-        case R.string.manage_trips_view_fktn_edit: {
+        case R.string.common_button_edit: {
             showDialog(DIALOG_EDIT,
                     createBundleWithTripSummaryForPopup(selectedTripSummary, isTripNew, hasTripPayments));
             return true;
         }
-        case R.string.manage_trips_view_fktn_delete: {
+        case R.string.common_button_delete: {
             showDialog(DIALOG_DELETE,
                     createBundleWithTripSummaryForPopup(selectedTripSummary, isTripNew, hasTripPayments));
             return true;
