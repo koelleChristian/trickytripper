@@ -15,6 +15,7 @@ import android.util.Log;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.dataaccess.DataManager;
+import de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRateDao;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.ParticipantDao;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.ParticipantTable;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.PaymentDao;
@@ -41,6 +42,7 @@ public class DataManagerImpl implements DataManager {
     private final TripDao tripDao;
     private final ParticipantDao participantDao;
     private final PaymentDao paymentDao;
+    private final ExchangeRateDao exchangeRateDao;
 
     public DataManagerImpl(Context context) {
 
@@ -55,6 +57,7 @@ public class DataManagerImpl implements DataManager {
         tripDao = new TripDao(db);
         participantDao = new ParticipantDao(db);
         paymentDao = new PaymentDao(db);
+        exchangeRateDao = new ExchangeRateDao(db);
     }
 
     public void removeAll() {
@@ -309,28 +312,62 @@ public class DataManagerImpl implements DataManager {
     }
 
     public ExchangeRateResult findSuitableRates(Currency currencyFrom, Currency currencyTo) {
-        // TODO Auto-generated method stub
-        return null;
+        return exchangeRateDao.findSuitableRates(currencyFrom, currencyTo);
     }
 
     public List<ExchangeRate> getAllExchangeRatesWithoutInversion() {
-        // TODO Auto-generated method stub
-        return null;
+        return exchangeRateDao.getAllExchangeRatesWithoutInversion();
     }
 
     public boolean deleteExchangeRate(ExchangeRate row) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean result = true;
+        try {
+            db.beginTransaction();
+            exchangeRateDao.delete(row.getId());
+            db.setTransactionSuccessful();
+        }
+        catch (SQLException e) {
+            Log.e(Rc.LT, "Error deleting payment (transaction rolled back)", e);
+            result = false;
+        }
+        finally {
+            db.endTransaction();
+        }
+        return result;
     }
 
     public ExchangeRate persistExchangeRate(ExchangeRate rate) {
-        // TODO Auto-generated method stub
-        return null;
+        boolean isNew = rate.isNew();
+        long rateId = 0L;
+        /* TODO(ckoelle) Check for consistency how creating date is inserted. */
+        Date currentDateTime = new Date();
+        rate.setUpdateDate(currentDateTime);
+        try {
+            db.beginTransaction();
+            if (isNew) {
+                rate.setCreationDate(currentDateTime);
+                rateId = exchangeRateDao.create(rate);
+            }
+            else {
+                exchangeRateDao.update(rate);
+            }
+            db.setTransactionSuccessful();
+        }
+        catch (SQLException e) {
+            Log.e(Rc.LT, "Error saving exchange rate (transaction rolled back)", e);
+            rateId = 0L;
+        }
+        finally {
+            db.endTransaction();
+        }
+        if (isNew) {
+            rate.setId(rateId);
+        }
+        return rate;
     }
 
     public boolean doesExchangeRateAlreadyExist(ExchangeRate exchangeRate) {
-        // TODO Auto-generated method stub
-        return false;
+        return exchangeRateDao.doesExchangeRateAlreadyExist(exchangeRate);
     }
 
     public void persistImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported) {

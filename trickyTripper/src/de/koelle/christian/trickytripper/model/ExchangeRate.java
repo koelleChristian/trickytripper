@@ -124,4 +124,8 @@ public class ExchangeRate implements Serializable {
         result.setInversion(!isInversion());
         return result;
     }
+
+    public boolean isNew() {
+        return id > 0;
+    }
 }

@@ -9,4 +9,16 @@ public enum ImportOrigin {
     /**/
     ;
 
+    public static ImportOrigin getValueByOrdinal(int ordinal) {
+        if (ordinal < 0) {
+            return null;
+        }
+        for (ImportOrigin value : ImportOrigin.values()) {
+            if (value.ordinal() == ordinal) {
+                return value;
+            }
+        }
+        return null;
+    }
+
 }
