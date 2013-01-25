@@ -18,7 +18,7 @@ public interface ExchangeRateController {
 
     boolean doesExchangeRateAlreadyExist(ExchangeRate exchangeRate);
 
-    boolean deleteExchangeRate(ExchangeRate row);
+    boolean deleteExchangeRates(List<ExchangeRate> rows);
 
     /**
      * Returns the source currency of the last calculation, if any.

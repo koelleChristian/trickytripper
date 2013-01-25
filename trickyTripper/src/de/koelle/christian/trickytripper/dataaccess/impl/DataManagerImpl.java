@@ -319,15 +319,41 @@ public class DataManagerImpl implements DataManager {
         return exchangeRateDao.getAllExchangeRatesWithoutInversion();
     }
 
-    public boolean deleteExchangeRate(ExchangeRate row) {
-        boolean result = true;
+    public boolean doesExchangeRateAlreadyExist(ExchangeRate exchangeRate) {
+        return exchangeRateDao.doesExchangeRateAlreadyExist(exchangeRate);
+    }
+
+    public void persistExchangeRateUsedLast(ExchangeRate exchangeRateUsedLast) {
         try {
             db.beginTransaction();
-            exchangeRateDao.delete(row.getId());
+            exchangeRateDao.persistExchangeRateUsedLast(exchangeRateUsedLast);
             db.setTransactionSuccessful();
         }
         catch (SQLException e) {
-            Log.e(Rc.LT, "Error deleting payment (transaction rolled back)", e);
+            Log.e(Rc.LT, "Error saving exchange rate preferences (transaction rolled back)", e);
+        }
+        finally {
+            db.endTransaction();
+        }
+    }
+
+    public boolean deleteExchangeRates(List<ExchangeRate> rows) {
+        List<Long> idsToBeDeleted = new ArrayList<Long>();
+        for (ExchangeRate rate : rows) {
+            idsToBeDeleted.add(rate.getId());
+        }
+        return deleteExchangeRatesById(idsToBeDeleted);
+    }
+
+    public boolean deleteExchangeRatesById(List<Long> idsToBeDeleted) {
+        boolean result = true;
+        try {
+            db.beginTransaction();
+            exchangeRateDao.delete(idsToBeDeleted);
+            db.setTransactionSuccessful();
+        }
+        catch (SQLException e) {
+            Log.e(Rc.LT, "Error deleting exchange rates (transaction rolled back)", e);
             result = false;
         }
         finally {
@@ -366,16 +392,31 @@ public class DataManagerImpl implements DataManager {
         return rate;
     }
 
-    public boolean doesExchangeRateAlreadyExist(ExchangeRate exchangeRate) {
-        return exchangeRateDao.doesExchangeRateAlreadyExist(exchangeRate);
-    }
-
     public void persistImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported) {
-        // TODO Auto-generated method stub
-    }
+        ExchangeRate thinggyToBePersisted = null;
 
-    public void persistExchangeRateUsedLast(ExchangeRate exchangeRateUsedLast) {
-        // TODO Auto-generated method stub
+        if (!replaceWhenAlreadyImported) {
+            rate.setId(0);
+            thinggyToBePersisted = rate;
+        }
+        else {
+            List<ExchangeRate> existingRecords = exchangeRateDao.findExistingImportedRecords(rate);
+            List<Long> recordsToBeDeleted = new ArrayList<Long>();
+            for (int i = 0; i < existingRecords.size(); i++) {
+                long idOfExistingRecord = existingRecords.get(i).getId();
+                if (thinggyToBePersisted == null) {
+                    rate.setId(idOfExistingRecord);
+                    thinggyToBePersisted = rate;
+                }
+                else {
+                    recordsToBeDeleted.add(idOfExistingRecord);
+                }
+            }
+            if (recordsToBeDeleted.size() > 0) {
+                deleteExchangeRatesById(recordsToBeDeleted);
+            }
+        }
+        persistExchangeRate(thinggyToBePersisted);
     }
 
 }

@@ -44,7 +44,7 @@ public interface DataManager {
 
     List<ExchangeRate> getAllExchangeRatesWithoutInversion();
 
-    boolean deleteExchangeRate(ExchangeRate row);
+    boolean deleteExchangeRates(List<ExchangeRate> rows);
 
     ExchangeRate persistExchangeRate(ExchangeRate rate);
 

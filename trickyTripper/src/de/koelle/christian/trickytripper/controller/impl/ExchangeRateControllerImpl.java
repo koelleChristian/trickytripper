@@ -31,8 +31,8 @@ public class ExchangeRateControllerImpl implements ExchangeRateController {
         return dataManager.getAllExchangeRatesWithoutInversion();
     }
 
-    public boolean deleteExchangeRate(ExchangeRate row) {
-        return dataManager.deleteExchangeRate(row);
+    public boolean deleteExchangeRates(List<ExchangeRate> rows) {
+        return dataManager.deleteExchangeRates(rows);
     }
 
     public ExchangeRate persistExchangeRate(ExchangeRate rate) {

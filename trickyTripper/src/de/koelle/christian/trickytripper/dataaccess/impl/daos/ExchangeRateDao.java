@@ -36,17 +36,8 @@ public class ExchangeRateDao {
                     + ExchangeRateColumns.IMPORT_ORIGIN
                     + ") values (?, ?, ?, ?, ?, ?, ? )";
 
-    private static final String ER_DELETE =
-            "delete from "
-                    + ExchangeRateTable.TABLE_NAME
-                    + " where "
-                    + BaseColumns._ID + " = ?";
-
-    private static final String ERP_DELETE =
-            "delete from "
-                    + ExchangeRatePrefTable.TABLE_NAME
-                    + " where "
-                    + ExchangeRatePrefColumns.EXCHANGE_RATE_ID + " = ?";
+    private static final String TEMP_TABLE_EXCHANGE_RATE_DELETE = "exchangeRateDelete";
+    private static final String TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE = "exchangeRatePrefsDelete";
 
     private static final String ER_COUNT_DESCRIPTION =
             "select count(*) from "
@@ -62,20 +53,99 @@ public class ExchangeRateDao {
                     + " and not "
                     + ExchangeRateColumns._ID + " = ?";
 
+    private static final StringBuilder ERP_RAW_QUERY_FIND = new StringBuilder()
+            .append("select ")
+            .append(ExchangeRateTable.TABLE_NAME).append(".").append(BaseColumns._ID)
+            .append(" ")
+            .append(ExchangeRateTable.TABLE_NAME).append(".").append(ExchangeRateColumns.CURRENCY_FROM)
+            .append(" ")
+            .append(ExchangeRateTable.TABLE_NAME).append(".").append(ExchangeRateColumns.CURRENCY_TO)
+            .append(" ")
+            .append(ExchangeRateTable.TABLE_NAME).append(".").append(ExchangeRateColumns.RATE)
+            .append(" ")
+            .append(ExchangeRateTable.TABLE_NAME).append(".").append(ExchangeRateColumns.DESCRIPTION)
+            .append(" ")
+            .append(ExchangeRateTable.TABLE_NAME).append(".").append(ExchangeRateColumns.DATE_CREATE)
+            .append(" ")
+            .append(ExchangeRateTable.TABLE_NAME).append(".").append(ExchangeRateColumns.DATE_UPDATE)
+            .append(" ")
+            .append(ExchangeRateTable.TABLE_NAME).append(".").append(ExchangeRateColumns.IMPORT_ORIGIN)
+            /**/
+            .append(" inner join ")
+            .append(ExchangeRatePrefTable.TABLE_NAME)
+            .append(" on ")
+            .append(ExchangeRateTable.TABLE_NAME).append(".").append(BaseColumns._ID)
+            .append(" = ")
+            .append(ExchangeRatePrefTable.TABLE_NAME).append(".").append(ExchangeRatePrefColumns.EXCHANGE_RATE_ID)
+            /**/
+            .append(" where ")
+            .append("(")
+            .append(ExchangeRatePrefColumns.CURRENCY_FROM)
+            .append(" = ?")
+            .append(" AND ")
+            .append(ExchangeRatePrefColumns.CURRENCY_TO)
+            .append(" = ?")
+            .append(")")
+            .append(" OR ")
+            .append("(")
+            .append(ExchangeRatePrefColumns.CURRENCY_TO)
+            .append(" = ?")
+            .append(" AND ")
+            .append(ExchangeRatePrefColumns.CURRENCY_FROM)
+            .append(" = ?")
+            .append(")");
+
+    private static final String ER_SELECTION_ARGS_FIND_IMPORTED = new StringBuilder()
+            .append("(")
+            .append("(")
+            .append(ExchangeRateColumns.CURRENCY_FROM)
+            .append(" = ?")
+            .append(" AND ")
+            .append(ExchangeRateColumns.CURRENCY_TO)
+            .append(" = ?")
+            .append(")")
+            .append(" OR ")
+            .append("(")
+            .append(ExchangeRateColumns.CURRENCY_TO)
+            .append(" = ?")
+            .append(" AND ")
+            .append(ExchangeRateColumns.CURRENCY_FROM)
+            .append(" = ?")
+            .append(")")
+            .append(")")
+            .append(" AND ")
+            .append(ExchangeRateColumns.IMPORT_ORIGIN)
+            .append(" = ?")
+            .toString();
+
+    private static final String ER_SELECTION_ARGS_FIND_ALL_MATCHING = new StringBuilder()
+            .append("(")
+            .append(ExchangeRateColumns.CURRENCY_FROM)
+            .append(" = ?")
+            .append(" AND ")
+            .append(ExchangeRateColumns.CURRENCY_TO)
+            .append(" = ?")
+            .append(")")
+            .append(" OR ")
+            .append("(")
+            .append(ExchangeRateColumns.CURRENCY_TO)
+            .append(" = ?")
+            .append(" AND ")
+            .append(ExchangeRateColumns.CURRENCY_FROM)
+            .append(" = ?")
+            .append(")")
+            .toString();
+
     private final SQLiteDatabase db;
     private final SQLiteStatement insertStatementEr;
-    private final SQLiteStatement deleteStatementEr;
     private final SQLiteStatement insertStatementErp;
-    private final SQLiteStatement deleteStatementErp;
     private final SQLiteStatement countDescInEr;
     private final SQLiteStatement countDescInErUnless;
 
     public ExchangeRateDao(SQLiteDatabase db) {
         this.db = db;
         insertStatementEr = db.compileStatement(ExchangeRateDao.ER_INSERT);
-        deleteStatementEr = db.compileStatement(ExchangeRateDao.ER_DELETE);
         insertStatementErp = db.compileStatement(ExchangeRateDao.ERP_INSERT);
-        deleteStatementErp = db.compileStatement(ExchangeRateDao.ERP_DELETE);
         countDescInEr = db.compileStatement(ExchangeRateDao.ER_COUNT_DESCRIPTION);
         countDescInErUnless = db.compileStatement(ExchangeRateDao.ER_COUNT_DESCRIPTION_UNLESS);
     }
@@ -90,6 +160,14 @@ public class ExchangeRateDao {
         insertStatementEr.bindLong(6, type.getUpdateDate().getTime());
         insertStatementEr.bindLong(7, type.getImportOrigin().ordinal());
         return insertStatementEr.executeInsert();
+    }
+
+    public long createPref(ExchangeRate type) {
+        insertStatementErp.clearBindings();
+        insertStatementErp.bindString(1, type.getCurrencyFrom().getCurrencyCode());
+        insertStatementErp.bindString(2, type.getCurrencyTo().getCurrencyCode());
+        insertStatementErp.bindLong(3, type.getId());
+        return insertStatementErp.executeInsert();
     }
 
     public void update(ExchangeRate type) {
@@ -107,17 +185,41 @@ public class ExchangeRateDao {
                 new String[] { String.valueOf(type.getId()) });
     }
 
-    public void delete(long exchangeRateId) {
-        deletePrefs(exchangeRateId);
-        deleteStatementEr.clearBindings();
-        deleteStatementEr.bindLong(1, exchangeRateId);
-        deleteStatementEr.execute();
+    public int updatePrefs(Currency currencyFrom, Currency currencyTo, long id) {
+        final ContentValues values = new ContentValues();
+        values.put(ExchangeRatePrefColumns.EXCHANGE_RATE_ID, id);
+        return db.update(
+                ExchangeRatePrefTable.TABLE_NAME,
+                values,
+                ER_SELECTION_ARGS_FIND_ALL_MATCHING,
+                new String[] {
+                        currencyFrom.getCurrencyCode(),
+                        currencyTo.getCurrencyCode(),
+                        currencyFrom.getCurrencyCode(),
+                        currencyTo.getCurrencyCode()
+                });
     }
 
-    public void deletePrefs(long exchangeRateId) {
-        deleteStatementErp.clearBindings();
-        deleteStatementEr.bindLong(1, exchangeRateId);
-        deleteStatementEr.execute();
+    public void delete(List<Long> idsToBeDeleted) {
+        deletePrefs(idsToBeDeleted);
+        db.execSQL("CREATE TEMP TABLE " + TEMP_TABLE_EXCHANGE_RATE_DELETE + "(x);");
+        for (Long id : idsToBeDeleted) {
+            db.execSQL("INSERT INTO " + TEMP_TABLE_EXCHANGE_RATE_DELETE + " VALUES(?);", new Object[] { id });
+        }
+        db.execSQL("DELETE FROM " + ExchangeRateTable.TABLE_NAME
+                + " WHERE LinkID IN (SELECT * FROM " + TEMP_TABLE_EXCHANGE_RATE_DELETE + ");");
+        db.execSQL("DROP TABLE " + TEMP_TABLE_EXCHANGE_RATE_DELETE + ";");
+    }
+
+    public void deletePrefs(List<Long> idsToBeDeleted) {
+
+        db.execSQL("CREATE TEMP TABLE " + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + "(x);");
+        for (Long id : idsToBeDeleted) {
+            db.execSQL("INSERT INTO " + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + " VALUES(?);", new Object[] { id });
+        }
+        db.execSQL("DELETE FROM " + ExchangeRatePrefTable.TABLE_NAME
+                + " WHERE LinkID IN (SELECT * FROM " + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + ");");
+        db.execSQL("DROP TABLE " + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + ";");
     }
 
     public boolean doesExchangeRateAlreadyExist(ExchangeRate exchangeRate) {
@@ -149,37 +251,25 @@ public class ExchangeRateDao {
         return new ExchangeRateResult(resultList, rateUsedLastTime);
     }
 
-    private ExchangeRate findRateUseLastTime(Currency currencyFrom, Currency currencyTo) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<ExchangeRate> findExistingImportedRecords(ExchangeRate rate) {
+        String[] selectionArgs = new String[] {
+                rate.getCurrencyFrom().getCurrencyCode(),
+                rate.getCurrencyTo().getCurrencyCode(),
+                rate.getCurrencyFrom().getCurrencyCode(),
+                rate.getCurrencyTo().getCurrencyCode(),
+                rate.getImportOrigin().ordinal() + ""
+        };
+        return queryExchangeRates(ER_SELECTION_ARGS_FIND_IMPORTED, selectionArgs);
     }
 
     private List<ExchangeRate> findMatchingExchangeRates(Currency currencyFrom, Currency currencyTo) {
-        String selectionCriteria = new StringBuilder()
-                .append("(")
-                .append(ExchangeRateColumns.CURRENCY_FROM)
-                .append(" = ?")
-                .append(" AND ")
-                .append(ExchangeRateColumns.CURRENCY_TO)
-                .append(" = ?")
-                .append(")")
-                .append(" OR ")
-                .append("(")
-                .append(ExchangeRateColumns.CURRENCY_TO)
-                .append(" = ?")
-                .append(" AND ")
-                .append(ExchangeRateColumns.CURRENCY_FROM)
-                .append(" = ?")
-                .append(")")
-                .toString();
         String[] selectionArgs = new String[] {
                 currencyFrom.getCurrencyCode(),
                 currencyTo.getCurrencyCode(),
                 currencyFrom.getCurrencyCode(),
                 currencyTo.getCurrencyCode()
         };
-
-        return queryExchangeRates(selectionCriteria, selectionArgs);
+        return queryExchangeRates(ER_SELECTION_ARGS_FIND_ALL_MATCHING, selectionArgs);
     }
 
     private List<ExchangeRate> queryExchangeRates(String selectionCriteria, String[] selectionArgs) {
@@ -215,6 +305,30 @@ public class ExchangeRateDao {
         return resultList;
     }
 
+    public ExchangeRate findRateUseLastTime(Currency currencyFrom, Currency currencyTo) {
+        ExchangeRate result = null;
+
+        Cursor c =
+                db.rawQuery(
+                        ERP_RAW_QUERY_FIND.toString(),
+                        new String[] {
+                                currencyFrom.getCurrencyCode(),
+                                currencyTo.getCurrencyCode(),
+                                currencyFrom.getCurrencyCode(),
+                                currencyTo.getCurrencyCode()
+                        });
+        if (c.moveToFirst()) {
+            do {
+                result = assembleExchangeRate(c);
+            }
+            while (c.moveToNext());
+        }
+        if (!c.isClosed()) {
+            c.close();
+        }
+        return result;
+    }
+
     private ExchangeRate assembleExchangeRate(Cursor c) {
         ExchangeRate rate = new ExchangeRate();
         rate.setId(c.getLong(0));
@@ -226,6 +340,48 @@ public class ExchangeRateDao {
         rate.setUpdateDate(ConversionUtils.getDateByLong(c.getLong(6)));
         rate.setImportOrigin(ImportOrigin.getValueByOrdinal((int) c.getLong(7)));
         return rate;
+    }
+
+    public void persistExchangeRateUsedLast(ExchangeRate exchangeRateUsedLast) {
+        int rowsAffected = updatePrefs(exchangeRateUsedLast.getCurrencyFrom(), exchangeRateUsedLast.getCurrencyTo(),
+                exchangeRateUsedLast.getId());
+        if (rowsAffected == 0) {
+            createPref(exchangeRateUsedLast);
+        }
+
+    }
+
+    private List<ExchangeRate> queryExchangeRatePref(String selectionCriteria, String[] selectionArgs) {
+        List<ExchangeRate> resultList = new ArrayList<ExchangeRate>();
+        Cursor c =
+                db.query(
+                        ExchangeRateTable.TABLE_NAME,
+                        new String[] {
+                                BaseColumns._ID,
+                                ExchangeRateColumns.CURRENCY_FROM,
+                                ExchangeRateColumns.CURRENCY_TO,
+                                ExchangeRateColumns.RATE,
+                                ExchangeRateColumns.DESCRIPTION,
+                                ExchangeRateColumns.DATE_CREATE,
+                                ExchangeRateColumns.DATE_UPDATE,
+                                ExchangeRateColumns.IMPORT_ORIGIN },
+                        selectionCriteria,
+                        selectionArgs,
+                        null,
+                        null,
+                        null,
+                        null);
+        if (c.moveToFirst()) {
+            do {
+                ExchangeRate rate = assembleExchangeRate(c);
+                resultList.add(rate);
+            }
+            while (c.moveToNext());
+        }
+        if (!c.isClosed()) {
+            c.close();
+        }
+        return resultList;
     }
 
 }
