@@ -80,20 +80,20 @@ public class ExchangeRateDao {
             /**/
             .append(" where ")
             .append("(")
-            .append(ExchangeRatePrefColumns.CURRENCY_FROM)
-            .append(" = ?")
+            .append(ExchangeRateTable.TABLE_NAME).append(".").append(ExchangeRateColumns.CURRENCY_FROM)
+            .append(" = ? ")
             .append(" AND ")
-            .append(ExchangeRatePrefColumns.CURRENCY_TO)
-            .append(" = ?")
+            .append(ExchangeRateTable.TABLE_NAME).append(".").append(ExchangeRateColumns.CURRENCY_TO)
+            .append(" = ? ")
             .append(")")
             .append(" OR ")
             .append("(")
-            .append(ExchangeRatePrefColumns.CURRENCY_TO)
-            .append(" = ?")
+            .append(ExchangeRateTable.TABLE_NAME).append(".").append(ExchangeRateColumns.CURRENCY_TO)
+            .append(" = ? ")
             .append(" AND ")
-            .append(ExchangeRatePrefColumns.CURRENCY_FROM)
-            .append(" = ?")
-            .append(")");
+            .append(ExchangeRateTable.TABLE_NAME).append(".").append(ExchangeRateColumns.CURRENCY_FROM)
+            .append(" = ? ")
+            .append(");");
 
     private static final String ER_SELECTION_ARGS_FIND_IMPORTED = new StringBuilder()
             .append("(")
@@ -207,7 +207,7 @@ public class ExchangeRateDao {
             db.execSQL("INSERT INTO " + TEMP_TABLE_EXCHANGE_RATE_DELETE + " VALUES(?);", new Object[] { id });
         }
         db.execSQL("DELETE FROM " + ExchangeRateTable.TABLE_NAME
-                + " WHERE LinkID IN (SELECT * FROM " + TEMP_TABLE_EXCHANGE_RATE_DELETE + ");");
+                + " WHERE " + ExchangeRateColumns._ID + " IN (SELECT * FROM " + TEMP_TABLE_EXCHANGE_RATE_DELETE + ");");
         db.execSQL("DROP TABLE " + TEMP_TABLE_EXCHANGE_RATE_DELETE + ";");
     }
 
@@ -218,7 +218,8 @@ public class ExchangeRateDao {
             db.execSQL("INSERT INTO " + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + " VALUES(?);", new Object[] { id });
         }
         db.execSQL("DELETE FROM " + ExchangeRatePrefTable.TABLE_NAME
-                + " WHERE LinkID IN (SELECT * FROM " + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + ");");
+                + " WHERE " + ExchangeRatePrefColumns.EXCHANGE_RATE_ID + " IN (SELECT * FROM "
+                + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + ");");
         db.execSQL("DROP TABLE " + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + ";");
     }
 
@@ -247,7 +248,9 @@ public class ExchangeRateDao {
 
     public ExchangeRateResult findSuitableRates(Currency currencyFrom, Currency currencyTo) {
         List<ExchangeRate> resultList = findMatchingExchangeRates(currencyFrom, currencyTo);
-        ExchangeRate rateUsedLastTime = findRateUseLastTime(currencyFrom, currencyTo);
+        // ExchangeRate rateUsedLastTime = findRateUseLastTime(currencyFrom,
+        // currencyTo);
+        ExchangeRate rateUsedLastTime = null;
         return new ExchangeRateResult(resultList, rateUsedLastTime);
     }
 

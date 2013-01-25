@@ -1,5 +1,7 @@
 package de.koelle.christian.trickytripper.test.dataaccess.suite;
 
+import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
@@ -20,10 +22,12 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
     private static final Currency TRY = Currency.getInstance("TRY");
     private static final Currency GBP = Currency.getInstance("GBP");
 
-    public static final long FLAG_A = 1;
-    public static final long FLAG_B = 2;
-    public static final long FLAG_C = 4;
-    public static final long FLAG_D = 8;
+    BitSet occuranceFlags = new BitSet(4);
+
+    public static final long ID_A = 1;
+    public static final long ID_B = 2;
+    public static final long ID_C = 3;
+    public static final long ID_D = 4;
 
     private final Map<Long, ExchangeRate> initalRetrievalResults = new HashMap<Long, ExchangeRate>();
 
@@ -141,6 +145,7 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
         dataManager.removeAll();
 
         ExchangeRate input;
+        List<ExchangeRate> deleteList;
 
         long expectedId;
         List<ExchangeRate> resultList;
@@ -153,23 +158,22 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
         /* ============ load ============ */
         ExchangeRate record;
         long idReturned;
-        long occurranceFlags = 0;
 
         resultList = dataManager.getAllExchangeRatesWithoutInversion();
         Assert.assertTrue("The exchangeRateRetrieval should not result in null.", resultList != null);
         Assert.assertEquals(4, resultList.size());
 
-        occurranceFlags = 0;
+        occuranceFlags.clear();
         for (int i = 0; i < resultList.size(); i++) {
             record = resultList.get(i);
             idReturned = record.getId();
-            occurranceFlags = occurranceFlags | idReturned;
+            occuranceFlags.set((int) idReturned);
             assertEquality(initalRetrievalResults.get(idReturned), record, idReturned, true);
         }
-        Assert.assertTrue("Record 1 was not part of the resultset.", ((occurranceFlags & FLAG_A) == FLAG_A));
-        Assert.assertTrue("Record 2 was not part of the resultset.", ((occurranceFlags & FLAG_B) == FLAG_B));
-        Assert.assertTrue("Record 3 was not part of the resultset.", ((occurranceFlags & FLAG_C) == FLAG_C));
-        Assert.assertTrue("Record 4 was not part of the resultset.", ((occurranceFlags & FLAG_D) == FLAG_D));
+        Assert.assertTrue("Record 1 was not part of the resultset.", occuranceFlags.get((int) ID_A));
+        Assert.assertTrue("Record 2 was not part of the resultset.", occuranceFlags.get((int) ID_B));
+        Assert.assertTrue("Record 3 was not part of the resultset.", occuranceFlags.get((int) ID_C));
+        Assert.assertTrue("Record 4 was not part of the resultset.", occuranceFlags.get((int) ID_D));
 
         /* ============ find ============ */
 
@@ -179,16 +183,16 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
         resultList = exchangeRateResult.getMatchingExchangeRates();
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
-        expectedId = FLAG_A;
+        expectedId = ID_A;
         assertEquality(initalRetrievalResults.get(expectedId), record, expectedId, true);
 
-        exchangeRateResult = dataManager.findSuitableRates(USD, EUR); // 1
+        exchangeRateResult = dataManager.findSuitableRates(USD, EUR);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
         resultList = exchangeRateResult.getMatchingExchangeRates();
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
-        expectedId = FLAG_A;
-        assertEquality(initalRetrievalResults.get(expectedId).cloneToInversion(), record, expectedId, true);
+        expectedId = ID_A;
+        assertEquality(initalRetrievalResults.get(expectedId), record, expectedId, true);
 
         /* Record 2 */
         exchangeRateResult = dataManager.findSuitableRates(EUR, TRY);
@@ -196,7 +200,7 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
         resultList = exchangeRateResult.getMatchingExchangeRates();
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
-        expectedId = FLAG_B;
+        expectedId = ID_B;
         assertEquality(initalRetrievalResults.get(expectedId), record, expectedId, true);
 
         exchangeRateResult = dataManager.findSuitableRates(TRY, EUR);
@@ -204,41 +208,42 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
         resultList = exchangeRateResult.getMatchingExchangeRates();
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
-        expectedId = FLAG_B;
-        assertEquality(initalRetrievalResults.get(expectedId).cloneToInversion(), record, expectedId, true);
+        expectedId = ID_B;
+        assertEquality(initalRetrievalResults.get(expectedId), record, expectedId, true);
 
         /* Record 3 & 4 */
         exchangeRateResult = dataManager.findSuitableRates(TRY, GBP);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
         resultList = exchangeRateResult.getMatchingExchangeRates();
-        occurranceFlags = 0;
+        occuranceFlags.clear();
         Assert.assertEquals(2, resultList.size());
         for (int i = 0; i < 2; i++) {
             record = resultList.get(i);
             idReturned = record.getId();
-            occurranceFlags = occurranceFlags | idReturned;
+            occuranceFlags.set((int) idReturned);
             assertEquality(initalRetrievalResults.get(idReturned), record, idReturned, true);
+
         }
-        Assert.assertTrue("Record 1 should not be part of the resultset.", !((occurranceFlags & FLAG_A) == FLAG_A));
-        Assert.assertTrue("Record 2 should not be part of the resultset.", !((occurranceFlags & FLAG_B) == FLAG_B));
-        Assert.assertTrue("Record 3 was not part of the resultset.", ((occurranceFlags & FLAG_C) == FLAG_C));
-        Assert.assertTrue("Record 4 was not part of the resultset.", ((occurranceFlags & FLAG_D) == FLAG_D));
+        Assert.assertTrue("Record 1 should not be part of the resultset.", !occuranceFlags.get((int) ID_A));
+        Assert.assertTrue("Record 2 should not be part of the resultset.", !occuranceFlags.get((int) ID_B));
+        Assert.assertTrue("Record 3 was not part of the resultset.", occuranceFlags.get((int) ID_C));
+        Assert.assertTrue("Record 4 was not part of the resultset.", occuranceFlags.get((int) ID_D));
 
         exchangeRateResult = dataManager.findSuitableRates(GBP, TRY);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
         resultList = exchangeRateResult.getMatchingExchangeRates();
-        occurranceFlags = 0;
+        occuranceFlags.clear();
         Assert.assertEquals(2, resultList.size());
         for (int i = 0; i < 2; i++) {
             record = resultList.get(i);
             idReturned = record.getId();
-            occurranceFlags = occurranceFlags | idReturned;
-            assertEquality(initalRetrievalResults.get(idReturned).cloneToInversion(), record, idReturned, true);
+            occuranceFlags.set((int) idReturned);
+            assertEquality(initalRetrievalResults.get(idReturned), record, idReturned, true);
         }
-        Assert.assertTrue("Record 1 should not be part of the resultset.", !((occurranceFlags & FLAG_A) == FLAG_A));
-        Assert.assertTrue("Record 2 should not be part of the resultset.", !((occurranceFlags & FLAG_B) == FLAG_B));
-        Assert.assertTrue("Record 3 was not part of the resultset.", ((occurranceFlags & FLAG_C) == FLAG_C));
-        Assert.assertTrue("Record 4 was not part of the resultset.", ((occurranceFlags & FLAG_D) == FLAG_D));
+        Assert.assertTrue("Record 1 should not be part of the resultset.", !occuranceFlags.get((int) ID_A));
+        Assert.assertTrue("Record 2 should not be part of the resultset.", !occuranceFlags.get((int) ID_B));
+        Assert.assertTrue("Record 3 was not part of the resultset.", occuranceFlags.get((int) ID_C));
+        Assert.assertTrue("Record 4 was not part of the resultset.", occuranceFlags.get((int) ID_D));
 
         /* None */
         exchangeRateResult = dataManager.findSuitableRates(EUR, GBP);
@@ -254,9 +259,53 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
 
         /* Record 1 */
         input = new ExchangeRate();
-        input.setId(FLAG_A);
+        input.setId(ID_A);
+        deleteList = new ArrayList<ExchangeRate>();
+        deleteList.add(input);
 
-        dataManager.deleteExchangeRate(input);
+        dataManager.deleteExchangeRates(deleteList);
+
+        /* ---------> find post delete */
+        exchangeRateResult = dataManager.findSuitableRates(EUR, USD);
+        resultList = exchangeRateResult.getMatchingExchangeRates();
+        Assert.assertEquals(0, resultList.size());
+
+        exchangeRateResult = dataManager.findSuitableRates(USD, EUR);
+        resultList = exchangeRateResult.getMatchingExchangeRates();
+        Assert.assertEquals(0, resultList.size());
+
+        exchangeRateResult = dataManager.findSuitableRates(EUR, TRY);
+        resultList = exchangeRateResult.getMatchingExchangeRates();
+        Assert.assertEquals(1, resultList.size());
+
+        exchangeRateResult = dataManager.findSuitableRates(TRY, EUR);
+        resultList = exchangeRateResult.getMatchingExchangeRates();
+        Assert.assertEquals(1, resultList.size());
+
+        resultList = dataManager.getAllExchangeRatesWithoutInversion();
+        Assert.assertEquals(3, resultList.size());
+
+        occuranceFlags.clear();
+        for (int i = 0; i < resultList.size(); i++) {
+            occuranceFlags.set((int) resultList.get(i).getId());
+        }
+        Assert.assertTrue("Record 1 should not be part of the resultset as it has been deleted.",
+                !occuranceFlags.get((int) ID_A));
+
+        Assert.assertTrue("Record 2 was not part of the resultset as it has not yet been deleted.",
+                occuranceFlags.get((int) ID_B));
+        Assert.assertTrue("Record 3 was not part of the resultset as it has not yet been deleted.",
+                occuranceFlags.get((int) ID_C));
+        Assert.assertTrue("Record 4 was not part of the resultset as it has not yet been deleted.",
+                occuranceFlags.get((int) ID_D));
+
+        /* Record 2 */
+        input = new ExchangeRate();
+        input.setId(ID_B);
+        deleteList = new ArrayList<ExchangeRate>();
+        deleteList.add(input);
+
+        dataManager.deleteExchangeRates(deleteList);
 
         /* ---------> find post delete */
         exchangeRateResult = dataManager.findSuitableRates(EUR, TRY);
@@ -270,57 +319,27 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
         resultList = dataManager.getAllExchangeRatesWithoutInversion();
         Assert.assertEquals(2, resultList.size());
 
-        occurranceFlags = 0;
+        occuranceFlags.clear();
         for (int i = 0; i < resultList.size(); i++) {
-            occurranceFlags = occurranceFlags | resultList.get(i).getId();
+            occuranceFlags.set((int) resultList.get(i).getId());
         }
         Assert.assertTrue("Record 1 should not be part of the resultset as it has been deleted.",
-                !((occurranceFlags & FLAG_A) == FLAG_A));
-
-        Assert.assertTrue("Record 2 was not part of the resultset as it has not yet been deleted.",
-                ((occurranceFlags & FLAG_B) == FLAG_B));
-        Assert.assertTrue("Record 3 was not part of the resultset as it has not yet been deleted.",
-                ((occurranceFlags & FLAG_C) == FLAG_C));
-        Assert.assertTrue("Record 4 was not part of the resultset as it has not yet been deleted.",
-                ((occurranceFlags & FLAG_D) == FLAG_D));
-
-        /* Record 2 */
-        input = new ExchangeRate();
-        input.setId(FLAG_B);
-
-        dataManager.deleteExchangeRate(input);
-
-        /* ---------> find post delete */
-        exchangeRateResult = dataManager.findSuitableRates(EUR, USD);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
-        Assert.assertEquals(0, resultList.size());
-
-        exchangeRateResult = dataManager.findSuitableRates(USD, EUR);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
-        Assert.assertEquals(0, resultList.size());
-
-        resultList = dataManager.getAllExchangeRatesWithoutInversion();
-        Assert.assertEquals(3, resultList.size());
-
-        occurranceFlags = 0;
-        for (int i = 0; i < resultList.size(); i++) {
-            occurranceFlags = occurranceFlags | resultList.get(i).getId();
-        }
+                !occuranceFlags.get((int) ID_A));
         Assert.assertTrue("Record 1 should not be part of the resultset as it has been deleted.",
-                !((occurranceFlags & FLAG_A) == FLAG_A));
-        Assert.assertTrue("Record 1 should not be part of the resultset as it has been deleted.",
-                !((occurranceFlags & FLAG_B) == FLAG_B));
+                !occuranceFlags.get((int) ID_B));
 
         Assert.assertTrue("Record 3 was not part of the resultset as it has not yet been deleted.",
-                ((occurranceFlags & FLAG_C) == FLAG_C));
+                occuranceFlags.get((int) ID_C));
         Assert.assertTrue("Record 4 was not part of the resultset as it has not yet been deleted.",
-                ((occurranceFlags & FLAG_D) == FLAG_D));
+                occuranceFlags.get((int) ID_D));
 
         /* Record 3 */
         input = new ExchangeRate();
-        input.setId(FLAG_C);
+        input.setId(ID_C);
+        deleteList = new ArrayList<ExchangeRate>();
+        deleteList.add(input);
 
-        dataManager.deleteExchangeRate(input);
+        dataManager.deleteExchangeRates(deleteList);
 
         /* ---------> find post delete */
         exchangeRateResult = dataManager.findSuitableRates(TRY, GBP);
@@ -328,26 +347,28 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
         Assert.assertEquals(1, resultList.size());
         idReturned = resultList.get(0).getId();
         Assert.assertTrue("findSuitableRates should  deliver record 4 as record three has been it has been deleted.",
-                idReturned == FLAG_D);
+                idReturned == ID_D);
 
         exchangeRateResult = dataManager.findSuitableRates(GBP, TRY);
         resultList = exchangeRateResult.getMatchingExchangeRates();
         Assert.assertEquals(1, resultList.size());
         idReturned = resultList.get(0).getId();
         Assert.assertTrue("findSuitableRates should  deliver record 4 as record three has been it has been deleted.",
-                idReturned == FLAG_D);
+                idReturned == ID_D);
 
         resultList = dataManager.getAllExchangeRatesWithoutInversion();
         Assert.assertEquals(1, resultList.size());
         idReturned = resultList.get(0).getId();
         Assert.assertTrue("findSuitableRates should  deliver record 4 as record three has been it has been deleted.",
-                idReturned == FLAG_D);
+                idReturned == ID_D);
 
         /* ---------> find post delete */
         input = new ExchangeRate();
-        input.setId(FLAG_D);
+        input.setId(ID_D);
+        deleteList = new ArrayList<ExchangeRate>();
+        deleteList.add(input);
 
-        dataManager.deleteExchangeRate(input);
+        dataManager.deleteExchangeRates(deleteList);
 
         /* find post delete */
         exchangeRateResult = dataManager.findSuitableRates(TRY, GBP);
@@ -376,7 +397,7 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
         input.setDescription("My first exchange rate");
         input.setExchangeRate(0.7539);
         input.setImportOrigin(ImportOrigin.NONE);
-        expectedId = FLAG_A;
+        expectedId = ID_A;
 
         output = dataManager.persistExchangeRate(input);
         assertEquality(input, output, expectedId, false);
@@ -388,7 +409,7 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
         input.setDescription("My second exchange rate");
         input.setExchangeRate(134.0001);
         input.setImportOrigin(ImportOrigin.NONE);
-        expectedId = FLAG_B;
+        expectedId = ID_B;
 
         output = dataManager.persistExchangeRate(input);
         assertEquality(input, output, expectedId, false);
@@ -400,7 +421,7 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
         input.setDescription("My third exchange rate");
         input.setExchangeRate(6666.0);
         input.setImportOrigin(ImportOrigin.NONE);
-        expectedId = FLAG_C;
+        expectedId = ID_C;
 
         output = dataManager.persistExchangeRate(input);
         assertEquality(input, output, expectedId, false);
@@ -412,7 +433,7 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
         input.setDescription("My fourth exchange rate");
         input.setExchangeRate(6666.7777);
         input.setImportOrigin(ImportOrigin.NONE);
-        expectedId = FLAG_D;
+        expectedId = ID_D;
 
         output = dataManager.persistExchangeRate(input);
         assertEquality(input, output, expectedId, false);

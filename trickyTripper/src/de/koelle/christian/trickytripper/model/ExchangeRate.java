@@ -126,6 +126,6 @@ public class ExchangeRate implements Serializable {
     }
 
     public boolean isNew() {
-        return id > 0;
+        return id == 0;
     }
 }

@@ -16,6 +16,8 @@ import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.dataaccess.DataManager;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRateDao;
+import de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRatePrefTable;
+import de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRateTable;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.ParticipantDao;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.ParticipantTable;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.PaymentDao;
@@ -61,6 +63,8 @@ public class DataManagerImpl implements DataManager {
     }
 
     public void removeAll() {
+        db.delete(ExchangeRatePrefTable.TABLE_NAME, null, null);
+        db.delete(ExchangeRateTable.TABLE_NAME, null, null);
         db.delete(RelPaymentParticipantTable.TABLE_NAME, null, null);
         db.delete(PaymentTable.TABLE_NAME, null, null);
         db.delete(ParticipantTable.TABLE_NAME, null, null);

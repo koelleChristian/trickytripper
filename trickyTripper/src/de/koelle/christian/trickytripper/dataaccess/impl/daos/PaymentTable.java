@@ -34,7 +34,6 @@ public class PaymentTable {
 
     @SuppressWarnings("unused")
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + PaymentTable.TABLE_NAME);
-        PaymentTable.onCreate(db);
+        // Currently nothing to do here.
     }
 }

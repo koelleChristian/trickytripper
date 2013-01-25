@@ -44,8 +44,7 @@ public class RelPaymentParticipantTable {
 
     @SuppressWarnings("unused")
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + RelPaymentParticipantTable.TABLE_NAME);
-        RelPaymentParticipantTable.onCreate(db);
+        // Currently nothing to do here.
     }
 
 }

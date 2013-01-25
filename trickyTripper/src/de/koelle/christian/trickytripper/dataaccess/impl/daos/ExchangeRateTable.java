@@ -37,8 +37,9 @@ public class ExchangeRateTable {
 
     @SuppressWarnings("unused")
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + ExchangeRateTable.TABLE_NAME);
-        ExchangeRateTable.onCreate(db);
+        if (newVersion >= 4) {
+            ExchangeRateTable.onCreate(db);
+        }
     }
 
 }
