@@ -11,6 +11,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -19,6 +20,7 @@ import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.CurrencyViewSupport;
+import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverGoogleImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
@@ -100,9 +102,16 @@ public class ImportExchangeRatesActivity extends Activity {
                     importer.importExchangeRates(currenciesToBeLoaded, new ExchangeRateImporterResultCallback() {
 
                         public void deliverResult(ExchangeRateImporterResultContainer parameterObject) {
-                            getApp().getExchangeRateController().persitImportedExchangeRate(
-                                    parameterObject.exchangeRateResult, replaceImportedRecordWhenAlreadyImported);
-                            progressBarStatus++;
+                            try {
+                                getApp().getExchangeRateController().persitImportedExchangeRate(
+                                        parameterObject.exchangeRateResult, replaceImportedRecordWhenAlreadyImported);
+                            }
+                            catch (Throwable ex) {
+                                Log.e(Rc.LT_IO, "An imported record could not be persisted.", ex);
+                            }
+                            finally {
+                                progressBarStatus++;
+                            }
                         }
                     });
                     try {
@@ -131,13 +140,18 @@ public class ImportExchangeRatesActivity extends Activity {
                     progressBar.dismiss();
                     ImportExchangeRatesActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
-                            ImportExchangeRatesActivity.this.finish();
+                            ImportExchangeRatesActivity.this.finishHere();
                         }
                     });
                 }
             }
         }).start();
 
+    }
+
+    protected void finishHere() {
+        setResult(Activity.RESULT_OK);
+        finish();
     }
 
     private TrickyTripperApp getApp() {

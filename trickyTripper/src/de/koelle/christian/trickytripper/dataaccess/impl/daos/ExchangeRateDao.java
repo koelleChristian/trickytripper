@@ -155,7 +155,7 @@ public class ExchangeRateDao {
         insertStatementEr.bindString(1, type.getCurrencyFrom().getCurrencyCode());
         insertStatementEr.bindString(2, type.getCurrencyTo().getCurrencyCode());
         insertStatementEr.bindDouble(3, type.getExchangeRate());
-        insertStatementEr.bindString(4, type.getDescription());
+        insertStatementEr.bindString(4, ConversionUtils.nullSafe(type.getDescription()));
         insertStatementEr.bindLong(5, type.getCreationDate().getTime());
         insertStatementEr.bindLong(6, type.getUpdateDate().getTime());
         insertStatementEr.bindLong(7, type.getImportOrigin().ordinal());
@@ -206,6 +206,7 @@ public class ExchangeRateDao {
         for (Long id : idsToBeDeleted) {
             db.execSQL("INSERT INTO " + TEMP_TABLE_EXCHANGE_RATE_DELETE + " VALUES(?);", new Object[] { id });
         }
+        System.out.println();
         db.execSQL("DELETE FROM " + ExchangeRateTable.TABLE_NAME
                 + " WHERE " + ExchangeRateColumns._ID + " IN (SELECT * FROM " + TEMP_TABLE_EXCHANGE_RATE_DELETE + ");");
         db.execSQL("DROP TABLE " + TEMP_TABLE_EXCHANGE_RATE_DELETE + ";");

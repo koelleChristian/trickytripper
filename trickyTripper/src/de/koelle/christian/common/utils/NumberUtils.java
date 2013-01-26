@@ -82,9 +82,12 @@ public class NumberUtils {
 
     public static Double divideForExchangeRates(Double divident, Double divisor) {
         return divide(divident, divisor, divisor.toString().length() - 2);
+        // Double result = divide(divident, divisor, 20);
+        // System.out.println(divident + "/" + divisor + "=" + result);
+        // return result;
     }
 
-    public static Double divide(Double divident, Double divisor, int defaultScale) {
+    public static Double divide(Double divident, Double divisor, int scale) {
         if (divident == null) {
             return null;
         }
@@ -93,10 +96,10 @@ public class NumberUtils {
         }
         BigDecimal result = null;
         BigDecimal dividentBd = new BigDecimal(divident, MathContext.DECIMAL128);
-        dividentBd.setScale(defaultScale, RoundingMode.HALF_EVEN);
+        dividentBd.setScale(scale, RoundingMode.HALF_EVEN);
         BigDecimal divisorBd = new BigDecimal(divisor, MathContext.DECIMAL128);
-        divisorBd.setScale(defaultScale, RoundingMode.HALF_EVEN);
-        result = dividentBd.divide(divisorBd, defaultScale, RoundingMode.HALF_EVEN);
+        divisorBd.setScale(scale, RoundingMode.HALF_EVEN);
+        result = dividentBd.divide(divisorBd, scale, RoundingMode.HALF_EVEN);
         return Double.valueOf(result.toString());
     }
 

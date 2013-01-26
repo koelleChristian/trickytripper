@@ -367,60 +367,79 @@ public class DataManagerImpl implements DataManager {
     }
 
     public ExchangeRate persistExchangeRate(ExchangeRate rate) {
-        boolean isNew = rate.isNew();
+        ExchangeRate result = rate.clone();
+        boolean isNew = result.isNew();
         long rateId = 0L;
         /* TODO(ckoelle) Check for consistency how creating date is inserted. */
         Date currentDateTime = new Date();
-        rate.setUpdateDate(currentDateTime);
+        result.setUpdateDate(currentDateTime);
         try {
             db.beginTransaction();
             if (isNew) {
-                rate.setCreationDate(currentDateTime);
-                rateId = exchangeRateDao.create(rate);
+                result.setCreationDate(currentDateTime);
+                rateId = exchangeRateDao.create(result);
             }
             else {
-                exchangeRateDao.update(rate);
+                exchangeRateDao.update(result);
             }
             db.setTransactionSuccessful();
         }
         catch (SQLException e) {
-            Log.e(Rc.LT, "Error saving exchange rate (transaction rolled back)", e);
             rateId = 0L;
         }
         finally {
             db.endTransaction();
         }
         if (isNew) {
-            rate.setId(rateId);
+            result.setId(rateId);
         }
-        return rate;
+        return result;
     }
 
     public void persistImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported) {
         ExchangeRate thinggyToBePersisted = null;
 
-        if (!replaceWhenAlreadyImported) {
+        List<ExchangeRate> existingRecords = exchangeRateDao.findExistingImportedRecords(rate);
+        if (existingRecords.size() == 0) {
             rate.setId(0);
             thinggyToBePersisted = rate;
         }
         else {
-            List<ExchangeRate> existingRecords = exchangeRateDao.findExistingImportedRecords(rate);
-            List<Long> recordsToBeDeleted = new ArrayList<Long>();
-            for (int i = 0; i < existingRecords.size(); i++) {
-                long idOfExistingRecord = existingRecords.get(i).getId();
-                if (thinggyToBePersisted == null) {
-                    rate.setId(idOfExistingRecord);
-                    thinggyToBePersisted = rate;
+            if (replaceWhenAlreadyImported) {
+                List<Long> recordsToBeDeleted = new ArrayList<Long>();
+                for (int i = 0; i < existingRecords.size(); i++) {
+                    long idOfExistingRecord = existingRecords.get(i).getId();
+                    if (thinggyToBePersisted == null) {
+                        rate.setId(idOfExistingRecord);
+                        thinggyToBePersisted = rate;
+                    }
+                    else {
+                        recordsToBeDeleted.add(idOfExistingRecord);
+                    }
+
                 }
-                else {
-                    recordsToBeDeleted.add(idOfExistingRecord);
+                if (recordsToBeDeleted.size() > 0) {
+                    deleteExchangeRatesById(recordsToBeDeleted);
                 }
             }
-            if (recordsToBeDeleted.size() > 0) {
-                deleteExchangeRatesById(recordsToBeDeleted);
+            // No replacing
+            else {
+                for (int i = 0; i < existingRecords.size(); i++) {
+                    ExchangeRate existingRate = existingRecords.get(i);
+                    if (existingRate.equalsFromImportPointOfView(rate)) {
+                        rate.setId(existingRate.getId());
+                        thinggyToBePersisted = rate;
+                    }
+                    if (thinggyToBePersisted != null) {
+                        break;
+                    }
+                }
+                if (thinggyToBePersisted == null) {
+                    rate.setId(0);
+                    thinggyToBePersisted = rate;
+                }
             }
         }
         persistExchangeRate(thinggyToBePersisted);
     }
-
 }

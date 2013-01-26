@@ -3,7 +3,6 @@ package de.koelle.christian.trickytripper.activities;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Currency;
 import java.util.List;
 
 import android.app.Activity;
@@ -55,7 +54,7 @@ public class ManageExchangeRatesActivity extends Activity {
             Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
             return true;
         case R.id.option_import:
-            return importOptionSupport.onOptionsItemSelected();
+            return importOptionSupport.onOptionsItemSelected(this);
         case R.id.option_help:
             showDialog(Rc.DIALOG_SHOW_HELP);
             return true;
@@ -207,6 +206,12 @@ public class ManageExchangeRatesActivity extends Activity {
     }
 
     /* ========= Context menu [END] =========== */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, android.content.Intent data) {
+        if (requestCode == Rc.ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE && resultCode == RESULT_OK) {
+            updateList();
+        }
+    };
 
     private ExchangeRate getParticipantByInfo(AdapterView.AdapterContextMenuInfo info) {
         ExchangeRate rate = listAdapter.getItem(info.position);
@@ -220,10 +225,6 @@ public class ManageExchangeRatesActivity extends Activity {
 
     private TrickyTripperApp getApp() {
         return ((TrickyTripperApp) getApplication());
-    }
-
-    public void importExchangeRates() {
-        getApp().getViewController().openImportExchangeRates(new Currency[0]);
     }
 
 }

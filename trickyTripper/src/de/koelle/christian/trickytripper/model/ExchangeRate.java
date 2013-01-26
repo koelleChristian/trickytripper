@@ -113,19 +113,55 @@ public class ExchangeRate implements Serializable {
     }
 
     public ExchangeRate cloneToInversion() {
+        return cloneInternal(true);
+    }
+
+    @Override
+    public ExchangeRate clone() {
+        return cloneInternal(false);
+    }
+
+    private ExchangeRate cloneInternal(boolean toInversion) {
         ExchangeRate result = new ExchangeRate();
-        result.setCurrencyFrom(getCurrencyTo());
-        result.setCurrencyTo(getCurrencyFrom());
+        result.setCurrencyFrom((toInversion) ? getCurrencyTo() : getCurrencyFrom());
+        result.setCurrencyTo((toInversion) ? getCurrencyFrom() : getCurrencyTo());
         result.setDescription(getDescription());
-        result.setExchangeRate(getInvertedExchangeRate());
+        result.setExchangeRate((toInversion) ? getInvertedExchangeRate() : getExchangeRate());
         result.setId(id);
         result.setImportOrigin(getImportOrigin());
         result.setUpdateDate(getUpdateDate());
-        result.setInversion(!isInversion());
+        result.setInversion((toInversion) ? !isInversion() : isInversion());
         return result;
     }
 
     public boolean isNew() {
         return id == 0;
     }
+
+    public boolean equalsFromImportPointOfView(ExchangeRate rate) {
+        return equalsStraight(rate);
+    }
+
+    private boolean equalsStraight(ExchangeRate other) {
+        if (currencyFrom == null) {
+            if (other.currencyFrom != null)
+                return false;
+        }
+        else if (!currencyFrom.equals(other.currencyFrom))
+            return false;
+        if (currencyTo == null) {
+            if (other.currencyTo != null)
+                return false;
+        }
+        else if (!currencyTo.equals(other.currencyTo))
+            return false;
+        if (exchangeRate == null) {
+            if (other.exchangeRate != null)
+                return false;
+        }
+        else if (!exchangeRate.equals(other.exchangeRate))
+            return false;
+        return true;
+    }
+
 }

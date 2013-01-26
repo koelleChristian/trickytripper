@@ -66,7 +66,7 @@ public class CurrencyCalculatorActivity extends Activity {
             showDialog(Rc.DIALOG_SHOW_HELP);
             return true;
         case R.id.option_import:
-            return importOptionSupport.onOptionsItemSelected();
+            return importOptionSupport.onOptionsItemSelected(this);
         default:
             return super.onOptionsItemSelected(item);
         }

@@ -255,7 +255,7 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         startActivityWithParams(extras, activity, ViewMode.NONE);
     }
 
-    public void openImportExchangeRates(Currency... currencies) {
+    public void openImportExchangeRates(Activity caller, Currency... currencies) {
         Class<? extends Activity> activity = ImportExchangeRatesActivity.class;
         HashMap<String, Serializable> extras = new HashMap<String, Serializable>();
         if (currencies != null && currencies.length > 0) {
@@ -265,7 +265,8 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
             }
             extras.put(Rc.ACTIVITY_PARAM_IMPORT_EXCHANGE_RATES_IN_CURRENCY_LIST, currencyList);
         }
-        startActivityWithParams(extras, activity, ViewMode.NONE);
+        startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
+                Rc.ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE, caller);
     }
 
     public void openExport() {

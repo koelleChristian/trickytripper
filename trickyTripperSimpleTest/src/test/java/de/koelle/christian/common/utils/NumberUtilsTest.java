@@ -58,13 +58,14 @@ public class NumberUtilsTest {
         Assert.assertEquals(1.00008199d, NumberUtils.divideForExchangeRates(1d, 0.99991802d));
         Assert.assertEquals(0.00005873d, NumberUtils.divideForExchangeRates(1d, 17026.2708d));
         Assert.assertEquals(17027.073046d, NumberUtils.divideForExchangeRates(1d, 0.00005873d));
+
+        Assert.assertEquals(0.81001d, NumberUtils.divideForExchangeRates(1d, 1.23456d));
+        Assert.assertEquals(1.23456d, NumberUtils.divideForExchangeRates(1d, 0.81001d));
     }
 
     @Test
     public void testDivisionForExchangeRatesFreaky() {
         Assert.assertEquals(1d, NumberUtils.divideForExchangeRates(1d, 1d));
-        // Assert.assertEquals(1.3184d, NumberUtils.divideForExchangeRates(1d,
-        // 0d));
     }
 
     public void testRoundingDivisionDoubleInt() {
