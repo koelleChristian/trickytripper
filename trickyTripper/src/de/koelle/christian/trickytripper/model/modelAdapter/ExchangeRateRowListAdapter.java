@@ -8,32 +8,45 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import de.koelle.christian.common.utils.DateUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
-import de.koelle.christian.trickytripper.ui.model.ParticipantRow;
 
 public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
+
+    public enum DisplayMode {
+        SINGLE,
+        DOUBLE_WITH_SELECTION;
+    }
 
     private final List<ExchangeRate> rows;
     private final Context context;
     private final DateUtils dateUtils;
+    private final DisplayMode mode;
 
-    public ExchangeRateRowListAdapter(Context context, int textViewResourceId, List<ExchangeRate> objects) {
+    public ExchangeRateRowListAdapter(Context context, int textViewResourceId, List<ExchangeRate> objects,
+            DisplayMode mode) {
         super(context, textViewResourceId, objects);
         this.rows = objects;
         this.context = context;
         dateUtils = new DateUtils(context.getResources().getConfiguration().locale);
+        this.mode = mode;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View result = convertView;
 
+        boolean isDouble = DisplayMode.DOUBLE_WITH_SELECTION.equals(mode);
+
         if (result == null) {
+            int manageExchangeRateRowView = isDouble ?
+                    R.layout.delete_exchange_rate_row_view :
+                    R.layout.manage_exchange_rate_row_view;
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            result = vi.inflate(R.layout.manage_exchange_rate_row_view, null);
+            result = vi.inflate(manageExchangeRateRowView, null);
         }
 
         ExchangeRate row = rows.get(position);
@@ -68,6 +81,36 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
             value = deriveDescription(row);
             UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
+            if (isDouble) {
+                viewId = R.id.manageExchangeRateRowView_checkboxsssssssssssss;
+
+                CheckBox checkbox = (CheckBox) result.findViewById(viewId);
+                checkbox.setChecked(row.isSelected());
+
+                ExchangeRate rowInverted = row.cloneToInversion();
+
+                viewId = R.id.manageExchangeRateRowView_output_from2;
+                label = null;
+                value = rowInverted.getCurrencyFrom().getCurrencyCode();
+                UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
+
+                viewId = R.id.manageExchangeRateRowView_output_to2;
+                label = null;
+                value = rowInverted.getCurrencyTo().getCurrencyCode();
+                UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
+
+                viewId = R.id.manageExchangeRateRowView_output_direction_indicator2;
+                label = null;
+                value = " > ";
+                UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
+
+                viewId = R.id.manageExchangeRateRowView_output_main_rate2;
+                label = null;
+                value = rowInverted.getExchangeRate();
+                UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
+
+            }
+
         }
         return result;
     }
@@ -83,20 +126,6 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
 
     public Locale getLocale() {
         return context.getResources().getConfiguration().locale;
-    }
-
-    // private String createCurr2CurrOutputString(ExchangeRate row, boolean
-    // invert) {
-    // StringBuilder result = new StringBuilder();
-    // result
-    // .append(row.getCurrencyFrom().getCurrencyCode())
-    // .append((invert) ? "<" : ">")
-    // .append(row.getCurrencyTo().getCurrencyCode());
-    // return result.toString();
-    // }
-
-    private boolean isInActive(ParticipantRow row) {
-        return !row.getParticipant().isActive();
     }
 
 }

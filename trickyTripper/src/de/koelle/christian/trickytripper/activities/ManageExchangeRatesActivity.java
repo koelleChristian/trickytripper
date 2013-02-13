@@ -3,6 +3,7 @@ package de.koelle.christian.trickytripper.activities;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Currency;
 import java.util.List;
 
 import android.app.Activity;
@@ -16,7 +17,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -25,6 +25,7 @@ import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter;
+import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter.DisplayMode;
 
 public class ManageExchangeRatesActivity extends Activity {
 
@@ -51,7 +52,7 @@ public class ManageExchangeRatesActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_delete:
-            Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
+            openDeleteActivity();
             return true;
         case R.id.option_import:
             return importOptionSupport.onOptionsItemSelected(this);
@@ -118,7 +119,7 @@ public class ManageExchangeRatesActivity extends Activity {
 
     private void initListView(ListView listView2, TrickyTripperApp app) {
         listAdapter = new ExchangeRateRowListAdapter(this, android.R.layout.simple_list_item_1,
-                exchangeRateList);
+                exchangeRateList, DisplayMode.SINGLE);
 
         listView2.setAdapter(listAdapter);
         listView2.setChoiceMode(ListView.CHOICE_MODE_NONE);
@@ -206,6 +207,11 @@ public class ManageExchangeRatesActivity extends Activity {
     }
 
     /* ========= Context menu [END] =========== */
+
+    private void openDeleteActivity() {
+        getApp().openDeleteExchangeRates(this, new Currency[0]);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, android.content.Intent data) {
         if (requestCode == Rc.ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE && resultCode == RESULT_OK) {

@@ -19,6 +19,7 @@ public class ExchangeRate implements Serializable {
     private Date creationDate;
     private ImportOrigin importOrigin; // b= none
     private boolean inversion;
+    private transient boolean isSelected;
 
     public boolean isImported() {
         return ImportOrigin.GOOGLE.equals(getImportOrigin());
@@ -162,6 +163,14 @@ public class ExchangeRate implements Serializable {
         else if (!exchangeRate.equals(other.exchangeRate))
             return false;
         return true;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean isSelected) {
+        this.isSelected = isSelected;
     }
 
 }

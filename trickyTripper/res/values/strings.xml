@@ -4,6 +4,7 @@
     <string name="app_name">Tricky Tripper</string>
     <string name="spinner_null_value_default"></string>
     <string name="symbol_arrow_down">∨</string>
+    <string name="defaultX">XX</string>    
     <!-- To be translated ff -->
     <string name="common_button_cancel">Cancel</string>
     <string name="common_button_yes">Yes</string>
@@ -58,6 +59,9 @@
     <string name="importExchangeRatesViewTextViewHeading">Import Exchange Rates</string>
     <string name="importExchangeRatesViewCheckboxLabelReplaceExisting">Replace rates already imported</string>
     <string name="importExchangeRatesViewListViewLabel">Select all exchange relevant currencies</string>
+        <!-- ===============================  Import exchange rates view =============================== -->
+    <string name="deleteExchangeRatesViewTextViewHeading">Delete Exchange Rates</string>
+    <string name="deleteExchangeRatesListViewLabel">Select all currencies to be deleted</string>
     <!-- ===============================  export view =============================== -->
     <string name="exportViewTextViewHeading">Export</string>
     <string name="exportViewTextViewSubHeadingContent">What?</string>

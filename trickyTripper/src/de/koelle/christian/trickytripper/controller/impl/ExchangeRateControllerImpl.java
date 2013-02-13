@@ -10,6 +10,7 @@ import de.koelle.christian.trickytripper.dataaccess.DataManager;
 import de.koelle.christian.trickytripper.decoupling.PrefsResolver;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ExchangeRateResult;
+import de.koelle.christian.trickytripper.model.ImportSettings;
 
 public class ExchangeRateControllerImpl implements ExchangeRateController {
 
@@ -55,6 +56,15 @@ public class ExchangeRateControllerImpl implements ExchangeRateController {
         PrefWritrerReaderUtils
                 .saveSourceCurrencyUsedLast(prefsResolver.getEditingPrefsEditor(), sourceCurrencyLastUsed);
         dataManager.persistExchangeRateUsedLast(exchangeRateUsedLast);
+    }
+
+    public ImportSettings getImportSettingsUsedLast() {
+        return PrefWritrerReaderUtils.loadImportSettings(prefsResolver.getPrefs());
+    }
+
+    public void saveImportSettingsUsedLast(ImportSettings importSettings) {
+        PrefWritrerReaderUtils
+                .saveImportSettings(prefsResolver.getEditingPrefsEditor(), importSettings);
     }
 
 }

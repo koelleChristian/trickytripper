@@ -35,6 +35,7 @@ import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.common.utils.FileUtils;
 import de.koelle.christian.common.utils.SystemUtil;
 import de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity;
+import de.koelle.christian.trickytripper.activities.DeleteExchangeRatesActivity;
 import de.koelle.christian.trickytripper.activities.ExchangeRateEditActivity;
 import de.koelle.christian.trickytripper.activities.ExportActivity;
 import de.koelle.christian.trickytripper.activities.ImportExchangeRatesActivity;
@@ -267,6 +268,21 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         }
         startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
                 Rc.ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE, caller);
+    }
+
+    public void openDeleteExchangeRates(Activity caller, Currency... currencies) {
+        Class<? extends Activity> activity = DeleteExchangeRatesActivity.class;
+        HashMap<String, Serializable> extras = new HashMap<String, Serializable>();
+        if (currencies != null && currencies.length > 0) {
+            ArrayList<Currency> currencyList = new ArrayList<Currency>();
+            for (Currency cur : currencies) {
+                currencyList.add(cur);
+            }
+            extras.put(Rc.ACTIVITY_PARAM_DELETE_EXCHANGE_RATES_IN_CURRENCY_LIST, currencyList);
+        }
+        startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
+                Rc.ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE, caller);
+
     }
 
     public void openExport() {

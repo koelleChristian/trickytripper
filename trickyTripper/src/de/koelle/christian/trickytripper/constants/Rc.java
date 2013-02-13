@@ -36,6 +36,8 @@ public class Rc {
     public static final int ACTIVITY_PARAM_CURRENCY_CALCULATOR_REQUEST_CODE = 532147439;
     public static final int ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE = 49494949;
 
+    public static final String ACTIVITY_PARAM_DELETE_EXCHANGE_RATES_IN_CURRENCY_LIST = "activityParamImportExchangeRatesInCurrencyList";
+
     public static final String ACTIVITY_PARAM_IMPORT_EXCHANGE_RATES_IN_CURRENCY_LIST = "activityParamImportExchangeRatesInCurrencyList";
 
     public static final String ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_EXCHANGE_RATE = "activityParamEditExchangeRateInExchangeRate";

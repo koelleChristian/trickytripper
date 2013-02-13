@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ExchangeRateResult;
+import de.koelle.christian.trickytripper.model.ImportSettings;
 
 public interface ExchangeRateController {
 
@@ -28,5 +29,9 @@ public interface ExchangeRateController {
     Currency getSourceCurrencyUsedLast();
 
     void persistLastExchangeRateUsageSettings(Currency sourceCurrencyLastUsed, ExchangeRate exchangeRateUsedLast);
+
+    ImportSettings getImportSettingsUsedLast();
+
+    void saveImportSettingsUsedLast(ImportSettings importSettings);
 
 }

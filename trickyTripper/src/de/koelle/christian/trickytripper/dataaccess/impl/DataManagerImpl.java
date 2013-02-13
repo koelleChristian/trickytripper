@@ -397,6 +397,12 @@ public class DataManagerImpl implements DataManager {
     }
 
     public void persistImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported) {
+        if (rate == null) {
+            if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+                Log.d(Rc.LT_IO, "persistImportedExchangeRate(): incoming value is null");
+            }
+            return;
+        }
         ExchangeRate thinggyToBePersisted = null;
 
         List<ExchangeRate> existingRecords = exchangeRateDao.findExistingImportedRecords(rate);

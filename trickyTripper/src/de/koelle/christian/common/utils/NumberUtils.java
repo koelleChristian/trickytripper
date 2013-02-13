@@ -82,9 +82,6 @@ public class NumberUtils {
 
     public static Double divideForExchangeRates(Double divident, Double divisor) {
         return divide(divident, divisor, divisor.toString().length() - 2);
-        // Double result = divide(divident, divisor, 20);
-        // System.out.println(divident + "/" + divisor + "=" + result);
-        // return result;
     }
 
     public static Double divide(Double divident, Double divisor, int scale) {

@@ -39,6 +39,19 @@ public class ExchangeRateDao {
     private static final String TEMP_TABLE_EXCHANGE_RATE_DELETE = "exchangeRateDelete";
     private static final String TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE = "exchangeRatePrefsDelete";
 
+    private static final String ER_DELETE_01 = "CREATE TEMP TABLE " + TEMP_TABLE_EXCHANGE_RATE_DELETE + "(x);";
+    private static final String ER_DELETE_02 = "INSERT INTO " + TEMP_TABLE_EXCHANGE_RATE_DELETE + " VALUES(?);";
+    private static final String ER_DELETE_03 = "DELETE FROM " + ExchangeRateTable.TABLE_NAME
+            + " WHERE " + ExchangeRateColumns._ID + " IN (SELECT * FROM " + TEMP_TABLE_EXCHANGE_RATE_DELETE + ");";
+    private static final String ER_DELETE_04 = "DROP TABLE " + TEMP_TABLE_EXCHANGE_RATE_DELETE + ";";
+
+    private static final String ERP_DELETE_01 = "CREATE TEMP TABLE " + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + "(x);";
+    private static final String ERP_DELETE_02 = "INSERT INTO " + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + " VALUES(?);";
+    private static final String ERP_DELETE_03 = "DELETE FROM " + ExchangeRatePrefTable.TABLE_NAME
+            + " WHERE " + ExchangeRatePrefColumns.EXCHANGE_RATE_ID + " IN (SELECT * FROM "
+            + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + ");";
+    private static final String ERP_DELETE_04 = "DROP TABLE " + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + ";";
+
     private static final String ER_COUNT_DESCRIPTION =
             "select count(*) from "
                     + ExchangeRateTable.TABLE_NAME
@@ -53,7 +66,7 @@ public class ExchangeRateDao {
                     + " and not "
                     + ExchangeRateColumns._ID + " = ?";
 
-    private static final StringBuilder ERP_RAW_QUERY_FIND = new StringBuilder()
+    private static final String ERP_RAW_QUERY_FIND = new StringBuilder()
             .append("select ")
             .append(ExchangeRateTable.TABLE_NAME).append(".").append(BaseColumns._ID)
             .append(" ")
@@ -93,7 +106,8 @@ public class ExchangeRateDao {
             .append(" AND ")
             .append(ExchangeRateTable.TABLE_NAME).append(".").append(ExchangeRateColumns.CURRENCY_FROM)
             .append(" = ? ")
-            .append(");");
+            .append(");")
+            .toString();
 
     private static final String ER_SELECTION_ARGS_FIND_IMPORTED = new StringBuilder()
             .append("(")
@@ -202,26 +216,21 @@ public class ExchangeRateDao {
 
     public void delete(List<Long> idsToBeDeleted) {
         deletePrefs(idsToBeDeleted);
-        db.execSQL("CREATE TEMP TABLE " + TEMP_TABLE_EXCHANGE_RATE_DELETE + "(x);");
+        db.execSQL(ER_DELETE_01);
         for (Long id : idsToBeDeleted) {
-            db.execSQL("INSERT INTO " + TEMP_TABLE_EXCHANGE_RATE_DELETE + " VALUES(?);", new Object[] { id });
+            db.execSQL(ER_DELETE_02, new Object[] { id });
         }
-        System.out.println();
-        db.execSQL("DELETE FROM " + ExchangeRateTable.TABLE_NAME
-                + " WHERE " + ExchangeRateColumns._ID + " IN (SELECT * FROM " + TEMP_TABLE_EXCHANGE_RATE_DELETE + ");");
-        db.execSQL("DROP TABLE " + TEMP_TABLE_EXCHANGE_RATE_DELETE + ";");
+        db.execSQL(ER_DELETE_03);
+        db.execSQL(ER_DELETE_04);
     }
 
     public void deletePrefs(List<Long> idsToBeDeleted) {
-
-        db.execSQL("CREATE TEMP TABLE " + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + "(x);");
+        db.execSQL(ERP_DELETE_01);
         for (Long id : idsToBeDeleted) {
-            db.execSQL("INSERT INTO " + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + " VALUES(?);", new Object[] { id });
+            db.execSQL(ERP_DELETE_02, new Object[] { id });
         }
-        db.execSQL("DELETE FROM " + ExchangeRatePrefTable.TABLE_NAME
-                + " WHERE " + ExchangeRatePrefColumns.EXCHANGE_RATE_ID + " IN (SELECT * FROM "
-                + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + ");");
-        db.execSQL("DROP TABLE " + TEMP_TABLE_EXCHANGE_RATE_PREF_DELETE + ";");
+        db.execSQL(ERP_DELETE_03);
+        db.execSQL(ERP_DELETE_04);
     }
 
     public boolean doesExchangeRateAlreadyExist(ExchangeRate exchangeRate) {

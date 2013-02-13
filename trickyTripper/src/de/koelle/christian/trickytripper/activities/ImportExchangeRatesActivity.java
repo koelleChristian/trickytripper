@@ -1,6 +1,5 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.util.ArrayList;
 import java.util.Currency;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -14,6 +13,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Toast;
 import de.koelle.christian.common.utils.CurrencyUtil;
@@ -26,34 +27,47 @@ import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporter
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorGoogleImpl;
+import de.koelle.christian.trickytripper.model.ImportSettings;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.utils.UiViewUtils;
 
 public class ImportExchangeRatesActivity extends Activity {
 
-    private final List<Currency> currencies = new ArrayList<Currency>();
     private ListView listView;
+    @SuppressWarnings("rawtypes")
     private ArrayAdapter<RowObject> adapter;
 
     private int progressBarStatus;
-    private boolean replaceImportedRecordWhenAlreadyImported;
+    private ImportSettings importSettings;
     private ProgressDialog progressBar;
     private final Handler progressBarHandler = new Handler();
 
+    @SuppressWarnings("rawtypes")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.import_exchange_rates_view);
 
         listView = (ListView) findViewById(R.id.importExchangeRatesViewListViewCurrenciesForImport);
-
-        List<RowObject> spinnerObjects = CurrencyViewSupport.wrapCurrenciesInRowObject(CurrencyUtil
-                .getSuportedCurrencies(getResources()), getResources());
+        List<RowObject> spinnerObjects = CurrencyViewSupport.wrapCurrenciesInRowObject(
+                CurrencyUtil.getAllCurrenciesAlive(), getResources());
 
         adapter = new ArrayAdapter<RowObject>(this, R.layout.general_checked_text_view, spinnerObjects);
         listView.setAdapter(adapter);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        this.importSettings = getApp().getExchangeRateController().getImportSettingsUsedLast();
+        bindWidgets();
 
+    }
+
+    private void bindWidgets() {
+        CheckBox checkboxReplaceExisting = (CheckBox) findViewById(R.id.importExchangeRatesViewCheckboxReplaceExisting);
+        checkboxReplaceExisting.setChecked(importSettings.isReplaceImportedRecordWhenAlreadyImported());
+        checkboxReplaceExisting.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                importSettings.setReplaceImportedRecordWhenAlreadyImported(isChecked);
+            }
+        });
     }
 
     public void importExchangeRates(View view) {
@@ -89,31 +103,36 @@ public class ImportExchangeRatesActivity extends Activity {
 
         progressBarStatus = 0;
 
-        List<Currency> currencies = CurrencyUtil.getAllCurrenciesAlive();
-        final Set<Currency> currenciesToBeLoaded = new LinkedHashSet<Currency>();
-        for (int i = 0; i < amoutOfCurrenciesSelected; i++) {
-            currenciesToBeLoaded.add(currencies.get(i));
-        }
+        final Set<Currency> currenciesToBeLoaded = new LinkedHashSet<Currency>(selectionResult);
 
         new Thread(new Runnable() {
             public void run() {
+                boolean importStarted = false;
                 while (progressBarStatus < progressCeiling) {
+                    if (!importStarted) {
+                        importer.importExchangeRates(currenciesToBeLoaded, new ExchangeRateImporterResultCallback() {
 
-                    importer.importExchangeRates(currenciesToBeLoaded, new ExchangeRateImporterResultCallback() {
+                            public void deliverResult(ExchangeRateImporterResultContainer parameterObject) {
+                                try {
+                                    if (parameterObject.requestWasSuccess()) {
+                                        try {
+                                            getApp().getExchangeRateController().persitImportedExchangeRate(
+                                                    parameterObject.exchangeRateResult,
+                                                    importSettings.isReplaceImportedRecordWhenAlreadyImported());
+                                        }
+                                        catch (Throwable ex) {
+                                            Log.e(Rc.LT_IO, "An imported record could not be persisted.", ex);
+                                        }
+                                    }
+                                }
+                                finally {
+                                    progressBarStatus++;
+                                }
+                            }
+                        });
+                        importStarted = true;
+                    }
 
-                        public void deliverResult(ExchangeRateImporterResultContainer parameterObject) {
-                            try {
-                                getApp().getExchangeRateController().persitImportedExchangeRate(
-                                        parameterObject.exchangeRateResult, replaceImportedRecordWhenAlreadyImported);
-                            }
-                            catch (Throwable ex) {
-                                Log.e(Rc.LT_IO, "An imported record could not be persisted.", ex);
-                            }
-                            finally {
-                                progressBarStatus++;
-                            }
-                        }
-                    });
                     try {
                         Thread.sleep(1000);
                     }
@@ -140,6 +159,7 @@ public class ImportExchangeRatesActivity extends Activity {
                     progressBar.dismiss();
                     ImportExchangeRatesActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
+                            getApp().getExchangeRateController().saveImportSettingsUsedLast(importSettings);
                             ImportExchangeRatesActivity.this.finishHere();
                         }
                     });

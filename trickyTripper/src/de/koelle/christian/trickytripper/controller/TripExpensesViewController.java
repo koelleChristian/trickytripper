@@ -17,6 +17,8 @@ public interface TripExpensesViewController {
 
     void openImportExchangeRates(Activity caller, Currency... currencies);
 
+    void openDeleteExchangeRates(Activity caller, Currency... currencies);
+
     void openMoneyCalculatorView(Amount amount, int viewIdForResult, Activity caller);
 
     void openEditPayment(Payment payment);

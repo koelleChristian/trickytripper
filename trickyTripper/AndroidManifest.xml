@@ -81,7 +81,11 @@
         <activity
             android:name=".activities.ImportExchangeRatesActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
-        </activity>        
+        </activity>
+        <activity
+            android:name=".activities.DeleteExchangeRatesActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
         <activity
             android:name=".activities.CurrencyCalculatorActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
