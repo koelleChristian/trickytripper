@@ -8,13 +8,14 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import de.koelle.christian.common.currencyspinner.CurrencySpinnerSelectionListener;
 import de.koelle.christian.common.currencyspinner.SpinnerCurrencySelectionCallback;
 import de.koelle.christian.common.currencyspinner.SpinnerViewUtils;
@@ -40,55 +41,8 @@ public class EditExchangeRateActivity extends Activity {
     private ViewMode viewMode;
     private CurrencySpinnerSelectionListener spinnerListenerLeft;
     private CurrencySpinnerSelectionListener spinnerListenerRight;
-
-    /* ============== Menu Shit [BGN] ============== */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getOptionSupport().populateOptionsMenu(
-                new OptionContraints().activity(this).menu(menu)
-                        .options(new int[] {
-                                R.id.option_help
-                        }));
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.option_help:
-            showDialog(Rd.DIALOG_HELP);
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id, Bundle args) {
-        Dialog dialog;
-        switch (id) {
-        case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
-            break;
-        default:
-            dialog = null;
-        }
-
-        return dialog;
-    }
-
-    @Override
-    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
-        switch (id) {
-        case Rd.DIALOG_HELP:
-            // intentionally blank
-            break;
-        default:
-            dialog = null;
-        }
-        super.onPrepareDialog(id, dialog, args);
-    }
-
-    /* ============== Menu Shit [END] ============== */
+    private BlankTextWatcher editTextListenerRight;
+    private BlankTextWatcher editTextListenerLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +60,7 @@ public class EditExchangeRateActivity extends Activity {
         final Spinner spinnerRight = (Spinner) findViewById(R.id.editExchangeRateViewSpinnerCurrencyRight);
         TextView labelLeft = (TextView) findViewById(R.id.editExchangeRateViewLabelCurrencyLeft);
         TextView labelRight = (TextView) findViewById(R.id.editExchangeRateViewLabelCurrencyRight);
+        Button saveButton = (Button) findViewById(R.id.editExchangeRateViewButtonSave);
 
         boolean editMode = viewMode == ViewMode.EDIT;
 
@@ -118,6 +73,7 @@ public class EditExchangeRateActivity extends Activity {
             setTitle(getResources().getString(R.string.editExchangeRateViewHeadingEdit));
             labelLeft.setText(exchangeRate.getCurrencyFrom().getCurrencyCode());
             labelRight.setText(exchangeRate.getCurrencyTo().getCurrencyCode());
+            saveButton.setText(R.string.common_button_edit);
         }
         else {
             setTitle(getResources().getString(R.string.editExchangeRateViewHeadingCreate));
@@ -135,6 +91,7 @@ public class EditExchangeRateActivity extends Activity {
                             selectedCurrency, null, spinnerLeft, EditExchangeRateActivity.this);
                 }
             });
+            saveButton.setText(R.string.common_button_save);
             spinnerListenerRight.setSpinnerCurrencySelectionCallback(new SpinnerCurrencySelectionCallback() {
 
                 public void setSelection(Currency selectedCurrency) {
@@ -187,8 +144,6 @@ public class EditExchangeRateActivity extends Activity {
         UiUtils.makeProperNumberInput(editTextInputRateR2L, locale);
 
         editTextInputDescription.setText(exchangeRate.getDescription());
-        updatInputWidget(editTextInputRateL2R, locale, exchangeRate.getExchangeRate());
-        updatInputWidget(editTextInputRateR2L, locale, exchangeRateValueInverted);
 
         editTextInputDescription.addTextChangedListener(new BlankTextWatcher() {
             @Override
@@ -199,7 +154,7 @@ public class EditExchangeRateActivity extends Activity {
 
         });
 
-        editTextInputRateL2R.addTextChangedListener(new BlankTextWatcher() {
+        editTextListenerLeft = new BlankTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 Double valueInput = NumberUtils.getStringToDouble(getLocale(), s.toString());
@@ -207,26 +162,81 @@ public class EditExchangeRateActivity extends Activity {
                 recalculateAndUpdateOtherSide(true);
                 updateButtonState();
             }
-        });
-        editTextInputRateL2R.addTextChangedListener(new BlankTextWatcher() {
+        };
+        editTextListenerRight = new BlankTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 Double valueInput = NumberUtils.getStringToDouble(getLocale(), s.toString());
-                exchangeRate.setExchangeRate(valueInput);
+                exchangeRateValueInverted = valueInput;
                 recalculateAndUpdateOtherSide(false);
                 updateButtonState();
             }
-        });
+        };
+        editTextInputRateL2R.addTextChangedListener(editTextListenerLeft);
+        editTextInputRateR2L.addTextChangedListener(editTextListenerRight);
+
+        updatInputWidget(editTextInputRateL2R, locale, exchangeRate.getExchangeRate(), editTextListenerLeft);
+        updatInputWidget(editTextInputRateR2L, locale, exchangeRateValueInverted, editTextListenerRight);
     }
 
+    /* ============== Menu Shit [BGN] ============== */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return getApp().getOptionSupport().populateOptionsMenu(
+                new OptionContraints().activity(this).menu(menu)
+                        .options(new int[] {
+                                R.id.option_help
+                        }));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.option_help:
+            showDialog(Rd.DIALOG_HELP);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /* ============== Menu Shit [END] ============== */
+    /* ============== Dialog Shit [END] ============== */
+    @Override
+    protected Dialog onCreateDialog(int id, Bundle args) {
+        Dialog dialog;
+        switch (id) {
+        case Rd.DIALOG_HELP:
+            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
+            break;
+        default:
+            dialog = null;
+        }
+
+        return dialog;
+    }
+
+    @Override
+    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
+        switch (id) {
+        case Rd.DIALOG_HELP:
+            // intentionally blank
+            break;
+        default:
+            dialog = null;
+        }
+        super.onPrepareDialog(id, dialog, args);
+    }
+
+    /* ============== Dialog Shit [END] ============== */
     protected void recalculateAndUpdateOtherSide(boolean leftToRight) {
         if (leftToRight) {
-            exchangeRateValueInverted = NumberUtils.invertExchangeRateDouble(exchangeRate.getInvertedExchangeRate());
-            updatInputWidget(getInputWidgetR2L(), getLocale(), exchangeRateValueInverted);
+            exchangeRateValueInverted = NumberUtils.invertExchangeRateDouble(exchangeRate.getExchangeRate());
+            updatInputWidget(getInputWidgetR2L(), getLocale(), exchangeRateValueInverted, editTextListenerRight);
         }
         else {
             exchangeRate.setExchangeRate(NumberUtils.invertExchangeRateDouble(exchangeRateValueInverted));
-            updatInputWidget(getInputWidgetL2R(), getLocale(), exchangeRate.getExchangeRate());
+            updatInputWidget(getInputWidgetL2R(), getLocale(), exchangeRate.getExchangeRate(), editTextListenerLeft);
         }
     }
 
@@ -238,14 +248,19 @@ public class EditExchangeRateActivity extends Activity {
         return (EditText) findViewById(R.id.editExchangeRateViewInputRateL2R);
     }
 
-    private void updatInputWidget(EditText editTextInputRateR2L, Locale locale, Double exchangeRateValueInverted2) {
-        editTextInputRateR2L.setText(
+    private void updatInputWidget(EditText editTextField, Locale locale, Double exchangeRateValueInverted2,
+            TextWatcher watcher) {
+
+        editTextField.removeTextChangedListener(watcher);
+        editTextField.setText(
                 AmountViewUtils.getDoubleString(locale, exchangeRateValueInverted2, true, true, false,
                         true));
+        editTextField.addTextChangedListener(watcher);
     }
 
     protected void updateButtonState() {
-        Toast.makeText(getApplicationContext(), "TODO updateButtonState", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getApplicationContext(), "TODO updateButtonState",
+        // Toast.LENGTH_SHORT).show();
     }
 
     private Locale getLocale() {
@@ -260,6 +275,7 @@ public class EditExchangeRateActivity extends Activity {
     /* ============ btn actions ==================== */
 
     public void done(View view) {
+        getApp().getExchangeRateController().persistExchangeRate(exchangeRate);
     }
 
     public void cancel(View view) {

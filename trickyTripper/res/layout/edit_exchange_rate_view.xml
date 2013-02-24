@@ -184,7 +184,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="done"
-            android:text="@string/default_blank" />
+            android:text="@string/defaultX" />
 
         <Button
             android:id="@+id/editExchangeRateViewButtonCancel"
