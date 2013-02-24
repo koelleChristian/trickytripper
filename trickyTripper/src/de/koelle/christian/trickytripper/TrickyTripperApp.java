@@ -36,7 +36,7 @@ import de.koelle.christian.common.utils.FileUtils;
 import de.koelle.christian.common.utils.SystemUtil;
 import de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity;
 import de.koelle.christian.trickytripper.activities.DeleteExchangeRatesActivity;
-import de.koelle.christian.trickytripper.activities.ExchangeRateEditActivity;
+import de.koelle.christian.trickytripper.activities.EditExchangeRateActivity;
 import de.koelle.christian.trickytripper.activities.ExportActivity;
 import de.koelle.christian.trickytripper.activities.ImportExchangeRatesActivity;
 import de.koelle.christian.trickytripper.activities.ManageTripsActivity;
@@ -66,7 +66,6 @@ import de.koelle.christian.trickytripper.factories.ModelFactory;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Debts;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
-import de.koelle.christian.trickytripper.model.ExchangeRateResult;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -145,6 +144,7 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         optionSupport = new OptionsSupport(new int[] {
                 R.id.option_create_participant,
                 R.id.option_create_trip,
+                R.id.option_create_exchange_rate,
                 R.id.option_delete,
                 R.id.option_export,
                 R.id.option_help,
@@ -285,6 +285,21 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     }
 
+    public void openEditExchangeRate(Activity caller, ExchangeRate exchangeRate) {
+        Class<? extends Activity> activity = EditExchangeRateActivity.class;
+        ViewMode viewMode = ViewMode.CREATE;
+        Map<String, Serializable> extras = new HashMap<String, Serializable>();
+        if (exchangeRate != null) {
+            extras.put(Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_RATE_TECH_ID, exchangeRate.getId());
+            viewMode = ViewMode.EDIT;
+        }
+        startActivityWithParams(extras, activity, viewMode);
+    }
+
+    public void openCreateExchangeRate(Activity caller) {
+        openEditExchangeRate(caller, null);
+    }
+
     public void openExport() {
         Class<? extends Activity> activity = ExportActivity.class;
         startActivityWithParams(new HashMap<String, Serializable>(), activity, ViewMode.NONE);
@@ -314,13 +329,6 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         Class<? extends Activity> activity = PaymentEditActivity.class;
         Map<String, Serializable> extras = new HashMap<String, Serializable>();
         extras.put(Rc.ACTIVITY_PARAM_KEY_PAYMENT_ID, p.getId());
-        startActivityWithParams(extras, activity, ViewMode.EDIT);
-    }
-
-    public void openEditExchangeRate(ExchangeRate exchangeRate) {
-        Class<? extends Activity> activity = ExchangeRateEditActivity.class;
-        Map<String, Serializable> extras = new HashMap<String, Serializable>();
-        extras.put(Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_EXCHANGE_RATE, exchangeRate);
         startActivityWithParams(extras, activity, ViewMode.EDIT);
     }
 
@@ -653,50 +661,8 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         return SystemUtil.isOnline(this);
     }
 
-    /* =======================Exchange Rate Service ================ */
-
     public Trip getTripToBeEdited() {
         return tripToBeEdited;
-    }
-
-    public ExchangeRateResult findSuitableRates(Currency currencyFrom, Currency currencyTo) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public List<ExchangeRate> getAllExchangeRatesWithoutInversion() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public void persistExchangeRates(List<ExchangeRate> rates) {
-        // TODO Auto-generated method stub
-
-    }
-
-    public boolean persistExchangeRate(ExchangeRate rate) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    public boolean deleteExchangeRate(ExchangeRate row) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    public Currency getSourceCurrencyUsedLast() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public void saveExchangeRate(ExchangeRate exchangeRate) {
-        // TODO Auto-generated method stub
-
-    }
-
-    public ExchangeRate importExchangeRate(Currency currrencyFrom, Currency currencyTo) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     /* ======================= getter/setter ======================= */

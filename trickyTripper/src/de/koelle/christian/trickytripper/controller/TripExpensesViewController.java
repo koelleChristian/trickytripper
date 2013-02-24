@@ -19,11 +19,11 @@ public interface TripExpensesViewController {
 
     void openDeleteExchangeRates(Activity caller, Currency... currencies);
 
+    void openEditExchangeRate(Activity caller, ExchangeRate exchangeRate);
+
     void openMoneyCalculatorView(Amount amount, int viewIdForResult, Activity caller);
 
     void openEditPayment(Payment payment);
-
-    void openEditExchangeRate(ExchangeRate exchangeRate);
 
     void switchTabs(Rt tabId);
 

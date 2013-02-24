@@ -3,17 +3,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/importExchangeRatesViewHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/importExchangeRatesViewTextViewHeading"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="15dp" />
-
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +16,7 @@
             <TextView
                 android:layout_span="3"
                 android:padding="3dip"
-                android:text="Options"
+                android:text="@string/importExchangeRatesViewOptions"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
         </TableRow>
@@ -38,7 +27,7 @@
 
             <TextView
                 android:padding="15dip"
-                android:text=" " />
+                android:text="@string/default_blank" />
 
             <CheckBox
                 android:id="@+id/importExchangeRatesViewCheckboxReplaceExisting"
@@ -47,7 +36,6 @@
                 android:text="@string/importExchangeRatesViewCheckboxLabelReplaceExisting" />
 
             <requestFocus />
-
         </TableRow>
     </TableLayout>
 
@@ -60,6 +48,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/importExchangeRatesViewListViewLabel" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="4dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
 
     <!-- This scolling shit only scales properly in conjunction with linear layout. -->
 
@@ -78,11 +75,10 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/manageTripsView_button_create_new_tripxxxx"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="importExchangeRates"
-            android:text="Do import" />
+            android:text="@string/importExchangeRatesViewButtonExecute" />
     </LinearLayout>
 
 </LinearLayout>

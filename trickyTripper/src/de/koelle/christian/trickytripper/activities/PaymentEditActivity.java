@@ -62,6 +62,7 @@ import de.koelle.christian.trickytripper.activitysupport.PaymentEditActivityStat
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.constants.Rx;
 import de.koelle.christian.trickytripper.constants.ViewMode;
 import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
@@ -203,7 +204,7 @@ public class PaymentEditActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            showDialog(Rc.DIALOG_SHOW_HELP);
+            showDialog(Rd.DIALOG_HELP);
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -220,8 +221,8 @@ public class PaymentEditActivity extends Activity {
         case DIALOG_SELECT_DEBITORS:
             dialog = createDialogDebitorSelection();
             break;
-        case Rc.DIALOG_SHOW_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp(), Rc.DIALOG_SHOW_HELP);
+        case Rd.DIALOG_HELP:
+            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
             break;
         default:
             dialog = null;
@@ -239,7 +240,7 @@ public class PaymentEditActivity extends Activity {
         case DIALOG_SELECT_DEBITORS:
             updateParticipantSelectionDialog(dialog, args);
             break;
-        case Rc.DIALOG_SHOW_HELP:
+        case Rd.DIALOG_HELP:
             // intentionally blank
             break;
         default:

@@ -14,14 +14,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperActivity;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.TabDialogSupport;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.constants.Rt;
-import de.koelle.christian.trickytripper.constants.TrickyTripperTabConstants;
 import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.modelAdapter.ParticipantRowListAdapter;
@@ -43,25 +44,20 @@ public class ParticipantTabActivity extends ListActivity {
     protected void onResume() {
         super.onResume();
         updateRows();
-        showSmartHelp();
-    }
-
-    private void showSmartHelp() {
-        if (participantRows.isEmpty() && getApp().isSmartHelpEnabled()) {
-            Toast.makeText(getApplicationContext(),
-                    getResources().getString(R.string.participant_tab_msg_no_participants_in_trip), Toast.LENGTH_LONG)
-                    .show();
-        }
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.list_view);
         adapter = new ParticipantRowListAdapter(this, R.layout.participant_tab_row_view, participantRows);
         setListAdapter(adapter);
         ListView lv = getListView();
         registerForContextMenu(lv);
         updateRows();
+        TextView textView = (TextView) findViewById(android.R.id.empty);
+        textView.setText(getResources().getString(R.string.participant_tab_blank_list_notification));
+
     }
 
     @Override
@@ -86,11 +82,11 @@ public class ParticipantTabActivity extends ListActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_create_participant:
-            getParent().showDialog(TrickyTripperTabConstants.DIALOG_CREATE_PARTICIPANT,
+            getParent().showDialog(Rd.DIALOG_CREATE_PARTICIPANT,
                     TabDialogSupport.createBundleWithParticipantSelected(new Participant()));
             return true;
         case R.id.option_help:
-            getParent().showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
+            getParent().showDialog(Rd.DIALOG_HELP);
             return true;
         case R.id.option_export:
             getApp().getViewController().openExport();
@@ -201,7 +197,7 @@ public class ParticipantTabActivity extends ListActivity {
             return true;
         }
         case R.string.common_button_edit: {
-            getParent().showDialog(TrickyTripperTabConstants.DIALOG_EDIT_PARTICIPANT,
+            getParent().showDialog(Rd.DIALOG_EDIT_PARTICIPANT,
                     TabDialogSupport.createBundleWithParticipantSelected(participant));
 
             return true;

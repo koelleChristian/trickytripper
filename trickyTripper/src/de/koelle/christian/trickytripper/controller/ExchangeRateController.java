@@ -17,9 +17,9 @@ public interface ExchangeRateController {
 
     ExchangeRate persistExchangeRate(ExchangeRate rate);
 
-    boolean doesExchangeRateAlreadyExist(ExchangeRate exchangeRate);
+    boolean doesExchangeRateAlreadyExist(ExchangeRate rate);
 
-    boolean deleteExchangeRates(List<ExchangeRate> rows);
+    boolean deleteExchangeRates(List<ExchangeRate> rates);
 
     /**
      * Returns the source currency of the last calculation, if any.
@@ -33,5 +33,7 @@ public interface ExchangeRateController {
     ImportSettings getImportSettingsUsedLast();
 
     void saveImportSettingsUsedLast(ImportSettings importSettings);
+
+    ExchangeRate getExchangeRateById(Long technicalId);
 
 }

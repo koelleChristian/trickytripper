@@ -81,7 +81,13 @@ public class NumberUtils {
     }
 
     public static Double divideForExchangeRates(Double divident, Double divisor) {
-        return divide(divident, divisor, divisor.toString().length() - 2);
+        return (Double.valueOf(0d).equals(divisor)) ?
+                Double.valueOf(0d) :
+                divide(divident, divisor, divisor.toString().length() - 2);
+    }
+
+    public static Double invertExchangeRateDouble(Double exchangeRate) {
+        return (exchangeRate == null) ? null : divideForExchangeRates(Double.valueOf(1.0), exchangeRate);
     }
 
     public static Double divide(Double divident, Double divisor, int scale) {

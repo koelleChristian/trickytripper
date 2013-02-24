@@ -35,6 +35,7 @@ import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorActivitySupport;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.constants.Rc;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.constants.Rx;
 import de.koelle.christian.trickytripper.controller.MiscController;
 import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
@@ -81,7 +82,7 @@ public class MoneyTransferActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            showDialog(Rc.DIALOG_SHOW_HELP);
+            showDialog(Rd.DIALOG_HELP);
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -92,8 +93,8 @@ public class MoneyTransferActivity extends Activity {
     protected Dialog onCreateDialog(int id, Bundle args) {
         Dialog dialog;
         switch (id) {
-        case Rc.DIALOG_SHOW_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp(), Rc.DIALOG_SHOW_HELP);
+        case Rd.DIALOG_HELP:
+            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
             break;
         default:
             dialog = null;
@@ -105,7 +106,7 @@ public class MoneyTransferActivity extends Activity {
     @Override
     protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
         switch (id) {
-        case Rc.DIALOG_SHOW_HELP:
+        case Rd.DIALOG_HELP:
             // intentionally blank
             break;
         default:

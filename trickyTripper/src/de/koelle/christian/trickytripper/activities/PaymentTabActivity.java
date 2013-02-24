@@ -14,11 +14,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.TabDialogSupport;
-import de.koelle.christian.trickytripper.constants.TrickyTripperTabConstants;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.model.modelAdapter.PaymentRowListAdapter;
@@ -55,7 +56,7 @@ public class PaymentTabActivity extends ListActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            getParent().showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
+            getParent().showDialog(Rd.DIALOG_HELP);
             return true;
         case R.id.option_export:
             getApp().getViewController().openExport();
@@ -71,7 +72,7 @@ public class PaymentTabActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.list_view);
         adapter = new PaymentRowListAdapter(this, R.layout.payment_tab_row_view, paymentRows, getApp()
                 .getAmountFactory(), getApp().getMiscController().getDefaultStringCollator());
 
@@ -80,6 +81,9 @@ public class PaymentTabActivity extends ListActivity {
         ListView lv = getListView();
         registerForContextMenu(lv);
         sortAndUpdateView();
+
+        TextView textView = (TextView) findViewById(android.R.id.empty);
+        textView.setText(getResources().getString(R.string.payment_view_blank_list_notification));
 
     }
 
@@ -132,7 +136,7 @@ public class PaymentTabActivity extends ListActivity {
             return true;
         }
         case R.string.fktn_payment_list_delete_payment: {
-            getParent().showDialog(TrickyTripperTabConstants.DIALOG_DELETE_PAYMENT,
+            getParent().showDialog(Rd.DIALOG_DELETE_PAYMENT,
                     TabDialogSupport.createBundleWithPaymentSelected(row));
             return true;
         }
@@ -141,7 +145,7 @@ public class PaymentTabActivity extends ListActivity {
             return true;
         }
         case R.string.fktn_payment_list_delete_transfer: {
-            getParent().showDialog(TrickyTripperTabConstants.DIALOG_DELETE_TRANSFER,
+            getParent().showDialog(Rd.DIALOG_DELETE_TRANSFER,
                     TabDialogSupport.createBundleWithPaymentSelected(row));
             return true;
         }

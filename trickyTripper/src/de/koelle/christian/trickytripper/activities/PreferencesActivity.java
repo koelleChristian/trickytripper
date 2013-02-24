@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -84,14 +83,6 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
         listPref.setSummary(getDisplayStringForCurrency(defaultBaseCurrency));
 
         root.addPreference(listPref);
-
-        /* =============== Enabler for Smart Help ================= */
-        CheckBoxPreference smartHelpPrefs = new CheckBoxPreference(this);
-        smartHelpPrefs.setKey(Rc.PREFS_VALUE_ID_ENABLE_SMART_HELP);
-        smartHelpPrefs.setTitle(R.string.prefs_view_title_enable_smart_help);
-        smartHelpPrefs.setDefaultValue(Boolean.TRUE);
-
-        root.addPreference(smartHelpPrefs);
 
         return root;
     }

@@ -34,7 +34,7 @@ import de.koelle.christian.trickytripper.activitysupport.ButtonSupport;
 import de.koelle.christian.trickytripper.activitysupport.CurrencyViewSupport;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
-import de.koelle.christian.trickytripper.constants.Rc;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
 import de.koelle.christian.trickytripper.model.TripSummary;
 import de.koelle.christian.trickytripper.model.modelAdapter.TripSummarySymbolResolvingDelegator;
@@ -46,10 +46,6 @@ public class ManageTripsActivity extends Activity {
         SAVE,
         SAVE_AND_LOAD;
     }
-
-    private static final int DIALOG_EDIT = 1;
-    private static final int DIALOG_CREATE = 2;
-    private static final int DIALOG_DELETE = 3;
 
     private static final int MENU_GROUP_STD = 1;
     private static final int MENU_GROUP_DELETE = 2;
@@ -98,7 +94,7 @@ public class ManageTripsActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            showDialog(Rc.DIALOG_SHOW_HELP);
+            showDialog(Rd.DIALOG_HELP);
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -121,17 +117,17 @@ public class ManageTripsActivity extends Activity {
     protected Dialog onCreateDialog(int id, Bundle args) {
         Dialog dialog;
         switch (id) {
-        case DIALOG_CREATE:
+        case Rd.DIALOG_CREATE:
             dialog = createCreatePopup();
             break;
-        case DIALOG_EDIT:
+        case Rd.DIALOG_EDIT:
             dialog = createEditPopup();
             break;
-        case DIALOG_DELETE:
+        case Rd.DIALOG_DELETE:
             dialog = createDeletePopup();
             break;
-        case Rc.DIALOG_SHOW_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp(), Rc.DIALOG_SHOW_HELP);
+        case Rd.DIALOG_HELP:
+            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
             break;
         default:
             dialog = null;
@@ -142,16 +138,16 @@ public class ManageTripsActivity extends Activity {
     @Override
     protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
         switch (id) {
-        case DIALOG_CREATE:
+        case Rd.DIALOG_CREATE:
             updateCreateOrEditDialog(dialog, args);
             break;
-        case DIALOG_EDIT:
+        case Rd.DIALOG_EDIT:
             updateCreateOrEditDialog(dialog, args);
             break;
-        case DIALOG_DELETE:
+        case Rd.DIALOG_DELETE:
             updateDeleteDialog(dialog, args);
             break;
-        case Rc.DIALOG_SHOW_HELP:
+        case Rd.DIALOG_HELP:
             // intentionally blank
             break;
         default:
@@ -184,12 +180,12 @@ public class ManageTripsActivity extends Activity {
 
         switch (item.getItemId()) {
         case R.string.common_button_edit: {
-            showDialog(DIALOG_EDIT,
+            showDialog(Rd.DIALOG_EDIT,
                     createBundleWithTripSummaryForPopup(selectedTripSummary, isTripNew, hasTripPayments));
             return true;
         }
         case R.string.common_button_delete: {
-            showDialog(DIALOG_DELETE,
+            showDialog(Rd.DIALOG_DELETE,
                     createBundleWithTripSummaryForPopup(selectedTripSummary, isTripNew, hasTripPayments));
             return true;
         }
@@ -217,7 +213,7 @@ public class ManageTripsActivity extends Activity {
         if (R.id.manageTripsView_button_create_new_trip == view.getId()) {
             TripSummary newTripSummary = new TripSummary();
             newTripSummary.setBaseCurrency(getApp().getDefaultBaseCurrency());
-            showDialog(DIALOG_CREATE, createBundleWithTripSummaryForPopup(newTripSummary, true, false));
+            showDialog(Rd.DIALOG_CREATE, createBundleWithTripSummaryForPopup(newTripSummary, true, false));
         }
     }
 
@@ -307,7 +303,7 @@ public class ManageTripsActivity extends Activity {
         Spinner spinner = (Spinner) viewInf.findViewById(R.id.edit_trip_view_spinner_base_currency);
 
         List<RowObject> spinnerObjects = CurrencyViewSupport.wrapCurrenciesInRowObject(CurrencyUtil
-                .getSuportedCurrencies(getResources()), getResources());
+                .getSupportedCurrencies(getResources()), getResources());
 
         ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this, android.R.layout.simple_spinner_item,
                 spinnerObjects);

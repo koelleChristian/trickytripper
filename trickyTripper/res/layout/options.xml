@@ -3,24 +3,23 @@
 
     <item
         android:id="@+id/option_create_participant"
-        android:icon="@android:drawable/ic_input_add"
         android:title="@string/option_create"/>
-    
+
+    <item
+        android:id="@+id/option_create_exchange_rate"
+        android:title="@string/option_create"/>
+
     <item
         android:id="@+id/option_create_trip"
-        android:icon="@android:drawable/ic_input_add"
-        android:title="@string/option_create"/>    
-    
-    
+        android:title="@string/option_create"/>
+
     <item
         android:id="@+id/option_delete"
-        android:icon="@android:drawable/ic_input_delete"
         android:title="@string/option_delete"/>
 
     <item
         android:id="@+id/option_import"
-        android:icon="@android:drawable/stat_sys_download"
-        android:title="@string/option_import_exchange_rates"/>
+        android:title="@string/option_import"/>
 
     <item
         android:id="@+id/option_export"

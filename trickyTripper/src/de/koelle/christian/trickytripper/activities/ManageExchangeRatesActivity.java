@@ -2,12 +2,13 @@ package de.koelle.christian.trickytripper.activities;
 
 import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Currency;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.Dialog;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -16,86 +17,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.ImportOptionSupport;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.constants.Rc;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter;
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter.DisplayMode;
 
-public class ManageExchangeRatesActivity extends Activity {
+public class ManageExchangeRatesActivity extends ListActivity {
+
+    private static final String DIALOG_PARAM_EXCHANGE_RATE = "dialogParamExchangeRate";
 
     private ArrayAdapter<ExchangeRate> listAdapter;
     private final List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
-    private ListView listView;
+    // private ListView listView;
     private Comparator<ExchangeRate> comparator;
     private ImportOptionSupport importOptionSupport;
-
-    /* ============== Menu Shit [BGN] ============== */
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getOptionSupport().populateOptionsMenu(
-                new OptionContraints().activity(this).menu(menu)
-                        .options(new int[] {
-                                R.id.option_help,
-                                R.id.option_import,
-                                R.id.option_delete
-                        }));
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.option_delete:
-            openDeleteActivity();
-            return true;
-        case R.id.option_import:
-            return importOptionSupport.onOptionsItemSelected(this);
-        case R.id.option_help:
-            showDialog(Rc.DIALOG_SHOW_HELP);
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id, Bundle args) {
-        Dialog dialog;
-        switch (id) {
-        case Rc.DIALOG_SHOW_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp(), Rc.DIALOG_SHOW_HELP);
-            break;
-        default:
-            dialog = null;
-        }
-
-        return dialog;
-    }
-
-    @Override
-    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
-        switch (id) {
-        case Rc.DIALOG_SHOW_HELP:
-            // intentionally blank
-            break;
-        default:
-            dialog = null;
-        }
-        super.onPrepareDialog(id, dialog, args);
-    }
-
-    /* ============== Menu Shit [END] ============== */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manage_exchange_rates_view);
+        setContentView(R.layout.list_view);
 
         TrickyTripperApp app = getApp();
 
@@ -108,16 +57,16 @@ public class ManageExchangeRatesActivity extends Activity {
             }
 
         };
-        listView = (ListView) findViewById(R.id.manageExchangeRatesViewListViewRates);
 
-        initListView(listView, app);
-        addClickListener(listView, app);
+        initListView(getListView());
 
-        registerForContextMenu(listView);
+        TextView textView = (TextView) findViewById(android.R.id.empty);
+        textView.setText(getResources().getString(R.string.manageExchangeRatesViewBlankListNotification));
 
+        registerForContextMenu(getListView());
     }
 
-    private void initListView(ListView listView2, TrickyTripperApp app) {
+    private void initListView(ListView listView2) {
         listAdapter = new ExchangeRateRowListAdapter(this, android.R.layout.simple_list_item_1,
                 exchangeRateList, DisplayMode.SINGLE);
 
@@ -125,7 +74,6 @@ public class ManageExchangeRatesActivity extends Activity {
         listView2.setChoiceMode(ListView.CHOICE_MODE_NONE);
 
         updateList();
-        listAdapter.sort(comparator);
     }
 
     void updateList() {
@@ -136,9 +84,96 @@ public class ManageExchangeRatesActivity extends Activity {
             listAdapter.add(rate.cloneToInversion());
         }
         listAdapter.sort(comparator);
-        listView.invalidateViews();
+        getListView().invalidateViews();
     }
 
+    /* ============== Options Shit [BGN] ============== */
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return getApp().getOptionSupport().populateOptionsMenu(
+                new OptionContraints().activity(this).menu(menu)
+                        .options(new int[] {
+                                R.id.option_help,
+                                R.id.option_import,
+                                R.id.option_delete,
+                                R.id.option_create_exchange_rate
+                        }));
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.option_delete).setEnabled(!exchangeRateList.isEmpty());
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.option_delete:
+            openDeleteActivity();
+            return true;
+        case R.id.option_import:
+            return importOptionSupport.onOptionsItemSelected(this);
+        case R.id.option_help:
+            showDialog(Rd.DIALOG_HELP);
+            return true;
+        case R.id.option_create_exchange_rate:
+            openCreateActivity();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /* ============== Options Shit [END] ============== */
+    /* ============== Dialog Shit [END] ============== */
+
+    @Override
+    protected Dialog onCreateDialog(int id, Bundle args) {
+        Dialog dialog;
+        switch (id) {
+        case Rd.DIALOG_HELP:
+            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
+            break;
+        case Rd.DIALOG_DELETE:
+            dialog = PopupFactory.showDeleteConfirmationDialog(this);
+            break;
+        default:
+            dialog = null;
+        }
+
+        return dialog;
+    }
+
+    @Override
+    protected void onPrepareDialog(int id, Dialog dialog, final Bundle args) {
+        switch (id) {
+        case Rd.DIALOG_HELP:
+            // intentionally blank
+            break;
+        case Rd.DIALOG_DELETE:
+            final Dialog dialogFinal = dialog;
+            final ExchangeRate row = getRowFromBundle(args);
+            StringBuilder builder = new StringBuilder()
+                    .append(getResources().getString(R.string.manageExchangeRatesViewDeleteConfirmation))
+                    .append("\n")
+                    .append(getStringOfExchangeRate(row));
+            ((TextView) dialog.findViewById(android.R.id.message)).setText(builder.toString());
+            ((Button) dialog.findViewById(android.R.id.button1)).setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    dialogFinal.dismiss();
+                    ManageExchangeRatesActivity.this.deleteRowAndUpdateList(row);
+                }
+            });
+            break;
+        default:
+            dialog = null;
+        }
+        super.onPrepareDialog(id, dialog, args);
+    }
+
+    /* ============== Dialog Shit [END] ============== */
     /* ========= Context menu [BGN] =========== */
     private static final int CTX_MENU_GROUP_ID_EDIT = 1;
     private static int CTX_MENU_GROUP_ID_DELETE = 2;
@@ -148,7 +183,7 @@ public class ManageExchangeRatesActivity extends Activity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        ExchangeRate row = getParticipantByInfo(info);
+        ExchangeRate row = getRateByInfo(info);
         menu.setHeaderTitle(getStringOfExchangeRate(row));
 
         menu.add(CTX_MENU_GROUP_ID_EDIT, CTX_MENU_ID_EDIT, Menu.NONE,
@@ -165,22 +200,15 @@ public class ManageExchangeRatesActivity extends Activity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         TrickyTripperApp app = getApp();
-        ExchangeRate row = getParticipantByInfo(info);
+        ExchangeRate row = getRateByInfo(info);
         switch (item.getItemId()) {
-        // case R.string.common_button_delete: {
-        // if (!app.getExchangeRateController().deleteExchangeRate(row)) {
-        // Toast.makeText(getApplicationContext(),
-        // getResources().getString(R.string.msg_delete_not_possible_inbalance),
-        // Toast.LENGTH_SHORT)
-        // .show();
-        // }
-        // else {
-        // updateList();
-        // }
-        // return true;
-        // }
-        case R.string.common_button_edit: {
-            app.getViewController().openEditExchangeRate(row);
+
+        case CTX_MENU_ID_DELETE: {
+            showDialog(Rd.DIALOG_DELETE, wrapRowInBundle(row));
+            return true;
+        }
+        case CTX_MENU_ID_EDIT: {
+            app.getViewController().openEditExchangeRate(this, row);
             return true;
         }
         default:
@@ -207,9 +235,30 @@ public class ManageExchangeRatesActivity extends Activity {
     }
 
     /* ========= Context menu [END] =========== */
+    public Bundle wrapRowInBundle(ExchangeRate row) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(DIALOG_PARAM_EXCHANGE_RATE, row);
+        return bundle;
+    }
+
+    public ExchangeRate getRowFromBundle(Bundle args) {
+        if (args != null) {
+            return (ExchangeRate) args.get(DIALOG_PARAM_EXCHANGE_RATE);
+        }
+        return null;
+    }
+
+    private void deleteRowAndUpdateList(ExchangeRate row) {
+        getApp().getExchangeRateController().deleteExchangeRates(Arrays.asList(new ExchangeRate[] { row }));
+        updateList();
+    }
 
     private void openDeleteActivity() {
         getApp().openDeleteExchangeRates(this, new Currency[0]);
+    }
+
+    private void openCreateActivity() {
+        getApp().openCreateExchangeRate(this);
     }
 
     @Override
@@ -219,14 +268,9 @@ public class ManageExchangeRatesActivity extends Activity {
         }
     };
 
-    private ExchangeRate getParticipantByInfo(AdapterView.AdapterContextMenuInfo info) {
+    private ExchangeRate getRateByInfo(AdapterView.AdapterContextMenuInfo info) {
         ExchangeRate rate = listAdapter.getItem(info.position);
         return rate;
-    }
-
-    private void addClickListener(ListView listView2, TrickyTripperApp app) {
-        // TODO Auto-generated method stub
-
     }
 
     private TrickyTripperApp getApp() {

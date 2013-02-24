@@ -93,8 +93,7 @@ public class ExchangeRate implements Serializable {
     }
 
     public Double getInvertedExchangeRate() {
-
-        return (exchangeRate == null) ? null : NumberUtils.divideForExchangeRates(Double.valueOf(1.0), exchangeRate);
+        return NumberUtils.invertExchangeRateDouble(exchangeRate);
     }
 
     public boolean isInversion() {

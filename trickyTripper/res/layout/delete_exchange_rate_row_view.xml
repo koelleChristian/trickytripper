@@ -22,34 +22,34 @@
 
                 <TextView
                     android:id="@+id/manageExchangeRateRowView_output_from"
-                    style="@style/LargeFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="@string/defaultX" />
+                    android:text="@string/defaultX"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
                     android:id="@+id/manageExchangeRateRowView_output_direction_indicator"
-                    style="@style/LargeFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
                     android:id="@+id/manageExchangeRateRowView_output_to"
-                    style="@style/LargeFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="@string/defaultX" />
+                    android:text="@string/defaultX"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
                     android:id="@+id/manageExchangeRateRowView_output_main_rate"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"                    
+                    android:layout_weight="1"
                     android:gravity="right"
-                    
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/defaultX" />
             </TableRow>
 
@@ -57,26 +57,26 @@
 
                 <TextView
                     android:id="@+id/manageExchangeRateRowView_output_from2"
-                    style="@style/LargeFont"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="@string/defaultX" />
+                    android:text="@string/defaultX"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
                     android:id="@+id/manageExchangeRateRowView_output_direction_indicator2"
-                    style="@style/LargeFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
                     android:id="@+id/manageExchangeRateRowView_output_to2"
-                    style="@style/LargeFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="@string/defaultX" />
+                    android:text="@string/defaultX"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
                     android:id="@+id/manageExchangeRateRowView_output_main_rate2"
@@ -84,6 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/defaultX" />
             </TableRow>
 
@@ -107,7 +108,6 @@
             android:layout_height="match_parent"
             android:checkMark="?android:attr/listChoiceIndicatorMultiple"
             android:gravity="center" />
-
     </TableRow>
 
 </TableLayout>

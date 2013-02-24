@@ -25,7 +25,7 @@ import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
-import de.koelle.christian.trickytripper.constants.TrickyTripperTabConstants;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Debts;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -68,7 +68,7 @@ public class ReportTabActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            getParent().showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
+            getParent().showDialog(Rd.DIALOG_HELP);
             return true;
         case R.id.option_export:
             getApp().getViewController().openExport();

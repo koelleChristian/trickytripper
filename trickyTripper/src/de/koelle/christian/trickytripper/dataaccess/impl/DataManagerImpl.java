@@ -323,6 +323,10 @@ public class DataManagerImpl implements DataManager {
         return exchangeRateDao.getAllExchangeRatesWithoutInversion();
     }
 
+    public ExchangeRate getExchangeRateById(Long technicalId) {
+        return exchangeRateDao.getExchangeRateById(technicalId);
+    }
+
     public boolean doesExchangeRateAlreadyExist(ExchangeRate exchangeRate) {
         return exchangeRateDao.doesExchangeRateAlreadyExist(exchangeRate);
     }

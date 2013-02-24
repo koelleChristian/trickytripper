@@ -147,7 +147,12 @@ public class CurrencyUtil {
         return currencyFullName;
     }
 
-    public static List<Currency> getSuportedCurrencies(Resources resources) {
+    public static Currency getSuportedCurrency(Resources resources, int index) {
+        initIfRequired(resources);
+        return supportedCurrencies.get(index);
+    }
+
+    public static List<Currency> getSupportedCurrencies(Resources resources) {
         initIfRequired(resources);
         return supportedCurrencies;
     }

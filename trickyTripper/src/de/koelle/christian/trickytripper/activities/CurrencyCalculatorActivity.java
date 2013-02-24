@@ -31,6 +31,7 @@ import de.koelle.christian.trickytripper.activitysupport.ImportOptionSupport;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ExchangeRateResult;
@@ -63,7 +64,7 @@ public class CurrencyCalculatorActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            showDialog(Rc.DIALOG_SHOW_HELP);
+            showDialog(Rd.DIALOG_HELP);
             return true;
         case R.id.option_import:
             return importOptionSupport.onOptionsItemSelected(this);
@@ -76,8 +77,8 @@ public class CurrencyCalculatorActivity extends Activity {
     protected Dialog onCreateDialog(int id, Bundle args) {
         Dialog dialog;
         switch (id) {
-        case Rc.DIALOG_SHOW_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp(), Rc.DIALOG_SHOW_HELP);
+        case Rd.DIALOG_HELP:
+            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
             break;
         default:
             dialog = null;
@@ -89,7 +90,7 @@ public class CurrencyCalculatorActivity extends Activity {
     @Override
     protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
         switch (id) {
-        case Rc.DIALOG_SHOW_HELP:
+        case Rd.DIALOG_HELP:
             // intentionally blank
             break;
         default:
@@ -110,9 +111,17 @@ public class CurrencyCalculatorActivity extends Activity {
 
         readAndSetInput(getIntent());
 
-        Currency sourceCurrencyUsedLast = getApp().getSourceCurrencyUsedLast();
-        initCurrencySpinner(resultAmount.getUnit(), sourceCurrencyUsedLast);
-        inputAmount.setUnit(sourceCurrencyUsedLast);
+        Currency sourceCurrencyToBeUsed = getApp().getExchangeRateController().getSourceCurrencyUsedLast();
+        if (sourceCurrencyToBeUsed.equals(resultAmount.getUnit())) {
+            for (Currency currency : CurrencyUtil.getSupportedCurrencies(getResources())) {
+                if (!resultAmount.getUnit().equals(currency)) {
+                    sourceCurrencyToBeUsed = currency;
+                    break;
+                }
+            }
+        }
+        initCurrencySpinner(resultAmount.getUnit(), sourceCurrencyToBeUsed);
+        inputAmount.setUnit(sourceCurrencyToBeUsed);
 
         initAndBindEditText();
 
@@ -126,7 +135,8 @@ public class CurrencyCalculatorActivity extends Activity {
     }
 
     private void loadAndInitExchangeRates(Currency sourceCurrency, Currency resultCurrency) {
-        ExchangeRateResult rates = getApp().findSuitableRates(sourceCurrency, resultCurrency);
+        ExchangeRateResult rates = getApp().getExchangeRateController().findSuitableRates(sourceCurrency,
+                resultCurrency);
         initExchangeRateSpinner(rates);
     }
 
@@ -216,8 +226,9 @@ public class CurrencyCalculatorActivity extends Activity {
     @SuppressWarnings("rawtypes")
     private void initCurrencySpinner(Currency currencySourceExclusion, Currency currencySelectedLastTime) {
         final Spinner spinner = (Spinner) findViewById(R.id.currencyCalculatorView_spinner_inputCurrencySelection);
+        List<Currency> suportedCurrencies = CurrencyUtil.getSupportedCurrencies(getResources());
         final List<RowObject> spinnerObjects = wrapCurrenciesInRowObject(
-                CurrencyUtil.getSuportedCurrencies(getResources()),
+                suportedCurrencies,
                 currencySourceExclusion);
 
         ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this,
@@ -282,13 +293,16 @@ public class CurrencyCalculatorActivity extends Activity {
         spinner.setPromptId(R.string.payment_view_spinner_prompt);
         spinner.setAdapter(adapter);
 
-        ExchangeRate initialSelection2Be = (rates.getRateUsedLastTime() == null) ? (ExchangeRate) spinnerObjects.get(0)
-                .getRowObject() : rates.getRateUsedLastTime();
-        SpinnerViewSupport.setSelection(spinner, initialSelection2Be, adapter);
+        if (spinnerObjects.size() > 0) {
 
-        fillRateModel(initialSelection2Be);
-        updateExchangeRateFieldFromModel();
+            ExchangeRate initialSelection2Be = (rates.getRateUsedLastTime() == null) ? (ExchangeRate) spinnerObjects
+                    .get(0)
+                    .getRowObject() : rates.getRateUsedLastTime();
+            SpinnerViewSupport.setSelection(spinner, initialSelection2Be, adapter);
 
+            fillRateModel(initialSelection2Be);
+            updateExchangeRateFieldFromModel();
+        }
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             @SuppressWarnings("unchecked")

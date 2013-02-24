@@ -115,7 +115,7 @@ public class PrefWritrerReaderUtils {
     }
 
     private static Currency ensureCurrencyIsSupported(Currency currency, Resources resources) {
-        boolean isSupported = CurrencyUtil.getSuportedCurrencies(resources).contains(currency);
+        boolean isSupported = CurrencyUtil.getSupportedCurrencies(resources).contains(currency);
         return isSupported ? currency : Currency.getInstance("EUR");
     }
 

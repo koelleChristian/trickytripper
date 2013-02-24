@@ -42,7 +42,7 @@
         </activity>
         <activity
             android:name=".activities.ExportActivity"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/exportViewTextViewHeading" >
         </activity>
         <activity
             android:name=".activities.MoneyTransferActivity"
@@ -68,23 +68,23 @@
         </activity>
         <activity
             android:name=".activities.PreferencesActivity"
-            android:theme="@android:style/Theme.NoTitleBar" >
-        </activity>
-        <activity
-            android:name=".activities.ExchangeRateEditActivity"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/prefs_view_heading" >
         </activity>
         <activity
             android:name=".activities.ManageExchangeRatesActivity"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/manageExchangeRatesViewTextViewHeading" >
         </activity>
         <activity
             android:name=".activities.ImportExchangeRatesActivity"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/importExchangeRatesViewTextViewHeading" >
         </activity>
         <activity
             android:name=".activities.DeleteExchangeRatesActivity"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/deleteExchangeRatesViewTextViewHeading" >
+        </activity>
+        <activity
+            android:name=".activities.EditExchangeRateActivity"
+            android:label="@string/defaultX" >
         </activity>
         <activity
             android:name=".activities.CurrencyCalculatorActivity"

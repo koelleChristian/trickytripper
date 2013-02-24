@@ -17,7 +17,7 @@ public class ImportOptionSupport {
         if (!app.isOnline()) {
             Toast.makeText(
                     app.getApplicationContext(), "The import of exchange rates requires an online connection.",
-                    Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_LONG).show();
         }
         else {
             app.openImportExchangeRates(caller, new Currency[0]);

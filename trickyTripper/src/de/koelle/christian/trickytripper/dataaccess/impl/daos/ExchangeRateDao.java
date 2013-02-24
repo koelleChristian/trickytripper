@@ -285,6 +285,15 @@ public class ExchangeRateDao {
         return queryExchangeRates(ER_SELECTION_ARGS_FIND_ALL_MATCHING, selectionArgs);
     }
 
+    public ExchangeRate getExchangeRateById(Long technicalId) {
+        String[] selectionArgs = new String[] {
+                String.valueOf(technicalId)
+        };
+        // TODO(ckoelle) Could be done more beautifully,i.e. without List
+        List<ExchangeRate> resultList = queryExchangeRates(BaseColumns._ID + " = ?", selectionArgs);
+        return (resultList.size() > 0) ? resultList.get(0) : null;
+    }
+
     private List<ExchangeRate> queryExchangeRates(String selectionCriteria, String[] selectionArgs) {
         List<ExchangeRate> resultList = new ArrayList<ExchangeRate>();
         Cursor c =
