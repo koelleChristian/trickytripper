@@ -32,13 +32,24 @@ public class NumberUtilsTest {
 
     @Test
     public void testRoundingStringToDouble() {
-        Assert.assertEquals(14.33d, NumberUtils.getStringToDouble(Locale.UK, "14.3333333"));
-        Assert.assertEquals(14.34d, NumberUtils.getStringToDouble(Locale.UK, "14.335"));
-        Assert.assertEquals(14.33d, NumberUtils.getStringToDouble(Locale.GERMANY, "14,3333333"));
-        Assert.assertEquals(14.34d, NumberUtils.getStringToDouble(Locale.GERMANY, "14,335"));
-        Assert.assertEquals(0d, NumberUtils.getStringToDouble(Locale.GERMANY, ","));
-        Assert.assertEquals(0d, NumberUtils.getStringToDouble(Locale.GERMANY, ""));
-        Assert.assertEquals(0d, NumberUtils.getStringToDouble(Locale.GERMANY, null));
+        Assert.assertEquals(14.33d, NumberUtils.getStringToDoubleRounded(Locale.UK, "14.3333333"));
+        Assert.assertEquals(14.34d, NumberUtils.getStringToDoubleRounded(Locale.UK, "14.335"));
+        Assert.assertEquals(14.33d, NumberUtils.getStringToDoubleRounded(Locale.GERMANY, "14,3333333"));
+        Assert.assertEquals(14.34d, NumberUtils.getStringToDoubleRounded(Locale.GERMANY, "14,335"));
+        Assert.assertEquals(0d, NumberUtils.getStringToDoubleRounded(Locale.GERMANY, ","));
+        Assert.assertEquals(0d, NumberUtils.getStringToDoubleRounded(Locale.GERMANY, ""));
+        Assert.assertEquals(0d, NumberUtils.getStringToDoubleRounded(Locale.GERMANY, null));
+    }
+
+    @Test
+    public void testRoundingStringToDoubleUnrounded() {
+        Assert.assertEquals(14.3333333d, NumberUtils.getStringToDoubleUnrounded(Locale.UK, "14.3333333"));
+        Assert.assertEquals(14.335d, NumberUtils.getStringToDoubleUnrounded(Locale.UK, "14.335"));
+        Assert.assertEquals(14.3333333d, NumberUtils.getStringToDoubleUnrounded(Locale.GERMANY, "14,3333333"));
+        Assert.assertEquals(14.335d, NumberUtils.getStringToDoubleUnrounded(Locale.GERMANY, "14,335"));
+        Assert.assertEquals(0d, NumberUtils.getStringToDoubleUnrounded(Locale.GERMANY, ","));
+        Assert.assertEquals(0d, NumberUtils.getStringToDoubleUnrounded(Locale.GERMANY, ""));
+        Assert.assertEquals(0d, NumberUtils.getStringToDoubleUnrounded(Locale.GERMANY, null));
     }
 
     @Test

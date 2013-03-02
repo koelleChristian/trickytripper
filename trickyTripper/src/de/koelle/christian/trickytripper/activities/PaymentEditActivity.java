@@ -332,7 +332,7 @@ public class PaymentEditActivity extends Activity {
             Button buttonCurrency = (Button) row.findViewById(R.id.payment_edit_payer_row_view_button_currency);
             buttonCurrency.setText(getApp().getCurrencySymbolOfTripLoaded(false));
 
-            UiUtils.makeProperNumberInput(editText, getLocale());
+            UiUtils.makeProperCurrencyAmountNumberInput(editText, getLocale());
             AmoutViewUtils.writeAmountToEditText(amount, editText, getLocale());
             textView.setText(p.getName());
 
@@ -788,7 +788,7 @@ public class PaymentEditActivity extends Activity {
             }
 
             public void afterTextChanged(Editable s) {
-                Double valueInput = NumberUtils.getStringToDouble(getLocale(), s.toString());
+                Double valueInput = NumberUtils.getStringToDoubleRounded(getLocale(), s.toString());
                 if (!isPayment) {
                     valueInput = NumberUtils.neg(valueInput);
                 }

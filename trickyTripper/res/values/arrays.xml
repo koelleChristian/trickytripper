@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    
     <string-array name="currencies">
         <item>ADP-Andorran Peseta</item>
         <item>AED-United Arab Emirates Dirham</item>

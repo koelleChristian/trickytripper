@@ -13,16 +13,35 @@ public class DecimalDigitsInputFilter implements InputFilter {
 
     private final int decimalDigits;
     private final char decimalDelimiter;
+    private int maximumLength = 12;
 
     /**
      * Constructor.
      * 
      * @param decimalDigits
-     *            maximum decimal digits
+     *            The amount of decimal digits
+     * @param decimalDelimiter
+     *            The decimal delimiter to be used.
+     * @param maximumLength
+     *            The maximumLength as a whole.
      */
-    public DecimalDigitsInputFilter(int decimalDigits, char decimalDelimiter) {
+    public DecimalDigitsInputFilter(int decimalDigits, char decimalDelimiter, int maximumLength) {
         this.decimalDigits = decimalDigits;
         this.decimalDelimiter = decimalDelimiter;
+        this.maximumLength = maximumLength;
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param decimalDigits
+     *            The amount of decimal digits
+     * @param decimalDelimiter
+     *            The decimal delimiter to be used.
+     * 
+     */
+    public DecimalDigitsInputFilter(int decimalDigits, char decimalDelimiter) {
+        this(decimalDigits, decimalDelimiter, 12);
     }
 
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
@@ -62,7 +81,7 @@ public class DecimalDigitsInputFilter implements InputFilter {
                     );
         }
 
-        if (potentialResult.length() > 12) {
+        if (potentialResult.length() > maximumLength) {
             return "";
         }
 

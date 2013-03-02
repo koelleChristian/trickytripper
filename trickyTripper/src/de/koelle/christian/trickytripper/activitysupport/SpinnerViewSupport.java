@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import de.koelle.christian.trickytripper.R;
+import de.koelle.christian.trickytripper.model.ExchangeRateSelection;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.ResourceLabelAwareEnumeration;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
@@ -36,6 +37,18 @@ public class SpinnerViewSupport {
             spinnerObject = new SpinnerObject();
             spinnerObject.setId(id);
             spinnerObject.setStringToDisplay(name);
+            result.add(spinnerObject);
+        }
+        return result;
+    }
+
+    public static List<SpinnerObject> createSpinnerObjectsDeleteExchangeRateSelection(Resources resources) {
+        List<SpinnerObject> result = new ArrayList<SpinnerObject>();
+        SpinnerObject spinnerObject;
+        for (ExchangeRateSelection entry : ExchangeRateSelection.values()) {
+            spinnerObject = new SpinnerObject();
+            spinnerObject.setId(entry.getResourceId());
+            spinnerObject.setStringToDisplay(resources.getString(entry.getResourceId()));
             result.add(spinnerObject);
         }
         return result;
@@ -92,6 +105,18 @@ public class SpinnerViewSupport {
                 android.R.layout.simple_spinner_item,
                 createSpinnerObjects(participants, context.getResources()
                 ));
+        adapter.setDropDownViewResource(R.layout.selection_list_medium);
+        spinner.setAdapter(adapter);
+        return spinner;
+    }
+
+    public static Spinner configureDeleteExchangeRateSpinner(Activity activity, Context context, int spinnerViewId) {
+
+        Spinner spinner = (Spinner) activity.findViewById(spinnerViewId);
+        ArrayAdapter<SpinnerObject> adapter = new ArrayAdapter<SpinnerObject>(
+                context,
+                android.R.layout.simple_spinner_item,
+                createSpinnerObjectsDeleteExchangeRateSelection(context.getResources()));
         adapter.setDropDownViewResource(R.layout.selection_list_medium);
         spinner.setAdapter(adapter);
         return spinner;

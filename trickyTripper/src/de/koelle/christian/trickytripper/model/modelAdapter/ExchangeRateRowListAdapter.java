@@ -41,13 +41,14 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
 
         boolean isDouble = DisplayMode.DOUBLE_WITH_SELECTION.equals(mode);
 
-        if (result == null) {
-            int manageExchangeRateRowView = isDouble ?
-                    R.layout.delete_exchange_rate_row_view :
-                    R.layout.manage_exchange_rate_row_view;
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            result = vi.inflate(manageExchangeRateRowView, null);
-        }
+        // if (result == null) {
+        int manageExchangeRateRowView = isDouble ?
+                R.layout.exchange_rate_delete_row_view :
+                R.layout.exchange_rate_manage_row_view;
+
+        LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        result = vi.inflate(manageExchangeRateRowView, null);
+        // }
 
         ExchangeRate row = rows.get(position);
         if (row != null) {
@@ -56,55 +57,55 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
             Object label;
             Object value;
 
-            viewId = R.id.manageExchangeRateRowView_output_from;
+            viewId = R.id.exchangeRateRowView_output_from;
             label = null;
             value = row.getCurrencyFrom().getCurrencyCode();
             UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
-            viewId = R.id.manageExchangeRateRowView_output_to;
+            viewId = R.id.exchangeRateRowView_output_to;
             label = null;
             value = row.getCurrencyTo().getCurrencyCode();
             UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
-            viewId = R.id.manageExchangeRateRowView_output_direction_indicator;
+            viewId = R.id.exchangeRateRowView_output_direction_indicator;
             label = null;
             value = " > ";
             UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
-            viewId = R.id.manageExchangeRateRowView_output_main_rate;
+            viewId = R.id.exchangeRateRowView_output_main_rate;
             label = null;
             value = row.getExchangeRate();
             UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
-            viewId = R.id.manageExchangeRateRowView_output_description;
+            viewId = R.id.exchangeRateRowView_output_comment;
             label = null;
             value = deriveDescription(row);
             UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
             if (isDouble) {
-                viewId = R.id.manageExchangeRateRowView_checkboxsssssssssssss;
+                viewId = R.id.exchangeRateRowView_checkbox;
 
                 CheckBox checkbox = (CheckBox) result.findViewById(viewId);
                 checkbox.setChecked(row.isSelected());
 
                 ExchangeRate rowInverted = row.cloneToInversion();
 
-                viewId = R.id.manageExchangeRateRowView_output_from2;
+                viewId = R.id.exchangeRateRowView_output_from2;
                 label = null;
                 value = rowInverted.getCurrencyFrom().getCurrencyCode();
                 UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
-                viewId = R.id.manageExchangeRateRowView_output_to2;
+                viewId = R.id.exchangeRateRowView_output_to2;
                 label = null;
                 value = rowInverted.getCurrencyTo().getCurrencyCode();
                 UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
-                viewId = R.id.manageExchangeRateRowView_output_direction_indicator2;
+                viewId = R.id.exchangeRateRowView_output_direction_indicator2;
                 label = null;
                 value = " > ";
                 UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
-                viewId = R.id.manageExchangeRateRowView_output_main_rate2;
+                viewId = R.id.exchangeRateRowView_output_main_rate2;
                 label = null;
                 value = rowInverted.getExchangeRate();
                 UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);

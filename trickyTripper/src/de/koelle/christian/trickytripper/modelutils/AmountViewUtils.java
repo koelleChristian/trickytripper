@@ -48,6 +48,7 @@ public class AmountViewUtils {
         if (value == null) {
             return (blankIfNull) ? "" : null;
         }
+        System.out.println(value);
         Double valueInternal = (stripOffSign) ? Math.abs(value) : value;
 
         if (blankIfZero && valueInternal.equals(Double.valueOf(0))) {
@@ -57,6 +58,7 @@ public class AmountViewUtils {
 
         if (forceFraction || valueInternal % 1 != 0) {
             nf.setMinimumFractionDigits(2);
+            nf.setMaximumFractionDigits(12);
         }
         String numberFormat = nf.format(valueInternal);
 

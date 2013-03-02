@@ -20,7 +20,17 @@ public class NumberUtils {
         return Double.valueOf(value * -1);
     }
 
-    public static Double getStringToDouble(Locale locale, String stringToBeParsed) {
+    public static Double getStringToDoubleUnrounded(Locale locale, String stringToBeParsed) {
+        boolean doRound = false;
+        return getStringToDouble(locale, stringToBeParsed, doRound);
+    }
+
+    public static Double getStringToDoubleRounded(Locale locale, String stringToBeParsed) {
+        boolean doRound = true;
+        return getStringToDouble(locale, stringToBeParsed, doRound);
+    }
+
+    private static Double getStringToDouble(Locale locale, String stringToBeParsed, boolean doRound) {
         if (stringToBeParsed == null || stringToBeParsed.length() < 1) {
             return Double.valueOf(0);
         }
@@ -38,8 +48,7 @@ public class NumberUtils {
             throw new RuntimeException(e);
         }
         double unrounded = number.doubleValue();
-        return Double.valueOf(round(unrounded));
-
+        return Double.valueOf((doRound) ? round(unrounded) : unrounded);
     }
 
     public static Double divide(Double divident, Integer divisor) {

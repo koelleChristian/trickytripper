@@ -19,11 +19,25 @@ import de.koelle.christian.common.ui.filter.DecimalDigitsInputFilter;
 
 public class UiUtils {
 
-    public static void makeProperNumberInput(final EditText editText, final Locale locale) {
+    public static void makeProperCurrencyAmountNumberInput(final EditText editText, final Locale locale) {
+        int decimalDigits = 2;
+        int maximumLength = 12;
+        makeProperNumberInput(editText, locale, decimalDigits, maximumLength);
+    }
+
+    public static void makeProperExchangeRateNumberInput(final EditText editText, final Locale locale) {
+        int decimalDigits = 10;
+        int maximumLength = 14;
+        makeProperNumberInput(editText, locale, decimalDigits, maximumLength);
+    }
+
+    public static void makeProperNumberInput(final EditText editText, final Locale locale, int decimalDigits,
+            int maximumLength) {
         editText.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
         editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         char decimalSeparator = determineDecimalSeparator(locale);
-        editText.setFilters(new InputFilter[] { new DecimalDigitsInputFilter(2, decimalSeparator) });
+        editText.setFilters(new InputFilter[] { new DecimalDigitsInputFilter(decimalDigits, decimalSeparator,
+                maximumLength) });
         StringBuilder pattern = new StringBuilder("0123456789");
         pattern.append(decimalSeparator);
         editText.setKeyListener(DigitsKeyListener.getInstance(pattern.toString()));

@@ -215,7 +215,7 @@ public class MoneyTransferActivity extends Activity {
             buttonDueAmount = (Button) newRow.findViewById(R.id.money_transfer_list_view_button_due_amount);
             buttonCurrency = (Button) newRow.findViewById(R.id.money_transfer_list_view_button_currency);
 
-            UiUtils.makeProperNumberInput(editText, getLocale());
+            UiUtils.makeProperCurrencyAmountNumberInput(editText, getLocale());
             editText.setId(dynViewId);
             tableLayout.addView(newRow, i + offset);
             nameTextView.setText(p.getName());
@@ -264,7 +264,7 @@ public class MoneyTransferActivity extends Activity {
             }
 
             public void afterTextChanged(Editable s) {
-                amount.setValue(NumberUtils.getStringToDouble(getLocale(), s.toString()));
+                amount.setValue(NumberUtils.getStringToDoubleRounded(getLocale(), s.toString()));
                 MoneyTransferActivity.this.updateSum();
                 MoneyTransferActivity.this.updateSaveButtonState();
             }

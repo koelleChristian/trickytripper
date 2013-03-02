@@ -161,7 +161,7 @@
         android:id="@+id/editExchangeRateViewInputDescription"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="left"
         android:inputType="text" />
 
     <View

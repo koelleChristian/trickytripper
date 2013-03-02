@@ -4,20 +4,21 @@ import java.io.Serializable;
 import java.util.Currency;
 import java.util.Date;
 
+import android.widget.Checkable;
 import de.koelle.christian.common.utils.NumberUtils;
 
-public class ExchangeRate implements Serializable {
+public class ExchangeRate implements Serializable, Checkable {
 
     private static final long serialVersionUID = 2017174474860551532L;
 
     private long id;
-    private Currency currencyFrom;// a // b
-    private Currency currencyTo; // a // b
+    private Currency currencyFrom;
+    private Currency currencyTo;
     private Double exchangeRate;
-    private String description; // b keine Dubletten
+    private String description;
     private Date updateDate;
     private Date creationDate;
-    private ImportOrigin importOrigin; // b= none
+    private ImportOrigin importOrigin;
     private boolean inversion;
     private transient boolean isSelected;
 
@@ -172,4 +173,16 @@ public class ExchangeRate implements Serializable {
         this.isSelected = isSelected;
     }
 
+    public void setChecked(boolean checked) {
+        setSelected(checked);
+    }
+
+    public boolean isChecked() {
+        return isSelected();
+    }
+
+    public void toggle() {
+        setSelected(!isSelected);
+
+    }
 }

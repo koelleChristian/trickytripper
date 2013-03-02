@@ -1,47 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:shrinkColumns="2"
-        android:stretchColumns="2" >
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:layout_span="3"
-                android:padding="3dip"
-                android:text="@string/importExchangeRatesViewOptions"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:padding="15dip"
-                android:text="@string/default_blank" />
-
-            <CheckBox
-                android:id="@+id/importExchangeRatesViewCheckboxReplaceExisting"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/importExchangeRatesViewCheckboxLabelReplaceExisting" />
-
-            <requestFocus />
-        </TableRow>
-    </TableLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="15dp" />
 
     <TextView
         android:id="@+id/importExchangeRatesListViewLabel"
@@ -66,6 +27,31 @@
         android:layout_height="0dp"
         android:layout_weight="1" >
     </ListView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="4dp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <CheckBox
+            android:id="@+id/importExchangeRatesViewCheckboxReplaceExisting"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/importExchangeRatesViewCheckboxLabelReplaceExisting" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="4dp" />
 
     <LinearLayout
         android:id="@+id/footer"

@@ -173,15 +173,15 @@ public class CurrencyCalculatorActivity extends Activity {
 
         Locale locale = getLocale();
 
-        UiUtils.makeProperNumberInput(editTextInputValue, locale);
-        UiUtils.makeProperNumberInput(editTextInputExchangeRate, locale);
+        UiUtils.makeProperCurrencyAmountNumberInput(editTextInputValue, locale);
+        UiUtils.makeProperCurrencyAmountNumberInput(editTextInputExchangeRate, locale);
 
         updateEditFieldsFromModel();
 
         editTextInputValue.addTextChangedListener(new BlankTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                Double valueInput = NumberUtils.getStringToDouble(getLocale(), s.toString());
+                Double valueInput = NumberUtils.getStringToDoubleRounded(getLocale(), s.toString());
                 inputAmount.setValue(valueInput);
                 updateCalculation();
             }
@@ -190,7 +190,7 @@ public class CurrencyCalculatorActivity extends Activity {
         editTextInputExchangeRate.addTextChangedListener(new BlankTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                Double valueInput = NumberUtils.getStringToDouble(getLocale(), s.toString());
+                Double valueInput = NumberUtils.getStringToDoubleRounded(getLocale(), s.toString());
                 exchangeRateInput = valueInput;
                 updateCalculation();
             }

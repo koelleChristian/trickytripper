@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<de.koelle.christian.trickytripper.ui.view.CheckableLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/exchangeRateRowView_upperLayout2"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <TableLayout
+        android:id="@+id/exchangeRateRowView_upperLayoutNested"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:layout_weight=".88"
+        android:paddingRight="10pt" >
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/exchangeRateRowView_output_from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="left"
+                android:text="@string/defaultX"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/exchangeRateRowView_output_direction_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/exchangeRateRowView_output_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="left"
+                android:text="@string/defaultX"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/exchangeRateRowView_output_main_rate"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="right"
+                android:text="@string/defaultX"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/exchangeRateRowView_output_from2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="left"
+                android:text="@string/defaultX"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/exchangeRateRowView_output_direction_indicator2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/exchangeRateRowView_output_to2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="left"
+                android:text="@string/defaultX"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/exchangeRateRowView_output_main_rate2"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="right"
+                android:text="@string/defaultX"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/exchangeRateRowView_output_comment"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="4"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="left"
+                android:paddingLeft="10dp"
+                android:text="@string/defaultX" />
+        </TableRow>
+    </TableLayout>
+
+    <CheckBox
+        android:id="@+id/exchangeRateRowView_checkbox"
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_weight=".12"
+        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+        android:clickable="false"
+        android:focusable="false"
+        android:gravity="center" />
+
+</de.koelle.christian.trickytripper.ui.view.CheckableLinearLayout>

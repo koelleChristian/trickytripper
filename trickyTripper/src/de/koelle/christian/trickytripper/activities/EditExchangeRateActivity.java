@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import de.koelle.christian.common.currencyspinner.CurrencySpinnerSelectionListener;
 import de.koelle.christian.common.currencyspinner.SpinnerCurrencySelectionCallback;
 import de.koelle.christian.common.currencyspinner.SpinnerViewUtils;
@@ -52,7 +53,7 @@ public class EditExchangeRateActivity extends Activity {
 
         initAndBindStateDependingWidget();
         initAndBindEditText();
-
+        updateButtonState();
     }
 
     private void initAndBindStateDependingWidget() {
@@ -60,7 +61,7 @@ public class EditExchangeRateActivity extends Activity {
         final Spinner spinnerRight = (Spinner) findViewById(R.id.editExchangeRateViewSpinnerCurrencyRight);
         TextView labelLeft = (TextView) findViewById(R.id.editExchangeRateViewLabelCurrencyLeft);
         TextView labelRight = (TextView) findViewById(R.id.editExchangeRateViewLabelCurrencyRight);
-        Button saveButton = (Button) findViewById(R.id.editExchangeRateViewButtonSave);
+        Button saveButton = getSaveButton();
 
         boolean editMode = viewMode == ViewMode.EDIT;
 
@@ -104,6 +105,10 @@ public class EditExchangeRateActivity extends Activity {
         }
     }
 
+    private Button getSaveButton() {
+        return (Button) findViewById(R.id.editExchangeRateViewButtonSave);
+    }
+
     private void readAndSetInput(Intent intent) {
         viewMode = (ViewMode) getIntent().getExtras().get(Rc.ACTIVITY_PARAM_KEY_VIEW_MODE);
 
@@ -133,6 +138,12 @@ public class EditExchangeRateActivity extends Activity {
         return exchangeRate2;
     }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+    }
+
     private void initAndBindEditText() {
         EditText editTextInputDescription = (EditText) findViewById(R.id.editExchangeRateViewInputDescription);
         EditText editTextInputRateL2R = getInputWidgetL2R();
@@ -140,8 +151,8 @@ public class EditExchangeRateActivity extends Activity {
 
         Locale locale = getLocale();
 
-        UiUtils.makeProperNumberInput(editTextInputRateL2R, locale);
-        UiUtils.makeProperNumberInput(editTextInputRateR2L, locale);
+        UiUtils.makeProperExchangeRateNumberInput(editTextInputRateL2R, locale);
+        UiUtils.makeProperExchangeRateNumberInput(editTextInputRateR2L, locale);
 
         editTextInputDescription.setText(exchangeRate.getDescription());
 
@@ -157,7 +168,7 @@ public class EditExchangeRateActivity extends Activity {
         editTextListenerLeft = new BlankTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                Double valueInput = NumberUtils.getStringToDouble(getLocale(), s.toString());
+                Double valueInput = NumberUtils.getStringToDoubleUnrounded(getLocale(), s.toString());
                 exchangeRate.setExchangeRate(valueInput);
                 recalculateAndUpdateOtherSide(true);
                 updateButtonState();
@@ -166,17 +177,20 @@ public class EditExchangeRateActivity extends Activity {
         editTextListenerRight = new BlankTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                Double valueInput = NumberUtils.getStringToDouble(getLocale(), s.toString());
+                Double valueInput = NumberUtils.getStringToDoubleUnrounded(getLocale(), s.toString());
                 exchangeRateValueInverted = valueInput;
                 recalculateAndUpdateOtherSide(false);
                 updateButtonState();
             }
         };
+
         editTextInputRateL2R.addTextChangedListener(editTextListenerLeft);
         editTextInputRateR2L.addTextChangedListener(editTextListenerRight);
 
-        updatInputWidget(editTextInputRateL2R, locale, exchangeRate.getExchangeRate(), editTextListenerLeft);
-        updatInputWidget(editTextInputRateR2L, locale, exchangeRateValueInverted, editTextListenerRight);
+        updatInputWidget(editTextInputRateL2R, getLocale(),
+                exchangeRate.getExchangeRate(), editTextListenerLeft);
+        updatInputWidget(editTextInputRateR2L, getLocale(),
+                exchangeRateValueInverted, editTextListenerRight);
     }
 
     /* ============== Menu Shit [BGN] ============== */
@@ -248,19 +262,25 @@ public class EditExchangeRateActivity extends Activity {
         return (EditText) findViewById(R.id.editExchangeRateViewInputRateL2R);
     }
 
-    private void updatInputWidget(EditText editTextField, Locale locale, Double exchangeRateValueInverted2,
+    private void updatInputWidget(EditText editTextField, Locale locale, Double value,
             TextWatcher watcher) {
 
         editTextField.removeTextChangedListener(watcher);
         editTextField.setText(
-                AmountViewUtils.getDoubleString(locale, exchangeRateValueInverted2, true, true, false,
+                AmountViewUtils.getDoubleString(locale, value, true, true, false,
                         true));
         editTextField.addTextChangedListener(watcher);
     }
 
     protected void updateButtonState() {
-        // Toast.makeText(getApplicationContext(), "TODO updateButtonState",
-        // Toast.LENGTH_SHORT).show();
+        getSaveButton().setEnabled(canBeSaved());
+    }
+
+    private boolean canBeSaved() {
+        return exchangeRate.getExchangeRate() != null
+                && exchangeRate.getExchangeRate() > 0
+                && exchangeRate.getDescription() != null
+                && exchangeRate.getDescription().length() > 0;
     }
 
     private Locale getLocale() {
@@ -274,10 +294,19 @@ public class EditExchangeRateActivity extends Activity {
 
     /* ============ btn actions ==================== */
 
+    @SuppressWarnings("unused")
     public void done(View view) {
-        getApp().getExchangeRateController().persistExchangeRate(exchangeRate);
+        if (getApp().getExchangeRateController().doesExchangeRateAlreadyExist(exchangeRate)) {
+            Toast.makeText(getApplicationContext(), R.string.editExchangeRateViewMsgSaveDenialDuplicate,
+                    Toast.LENGTH_SHORT).show();
+        }
+        else {
+            getApp().getExchangeRateController().persistExchangeRate(exchangeRate);
+            finish();
+        }
     }
 
+    @SuppressWarnings("unused")
     public void cancel(View view) {
         finish();
     }

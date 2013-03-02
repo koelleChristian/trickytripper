@@ -21,11 +21,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import de.koelle.christian.common.options.OptionContraints;
+import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.ImportOptionSupport;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
-import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter;
@@ -37,7 +37,6 @@ public class ManageExchangeRatesActivity extends ListActivity {
 
     private ArrayAdapter<ExchangeRate> listAdapter;
     private final List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
-    // private ListView listView;
     private Comparator<ExchangeRate> comparator;
     private ImportOptionSupport importOptionSupport;
 
@@ -55,7 +54,6 @@ public class ManageExchangeRatesActivity extends ListActivity {
             public int compare(ExchangeRate object1, ExchangeRate object2) {
                 return collator.compare(object1.getSortString(), object2.getSortString());
             }
-
         };
 
         initListView(getListView());
@@ -85,6 +83,12 @@ public class ManageExchangeRatesActivity extends ListActivity {
         }
         listAdapter.sort(comparator);
         getListView().invalidateViews();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateList();
     }
 
     /* ============== Options Shit [BGN] ============== */
@@ -154,7 +158,7 @@ public class ManageExchangeRatesActivity extends ListActivity {
             break;
         case Rd.DIALOG_DELETE:
             final Dialog dialogFinal = dialog;
-            final ExchangeRate row = getRowFromBundle(args);
+            final ExchangeRate row = makeUninverted(getRowFromBundle(args));
             StringBuilder builder = new StringBuilder()
                     .append(getResources().getString(R.string.manageExchangeRatesViewDeleteConfirmation))
                     .append("\n")
@@ -183,7 +187,8 @@ public class ManageExchangeRatesActivity extends ListActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        ExchangeRate row = getRateByInfo(info);
+        ExchangeRate row = makeUninverted(getRateByInfo(info));
+
         menu.setHeaderTitle(getStringOfExchangeRate(row));
 
         menu.add(CTX_MENU_GROUP_ID_EDIT, CTX_MENU_ID_EDIT, Menu.NONE,
@@ -194,6 +199,23 @@ public class ManageExchangeRatesActivity extends ListActivity {
 
         menu.setGroupEnabled(CTX_MENU_GROUP_ID_EDIT, !row.isImported());
 
+    }
+
+    private ExchangeRate makeUninverted(ExchangeRate rate) {
+        if (!rate.isInversion()) {
+            return rate;
+        }
+
+        ExchangeRate result = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            ExchangeRate item = listAdapter.getItem(i);
+            if (rate.getId() == item.getId() && !item.isInversion()) {
+                result = item;
+                break;
+            }
+        }
+        Assert.notNull(result);
+        return result;
     }
 
     @Override
@@ -258,15 +280,8 @@ public class ManageExchangeRatesActivity extends ListActivity {
     }
 
     private void openCreateActivity() {
-        getApp().openCreateExchangeRate(this);
+        getApp().getViewController().openCreateExchangeRate(this);
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, android.content.Intent data) {
-        if (requestCode == Rc.ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE && resultCode == RESULT_OK) {
-            updateList();
-        }
-    };
 
     private ExchangeRate getRateByInfo(AdapterView.AdapterContextMenuInfo info) {
         ExchangeRate rate = listAdapter.getItem(info.position);
