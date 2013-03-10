@@ -4,7 +4,6 @@ import java.util.Currency;
 import java.util.List;
 
 import de.koelle.christian.trickytripper.model.ExchangeRate;
-import de.koelle.christian.trickytripper.model.ExchangeRateResult;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.Trip;
@@ -40,7 +39,7 @@ public interface DataManager {
 
     /* ========= Exchange Rates ============ */
 
-    ExchangeRateResult findSuitableRates(Currency currencyFrom, Currency currencyTo);
+    List<ExchangeRate> findSuitableRates(Currency currencyFrom, Currency currencyTo);
 
     List<ExchangeRate> getAllExchangeRatesWithoutInversion();
 

@@ -231,4 +231,17 @@ public class CurrencyUtil {
         return result;
     }
 
+    public static Currency getNextOtherCurrency(Currency currencyOther, Resources resources) {
+        Currency result = null;
+        List<Currency> supportedCurrencies = CurrencyUtil.getSupportedCurrencies(resources);
+        for (Currency currency : supportedCurrencies) {
+            if (!currencyOther.equals(currency)) {
+                result = currency;
+                break;
+            }
+        }
+        Assert.notNull(result);
+        return result;
+    }
+
 }

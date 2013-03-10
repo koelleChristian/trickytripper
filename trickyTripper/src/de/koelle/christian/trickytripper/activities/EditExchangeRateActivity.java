@@ -44,6 +44,8 @@ public class EditExchangeRateActivity extends Activity {
     private CurrencySpinnerSelectionListener spinnerListenerRight;
     private BlankTextWatcher editTextListenerRight;
     private BlankTextWatcher editTextListenerLeft;
+    private Spinner spinnerLeft;
+    private Spinner spinnerRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +59,8 @@ public class EditExchangeRateActivity extends Activity {
     }
 
     private void initAndBindStateDependingWidget() {
-        final Spinner spinnerLeft = (Spinner) findViewById(R.id.editExchangeRateViewSpinnerCurrencyLeft);
-        final Spinner spinnerRight = (Spinner) findViewById(R.id.editExchangeRateViewSpinnerCurrencyRight);
+        spinnerLeft = (Spinner) findViewById(R.id.editExchangeRateViewSpinnerCurrencyLeft);
+        spinnerRight = (Spinner) findViewById(R.id.editExchangeRateViewSpinnerCurrencyRight);
         TextView labelLeft = (TextView) findViewById(R.id.editExchangeRateViewLabelCurrencyLeft);
         TextView labelRight = (TextView) findViewById(R.id.editExchangeRateViewLabelCurrencyRight);
         Button saveButton = getSaveButton();
@@ -74,34 +76,35 @@ public class EditExchangeRateActivity extends Activity {
             setTitle(getResources().getString(R.string.editExchangeRateViewHeadingEdit));
             labelLeft.setText(exchangeRate.getCurrencyFrom().getCurrencyCode());
             labelRight.setText(exchangeRate.getCurrencyTo().getCurrencyCode());
-            saveButton.setText(R.string.common_button_edit);
+            saveButton.setText(R.string.common_button_save);
         }
         else {
             setTitle(getResources().getString(R.string.editExchangeRateViewHeadingCreate));
+            saveButton.setText(R.string.common_button_create);
 
-            spinnerListenerLeft = SpinnerViewUtils.initCurrencySpinner(
-                    exchangeRate.getCurrencyTo(), exchangeRate.getCurrencyFrom(), spinnerLeft, this);
-            spinnerListenerRight = SpinnerViewUtils.initCurrencySpinner(
-                    exchangeRate.getCurrencyFrom(), exchangeRate.getCurrencyTo(), spinnerRight, this);
+            SpinnerViewUtils.initCurrencySpinner(null, exchangeRate.getCurrencyFrom(), spinnerLeft, this);
+            SpinnerViewUtils.initCurrencySpinner(null, exchangeRate.getCurrencyTo(), spinnerRight, this);
 
+            spinnerListenerLeft = new CurrencySpinnerSelectionListener(spinnerLeft);
             spinnerListenerLeft.setSpinnerCurrencySelectionCallback(new SpinnerCurrencySelectionCallback() {
 
                 public void setSelection(Currency selectedCurrency) {
-                    exchangeRate.setCurrencyTo(selectedCurrency);
-                    spinnerListenerLeft = SpinnerViewUtils.initCurrencySpinner(
-                            selectedCurrency, null, spinnerLeft, EditExchangeRateActivity.this);
+                    exchangeRate.setCurrencyFrom(selectedCurrency);
+                    updateButtonState();
                 }
             });
-            saveButton.setText(R.string.common_button_save);
+
+            spinnerListenerRight = new CurrencySpinnerSelectionListener(spinnerRight);
             spinnerListenerRight.setSpinnerCurrencySelectionCallback(new SpinnerCurrencySelectionCallback() {
 
                 public void setSelection(Currency selectedCurrency) {
-                    exchangeRate.setCurrencyFrom(selectedCurrency);
-                    spinnerListenerRight = SpinnerViewUtils.initCurrencySpinner(
-                            selectedCurrency, null, spinnerLeft, EditExchangeRateActivity.this);
+                    exchangeRate.setCurrencyTo(selectedCurrency);
+                    updateButtonState();
                 }
             });
 
+            spinnerLeft.setOnItemSelectedListener(spinnerListenerLeft);
+            spinnerRight.setOnItemSelectedListener(spinnerListenerRight);
         }
     }
 
@@ -129,11 +132,14 @@ public class EditExchangeRateActivity extends Activity {
     }
 
     private ExchangeRate createFreshExchangeRate() {
+        Currency currencyTo = getApp().getTripBaseCurrency();
+        Currency currencyFrom = CurrencyUtil.getNextOtherCurrency(currencyTo, getResources());
+
         ExchangeRate exchangeRate2 = new ExchangeRate();
         exchangeRate2.setImportOrigin(ImportOrigin.NONE);
         exchangeRate2.setExchangeRate(Double.valueOf(0d));
-        exchangeRate2.setCurrencyFrom(CurrencyUtil.getSuportedCurrency(getResources(), 0));
-        exchangeRate2.setCurrencyTo(CurrencyUtil.getSuportedCurrency(getResources(), 1));
+        exchangeRate2.setCurrencyFrom(currencyFrom);
+        exchangeRate2.setCurrencyTo(currencyTo);
         exchangeRate2.setInversion(false);
         return exchangeRate2;
     }
@@ -280,7 +286,10 @@ public class EditExchangeRateActivity extends Activity {
         return exchangeRate.getExchangeRate() != null
                 && exchangeRate.getExchangeRate() > 0
                 && exchangeRate.getDescription() != null
-                && exchangeRate.getDescription().length() > 0;
+                && exchangeRate.getDescription().length() > 0
+                && exchangeRate.getCurrencyFrom() != null
+                && exchangeRate.getCurrencyTo() != null
+                && !exchangeRate.getCurrencyFrom().equals(exchangeRate.getCurrencyTo());
     }
 
     private Locale getLocale() {

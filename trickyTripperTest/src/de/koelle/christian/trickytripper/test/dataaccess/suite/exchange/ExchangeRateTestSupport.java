@@ -23,6 +23,11 @@ public class ExchangeRateTestSupport {
     public static final ExchangeRate REC_03;
     public static final ExchangeRate REC_04;
 
+    public static final ExchangeRate REC_EUR_USD_01;
+    public static final ExchangeRate REC_EUR_USD_02;
+    public static final ExchangeRate REC_EUR_USD_03;
+    public static final ExchangeRate REC_EUR_USD_04;
+
     static {
         ExchangeRate input;
 
@@ -61,6 +66,44 @@ public class ExchangeRateTestSupport {
         input.setImportOrigin(ImportOrigin.NONE);
 
         REC_04 = input;
+
+        /**/
+
+        input = new ExchangeRate();
+        input.setCurrencyFrom(EUR);
+        input.setCurrencyTo(USD);
+        input.setDescription("Eur to USD 01");
+        input.setExchangeRate(1.55);
+        input.setImportOrigin(ImportOrigin.NONE);
+
+        REC_EUR_USD_01 = input;
+
+        input = new ExchangeRate();
+        input.setCurrencyFrom(EUR);
+        input.setCurrencyTo(USD);
+        input.setDescription("Eur to USD 02");
+        input.setExchangeRate(1.66);
+        input.setImportOrigin(ImportOrigin.NONE);
+
+        REC_EUR_USD_02 = input;
+
+        input = new ExchangeRate();
+        input.setCurrencyFrom(EUR);
+        input.setCurrencyTo(USD);
+        input.setDescription("Eur to USD 03");
+        input.setExchangeRate(1.77);
+        input.setImportOrigin(ImportOrigin.NONE);
+
+        REC_EUR_USD_03 = input;
+
+        input = new ExchangeRate();
+        input.setCurrencyFrom(USD);
+        input.setCurrencyTo(EUR);
+        input.setDescription("Usd to Eur 01");
+        input.setExchangeRate(0.7575);
+        input.setImportOrigin(ImportOrigin.NONE);
+
+        REC_EUR_USD_04 = input;
     }
 
     public static void assertEquality(ExchangeRate input, ExchangeRate output, long expectedId,

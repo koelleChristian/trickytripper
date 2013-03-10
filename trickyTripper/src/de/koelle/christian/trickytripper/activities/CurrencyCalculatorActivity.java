@@ -34,10 +34,10 @@ import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
-import de.koelle.christian.trickytripper.model.ExchangeRateResult;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
+import de.koelle.christian.trickytripper.ui.utils.ExchangeRateDescriptionUtils;
 import de.koelle.christian.trickytripper.ui.utils.UiViewUtils;
 
 public class CurrencyCalculatorActivity extends Activity {
@@ -48,6 +48,7 @@ public class CurrencyCalculatorActivity extends Activity {
     private Double exchangeRateInput = Double.valueOf(1.0);
     private ExchangeRate exchangeRateSelected;
     private ImportOptionSupport importOptionSupport;
+    private ExchangeRateDescriptionUtils exchangeRateDescriptionUtils;
 
     /* ============== Menu Shit [BGN] ============== */
     @Override
@@ -108,6 +109,7 @@ public class CurrencyCalculatorActivity extends Activity {
         setContentView(R.layout.currency_calculator_view);
 
         this.importOptionSupport = new ImportOptionSupport(getApp());
+        this.exchangeRateDescriptionUtils = new ExchangeRateDescriptionUtils(this.getResources());
 
         readAndSetInput(getIntent());
 
@@ -135,7 +137,7 @@ public class CurrencyCalculatorActivity extends Activity {
     }
 
     private void loadAndInitExchangeRates(Currency sourceCurrency, Currency resultCurrency) {
-        ExchangeRateResult rates = getApp().getExchangeRateController().findSuitableRates(sourceCurrency,
+        List<ExchangeRate> rates = getApp().getExchangeRateController().findSuitableRates(sourceCurrency,
                 resultCurrency);
         initExchangeRateSpinner(rates);
     }
@@ -281,9 +283,10 @@ public class CurrencyCalculatorActivity extends Activity {
         });
     }
 
-    private void initExchangeRateSpinner(ExchangeRateResult rates) {
+    @SuppressWarnings("rawtypes")
+    private void initExchangeRateSpinner(List<ExchangeRate> rates) {
         final Spinner spinner = (Spinner) findViewById(R.id.currencyCalculatorView_spinner_exchangeRateSelection);
-        List<RowObject> spinnerObjects = wrapExchangeRatesInRowObject(rates.getMatchingExchangeRates());
+        List<RowObject> spinnerObjects = wrapExchangeRatesInRowObject(rates);
 
         ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this,
                 android.R.layout.simple_spinner_item,
@@ -295,9 +298,7 @@ public class CurrencyCalculatorActivity extends Activity {
 
         if (spinnerObjects.size() > 0) {
 
-            ExchangeRate initialSelection2Be = (rates.getRateUsedLastTime() == null) ? (ExchangeRate) spinnerObjects
-                    .get(0)
-                    .getRowObject() : rates.getRateUsedLastTime();
+            ExchangeRate initialSelection2Be = (ExchangeRate) spinnerObjects.get(0).getRowObject();
             SpinnerViewSupport.setSelection(spinner, initialSelection2Be, adapter);
 
             fillRateModel(initialSelection2Be);
@@ -357,7 +358,7 @@ public class CurrencyCalculatorActivity extends Activity {
         for (final ExchangeRate value : values) {
             result.add(new RowObject<ExchangeRate>(new RowObjectCallback<ExchangeRate>() {
                 public String getStringToDisplay(ExchangeRate c) {
-                    return c.getDescription() + " " + c.getExchangeRate();
+                    return exchangeRateDescriptionUtils.deriveDescription2(c).toString();
                 }
             }, value));
         }
@@ -380,7 +381,7 @@ public class CurrencyCalculatorActivity extends Activity {
     }
 
     private void prepareResultAndFinish() {
-        // TODO(ckoelle) save exchangeRate use last
+        saveExchangeRateUsedLast(exchangeRateSelected);
         Intent resultIntent = new Intent();
         resultIntent.putExtra(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_OUT_AMOUNT, resultAmount);
         resultIntent.putExtra(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_OUT_VIEW_ID, resultViewId);
@@ -390,10 +391,20 @@ public class CurrencyCalculatorActivity extends Activity {
 
     /* ============ btn actions ==================== */
 
+    private void saveExchangeRateUsedLast(ExchangeRate exchangeRateSelected2) {
+        if (exchangeRateSelected2 != null) {
+            getApp().getExchangeRateController()
+                    .persistExchangeRateUsedLast(exchangeRateSelected2);
+        }
+
+    }
+
+    @SuppressWarnings("unused")
     public void done(View view) {
         prepareResultAndFinish();
     }
 
+    @SuppressWarnings("unused")
     public void cancel(View view) {
         finish();
     }

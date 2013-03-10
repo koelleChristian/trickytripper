@@ -11,6 +11,7 @@ public class ExchangeRatePrefTable {
         public static final String EXCHANGE_RATE_ID = "exchange_rate_id";
         public static final String CURRENCY_FROM = "currency_from";
         public static final String CURRENCY_TO = "currency_to";
+        public static final String DATE_LAST_USED = "date_last_used";
     }
 
     public static void onCreate(SQLiteDatabase db) {
@@ -21,6 +22,7 @@ public class ExchangeRatePrefTable {
         sb.append(ExchangeRatePrefColumns.EXCHANGE_RATE_ID + " INTEGER NOT NULL, ");
         sb.append(ExchangeRatePrefColumns.CURRENCY_FROM + " TEXT NOT NULL, ");
         sb.append(ExchangeRatePrefColumns.CURRENCY_TO + " TEXT NOT NULL, ");
+        sb.append(ExchangeRatePrefColumns.DATE_LAST_USED + " INTEGER NOT NULL, ");
 
         sb.append("FOREIGN KEY("
                 + ExchangeRatePrefColumns.EXCHANGE_RATE_ID + ") REFERENCES "
@@ -29,7 +31,8 @@ public class ExchangeRatePrefTable {
 
         sb.append("PRIMARY KEY ( "
                 + ExchangeRatePrefColumns.CURRENCY_FROM + ", "
-                + ExchangeRatePrefColumns.CURRENCY_TO
+                + ExchangeRatePrefColumns.CURRENCY_TO + ", "
+                + ExchangeRatePrefColumns.EXCHANGE_RATE_ID
                 + ")");
 
         sb.append(");");

@@ -4,12 +4,11 @@ import java.util.Currency;
 import java.util.List;
 
 import de.koelle.christian.trickytripper.model.ExchangeRate;
-import de.koelle.christian.trickytripper.model.ExchangeRateResult;
 import de.koelle.christian.trickytripper.model.ImportSettings;
 
 public interface ExchangeRateController {
 
-    ExchangeRateResult findSuitableRates(Currency currencyFrom, Currency currencyTo);
+    List<ExchangeRate> findSuitableRates(Currency currencyFrom, Currency currencyTo);
 
     List<ExchangeRate> getAllExchangeRatesWithoutInversion();
 
@@ -28,7 +27,7 @@ public interface ExchangeRateController {
      */
     Currency getSourceCurrencyUsedLast();
 
-    void persistLastExchangeRateUsageSettings(Currency sourceCurrencyLastUsed, ExchangeRate exchangeRateUsedLast);
+    void persistExchangeRateUsedLast(ExchangeRate exchangeRateUsedLast);
 
     ImportSettings getImportSettingsUsedLast();
 

@@ -25,13 +25,13 @@ import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.dataaccess.impl.DataConstants;
 import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
-import de.koelle.christian.trickytripper.model.ExchangeRateResult;
 
 public class ExchangeRateMultiDeleteTest extends ApplicationTestCase<TrickyTripperApp> {
 
     BitSet occuranceFlags = new BitSet(4);
 
     private final Map<Long, ExchangeRate> initalRetrievalResults = new HashMap<Long, ExchangeRate>();
+    private DataManagerImpl dataManager;
 
     public ExchangeRateMultiDeleteTest() {
         super(TrickyTripperApp.class);
@@ -40,6 +40,15 @@ public class ExchangeRateMultiDeleteTest extends ApplicationTestCase<TrickyTripp
     @Override
     protected void setUp() {
         getContext().deleteDatabase(DataConstants.DATABASE_NAME);
+        dataManager = new DataManagerImpl(getContext());
+        dataManager.removeAll();
+
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        dataManager.close();
+        super.tearDown();
     }
 
     /**
@@ -48,16 +57,12 @@ public class ExchangeRateMultiDeleteTest extends ApplicationTestCase<TrickyTripp
      */
     public void testDeleteMoreThanOne() {
 
-        DataManagerImpl dataManager = new DataManagerImpl(getContext());
-
-        dataManager.removeAll();
-
         ExchangeRate input;
         List<ExchangeRate> deleteList;
 
         long expectedId;
         List<ExchangeRate> resultList;
-        ExchangeRateResult exchangeRateResult;
+        List<ExchangeRate> exchangeRateResult;
 
         /* ============ create ============ */
 
@@ -96,27 +101,27 @@ public class ExchangeRateMultiDeleteTest extends ApplicationTestCase<TrickyTripp
 
         /* ---------> find post delete */
         exchangeRateResult = dataManager.findSuitableRates(EUR, USD);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
 
         exchangeRateResult = dataManager.findSuitableRates(USD, EUR);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
 
         exchangeRateResult = dataManager.findSuitableRates(EUR, TRY);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
 
         exchangeRateResult = dataManager.findSuitableRates(TRY, EUR);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
 
         exchangeRateResult = dataManager.findSuitableRates(TRY, GBP);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
 
         exchangeRateResult = dataManager.findSuitableRates(GBP, TRY);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
 
         resultList = dataManager.getAllExchangeRatesWithoutInversion();

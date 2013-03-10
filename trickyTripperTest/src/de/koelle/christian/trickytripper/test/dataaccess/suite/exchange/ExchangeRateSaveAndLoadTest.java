@@ -26,13 +26,13 @@ import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.dataaccess.impl.DataConstants;
 import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
-import de.koelle.christian.trickytripper.model.ExchangeRateResult;
 
 public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripperApp> {
 
     BitSet occuranceFlags = new BitSet(4);
 
     private final Map<Long, ExchangeRate> initalRetrievalResults = new HashMap<Long, ExchangeRate>();
+    private DataManagerImpl dataManager;
 
     public ExchangeRateSaveAndLoadTest() {
         super(TrickyTripperApp.class);
@@ -41,6 +41,15 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
     @Override
     protected void setUp() {
         getContext().deleteDatabase(DataConstants.DATABASE_NAME);
+        dataManager = new DataManagerImpl(getContext());
+        dataManager.removeAll();
+
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        dataManager.close();
+        super.tearDown();
     }
 
     /**
@@ -48,9 +57,6 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
      * delete works and the retrieval resprects the deletion.
      */
     public void testCreateLoadDelete() {
-        DataManagerImpl dataManager = new DataManagerImpl(getContext());
-
-        dataManager.removeAll();
 
         ExchangeRate input;
         List<ExchangeRate> deleteList;
@@ -58,7 +64,7 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
 
         long expectedId;
         List<ExchangeRate> resultList;
-        ExchangeRateResult exchangeRateResult;
+        List<ExchangeRate> exchangeRateResult;
 
         /* ============ create ============ */
 
@@ -116,7 +122,7 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
         /* Record 1 */
         exchangeRateResult = dataManager.findSuitableRates(EUR, USD);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
         expectedId = ID_1;
@@ -124,7 +130,7 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
 
         exchangeRateResult = dataManager.findSuitableRates(USD, EUR);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
         expectedId = ID_1;
@@ -133,7 +139,7 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
         /* Record 2 */
         exchangeRateResult = dataManager.findSuitableRates(EUR, TRY);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
         expectedId = ID_2;
@@ -141,7 +147,7 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
 
         exchangeRateResult = dataManager.findSuitableRates(TRY, EUR);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
         expectedId = ID_2;
@@ -150,7 +156,7 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
         /* Record 3 & 4 */
         exchangeRateResult = dataManager.findSuitableRates(TRY, GBP);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         occuranceFlags.clear();
         Assert.assertEquals(2, resultList.size());
         for (int i = 0; i < 2; i++) {
@@ -167,7 +173,7 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
 
         exchangeRateResult = dataManager.findSuitableRates(GBP, TRY);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         occuranceFlags.clear();
         Assert.assertEquals(2, resultList.size());
         for (int i = 0; i < 2; i++) {
@@ -184,11 +190,11 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
         /* None */
         exchangeRateResult = dataManager.findSuitableRates(EUR, GBP);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
         exchangeRateResult = dataManager.findSuitableRates(GBP, EUR);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
 
         /* ============ delete ============ */
@@ -203,19 +209,19 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
 
         /* ---------> find post delete */
         exchangeRateResult = dataManager.findSuitableRates(EUR, USD);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
 
         exchangeRateResult = dataManager.findSuitableRates(USD, EUR);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
 
         exchangeRateResult = dataManager.findSuitableRates(EUR, TRY);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
 
         exchangeRateResult = dataManager.findSuitableRates(TRY, EUR);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
 
         resultList = dataManager.getAllExchangeRatesWithoutInversion();
@@ -245,11 +251,11 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
 
         /* ---------> find post delete */
         exchangeRateResult = dataManager.findSuitableRates(EUR, TRY);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
 
         exchangeRateResult = dataManager.findSuitableRates(TRY, EUR);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
 
         resultList = dataManager.getAllExchangeRatesWithoutInversion();
@@ -279,14 +285,14 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
 
         /* ---------> find post delete */
         exchangeRateResult = dataManager.findSuitableRates(TRY, GBP);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         idReturned = resultList.get(0).getId();
         Assert.assertTrue("findSuitableRates should  deliver record 4 as record three has been it has been deleted.",
                 idReturned == ID_4);
 
         exchangeRateResult = dataManager.findSuitableRates(GBP, TRY);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         idReturned = resultList.get(0).getId();
         Assert.assertTrue("findSuitableRates should  deliver record 4 as record three has been it has been deleted.",
@@ -308,11 +314,11 @@ public class ExchangeRateSaveAndLoadTest extends ApplicationTestCase<TrickyTripp
 
         /* find post delete */
         exchangeRateResult = dataManager.findSuitableRates(TRY, GBP);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
 
         exchangeRateResult = dataManager.findSuitableRates(GBP, TRY);
-        resultList = exchangeRateResult.getMatchingExchangeRates();
+        resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
 
         resultList = dataManager.getAllExchangeRatesWithoutInversion();

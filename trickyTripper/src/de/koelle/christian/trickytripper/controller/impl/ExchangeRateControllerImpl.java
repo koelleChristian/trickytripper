@@ -1,5 +1,6 @@
 package de.koelle.christian.trickytripper.controller.impl;
 
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
@@ -9,7 +10,6 @@ import de.koelle.christian.trickytripper.controller.ExchangeRateController;
 import de.koelle.christian.trickytripper.dataaccess.DataManager;
 import de.koelle.christian.trickytripper.decoupling.PrefsResolver;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
-import de.koelle.christian.trickytripper.model.ExchangeRateResult;
 import de.koelle.christian.trickytripper.model.ImportSettings;
 
 public class ExchangeRateControllerImpl implements ExchangeRateController {
@@ -24,8 +24,17 @@ public class ExchangeRateControllerImpl implements ExchangeRateController {
         this.resources = resources;
     }
 
-    public ExchangeRateResult findSuitableRates(Currency currencyFrom, Currency currencyTo) {
-        return dataManager.findSuitableRates(currencyFrom, currencyTo);
+    public List<ExchangeRate> findSuitableRates(Currency currencyFrom, Currency currencyTo) {
+        List<ExchangeRate> result = new ArrayList<ExchangeRate>();
+        for (ExchangeRate rate : dataManager.findSuitableRates(currencyFrom, currencyTo)) {
+            if (currencyFrom.equals(rate.getCurrencyFrom())) {
+                result.add(rate);
+            }
+            else {
+                result.add(rate.cloneToInversion());
+            }
+        }
+        return result;
     }
 
     public List<ExchangeRate> getAllExchangeRatesWithoutInversion() {
@@ -56,9 +65,10 @@ public class ExchangeRateControllerImpl implements ExchangeRateController {
         return PrefWritrerReaderUtils.loadSourceCurrencyUsedLast(prefsResolver.getPrefs(), resources);
     }
 
-    public void persistLastExchangeRateUsageSettings(Currency sourceCurrencyLastUsed, ExchangeRate exchangeRateUsedLast) {
-        PrefWritrerReaderUtils
-                .saveSourceCurrencyUsedLast(prefsResolver.getEditingPrefsEditor(), sourceCurrencyLastUsed);
+    public void persistExchangeRateUsedLast(ExchangeRate exchangeRateUsedLast) {
+        // PrefWritrerReaderUtils
+        // .saveSourceCurrencyUsedLast(prefsResolver.getEditingPrefsEditor(),
+        // sourceCurrencyLastUsed);
         dataManager.persistExchangeRateUsedLast(exchangeRateUsedLast);
     }
 

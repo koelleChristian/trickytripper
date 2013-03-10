@@ -58,6 +58,10 @@
     <string name="currencyCalculatorViewCheckboxSaveNewRate">Save newly entered exchange rate</string>
     <string name="currencyCalculatorViewImageViewDescription">Indicates the exchange calculation direction</string>
     <string name="currencyCalculatorViewButtonUseResult">Use result</string>
+    <!-- ===============================  Exchange rates common =============================== -->
+    <string name="exchangeRate_common_import_description_prefix">Imported</string>
+    
+    
     <!-- ===============================  Manage exchange rates view =============================== -->
     <string name="manageExchangeRatesViewTextViewHeading">Exchange Rates</string>
     <string name="manageExchangeRatesViewDeleteConfirmation">Are you sure you want to delete the selected exchange rate?</string>

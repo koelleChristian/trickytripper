@@ -18,45 +18,53 @@ import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
 
 public class SpinnerViewUtils {
 
-    @SuppressWarnings("rawtypes")
-    public static CurrencySpinnerSelectionListener initCurrencySpinner(Currency currencyToBeExcluded,
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public static void initCurrencySpinner(Currency currencyToBeExcluded,
             Currency currencyToBeSelected,
             final Spinner spinner, Context context) {
+
         List<Currency> suportedCurrencies = CurrencyUtil.getSupportedCurrencies(context.getResources());
         final List<RowObject> spinnerObjects = wrapCurrenciesInRowObject(suportedCurrencies, currencyToBeExcluded,
                 context);
 
-        ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(context,
-                android.R.layout.simple_spinner_item,
-                spinnerObjects) {
+        ArrayAdapter<RowObject> adapterInUse = (ArrayAdapter<RowObject>) spinner.getAdapter();
 
-            @Override
-            public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                /* This is the default for the list view. */
-                return super.getDropDownView(position, convertView, parent);
+        if (adapterInUse == null) {
+            ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(context,
+                    android.R.layout.simple_spinner_item,
+                    spinnerObjects) {
+
+                @Override
+                public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                    /* This is the default for the list view. */
+                    return super.getDropDownView(position, convertView, parent);
+                }
+
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    /* Display currency code only when not in list view. */
+                    TextView result = (TextView) super.getView(position, convertView, parent);
+                    result.setText(((Currency) getItem(position).getRowObject()).getCurrencyCode());
+                    return result;
+                }
+            };
+            adapter.setDropDownViewResource(R.layout.selection_list_medium);
+            spinner.setPromptId(R.string.payment_view_spinner_prompt);
+            spinner.setAdapter(adapter);
+            adapterInUse = adapter;
+        }
+        else {
+            adapterInUse.clear();
+            for (RowObject o : spinnerObjects) {
+                adapterInUse.add(o);
             }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                /* Display currency code only when not in list view. */
-                TextView result = (TextView) super.getView(position, convertView, parent);
-                result.setText(((Currency) spinnerObjects.get(position).getRowObject()).getCurrencyCode());
-                return result;
-            }
-        };
-
-        adapter.setDropDownViewResource(R.layout.selection_list_medium);
-        spinner.setPromptId(R.string.payment_view_spinner_prompt);
-        spinner.setAdapter(adapter);
+        }
 
         Currency initialSelection2Be = (currencyToBeSelected == null) ? (Currency) spinnerObjects.get(0)
                 .getRowObject() : currencyToBeSelected;
 
-        SpinnerViewSupport.setSelection(spinner, initialSelection2Be, adapter);
+        SpinnerViewSupport.setSelection(spinner, initialSelection2Be, adapterInUse);
 
-        CurrencySpinnerSelectionListener listener = new CurrencySpinnerSelectionListener(spinner);
-        spinner.setOnItemSelectedListener(listener);
-        return listener;
     }
 
     @SuppressWarnings("rawtypes")

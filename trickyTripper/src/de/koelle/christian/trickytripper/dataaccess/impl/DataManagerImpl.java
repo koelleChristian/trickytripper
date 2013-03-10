@@ -30,7 +30,6 @@ import de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.PaymentPartici
 import de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.PaymentReference;
 import de.koelle.christian.trickytripper.factories.ModelFactory;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
-import de.koelle.christian.trickytripper.model.ExchangeRateResult;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.Trip;
@@ -60,6 +59,12 @@ public class DataManagerImpl implements DataManager {
         participantDao = new ParticipantDao(db);
         paymentDao = new PaymentDao(db);
         exchangeRateDao = new ExchangeRateDao(db);
+    }
+
+    public void close() {
+        if (db != null) {
+            db.close();
+        }
     }
 
     public void removeAll() {
@@ -315,7 +320,7 @@ public class DataManagerImpl implements DataManager {
         return participantDao.doesParticipantAlreadyExist(nameToCheck, tripId, participantId);
     }
 
-    public ExchangeRateResult findSuitableRates(Currency currencyFrom, Currency currencyTo) {
+    public List<ExchangeRate> findSuitableRates(Currency currencyFrom, Currency currencyTo) {
         return exchangeRateDao.findSuitableRates(currencyFrom, currencyTo);
     }
 

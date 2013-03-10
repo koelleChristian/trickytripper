@@ -204,6 +204,10 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         return PrefWritrerReaderUtils.loadDefaultCurrency(prefsResolver.getPrefs(), getResources());
     }
 
+    public Currency getTripBaseCurrency() {
+        return getTripLoaded().getBaseCurrency();
+    }
+
     public String getCurrencySymbolOfTripLoaded(boolean wrapInBrackets) {
         return CurrencyUtil.getSymbolToCurrency(getResources(), tripToBeEdited.getBaseCurrency(), wrapInBrackets);
     }
@@ -665,11 +669,11 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         return tripToBeEdited;
     }
 
-    /* ======================= getter/setter ======================= */
-
     public OptionsSupport getOptionSupport() {
         return optionSupport;
     }
+
+    /* ======================= getter/setter ======================= */
 
     public void setTripToBeEdited(Trip tripToBeEdited) {
         this.tripToBeEdited = tripToBeEdited;

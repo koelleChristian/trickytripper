@@ -17,12 +17,8 @@ public class DateUtils {
     }
 
     public String date2String(Date date) {
-        StringBuilder result = new StringBuilder();
         DateFormat dateFormat = new SimpleDateFormat(datePattern, locale);
-        result
-                .append(dateFormat.format(date))
-        /**/;
-        return result.toString();
+        return new StringBuilder().append(dateFormat.format(date)).toString();
     }
 
     public String getPattern(Locale locale) {

@@ -1,7 +1,6 @@
 package de.koelle.christian.trickytripper.model.modelAdapter;
 
 import java.util.List;
-import java.util.Locale;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import de.koelle.christian.common.utils.DateUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
+import de.koelle.christian.trickytripper.ui.utils.ExchangeRateDescriptionUtils;
 
 public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
 
@@ -23,16 +22,16 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
 
     private final List<ExchangeRate> rows;
     private final Context context;
-    private final DateUtils dateUtils;
     private final DisplayMode mode;
+    private final ExchangeRateDescriptionUtils exchangeRateDescUtils;
 
     public ExchangeRateRowListAdapter(Context context, int textViewResourceId, List<ExchangeRate> objects,
             DisplayMode mode) {
         super(context, textViewResourceId, objects);
         this.rows = objects;
         this.context = context;
-        dateUtils = new DateUtils(context.getResources().getConfiguration().locale);
         this.mode = mode;
+        this.exchangeRateDescUtils = new ExchangeRateDescriptionUtils(context.getResources());
     }
 
     @Override
@@ -41,14 +40,12 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
 
         boolean isDouble = DisplayMode.DOUBLE_WITH_SELECTION.equals(mode);
 
-        // if (result == null) {
         int manageExchangeRateRowView = isDouble ?
                 R.layout.exchange_rate_delete_row_view :
                 R.layout.exchange_rate_manage_row_view;
 
         LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         result = vi.inflate(manageExchangeRateRowView, null);
-        // }
 
         ExchangeRate row = rows.get(position);
         if (row != null) {
@@ -79,7 +76,7 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
 
             viewId = R.id.exchangeRateRowView_output_comment;
             label = null;
-            value = deriveDescription(row);
+            value = exchangeRateDescUtils.deriveDescriptionForList(row);
             UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
             if (isDouble) {
@@ -115,18 +112,4 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
         }
         return result;
     }
-
-    private String deriveDescription(ExchangeRate row) {
-        if (row.isImported()) {
-            return "Imported " + dateUtils.date2String(row.getUpdateDate());
-        }
-        else {
-            return row.getDescription();
-        }
-    }
-
-    public Locale getLocale() {
-        return context.getResources().getConfiguration().locale;
-    }
-
 }

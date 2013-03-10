@@ -1,7 +1,9 @@
 package de.koelle.christian.trickytripper.dataaccess.impl.daos;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Currency;
+import java.util.Date;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -9,11 +11,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.provider.BaseColumns;
+import android.util.Log;
 import de.koelle.christian.common.utils.ConversionUtils;
+import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRatePrefTable.ExchangeRatePrefColumns;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRateTable.ExchangeRateColumns;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
-import de.koelle.christian.trickytripper.model.ExchangeRateResult;
 import de.koelle.christian.trickytripper.model.ImportOrigin;
 
 public class ExchangeRateDao {
@@ -22,8 +25,9 @@ public class ExchangeRateDao {
             "insert into " + ExchangeRatePrefTable.TABLE_NAME + "("
                     + ExchangeRatePrefColumns.CURRENCY_FROM + ", "
                     + ExchangeRatePrefColumns.CURRENCY_TO + ", "
-                    + ExchangeRatePrefColumns.EXCHANGE_RATE_ID
-                    + ") values (?, ?, ? )";
+                    + ExchangeRatePrefColumns.EXCHANGE_RATE_ID + ", "
+                    + ExchangeRatePrefColumns.DATE_LAST_USED
+                    + ") values (?, ?, ?, ? )";
 
     private static final String ER_INSERT =
             "insert into " + ExchangeRateTable.TABLE_NAME + "("
@@ -150,6 +154,35 @@ public class ExchangeRateDao {
             .append(")")
             .toString();
 
+    private static final String ERP_SELECTION_ARGS_FIND_EXISTING = new StringBuilder()
+            .append(ExchangeRatePrefColumns.CURRENCY_FROM)
+            .append(" = ?")
+            .append(" AND ")
+            .append(ExchangeRatePrefColumns.CURRENCY_TO)
+            .append(" = ?")
+            .append(" AND ")
+            .append(ExchangeRatePrefColumns.EXCHANGE_RATE_ID)
+            .append(" = ?")
+            .toString();
+
+    private static final String ERP_SELECTION_ARGS_FIND_ALL_MATCHING = new StringBuilder()
+            .append("(")
+            .append(ExchangeRatePrefColumns.CURRENCY_FROM)
+            .append(" = ?")
+            .append(" AND ")
+            .append(ExchangeRatePrefColumns.CURRENCY_TO)
+            .append(" = ?")
+            .append(")")
+            .append(" OR ")
+            .append("(")
+            .append(ExchangeRatePrefColumns.CURRENCY_TO)
+            .append(" = ?")
+            .append(" AND ")
+            .append(ExchangeRatePrefColumns.CURRENCY_FROM)
+            .append(" = ?")
+            .append(")")
+            .toString();
+
     private final SQLiteDatabase db;
     private final SQLiteStatement insertStatementEr;
     private final SQLiteStatement insertStatementErp;
@@ -181,6 +214,7 @@ public class ExchangeRateDao {
         insertStatementErp.bindString(1, type.getCurrencyFrom().getCurrencyCode());
         insertStatementErp.bindString(2, type.getCurrencyTo().getCurrencyCode());
         insertStatementErp.bindLong(3, type.getId());
+        insertStatementErp.bindLong(4, new Date().getTime());
         return insertStatementErp.executeInsert();
     }
 
@@ -201,16 +235,15 @@ public class ExchangeRateDao {
 
     public int updatePrefs(Currency currencyFrom, Currency currencyTo, long id) {
         final ContentValues values = new ContentValues();
-        values.put(ExchangeRatePrefColumns.EXCHANGE_RATE_ID, id);
+        values.put(ExchangeRatePrefColumns.DATE_LAST_USED, new Date().getTime());
         return db.update(
                 ExchangeRatePrefTable.TABLE_NAME,
                 values,
-                ER_SELECTION_ARGS_FIND_ALL_MATCHING,
+                ERP_SELECTION_ARGS_FIND_EXISTING,
                 new String[] {
                         currencyFrom.getCurrencyCode(),
                         currencyTo.getCurrencyCode(),
-                        currencyFrom.getCurrencyCode(),
-                        currencyTo.getCurrencyCode()
+                        String.valueOf(id)
                 });
     }
 
@@ -253,15 +286,11 @@ public class ExchangeRateDao {
     }
 
     public List<ExchangeRate> getAllExchangeRatesWithoutInversion() {
-        return queryExchangeRates(null, null);
+        return queryExchangeRates(null, null, null);
     }
 
-    public ExchangeRateResult findSuitableRates(Currency currencyFrom, Currency currencyTo) {
-        List<ExchangeRate> resultList = findMatchingExchangeRates(currencyFrom, currencyTo);
-        // ExchangeRate rateUsedLastTime = findRateUseLastTime(currencyFrom,
-        // currencyTo);
-        ExchangeRate rateUsedLastTime = null;
-        return new ExchangeRateResult(resultList, rateUsedLastTime);
+    public List<ExchangeRate> findSuitableRates(Currency currencyFrom, Currency currencyTo) {
+        return findMatchingExchangeRates(currencyFrom, currencyTo);
     }
 
     public List<ExchangeRate> findExistingImportedRecords(ExchangeRate rate) {
@@ -272,17 +301,57 @@ public class ExchangeRateDao {
                 rate.getCurrencyTo().getCurrencyCode(),
                 rate.getImportOrigin().ordinal() + ""
         };
-        return queryExchangeRates(ER_SELECTION_ARGS_FIND_IMPORTED, selectionArgs);
+        return queryExchangeRates(ER_SELECTION_ARGS_FIND_IMPORTED, selectionArgs, null);
     }
 
     private List<ExchangeRate> findMatchingExchangeRates(Currency currencyFrom, Currency currencyTo) {
+        final List<Long> sortedIdListUsedLast = queryExchangeRatePrefs(currencyFrom, currencyTo);
+
         String[] selectionArgs = new String[] {
                 currencyFrom.getCurrencyCode(),
                 currencyTo.getCurrencyCode(),
                 currencyFrom.getCurrencyCode(),
                 currencyTo.getCurrencyCode()
         };
-        return queryExchangeRates(ER_SELECTION_ARGS_FIND_ALL_MATCHING, selectionArgs);
+        String orderArguments = ExchangeRateColumns.DATE_UPDATE + " DESC";
+
+        List<ExchangeRate> result = queryExchangeRates(ER_SELECTION_ARGS_FIND_ALL_MATCHING, selectionArgs,
+                orderArguments);
+        Collections.sort(result, new ExchangeRateUsedComparator(sortedIdListUsedLast));
+
+        return result;
+    }
+
+    private List<Long> queryExchangeRatePrefs(Currency currencyFrom, Currency currencyTo) {
+        List<Long> resultList = new ArrayList<Long>();
+        Cursor c =
+                db.query(
+                        ExchangeRatePrefTable.TABLE_NAME,
+                        new String[] { ExchangeRatePrefColumns.EXCHANGE_RATE_ID },
+                        ERP_SELECTION_ARGS_FIND_ALL_MATCHING,
+                        new String[] {
+                                currencyFrom.getCurrencyCode(),
+                                currencyTo.getCurrencyCode(),
+                                currencyFrom.getCurrencyCode(),
+                                currencyTo.getCurrencyCode()
+                        },
+                        null,
+                        null,
+                        ExchangeRatePrefColumns.DATE_LAST_USED + " DESC",
+                        null);
+        if (c.moveToFirst()) {
+            do {
+                resultList.add(c.getLong(0));
+            }
+            while (c.moveToNext());
+        }
+        if (!c.isClosed()) {
+            c.close();
+        }
+        if (Log.isLoggable(Rc.LT_DB, Log.DEBUG)) {
+            Log.d(Rc.LT_DB, "Ordered exchange rates last used: " + resultList);
+        }
+        return resultList;
     }
 
     public ExchangeRate getExchangeRateById(Long technicalId) {
@@ -290,11 +359,14 @@ public class ExchangeRateDao {
                 String.valueOf(technicalId)
         };
         // TODO(ckoelle) Could be done more beautifully,i.e. without List
-        List<ExchangeRate> resultList = queryExchangeRates(BaseColumns._ID + " = ?", selectionArgs);
+        List<ExchangeRate> resultList = queryExchangeRates(BaseColumns._ID + " = ?", selectionArgs, null);
         return (resultList.size() > 0) ? resultList.get(0) : null;
     }
 
-    private List<ExchangeRate> queryExchangeRates(String selectionCriteria, String[] selectionArgs) {
+    //
+
+    private List<ExchangeRate> queryExchangeRates(String selectionCriteria, String[] selectionArgs,
+            String orderArguments) {
         List<ExchangeRate> resultList = new ArrayList<ExchangeRate>();
         Cursor c =
                 db.query(
@@ -312,7 +384,7 @@ public class ExchangeRateDao {
                         selectionArgs,
                         null,
                         null,
-                        null,
+                        orderArguments,
                         null);
         if (c.moveToFirst()) {
             do {
@@ -371,39 +443,6 @@ public class ExchangeRateDao {
             createPref(exchangeRateUsedLast);
         }
 
-    }
-
-    private List<ExchangeRate> queryExchangeRatePref(String selectionCriteria, String[] selectionArgs) {
-        List<ExchangeRate> resultList = new ArrayList<ExchangeRate>();
-        Cursor c =
-                db.query(
-                        ExchangeRateTable.TABLE_NAME,
-                        new String[] {
-                                BaseColumns._ID,
-                                ExchangeRateColumns.CURRENCY_FROM,
-                                ExchangeRateColumns.CURRENCY_TO,
-                                ExchangeRateColumns.RATE,
-                                ExchangeRateColumns.DESCRIPTION,
-                                ExchangeRateColumns.DATE_CREATE,
-                                ExchangeRateColumns.DATE_UPDATE,
-                                ExchangeRateColumns.IMPORT_ORIGIN },
-                        selectionCriteria,
-                        selectionArgs,
-                        null,
-                        null,
-                        null,
-                        null);
-        if (c.moveToFirst()) {
-            do {
-                ExchangeRate rate = assembleExchangeRate(c);
-                resultList.add(rate);
-            }
-            while (c.moveToNext());
-        }
-        if (!c.isClosed()) {
-            c.close();
-        }
-        return resultList;
     }
 
 }
