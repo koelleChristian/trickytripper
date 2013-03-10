@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import android.content.Context;
 import android.database.SQLException;
@@ -456,5 +457,18 @@ public class DataManagerImpl implements DataManager {
             }
         }
         persistExchangeRate(thinggyToBePersisted);
+    }
+
+    public Map<Set<Currency>, Set<Currency>> findUsedCurrencies() {
+        Map<Set<Currency>, Set<Currency>> result = new HashMap<Set<Currency>, Set<Currency>>();
+        Set<Currency> usedForCalculation = exchangeRateDao.findAllCurrenciesUsedForExchangeCalculation();
+        Set<Currency> usedInTrips = tripDao.findAllCurrenciesUsedInTrips();
+        for (Currency c : usedForCalculation) {
+            if (usedInTrips.contains(c)) {
+                usedInTrips.remove(c);
+            }
+        }
+        result.put(usedForCalculation, usedInTrips);
+        return result;
     }
 }

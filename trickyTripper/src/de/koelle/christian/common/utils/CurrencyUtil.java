@@ -206,13 +206,16 @@ public class CurrencyUtil {
                         .append(currencyName);
 
                 String fullNameString = fullName.toString();
+
                 currencyFullName.add(fullNameString);
                 currencyCodes.add(currencyCode);
+                supportedCurrencies.add(instance);
+
                 currency2DisplayNameMap.put(instance, fullNameString);
                 currency2SymbolMap.put(instance, symbol);
-                supportedCurrencies.add(instance);
             }
             int size = currencyCodes.size();
+
             CurrencyUtil.currencyCodes = new String[size];
             CurrencyUtil.currencyFullName = new String[size];
             CurrencyUtil.currencyCodes = currencyCodes.toArray(CurrencyUtil.currencyCodes);

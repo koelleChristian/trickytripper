@@ -2,6 +2,8 @@ package de.koelle.christian.trickytripper.dataaccess;
 
 import java.util.Currency;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -54,5 +56,10 @@ public interface DataManager {
     void persistImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported);
 
     void persistExchangeRateUsedLast(ExchangeRate exchangeRateUsedLast);
+
+    /* ========= Else ============ */
+
+    /** returns a map with one pair of information. */
+    Map<Set<Currency>, Set<Currency>> findUsedCurrencies();
 
 }

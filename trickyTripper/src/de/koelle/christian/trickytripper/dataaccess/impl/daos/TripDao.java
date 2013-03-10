@@ -2,7 +2,9 @@ package de.koelle.christian.trickytripper.dataaccess.impl.daos;
 
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -180,6 +182,32 @@ public class TripDao implements Dao<Trip> {
             c.close();
         }
         return list;
+    }
+
+    public Set<Currency> findAllCurrenciesUsedInTrips() {
+        Set<Currency> result = new LinkedHashSet<Currency>();
+        Cursor c =
+                db.query(
+                        TripTable.TABLE_NAME,
+                        new String[] {
+                        TripColumns.BASE_CURRENCY_CODE
+                        },
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
+        if (c.moveToFirst()) {
+            do {
+                result.add(Currency.getInstance(c.getString(0)));
+            }
+            while (c.moveToNext());
+        }
+        if (!c.isClosed()) {
+            c.close();
+        }
+        return result;
     }
 
 }

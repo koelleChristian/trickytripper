@@ -11,10 +11,13 @@ import java.util.Comparator;
 import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import android.app.Activity;
 import android.app.Application;
@@ -68,6 +71,7 @@ import de.koelle.christian.trickytripper.model.Debts;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
+import de.koelle.christian.trickytripper.model.HierarchicalCurrency;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
@@ -90,6 +94,7 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     private Collator defaultCollator;
     private OptionsSupport optionSupport;
+    private Set<HierarchicalCurrency> currencies;
 
     List<String> allAssetsList = null;
 
@@ -671,6 +676,27 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     public OptionsSupport getOptionSupport() {
         return optionSupport;
+    }
+
+    public List<HierarchicalCurrency> getAllCurrencies() {
+        if (currencies == null) {
+            currencies = new LinkedHashSet<HierarchicalCurrency>();
+            for (Currency currency : CurrencyUtil.getSupportedCurrencies(getResources())) {
+                currencies.add(new HierarchicalCurrency(HierarchicalCurrency.L3, currency, CurrencyUtil
+                        .getFullNameToCurrency(getResources(), currency)));
+            }
+        }
+        Entry<Set<Currency>, Set<Currency>> entry = dataManager.findUsedCurrencies().entrySet().iterator().next();
+
+        for (HierarchicalCurrency hCurrency : currencies) {
+            if (entry.getKey().contains(hCurrency.getCurrency())) {
+                hCurrency.setLevel(HierarchicalCurrency.L1);
+            }
+            else if (entry.getValue().contains(hCurrency.getCurrency())) {
+                hCurrency.setLevel(HierarchicalCurrency.L2);
+            }
+        }
+        return new LinkedList<HierarchicalCurrency>(currencies);
     }
 
     /* ======================= getter/setter ======================= */

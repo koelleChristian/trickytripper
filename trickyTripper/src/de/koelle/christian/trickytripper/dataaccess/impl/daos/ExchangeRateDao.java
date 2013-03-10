@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Currency;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -443,6 +445,35 @@ public class ExchangeRateDao {
             createPref(exchangeRateUsedLast);
         }
 
+    }
+
+    public Set<Currency> findAllCurrenciesUsedForExchangeCalculation() {
+        Set<Currency> result = new LinkedHashSet<Currency>();
+        Cursor c =
+                db.query(
+                        ExchangeRatePrefTable.TABLE_NAME,
+                        new String[] {
+                                ExchangeRatePrefColumns.CURRENCY_FROM,
+                                ExchangeRatePrefColumns.CURRENCY_TO
+                        },
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
+        if (c.moveToFirst()) {
+            do {
+                ;
+                result.add(Currency.getInstance(c.getString(0)));
+                result.add(Currency.getInstance(c.getString(1)));
+            }
+            while (c.moveToNext());
+        }
+        if (!c.isClosed()) {
+            c.close();
+        }
+        return result;
     }
 
 }
