@@ -11,8 +11,6 @@ import java.util.Comparator;
 import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -67,11 +65,13 @@ import de.koelle.christian.trickytripper.export.impl.ExporterImpl;
 import de.koelle.christian.trickytripper.factories.AmountFactory;
 import de.koelle.christian.trickytripper.factories.ModelFactory;
 import de.koelle.christian.trickytripper.model.Amount;
+import de.koelle.christian.trickytripper.model.CurrenciesUsed;
+import de.koelle.christian.trickytripper.model.CurrencyWithName;
 import de.koelle.christian.trickytripper.model.Debts;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
-import de.koelle.christian.trickytripper.model.HierarchicalCurrency;
+import de.koelle.christian.trickytripper.model.HierarchicalCurrencyList;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
@@ -94,7 +94,7 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     private Collator defaultCollator;
     private OptionsSupport optionSupport;
-    private Set<HierarchicalCurrency> currencies;
+    private Set<CurrencyWithName> currencies;
 
     List<String> allAssetsList = null;
 
@@ -112,13 +112,17 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        safeLoadedTripIdToPrefs();
-        FileUtils.deleteAllFiles(this);
+        shutdown();
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
+        shutdown();
+    }
+
+    private void shutdown() {
+        closeDatabase();
         safeLoadedTripIdToPrefs();
         FileUtils.deleteAllFiles(this);
     }
@@ -176,6 +180,12 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         initPostTripLoad();
     }
 
+    public void closeDatabase() {
+        if (dataManager != null) {
+            dataManager.close();
+        }
+    }
+
     private Locale getLocale() {
         return getResources().getConfiguration().locale;
     }
@@ -199,10 +209,15 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     }
 
     private void safeLoadedTripIdToPrefs() {
-        if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
-            Log.d(Rc.LT, "safeLoadedTripIdToPrefs() id of last trip=" + tripToBeEdited.getId());
+        if (tripToBeEdited != null) {
+            if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+                Log.d(Rc.LT,
+                        "safeLoadedTripIdToPrefs() id of last trip="
+                                + tripToBeEdited.getId());
+            }
+            PrefWritrerReaderUtils
+                    .saveIdOfTripLastEdited(prefsResolver.getEditingPrefsEditor(), tripToBeEdited.getId());
         }
-        PrefWritrerReaderUtils.saveIdOfTripLastEdited(prefsResolver.getEditingPrefsEditor(), tripToBeEdited.getId());
     }
 
     public Currency getDefaultBaseCurrency() {
@@ -678,25 +693,33 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         return optionSupport;
     }
 
-    public List<HierarchicalCurrency> getAllCurrencies() {
-        if (currencies == null) {
-            currencies = new LinkedHashSet<HierarchicalCurrency>();
-            for (Currency currency : CurrencyUtil.getSupportedCurrencies(getResources())) {
-                currencies.add(new HierarchicalCurrency(HierarchicalCurrency.L3, currency, CurrencyUtil
-                        .getFullNameToCurrency(getResources(), currency)));
-            }
+    public HierarchicalCurrencyList getAllCurrenciesForTarget(Currency currency) {
+        HierarchicalCurrencyList result = new HierarchicalCurrencyList();
+        CurrenciesUsed currenciesUsed = dataManager.findUsedCurrenciesForTarget(currency);
+        result.setCurrenciesMatchingInOrderOfUsage(
+                CurrencyUtil.convertToCurrencyWithName(currenciesUsed
+                        .getCurrenciesMatchingInOrderOfUsage()
+                        , getResources()));
+        result.setCurrenciesUsedByDate(
+                CurrencyUtil.convertToCurrencyWithName(currenciesUsed
+                        .getCurrenciesUsedByDate()
+                        , null));
+        result.setCurrenciesInProject(
+                CurrencyUtil.convertToCurrencyWithName(currenciesUsed
+                        .getCurrenciesInProject()
+                        , null));
+        result.setCurrenciesElse(
+                CurrencyUtil.convertOthersToCurrencyWithName(
+                        currenciesUsed.getCurrenciesAlreadyFilled()
+                        , null));
+        if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+            Log.d(Rc.LT, "Currencies requested for target=" + currency + ": " + result);
         }
-        Entry<Set<Currency>, Set<Currency>> entry = dataManager.findUsedCurrencies().entrySet().iterator().next();
+        return result;
+    }
 
-        for (HierarchicalCurrency hCurrency : currencies) {
-            if (entry.getKey().contains(hCurrency.getCurrency())) {
-                hCurrency.setLevel(HierarchicalCurrency.L1);
-            }
-            else if (entry.getValue().contains(hCurrency.getCurrency())) {
-                hCurrency.setLevel(HierarchicalCurrency.L2);
-            }
-        }
-        return new LinkedList<HierarchicalCurrency>(currencies);
+    public HierarchicalCurrencyList getAllCurrencies() {
+        return getAllCurrenciesForTarget(null);
     }
 
     /* ======================= getter/setter ======================= */

@@ -2,29 +2,14 @@ package de.koelle.christian.trickytripper.model;
 
 import java.util.Currency;
 
-public class HierarchicalCurrency {
+public class CurrencyWithName {
 
-    public static final int L1 = 1;
-    public static final int L2 = 2;
-    public static final int L3 = 3;
-
-    private int level;
     private Currency currency;
     private String longName;
 
-    public HierarchicalCurrency(int level, Currency currency, String longName) {
-        super();
-        this.level = level;
+    public CurrencyWithName(Currency currency, String longName) {
         this.currency = currency;
         this.longName = longName;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
     }
 
     public Currency getCurrency() {
@@ -59,7 +44,7 @@ public class HierarchicalCurrency {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        HierarchicalCurrency other = (HierarchicalCurrency) obj;
+        CurrencyWithName other = (CurrencyWithName) obj;
         if (currency == null) {
             if (other.currency != null)
                 return false;
@@ -67,6 +52,11 @@ public class HierarchicalCurrency {
         else if (!currency.equals(other.currency))
             return false;
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "CurrencyWithName [currency=" + currency + "]";
     }
 
 }

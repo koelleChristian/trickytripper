@@ -13,10 +13,17 @@ public class ExchangeRateTestSupport {
     public static final Currency TRY = Currency.getInstance("TRY");
     public static final Currency GBP = Currency.getInstance("GBP");
 
+    public static final Currency BAM = Currency.getInstance("BAM");
+    public static final Currency ERN = Currency.getInstance("ERN");
+
     public static final long ID_1 = 1;
     public static final long ID_2 = 2;
     public static final long ID_3 = 3;
     public static final long ID_4 = 4;
+    public static final long ID_5 = 5;
+    public static final long ID_6 = 6;
+    public static final long ID_7 = 7;
+    public static final long ID_8 = 8;
 
     public static final ExchangeRate REC_01;
     public static final ExchangeRate REC_02;

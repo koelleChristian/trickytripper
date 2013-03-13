@@ -66,9 +66,6 @@ public class ExchangeRateControllerImpl implements ExchangeRateController {
     }
 
     public void persistExchangeRateUsedLast(ExchangeRate exchangeRateUsedLast) {
-        // PrefWritrerReaderUtils
-        // .saveSourceCurrencyUsedLast(prefsResolver.getEditingPrefsEditor(),
-        // sourceCurrencyLastUsed);
         dataManager.persistExchangeRateUsedLast(exchangeRateUsedLast);
     }
 

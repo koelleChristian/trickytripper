@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import android.content.Context;
@@ -30,6 +31,7 @@ import de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.ParticipantRef
 import de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.PaymentParticipantRelationKey;
 import de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.PaymentReference;
 import de.koelle.christian.trickytripper.factories.ModelFactory;
+import de.koelle.christian.trickytripper.model.CurrenciesUsed;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
@@ -459,16 +461,36 @@ public class DataManagerImpl implements DataManager {
         persistExchangeRate(thinggyToBePersisted);
     }
 
-    public Map<Set<Currency>, Set<Currency>> findUsedCurrencies() {
-        Map<Set<Currency>, Set<Currency>> result = new HashMap<Set<Currency>, Set<Currency>>();
-        Set<Currency> usedForCalculation = exchangeRateDao.findAllCurrenciesUsedForExchangeCalculation();
-        Set<Currency> usedInTrips = tripDao.findAllCurrenciesUsedInTrips();
-        for (Currency c : usedForCalculation) {
-            if (usedInTrips.contains(c)) {
-                usedInTrips.remove(c);
+    /**
+     * @param currency
+     *            Can be null, if there is no target currency.
+     */
+    public CurrenciesUsed findUsedCurrenciesForTarget(Currency currency) {
+        CurrenciesUsed result = new CurrenciesUsed();
+
+        Entry<List<Currency>, List<Currency>> usedForExchangeRateCalculation = exchangeRateDao
+                .findUsedCurrencies(currency).entrySet().iterator().next();
+        result.setCurrenciesMatchingInOrderOfUsage(usedForExchangeRateCalculation.getKey());
+        result.setCurrenciesUsedByDate(usedForExchangeRateCalculation.getValue());
+
+        Set<Currency> allFetchedYet = result.getCurrenciesAlreadyFilled();
+
+        if (Log.isLoggable(Rc.LT_DB, Log.DEBUG)) {
+            Log.d(Rc.LT_DB, "Currencies fetched from ExchangeRateDao: " + result);
+        }
+
+        List<Currency> currenciesInTrips = tripDao.findAllCurrenciesUsedInTrips();
+        for (int i = currenciesInTrips.size() - 1; i >= 0; i--) {
+            Currency inTrip = currenciesInTrips.get(i);
+            if (allFetchedYet.contains(inTrip) || inTrip.equals(currency)) {
+                currenciesInTrips.remove(i);
             }
         }
-        result.put(usedForCalculation, usedInTrips);
+        result.setCurrenciesInProject(currenciesInTrips);
+        if (Log.isLoggable(Rc.LT_DB, Log.DEBUG)) {
+            Log.d(Rc.LT_DB, "Currencies fetched from ExchangeRateDao and TripDao: " + result);
+        }
         return result;
     }
+
 }

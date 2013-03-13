@@ -6,9 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import android.content.res.Resources;
 import de.koelle.christian.trickytripper.R;
+import de.koelle.christian.trickytripper.model.CurrencyWithName;
 
 public class CurrencyUtil {
 
@@ -244,6 +246,28 @@ public class CurrencyUtil {
             }
         }
         Assert.notNull(result);
+        return result;
+    }
+
+    public static List<CurrencyWithName> convertToCurrencyWithName(List<Currency> currenciesMatchingInOrderOfUsage,
+            Resources resources) {
+        initIfRequired(resources);
+        List<CurrencyWithName> result = new ArrayList<CurrencyWithName>();
+        for (Currency c : currenciesMatchingInOrderOfUsage) {
+            result.add(new CurrencyWithName(c, currency2DisplayNameMap.get(c)));
+        }
+        return result;
+    }
+
+    public static List<CurrencyWithName> convertOthersToCurrencyWithName(Set<Currency> currenciesToBeExcluded,
+            Resources resources) {
+        initIfRequired(resources);
+        List<CurrencyWithName> result = new ArrayList<CurrencyWithName>();
+        for (Currency c : supportedCurrencies) {
+            if (!currenciesToBeExcluded.contains(c)) {
+                result.add(new CurrencyWithName(c, currency2DisplayNameMap.get(c)));
+            }
+        }
         return result;
     }
 

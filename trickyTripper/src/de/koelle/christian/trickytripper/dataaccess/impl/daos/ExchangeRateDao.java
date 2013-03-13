@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Currency;
 import java.util.Date;
-import java.util.LinkedHashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -447,8 +447,10 @@ public class ExchangeRateDao {
 
     }
 
-    public Set<Currency> findAllCurrenciesUsedForExchangeCalculation() {
-        Set<Currency> result = new LinkedHashSet<Currency>();
+    @SuppressWarnings("unchecked")
+    public Map<List<Currency>, List<Currency>> findUsedCurrencies(Currency targetCurrency) {
+        List<Currency> currenciesMatchingInOrderOfUsage = new ArrayList<Currency>();
+        List<Currency> currenciesUsedByDate = new ArrayList<Currency>();
         Cursor c =
                 db.query(
                         ExchangeRatePrefTable.TABLE_NAME,
@@ -460,20 +462,44 @@ public class ExchangeRateDao {
                         null,
                         null,
                         null,
-                        null,
+                        ExchangeRatePrefColumns.DATE_LAST_USED + " DESC",
                         null);
         if (c.moveToFirst()) {
             do {
-                ;
-                result.add(Currency.getInstance(c.getString(0)));
-                result.add(Currency.getInstance(c.getString(1)));
+                Currency cA = Currency.getInstance(c.getString(0));
+                Currency cB = Currency.getInstance(c.getString(1));
+
+                if (targetCurrency != null && targetCurrency.equals(cA)) {
+                    addIfNotYetContained(cB, currenciesMatchingInOrderOfUsage);
+                }
+                else if (targetCurrency != null && targetCurrency.equals(cB)) {
+                    addIfNotYetContained(cA, currenciesMatchingInOrderOfUsage);
+                }
+                else if (cA.getCurrencyCode().compareTo(cB.getCurrencyCode()) < 0) {
+                    addIfNotYetContained(cA, currenciesUsedByDate, currenciesMatchingInOrderOfUsage);
+                    addIfNotYetContained(cB, currenciesUsedByDate, currenciesMatchingInOrderOfUsage);
+                }
+                else {
+                    addIfNotYetContained(cB, currenciesUsedByDate, currenciesMatchingInOrderOfUsage);
+                    addIfNotYetContained(cA, currenciesUsedByDate, currenciesMatchingInOrderOfUsage);
+                }
             }
             while (c.moveToNext());
         }
         if (!c.isClosed()) {
             c.close();
         }
+        Map<List<Currency>, List<Currency>> result = new LinkedHashMap<List<Currency>, List<Currency>>();
+        result.put(currenciesMatchingInOrderOfUsage, currenciesUsedByDate);
         return result;
     }
 
+    private void addIfNotYetContained(Currency currencyToBeAdded, List<Currency>... list) {
+        for (List<Currency> l : list) {
+            if (l.contains(currencyToBeAdded)) {
+                return;
+            }
+        }
+        list[0].add(currencyToBeAdded);
+    }
 }

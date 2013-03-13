@@ -2,10 +2,9 @@ package de.koelle.christian.trickytripper.controller;
 
 import java.text.Collator;
 import java.util.Currency;
-import java.util.List;
 
 import de.koelle.christian.common.options.OptionsSupport;
-import de.koelle.christian.trickytripper.model.HierarchicalCurrency;
+import de.koelle.christian.trickytripper.model.HierarchicalCurrencyList;
 
 public interface MiscController {
 
@@ -23,6 +22,8 @@ public interface MiscController {
 
     OptionsSupport getOptionSupport();
 
-    List<HierarchicalCurrency> getAllCurrencies();
+    HierarchicalCurrencyList getAllCurrencies();
+
+    HierarchicalCurrencyList getAllCurrenciesForTarget(Currency currency);
 
 }

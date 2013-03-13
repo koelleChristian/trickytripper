@@ -2,9 +2,8 @@ package de.koelle.christian.trickytripper.dataaccess;
 
 import java.util.Currency;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
+import de.koelle.christian.trickytripper.model.CurrenciesUsed;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
@@ -59,7 +58,8 @@ public interface DataManager {
 
     /* ========= Else ============ */
 
-    /** returns a map with one pair of information. */
-    Map<Set<Currency>, Set<Currency>> findUsedCurrencies();
+    CurrenciesUsed findUsedCurrenciesForTarget(Currency currency);
+
+    void close();
 
 }
