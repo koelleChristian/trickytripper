@@ -1,16 +1,9 @@
 package de.koelle.christian.trickytripper.controller;
 
-import java.io.File;
-import java.text.Collator;
-import java.util.Currency;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
-import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.trickytripper.model.Debts;
-import de.koelle.christian.trickytripper.model.ExportSettings;
-import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.Trip;
@@ -41,6 +34,8 @@ public interface TripExpensesFktnController {
 
     void deletePayment(Payment payment);
 
+    boolean hasLoadedTripPayments();
+
     /* ========= Trip related functions. ========= */
 
     List<TripSummary> getAllTrips();
@@ -62,28 +57,5 @@ public interface TripExpensesFktnController {
     Map<Participant, Debts> getDebts();
 
     boolean hasTripPayments(TripSummary selectedTripSummary);
-
-    /* ================ Export ==================== */
-    ExportSettings getDefaultExportSettings();
-
-    List<File> exportReport(ExportSettings settings, Participant selectedParticipant, Activity activity);
-
-    List<ExportOutputChannel> getEnabledExportOutputChannel();
-
-    /* ================ Misc ==================== */
-
-    Currency getDefaultBaseCurrency();
-
-    String getCurrencySymbolOfTripLoaded(boolean wrapInBrackets);
-
-    boolean isSmartHelpEnabled();
-
-    Collator getDefaultStringCollator();
-
-    DecimalNumberInputUtil getDecimalNumberInputUtil();
-
-    boolean checkIfInAssets(String assetName);
-
-    boolean hasLoadedTripPayments();
 
 }

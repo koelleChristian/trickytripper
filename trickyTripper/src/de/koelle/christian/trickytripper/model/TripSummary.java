@@ -10,6 +10,16 @@ public class TripSummary implements Comparable<TripSummary>, Serializable {
     private Currency baseCurrency;
     private long id;
 
+    public TripSummary(String name, Currency baseCurrency) {
+        super();
+        this.name = name;
+        this.baseCurrency = baseCurrency;
+    }
+
+    public TripSummary() {
+        super();
+    }
+
     public String getName() {
         return name;
     }

@@ -10,6 +10,7 @@ import de.koelle.christian.common.constants.Rglob;
 public class DecimalNumberInputPatternMatcher {
 
     private final Pattern pattern;
+    private final int maxLength;
 
     /**
      * Constructor
@@ -18,10 +19,21 @@ public class DecimalNumberInputPatternMatcher {
      * @param amountOfLeftHandDigits
      */
     public DecimalNumberInputPatternMatcher(int amountOfLeftHandDigits, int amoutOfDecimalDigits) {
+        this(amountOfLeftHandDigits, amoutOfDecimalDigits, -1);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param amoutOfDecimalDigits
+     * @param amountOfLeftHandDigits
+     */
+    public DecimalNumberInputPatternMatcher(int amountOfLeftHandDigits, int amoutOfDecimalDigits, int maxLength) {
         String patternString = "\\d{0," + amountOfLeftHandDigits + "}([" + Rglob.DECIMAL_DEL_DOT
                 + Rglob.DECIMAL_DEL_COMMA
                 + "]{1}\\d{0," + amoutOfDecimalDigits + "})?";
         pattern = Pattern.compile(patternString);
+        this.maxLength = maxLength;
     }
 
     public DecimalNumberInputPatternMatcher() {
@@ -29,6 +41,12 @@ public class DecimalNumberInputPatternMatcher {
     }
 
     public boolean matches(String input) {
+        return (maxLength <= 0) ?
+                matchesPattern(input) :
+                matchesPattern(input) && input.length() <= maxLength;
+    }
+
+    private boolean matchesPattern(String input) {
         return pattern.matcher(input).matches();
     }
 }

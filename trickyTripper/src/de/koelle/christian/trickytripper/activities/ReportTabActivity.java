@@ -11,7 +11,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +20,12 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
-import de.koelle.christian.trickytripper.constants.TrickyTripperTabConstants;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Debts;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -49,27 +49,31 @@ public class ReportTabActivity extends Activity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.general_options_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
+        menu.findItem(R.id.option_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.report_tab_options, menu);
-        return true;
+        return getApp().getOptionSupport().populateOptionsMenu(
+                new OptionContraints().activity(this).menu(menu)
+                        .options(new int[] {
+                                R.id.option_help,
+                                R.id.option_preferences,
+                                R.id.option_export
+                        }));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.general_options_help:
-            getParent().showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
+        case R.id.option_help:
+            getParent().showDialog(Rd.DIALOG_HELP);
             return true;
-        case R.id.general_options_export:
+        case R.id.option_export:
             getApp().getViewController().openExport();
             return true;
-        case R.id.general_options_preferences:
+        case R.id.option_preferences:
             getApp().getViewController().openSettings();
             return true;
         default:
@@ -220,7 +224,7 @@ public class ReportTabActivity extends Activity {
             tableLayout.addView(newRow, calculatePositionToInsert(tableLayout, delimiterLine));
         }
         else {
-            TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getFktnController()
+            TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getMiscController()
                     .getDefaultStringCollator());
 
             for (Entry<PaymentCategory, Amount> catAmountMapEntry : categorySpending.entrySet()) {
@@ -291,7 +295,7 @@ public class ReportTabActivity extends Activity {
                 tableLayout.addView(newRow, tableLayout.getChildCount() - 1);
             }
             else {
-                TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getFktnController()
+                TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getMiscController()
                         .getDefaultStringCollator());
 
                 for (Entry<Participant, Amount> debt : debts.getLoanerToDepts().entrySet()) {

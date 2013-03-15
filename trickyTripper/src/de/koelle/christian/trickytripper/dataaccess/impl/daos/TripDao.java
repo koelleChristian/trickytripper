@@ -182,4 +182,29 @@ public class TripDao implements Dao<Trip> {
         return list;
     }
 
+    public List<Currency> findAllCurrenciesUsedInTrips() {
+        List<Currency> result = new ArrayList<Currency>();
+        Cursor c =
+                db.query(
+                        TripTable.TABLE_NAME,
+                        new String[] {
+                        TripColumns.BASE_CURRENCY_CODE
+                        },
+                        null,
+                        null,
+                        null,
+                        null,
+                        TripColumns.BASE_CURRENCY_CODE + " ASC",
+                        null);
+        if (c.moveToFirst()) {
+            do {
+                result.add(Currency.getInstance(c.getString(0)));
+            }
+            while (c.moveToNext());
+        }
+        if (!c.isClosed()) {
+            c.close();
+        }
+        return result;
+    }
 }

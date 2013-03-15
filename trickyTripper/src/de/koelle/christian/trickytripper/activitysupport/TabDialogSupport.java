@@ -1,7 +1,7 @@
 package de.koelle.christian.trickytripper.activitysupport;
 
 import android.os.Bundle;
-import de.koelle.christian.trickytripper.constants.TrickyTripperTabConstants;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 
@@ -9,13 +9,13 @@ public class TabDialogSupport {
 
     public static Bundle createBundleWithParticipantSelected(Participant selectedParticipant) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(TrickyTripperTabConstants.DIALOG_PARAM_PARTICIPANT, selectedParticipant);
+        bundle.putSerializable(Rd.DIALOG_PARAM_PARTICIPANT, selectedParticipant);
         return bundle;
     }
 
     public static Bundle createBundleWithPaymentSelected(Payment selectedPayment) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(TrickyTripperTabConstants.DIALOG_PARAM_PAYMENT, selectedPayment);
+        bundle.putSerializable(Rd.DIALOG_PARAM_PAYMENT, selectedPayment);
         return bundle;
     }
 
@@ -24,7 +24,7 @@ public class TabDialogSupport {
             return null; // Create
         }
         // Edit
-        Participant participant = (Participant) args.get(TrickyTripperTabConstants.DIALOG_PARAM_PARTICIPANT);
+        Participant participant = (Participant) args.get(Rd.DIALOG_PARAM_PARTICIPANT);
         return participant;
     }
 
@@ -32,7 +32,7 @@ public class TabDialogSupport {
         if (args == null) {
             return null;
         }
-        Payment payment = (Payment) args.get(TrickyTripperTabConstants.DIALOG_PARAM_PAYMENT);
+        Payment payment = (Payment) args.get(Rd.DIALOG_PARAM_PAYMENT);
         return payment;
     }
 }

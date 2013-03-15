@@ -4,13 +4,6 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/export_view_heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/exportViewTextViewHeading"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
         android:id="@+id/export_view_label_trip_name_output"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

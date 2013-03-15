@@ -15,12 +15,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
@@ -30,23 +30,35 @@ import android.util.Log;
 import android.util.TypedValue;
 import de.koelle.christian.common.changelog.ChangeLog;
 import de.koelle.christian.common.io.impl.AppFileWriter;
+import de.koelle.christian.common.options.OptionsSupport;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.common.utils.FileUtils;
+import de.koelle.christian.common.utils.SystemUtil;
+import de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity;
+import de.koelle.christian.trickytripper.activities.DeleteExchangeRatesActivity;
+import de.koelle.christian.trickytripper.activities.EditExchangeRateActivity;
 import de.koelle.christian.trickytripper.activities.ExportActivity;
+import de.koelle.christian.trickytripper.activities.ImportExchangeRatesActivity;
 import de.koelle.christian.trickytripper.activities.ManageTripsActivity;
 import de.koelle.christian.trickytripper.activities.MoneyTransferActivity;
 import de.koelle.christian.trickytripper.activities.PaymentEditActivity;
 import de.koelle.christian.trickytripper.activities.PreferencesActivity;
+import de.koelle.christian.trickytripper.apputils.PrefAccessor;
 import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rt;
 import de.koelle.christian.trickytripper.constants.ViewMode;
+import de.koelle.christian.trickytripper.controller.ExchangeRateController;
+import de.koelle.christian.trickytripper.controller.ExportController;
+import de.koelle.christian.trickytripper.controller.MiscController;
 import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
 import de.koelle.christian.trickytripper.controller.TripExpensesViewController;
+import de.koelle.christian.trickytripper.controller.impl.ExchangeRateControllerImpl;
 import de.koelle.christian.trickytripper.dataaccess.DataManager;
 import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;
+import de.koelle.christian.trickytripper.decoupling.PrefsResolver;
 import de.koelle.christian.trickytripper.decoupling.impl.ActivityResolverImpl;
 import de.koelle.christian.trickytripper.decoupling.impl.ResourceResolverImpl;
 import de.koelle.christian.trickytripper.export.Exporter;
@@ -54,9 +66,13 @@ import de.koelle.christian.trickytripper.export.impl.ExporterImpl;
 import de.koelle.christian.trickytripper.factories.AmountFactory;
 import de.koelle.christian.trickytripper.factories.ModelFactory;
 import de.koelle.christian.trickytripper.model.Amount;
+import de.koelle.christian.trickytripper.model.CurrenciesUsed;
+import de.koelle.christian.trickytripper.model.CurrencyWithName;
 import de.koelle.christian.trickytripper.model.Debts;
+import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
+import de.koelle.christian.trickytripper.model.HierarchicalCurrencyList;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
@@ -66,7 +82,8 @@ import de.koelle.christian.trickytripper.strategies.SumReport;
 import de.koelle.christian.trickytripper.strategies.TripReportLogic;
 import de.koelle.christian.trickytripper.ui.model.DialogState;
 
-public class TrickyTripperApp extends Application implements TripExpensesViewController, TripExpensesFktnController {
+public class TrickyTripperApp extends Application implements TripExpensesViewController, TripExpensesFktnController,
+        MiscController, ExportController {
 
     private static final String TAG_FKTN = "FktnController";
 
@@ -78,11 +95,15 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     private Collator defaultCollator;
     private DecimalNumberInputUtil decimalNumberInputUtil;
+    private OptionsSupport optionSupport;
+    private Set<CurrencyWithName> currencies;
 
     List<String> allAssetsList = null;
 
     private DataManager dataManager;
     private Exporter exporter;
+    private PrefsResolver prefsResolver;
+    private ExchangeRateController exchangeRateController;
 
     @Override
     public void onCreate() {
@@ -93,13 +114,17 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        safeLoadedTripIdToPrefs();
-        FileUtils.deleteAllFiles(this);
+        shutdown();
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
+        shutdown();
+    }
+
+    private void shutdown() {
+        closeDatabase();
         safeLoadedTripIdToPrefs();
         FileUtils.deleteAllFiles(this);
     }
@@ -119,16 +144,30 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         defaultCollator.setStrength(Rc.DEFAULT_COLLATOR_STRENGTH);
 
         decimalNumberInputUtil = new DecimalNumberInputUtil(getLocale());
+        prefsResolver = new PrefAccessor(this);
 
-        SharedPreferences prefs = getPrefs();
-        long tripId = PrefWritrerReaderUtils.getIdOfTripLastEdited(prefs);
+        SharedPreferences prefs = prefsResolver.getPrefs();
+        long tripId = PrefWritrerReaderUtils.loadIdOfTripLastEdited(prefs);
 
         if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
             Log.d(Rc.LT, "init() id of last trip=" + tripId);
         }
 
+        optionSupport = new OptionsSupport(new int[] {
+                R.id.option_create_participant,
+                R.id.option_create_trip,
+                R.id.option_create_exchange_rate,
+                R.id.option_delete,
+                R.id.option_export,
+                R.id.option_help,
+                R.id.option_import,
+                R.id.option_preferences
+        });
+
         dataManager = new DataManagerImpl(getBaseContext());
         tripToBeEdited = dataManager.loadTripById(tripId);
+
+        exchangeRateController = new ExchangeRateControllerImpl(dataManager, prefsResolver, getResources());
 
         exporter = new ExporterImpl(new AppFileWriter(getApplicationContext()));
 
@@ -144,12 +183,14 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         initPostTripLoad();
     }
 
-    private Locale getLocale() {
-        return getResources().getConfiguration().locale;
+    public void closeDatabase() {
+        if (dataManager != null) {
+            dataManager.close();
+        }
     }
 
-    private SharedPreferences getPrefs() {
-        return getSharedPreferences(Rc.PREFS_NAME_ID, Rc.PREFS_MODE);
+    private Locale getLocale() {
+        return getResources().getConfiguration().locale;
     }
 
     private void initPostTripLoad() {
@@ -171,20 +212,24 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     }
 
     private void safeLoadedTripIdToPrefs() {
-        if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
-            Log.d(Rc.LT, "safeLoadedTripIdToPrefs() id of last trip=" + tripToBeEdited.getId());
-        }
-        PrefWritrerReaderUtils.saveIdOfTripLastEdited(getEditingPrefsEditor(), tripToBeEdited.getId());
-    }
 
-    private Editor getEditingPrefsEditor() {
-        SharedPreferences prefs = getPrefs();
-        Editor prefsEditor = prefs.edit();
-        return prefsEditor;
+        if (tripToBeEdited != null) {
+            if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+                Log.d(Rc.LT,
+                        "safeLoadedTripIdToPrefs() id of last trip="
+                                + tripToBeEdited.getId());
+            }
+            PrefWritrerReaderUtils
+                    .saveIdOfTripLastEdited(prefsResolver.getEditingPrefsEditor(), tripToBeEdited.getId());
+        }
     }
 
     public Currency getDefaultBaseCurrency() {
-        return PrefWritrerReaderUtils.loadDefaultCurrency(getPrefs(), getResources());
+        return PrefWritrerReaderUtils.loadDefaultCurrency(prefsResolver.getPrefs(), getResources());
+    }
+
+    public Currency getTripBaseCurrency() {
+        return getTripLoaded().getBaseCurrency();
     }
 
     public String getCurrencySymbolOfTripLoaded(boolean wrapInBrackets) {
@@ -192,7 +237,8 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
     }
 
     public boolean isSmartHelpEnabled() {
-        return PrefWritrerReaderUtils.isSmartHelpEnabled(getPrefs(), getEditingPrefsEditor())
+        return PrefWritrerReaderUtils.isSmartHelpEnabled(prefsResolver.getPrefs(),
+                prefsResolver.getEditingPrefsEditor())
                 && !(new ChangeLog(this).firstRun());
     }
 
@@ -242,6 +288,50 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         startActivityWithParams(extras, activity, ViewMode.NONE);
     }
 
+    public void openImportExchangeRates(Activity caller, Currency... currencies) {
+        Class<? extends Activity> activity = ImportExchangeRatesActivity.class;
+        HashMap<String, Serializable> extras = new HashMap<String, Serializable>();
+        if (currencies != null && currencies.length > 0) {
+            ArrayList<Currency> currencyList = new ArrayList<Currency>();
+            for (Currency cur : currencies) {
+                currencyList.add(cur);
+            }
+            extras.put(Rc.ACTIVITY_PARAM_IMPORT_EXCHANGE_RATES_IN_CURRENCY_LIST, currencyList);
+        }
+        startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
+                Rc.ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE, caller);
+    }
+
+    public void openDeleteExchangeRates(Activity caller, Currency... currencies) {
+        Class<? extends Activity> activity = DeleteExchangeRatesActivity.class;
+        HashMap<String, Serializable> extras = new HashMap<String, Serializable>();
+        if (currencies != null && currencies.length > 0) {
+            ArrayList<Currency> currencyList = new ArrayList<Currency>();
+            for (Currency cur : currencies) {
+                currencyList.add(cur);
+            }
+            extras.put(Rc.ACTIVITY_PARAM_DELETE_EXCHANGE_RATES_IN_CURRENCY_LIST, currencyList);
+        }
+        startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
+                Rc.ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE, caller);
+
+    }
+
+    public void openEditExchangeRate(Activity caller, ExchangeRate exchangeRate) {
+        Class<? extends Activity> activity = EditExchangeRateActivity.class;
+        ViewMode viewMode = ViewMode.CREATE;
+        Map<String, Serializable> extras = new HashMap<String, Serializable>();
+        if (exchangeRate != null) {
+            extras.put(Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_RATE_TECH_ID, exchangeRate.getId());
+            viewMode = ViewMode.EDIT;
+        }
+        startActivityWithParams(extras, activity, viewMode);
+    }
+
+    public void openCreateExchangeRate(Activity caller) {
+        openEditExchangeRate(caller, null);
+    }
+
     public void openExport() {
         Class<? extends Activity> activity = ExportActivity.class;
         startActivityWithParams(new HashMap<String, Serializable>(), activity, ViewMode.NONE);
@@ -256,6 +346,15 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         Class<? extends Activity> activity = ManageTripsActivity.class;
         Map<String, Serializable> extras = new HashMap<String, Serializable>();
         startActivityWithParams(extras, activity, ViewMode.CREATE);
+    }
+
+    public void openMoneyCalculatorView(Amount amount, int resultViewId, Activity caller) {
+        Class<? extends Activity> activity = CurrencyCalculatorActivity.class;
+        Map<String, Serializable> extras = new HashMap<String, Serializable>();
+        extras.put(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_VALUE, amount.getValue());
+        extras.put(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_RESULT_VIEW_ID, resultViewId);
+        startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
+                Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_REQUEST_CODE, caller);
     }
 
     public void openEditPayment(Payment p) {
@@ -315,6 +414,14 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     public TripExpensesFktnController getFktnController() {
         return this;
+    }
+
+    public MiscController getMiscController() {
+        return this;
+    }
+
+    public ExchangeRateController getExchangeRateController() {
+        return exchangeRateController;
     }
 
     public boolean oneOrLessTripsLeft() {
@@ -403,6 +510,20 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         }
         return result;
 
+    }
+
+    private void startActivityWithParamsForResult(Map<String, Serializable> extras, Class<? extends Activity> activity,
+            ViewMode viewMode, int requestCode, Activity caller) {
+        Intent intent = new Intent().setClass(this, activity);
+
+        /* No flag like new task for 'forResult' */
+        for (Entry<String, Serializable> extra : extras.entrySet()) {
+            intent.putExtra(extra.getKey(), extra.getValue());
+        }
+        if (viewMode != null) {
+            intent.putExtra(Rc.ACTIVITY_PARAM_KEY_VIEW_MODE, viewMode);
+        }
+        caller.startActivityForResult(intent, requestCode);
     }
 
     private void startActivityWithParams(Map<String, Serializable> extras, Class<? extends Activity> activity,
@@ -516,7 +637,7 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     /* ======================== export ============================== */
     public ExportSettings getDefaultExportSettings() {
-        return PrefWritrerReaderUtils.loadExportSettings(getPrefs());
+        return PrefWritrerReaderUtils.loadExportSettings(prefsResolver.getPrefs());
     }
 
     public List<ExportOutputChannel> getEnabledExportOutputChannel() {
@@ -559,7 +680,7 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         else {
             participantsForReport.addAll(tripToBeEdited.getParticipant());
         }
-        PrefWritrerReaderUtils.saveExportSettings(getEditingPrefsEditor(), settings);
+        PrefWritrerReaderUtils.saveExportSettings(prefsResolver.getEditingPrefsEditor(), settings);
         return exporter.exportReport(settings,
                 participantsForReport,
                 tripToBeEdited,
@@ -568,11 +689,48 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
 
     }
 
-    /* ======================= getter/setter ======================= */
+    public boolean isOnline() {
+        return SystemUtil.isOnline(this);
+    }
 
     public Trip getTripToBeEdited() {
         return tripToBeEdited;
     }
+
+    public OptionsSupport getOptionSupport() {
+        return optionSupport;
+    }
+
+    public HierarchicalCurrencyList getAllCurrenciesForTarget(Currency currency) {
+        HierarchicalCurrencyList result = new HierarchicalCurrencyList();
+        CurrenciesUsed currenciesUsed = dataManager.findUsedCurrenciesForTarget(currency);
+        result.setCurrenciesMatchingInOrderOfUsage(
+                CurrencyUtil.convertToCurrencyWithName(currenciesUsed
+                        .getCurrenciesMatchingInOrderOfUsage()
+                        , getResources()));
+        result.setCurrenciesUsedByDate(
+                CurrencyUtil.convertToCurrencyWithName(currenciesUsed
+                        .getCurrenciesUsedByDate()
+                        , null));
+        result.setCurrenciesInProject(
+                CurrencyUtil.convertToCurrencyWithName(currenciesUsed
+                        .getCurrenciesInProject()
+                        , null));
+        result.setCurrenciesElse(
+                CurrencyUtil.convertOthersToCurrencyWithName(
+                        currenciesUsed.getCurrenciesAlreadyFilled()
+                        , null));
+        if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+            Log.d(Rc.LT, "Currencies requested for target=" + currency + ": " + result);
+        }
+        return result;
+    }
+
+    public HierarchicalCurrencyList getAllCurrencies() {
+        return getAllCurrenciesForTarget(null);
+    }
+
+    /* ======================= getter/setter ======================= */
 
     public void setTripToBeEdited(Trip tripToBeEdited) {
         this.tripToBeEdited = tripToBeEdited;

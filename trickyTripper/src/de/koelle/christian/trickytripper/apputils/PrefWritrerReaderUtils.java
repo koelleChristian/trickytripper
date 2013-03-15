@@ -9,12 +9,17 @@ import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
+import de.koelle.christian.trickytripper.model.ImportSettings;
 
 public class PrefWritrerReaderUtils {
 
     private static final String NULL_VALUE_CURRENCY = "@nothing@";
 
     private static final String PREFS_VALUE_ID_TRIP_LAST_EDITED_ID = "PREFS_VALUE_ID_TRIP_LAST_EDITED_ID";
+
+    private static final String PREFS_VALUE_CURRENCY_CALC_SOURCE_CURRENY_USED_LAST = "PREFS_VALUE_CURRENCY_CALC_SOURCE_CURRENY_USED_LAST";
+
+    private static final String PREFS_VALUE_IMPORT_SETTINGS_REPLACE_EXISTING = "PREFS_VALUE_IMPORT_SETTINGS_REPLACE_EXISTING";
 
     private static final String PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS = "PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS";
     private static final String PREFS_VALUE_EXPORT_SETTINGS_EXPORT_TRANSFERS = "PREFS_VALUE_EXPORT_SETTINGS_EXPORT_TRANSFERS";
@@ -27,68 +32,100 @@ public class PrefWritrerReaderUtils {
     private static final String PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_SHOW_GLOBAL_SUMS_ON_INDIVIDUAL_SPENDING_REPORT = "PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_SHOW_GLOBAL_SUMS_ON_INDIVIDUAL_SPENDING_REPORT";
     private static final String PREFS_VALUE_EXPORT_SETTINGS_OUTPUT_CHANNEL = "PREFS_VALUE_EXPORT_SETTINGS_OUTPUT_CHANNEL";
 
-    public static void saveExportSettings(Editor prefsEditor, ExportSettings exportSettings) {
-        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS, exportSettings.isExportPayments());
-        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_TRANSFERS, exportSettings.isExportTransfers());
-        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_SPENDINGS, exportSettings.isExportSpendings());
-        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_DEBTS, exportSettings.isExportDebts());
-        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_HTML, exportSettings.isFormatHtml());
-        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_CSV, exportSettings.isFormatCsv());
-        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_TXT, exportSettings.isFormatTxt());
+    public static void saveExportSettings(Editor prefsEditor, ExportSettings settings) {
+        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS, settings.isExportPayments());
+        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_TRANSFERS, settings.isExportTransfers());
+        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_SPENDINGS, settings.isExportSpendings());
+        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_DEBTS, settings.isExportDebts());
+        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_HTML, settings.isFormatHtml());
+        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_CSV, settings.isFormatCsv());
+        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_TXT, settings.isFormatTxt());
         prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_SEPARATE_FILES_FOR_INDIVIDUALS,
-                exportSettings.isSeparateFilesForIndividuals());
+                settings.isSeparateFilesForIndividuals());
         prefsEditor
                 .putBoolean(
                         PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_SHOW_GLOBAL_SUMS_ON_INDIVIDUAL_SPENDING_REPORT,
-                        exportSettings.isShowGlobalSumsOnIndividualSpendingReport());
-        prefsEditor.putString(PREFS_VALUE_EXPORT_SETTINGS_OUTPUT_CHANNEL, exportSettings.getOutputChannel().toString());
+                        settings.isShowGlobalSumsOnIndividualSpendingReport());
+        prefsEditor.putString(PREFS_VALUE_EXPORT_SETTINGS_OUTPUT_CHANNEL, settings.getOutputChannel().toString());
         prefsEditor.commit();
     }
 
     public static ExportSettings loadExportSettings(SharedPreferences prefs) {
-        ExportSettings exportSettings = new ExportSettings();
-        exportSettings.setExportPayments(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS, Boolean.TRUE));
-        exportSettings.setExportTransfers(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_TRANSFERS, Boolean.TRUE));
-        exportSettings.setExportSpendings(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_SPENDINGS, Boolean.TRUE));
-        exportSettings.setExportDebts(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_DEBTS, Boolean.TRUE));
-        exportSettings.setFormatHtml(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_HTML, Boolean.TRUE));
-        exportSettings.setFormatCsv(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_CSV, Boolean.FALSE));
-        exportSettings.setFormatTxt(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_TXT, Boolean.FALSE));
-        exportSettings.setSeparateFilesForIndividuals(prefs.getBoolean(
+        ExportSettings settings = new ExportSettings();
+        settings.setExportPayments(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS, Boolean.TRUE));
+        settings.setExportTransfers(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_TRANSFERS, Boolean.TRUE));
+        settings.setExportSpendings(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_SPENDINGS, Boolean.TRUE));
+        settings.setExportDebts(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_DEBTS, Boolean.TRUE));
+        settings.setFormatHtml(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_HTML, Boolean.TRUE));
+        settings.setFormatCsv(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_CSV, Boolean.FALSE));
+        settings.setFormatTxt(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_TXT, Boolean.FALSE));
+        settings.setSeparateFilesForIndividuals(prefs.getBoolean(
                 PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_SEPARATE_FILES_FOR_INDIVIDUALS, Boolean.FALSE));
-        exportSettings.setShowGlobalSumsOnIndividualSpendingReport(prefs
+        settings.setShowGlobalSumsOnIndividualSpendingReport(prefs
                 .getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_SHOW_GLOBAL_SUMS_ON_INDIVIDUAL_SPENDING_REPORT,
                         Boolean.TRUE));
-        exportSettings.setOutputChannel(ExportOutputChannel.valueOf(prefs.getString(
+        settings.setOutputChannel(ExportOutputChannel.valueOf(prefs.getString(
                 PREFS_VALUE_EXPORT_SETTINGS_OUTPUT_CHANNEL, ExportOutputChannel.MAIL.toString())));
 
-        return exportSettings;
+        return settings;
     }
 
-    public static long getIdOfTripLastEdited(SharedPreferences prefs) {
+    public static void saveImportSettings(Editor prefsEditor, ImportSettings settings) {
+        prefsEditor.putBoolean(PREFS_VALUE_IMPORT_SETTINGS_REPLACE_EXISTING,
+                settings.isReplaceImportedRecordWhenAlreadyImported());
+        prefsEditor.commit();
+    }
+
+    public static ImportSettings loadImportSettings(SharedPreferences prefs) {
+        ImportSettings settings = new ImportSettings();
+        settings.setReplaceImportedRecordWhenAlreadyImported(prefs.getBoolean(
+                PREFS_VALUE_IMPORT_SETTINGS_REPLACE_EXISTING, Boolean.TRUE));
+        return settings;
+    }
+
+    public static long loadIdOfTripLastEdited(SharedPreferences prefs) {
         long result = prefs.getLong(PREFS_VALUE_ID_TRIP_LAST_EDITED_ID, 1);
         return result;
     }
 
     public static Currency loadDefaultCurrency(SharedPreferences prefs, Resources resources) {
-
         String currencyCodeFromPrefs = prefs.getString(Rc.PREFS_VALUE_ID_BASE_CURRENCY, NULL_VALUE_CURRENCY);
+        return currencyCode2Currency(resources, currencyCodeFromPrefs);
+    }
 
-        Currency result = (NULL_VALUE_CURRENCY.equals(currencyCodeFromPrefs))
-                ? Currency.getInstance(resources.getConfiguration().locale)
-                : Currency.getInstance(currencyCodeFromPrefs);
+    public static Currency loadSourceCurrencyUsedLast(SharedPreferences prefs, Resources resources) {
+        String currencyCodeFromPrefs = prefs.getString(PREFS_VALUE_CURRENCY_CALC_SOURCE_CURRENY_USED_LAST,
+                NULL_VALUE_CURRENCY);
+        return currencyCode2Currency(resources, currencyCodeFromPrefs);
+    }
+
+    private static Currency currencyCode2Currency(Resources resources, String currencyCodeFromPrefs) {
+        Currency result = Currency.getInstance("EUR");
+        try {
+            result = (NULL_VALUE_CURRENCY.equals(currencyCodeFromPrefs))
+                    ? Currency.getInstance(resources.getConfiguration().locale)
+                    : Currency.getInstance(currencyCodeFromPrefs);
+        }
+        catch (IllegalArgumentException e) {
+            // Intentionally caught.
+        }
 
         result = ensureCurrencyIsSupported(result, resources);
         return result;
     }
 
     private static Currency ensureCurrencyIsSupported(Currency currency, Resources resources) {
-        boolean isSupported = CurrencyUtil.getSuportedCurrencies(resources).contains(currency);
+        boolean isSupported = CurrencyUtil.getSupportedCurrencies(resources).contains(currency);
         return isSupported ? currency : Currency.getInstance("EUR");
     }
 
     public static void saveIdOfTripLastEdited(Editor prefsEditor, long id) {
         prefsEditor.putLong(PREFS_VALUE_ID_TRIP_LAST_EDITED_ID, id);
+        prefsEditor.commit();
+    }
+
+    public static void saveSourceCurrencyUsedLast(Editor prefsEditor, Currency currency) {
+        prefsEditor.putString(PREFS_VALUE_CURRENCY_CALC_SOURCE_CURRENY_USED_LAST, currency.getCurrencyCode());
         prefsEditor.commit();
     }
 

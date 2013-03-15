@@ -19,6 +19,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnShowListener;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
@@ -26,7 +27,6 @@ import android.text.TextWatcher;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +48,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.common.utils.ObjectUtils;
@@ -55,12 +56,14 @@ import de.koelle.christian.common.utils.StringUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorActivitySupport;
 import de.koelle.christian.trickytripper.activitysupport.DivisionResult;
 import de.koelle.christian.trickytripper.activitysupport.MathUtils;
 import de.koelle.christian.trickytripper.activitysupport.PaymentEditActivityState;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.constants.Rx;
 import de.koelle.christian.trickytripper.constants.ViewMode;
 import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
@@ -160,7 +163,7 @@ public class PaymentEditActivity extends Activity {
     }
 
     private void sortParticipants(List<Participant> allRelevantParticipants2) {
-        final Collator collator = getFktnController().getDefaultStringCollator();
+        final Collator collator = getApp().getDefaultStringCollator();
         Collections.sort(allRelevantParticipants2, new Comparator<Participant>() {
             public int compare(Participant object1, Participant object2) {
                 return collator.compare(object1.getName(), object2.getName());
@@ -190,16 +193,18 @@ public class PaymentEditActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.general_options, menu);
-        return true;
+        return getApp().getOptionSupport().populateOptionsMenu(
+                new OptionContraints().activity(this).menu(menu)
+                        .options(new int[] {
+                                R.id.option_help
+                        }));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.general_options_help:
-            showDialog(Rc.DIALOG_SHOW_HELP);
+        case R.id.option_help:
+            showDialog(Rd.DIALOG_HELP);
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -216,8 +221,8 @@ public class PaymentEditActivity extends Activity {
         case DIALOG_SELECT_DEBITORS:
             dialog = createDialogDebitorSelection();
             break;
-        case Rc.DIALOG_SHOW_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getFktnController(), Rc.DIALOG_SHOW_HELP);
+        case Rd.DIALOG_HELP:
+            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
             break;
         default:
             dialog = null;
@@ -235,13 +240,18 @@ public class PaymentEditActivity extends Activity {
         case DIALOG_SELECT_DEBITORS:
             updateParticipantSelectionDialog(dialog, args);
             break;
-        case Rc.DIALOG_SHOW_HELP:
+        case Rd.DIALOG_HELP:
             // intentionally blank
             break;
         default:
             dialog = null;
         }
         super.onPrepareDialog(id, dialog, args);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        CurrencyCalculatorActivitySupport.onActivityResult(requestCode, resultCode, data, this, getLocale());
     }
 
     private void updateParticipantSelectionDialog(Dialog dialog, Bundle args) {
@@ -302,7 +312,7 @@ public class PaymentEditActivity extends Activity {
 
         TableRow row;
         Participant p;
-        Amount a;
+        Amount amount;
 
         int dynViewId = (isPayment) ? Rx.DYN_ID_PAYMENT_EDIT_PAYER : Rx.DYN_ID_PAYMENT_EDIT_DEBITED_TO;
 
@@ -313,21 +323,22 @@ public class PaymentEditActivity extends Activity {
             }
 
             row = (TableRow) inflate(R.layout.payment_edit_payer_row_view);
-            a = amountMap.get(p);
+            amount = amountMap.get(p);
 
             EditText editText = (EditText) row.findViewById(R.id.payment_edit_payer_row_view_input_amount);
             editText.setId(dynViewId);
             TextView textView = (TextView) row.findViewById(R.id.payment_edit_payer_row_view_output_name);
 
             Button buttonCurrency = (Button) row.findViewById(R.id.payment_edit_payer_row_view_button_currency);
-            buttonCurrency.setText(getFktnController().getCurrencySymbolOfTripLoaded(false));
+            buttonCurrency.setText(getApp().getCurrencySymbolOfTripLoaded(false));
 
             UiUtils.makeProperNumberInput(editText, getDecimalNumberInputUtil().getInputPatternMatcher());
-            writeAmountToEditText(a, editText);
+            writeAmountToEditText(amount, editText);
 
             textView.setText(p.getName());
 
-            bindAmountInput(editText, a, isPayment);
+            bindAmountInput(editText, amount, isPayment);
+            bindCurrencyCalculatorAction(buttonCurrency, amount, editText.getId());
 
             widgetMap.put(p, editText);
             previousRows.add(row);
@@ -344,6 +355,16 @@ public class PaymentEditActivity extends Activity {
                 AmountViewUtils.getAmountString(getLocale(), amount, true, true, true, false, true)));
     }
 
+    private void bindCurrencyCalculatorAction(final Button buttonCurrency, final Amount sourceAndTargetAmountReference,
+            final int viewIdForResult) {
+        buttonCurrency.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getApp().getViewController().openMoneyCalculatorView(sourceAndTargetAmountReference, viewIdForResult,
+                        PaymentEditActivity.this);
+            }
+        });
+    }
+
     private void removePreviouslyCreatedRows(TableLayout tableLayout, List<View> payerRows2) {
         for (View v : payerRows2) {
             tableLayout.removeView(v);
@@ -358,6 +379,8 @@ public class PaymentEditActivity extends Activity {
 
     /**
      * View method.
+     * 
+     * TODO(ckoelle) Remove?
      * 
      * @param view
      *            Required parameter.
@@ -589,6 +612,8 @@ public class PaymentEditActivity extends Activity {
             int idParticipantSelectorMessage, final boolean isPayment) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+        // sss
+
         final ListView participantSelectionListView = new ListView(PaymentEditActivity.this);
         final LinearLayout layout = new LinearLayout(PaymentEditActivity.this);
         final CheckBox checkbox = new CheckBox(PaymentEditActivity.this);
@@ -765,7 +790,7 @@ public class PaymentEditActivity extends Activity {
 
             public void afterTextChanged(Editable s) {
                 String widgetInput = getDecimalNumberInputUtil().fixInputStringWidgetToParser(s.toString());
-                Double valueInput = NumberUtils.getStringToDouble(getLocale(), widgetInput);
+                Double valueInput = NumberUtils.getStringToDoubleRounded(getLocale(), widgetInput);
                 if (!isPayment) {
                     valueInput = NumberUtils.neg(valueInput);
                 }
@@ -862,7 +887,7 @@ public class PaymentEditActivity extends Activity {
     private void initAndBindSpinner(PaymentCategory paymentCategory) {
         final Spinner spinner = (Spinner) findViewById(R.id.paymentView_spinnerPaymentCategory);
         List<RowObject> spinnerObjects = SpinnerViewSupport.createSpinnerObjects(PaymentCategory.BEVERAGES, false,
-                Arrays.asList(new Object[] { PaymentCategory.MONEY_TRANSFER }), getResources(), getFktnController()
+                Arrays.asList(new Object[] { PaymentCategory.MONEY_TRANSFER }), getResources(), getApp()
                         .getDefaultStringCollator());
         ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this, android.R.layout.simple_spinner_item,
                 spinnerObjects);
@@ -900,7 +925,7 @@ public class PaymentEditActivity extends Activity {
     }
 
     private DecimalNumberInputUtil getDecimalNumberInputUtil() {
-        return getApp().getFktnController().getDecimalNumberInputUtil();
+        return getApp().getMiscController().getDecimalNumberInputUtil();
     }
 
     private AmountFactory getAmountFac() {

@@ -9,16 +9,17 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.TabDialogSupport;
-import de.koelle.christian.trickytripper.constants.TrickyTripperTabConstants;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.model.modelAdapter.PaymentRowListAdapter;
@@ -36,27 +37,31 @@ public class PaymentTabActivity extends ListActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.general_options_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
+        menu.findItem(R.id.option_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.payment_tab_options, menu);
-        return true;
+        return getApp().getOptionSupport().populateOptionsMenu(
+                new OptionContraints().activity(this).menu(menu)
+                        .options(new int[] {
+                                R.id.option_help,
+                                R.id.option_preferences,
+                                R.id.option_export
+                        }));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.general_options_help:
-            getParent().showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
+        case R.id.option_help:
+            getParent().showDialog(Rd.DIALOG_HELP);
             return true;
-        case R.id.general_options_export:
+        case R.id.option_export:
             getApp().getViewController().openExport();
             return true;
-        case R.id.general_options_preferences:
+        case R.id.option_preferences:
             getApp().getViewController().openSettings();
             return true;
         default:
@@ -67,15 +72,18 @@ public class PaymentTabActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.list_view);
         adapter = new PaymentRowListAdapter(this, R.layout.payment_tab_row_view, paymentRows, getApp()
-                .getAmountFactory(), getApp().getFktnController().getDefaultStringCollator());
+                .getAmountFactory(), getApp().getMiscController().getDefaultStringCollator());
 
         setListAdapter(adapter);
 
         ListView lv = getListView();
         registerForContextMenu(lv);
         sortAndUpdateView();
+
+        TextView textView = (TextView) findViewById(android.R.id.empty);
+        textView.setText(getResources().getString(R.string.payment_view_blank_list_notification));
 
     }
 
@@ -128,7 +136,7 @@ public class PaymentTabActivity extends ListActivity {
             return true;
         }
         case R.string.fktn_payment_list_delete_payment: {
-            getParent().showDialog(TrickyTripperTabConstants.DIALOG_DELETE_PAYMENT,
+            getParent().showDialog(Rd.DIALOG_DELETE_PAYMENT,
                     TabDialogSupport.createBundleWithPaymentSelected(row));
             return true;
         }
@@ -137,7 +145,7 @@ public class PaymentTabActivity extends ListActivity {
             return true;
         }
         case R.string.fktn_payment_list_delete_transfer: {
-            getParent().showDialog(TrickyTripperTabConstants.DIALOG_DELETE_TRANSFER,
+            getParent().showDialog(Rd.DIALOG_DELETE_TRANSFER,
                     TabDialogSupport.createBundleWithPaymentSelected(row));
             return true;
         }

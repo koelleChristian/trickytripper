@@ -11,6 +11,8 @@ import de.koelle.christian.trickytripper.activitysupport.DivisionResult;
 
 public class NumberUtils {
 
+    private static final int DEFAULT_SCALE = 2;
+
     public static Double neg(Double value) {
         if (value == null) {
             return null;
@@ -18,7 +20,17 @@ public class NumberUtils {
         return Double.valueOf(value * -1);
     }
 
-    public static Double getStringToDouble(Locale locale, String stringToBeParsed) {
+    public static Double getStringToDoubleUnrounded(Locale locale, String stringToBeParsed) {
+        boolean doRound = false;
+        return getStringToDouble(locale, stringToBeParsed, doRound);
+    }
+
+    public static Double getStringToDoubleRounded(Locale locale, String stringToBeParsed) {
+        boolean doRound = true;
+        return getStringToDouble(locale, stringToBeParsed, doRound);
+    }
+
+    private static Double getStringToDouble(Locale locale, String stringToBeParsed, boolean doRound) {
         if (stringToBeParsed == null || stringToBeParsed.length() < 1) {
             return Double.valueOf(0);
         }
@@ -36,8 +48,7 @@ public class NumberUtils {
             throw new RuntimeException(e);
         }
         double unrounded = number.doubleValue();
-        return Double.valueOf(round(unrounded));
-
+        return Double.valueOf((doRound) ? round(unrounded) : unrounded);
     }
 
     public static Double divide(Double divident, Integer divisor) {
@@ -75,6 +86,20 @@ public class NumberUtils {
     }
 
     public static Double divide(Double divident, Double divisor) {
+        return divide(divident, divisor, DEFAULT_SCALE);
+    }
+
+    public static Double divideForExchangeRates(Double divident, Double divisor) {
+        return (Double.valueOf(0d).equals(divisor)) ?
+                Double.valueOf(0d) :
+                divide(divident, divisor, divisor.toString().length() - 2);
+    }
+
+    public static Double invertExchangeRateDouble(Double exchangeRate) {
+        return (exchangeRate == null) ? null : divideForExchangeRates(Double.valueOf(1.0), exchangeRate);
+    }
+
+    public static Double divide(Double divident, Double divisor, int scale) {
         if (divident == null) {
             return null;
         }
@@ -83,10 +108,10 @@ public class NumberUtils {
         }
         BigDecimal result = null;
         BigDecimal dividentBd = new BigDecimal(divident, MathContext.DECIMAL128);
-        dividentBd.setScale(2, RoundingMode.HALF_EVEN);
+        dividentBd.setScale(scale, RoundingMode.HALF_EVEN);
         BigDecimal divisorBd = new BigDecimal(divisor, MathContext.DECIMAL128);
-        divisorBd.setScale(2, RoundingMode.HALF_EVEN);
-        result = dividentBd.divide(divisorBd, 2, RoundingMode.HALF_EVEN);
+        divisorBd.setScale(scale, RoundingMode.HALF_EVEN);
+        result = dividentBd.divide(divisorBd, scale, RoundingMode.HALF_EVEN);
         return Double.valueOf(result.toString());
     }
 

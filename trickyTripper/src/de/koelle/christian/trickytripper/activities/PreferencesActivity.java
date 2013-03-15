@@ -2,10 +2,10 @@ package de.koelle.christian.trickytripper.activities;
 
 import java.util.Currency;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -59,7 +59,18 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 
         PreferenceScreen root = getPreferenceManager().createPreferenceScreen(this);
 
-        Currency defaultBaseCurrency = ((TrickyTripperApp) getApplication()).getFktnController()
+        /*
+         * =========== Launcher for the exchange rate management =============
+         */
+        PreferenceScreen intentPref = getPreferenceManager().createPreferenceScreen(this);
+        intentPref.setIntent(new Intent().setClass(this, ManageExchangeRatesActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        intentPref.setTitle(R.string.prefs_view_title_exchange_rate_management);
+
+        root.addPreference(intentPref);
+
+        /* =============== Default currency picker ================= */
+        Currency defaultBaseCurrency = ((TrickyTripperApp) getApplication()).getMiscController()
                 .getDefaultBaseCurrency();
 
         ListPreference listPref = new ListPreference(this);
@@ -72,13 +83,6 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
         listPref.setSummary(getDisplayStringForCurrency(defaultBaseCurrency));
 
         root.addPreference(listPref);
-
-        CheckBoxPreference smartHelpPrefs = new CheckBoxPreference(this);
-        smartHelpPrefs.setKey(Rc.PREFS_VALUE_ID_ENABLE_SMART_HELP);
-        smartHelpPrefs.setTitle(R.string.prefs_view_title_enable_smart_help);
-        smartHelpPrefs.setDefaultValue(Boolean.TRUE);
-
-        root.addPreference(smartHelpPrefs);
 
         return root;
     }

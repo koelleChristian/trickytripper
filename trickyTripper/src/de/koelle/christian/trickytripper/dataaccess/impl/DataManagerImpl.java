@@ -1,10 +1,13 @@
 package de.koelle.christian.trickytripper.dataaccess.impl;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import android.content.Context;
 import android.database.SQLException;
@@ -14,6 +17,9 @@ import android.util.Log;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.dataaccess.DataManager;
+import de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRateDao;
+import de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRatePrefTable;
+import de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRateTable;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.ParticipantDao;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.ParticipantTable;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.PaymentDao;
@@ -25,6 +31,8 @@ import de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.ParticipantRef
 import de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.PaymentParticipantRelationKey;
 import de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.PaymentReference;
 import de.koelle.christian.trickytripper.factories.ModelFactory;
+import de.koelle.christian.trickytripper.model.CurrenciesUsed;
+import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.Trip;
@@ -38,6 +46,7 @@ public class DataManagerImpl implements DataManager {
     private final TripDao tripDao;
     private final ParticipantDao participantDao;
     private final PaymentDao paymentDao;
+    private final ExchangeRateDao exchangeRateDao;
 
     public DataManagerImpl(Context context) {
 
@@ -52,9 +61,18 @@ public class DataManagerImpl implements DataManager {
         tripDao = new TripDao(db);
         participantDao = new ParticipantDao(db);
         paymentDao = new PaymentDao(db);
+        exchangeRateDao = new ExchangeRateDao(db);
+    }
+
+    public void close() {
+        if (db != null) {
+            db.close();
+        }
     }
 
     public void removeAll() {
+        db.delete(ExchangeRatePrefTable.TABLE_NAME, null, null);
+        db.delete(ExchangeRateTable.TABLE_NAME, null, null);
         db.delete(RelPaymentParticipantTable.TABLE_NAME, null, null);
         db.delete(PaymentTable.TABLE_NAME, null, null);
         db.delete(ParticipantTable.TABLE_NAME, null, null);
@@ -304,4 +322,175 @@ public class DataManagerImpl implements DataManager {
     public boolean doesParticipantAlreadyExist(String nameToCheck, long tripId, long participantId) {
         return participantDao.doesParticipantAlreadyExist(nameToCheck, tripId, participantId);
     }
+
+    public List<ExchangeRate> findSuitableRates(Currency currencyFrom, Currency currencyTo) {
+        return exchangeRateDao.findSuitableRates(currencyFrom, currencyTo);
+    }
+
+    public List<ExchangeRate> getAllExchangeRatesWithoutInversion() {
+        return exchangeRateDao.getAllExchangeRatesWithoutInversion();
+    }
+
+    public ExchangeRate getExchangeRateById(Long technicalId) {
+        return exchangeRateDao.getExchangeRateById(technicalId);
+    }
+
+    public boolean doesExchangeRateAlreadyExist(ExchangeRate exchangeRate) {
+        return exchangeRateDao.doesExchangeRateAlreadyExist(exchangeRate);
+    }
+
+    public void persistExchangeRateUsedLast(ExchangeRate exchangeRateUsedLast) {
+        try {
+            db.beginTransaction();
+            exchangeRateDao.persistExchangeRateUsedLast(exchangeRateUsedLast);
+            db.setTransactionSuccessful();
+        }
+        catch (SQLException e) {
+            Log.e(Rc.LT, "Error saving exchange rate preferences (transaction rolled back)", e);
+        }
+        finally {
+            db.endTransaction();
+        }
+    }
+
+    public boolean deleteExchangeRates(List<ExchangeRate> rows) {
+        List<Long> idsToBeDeleted = new ArrayList<Long>();
+        for (ExchangeRate rate : rows) {
+            idsToBeDeleted.add(rate.getId());
+        }
+        return deleteExchangeRatesById(idsToBeDeleted);
+    }
+
+    public boolean deleteExchangeRatesById(List<Long> idsToBeDeleted) {
+        boolean result = true;
+        try {
+            db.beginTransaction();
+            exchangeRateDao.delete(idsToBeDeleted);
+            db.setTransactionSuccessful();
+        }
+        catch (SQLException e) {
+            Log.e(Rc.LT, "Error deleting exchange rates (transaction rolled back)", e);
+            result = false;
+        }
+        finally {
+            db.endTransaction();
+        }
+        return result;
+    }
+
+    public ExchangeRate persistExchangeRate(ExchangeRate rate) {
+        ExchangeRate result = rate.clone();
+        boolean isNew = result.isNew();
+        long rateId = 0L;
+        /* TODO(ckoelle) Check for consistency how creating date is inserted. */
+        Date currentDateTime = new Date();
+        result.setUpdateDate(currentDateTime);
+        try {
+            db.beginTransaction();
+            if (isNew) {
+                result.setCreationDate(currentDateTime);
+                rateId = exchangeRateDao.create(result);
+            }
+            else {
+                exchangeRateDao.update(result);
+            }
+            db.setTransactionSuccessful();
+        }
+        catch (SQLException e) {
+            rateId = 0L;
+        }
+        finally {
+            db.endTransaction();
+        }
+        if (isNew) {
+            result.setId(rateId);
+        }
+        return result;
+    }
+
+    public void persistImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported) {
+        if (rate == null) {
+            if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+                Log.d(Rc.LT_IO, "persistImportedExchangeRate(): incoming value is null");
+            }
+            return;
+        }
+        ExchangeRate thinggyToBePersisted = null;
+
+        List<ExchangeRate> existingRecords = exchangeRateDao.findExistingImportedRecords(rate);
+        if (existingRecords.size() == 0) {
+            rate.setId(0);
+            thinggyToBePersisted = rate;
+        }
+        else {
+            if (replaceWhenAlreadyImported) {
+                List<Long> recordsToBeDeleted = new ArrayList<Long>();
+                for (int i = 0; i < existingRecords.size(); i++) {
+                    long idOfExistingRecord = existingRecords.get(i).getId();
+                    if (thinggyToBePersisted == null) {
+                        rate.setId(idOfExistingRecord);
+                        thinggyToBePersisted = rate;
+                    }
+                    else {
+                        recordsToBeDeleted.add(idOfExistingRecord);
+                    }
+
+                }
+                if (recordsToBeDeleted.size() > 0) {
+                    deleteExchangeRatesById(recordsToBeDeleted);
+                }
+            }
+            // No replacing
+            else {
+                for (int i = 0; i < existingRecords.size(); i++) {
+                    ExchangeRate existingRate = existingRecords.get(i);
+                    if (existingRate.equalsFromImportPointOfView(rate)) {
+                        rate.setId(existingRate.getId());
+                        thinggyToBePersisted = rate;
+                    }
+                    if (thinggyToBePersisted != null) {
+                        break;
+                    }
+                }
+                if (thinggyToBePersisted == null) {
+                    rate.setId(0);
+                    thinggyToBePersisted = rate;
+                }
+            }
+        }
+        persistExchangeRate(thinggyToBePersisted);
+    }
+
+    /**
+     * @param currency
+     *            Can be null, if there is no target currency.
+     */
+    public CurrenciesUsed findUsedCurrenciesForTarget(Currency currency) {
+        CurrenciesUsed result = new CurrenciesUsed();
+
+        Entry<List<Currency>, List<Currency>> usedForExchangeRateCalculation = exchangeRateDao
+                .findUsedCurrencies(currency).entrySet().iterator().next();
+        result.setCurrenciesMatchingInOrderOfUsage(usedForExchangeRateCalculation.getKey());
+        result.setCurrenciesUsedByDate(usedForExchangeRateCalculation.getValue());
+
+        Set<Currency> allFetchedYet = result.getCurrenciesAlreadyFilled();
+
+        if (Log.isLoggable(Rc.LT_DB, Log.DEBUG)) {
+            Log.d(Rc.LT_DB, "Currencies fetched from ExchangeRateDao: " + result);
+        }
+
+        List<Currency> currenciesInTrips = tripDao.findAllCurrenciesUsedInTrips();
+        for (int i = currenciesInTrips.size() - 1; i >= 0; i--) {
+            Currency inTrip = currenciesInTrips.get(i);
+            if (allFetchedYet.contains(inTrip) || inTrip.equals(currency)) {
+                currenciesInTrips.remove(i);
+            }
+        }
+        result.setCurrenciesInProject(currenciesInTrips);
+        if (Log.isLoggable(Rc.LT_DB, Log.DEBUG)) {
+            Log.d(Rc.LT_DB, "Currencies fetched from ExchangeRateDao and TripDao: " + result);
+        }
+        return result;
+    }
+
 }

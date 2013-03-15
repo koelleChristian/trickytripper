@@ -12,6 +12,8 @@ import android.util.Log;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
+import de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRatePrefTable;
+import de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRateTable;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.ParticipantTable;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.PaymentTable;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.RelPaymentParticipantTable;
@@ -22,7 +24,7 @@ import de.koelle.christian.trickytripper.model.Trip;
 
 public class OpenHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     private final Context context;
 
@@ -76,6 +78,8 @@ public class OpenHelper extends SQLiteOpenHelper {
         ParticipantTable.onCreate(db);
         PaymentTable.onCreate(db);
         RelPaymentParticipantTable.onCreate(db);
+        ExchangeRateTable.onCreate(db);
+        ExchangeRatePrefTable.onCreate(db);
 
         /* ====== Initial records ====== */
         TripDao tripDao = new TripDao(db);
@@ -94,6 +98,9 @@ public class OpenHelper extends SQLiteOpenHelper {
         Log
                 .i(Rc.LT, "SQLiteOpenHelper onUpgrade - oldVersion:" + oldVersion + " newVersion:"
                         + newVersion);
+
+        ExchangeRatePrefTable.onUpgrade(db, oldVersion, newVersion);
+        ExchangeRateTable.onUpgrade(db, oldVersion, newVersion);
 
         RelPaymentParticipantTable.onUpgrade(db, oldVersion, newVersion);
         PaymentTable.onUpgrade(db, oldVersion, newVersion);

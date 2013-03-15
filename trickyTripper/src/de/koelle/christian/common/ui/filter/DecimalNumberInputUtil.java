@@ -10,11 +10,13 @@ public class DecimalNumberInputUtil {
     private final char localizedDelimiter;
     private final char unintendedDelimiter;
     private final DecimalNumberInputPatternMatcher amountInputPatternMatcher;
+    private final DecimalNumberInputPatternMatcher exchangeRateInputPatternMatcher;
 
     public DecimalNumberInputUtil(Locale locale) {
         this.localizedDelimiter = determineDecimalSeparator(locale);
         this.unintendedDelimiter = getDelimiterInversion(localizedDelimiter);
         this.amountInputPatternMatcher = new DecimalNumberInputPatternMatcher();
+        this.exchangeRateInputPatternMatcher = new DecimalNumberInputPatternMatcher(10, 10, 14);
     }
 
     private char determineDecimalSeparator(final Locale locale) {
@@ -44,6 +46,10 @@ public class DecimalNumberInputUtil {
 
     public DecimalNumberInputPatternMatcher getInputPatternMatcher() {
         return amountInputPatternMatcher;
+    }
+
+    public DecimalNumberInputPatternMatcher getExchangeRateInputPatternMatcher() {
+        return exchangeRateInputPatternMatcher;
     }
 
 }

@@ -9,9 +9,6 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.AutoCompleteTextView;
@@ -30,7 +27,7 @@ import de.koelle.christian.trickytripper.activitysupport.PopupCallback;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.TabDialogSupport;
 import de.koelle.christian.trickytripper.constants.Rt;
-import de.koelle.christian.trickytripper.constants.TrickyTripperTabConstants;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
@@ -69,41 +66,23 @@ public class TrickyTripperActivity extends TabActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.general_options, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.general_options_help:
-            showDialog(TrickyTripperTabConstants.DIALOG_SHOW_HELP);
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
     protected Dialog onCreateDialog(int id, Bundle args) {
         Dialog dialog;
         switch (id) {
-        case TrickyTripperTabConstants.DIALOG_CREATE_PARTICIPANT:
+        case Rd.DIALOG_CREATE_PARTICIPANT:
             dialog = PopupFactory.createAndShowEditParticipantPopupCreateMode(this);
             break;
-        case TrickyTripperTabConstants.DIALOG_EDIT_PARTICIPANT:
+        case Rd.DIALOG_EDIT_PARTICIPANT:
             dialog = PopupFactory.createAndShowEditParticipantPopupEditMode(this);
             break;
-        case TrickyTripperTabConstants.DIALOG_SHOW_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getFktnController(),
-                    TrickyTripperTabConstants.DIALOG_SHOW_HELP);
+        case Rd.DIALOG_HELP:
+            dialog = PopupFactory.createHelpDialog(this, getApp(),
+                    Rd.DIALOG_HELP);
             break;
-        case TrickyTripperTabConstants.DIALOG_DELETE_PAYMENT:
+        case Rd.DIALOG_DELETE_PAYMENT:
             dialog = PopupFactory.showDeleteConfirmationDialog(this);
             break;
-        case TrickyTripperTabConstants.DIALOG_DELETE_TRANSFER:
+        case Rd.DIALOG_DELETE_TRANSFER:
             dialog = PopupFactory.showDeleteConfirmationDialog(this);
             break;
         default:
@@ -115,27 +94,27 @@ public class TrickyTripperActivity extends TabActivity {
     @Override
     protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
         switch (id) {
-        case TrickyTripperTabConstants.DIALOG_CREATE_PARTICIPANT:
+        case Rd.DIALOG_CREATE_PARTICIPANT:
             PopupCallback callBack1 = createPopupCallBackParticipantUpdate();
             updateCreateOrEditParticipantDialog(dialog, args, callBack1);
             break;
 
-        case TrickyTripperTabConstants.DIALOG_EDIT_PARTICIPANT:
+        case Rd.DIALOG_EDIT_PARTICIPANT:
             PopupCallback callBack2 = createPopupCallBackParticipantUpdate();
             updateCreateOrEditParticipantDialog(dialog, args, callBack2);
             break;
 
-        case TrickyTripperTabConstants.DIALOG_SHOW_HELP:
+        case Rd.DIALOG_HELP:
             // intentionally do nothing
             break;
 
-        case TrickyTripperTabConstants.DIALOG_DELETE_PAYMENT:
+        case Rd.DIALOG_DELETE_PAYMENT:
             PopupCallback callbackDeletePayment = createPopupCallPaymentDelete(TabDialogSupport
                     .getPaymentFromBundle(args));
             updateCreateOrEditPaymentDeleteDialog(dialog, args, false, callbackDeletePayment);
             break;
 
-        case TrickyTripperTabConstants.DIALOG_DELETE_TRANSFER:
+        case Rd.DIALOG_DELETE_TRANSFER:
             PopupCallback callbackDeleteTransfer = createPopupCallPaymentDelete(TabDialogSupport
                     .getPaymentFromBundle(args));
             updateCreateOrEditPaymentDeleteDialog(dialog, args, true, callbackDeleteTransfer);
@@ -334,7 +313,7 @@ public class TrickyTripperActivity extends TabActivity {
         tabWidget.getChildAt(0).setOnLongClickListener(new OnLongClickListener() {
 
             public boolean onLongClick(View v) {
-                showDialog(TrickyTripperTabConstants.DIALOG_CREATE_PARTICIPANT,
+                showDialog(Rd.DIALOG_CREATE_PARTICIPANT,
                         TabDialogSupport.createBundleWithParticipantSelected(new Participant()));
                 return true;
             }

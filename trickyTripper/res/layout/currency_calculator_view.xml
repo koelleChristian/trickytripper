@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/currencyCalculatorView_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/currencyCalculatorViewTextViewHeading"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="15dp" />
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:weightSum="1.0" >
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <!-- ============  Column 01 40% ============ -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".40"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/currencyCalculatorView_headingSource"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/currencyCalculatorViewTextViewLabelSource" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dip"
+                    android:background="@android:color/darker_gray"
+                    android:layout_marginBottom="5dip"/>
+
+                <Spinner
+                    android:id="@+id/currencyCalculatorView_spinner_inputCurrencySelection"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:height="50dip" />
+
+                <EditText
+                    android:id="@+id/currencyCalculatorView_editText_inputValue"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:height="50dip"
+                    android:inputType="numberDecimal" >
+
+                    <requestFocus />
+                </EditText>
+            </LinearLayout>
+            <!-- ============  Column 02 20% ============ -->
+
+            <ImageView
+                android:id="@+id/currencyCalculatorView_imageView_arrow"
+                android:contentDescription="@string/currencyCalculatorViewImageViewDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight=".20"
+                android:src="@android:drawable/ic_media_ff" />
+
+            <!-- ============  Column 03 40% ============ -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".40"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/currencyCalculatorView_headingTarget"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/currencyCalculatorViewTextViewLabelTarget" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dip"
+                    android:background="@android:color/darker_gray"
+                    android:layout_marginBottom="5dip" />
+
+                <TextView
+                    android:id="@+id/currencyCalculatorView_txt_outputCurrency"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:height="50dip"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/currencyCalculatorView_txt_resultValue"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:height="50dip"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/currencyCalculatorViewTextViewHeadLabelRate" />
+
+    <EditText
+        android:id="@+id/currencyCalculatorView_editText_inputExchangeRate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/currencyCalculatorViewTextViewHeadLabelRateSetting" />
+
+    <Spinner
+        android:id="@+id/currencyCalculatorView_spinner_exchangeRateSelection"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/currencyCalculatorViewTextViewHeadLabelOptions" />
+
+    <CheckBox
+        android:id="@+id/currencyCalculatorView_checkbox_saveNewValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/currencyCalculatorViewCheckboxSaveNewRate" >
+    </CheckBox>
+
+    <!-- ============= Buttons ============= -->
+
+    <LinearLayout
+        android:id="@+id/footer"
+        style="@android:style/ButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/currencyCalculatorView_btn_useExchangedValue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="done"
+            android:text="@string/currencyCalculatorViewButtonUseResult" />
+
+        <Button
+            android:id="@+id/currencyCalculatorView_btn_cancel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="cancel"
+            android:text="@string/common_button_cancel" />
+    </LinearLayout>
+
+</LinearLayout>

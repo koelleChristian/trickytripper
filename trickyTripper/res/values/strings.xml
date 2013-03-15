@@ -4,6 +4,8 @@
     <string name="app_name">Tricky Tripper</string>
     <string name="spinner_null_value_default"></string>
     <string name="symbol_arrow_down">∨</string>
+    <string name="defaultX">XX</string>
+    <string name="default_blank"></string>
     <!-- To be translated ff -->
     <string name="common_button_cancel">Cancel</string>
     <string name="common_button_yes">Yes</string>
@@ -11,6 +13,8 @@
     <string name="common_button_ok">OK</string>
     <string name="common_button_create">Create</string>
     <string name="common_button_save">Save</string>
+    <string name="common_button_delete">Delete</string>
+    <string name="common_button_edit">Edit</string>
     <string name="common_label_total_amount">Total:</string>
     <string name="common_label_inactive_addon">[Inactive]</string>
     <string name="common_toast_currency_not_part_of_this_release">The currency selection is not part of this release.</string>
@@ -30,14 +34,58 @@
     <string name="label_enum_payment_category_culture">Culture</string>
     <string name="label_enum_payment_category_entrance_fee">Entrance Fee</string>
     <string name="label_enum_payment_category_money_transfer">Money transfer</string>
-    <string name="participant_options_view_fktn_create_traveller">Create</string>
-    <string name="fktn_glob_help_info">Help &amp; Info</string>
-    <string name="fktn_glob_export">Export</string>
-    <string name="fktn_glob_settings">Settings</string>
+    <string name="label_enum_select_rates_all">&#8230; all</string>
+    <string name="label_enum_select_rates_none">&#8230; none</string>
+    <string name="label_enum_select_rates_all_imported">&#8230; all imported</string>
+    <string name="label_enum_select_rates_all_custom">&#8230; all custom</string>
+    <string name="option_help">Help &amp; Info</string>
+    <string name="option_settings">Settings</string>
+    <string name="option_export">Export</string>
+    <string name="option_delete">Delete</string>
+    <string name="option_create">Create</string>
+    <string name="option_import">Import</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Spent:</string>
     <string name="participant_tab_row_view_label_paid">Paid:</string>
-    <string name="participant_tab_msg_no_participants_in_trip">Long-tap on the traveler tab to create new travelers. Afterwards you can long-tap on the created traveler to create a payment.</string>
+    <string name="participant_tab_blank_list_notification">No travelers yet. \n\n\n\nCreate new travelers by long-tapping on the traveler tab header or choose \'Create\' from the menu.</string>
+    <!-- ===============================  Currency calculator view =============================== -->
+    <string name="currencyCalculatorViewTextViewHeading">Money Exchange Calculation</string>
+    <string name="currencyCalculatorViewTextViewLabelSource">Source</string>
+    <string name="currencyCalculatorViewTextViewLabelTarget">Result</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRate">Exchange rate</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Exchange rate setting</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelOptions">Options</string>
+    <string name="currencyCalculatorViewCheckboxSaveNewRate">Save newly entered exchange rate</string>
+    <string name="currencyCalculatorViewImageViewDescription">Indicates the exchange calculation direction</string>
+    <string name="currencyCalculatorViewButtonUseResult">Use result</string>
+    <!-- ===============================  Exchange rates common =============================== -->
+    <string name="exchangeRate_common_import_description_prefix">Imported</string>
+    
+    
+    <!-- ===============================  Manage exchange rates view =============================== -->
+    <string name="manageExchangeRatesViewTextViewHeading">Exchange Rates</string>
+    <string name="manageExchangeRatesViewDeleteConfirmation">Are you sure you want to delete the selected exchange rate?</string>
+    <string name="manageExchangeRatesViewBlankListNotification">No exchange rates yet. \n\n\n\nImport or create exchange rates with the equivalent functions from the menu.</string>
+    <!-- ===============================  Import exchange rates view =============================== -->
+    <string name="importExchangeRatesViewTextViewHeading">Import Exchange Rates</string>
+    <string name="importExchangeRatesViewOptions">Options</string>
+    <string name="importExchangeRatesViewCheckboxLabelReplaceExisting">Replace rates already imported</string>
+    <string name="importExchangeRatesViewListViewLabel">Select all exchange relevant currencies</string>
+    <string name="importExchangeRatesViewButtonExecute">Do import</string>
+    <!-- ===============================  Delete exchange rates view =============================== -->
+    <string name="deleteExchangeRatesViewTextViewHeading">Delete Exchange Rates</string>
+    <string name="deleteExchangeRatesViewButtonLabelPositive">Delete selection</string>
+    <string name="deleteExchangeRatesViewSpinnerPrompt">Select &#8230;</string>
+    <string name="deleteExchangeRatesViewLabelSelectionOptions">Change selection &#8230;</string>
+    <string name="deleteExchangeRatesViewLabelSelectionOptionsDesc">Opens selection options</string>
+    <string name="deleteExchangeRatesViewListViewLabel">Select all rates to be deleted</string>
+    <string name="deleteExchangeRatesViewDeleteConfirmation">Are you sure you want to delete the @@1@@ selected exchange rate(s)?</string>    
+    <!-- ===============================  Edit Exchange Rate =============================== -->
+    <string name="editExchangeRateViewHeadingEdit">Edit Exchange Rate</string>
+    <string name="editExchangeRateViewHeadingCreate">Create Exchange Rate</string>
+    <string name="editExchangeRateViewLabelRate">Rate</string>
+    <string name="editExchangeRateViewLabelInputDescription">Description</string>
+    <string name="editExchangeRateViewMsgSaveDenialDuplicate">An exchange rate with the description entered already exists. Please modify your input.</string>
     <!-- ===============================  export view =============================== -->
     <string name="exportViewTextViewHeading">Export</string>
     <string name="exportViewTextViewSubHeadingContent">What?</string>
@@ -57,21 +105,21 @@
     <string name="exportViewIntentChooserHeader">Choose service to export to</string>
     <string name="exportViewTextViewSubHeadingChannel">Output trail?</string>
     <string name="exportViewSpinnerPromptChannel">Choose your output trail</string>
-    <string name="exportViewSpinnerNotAvailable">not available</string> 
+    <string name="exportViewSpinnerNotAvailable">not available</string>
     <string name="exportOutputChannelEnumSave2Sd">Save to SD card</string>
     <string name="exportOutputChannelMail">Mail</string>
     <string name="exportOutputChannelDropbox">Dropbox</string>
-    <string name="exportOutputChannelEvernote">Evernote</string>    
+    <string name="exportOutputChannelEvernote">Evernote</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Save to storage</string>
     <string name="save2SdReceiverHeading">Export: Choose directory</string>
     <string name="save2SdReceiverSelect">Choose</string>
-    <string name="save2SdReceiverProgressHeading">Saving export to storage:</string>    
-    <string name="save2SdReceiverResultNothingSaved">Nothing exported to telephone</string>     
+    <string name="save2SdReceiverProgressHeading">Saving export to storage:</string>
+    <string name="save2SdReceiverResultNothingSaved">Nothing exported to telephone</string>
     <string name="save2SdReceiverResultSavedPrefix">Successfully exported</string>
-    <string name="save2SdReceiverResultSavedPostfix">to storage</string>     
-    <string name="save2SdReceiverResultSavedFiles">files</string>     
-    <string name="save2SdReceiverResultSavedFile">file</string>        
+    <string name="save2SdReceiverResultSavedPostfix">to storage</string>
+    <string name="save2SdReceiverResultSavedFiles">files</string>
+    <string name="save2SdReceiverResultSavedFile">file</string>
     <!-- ===============================  file export =============================== -->
     <string name="fileExportPrefix">TTE</string>
     <string name="fileExportFileHeading">Tricky Tripper Report</string>
@@ -103,8 +151,8 @@
     <string name="fileExportOwingDebtsHeadingCreditor">owes</string>
     <string name="fileExportOwingDebtsHeadingAmount">the amount</string>
     <string name="fileExportTransferHeadingPayer">Traveler</string>
-    <string name="fileExportTransferHeadingReceiver">transfered to</string>
-    <string name="fileExportTransferHeadingAmount">the amount of</string>        
+    <string name="fileExportTransferHeadingReceiver">transferred to</string>
+    <string name="fileExportTransferHeadingAmount">the amount of</string>
     <!-- ===============================  Report view =============================== -->
     <string name="report_view_subheading_spendings_by_category">Spending by category</string>
     <string name="report_view_subheading_spendings">Expenditure</string>
@@ -138,6 +186,7 @@
     <string name="payment_view_label_transfer_to">To:</string>
     <string name="payment_view_delete_confirmation_payment">Are you sure you want to delete the selected payment?</string>
     <string name="payment_view_delete_confirmation_transfer">Are you sure you want to delete the selected money transfer?</string>
+    <string name="payment_view_blank_list_notification">No payments yet. \n\n\n\nCreate a new payment by long-tapping on a traveler who pays the money and select \'Create payment\'.</string>
     <!-- ===============================  Payment edit =============================== -->
     <string name="payment_edit_view_label_category_desciption">Category/Description</string>
     <string name="payment_edit_view_label_travellers_charged">Travelers charged:</string>
@@ -145,23 +194,19 @@
     <string name="payment_edit_view_label_radio_custom_split">Custom split</string>
     <string name="payment_edit_view_textView_payee_label_amount">Amount</string>
     <string name="payment_edit_view_textView_payee_label_spent_by">Debited to:</string>
-    <string name="payment_edit_view_label_payed_by">Payed by</string>
+    <string name="payment_edit_view_label_payed_by">Paid by</string>
     <string name="payment_edit_view_textView_label_amount">Amount</string>
     <string name="payment_edit_view_button_divide_rest">Divide rest among blanks</string>
     <!-- ==================== Context menu participants ====================== -->
     <string name="fktn_participant_create_payment">Create payment</string>
     <string name="fktn_participant_transfer_money">Transfer money</string>
     <string name="fktn_participant_show_report">Show report</string>
-    <string name="fktn_participant_delete">Delete</string>
     <string name="fktn_participant_deactivate">Deactivate (for costs)</string>
     <string name="fktn_participant_activate">Activate (for costs)</string>
-    <string name="fktn_participant_edit">Edit</string>
     <!-- ==================== Context menu Payment List ====================== -->
     <string name="manageTripsView__heading">Manage trips</string>
     <string name="manage_trips_view_label_long_click_to_edit">Tap to load, long-tap to edit</string>
     <string name="manage_trips_view_button_create_new_trip">Create new trip</string>
-    <string name="manage_trips_view_fktn_edit">Edit</string>
-    <string name="manage_trips_view_fktn_delete">Delete</string>
     <string name="manage_trips_view_delete_confirmation">Are  you sure you want to delete the selected trip including all its travelers and statistics?</string>
     <!-- ==================== Context menu participant edit====================== -->
     <string name="edit_participant_view_label_name">Name:</string>
@@ -189,9 +234,10 @@
     <!-- ==================== Messages ====================== -->
     <string name="msg_delete_not_possible_inbalance">The user cannot be deleted as his/her account is not balanced.</string>
     <!-- ==================== Preferences ====================== -->
+    <string name="prefs_view_heading">Settings</string>
+    <string name="prefs_view_title_exchange_rate_management">Exchange Rates</string>
+    <string name="prefs_view_title_currency">Default Currency</string>
     <string name="prefs_view_heading_chooser_currency">Choose your default currency</string>
-    <string name="prefs_view_title_currency">Default currency</string>
-    <string name="prefs_view_title_enable_smart_help">Enable smart help</string>    
     <!-- ==================== Context menu participant selection ====================== -->
     <string name="participant_selection_popup_traveler_selection_title">Select travelers</string>
     <string name="participant_selection_popup_payer_selection_msg">Select all travelers who spend/spent the money and vice versa</string>

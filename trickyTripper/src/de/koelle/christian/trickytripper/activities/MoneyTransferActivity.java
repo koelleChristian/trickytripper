@@ -12,12 +12,12 @@ import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,14 +27,18 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorActivitySupport;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.constants.Rc;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.constants.Rx;
+import de.koelle.christian.trickytripper.controller.MiscController;
 import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
 import de.koelle.christian.trickytripper.factories.AmountFactory;
 import de.koelle.christian.trickytripper.factories.ModelFactory;
@@ -68,16 +72,18 @@ public class MoneyTransferActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.general_options, menu);
-        return true;
+        return getApp().getOptionSupport().populateOptionsMenu(
+                new OptionContraints().activity(this).menu(menu)
+                        .options(new int[] {
+                                R.id.option_help
+                        }));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.general_options_help:
-            showDialog(Rc.DIALOG_SHOW_HELP);
+        case R.id.option_help:
+            showDialog(Rd.DIALOG_HELP);
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -88,8 +94,8 @@ public class MoneyTransferActivity extends Activity {
     protected Dialog onCreateDialog(int id, Bundle args) {
         Dialog dialog;
         switch (id) {
-        case Rc.DIALOG_SHOW_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getFktnController(), Rc.DIALOG_SHOW_HELP);
+        case Rd.DIALOG_HELP:
+            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
             break;
         default:
             dialog = null;
@@ -101,13 +107,18 @@ public class MoneyTransferActivity extends Activity {
     @Override
     protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
         switch (id) {
-        case Rc.DIALOG_SHOW_HELP:
+        case Rd.DIALOG_HELP:
             // intentionally blank
             break;
         default:
             dialog = null;
         }
         super.onPrepareDialog(id, dialog, args);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        CurrencyCalculatorActivitySupport.onActivityResult(requestCode, resultCode, data, this, getLocale());
     }
 
     private void initView(Participant transferer, List<Participant> allParticipants, Debts debtsOfTransferer) {
@@ -205,13 +216,15 @@ public class MoneyTransferActivity extends Activity {
             buttonDueAmount = (Button) newRow.findViewById(R.id.money_transfer_list_view_button_due_amount);
             buttonCurrency = (Button) newRow.findViewById(R.id.money_transfer_list_view_button_currency);
 
+            // TODO(ckoelle) Post merge
             UiUtils.makeProperNumberInput(editText, getDecimalNumberInputUtil().getInputPatternMatcher());
             editText.setId(dynViewId);
             tableLayout.addView(newRow, i + offset);
             nameTextView.setText(p.getName());
             UiUtils.setFontAndStyle(this, nameTextView, !p.isActive(), android.R.style.TextAppearance_Small);
 
-            buttonCurrency.setText(getFktnController().getCurrencySymbolOfTripLoaded(false));
+            buttonCurrency.setText(getMiscController().getCurrencySymbolOfTripLoaded(false));
+            bindCurrencyCalculatorAction(buttonCurrency, inputValueModel, dynViewId);
 
             if (amountDue == null) {
                 buttonDueAmount.setEnabled(false);
@@ -234,6 +247,16 @@ public class MoneyTransferActivity extends Activity {
         updateSaveButtonState();
     }
 
+    private void bindCurrencyCalculatorAction(final Button buttonCurrency, final Amount sourceAndTargetAmountReference,
+            final int viewIdForResult) {
+        buttonCurrency.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getApp().getViewController().openMoneyCalculatorView(sourceAndTargetAmountReference, viewIdForResult,
+                        MoneyTransferActivity.this);
+            }
+        });
+    }
+
     private void bindPaymentInputAndUpdate(final EditText widget, final Amount amount) {
 
         widget.addTextChangedListener(new TextWatcher() {
@@ -245,7 +268,7 @@ public class MoneyTransferActivity extends Activity {
 
             public void afterTextChanged(Editable s) {
                 String widgetInput = getDecimalNumberInputUtil().fixInputStringWidgetToParser(s.toString());
-                amount.setValue(NumberUtils.getStringToDouble(getLocale(), widgetInput));
+                amount.setValue(NumberUtils.getStringToDoubleRounded(getLocale(), widgetInput));
                 MoneyTransferActivity.this.updateSum();
                 MoneyTransferActivity.this.updateSaveButtonState();
             }
@@ -298,7 +321,7 @@ public class MoneyTransferActivity extends Activity {
                 }
             }
         }
-        final Collator collator = getFktnController().getDefaultStringCollator();
+        final Collator collator = getMiscController().getDefaultStringCollator();
         Collections.sort(result, new Comparator<Participant>() {
             public int compare(Participant object1, Participant object2) {
                 return collator.compare(object1.getName(), object2.getName());
@@ -319,7 +342,7 @@ public class MoneyTransferActivity extends Activity {
     }
 
     private DecimalNumberInputUtil getDecimalNumberInputUtil() {
-        return getApp().getFktnController().getDecimalNumberInputUtil();
+        return getMiscController().getDecimalNumberInputUtil();
     }
 
     private Locale getLocale() {
@@ -334,6 +357,10 @@ public class MoneyTransferActivity extends Activity {
 
     private TripExpensesFktnController getFktnController() {
         return getApp().getFktnController();
+    }
+
+    private MiscController getMiscController() {
+        return getApp().getMiscController();
     }
 
 }
