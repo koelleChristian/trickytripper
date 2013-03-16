@@ -25,6 +25,10 @@ public interface TripExpensesViewController {
 
     void openMoneyCalculatorView(Amount amount, int viewIdForResult, Activity caller);
 
+    void openCurrencySelection(Activity caller, Currency targetCurrency);
+
+    void openCurrencySelection(Activity caller);
+
     void openEditPayment(Payment payment);
 
     void switchTabs(Rt tabId);

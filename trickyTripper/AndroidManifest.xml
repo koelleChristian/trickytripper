@@ -90,7 +90,10 @@
             android:name=".activities.CurrencyCalculatorActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
-
+        <activity
+            android:name=".activities.CurrencySelectionActivity"
+            android:theme="@string/currency_selection_view_heading" >
+        </activity>
         <provider
             android:name=".provider.TrickyTripperFileProvider"
             android:authorities="de.koelle.christian.trickytripperfileprovider" >

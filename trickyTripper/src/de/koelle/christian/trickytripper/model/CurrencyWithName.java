@@ -56,7 +56,7 @@ public class CurrencyWithName {
 
     @Override
     public String toString() {
-        return "CurrencyWithName [currency=" + currency + "]";
+        return longName;
     }
 
 }

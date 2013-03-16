@@ -123,7 +123,7 @@ public class CurrencyCalculatorActivity extends Activity {
                 }
             }
         }
-        initCurrencySpinner(resultAmount.getUnit(), sourceCurrencyToBeUsed);
+        // initCurrencySpinner(resultAmount.getUnit(), sourceCurrencyToBeUsed);
         inputAmount.setUnit(sourceCurrencyToBeUsed);
 
         initAndBindEditText();
@@ -154,7 +154,7 @@ public class CurrencyCalculatorActivity extends Activity {
                 Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_RESULT_CURRENCY);
 
         Currency resultCurrency = (resultCurrencySubmitted != null) ? resultCurrencySubmitted : getApp()
-                .getTripLoaded().getBaseCurrency();
+                .getTripBaseCurrency();
 
         resultViewId = intent.getIntExtra(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_RESULT_VIEW_ID, -1);
 
@@ -398,6 +398,10 @@ public class CurrencyCalculatorActivity extends Activity {
                     .persistExchangeRateUsedLast(exchangeRateSelected2);
         }
 
+    }
+
+    public void openCurrencySelection(View view) {
+        getApp().openCurrencySelection(this);
     }
 
     @SuppressWarnings("unused")

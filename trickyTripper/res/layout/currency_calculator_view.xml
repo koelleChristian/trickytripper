@@ -43,14 +43,22 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dip"
-                    android:background="@android:color/darker_gray"
-                    android:layout_marginBottom="5dip"/>
+                    android:layout_marginBottom="5dip"
+                    android:background="@android:color/darker_gray" />
 
-                <Spinner
+                <!-- <Spinner -->
+                <!-- android:id="@+id/currencyCalculatorView_spinner_inputCurrencySelection" -->
+                <!-- android:layout_width="fill_parent" -->
+                <!-- android:layout_height="wrap_content" -->
+                <!-- android:height="50dip" -->
+                <!-- android:onClick="" /> -->
+
+                <Button
                     android:id="@+id/currencyCalculatorView_spinner_inputCurrencySelection"
+                    style="@style/LargeFont"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:height="50dip" />
+                    android:onClick="openCurrencySelection" />
 
                 <EditText
                     android:id="@+id/currencyCalculatorView_editText_inputValue"
@@ -66,11 +74,11 @@
 
             <ImageView
                 android:id="@+id/currencyCalculatorView_imageView_arrow"
-                android:contentDescription="@string/currencyCalculatorViewImageViewDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight=".20"
+                android:contentDescription="@string/currencyCalculatorViewImageViewDescription"
                 android:src="@android:drawable/ic_media_ff" />
 
             <!-- ============  Column 03 40% ============ -->
@@ -91,8 +99,8 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dip"
-                    android:background="@android:color/darker_gray"
-                    android:layout_marginBottom="5dip" />
+                    android:layout_marginBottom="5dip"
+                    android:background="@android:color/darker_gray" />
 
                 <TextView
                     android:id="@+id/currencyCalculatorView_txt_outputCurrency"

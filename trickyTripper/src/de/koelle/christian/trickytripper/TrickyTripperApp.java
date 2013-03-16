@@ -37,6 +37,7 @@ import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.common.utils.FileUtils;
 import de.koelle.christian.common.utils.SystemUtil;
 import de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity;
+import de.koelle.christian.trickytripper.activities.CurrencySelectionActivity;
 import de.koelle.christian.trickytripper.activities.DeleteExchangeRatesActivity;
 import de.koelle.christian.trickytripper.activities.EditExchangeRateActivity;
 import de.koelle.christian.trickytripper.activities.ExportActivity;
@@ -355,6 +356,19 @@ public class TrickyTripperApp extends Application implements TripExpensesViewCon
         extras.put(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_RESULT_VIEW_ID, resultViewId);
         startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
                 Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_REQUEST_CODE, caller);
+    }
+
+    public void openCurrencySelection(Activity caller, Currency targetCurrency) {
+        Class<? extends Activity> activity = CurrencySelectionActivity.class;
+        Map<String, Serializable> extras = new HashMap<String, Serializable>();
+        extras.put(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_VALUE, targetCurrency);
+        startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
+                Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_REQUEST_CODE, caller);
+
+    }
+
+    public void openCurrencySelection(Activity caller) {
+        this.openCurrencySelection(caller, null);
     }
 
     public void openEditPayment(Payment p) {

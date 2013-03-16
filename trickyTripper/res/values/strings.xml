@@ -60,8 +60,8 @@
     <string name="currencyCalculatorViewButtonUseResult">Use result</string>
     <!-- ===============================  Exchange rates common =============================== -->
     <string name="exchangeRate_common_import_description_prefix">Imported</string>
-    
-    
+    <!-- ===============================  Currency Selection =============================== -->
+    <string name="currency_selection_view_heading">Select currency</string>
     <!-- ===============================  Manage exchange rates view =============================== -->
     <string name="manageExchangeRatesViewTextViewHeading">Exchange Rates</string>
     <string name="manageExchangeRatesViewDeleteConfirmation">Are you sure you want to delete the selected exchange rate?</string>
@@ -79,7 +79,7 @@
     <string name="deleteExchangeRatesViewLabelSelectionOptions">Change selection &#8230;</string>
     <string name="deleteExchangeRatesViewLabelSelectionOptionsDesc">Opens selection options</string>
     <string name="deleteExchangeRatesViewListViewLabel">Select all rates to be deleted</string>
-    <string name="deleteExchangeRatesViewDeleteConfirmation">Are you sure you want to delete the @@1@@ selected exchange rate(s)?</string>    
+    <string name="deleteExchangeRatesViewDeleteConfirmation">Are you sure you want to delete the @@1@@ selected exchange rate(s)?</string>
     <!-- ===============================  Edit Exchange Rate =============================== -->
     <string name="editExchangeRateViewHeadingEdit">Edit Exchange Rate</string>
     <string name="editExchangeRateViewHeadingCreate">Create Exchange Rate</string>
