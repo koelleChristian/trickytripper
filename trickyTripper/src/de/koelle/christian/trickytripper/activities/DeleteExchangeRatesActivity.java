@@ -67,7 +67,7 @@ public class DeleteExchangeRatesActivity extends Activity {
             }
         });
 
-        final Collator collator = getApp().getDefaultStringCollator();
+        final Collator collator = getApp().getMiscController().getDefaultStringCollator();
         comparator = new Comparator<ExchangeRate>() {
             public int compare(ExchangeRate object1, ExchangeRate object2) {
                 return collator.compare(object1.getSortString(), object2.getSortString());
@@ -196,7 +196,7 @@ public class DeleteExchangeRatesActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getOptionSupport().populateOptionsMenu(
+        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraints().activity(this).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
@@ -223,7 +223,7 @@ public class DeleteExchangeRatesActivity extends Activity {
         Dialog dialog;
         switch (id) {
         case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
+            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
             break;
         case Rd.DIALOG_DELETE:
             dialog = PopupFactory.showDeleteConfirmationDialog(this);

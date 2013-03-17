@@ -49,7 +49,7 @@ public class ExportActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getOptionSupport().populateOptionsMenu(
+        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraints().activity(this).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
@@ -72,7 +72,7 @@ public class ExportActivity extends Activity {
         Dialog dialog;
         switch (id) {
         case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
+            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
             break;
         default:
             dialog = null;
@@ -99,10 +99,10 @@ public class ExportActivity extends Activity {
 
     private void initPanel() {
         final TrickyTripperApp app = getApp();
-        exportSettings = app.getDefaultExportSettings();
+        exportSettings = app.getExportController().getDefaultExportSettings();
         setTripName();
         initAndBindSpinner(app);
-        supportedOutputChannels = app.getEnabledExportOutputChannel();
+        supportedOutputChannels = app.getExportController().getEnabledExportOutputChannel();
         initAndBindOutputChannelSpinner(exportSettings.getOutputChannel(), supportedOutputChannels);
         bindCheckBoxes();
         updateAllCheckboxStates();
@@ -111,13 +111,13 @@ public class ExportActivity extends Activity {
 
     private void setTripName() {
         TextView textView = (TextView) findViewById(R.id.export_view_label_trip_name_output);
-        textView.setText(getApp().getTripLoaded().getName());
+        textView.setText(getApp().getTripController().getTripLoaded().getName());
     }
 
     private void initAndBindSpinner(final TrickyTripperApp app) {
         participantsInSpinner = new ArrayList<Participant>();
         participantsInSpinner.add(null);
-        participantsInSpinner.addAll(app.getAllParticipants(false, true));
+        participantsInSpinner.addAll(app.getTripController().getAllParticipants(false, true));
 
         Spinner spinner = SpinnerViewSupport.configureReportSelectionSpinner(
                 this,
@@ -149,7 +149,7 @@ public class ExportActivity extends Activity {
         final Spinner spinner = (Spinner) findViewById(R.id.exportViewSpinnerChannel);
 
         List<RowObject> spinnerObjects = SpinnerViewSupport.createSpinnerObjects(selection, false,
-                null, getResources(), getApp().getDefaultStringCollator());
+                null, getResources(), getApp().getMiscController().getDefaultStringCollator());
         ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this, android.R.layout.simple_spinner_item,
                 spinnerObjects) {
             @Override
@@ -343,7 +343,7 @@ public class ExportActivity extends Activity {
          * Files will be deleted on application's termination as usually files
          * have not be sent on resume here.
          */
-        getApp().exportReport(exportSettings, participantSelected, this);
+        getApp().getExportController().exportReport(exportSettings, participantSelected, this);
     }
 
 }

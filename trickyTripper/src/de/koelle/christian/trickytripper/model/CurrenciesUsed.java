@@ -52,4 +52,30 @@ public class CurrenciesUsed {
                 + "]";
     }
 
+    public Currency getFirstImportant() {
+        if (currenciesMatchingInOrderOfUsage != null && !currenciesMatchingInOrderOfUsage.isEmpty()) {
+            return currenciesMatchingInOrderOfUsage.get(0);
+        }
+        else if (currenciesUsedByDate != null && !currenciesUsedByDate.isEmpty()) {
+            return currenciesUsedByDate.get(0);
+        }
+        else if (currenciesInProject != null && !currenciesInProject.isEmpty()) {
+            return currenciesInProject.get(0);
+        }
+        return null;
+    }
+
+    public Currency getSecondImportant() {
+        if (currenciesMatchingInOrderOfUsage != null && currenciesMatchingInOrderOfUsage.size() >= 2) {
+            return currenciesMatchingInOrderOfUsage.get(1);
+        }
+        else if (currenciesUsedByDate != null && currenciesUsedByDate.size() >= 2) {
+            return currenciesUsedByDate.get(1);
+        }
+        else if (currenciesInProject != null && currenciesInProject.size() >= 2) {
+            return currenciesInProject.get(1);
+        }
+
+        return null;
+    }
 }

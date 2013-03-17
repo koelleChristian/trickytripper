@@ -11,21 +11,21 @@ public interface MiscController {
 
     Currency getDefaultBaseCurrency();
 
-    boolean isSmartHelpEnabled();
-
     Collator getDefaultStringCollator();
 
     boolean checkIfInAssets(String assetName);
 
     boolean isOnline();
 
-    String getCurrencySymbolOfTripLoaded(boolean wrapInBrackets);
+    // String getCurrencySymbolOfTripLoaded(boolean wrapInBrackets);
 
     OptionsSupport getOptionSupport();
 
     HierarchicalCurrencyList getAllCurrencies();
 
     HierarchicalCurrencyList getAllCurrenciesForTarget(Currency currency);
+
+    Currency getCurrencyFavorite(Currency currencyToBeExcluded);
 
     DecimalNumberInputUtil getDecimalNumberInputUtil();
 }

@@ -46,16 +46,9 @@
                     android:layout_marginBottom="5dip"
                     android:background="@android:color/darker_gray" />
 
-                <!-- <Spinner -->
-                <!-- android:id="@+id/currencyCalculatorView_spinner_inputCurrencySelection" -->
-                <!-- android:layout_width="fill_parent" -->
-                <!-- android:layout_height="wrap_content" -->
-                <!-- android:height="50dip" -->
-                <!-- android:onClick="" /> -->
-
                 <Button
-                    android:id="@+id/currencyCalculatorView_spinner_inputCurrencySelection"
-                    style="@style/LargeFont"
+                    android:id="@+id/currencyCalculatorView_button_inputCurrencySelection"
+                    style="@style/SpinnerButton"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:onClick="openCurrencySelection" />

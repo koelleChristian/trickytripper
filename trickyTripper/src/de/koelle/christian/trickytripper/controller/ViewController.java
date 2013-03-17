@@ -3,13 +3,12 @@ package de.koelle.christian.trickytripper.controller;
 import java.util.Currency;
 
 import android.app.Activity;
-import de.koelle.christian.trickytripper.constants.Rt;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 
-public interface TripExpensesViewController {
+public interface ViewController {
 
     void openCreatePayment(Participant participant);
 
@@ -25,13 +24,12 @@ public interface TripExpensesViewController {
 
     void openMoneyCalculatorView(Amount amount, int viewIdForResult, Activity caller);
 
-    void openCurrencySelection(Activity caller, Currency targetCurrency);
+    void openCurrencySelectionForNewExchangeRate(Activity caller, Currency targetCurrency, int viewIdForResult,
+            boolean selectLeftNotRight);
 
-    void openCurrencySelection(Activity caller);
+    void openCurrencySelectionForCalculation(Activity caller, Currency targetCurrency, int viewIdForResult);
 
     void openEditPayment(Payment payment);
-
-    void switchTabs(Rt tabId);
 
     void openTransferMoney(Participant participant);
 

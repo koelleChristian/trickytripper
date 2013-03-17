@@ -43,8 +43,7 @@ public class ExchangeRatePrefsSaveLoadTest extends ApplicationTestCase<TrickyTri
         dataManager.removeAll();
         PrefsResolver prefsResolver = new PrefAccessor(getContext());
 
-        controller = new ExchangeRateControllerImpl(dataManager, prefsResolver, getContext()
-                .getResources());
+        controller = new ExchangeRateControllerImpl(dataManager, prefsResolver);
 
     }
 

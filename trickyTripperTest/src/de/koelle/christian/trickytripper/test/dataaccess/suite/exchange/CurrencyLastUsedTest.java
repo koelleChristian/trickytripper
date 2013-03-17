@@ -56,7 +56,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
 
     public void testGetAllCurrenciesForTargetBlank() {
         TrickyTripperApp app = getApplication();
-        HierarchicalCurrencyList result = app.getAllCurrenciesForTarget(USD);
+        HierarchicalCurrencyList result = app.getMiscController().getAllCurrenciesForTarget(USD);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
@@ -67,7 +67,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
 
     public void testgetAllCurrenciesBlank() {
         TrickyTripperApp app = getApplication();
-        HierarchicalCurrencyList result = app.getAllCurrencies();
+        HierarchicalCurrencyList result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
@@ -100,7 +100,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
 
         /* =============== Step 1 =============== */
 
-        result = app.getAllCurrenciesForTarget(USD);
+        result = app.getMiscController().getAllCurrenciesForTarget(USD);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
@@ -111,7 +111,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
 
         /* EUR - TRY */
         app.getExchangeRateController().persistExchangeRateUsedLast(initalRetrievalResults.get(ID_2));
-        result = app.getAllCurrenciesForTarget(USD);
+        result = app.getMiscController().getAllCurrenciesForTarget(USD);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, TRY });
@@ -120,7 +120,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
 
         /* TRY - GBP */
         app.getExchangeRateController().persistExchangeRateUsedLast(initalRetrievalResults.get(ID_3));
-        result = app.getAllCurrenciesForTarget(USD);
+        result = app.getMiscController().getAllCurrenciesForTarget(USD);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { GBP, TRY, EUR });
@@ -129,7 +129,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
 
         /* EUR - TRY */
         app.getExchangeRateController().persistExchangeRateUsedLast(initalRetrievalResults.get(ID_2));
-        result = app.getAllCurrenciesForTarget(USD);
+        result = app.getMiscController().getAllCurrenciesForTarget(USD);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, TRY, GBP });
@@ -138,14 +138,14 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
 
         /* EURO - USD */
         app.getExchangeRateController().persistExchangeRateUsedLast(initalRetrievalResults.get(ID_1));
-        result = app.getAllCurrenciesForTarget(USD);
+        result = app.getMiscController().getAllCurrenciesForTarget(USD);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] { EUR });
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { TRY, GBP });
         assertOrderAndContentContent(result.getCurrenciesInProject(), new Currency[] {});
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 3);
 
-        result = app.getAllCurrenciesForTarget(EUR);
+        result = app.getMiscController().getAllCurrenciesForTarget(EUR);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] { USD, TRY });
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { GBP });
@@ -153,7 +153,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 3);
 
         app.getExchangeRateController().persistExchangeRateUsedLast(initalRetrievalResults.get(ID_2));
-        result = app.getAllCurrenciesForTarget(EUR);
+        result = app.getMiscController().getAllCurrenciesForTarget(EUR);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] { TRY, USD });
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { GBP });
@@ -162,18 +162,18 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
 
         /* =============== Step 3 =============== */
 
-        app.getFktnController().persist(new TripSummary("MyTrip01", BAM));
+        app.getTripController().persist(new TripSummary("MyTrip01", BAM));
 
-        result = app.getAllCurrenciesForTarget(EUR);
+        result = app.getMiscController().getAllCurrenciesForTarget(EUR);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] { TRY, USD });
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { GBP });
         assertOrderAndContentContent(result.getCurrenciesInProject(), new Currency[] { BAM });
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 4);
 
-        app.getFktnController().persist(new TripSummary("MyTrip02", ERN));
+        app.getTripController().persist(new TripSummary("MyTrip02", ERN));
 
-        result = app.getAllCurrenciesForTarget(EUR);
+        result = app.getMiscController().getAllCurrenciesForTarget(EUR);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] { TRY, USD });
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { GBP });
@@ -206,7 +206,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         initalRetrievalResults.put(rateSaved.getId(), rateSaved);
 
         /* =============== Step 1 =============== */
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
@@ -217,7 +217,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
 
         /* EUR - TRY */
         app.getExchangeRateController().persistExchangeRateUsedLast(initalRetrievalResults.get(ID_2));
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, TRY });
@@ -226,7 +226,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
 
         /* TRY - GBP */
         app.getExchangeRateController().persistExchangeRateUsedLast(initalRetrievalResults.get(ID_3));
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { GBP, TRY, EUR });
@@ -235,7 +235,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
 
         /* EUR - TRY */
         app.getExchangeRateController().persistExchangeRateUsedLast(initalRetrievalResults.get(ID_2));
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, TRY, GBP });
@@ -244,7 +244,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
 
         /* EURO - USD */
         app.getExchangeRateController().persistExchangeRateUsedLast(initalRetrievalResults.get(ID_1));
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, USD, TRY, GBP });
@@ -252,7 +252,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 4);
 
         app.getExchangeRateController().persistExchangeRateUsedLast(initalRetrievalResults.get(ID_2));
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, TRY, USD, GBP });
@@ -261,18 +261,18 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
 
         /* =============== Step 3 =============== */
 
-        app.getFktnController().persist(new TripSummary("MyTrip01", BAM));
+        app.getTripController().persist(new TripSummary("MyTrip01", BAM));
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, TRY, USD, GBP });
         assertOrderAndContentContent(result.getCurrenciesInProject(), new Currency[] { BAM });
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 5);
 
-        app.getFktnController().persist(new TripSummary("MyTrip02", ERN));
+        app.getTripController().persist(new TripSummary("MyTrip02", ERN));
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, TRY, USD, GBP });
@@ -312,7 +312,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         app.getExchangeRateController().deleteExchangeRates(
                 Arrays.asList(new ExchangeRate[] { initalRetrievalResults.get(ID_2) }));
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { GBP, TRY });
@@ -322,7 +322,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         app.getExchangeRateController().deleteExchangeRates(
                 Arrays.asList(new ExchangeRate[] { initalRetrievalResults.get(ID_3) }));
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
@@ -355,7 +355,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         initalRetrievalResults.put(rateSaved.getId(), rateSaved);
 
         /* =============== Step 1 =============== */
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
         /* EUR - TRY */
         app.getExchangeRateController().persistExchangeRateUsedLast(initalRetrievalResults.get(ID_2));
         /* TRY - GBP */
@@ -364,7 +364,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         app.getExchangeRateController().deleteExchangeRates(
                 Arrays.asList(new ExchangeRate[] { initalRetrievalResults.get(ID_2) }));
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { GBP, TRY });
@@ -374,7 +374,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         app.getExchangeRateController().deleteExchangeRates(
                 Arrays.asList(new ExchangeRate[] { initalRetrievalResults.get(ID_3) }));
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
@@ -397,54 +397,54 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         String tripName_TRY = "MyTrip03";
         String tripName_EUR = "MyTrip04";
 
-        app.getFktnController().persist(new TripSummary(tripName_BAM, BAM));
+        app.getTripController().persist(new TripSummary(tripName_BAM, BAM));
 
-        result = app.getAllCurrenciesForTarget(USD);
+        result = app.getMiscController().getAllCurrenciesForTarget(USD);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesInProject(), new Currency[] { BAM });
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 1);
 
-        app.getFktnController().persist(new TripSummary(tripName_ERN, ERN));
+        app.getTripController().persist(new TripSummary(tripName_ERN, ERN));
 
-        result = app.getAllCurrenciesForTarget(USD);
+        result = app.getMiscController().getAllCurrenciesForTarget(USD);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesInProject(), new Currency[] { BAM, ERN });
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 2);
 
-        app.getFktnController().persist(new TripSummary(tripName_TRY, TRY));
-        app.getFktnController().persist(new TripSummary(tripName_EUR, EUR));
+        app.getTripController().persist(new TripSummary(tripName_TRY, TRY));
+        app.getTripController().persist(new TripSummary(tripName_EUR, EUR));
 
-        result = app.getAllCurrenciesForTarget(USD);
+        result = app.getMiscController().getAllCurrenciesForTarget(USD);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesInProject(), new Currency[] { BAM, ERN, EUR, TRY });
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 4);
 
-        result = app.getAllCurrenciesForTarget(EUR);
+        result = app.getMiscController().getAllCurrenciesForTarget(EUR);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesInProject(), new Currency[] { BAM, ERN, TRY, USD });
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 4);
 
-        List<TripSummary> tripSummaries = app.getFktnController().getAllTrips();
+        List<TripSummary> tripSummaries = app.getTripController().getAllTrips();
 
         tripSummary = getTripByName(tripSummaries, tripName_TRY);
-        app.getFktnController().deleteTrip(tripSummary);
+        app.getTripController().deleteTrip(tripSummary);
 
-        result = app.getAllCurrenciesForTarget(EUR);
+        result = app.getMiscController().getAllCurrenciesForTarget(EUR);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesInProject(), new Currency[] { BAM, ERN, USD });
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 3);
 
-        app.getFktnController().persist(new TripSummary(tripName_TRY, TRY));
+        app.getTripController().persist(new TripSummary(tripName_TRY, TRY));
 
         /* =============== Step 2 =============== */
 
@@ -453,7 +453,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         initalRetrievalResults.put(rateSaved.getId(), rateSaved);
         app.getExchangeRateController().persistExchangeRateUsedLast(initalRetrievalResults.get(rateSaved.getId()));
 
-        result = app.getAllCurrenciesForTarget(EUR);
+        result = app.getMiscController().getAllCurrenciesForTarget(EUR);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { GBP, TRY });
@@ -465,14 +465,14 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         initalRetrievalResults.put(rateSaved.getId(), rateSaved);
         app.getExchangeRateController().persistExchangeRateUsedLast(initalRetrievalResults.get(rateSaved.getId()));
 
-        result = app.getAllCurrenciesForTarget(EUR);
+        result = app.getMiscController().getAllCurrenciesForTarget(EUR);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] { USD });
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { GBP, TRY });
         assertOrderAndContentContent(result.getCurrenciesInProject(), new Currency[] { BAM, ERN });
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 5);
 
-        result = app.getAllCurrenciesForTarget(BAM);
+        result = app.getMiscController().getAllCurrenciesForTarget(BAM);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, USD, GBP, TRY });
@@ -482,9 +482,9 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         /* =============== Step 3 =============== */
 
         tripSummary = getTripByName(tripSummaries, tripName_ERN);
-        app.getFktnController().deleteTrip(tripSummary);
+        app.getTripController().deleteTrip(tripSummary);
 
-        result = app.getAllCurrenciesForTarget(BAM);
+        result = app.getMiscController().getAllCurrenciesForTarget(BAM);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, USD, GBP, TRY });
@@ -492,9 +492,9 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 4);
 
         tripSummary = getTripByName(tripSummaries, tripName_BAM);
-        app.getFktnController().deleteTrip(tripSummary);
+        app.getTripController().deleteTrip(tripSummary);
 
-        result = app.getAllCurrenciesForTarget(BAM);
+        result = app.getMiscController().getAllCurrenciesForTarget(BAM);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, USD, GBP, TRY });
@@ -502,9 +502,9 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 4);
 
         tripSummary = getTripByName(tripSummaries, tripName_TRY);
-        app.getFktnController().deleteTrip(tripSummary);
+        app.getTripController().deleteTrip(tripSummary);
 
-        result = app.getAllCurrenciesForTarget(BAM);
+        result = app.getMiscController().getAllCurrenciesForTarget(BAM);
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, USD, GBP, TRY });
@@ -526,49 +526,49 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         String tripName_TRY = "MyTrip03";
         String tripName_EUR = "MyTrip04";
 
-        app.getFktnController().persist(new TripSummary(tripName_BAM, BAM));
+        app.getTripController().persist(new TripSummary(tripName_BAM, BAM));
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesInProject(), new Currency[] { BAM, USD });
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 2);
 
-        app.getFktnController().persist(new TripSummary(tripName_ERN, ERN));
+        app.getTripController().persist(new TripSummary(tripName_ERN, ERN));
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesInProject(), new Currency[] { BAM, ERN, USD });
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 3);
 
-        app.getFktnController().persist(new TripSummary(tripName_TRY, TRY));
-        app.getFktnController().persist(new TripSummary(tripName_EUR, EUR));
+        app.getTripController().persist(new TripSummary(tripName_TRY, TRY));
+        app.getTripController().persist(new TripSummary(tripName_EUR, EUR));
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesInProject(), new Currency[] { BAM, ERN, EUR, TRY, USD });
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 5);
 
-        List<TripSummary> tripSummaries = app.getFktnController().getAllTrips();
+        List<TripSummary> tripSummaries = app.getTripController().getAllTrips();
 
         tripSummary = getTripByName(tripSummaries, tripName_TRY);
-        app.getFktnController().deleteTrip(tripSummary);
+        app.getTripController().deleteTrip(tripSummary);
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesInProject(), new Currency[] { BAM, ERN, EUR, USD });
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 4);
 
-        app.getFktnController().persist(new TripSummary(tripName_TRY, TRY));
+        app.getTripController().persist(new TripSummary(tripName_TRY, TRY));
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] {});
@@ -582,7 +582,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         initalRetrievalResults.put(rateSaved.getId(), rateSaved);
         app.getExchangeRateController().persistExchangeRateUsedLast(initalRetrievalResults.get(rateSaved.getId()));
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { GBP, TRY });
@@ -594,7 +594,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         initalRetrievalResults.put(rateSaved.getId(), rateSaved);
         app.getExchangeRateController().persistExchangeRateUsedLast(initalRetrievalResults.get(rateSaved.getId()));
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, USD, GBP, TRY });
@@ -604,9 +604,9 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         /* =============== Step 3 =============== */
 
         tripSummary = getTripByName(tripSummaries, tripName_ERN);
-        app.getFktnController().deleteTrip(tripSummary);
+        app.getTripController().deleteTrip(tripSummary);
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, USD, GBP, TRY });
@@ -614,9 +614,9 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 5);
 
         tripSummary = getTripByName(tripSummaries, tripName_BAM);
-        app.getFktnController().deleteTrip(tripSummary);
+        app.getTripController().deleteTrip(tripSummary);
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, USD, GBP, TRY });
@@ -624,9 +624,9 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 4);
 
         tripSummary = getTripByName(tripSummaries, tripName_TRY);
-        app.getFktnController().deleteTrip(tripSummary);
+        app.getTripController().deleteTrip(tripSummary);
 
-        result = app.getAllCurrencies();
+        result = app.getMiscController().getAllCurrencies();
 
         assertOrderAndContentContent(result.getCurrenciesMatchingInOrderOfUsage(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesUsedByDate(), new Currency[] { EUR, USD, GBP, TRY });

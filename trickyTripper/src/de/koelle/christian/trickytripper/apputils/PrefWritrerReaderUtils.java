@@ -17,8 +17,6 @@ public class PrefWritrerReaderUtils {
 
     private static final String PREFS_VALUE_ID_TRIP_LAST_EDITED_ID = "PREFS_VALUE_ID_TRIP_LAST_EDITED_ID";
 
-    private static final String PREFS_VALUE_CURRENCY_CALC_SOURCE_CURRENY_USED_LAST = "PREFS_VALUE_CURRENCY_CALC_SOURCE_CURRENY_USED_LAST";
-
     private static final String PREFS_VALUE_IMPORT_SETTINGS_REPLACE_EXISTING = "PREFS_VALUE_IMPORT_SETTINGS_REPLACE_EXISTING";
 
     private static final String PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS = "PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS";
@@ -93,12 +91,6 @@ public class PrefWritrerReaderUtils {
         return currencyCode2Currency(resources, currencyCodeFromPrefs);
     }
 
-    public static Currency loadSourceCurrencyUsedLast(SharedPreferences prefs, Resources resources) {
-        String currencyCodeFromPrefs = prefs.getString(PREFS_VALUE_CURRENCY_CALC_SOURCE_CURRENY_USED_LAST,
-                NULL_VALUE_CURRENCY);
-        return currencyCode2Currency(resources, currencyCodeFromPrefs);
-    }
-
     private static Currency currencyCode2Currency(Resources resources, String currencyCodeFromPrefs) {
         Currency result = Currency.getInstance("EUR");
         try {
@@ -122,19 +114,5 @@ public class PrefWritrerReaderUtils {
     public static void saveIdOfTripLastEdited(Editor prefsEditor, long id) {
         prefsEditor.putLong(PREFS_VALUE_ID_TRIP_LAST_EDITED_ID, id);
         prefsEditor.commit();
-    }
-
-    public static void saveSourceCurrencyUsedLast(Editor prefsEditor, Currency currency) {
-        prefsEditor.putString(PREFS_VALUE_CURRENCY_CALC_SOURCE_CURRENY_USED_LAST, currency.getCurrencyCode());
-        prefsEditor.commit();
-    }
-
-    public static boolean isSmartHelpEnabled(SharedPreferences prefs, Editor prefsEditor) {
-        String key = Rc.PREFS_VALUE_ID_ENABLE_SMART_HELP;
-        if (!prefs.contains(key)) {
-            prefsEditor.putBoolean(key, true);
-            prefsEditor.commit();
-        }
-        return prefs.getBoolean(key, true);
     }
 }

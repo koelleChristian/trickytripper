@@ -1,5 +1,6 @@
 package de.koelle.christian.trickytripper.model.modelAdapter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 import de.koelle.christian.trickytripper.model.CurrencyWithName;
-import de.koelle.christian.trickytripper.model.HierarchicalCurrencyList;
 
 public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -20,10 +20,12 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
     private static final int GROUP_POS_ID_PROJECT = 2;
     private static final int GROUP_POS_ID_ELSE = 3;
 
-    private static final String NAME = "NAME";
-    // private static final String IS_EVEN = "IS_EVEN";
+    private final Integer[] visualToModelMapping;
+    private final int size;
 
-    private final HierarchicalCurrencyList currencies;
+    private static final String NAME = "NAME";
+
+    private final List<List<CurrencyWithName>> currencies;
     private final LayoutInflater inflater;
 
     private final int mCollapsedGroupLayout = android.R.layout.simple_expandable_list_item_1;
@@ -31,51 +33,52 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
     private final int mChildLayout = android.R.layout.simple_expandable_list_item_2;
     private final int mLastChildLayout = android.R.layout.simple_expandable_list_item_2;
 
-    private final String[] mChildFrom = new String[] { NAME }; // , IS_EVEN };
-    private final int[] mChildTo = new int[] { android.R.id.text1 };// ,
-                                                                    // android.R.id.text2
-                                                                    // };
+    private final String[] mChildFrom = new String[] { NAME };
+    private final int[] mChildTo = new int[] { android.R.id.text1 };
     private final String[] mGroupFrom = mChildFrom;
     private final int[] mGroupTo = mChildTo;
 
-    //
-
-    public CurrencyExpandableListAdapter(Context context, HierarchicalCurrencyList currencies) {
+    public CurrencyExpandableListAdapter(Context context, List<List<CurrencyWithName>> currencies) {
         super();
         this.currencies = currencies;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        List<Integer> listsMap = new ArrayList<Integer>();
+
+        for (int i = 0; i < currencies.size(); i++) {
+            if (!currencies.get(i).isEmpty()) {
+                listsMap.add(Integer.valueOf(i));
+            }
+        }
+        size = listsMap.size();
+        visualToModelMapping = new Integer[size];
+        listsMap.toArray(visualToModelMapping);
     }
 
     public int getGroupCount() {
-        return 4;
+        return size;
     }
 
     public int getChildrenCount(int groupPosition) {
         return getListById(groupPosition).size();
     }
 
+    private int getVisualToModelIndex(int groupPosition) {
+        return visualToModelMapping[groupPosition];
+    }
+
+    public CurrencyWithName getRecordByVisualId(int groupPosition, int childPosition) {
+        return (CurrencyWithName) getChildValueByPosition(groupPosition, childPosition);
+    }
+
     private List<CurrencyWithName> getListById(int groupPosition) {
-        if (groupPosition == GROUP_POS_ID_MATCHING) {
-            return currencies.getCurrenciesMatchingInOrderOfUsage();
-        }
-        else if (groupPosition == GROUP_POS_ID_USED) {
-            return currencies.getCurrenciesUsedByDate();
-        }
-        else if (groupPosition == GROUP_POS_ID_PROJECT) {
-            return currencies.getCurrenciesInProject();
-        }
-        else if (groupPosition == GROUP_POS_ID_ELSE) {
-            return currencies.getCurrenciesElse();
-        }
-        else {
-            throw new RuntimeException("Not supported");
-        }
+        return currencies.get(getVisualToModelIndex(groupPosition));
 
     }
 
     public Object getGroup(int groupPosition) {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        result.put(NAME, getGroupValueByPosition(groupPosition));
+        result.put(NAME, getGroupValueByPosition(getVisualToModelIndex(groupPosition)));
         return result;
     }
 
@@ -85,17 +88,17 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
         return result;
     }
 
-    private Object getGroupValueByPosition(int groupPosition) {
-        if (groupPosition == GROUP_POS_ID_MATCHING) {
+    private Object getGroupValueByPosition(int modelGroupPosition) {
+        if (modelGroupPosition == GROUP_POS_ID_MATCHING) {
             return "Zuletzt benutzt.";
         }
-        else if (groupPosition == GROUP_POS_ID_USED) {
+        else if (modelGroupPosition == GROUP_POS_ID_USED) {
             return "In rates";
         }
-        else if (groupPosition == GROUP_POS_ID_PROJECT) {
+        else if (modelGroupPosition == GROUP_POS_ID_PROJECT) {
             return "Im Projekt";
         }
-        else if (groupPosition == GROUP_POS_ID_ELSE) {
+        else if (modelGroupPosition == GROUP_POS_ID_ELSE) {
             return "Sonstige";
         }
         else {
@@ -104,7 +107,8 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     private Object getChildValueByPosition(int groupPosition, int childPosition) {
-        return getListById(groupPosition).get(childPosition);
+        List<CurrencyWithName> listById = getListById(groupPosition);
+        return listById.get(childPosition);
     }
 
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {

@@ -92,7 +92,7 @@
         </activity>
         <activity
             android:name=".activities.CurrencySelectionActivity"
-            android:theme="@string/currency_selection_view_heading" >
+            android:label="@string/currency_selection_view_heading" >
         </activity>
         <provider
             android:name=".provider.TrickyTripperFileProvider"

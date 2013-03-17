@@ -35,7 +35,7 @@ import de.koelle.christian.trickytripper.activitysupport.CurrencyViewSupport;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rd;
-import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
+import de.koelle.christian.trickytripper.controller.TripController;
 import de.koelle.christian.trickytripper.model.TripSummary;
 import de.koelle.christian.trickytripper.model.modelAdapter.TripSummarySymbolResolvingDelegator;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
@@ -64,7 +64,7 @@ public class ManageTripsActivity extends Activity {
         setContentView(R.layout.manage_trips_view);
 
         TrickyTripperApp app = getApp();
-        final Collator c = app.getDefaultStringCollator();
+        final Collator c = app.getMiscController().getDefaultStringCollator();
         comparator = new Comparator<TripSummary>() {
             public int compare(TripSummary object1, TripSummary object2) {
                 return c.compare(object1.getName(), object2.getName());
@@ -82,7 +82,7 @@ public class ManageTripsActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getOptionSupport().populateOptionsMenu(
+        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraints().activity(this).menu(menu)
                         .options(new int[] {
                                 R.id.option_help,
@@ -109,7 +109,7 @@ public class ManageTripsActivity extends Activity {
         listView.setAdapter(arrayAdapterTripSummary);
         listView.setChoiceMode(ListView.CHOICE_MODE_NONE);
 
-        updateList(app.getFktnController().getAllTrips());
+        updateList(app.getTripController().getAllTrips());
         arrayAdapterTripSummary.sort(comparator);
     }
 
@@ -127,7 +127,7 @@ public class ManageTripsActivity extends Activity {
             dialog = createDeletePopup();
             break;
         case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
+            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
             break;
         default:
             dialog = null;
@@ -168,14 +168,14 @@ public class ManageTripsActivity extends Activity {
         menu.add(MENU_GROUP_DELETE, R.string.common_button_delete, Menu.NONE,
                 getResources().getString(R.string.common_button_delete));
 
-        menu.setGroupEnabled(MENU_GROUP_DELETE, !getApp().getFktnController().oneOrLessTripsLeft());
+        menu.setGroupEnabled(MENU_GROUP_DELETE, !getApp().getTripController().oneOrLessTripsLeft());
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         TripSummary selectedTripSummary = arrayAdapterTripSummary.getItem(info.position);
-        boolean hasTripPayments = getApp().getFktnController().hasTripPayments(selectedTripSummary);
+        boolean hasTripPayments = getApp().getTripController().hasTripPayments(selectedTripSummary);
         boolean isTripNew = false;
 
         switch (item.getItemId()) {
@@ -194,7 +194,7 @@ public class ManageTripsActivity extends Activity {
     }
 
     private void deleteTrip(TripSummary tripSummary) {
-        getApp().getFktnController().deleteTrip(tripSummary);
+        getApp().getTripController().deleteTrip(tripSummary);
     }
 
     private void addClickListener(final ListView listView, final TrickyTripperApp app) {
@@ -202,7 +202,7 @@ public class ManageTripsActivity extends Activity {
 
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
                 TripSummary selectedTripSummary = arrayAdapterTripSummary.getItem(position);
-                app.getFktnController().loadTrip(selectedTripSummary);
+                app.getTripController().loadTrip(selectedTripSummary);
                 finish();
 
             }
@@ -212,7 +212,7 @@ public class ManageTripsActivity extends Activity {
     public void createNewTrip(View view) {
         if (R.id.manageTripsView_button_create_new_trip == view.getId()) {
             TripSummary newTripSummary = new TripSummary();
-            newTripSummary.setBaseCurrency(getApp().getDefaultBaseCurrency());
+            newTripSummary.setBaseCurrency(getApp().getMiscController().getDefaultBaseCurrency());
             showDialog(Rd.DIALOG_CREATE, createBundleWithTripSummaryForPopup(newTripSummary, true, false));
         }
     }
@@ -233,7 +233,7 @@ public class ManageTripsActivity extends Activity {
     }
 
     private void loadNextTripIfPreviousDeleted() {
-        TripExpensesFktnController ctrl = getApp().getFktnController();
+        TripController ctrl = getApp().getTripController();
         if (ctrl.getTripLoaded() == null) {
             ctrl.loadTrip(ctrl.getAllTrips().get(0));
         }
@@ -381,18 +381,18 @@ public class ManageTripsActivity extends Activity {
 
         if (ButtonClickMode.SAVE.equals(mode)) {
 
-            if (!(app.getFktnController().persist(tripSummary))) {
+            if (!(app.getTripController().persist(tripSummary))) {
                 Toast.makeText(getApplicationContext(), R.string.edit_trip_view_msg, Toast.LENGTH_SHORT)
                         .show();
             }
             else {
                 dialog.dismiss();
-                updateList(app.getAllTrips());
+                updateList(app.getTripController().getAllTrips());
             }
         }
         else if (ButtonClickMode.SAVE_AND_LOAD.equals(mode)) {
 
-            if (!(app.getFktnController().persistAndLoadTrip(tripSummary))) {
+            if (!(app.getTripController().persistAndLoadTrip(tripSummary))) {
                 Toast.makeText(getApplicationContext(), R.string.edit_trip_view_msg, Toast.LENGTH_SHORT)
                         .show();
             }
@@ -427,7 +427,7 @@ public class ManageTripsActivity extends Activity {
             public void onClick(View view) {
                 dialog.dismiss();
                 ManageTripsActivity.this.deleteTrip(tripSummary);
-                updateList(getApp().getAllTrips());
+                updateList(getApp().getTripController().getAllTrips());
             }
         });
         negativeButton.setOnClickListener(new View.OnClickListener() {

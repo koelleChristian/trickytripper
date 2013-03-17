@@ -9,7 +9,7 @@ import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.ui.utils.AmoutViewUtils;
 
-public class CurrencyCalculatorActivitySupport {
+public class CurrencyCalculatorResultSupport {
 
     public static void onActivityResult(int requestCode, int resultCode, Intent resultData, Activity activity,
             Locale locale) {

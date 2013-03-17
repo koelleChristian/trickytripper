@@ -37,13 +37,13 @@ public class PaymentTabActivity extends ListActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.option_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
+        menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getOptionSupport().populateOptionsMenu(
+        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraints().activity(this).menu(menu)
                         .options(new int[] {
                                 R.id.option_help,
@@ -74,6 +74,7 @@ public class PaymentTabActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_view);
         adapter = new PaymentRowListAdapter(this, R.layout.payment_tab_row_view, paymentRows, getApp()
+                .getTripController()
                 .getAmountFactory(), getApp().getMiscController().getDefaultStringCollator());
 
         setListAdapter(adapter);
@@ -89,7 +90,7 @@ public class PaymentTabActivity extends ListActivity {
 
     public void sortAndUpdateView() {
         paymentRows.clear();
-        paymentRows.addAll(getApp().getFktnController().getTripLoaded().getPayments());
+        paymentRows.addAll(getApp().getTripController().getTripLoaded().getPayments());
         adapter.sort(new Comparator<Payment>() {
             public int compare(Payment lhs, Payment rhs) {
                 return lhs.getPaymentDateTime().compareTo(rhs.getPaymentDateTime()) * -1;
@@ -160,7 +161,7 @@ public class PaymentTabActivity extends ListActivity {
     }
 
     protected void deletePayment(Payment row) {
-        getApp().getFktnController().deletePayment(row);
+        getApp().getTripController().deletePayment(row);
     }
 
     private String getCategoryText(Payment row) {

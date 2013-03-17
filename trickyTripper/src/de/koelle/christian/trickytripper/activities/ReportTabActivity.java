@@ -30,6 +30,7 @@ import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Debts;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
+import de.koelle.christian.trickytripper.model.Trip;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.strategies.SumReport;
 
@@ -49,13 +50,13 @@ public class ReportTabActivity extends Activity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.option_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
+        menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getOptionSupport().populateOptionsMenu(
+        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraints().activity(this).menu(menu)
                         .options(new int[] {
                                 R.id.option_help,
@@ -101,7 +102,7 @@ public class ReportTabActivity extends Activity {
 
         participantsInSpinner = new ArrayList<Participant>();
         participantsInSpinner.add(null);
-        participantsInSpinner.addAll(app.getFktnController().getAllParticipants(false, true));
+        participantsInSpinner.addAll(app.getTripController().getAllParticipants(false, true));
 
         Spinner spinner = SpinnerViewSupport.configureReportSelectionSpinner(
                 this,
@@ -109,9 +110,9 @@ public class ReportTabActivity extends Activity {
                 R.id.reportViewBaseSpinner,
                 participantsInSpinner);
 
-        Participant p = app.getDialogState().getParticipantReporting(); // can
-                                                                        // be
-                                                                        // null
+        Participant p = app.getTripController().getDialogState().getParticipantReporting(); // can
+        // be
+        // null
         int spinnerPositionToBe = getPositionInSpinner(p, participantsInSpinner);
         spinner.setSelection(spinnerPositionToBe, false);
 
@@ -125,7 +126,7 @@ public class ReportTabActivity extends Activity {
                 Participant participantSelected = participantsInSpinner.get(position); // can
                                                                                        // be
                                                                                        // null
-                app.getDialogState().setParticipantReporting(participantSelected);
+                app.getTripController().getDialogState().setParticipantReporting(participantSelected);
                 ReportTabActivity.this.updateDynamicRows(app, participantSelected, locale);
                 ReportTabActivity.this.updateStaticRows(app, participantSelected, locale);
             }
@@ -167,14 +168,17 @@ public class ReportTabActivity extends Activity {
         Object valueTotalSpent;
 
         if (participantSelected != null) {
-            valueTotalSpent = AmountViewUtils.getAmountString(locale, app.getTripToBeEdited().getSumReport()
+            valueTotalSpent = AmountViewUtils.getAmountString(locale, getTripLoaded(app)
+                    .getSumReport()
                     .getSpendingByUser().get(participantSelected), true, true, true);
-            valueCount = app.getTripToBeEdited().getSumReport().getSpendingByUserCount().get(participantSelected);
+            valueCount = getTripLoaded(app).getSumReport().getSpendingByUserCount()
+                    .get(participantSelected);
         }
         else {
-            valueTotalSpent = AmountViewUtils.getAmountString(locale, app.getTripToBeEdited().getSumReport()
+            valueTotalSpent = AmountViewUtils.getAmountString(locale, getTripLoaded(app)
+                    .getSumReport()
                     .getTotalSpendings(), true, true, true);
-            valueCount = app.getTripToBeEdited().getSumReport().getTotalSpendingCount();
+            valueCount = getTripLoaded(app).getSumReport().getTotalSpendingCount();
         }
         viewId = R.id.reportViewOutputTotalSpent;
         UiUtils.setLabelAndValueOnTextView(this, viewId, null, valueTotalSpent);
@@ -198,7 +202,7 @@ public class ReportTabActivity extends Activity {
     private void addDynamicCategoryRows(TrickyTripperApp app, Participant participantSelected, Locale locale,
             TableLayout tableLayout, View delimiterLine) {
 
-        SumReport sumReport = app.getTripToBeEdited().getSumReport();
+        SumReport sumReport = getTripLoaded(app).getSumReport();
         Map<PaymentCategory, Amount> categorySpending;
 
         if (participantSelected != null) {
@@ -278,11 +282,12 @@ public class ReportTabActivity extends Activity {
             String value;
             int column;
 
-            Debts debts = app.getTripToBeEdited().getDebts().get(participantSelected);
+            Debts debts = getTripLoaded(app).getDebts().get(participantSelected);
             if (debts.getLoanerToDepts().entrySet().isEmpty()) {
                 newRow = new TableRow(this);
 
-                value = AmountViewUtils.getAmountString(locale, app.getAmountFactory().createAmount(), true, true,
+                value = AmountViewUtils.getAmountString(locale, app.getTripController().getAmountFactory()
+                        .createAmount(), true, true,
                         true);
                 column = 2;
                 TableRow.LayoutParams params = new TableRow.LayoutParams();
@@ -326,6 +331,10 @@ public class ReportTabActivity extends Activity {
             heading.setVisibility(ViewGroup.GONE);
             delimiterLine.setVisibility(ViewGroup.GONE);
         }
+    }
+
+    private Trip getTripLoaded(TrickyTripperApp app) {
+        return app.getTripController().getTripLoaded();
     }
 
     private TextView addNewTextViewToRow(TableRow target, String valueForDisplay, int column) {

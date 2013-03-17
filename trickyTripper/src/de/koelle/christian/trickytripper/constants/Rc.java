@@ -36,6 +36,12 @@ public class Rc {
     public static final String ACTIVITY_PARAM_CURRENCY_CALCULATOR_OUT_VIEW_ID = "activityParamCurrencyCalcOutViewId";
     public static final String ACTIVITY_PARAM_CURRENCY_CALCULATOR_OUT_AMOUNT = "activityParamCurrencyCalcOutAmount";
 
+    public static final String ACTIVITY_PARAM_CURRENCY_SELECTION_IN_MODE = "activityParamCurrencySelectionInMode";
+    public static final String ACTIVITY_PARAM_CURRENCY_SELECTION_IN_CURRENCY = "activityParamCurrencySelectionInCurrency";
+    public static final String ACTIVITY_PARAM_CURRENCY_SELECTION_IN_VIEW_ID = "activityParamCurrencySelectionInViewId";
+    public static final String ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_VIEW_ID = "activityParamCurrencySelectionOutViewId";
+    public static final String ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_CURRENCY = "activityParamCurrencySelectionOutCurrency";
+
     public static final int ACTIVITY_PARAM_CURRENCY_CALCULATOR_REQUEST_CODE = 532147439;
     public static final int ACTIVITY_PARAM_CURRENCY_SELECTION_REQUEST_CODE = 622147448;
     /* TODO(ckoelle) I think this is not for result anymore. */
@@ -62,6 +68,7 @@ public class Rc {
     public static final int PREFS_MODE = Context.MODE_PRIVATE;
 
     public static final String PREFS_VALUE_ID_BASE_CURRENCY = "PREFS_VALUE_ID_BASE_CURRENCY";
-    public static final String PREFS_VALUE_ID_ENABLE_SMART_HELP = "PREFS_VALUE_ID_ENABLE_SMART_HELP";
+    // public static final String PREFS_VALUE_ID_ENABLE_SMART_HELP =
+    // "PREFS_VALUE_ID_ENABLE_SMART_HELP";
 
 }

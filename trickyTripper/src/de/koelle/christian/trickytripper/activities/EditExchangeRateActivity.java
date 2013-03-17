@@ -133,7 +133,7 @@ public class EditExchangeRateActivity extends Activity {
     }
 
     private ExchangeRate createFreshExchangeRate() {
-        Currency currencyTo = getApp().getTripBaseCurrency();
+        Currency currencyTo = getApp().getTripController().getLoadedTripBaseCurrency();
         Currency currencyFrom = CurrencyUtil.getNextOtherCurrency(currencyTo, getResources());
 
         ExchangeRate exchangeRate2 = new ExchangeRate();
@@ -203,7 +203,7 @@ public class EditExchangeRateActivity extends Activity {
     /* ============== Menu Shit [BGN] ============== */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getOptionSupport().populateOptionsMenu(
+        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraints().activity(this).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
@@ -228,7 +228,7 @@ public class EditExchangeRateActivity extends Activity {
         Dialog dialog;
         switch (id) {
         case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
+            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
             break;
         default:
             dialog = null;

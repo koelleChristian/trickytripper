@@ -23,7 +23,7 @@ import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.TabDialogSupport;
 import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.constants.Rt;
-import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
+import de.koelle.christian.trickytripper.controller.TripController;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.modelAdapter.ParticipantRowListAdapter;
 import de.koelle.christian.trickytripper.strategies.SumReport;
@@ -62,13 +62,13 @@ public class ParticipantTabActivity extends ListActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.option_export).setEnabled(getApp().getFktnController().hasLoadedTripPayments());
+        menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getOptionSupport().populateOptionsMenu(
+        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraints().activity(this).menu(menu)
                         .options(new int[] {
                                 R.id.option_create_participant,
@@ -101,8 +101,8 @@ public class ParticipantTabActivity extends ListActivity {
 
     public void updateRows() {
         participantRows.clear();
-        refillListFromModel(participantRows, getApp().getFktnController());
-        final Collator collator = getApp().getDefaultStringCollator();
+        refillListFromModel(participantRows, getApp().getTripController());
+        final Collator collator = getApp().getMiscController().getDefaultStringCollator();
         adapter.sort(new Comparator<ParticipantRow>() {
             public int compare(ParticipantRow lhs, ParticipantRow rhs) {
                 return collator.compare(lhs.getParticipant().getName(), rhs.getParticipant().getName());
@@ -147,9 +147,9 @@ public class ParticipantTabActivity extends ListActivity {
                 getResources().getString(R.string.common_button_delete));
 
         menu.setGroupEnabled(MENU_GROUP_P_ACTIVE_REQ, p.isActive());
-        menu.setGroupEnabled(MENU_GROUP_P_DELETE_ABLE_REQ, getApp().getFktnController().isParticipantDeleteable(p));
+        menu.setGroupEnabled(MENU_GROUP_P_DELETE_ABLE_REQ, getApp().getTripController().isParticipantDeleteable(p));
         menu.setGroupEnabled(MENU_GROUP_P_AT_LEAST_ONE,
-                getApp().getFktnController().getAllParticipants(false).size() > 1);
+                getApp().getTripController().getAllParticipants(false).size() > 1);
 
     }
 
@@ -168,7 +168,7 @@ public class ParticipantTabActivity extends ListActivity {
             return true;
         }
         case R.string.fktn_participant_show_report: {
-            app.getDialogState().setParticipantReporting(participant);
+            app.getTripController().getDialogState().setParticipantReporting(participant);
             switchTabInActivity(Rt.REPORT);
             return true;
         }
@@ -185,7 +185,7 @@ public class ParticipantTabActivity extends ListActivity {
             return true;
         }
         case R.string.common_button_delete: {
-            if (!app.getFktnController().deleteParticipant(participant)) {
+            if (!app.getTripController().deleteParticipant(participant)) {
                 Toast.makeText(getApplicationContext(),
                         getResources().getString(R.string.msg_delete_not_possible_inbalance),
                         Toast.LENGTH_SHORT)
@@ -210,7 +210,7 @@ public class ParticipantTabActivity extends ListActivity {
 
     private void setActiveAndPersist(Participant participant, boolean isActive) {
         participant.setActive(isActive);
-        getApp().getFktnController().persistParticipant(participant);
+        getApp().getTripController().persistParticipant(participant);
     }
 
     private Participant getParticipantByInfo(AdapterView.AdapterContextMenuInfo info) {
@@ -223,7 +223,7 @@ public class ParticipantTabActivity extends ListActivity {
         parent.switchTab(tabId);
     }
 
-    private void refillListFromModel(List<ParticipantRow> participantRows, TripExpensesFktnController fktnController) {
+    private void refillListFromModel(List<ParticipantRow> participantRows, TripController fktnController) {
         List<Participant> allParticipants = fktnController.getAllParticipants(false);
         SumReport sumReport = fktnController.getSumReport();
 

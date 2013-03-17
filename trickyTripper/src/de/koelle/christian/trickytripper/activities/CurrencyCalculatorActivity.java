@@ -13,10 +13,10 @@ import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -28,6 +28,7 @@ import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.activitysupport.CurrencySelectionResultSupport;
 import de.koelle.christian.trickytripper.activitysupport.ImportOptionSupport;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
@@ -50,11 +51,12 @@ public class CurrencyCalculatorActivity extends Activity {
     private ExchangeRate exchangeRateSelected;
     private ImportOptionSupport importOptionSupport;
     private ExchangeRateDescriptionUtils exchangeRateDescriptionUtils;
+    private Currency resultCurrency;
 
     /* ============== Menu Shit [BGN] ============== */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getOptionSupport().populateOptionsMenu(
+        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraints().activity(this).menu(menu)
                         .options(new int[] {
                                 R.id.option_import,
@@ -80,7 +82,7 @@ public class CurrencyCalculatorActivity extends Activity {
         Dialog dialog;
         switch (id) {
         case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
+            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
             break;
         default:
             dialog = null;
@@ -109,22 +111,16 @@ public class CurrencyCalculatorActivity extends Activity {
 
         setContentView(R.layout.currency_calculator_view);
 
-        this.importOptionSupport = new ImportOptionSupport(getApp());
+        this.importOptionSupport = new ImportOptionSupport(getApp().getViewController(), getApp().getMiscController(),
+                this);
         this.exchangeRateDescriptionUtils = new ExchangeRateDescriptionUtils(this.getResources());
 
         readAndSetInput(getIntent());
 
-        Currency sourceCurrencyToBeUsed = getApp().getExchangeRateController().getSourceCurrencyUsedLast();
-        if (sourceCurrencyToBeUsed.equals(resultAmount.getUnit())) {
-            for (Currency currency : CurrencyUtil.getSupportedCurrencies(getResources())) {
-                if (!resultAmount.getUnit().equals(currency)) {
-                    sourceCurrencyToBeUsed = currency;
-                    break;
-                }
-            }
-        }
-        // initCurrencySpinner(resultAmount.getUnit(), sourceCurrencyToBeUsed);
+        Currency sourceCurrencyToBeUsed = getApp().getMiscController().getCurrencyFavorite(resultCurrency);
+
         inputAmount.setUnit(sourceCurrencyToBeUsed);
+        getCurrencySelectionButton().setText(sourceCurrencyToBeUsed.getCurrencyCode());
 
         initAndBindEditText();
 
@@ -135,6 +131,16 @@ public class CurrencyCalculatorActivity extends Activity {
 
         updateCalculation();
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Currency result = CurrencySelectionResultSupport.onActivityResult(requestCode, resultCode, data, this);
+        if (result != null) {
+            inputAmount.setUnit(result);
+            loadAndInitExchangeRates(inputAmount.getUnit(), resultAmount.getUnit());
+            updateCalculation();
+        }
     }
 
     private void loadAndInitExchangeRates(Currency sourceCurrency, Currency resultCurrency) {
@@ -153,8 +159,8 @@ public class CurrencyCalculatorActivity extends Activity {
         Currency resultCurrencySubmitted = (Currency) extras.get(
                 Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_RESULT_CURRENCY);
 
-        Currency resultCurrency = (resultCurrencySubmitted != null) ? resultCurrencySubmitted : getApp()
-                .getTripBaseCurrency();
+        resultCurrency = (resultCurrencySubmitted != null) ? resultCurrencySubmitted : getApp().getTripController()
+                .getLoadedTripBaseCurrency();
 
         resultViewId = intent.getIntExtra(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_RESULT_VIEW_ID, -1);
 
@@ -226,63 +232,72 @@ public class CurrencyCalculatorActivity extends Activity {
         return locale;
     }
 
-    @SuppressWarnings("rawtypes")
-    private void initCurrencySpinner(Currency currencySourceExclusion, Currency currencySelectedLastTime) {
-        final Spinner spinner = (Spinner) findViewById(R.id.currencyCalculatorView_spinner_inputCurrencySelection);
-        List<Currency> suportedCurrencies = CurrencyUtil.getSupportedCurrencies(getResources());
-        final List<RowObject> spinnerObjects = wrapCurrenciesInRowObject(
-                suportedCurrencies,
-                currencySourceExclusion);
-
-        ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this,
-                android.R.layout.simple_spinner_item,
-                spinnerObjects) {
-
-            @Override
-            public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                /* This is the default for the list view. */
-                return super.getDropDownView(position, convertView, parent);
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                /* Display currency code only when not in list view. */
-                TextView result = (TextView) super.getView(position, convertView, parent);
-                result.setText(((Currency) spinnerObjects.get(position).getRowObject()).getCurrencyCode());
-                return result;
-            }
-        };
-
-        adapter.setDropDownViewResource(R.layout.selection_list_medium);
-        spinner.setPromptId(R.string.payment_view_spinner_prompt);
-        spinner.setAdapter(adapter);
-
-        Currency initialSelection2Be = (currencySelectedLastTime == null) ? (Currency) spinnerObjects.get(0)
-                .getRowObject() : currencySelectedLastTime;
-
-        SpinnerViewSupport.setSelection(spinner, initialSelection2Be, adapter);
-
-        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            @SuppressWarnings("unchecked")
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (position >= 0) {
-                    Object o = spinner.getSelectedItem();
-                    Currency selectedCurrency = ((RowObject<Currency>) o).getRowObject();
-                    if (inputAmount.getUnit() == null || !inputAmount.getUnit().equals(selectedCurrency)) {
-                        inputAmount.setUnit(selectedCurrency);
-                        loadAndInitExchangeRates(inputAmount.getUnit(), resultAmount.getUnit());
-                        updateCalculation();
-                    }
-                }
-            }
-
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // intentionally blank
-            }
-
-        });
-    }
+    // @SuppressWarnings("rawtypes")
+    // private void initCurrencySpinner(Currency currencySourceExclusion,
+    // Currency currencySelectedLastTime) {
+    // final Spinner spinner = (Spinner)
+    // findViewById(R.id.currencyCalculatorView_spinner_inputCurrencySelection);
+    // List<Currency> suportedCurrencies =
+    // CurrencyUtil.getSupportedCurrencies(getResources());
+    // final List<RowObject> spinnerObjects = wrapCurrenciesInRowObject(
+    // suportedCurrencies,
+    // currencySourceExclusion);
+    //
+    // ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this,
+    // android.R.layout.simple_spinner_item,
+    // spinnerObjects) {
+    //
+    // @Override
+    // public View getDropDownView(int position, View convertView, ViewGroup
+    // parent) {
+    // /* This is the default for the list view. */
+    // return super.getDropDownView(position, convertView, parent);
+    // }
+    //
+    // @Override
+    // public View getView(int position, View convertView, ViewGroup parent) {
+    // /* Display currency code only when not in list view. */
+    // TextView result = (TextView) super.getView(position, convertView,
+    // parent);
+    // result.setText(((Currency)
+    // spinnerObjects.get(position).getRowObject()).getCurrencyCode());
+    // return result;
+    // }
+    // };
+    //
+    // adapter.setDropDownViewResource(R.layout.selection_list_medium);
+    // spinner.setPromptId(R.string.payment_view_spinner_prompt);
+    // spinner.setAdapter(adapter);
+    //
+    // Currency initialSelection2Be = (currencySelectedLastTime == null) ?
+    // (Currency) spinnerObjects.get(0)
+    // .getRowObject() : currencySelectedLastTime;
+    //
+    // SpinnerViewSupport.setSelection(spinner, initialSelection2Be, adapter);
+    //
+    // spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+    //
+    // @SuppressWarnings("unchecked")
+    // public void onItemSelected(AdapterView<?> parentView, View
+    // selectedItemView, int position, long id) {
+    // if (position >= 0) {
+    // Object o = spinner.getSelectedItem();
+    // Currency selectedCurrency = ((RowObject<Currency>) o).getRowObject();
+    // if (inputAmount.getUnit() == null ||
+    // !inputAmount.getUnit().equals(selectedCurrency)) {
+    // inputAmount.setUnit(selectedCurrency);
+    // loadAndInitExchangeRates(inputAmount.getUnit(), resultAmount.getUnit());
+    // updateCalculation();
+    // }
+    // }
+    // }
+    //
+    // public void onNothingSelected(AdapterView<?> parentView) {
+    // // intentionally blank
+    // }
+    //
+    // });
+    // }
 
     @SuppressWarnings("rawtypes")
     private void initExchangeRateSpinner(List<ExchangeRate> rates) {
@@ -400,8 +415,15 @@ public class CurrencyCalculatorActivity extends Activity {
 
     }
 
+    @SuppressWarnings("unused")
     public void openCurrencySelection(View view) {
-        getApp().openCurrencySelection(this);
+        View getCurrencySelectionButton = getCurrencySelectionButton();
+        getApp().getViewController().openCurrencySelectionForCalculation(this, resultCurrency,
+                getCurrencySelectionButton.getId());
+    }
+
+    private Button getCurrencySelectionButton() {
+        return (Button) findViewById(R.id.currencyCalculatorView_button_inputCurrencySelection);
     }
 
     @SuppressWarnings("unused")

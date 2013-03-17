@@ -26,8 +26,8 @@ import de.koelle.christian.trickytripper.activitysupport.PopupCallBackAdapter;
 import de.koelle.christian.trickytripper.activitysupport.PopupCallback;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.TabDialogSupport;
-import de.koelle.christian.trickytripper.constants.Rt;
 import de.koelle.christian.trickytripper.constants.Rd;
+import de.koelle.christian.trickytripper.constants.Rt;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
@@ -76,7 +76,7 @@ public class TrickyTripperActivity extends TabActivity {
             dialog = PopupFactory.createAndShowEditParticipantPopupEditMode(this);
             break;
         case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp(),
+            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(),
                     Rd.DIALOG_HELP);
             break;
         case Rd.DIALOG_DELETE_PAYMENT:
@@ -145,7 +145,7 @@ public class TrickyTripperActivity extends TabActivity {
         return new PopupCallBackAdapter() {
             @Override
             public void done() {
-                getApp().getFktnController().deletePayment(payment);
+                getApp().getTripController().deletePayment(payment);
                 paymentTabActivity.sortAndUpdateView();
             }
         };
@@ -168,7 +168,7 @@ public class TrickyTripperActivity extends TabActivity {
                 String input = autoCompleteTextView.getEditableText().toString();
                 input = input.trim();
                 participant.setName(input);
-                if (getApp().getFktnController().persistParticipant(participant)) {
+                if (getApp().getTripController().persistParticipant(participant)) {
                     dialog.dismiss();
                     if (popupCallback != null) {
                         popupCallback.done();
@@ -234,7 +234,7 @@ public class TrickyTripperActivity extends TabActivity {
 
     private void updateButtonText() {
         Button button = (Button) findViewById(R.id.mainView_trip_button);
-        Trip trip = getApp().getFktnController().getTripLoaded();
+        Trip trip = getApp().getTripController().getTripLoaded();
         button.setText(trip.getName() + " "
                 + CurrencyUtil.getSymbolToCurrency(getResources(), trip.getBaseCurrency(), true));
     }
@@ -267,7 +267,7 @@ public class TrickyTripperActivity extends TabActivity {
     private String getPrefixTextForPaymentDeletion(Payment payment) {
         Locale locale = getResources().getConfiguration().locale;
 
-        Amount totalAmount = getApp().getAmountFactory().createAmount();
+        Amount totalAmount = getApp().getTripController().getAmountFactory().createAmount();
         payment.getTotalAmount(totalAmount);
 
         StringBuilder builder = new StringBuilder();

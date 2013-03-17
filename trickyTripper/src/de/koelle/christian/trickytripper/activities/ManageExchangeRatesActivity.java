@@ -47,9 +47,10 @@ public class ManageExchangeRatesActivity extends ListActivity {
 
         TrickyTripperApp app = getApp();
 
-        this.importOptionSupport = new ImportOptionSupport(app);
+        this.importOptionSupport = new ImportOptionSupport(getApp().getViewController(), getApp().getMiscController(),
+                this);
 
-        final Collator collator = app.getDefaultStringCollator();
+        final Collator collator = app.getMiscController().getDefaultStringCollator();
         comparator = new Comparator<ExchangeRate>() {
             public int compare(ExchangeRate object1, ExchangeRate object2) {
                 return collator.compare(object1.getSortString(), object2.getSortString());
@@ -95,7 +96,7 @@ public class ManageExchangeRatesActivity extends ListActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getOptionSupport().populateOptionsMenu(
+        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraints().activity(this).menu(menu)
                         .options(new int[] {
                                 R.id.option_help,
@@ -138,7 +139,7 @@ public class ManageExchangeRatesActivity extends ListActivity {
         Dialog dialog;
         switch (id) {
         case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
+            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
             break;
         case Rd.DIALOG_DELETE:
             dialog = PopupFactory.showDeleteConfirmationDialog(this);
@@ -276,7 +277,7 @@ public class ManageExchangeRatesActivity extends ListActivity {
     }
 
     private void openDeleteActivity() {
-        getApp().openDeleteExchangeRates(this, new Currency[0]);
+        getApp().getViewController().openDeleteExchangeRates(this, new Currency[0]);
     }
 
     private void openCreateActivity() {

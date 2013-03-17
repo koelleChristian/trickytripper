@@ -2,37 +2,123 @@ package de.koelle.christian.trickytripper.activities;
 
 import java.util.Currency;
 
-import android.app.ExpandableListActivity;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.TableLayout;
+import android.widget.TextView;
+import de.koelle.christian.common.utils.UiUtils;
+import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.model.HierarchicalCurrencyList;
 import de.koelle.christian.trickytripper.model.modelAdapter.CurrencyExpandableListAdapter;
 
-public class CurrencySelectionActivity extends ExpandableListActivity {
+public class CurrencySelectionActivity extends Activity {
 
-    private Currency targetCurrency;
+    private Currency currencyProvided;
+    private int resultViewId;
     private Currency currencySelected;
+    private CurrencySelectionMode mode;
 
-    private ExpandableListAdapter mAdapter;
+    public enum CurrencySelectionMode {
+        SELECT_FOR_EXCHANGE_CALCULATION,
+        SELECT_EXCHANGE_RATE_LEFT,
+        SELECT_EXCHANGE_RATE_RIGHT,
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.currency_selection_view);
 
-        HierarchicalCurrencyList lis = ((TrickyTripperApp) getApplication()).getMiscController().getAllCurrencies();
+        readAndSetInput(getIntent());
+        updateInstructionLabels();
 
-        mAdapter = new CurrencyExpandableListAdapter(this, lis);
-        setListAdapter(mAdapter);
+        initList();
+    }
 
-        getExpandableListView().setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+    private void initList() {
+
+        ExpandableListView list = (ExpandableListView) findViewById(R.id.currencySelectionViewList);
+
+        HierarchicalCurrencyList lis;
+
+        if (CurrencySelectionMode.SELECT_FOR_EXCHANGE_CALCULATION.equals(mode)) {
+            lis = ((TrickyTripperApp) getApplication()).getMiscController().getAllCurrenciesForTarget(currencyProvided);
+        }
+        else {
+            lis = ((TrickyTripperApp) getApplication()).getMiscController().getAllCurrencies();
+        }
+
+        final CurrencyExpandableListAdapter adapter = new CurrencyExpandableListAdapter(this,
+                lis.createListWithAllLists());
+
+        list.setAdapter(adapter);
+        list.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                System.out.println("group=" + groupPosition + " child=" + childPosition);
+                currencySelected = adapter.getRecordByVisualId(groupPosition, childPosition).getCurrency();
+                prepareResultAndFinish();
                 return true;
             }
         });
+    }
+
+    private void updateInstructionLabels() {
+        TextView instructionsMoneyExchangeCalculation = (TextView) findViewById(R.id.currencySelectionViewLabelInstrExchangeRateCalculation);
+        TextView instructionsNewExchangeRate = (TextView) findViewById(R.id.currencySelectionViewLabelInstrNewExchangeRate);
+        TableLayout instructionsNewExchangeRate2 = (TableLayout) findViewById(R.id.currencySelectionViewLabelInstrNewExchangeRateTableLayout);
+
+        String currencyCodeProvided = currencyProvided.getCurrencyCode();
+
+        if (CurrencySelectionMode.SELECT_FOR_EXCHANGE_CALCULATION.equals(mode)) {
+            UiUtils.setViewVisibility(instructionsMoneyExchangeCalculation, true);
+            UiUtils.setViewVisibility(instructionsNewExchangeRate, false);
+            UiUtils.setViewVisibility(instructionsNewExchangeRate2, false);
+
+            StringBuilder instructions = new StringBuilder()
+                    .append(getResources().getString(R.string.currency_selection_view_instruction_exchange_rate_calc))
+                    .append(" ")
+                    .append(currencyCodeProvided)
+                    .append(".");
+            instructionsMoneyExchangeCalculation.setText(instructions.toString());
+        }
+        else {
+            UiUtils.setViewVisibility(instructionsMoneyExchangeCalculation, false);
+            UiUtils.setViewVisibility(instructionsNewExchangeRate, true);
+            UiUtils.setViewVisibility(instructionsNewExchangeRate2, true);
+            TextView currencyLeftHand = (TextView) findViewById(R.id.currencySelectionViewLabelInstrNewExchangeRateValueLeft);
+            TextView currencyRightHand = (TextView) findViewById(R.id.currencySelectionViewLabelInstrNewExchangeRateValueLeft);
+
+            CharSequence toBeSelectedTxt = getResources().getText(
+                    R.string.currency_selection_view_instruction_new_exchange_rate_label_to_be_selected);
+
+            if (CurrencySelectionMode.SELECT_EXCHANGE_RATE_LEFT.equals(mode)) {
+                currencyLeftHand.setText(toBeSelectedTxt);
+                currencyRightHand.setText(currencyCodeProvided);
+            }
+            else {
+                currencyLeftHand.setText(currencyCodeProvided);
+                currencyRightHand.setText(toBeSelectedTxt);
+            }
+        }
+
+    }
+
+    private void prepareResultAndFinish() {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_CURRENCY, currencySelected);
+        resultIntent.putExtra(Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_VIEW_ID, resultViewId);
+        setResult(RESULT_OK, resultIntent);
+        finish();
+    }
+
+    private void readAndSetInput(Intent intent) {
+        currencyProvided = (Currency) intent.getSerializableExtra(Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_IN_CURRENCY);
+        resultViewId = intent.getIntExtra(Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_IN_VIEW_ID, -1);
+        mode = (CurrencySelectionMode) intent.getSerializableExtra(Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_IN_MODE);
     }
 }

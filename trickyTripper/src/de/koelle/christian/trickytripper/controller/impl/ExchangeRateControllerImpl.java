@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
-import android.content.res.Resources;
 import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
 import de.koelle.christian.trickytripper.controller.ExchangeRateController;
 import de.koelle.christian.trickytripper.dataaccess.DataManager;
@@ -16,12 +15,10 @@ public class ExchangeRateControllerImpl implements ExchangeRateController {
 
     private final DataManager dataManager;
     private final PrefsResolver prefsResolver;
-    private final Resources resources;
 
-    public ExchangeRateControllerImpl(DataManager dataManager, PrefsResolver prefsResolver, Resources resources) {
+    public ExchangeRateControllerImpl(DataManager dataManager, PrefsResolver prefsResolver) {
         this.dataManager = dataManager;
         this.prefsResolver = prefsResolver;
-        this.resources = resources;
     }
 
     public List<ExchangeRate> findSuitableRates(Currency currencyFrom, Currency currencyTo) {
@@ -59,10 +56,6 @@ public class ExchangeRateControllerImpl implements ExchangeRateController {
 
     public void persitImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported) {
         dataManager.persistImportedExchangeRate(rate, replaceWhenAlreadyImported);
-    }
-
-    public Currency getSourceCurrencyUsedLast() {
-        return PrefWritrerReaderUtils.loadSourceCurrencyUsedLast(prefsResolver.getPrefs(), resources);
     }
 
     public void persistExchangeRateUsedLast(ExchangeRate exchangeRateUsedLast) {

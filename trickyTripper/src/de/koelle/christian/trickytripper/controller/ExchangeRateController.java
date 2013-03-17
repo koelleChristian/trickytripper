@@ -25,7 +25,7 @@ public interface ExchangeRateController {
      * 
      * @return Null if there has not been anything used yet.
      */
-    Currency getSourceCurrencyUsedLast();
+    // Currency getSourceCurrencyUsedLast();
 
     void persistExchangeRateUsedLast(ExchangeRate exchangeRateUsedLast);
 

@@ -271,4 +271,14 @@ public class CurrencyUtil {
         return result;
     }
 
+    public static Currency getFirstOther(Currency currencyToBeExcluded, Resources resources) {
+        initIfRequired(resources);
+        for (Currency c : supportedCurrencies) {
+            if (!c.equals(currencyToBeExcluded)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
 }

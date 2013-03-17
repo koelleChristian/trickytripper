@@ -33,13 +33,13 @@ import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorActivitySupport;
+import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorResultSupport;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.constants.Rx;
 import de.koelle.christian.trickytripper.controller.MiscController;
-import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
+import de.koelle.christian.trickytripper.controller.TripController;
 import de.koelle.christian.trickytripper.factories.AmountFactory;
 import de.koelle.christian.trickytripper.factories.ModelFactory;
 import de.koelle.christian.trickytripper.model.Amount;
@@ -72,7 +72,7 @@ public class MoneyTransferActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getOptionSupport().populateOptionsMenu(
+        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraints().activity(this).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
@@ -95,7 +95,7 @@ public class MoneyTransferActivity extends Activity {
         Dialog dialog;
         switch (id) {
         case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
+            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
             break;
         default:
             dialog = null;
@@ -118,7 +118,7 @@ public class MoneyTransferActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        CurrencyCalculatorActivitySupport.onActivityResult(requestCode, resultCode, data, this, getLocale());
+        CurrencyCalculatorResultSupport.onActivityResult(requestCode, resultCode, data, this, getLocale());
     }
 
     private void initView(Participant transferer, List<Participant> allParticipants, Debts debtsOfTransferer) {
@@ -223,7 +223,7 @@ public class MoneyTransferActivity extends Activity {
             nameTextView.setText(p.getName());
             UiUtils.setFontAndStyle(this, nameTextView, !p.isActive(), android.R.style.TextAppearance_Small);
 
-            buttonCurrency.setText(getMiscController().getCurrencySymbolOfTripLoaded(false));
+            buttonCurrency.setText(getApp().getTripController().getLodadedTripCurrencySymbol(false));
             bindCurrencyCalculatorAction(buttonCurrency, inputValueModel, dynViewId);
 
             if (amountDue == null) {
@@ -351,12 +351,11 @@ public class MoneyTransferActivity extends Activity {
     }
 
     private AmountFactory getAmountFac() {
-
-        return getApp().getAmountFactory();
+        return getApp().getTripController().getAmountFactory();
     }
 
-    private TripExpensesFktnController getFktnController() {
-        return getApp().getFktnController();
+    private TripController getFktnController() {
+        return getApp().getTripController();
     }
 
     private MiscController getMiscController() {

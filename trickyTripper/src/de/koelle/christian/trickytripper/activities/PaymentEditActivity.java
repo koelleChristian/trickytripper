@@ -56,7 +56,7 @@ import de.koelle.christian.common.utils.StringUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorActivitySupport;
+import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorResultSupport;
 import de.koelle.christian.trickytripper.activitysupport.DivisionResult;
 import de.koelle.christian.trickytripper.activitysupport.MathUtils;
 import de.koelle.christian.trickytripper.activitysupport.PaymentEditActivityState;
@@ -66,7 +66,7 @@ import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.constants.Rx;
 import de.koelle.christian.trickytripper.constants.ViewMode;
-import de.koelle.christian.trickytripper.controller.TripExpensesFktnController;
+import de.koelle.christian.trickytripper.controller.TripController;
 import de.koelle.christian.trickytripper.factories.AmountFactory;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -119,7 +119,7 @@ public class PaymentEditActivity extends Activity {
         if (ViewMode.CREATE.equals(viewMode)) {
             long participantId = getIntent().getLongExtra(Rc.ACTIVITY_PARAM_KEY_PARTICIPANT_ID, -1L);
             payment = getFktnController().prepareNewPayment(participantId);
-            allRelevantParticipants = getApp().getFktnController().getAllParticipants(true);
+            allRelevantParticipants = getApp().getTripController().getAllParticipants(true);
             sortParticipants(allRelevantParticipants);
             for (Participant p : allRelevantParticipants) {
                 payment.getParticipantToSpending().put(p, getAmountFac().createAmount());
@@ -133,7 +133,7 @@ public class PaymentEditActivity extends Activity {
         else {
             long paymentId = getIntent().getLongExtra(Rc.ACTIVITY_PARAM_KEY_PAYMENT_ID, -1L);
             payment = ObjectUtils.cloneDeep(getFktnController().loadPayment(paymentId));
-            allRelevantParticipants = addAncientInactive(getApp().getFktnController().getAllParticipants(true), payment);
+            allRelevantParticipants = addAncientInactive(getApp().getTripController().getAllParticipants(true), payment);
             sortParticipants(allRelevantParticipants);
             ((TextView) findViewById(R.id.paymentView_textView_heading_create)).setVisibility(ViewGroup.GONE);
             ((TextView) findViewById(R.id.paymentView_textView_heading_edit)).setVisibility(ViewGroup.VISIBLE);
@@ -163,7 +163,7 @@ public class PaymentEditActivity extends Activity {
     }
 
     private void sortParticipants(List<Participant> allRelevantParticipants2) {
-        final Collator collator = getApp().getDefaultStringCollator();
+        final Collator collator = getApp().getMiscController().getDefaultStringCollator();
         Collections.sort(allRelevantParticipants2, new Comparator<Participant>() {
             public int compare(Participant object1, Participant object2) {
                 return collator.compare(object1.getName(), object2.getName());
@@ -193,7 +193,7 @@ public class PaymentEditActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getOptionSupport().populateOptionsMenu(
+        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraints().activity(this).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
@@ -222,7 +222,7 @@ public class PaymentEditActivity extends Activity {
             dialog = createDialogDebitorSelection();
             break;
         case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp(), Rd.DIALOG_HELP);
+            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
             break;
         default:
             dialog = null;
@@ -251,7 +251,7 @@ public class PaymentEditActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        CurrencyCalculatorActivitySupport.onActivityResult(requestCode, resultCode, data, this, getLocale());
+        CurrencyCalculatorResultSupport.onActivityResult(requestCode, resultCode, data, this, getLocale());
     }
 
     private void updateParticipantSelectionDialog(Dialog dialog, Bundle args) {
@@ -330,7 +330,7 @@ public class PaymentEditActivity extends Activity {
             TextView textView = (TextView) row.findViewById(R.id.payment_edit_payer_row_view_output_name);
 
             Button buttonCurrency = (Button) row.findViewById(R.id.payment_edit_payer_row_view_button_currency);
-            buttonCurrency.setText(getApp().getCurrencySymbolOfTripLoaded(false));
+            buttonCurrency.setText(getFktnController().getLodadedTripCurrencySymbol(false));
 
             UiUtils.makeProperNumberInput(editText, getDecimalNumberInputUtil().getInputPatternMatcher());
             writeAmountToEditText(amount, editText);
@@ -888,7 +888,7 @@ public class PaymentEditActivity extends Activity {
         final Spinner spinner = (Spinner) findViewById(R.id.paymentView_spinnerPaymentCategory);
         List<RowObject> spinnerObjects = SpinnerViewSupport.createSpinnerObjects(PaymentCategory.BEVERAGES, false,
                 Arrays.asList(new Object[] { PaymentCategory.MONEY_TRANSFER }), getResources(), getApp()
-                        .getDefaultStringCollator());
+                        .getMiscController().getDefaultStringCollator());
         ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this, android.R.layout.simple_spinner_item,
                 spinnerObjects);
         adapter.setDropDownViewResource(R.layout.selection_list_medium);
@@ -929,11 +929,11 @@ public class PaymentEditActivity extends Activity {
     }
 
     private AmountFactory getAmountFac() {
-        return getApp().getAmountFactory();
+        return getFktnController().getAmountFactory();
     }
 
-    private TripExpensesFktnController getFktnController() {
-        return getApp().getFktnController();
+    private TripController getFktnController() {
+        return getApp().getTripController();
     }
 
 }

@@ -1,5 +1,6 @@
 package de.koelle.christian.trickytripper.controller;
 
+import java.util.Currency;
 import java.util.List;
 import java.util.Map;
 
@@ -9,8 +10,9 @@ import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.Trip;
 import de.koelle.christian.trickytripper.model.TripSummary;
 import de.koelle.christian.trickytripper.strategies.SumReport;
+import de.koelle.christian.trickytripper.ui.model.DialogState;
 
-public interface TripExpensesFktnController {
+public interface TripController extends TripResolver {
 
     /* ========= Participant related functions. ========= */
 
@@ -18,7 +20,7 @@ public interface TripExpensesFktnController {
 
     boolean deleteParticipant(Participant participant);
 
-    public boolean isParticipantDeleteable(Participant participant);
+    boolean isParticipantDeleteable(Participant participant);
 
     List<Participant> getAllParticipants(boolean onlyActive);
 
@@ -57,5 +59,13 @@ public interface TripExpensesFktnController {
     Map<Participant, Debts> getDebts();
 
     boolean hasTripPayments(TripSummary selectedTripSummary);
+
+    void safeLoadedTripIdToPrefs();
+
+    DialogState getDialogState();
+
+    Currency getLoadedTripBaseCurrency();
+
+    String getLodadedTripCurrencySymbol(boolean wrapInBrackets);
 
 }

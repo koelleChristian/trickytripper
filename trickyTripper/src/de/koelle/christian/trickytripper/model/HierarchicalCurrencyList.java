@@ -1,5 +1,6 @@
 package de.koelle.christian.trickytripper.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HierarchicalCurrencyList {
@@ -43,6 +44,15 @@ public class HierarchicalCurrencyList {
 
     public void setCurrenciesElse(List<CurrencyWithName> currenciesElse) {
         this.currenciesElse = currenciesElse;
+    }
+
+    public List<List<CurrencyWithName>> createListWithAllLists() {
+        List<List<CurrencyWithName>> result = new ArrayList<List<CurrencyWithName>>();
+        result.add(currenciesMatchingInOrderOfUsage);
+        result.add(currenciesUsedByDate);
+        result.add(currenciesInProject);
+        result.add(currenciesElse);
+        return result;
     }
 
 }
