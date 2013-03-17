@@ -64,7 +64,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         assertOrderAndContentContent(result.getCurrenciesUsedUnmatched(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesInExchangeRatesUnmatched(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesInTrips(), new Currency[] {});
-        assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies);
+        assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 1);
 
     }
 
@@ -77,7 +77,7 @@ public class CurrencyLastUsedTest extends ApplicationTestCase<TrickyTripperApp> 
         assertOrderAndContentContent(result.getCurrenciesUsedUnmatched(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesInExchangeRatesUnmatched(), new Currency[] {});
         assertOrderAndContentContent(result.getCurrenciesInTrips(), new Currency[] { USD });
-        assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies - 1);
+        assertTailContent(result.getCurrenciesElse(), totalAmountOfAllCurrencies);
     }
 
     public void testGetAllCurrenciesForTarget() {

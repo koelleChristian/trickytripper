@@ -51,6 +51,7 @@ public class ExchangeRatePrefsSaveLoadTest extends ApplicationTestCase<TrickyTri
     protected void tearDown() throws Exception {
         dataManager.close();
         super.tearDown();
+        getContext().deleteDatabase(DataConstants.DATABASE_NAME);
     }
 
     /**
