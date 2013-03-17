@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.text.Collator;
 import java.util.Arrays;
 import java.util.Currency;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -89,21 +91,36 @@ public class MiscControllerImpl implements MiscController {
     public HierarchicalCurrencyList getAllCurrenciesForTarget(Currency currency) {
         HierarchicalCurrencyList result = new HierarchicalCurrencyList();
         CurrenciesUsed currenciesUsed = dataManager.findUsedCurrenciesForTarget(currency);
-        result.setCurrenciesMatchingInOrderOfUsage(
+        result.setCurrenciesUsedMatching(
                 CurrencyUtil.convertToCurrencyWithName(currenciesUsed
-                        .getCurrenciesMatchingInOrderOfUsage()
+                        .getCurrenciesUsedMatching()
                         , context.getResources()));
-        result.setCurrenciesUsedByDate(
+        result.setCurrenciesUsedUnmatched(
                 CurrencyUtil.convertToCurrencyWithName(currenciesUsed
-                        .getCurrenciesUsedByDate()
+                        .getCurrenciesUsedUnmatched()
                         , null));
-        result.setCurrenciesInProject(
+
+        result.setCurrenciesInExchangeRatesMatching(
                 CurrencyUtil.convertToCurrencyWithName(currenciesUsed
-                        .getCurrenciesInProject()
+                        .getCurrenciesInExchangeRatesMatching()
                         , null));
+
+        result.setCurrenciesInExchangeRatesUnmatched(
+                CurrencyUtil.convertToCurrencyWithName(currenciesUsed
+                        .getCurrenciesInExchangeRatesUnmatched()
+                        , null));
+
+        result.setCurrenciesInTrips(
+                CurrencyUtil.convertToCurrencyWithName(currenciesUsed
+                        .getCurrenciesInTrips()
+                        , null));
+        Set<Currency> currenciesToBeExcludedFromElseList = new HashSet<Currency>();
+        if (currency != null) {
+            currenciesToBeExcludedFromElseList.add(currency);
+        }
         result.setCurrenciesElse(
                 CurrencyUtil.convertOthersToCurrencyWithName(
-                        currenciesUsed.getCurrenciesAlreadyFilled()
+                        currenciesToBeExcludedFromElseList
                         , null));
         if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
             Log.d(Rc.LT, "Currencies requested for target=" + currency + ": " + result);

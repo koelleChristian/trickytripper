@@ -41,6 +41,7 @@ public class Rc {
     public static final String ACTIVITY_PARAM_CURRENCY_SELECTION_IN_VIEW_ID = "activityParamCurrencySelectionInViewId";
     public static final String ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_VIEW_ID = "activityParamCurrencySelectionOutViewId";
     public static final String ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_CURRENCY = "activityParamCurrencySelectionOutCurrency";
+    public static final String ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_WAS_LEFT_NOT_RIGHT = "activityParamCurrencySelectionOutWasLeftNotRight";
 
     public static final int ACTIVITY_PARAM_CURRENCY_CALCULATOR_REQUEST_CODE = 532147439;
     public static final int ACTIVITY_PARAM_CURRENCY_SELECTION_REQUEST_CODE = 622147448;

@@ -5,37 +5,66 @@ import java.util.List;
 
 public class HierarchicalCurrencyList {
 
+    public static final int GROUP_POS_ID_USED_MATCHING = 0;
+    public static final int GROUP_POS_ID_IN_RATES_MATCHING = 1;
+
+    public static final int GROUP_POS_ID_USED_UNMATCHED = 2;
+    public static final int GROUP_POS_ID_IN_RATES_UNMATCHED = 3;
+
+    public static final int GROUP_POS_ID_TRIPS = 4;
+    public static final int GROUP_POS_ID_ELSE = 5;
+
     /* By date of usage */
-    private List<CurrencyWithName> currenciesMatchingInOrderOfUsage;
+    private List<CurrencyWithName> currenciesUsedMatching;
     /* By date of usage */
-    private List<CurrencyWithName> currenciesUsedByDate;
+    private List<CurrencyWithName> currenciesInExchangeRatesMatching;
+    /* By date of usage */
+    private List<CurrencyWithName> currenciesUsedUnmatched;
+    /* By date of usage */
+    private List<CurrencyWithName> currenciesInExchangeRatesUnmatched;
     /* Alphabetical */
-    private List<CurrencyWithName> currenciesInProject;
+    private List<CurrencyWithName> currenciesInTrips;
     /* Alphabetical */
     private List<CurrencyWithName> currenciesElse;
 
-    public List<CurrencyWithName> getCurrenciesMatchingInOrderOfUsage() {
-        return currenciesMatchingInOrderOfUsage;
+    public List<CurrencyWithName> getCurrenciesUsedMatching() {
+        return currenciesUsedMatching;
     }
 
-    public void setCurrenciesMatchingInOrderOfUsage(List<CurrencyWithName> currenciesMatchingInOrderOfUsage) {
-        this.currenciesMatchingInOrderOfUsage = currenciesMatchingInOrderOfUsage;
+    public void setCurrenciesUsedMatching(List<CurrencyWithName> currenciesUsedMatching) {
+        this.currenciesUsedMatching = currenciesUsedMatching;
     }
 
-    public List<CurrencyWithName> getCurrenciesUsedByDate() {
-        return currenciesUsedByDate;
+    public List<CurrencyWithName> getCurrenciesUsedUnmatched() {
+        return currenciesUsedUnmatched;
     }
 
-    public void setCurrenciesUsedByDate(List<CurrencyWithName> currenciesUsedByDate) {
-        this.currenciesUsedByDate = currenciesUsedByDate;
+    public void setCurrenciesUsedUnmatched(List<CurrencyWithName> currenciesUsedNotMatching) {
+        this.currenciesUsedUnmatched = currenciesUsedNotMatching;
     }
 
-    public List<CurrencyWithName> getCurrenciesInProject() {
-        return currenciesInProject;
+    public List<CurrencyWithName> getCurrenciesInExchangeRatesMatching() {
+        return currenciesInExchangeRatesMatching;
     }
 
-    public void setCurrenciesInProject(List<CurrencyWithName> currenciesInProject) {
-        this.currenciesInProject = currenciesInProject;
+    public void setCurrenciesInExchangeRatesMatching(List<CurrencyWithName> currenciesInExchangeRatesMatching) {
+        this.currenciesInExchangeRatesMatching = currenciesInExchangeRatesMatching;
+    }
+
+    public List<CurrencyWithName> getCurrenciesInExchangeRatesUnmatched() {
+        return currenciesInExchangeRatesUnmatched;
+    }
+
+    public void setCurrenciesInExchangeRatesUnmatched(List<CurrencyWithName> currenciesInExchangeRatesNotMatching) {
+        this.currenciesInExchangeRatesUnmatched = currenciesInExchangeRatesNotMatching;
+    }
+
+    public List<CurrencyWithName> getCurrenciesInTrips() {
+        return currenciesInTrips;
+    }
+
+    public void setCurrenciesInTrips(List<CurrencyWithName> currenciesInTrips) {
+        this.currenciesInTrips = currenciesInTrips;
     }
 
     public List<CurrencyWithName> getCurrenciesElse() {
@@ -48,11 +77,12 @@ public class HierarchicalCurrencyList {
 
     public List<List<CurrencyWithName>> createListWithAllLists() {
         List<List<CurrencyWithName>> result = new ArrayList<List<CurrencyWithName>>();
-        result.add(currenciesMatchingInOrderOfUsage);
-        result.add(currenciesUsedByDate);
-        result.add(currenciesInProject);
+        result.add(currenciesUsedMatching);
+        result.add(currenciesInExchangeRatesMatching);
+        result.add(currenciesUsedUnmatched);
+        result.add(currenciesInExchangeRatesUnmatched);
+        result.add(currenciesInTrips);
         result.add(currenciesElse);
         return result;
     }
-
 }

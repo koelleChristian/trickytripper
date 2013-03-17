@@ -7,75 +7,93 @@ import java.util.Set;
 
 public class CurrenciesUsed {
 
-    private List<Currency> currenciesMatchingInOrderOfUsage;
-    private List<Currency> currenciesUsedByDate;
-    private List<Currency> currenciesInProject;
+    private List<Currency> currenciesUsedMatching;
+    private List<Currency> currenciesUsedUnmatched;
+    private List<Currency> currenciesInExchangeRatesMatching;
+    private List<Currency> currenciesInExchangeRatesUnmatched;
+    private List<Currency> currenciesInTrips;
 
-    public List<Currency> getCurrenciesMatchingInOrderOfUsage() {
-        return currenciesMatchingInOrderOfUsage;
+    public List<Currency> getCurrenciesUsedMatching() {
+        return currenciesUsedMatching;
     }
 
-    public void setCurrenciesMatchingInOrderOfUsage(List<Currency> currienciesMatchingInOrderOfUsage) {
-        this.currenciesMatchingInOrderOfUsage = currienciesMatchingInOrderOfUsage;
+    public void setCurrenciesUsedMatching(List<Currency> currenciesMatchingInUse) {
+        this.currenciesUsedMatching = currenciesMatchingInUse;
     }
 
-    public List<Currency> getCurrenciesUsedByDate() {
-        return currenciesUsedByDate;
+    public List<Currency> getCurrenciesUsedUnmatched() {
+        return currenciesUsedUnmatched;
     }
 
-    public void setCurrenciesUsedByDate(List<Currency> currienciesUsedByDate) {
-        this.currenciesUsedByDate = currienciesUsedByDate;
+    public void setCurrenciesUsedUnmatched(List<Currency> currenciesNotMatchingInUse) {
+        this.currenciesUsedUnmatched = currenciesNotMatchingInUse;
     }
 
-    public List<Currency> getCurrenciesInProject() {
-        return currenciesInProject;
+    public List<Currency> getCurrenciesInExchangeRatesMatching() {
+        return currenciesInExchangeRatesMatching;
     }
 
-    public void setCurrenciesInProject(List<Currency> currienciesInProject) {
-        this.currenciesInProject = currienciesInProject;
+    public void setCurrenciesInExchangeRatesMatching(List<Currency> currenciesInExchangeRatesUnusedMatching) {
+        this.currenciesInExchangeRatesMatching = currenciesInExchangeRatesUnusedMatching;
+    }
+
+    public List<Currency> getCurrenciesInExchangeRatesUnmatched() {
+        return currenciesInExchangeRatesUnmatched;
+    }
+
+    public void setCurrenciesInExchangeRatesUnmatched(List<Currency> currenciesInExchangeRatesUnusedNotMatching) {
+        this.currenciesInExchangeRatesUnmatched = currenciesInExchangeRatesUnusedNotMatching;
+    }
+
+    public List<Currency> getCurrenciesInTrips() {
+        return currenciesInTrips;
+    }
+
+    public void setCurrenciesInTrips(List<Currency> currenciesInProject) {
+        this.currenciesInTrips = currenciesInProject;
     }
 
     public Set<Currency> getCurrenciesAlreadyFilled() {
         Set<Currency> result = new HashSet<Currency>();
-        result.addAll(currenciesMatchingInOrderOfUsage);
-        result.addAll(currenciesUsedByDate);
-        if (currenciesInProject != null) {
-            result.addAll(currenciesInProject);
+        result.addAll(currenciesUsedMatching);
+        result.addAll(currenciesUsedUnmatched);
+        if (currenciesInExchangeRatesMatching != null) {
+            result.addAll(currenciesInExchangeRatesMatching);
+        }
+        if (currenciesInExchangeRatesUnmatched != null) {
+            result.addAll(currenciesInExchangeRatesUnmatched);
+        }
+        if (currenciesInTrips != null) {
+            result.addAll(currenciesInTrips);
         }
         return result;
     }
 
     @Override
     public String toString() {
-        return "CurrenciesUsed [currenciesMatchingInOrderOfUsage=" + currenciesMatchingInOrderOfUsage
-                + ", currenciesUsedByDate=" + currenciesUsedByDate + ", currenciesInProject=" + currenciesInProject
-                + "]";
+        return "CurrenciesUsed [currenciesUsedMatching=" + currenciesUsedMatching
+                + ", currenciesUsedUnmatched=" + currenciesUsedUnmatched
+                + ", currenciesInExchangeRatesUnmatched="
+                + currenciesInExchangeRatesUnmatched + ", currenciesInTrips=" + currenciesInTrips + "]";
     }
 
     public Currency getFirstImportant() {
-        if (currenciesMatchingInOrderOfUsage != null && !currenciesMatchingInOrderOfUsage.isEmpty()) {
-            return currenciesMatchingInOrderOfUsage.get(0);
+        if (currenciesUsedMatching != null && !currenciesUsedMatching.isEmpty()) {
+            return currenciesUsedMatching.get(0);
         }
-        else if (currenciesUsedByDate != null && !currenciesUsedByDate.isEmpty()) {
-            return currenciesUsedByDate.get(0);
+        else if (currenciesInExchangeRatesMatching != null && !currenciesInExchangeRatesMatching.isEmpty()) {
+            return currenciesInExchangeRatesMatching.get(0);
         }
-        else if (currenciesInProject != null && !currenciesInProject.isEmpty()) {
-            return currenciesInProject.get(0);
+        else if (currenciesUsedUnmatched != null && !currenciesUsedUnmatched.isEmpty()) {
+            return currenciesUsedUnmatched.get(0);
         }
-        return null;
-    }
-
-    public Currency getSecondImportant() {
-        if (currenciesMatchingInOrderOfUsage != null && currenciesMatchingInOrderOfUsage.size() >= 2) {
-            return currenciesMatchingInOrderOfUsage.get(1);
+        else if (currenciesInExchangeRatesUnmatched != null
+                && !currenciesInExchangeRatesUnmatched.isEmpty()) {
+            return currenciesInExchangeRatesUnmatched.get(0);
         }
-        else if (currenciesUsedByDate != null && currenciesUsedByDate.size() >= 2) {
-            return currenciesUsedByDate.get(1);
+        else if (currenciesInTrips != null && !currenciesInTrips.isEmpty()) {
+            return currenciesInTrips.get(0);
         }
-        else if (currenciesInProject != null && currenciesInProject.size() >= 2) {
-            return currenciesInProject.get(1);
-        }
-
         return null;
     }
 }

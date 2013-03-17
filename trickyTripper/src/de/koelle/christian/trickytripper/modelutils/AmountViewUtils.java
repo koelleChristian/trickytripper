@@ -48,7 +48,6 @@ public class AmountViewUtils {
         if (value == null) {
             return (blankIfNull) ? "" : null;
         }
-        System.out.println(value);
         Double valueInternal = (stripOffSign) ? Math.abs(value) : value;
 
         if (blankIfZero && valueInternal.equals(Double.valueOf(0))) {

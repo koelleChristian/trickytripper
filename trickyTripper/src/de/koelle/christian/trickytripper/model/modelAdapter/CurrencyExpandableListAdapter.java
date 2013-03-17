@@ -15,11 +15,6 @@ import de.koelle.christian.trickytripper.model.CurrencyWithName;
 
 public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
 
-    private static final int GROUP_POS_ID_MATCHING = 0;
-    private static final int GROUP_POS_ID_USED = 1;
-    private static final int GROUP_POS_ID_PROJECT = 2;
-    private static final int GROUP_POS_ID_ELSE = 3;
-
     private final Integer[] visualToModelMapping;
     private final int size;
 
@@ -38,9 +33,13 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
     private final String[] mGroupFrom = mChildFrom;
     private final int[] mGroupTo = mChildTo;
 
-    public CurrencyExpandableListAdapter(Context context, List<List<CurrencyWithName>> currencies) {
+    private final CurrencyGroupNamingCallback callback;
+
+    public CurrencyExpandableListAdapter(Context context, List<List<CurrencyWithName>> currencies,
+            CurrencyGroupNamingCallback callback) {
         super();
         this.currencies = currencies;
+        this.callback = callback;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         List<Integer> listsMap = new ArrayList<Integer>();
@@ -89,21 +88,7 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     private Object getGroupValueByPosition(int modelGroupPosition) {
-        if (modelGroupPosition == GROUP_POS_ID_MATCHING) {
-            return "Zuletzt benutzt.";
-        }
-        else if (modelGroupPosition == GROUP_POS_ID_USED) {
-            return "In rates";
-        }
-        else if (modelGroupPosition == GROUP_POS_ID_PROJECT) {
-            return "Im Projekt";
-        }
-        else if (modelGroupPosition == GROUP_POS_ID_ELSE) {
-            return "Sonstige";
-        }
-        else {
-            throw new RuntimeException("Not supported");
-        }
+        return callback.getGroupDescription(modelGroupPosition);
     }
 
     private Object getChildValueByPosition(int groupPosition, int childPosition) {

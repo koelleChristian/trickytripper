@@ -71,11 +71,13 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:visibility="visible" />
 
-            <Spinner
-                android:id="@+id/editExchangeRateViewSpinnerCurrencyLeft"
+            <Button
+                android:id="@+id/editExchangeRateViewButtonCurrencyLeft"
+                style="@style/SpinnerButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".40"
+                android:onClick="openCurrencySelectionLeft"
                 android:visibility="gone" />
 
             <!-- Height combo = 44dp height text = -->
@@ -98,11 +100,13 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:visibility="visible" />
 
-            <Spinner
-                android:id="@+id/editExchangeRateViewSpinnerCurrencyRight"
+            <Button
+                android:id="@+id/editExchangeRateViewButtonCurrencyRight"
+                style="@style/SpinnerButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".40"
+                android:onClick="openCurrencySelectionRight"
                 android:visibility="gone" />
         </TableRow>
 

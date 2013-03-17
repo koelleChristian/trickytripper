@@ -47,7 +47,9 @@ public class TrickyTripperApp extends Application {
 
     private void shutdown() {
         closeDatabase();
-        tripController.safeLoadedTripIdToPrefs();
+        if (tripController != null) {
+            tripController.safeLoadedTripIdToPrefs();
+        }
         FileUtils.deleteAllFiles(this);
     }
 
@@ -57,8 +59,6 @@ public class TrickyTripperApp extends Application {
 
         prefsResolver = new PrefAccessor(this);
         dataManager = new DataManagerImpl(getBaseContext());
-
-        // SharedPreferences prefs = prefsResolver.getPrefs();
 
         exchangeRateController = new ExchangeRateControllerImpl(dataManager, prefsResolver);
         miscController = new MiscControllerImpl(dataManager, this, prefsResolver);

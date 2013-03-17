@@ -447,7 +447,6 @@ public class ExchangeRateDao {
 
     }
 
-    @SuppressWarnings("unchecked")
     public Map<List<Currency>, List<Currency>> findUsedCurrencies(Currency targetCurrency) {
         List<Currency> currenciesMatchingInOrderOfUsage = new ArrayList<Currency>();
         List<Currency> currenciesUsedByDate = new ArrayList<Currency>();
@@ -469,19 +468,21 @@ public class ExchangeRateDao {
                 Currency cA = Currency.getInstance(c.getString(0));
                 Currency cB = Currency.getInstance(c.getString(1));
 
+                /* Match list */
                 if (targetCurrency != null && targetCurrency.equals(cA)) {
-                    addIfNotYetContained(cB, currenciesMatchingInOrderOfUsage);
+                    addIfNotYetContained(cB, currenciesMatchingInOrderOfUsage, targetCurrency);
                 }
                 else if (targetCurrency != null && targetCurrency.equals(cB)) {
-                    addIfNotYetContained(cA, currenciesMatchingInOrderOfUsage);
+                    addIfNotYetContained(cA, currenciesMatchingInOrderOfUsage, targetCurrency);
                 }
-                else if (cA.getCurrencyCode().compareTo(cB.getCurrencyCode()) < 0) {
-                    addIfNotYetContained(cA, currenciesUsedByDate, currenciesMatchingInOrderOfUsage);
-                    addIfNotYetContained(cB, currenciesUsedByDate, currenciesMatchingInOrderOfUsage);
+                /* General list */
+                if (cA.getCurrencyCode().compareTo(cB.getCurrencyCode()) < 0) {
+                    addIfNotYetContained(cA, currenciesUsedByDate, targetCurrency);
+                    addIfNotYetContained(cB, currenciesUsedByDate, targetCurrency);
                 }
                 else {
-                    addIfNotYetContained(cB, currenciesUsedByDate, currenciesMatchingInOrderOfUsage);
-                    addIfNotYetContained(cA, currenciesUsedByDate, currenciesMatchingInOrderOfUsage);
+                    addIfNotYetContained(cB, currenciesUsedByDate, targetCurrency);
+                    addIfNotYetContained(cA, currenciesUsedByDate, targetCurrency);
                 }
             }
             while (c.moveToNext());
@@ -494,12 +495,60 @@ public class ExchangeRateDao {
         return result;
     }
 
-    private void addIfNotYetContained(Currency currencyToBeAdded, List<Currency>... list) {
-        for (List<Currency> l : list) {
-            if (l.contains(currencyToBeAdded)) {
-                return;
+    public Map<List<Currency>, List<Currency>> findCurrenciesInExchangeRates(Currency targetCurrency) {
+        List<Currency> currenciesMatchingByDateOfUpdate = new ArrayList<Currency>();
+        List<Currency> currenciesElseByDateOfUpdate = new ArrayList<Currency>();
+
+        Cursor c =
+                db.query(
+                        ExchangeRateTable.TABLE_NAME,
+                        new String[] {
+                                ExchangeRateColumns.CURRENCY_FROM,
+                                ExchangeRateColumns.CURRENCY_TO
+                        },
+                        null,
+                        null,
+                        null,
+                        null,
+                        ExchangeRateColumns.DATE_UPDATE + " DESC",
+                        null);
+        if (c.moveToFirst()) {
+            do {
+                Currency cA = Currency.getInstance(c.getString(0));
+                Currency cB = Currency.getInstance(c.getString(1));
+
+                /* Match list */
+                if (targetCurrency != null && targetCurrency.equals(cA)) {
+                    addIfNotYetContained(cB, currenciesMatchingByDateOfUpdate, targetCurrency);
+                }
+                else if (targetCurrency != null && targetCurrency.equals(cB)) {
+                    addIfNotYetContained(cA, currenciesMatchingByDateOfUpdate, targetCurrency);
+                }
+
+                /* General list */
+                if (cA.getCurrencyCode().compareTo(cB.getCurrencyCode()) < 0) {
+                    addIfNotYetContained(cA, currenciesElseByDateOfUpdate, targetCurrency);
+                    addIfNotYetContained(cB, currenciesElseByDateOfUpdate, targetCurrency);
+                }
+                else {
+                    addIfNotYetContained(cB, currenciesElseByDateOfUpdate, targetCurrency);
+                    addIfNotYetContained(cA, currenciesElseByDateOfUpdate, targetCurrency);
+                }
             }
+            while (c.moveToNext());
         }
-        list[0].add(currencyToBeAdded);
+        if (!c.isClosed()) {
+            c.close();
+        }
+        Map<List<Currency>, List<Currency>> result = new LinkedHashMap<List<Currency>, List<Currency>>();
+        result.put(currenciesMatchingByDateOfUpdate, currenciesElseByDateOfUpdate);
+        return result;
+    }
+
+    private void addIfNotYetContained(Currency currencyToBeAdded, List<Currency> list, Currency targetCurrency) {
+        if (targetCurrency != null && currencyToBeAdded.equals(targetCurrency) || list.contains(currencyToBeAdded)) {
+            return;
+        }
+        list.add(currencyToBeAdded);
     }
 }

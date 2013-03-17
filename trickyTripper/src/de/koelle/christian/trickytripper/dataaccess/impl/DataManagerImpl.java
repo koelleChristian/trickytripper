@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import android.content.Context;
 import android.database.SQLException;
@@ -468,25 +467,25 @@ public class DataManagerImpl implements DataManager {
     public CurrenciesUsed findUsedCurrenciesForTarget(Currency currency) {
         CurrenciesUsed result = new CurrenciesUsed();
 
-        Entry<List<Currency>, List<Currency>> usedForExchangeRateCalculation = exchangeRateDao
+        Entry<List<Currency>, List<Currency>> exchangeRateDaoResult = exchangeRateDao
                 .findUsedCurrencies(currency).entrySet().iterator().next();
-        result.setCurrenciesMatchingInOrderOfUsage(usedForExchangeRateCalculation.getKey());
-        result.setCurrenciesUsedByDate(usedForExchangeRateCalculation.getValue());
+        result.setCurrenciesUsedMatching(exchangeRateDaoResult.getKey());
+        result.setCurrenciesUsedUnmatched(exchangeRateDaoResult.getValue());
 
-        Set<Currency> allFetchedYet = result.getCurrenciesAlreadyFilled();
+        exchangeRateDaoResult = exchangeRateDao
+                .findCurrenciesInExchangeRates(currency).entrySet().iterator().next();
+        result.setCurrenciesInExchangeRatesMatching(exchangeRateDaoResult.getKey());
+        result.setCurrenciesInExchangeRatesUnmatched(exchangeRateDaoResult.getValue());
 
         if (Log.isLoggable(Rc.LT_DB, Log.DEBUG)) {
             Log.d(Rc.LT_DB, "Currencies fetched from ExchangeRateDao: " + result);
         }
 
-        List<Currency> currenciesInTrips = tripDao.findAllCurrenciesUsedInTrips();
-        for (int i = currenciesInTrips.size() - 1; i >= 0; i--) {
-            Currency inTrip = currenciesInTrips.get(i);
-            if (allFetchedYet.contains(inTrip) || inTrip.equals(currency)) {
-                currenciesInTrips.remove(i);
-            }
+        List<Currency> tripDaoResult = tripDao.findAllCurrenciesUsedInTrips();
+        if (tripDaoResult.contains(currency)) {
+            tripDaoResult.remove(currency);
         }
-        result.setCurrenciesInProject(currenciesInTrips);
+        result.setCurrenciesInTrips(tripDaoResult);
         if (Log.isLoggable(Rc.LT_DB, Log.DEBUG)) {
             Log.d(Rc.LT_DB, "Currencies fetched from ExchangeRateDao and TripDao: " + result);
         }

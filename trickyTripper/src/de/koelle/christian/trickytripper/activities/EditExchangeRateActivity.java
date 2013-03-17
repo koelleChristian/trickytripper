@@ -14,20 +14,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.koelle.christian.common.currencyspinner.CurrencySpinnerSelectionListener;
-import de.koelle.christian.common.currencyspinner.SpinnerCurrencySelectionCallback;
-import de.koelle.christian.common.currencyspinner.SpinnerViewUtils;
 import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
-import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.activitysupport.CurrencySelectionResultSupport;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rd;
@@ -41,12 +37,8 @@ public class EditExchangeRateActivity extends Activity {
     private ExchangeRate exchangeRate;
     private Double exchangeRateValueInverted;
     private ViewMode viewMode;
-    private CurrencySpinnerSelectionListener spinnerListenerLeft;
-    private CurrencySpinnerSelectionListener spinnerListenerRight;
     private BlankTextWatcher editTextListenerRight;
     private BlankTextWatcher editTextListenerLeft;
-    private Spinner spinnerLeft;
-    private Spinner spinnerRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,16 +52,16 @@ public class EditExchangeRateActivity extends Activity {
     }
 
     private void initAndBindStateDependingWidget() {
-        spinnerLeft = (Spinner) findViewById(R.id.editExchangeRateViewSpinnerCurrencyLeft);
-        spinnerRight = (Spinner) findViewById(R.id.editExchangeRateViewSpinnerCurrencyRight);
+        Button buttonLeft = getCurrencySelectionButtonLeft();
+        Button buttonRight = getCurrencySelectionButtonRight();
         TextView labelLeft = (TextView) findViewById(R.id.editExchangeRateViewLabelCurrencyLeft);
         TextView labelRight = (TextView) findViewById(R.id.editExchangeRateViewLabelCurrencyRight);
         Button saveButton = getSaveButton();
 
         boolean editMode = viewMode == ViewMode.EDIT;
 
-        UiUtils.setViewVisibility(spinnerLeft, !editMode);
-        UiUtils.setViewVisibility(spinnerRight, !editMode);
+        UiUtils.setViewVisibility(buttonLeft, !editMode);
+        UiUtils.setViewVisibility(buttonRight, !editMode);
         UiUtils.setViewVisibility(labelLeft, editMode);
         UiUtils.setViewVisibility(labelRight, editMode);
 
@@ -83,30 +75,47 @@ public class EditExchangeRateActivity extends Activity {
             setTitle(getResources().getString(R.string.editExchangeRateViewHeadingCreate));
             saveButton.setText(R.string.common_button_create);
 
-            SpinnerViewUtils.initCurrencySpinner(null, exchangeRate.getCurrencyFrom(), spinnerLeft, this);
-            SpinnerViewUtils.initCurrencySpinner(null, exchangeRate.getCurrencyTo(), spinnerRight, this);
+            buttonLeft.setText(exchangeRate.getCurrencyFrom().getCurrencyCode());
+            buttonRight.setText(exchangeRate.getCurrencyTo().getCurrencyCode());
 
-            spinnerListenerLeft = new CurrencySpinnerSelectionListener(spinnerLeft);
-            spinnerListenerLeft.setSpinnerCurrencySelectionCallback(new SpinnerCurrencySelectionCallback() {
+            // SpinnerViewUtils.initCurrencySpinner(null,
+            // exchangeRate.getCurrencyFrom(), spinnerLeft, this);
+            // SpinnerViewUtils.initCurrencySpinner(null,
+            // exchangeRate.getCurrencyTo(), spinnerRight, this);
 
-                public void setSelection(Currency selectedCurrency) {
-                    exchangeRate.setCurrencyFrom(selectedCurrency);
-                    updateButtonState();
-                }
-            });
-
-            spinnerListenerRight = new CurrencySpinnerSelectionListener(spinnerRight);
-            spinnerListenerRight.setSpinnerCurrencySelectionCallback(new SpinnerCurrencySelectionCallback() {
-
-                public void setSelection(Currency selectedCurrency) {
-                    exchangeRate.setCurrencyTo(selectedCurrency);
-                    updateButtonState();
-                }
-            });
-
-            spinnerLeft.setOnItemSelectedListener(spinnerListenerLeft);
-            spinnerRight.setOnItemSelectedListener(spinnerListenerRight);
+            // spinnerListenerLeft = new
+            // CurrencySpinnerSelectionListener(spinnerLeft);
+            // spinnerListenerLeft.setSpinnerCurrencySelectionCallback(new
+            // SpinnerCurrencySelectionCallback() {
+            //
+            // public void setSelection(Currency selectedCurrency) {
+            // exchangeRate.setCurrencyFrom(selectedCurrency);
+            // updateButtonState();
+            // }
+            // });
+            //
+            // spinnerListenerRight = new
+            // CurrencySpinnerSelectionListener(spinnerRight);
+            // spinnerListenerRight.setSpinnerCurrencySelectionCallback(new
+            // SpinnerCurrencySelectionCallback() {
+            //
+            // public void setSelection(Currency selectedCurrency) {
+            // exchangeRate.setCurrencyTo(selectedCurrency);
+            // updateButtonState();
+            // }
+            // });
+            //
+            // spinnerLeft.setOnItemSelectedListener(spinnerListenerLeft);
+            // spinnerRight.setOnItemSelectedListener(spinnerListenerRight);
         }
+    }
+
+    private Button getCurrencySelectionButtonRight() {
+        return (Button) findViewById(R.id.editExchangeRateViewButtonCurrencyRight);
+    }
+
+    private Button getCurrencySelectionButtonLeft() {
+        return (Button) findViewById(R.id.editExchangeRateViewButtonCurrencyLeft);
     }
 
     private Button getSaveButton() {
@@ -134,7 +143,7 @@ public class EditExchangeRateActivity extends Activity {
 
     private ExchangeRate createFreshExchangeRate() {
         Currency currencyTo = getApp().getTripController().getLoadedTripBaseCurrency();
-        Currency currencyFrom = CurrencyUtil.getNextOtherCurrency(currencyTo, getResources());
+        Currency currencyFrom = getApp().getMiscController().getCurrencyFavorite(currencyTo);
 
         ExchangeRate exchangeRate2 = new ExchangeRate();
         exchangeRate2.setImportOrigin(ImportOrigin.NONE);
@@ -303,6 +312,36 @@ public class EditExchangeRateActivity extends Activity {
     }
 
     /* ============ btn actions ==================== */
+
+    @SuppressWarnings("unused")
+    public void openCurrencySelectionLeft(View view) {
+        View button = getCurrencySelectionButtonLeft();
+        getApp().getViewController()
+                .openCurrencySelectionForNewExchangeRate(this, exchangeRate.getCurrencyTo(), button.getId(), true);
+    }
+
+    @SuppressWarnings("unused")
+    public void openCurrencySelectionRight(View view) {
+        View button = getCurrencySelectionButtonRight();
+        getApp().getViewController()
+                .openCurrencySelectionForNewExchangeRate(this, exchangeRate.getCurrencyTo(), button.getId(), false);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Currency result = CurrencySelectionResultSupport.onActivityResult(requestCode, resultCode, data, this);
+        if (result != null) {
+            boolean isLeftNotRight = data.getBooleanExtra(Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_WAS_LEFT_NOT_RIGHT,
+                    true);
+            if (isLeftNotRight) {
+                exchangeRate.setCurrencyFrom(result);
+            }
+            else {
+                exchangeRate.setCurrencyTo(result);
+            }
+            updateButtonState();
+        }
+    }
 
     @SuppressWarnings("unused")
     public void done(View view) {

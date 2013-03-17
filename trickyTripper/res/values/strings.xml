@@ -63,10 +63,17 @@
     <!-- ===============================  Currency Selection =============================== -->
     <string name="currency_selection_view_heading">Select currency</string>
     <string name="currency_selection_view_instruction_exchange_rate_calc">Select the source currency for your money exchange calculation to</string>
-    <string name="currency_selection_view_instruction_new_exchange_rate">Select a currency for your new exchange rate.</string>
+    <string name="currency_selection_view_instruction_new_exchange_rate">Select a currency for your new exchange rate:</string>
     <string name="currency_selection_view_instruction_new_exchange_rate_label_left">Left side:</string>
-    <string name="currency_selection_view_instruction_new_exchange_rate_label_to_be_selected">to be selected</string>
-    <string name="currency_selection_view_instruction_new_exchange_rate_label_right">Right side:</string>
+    <string name="currency_selection_view_instruction_new_exchange_rate_label_right">Right side:</string> 
+    <string name="currency_selection_view_instruction_new_exchange_rate_label_to_be_selected">to be selected</string>    
+    <string name="currency_selection_view_instruction_heading">Currenies (ordered by usage)</string>
+    <string name="currency_selection_view_instruction_group_label_used_and_matching"> Matching, in rates used</string>
+    <string name="currency_selection_view_instruction_group_label_used_in_rates_matching"> Matching, in rates</string>
+    <string name="currency_selection_view_instruction_group_label_used_unmatched"> In rates used </string>
+    <string name="currency_selection_view_instruction_group_label_used_in_rates_unmatched">In rates</string>
+    <string name="currency_selection_view_instruction_group_label_in_trips">In trips</string>
+    <string name="currency_selection_view_instruction_group_label_else">All</string>
     <!-- ===============================  Manage exchange rates view =============================== -->
     <string name="manageExchangeRatesViewTextViewHeading">Exchange Rates</string>
     <string name="manageExchangeRatesViewDeleteConfirmation">Are you sure you want to delete the selected exchange rate?</string>
