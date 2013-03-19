@@ -17,13 +17,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
-import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
@@ -36,6 +37,7 @@ import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
+import de.koelle.christian.trickytripper.model.ImportOrigin;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
@@ -46,12 +48,14 @@ public class CurrencyCalculatorActivity extends Activity {
 
     private Amount inputAmount;
     private Amount resultAmount;
+    private boolean checkboxSelectionSaveNewAmendedExchangeRate;
     private int resultViewId;
-    private Double exchangeRateInput = Double.valueOf(1.0);
+    private Double exchangeRateInput = Double.valueOf(0.0);
     private ExchangeRate exchangeRateSelected;
     private ImportOptionSupport importOptionSupport;
     private ExchangeRateDescriptionUtils exchangeRateDescriptionUtils;
     private Currency resultCurrency;
+    private boolean ratesAreAvailable;
 
     /* ============== Menu Shit [BGN] ============== */
     @Override
@@ -120,6 +124,7 @@ public class CurrencyCalculatorActivity extends Activity {
         Currency sourceCurrencyToBeUsed = getApp().getMiscController().getCurrencyFavorite(resultCurrency);
 
         inputAmount.setUnit(sourceCurrencyToBeUsed);
+
         getCurrencySelectionButton().setText(sourceCurrencyToBeUsed.getCurrencyCode());
 
         initAndBindEditText();
@@ -129,8 +134,27 @@ public class CurrencyCalculatorActivity extends Activity {
 
         loadAndInitExchangeRates(sourceCurrency, resultCurrency);
 
-        updateCalculation();
+        initAndBindCheckbox();
 
+        updateViews();
+
+    }
+
+    private void initAndBindCheckbox() {
+        CheckBox checkbox = getCheckbox();
+
+        checkbox.setChecked(checkboxSelectionSaveNewAmendedExchangeRate);
+
+        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                checkboxSelectionSaveNewAmendedExchangeRate = isChecked;
+            }
+        });
+
+    }
+
+    private CheckBox getCheckbox() {
+        return (CheckBox) findViewById(R.id.currencyCalculatorView_checkbox_saveNewValue);
     }
 
     @Override
@@ -139,13 +163,17 @@ public class CurrencyCalculatorActivity extends Activity {
         if (result != null) {
             inputAmount.setUnit(result);
             loadAndInitExchangeRates(inputAmount.getUnit(), resultAmount.getUnit());
-            updateCalculation();
+            System.out.println("on result");
+            updateViews();
         }
     }
 
     private void loadAndInitExchangeRates(Currency sourceCurrency, Currency resultCurrency) {
         List<ExchangeRate> rates = getApp().getExchangeRateController().findSuitableRates(sourceCurrency,
                 resultCurrency);
+
+        ratesAreAvailable = !rates.isEmpty();
+
         initExchangeRateSpinner(rates);
     }
 
@@ -192,7 +220,8 @@ public class CurrencyCalculatorActivity extends Activity {
             public void afterTextChanged(Editable s) {
                 Double valueInput = NumberUtils.getStringToDoubleRounded(getLocale(), s.toString());
                 inputAmount.setValue(valueInput);
-                updateCalculation();
+                System.out.println("afterTextChanged input value");
+                updateViews();
             }
         });
 
@@ -200,8 +229,9 @@ public class CurrencyCalculatorActivity extends Activity {
             @Override
             public void afterTextChanged(Editable s) {
                 Double valueInput = NumberUtils.getStringToDoubleRounded(getLocale(), s.toString());
+                System.out.println("afterTextChanged rate value");
                 exchangeRateInput = valueInput;
-                updateCalculation();
+                updateViews();
             }
         });
     }
@@ -222,9 +252,30 @@ public class CurrencyCalculatorActivity extends Activity {
                 true, false));
     }
 
+    private void updateViews() {
+        updateCalculation();
+        updateCheckboxState();
+        updateButtonState();
+    }
+
     protected void updateCalculation() {
         resultAmount.setValue(NumberUtils.multiply(inputAmount.getValue(), exchangeRateInput));
         updateOutputFields();
+    }
+
+    private void updateCheckboxState() {
+        boolean dirtyRate = isDirtyRate();
+        getCheckbox().setChecked(dirtyRate);
+        getCheckbox().setEnabled(dirtyRate);
+    }
+
+    private void updateButtonState() {
+        Button doneButton = (Button) findViewById(R.id.currencyCalculatorView_btn_useExchangedValue);
+        doneButton.setEnabled(canResultBeCalculated());
+    }
+
+    private boolean canResultBeCalculated() {
+        return exchangeRateInput > Double.valueOf(0.0d) && resultAmount.getValue() > Double.valueOf(0.0d);
     }
 
     private Locale getLocale() {
@@ -232,75 +283,9 @@ public class CurrencyCalculatorActivity extends Activity {
         return locale;
     }
 
-    // @SuppressWarnings("rawtypes")
-    // private void initCurrencySpinner(Currency currencySourceExclusion,
-    // Currency currencySelectedLastTime) {
-    // final Spinner spinner = (Spinner)
-    // findViewById(R.id.currencyCalculatorView_spinner_inputCurrencySelection);
-    // List<Currency> suportedCurrencies =
-    // CurrencyUtil.getSupportedCurrencies(getResources());
-    // final List<RowObject> spinnerObjects = wrapCurrenciesInRowObject(
-    // suportedCurrencies,
-    // currencySourceExclusion);
-    //
-    // ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this,
-    // android.R.layout.simple_spinner_item,
-    // spinnerObjects) {
-    //
-    // @Override
-    // public View getDropDownView(int position, View convertView, ViewGroup
-    // parent) {
-    // /* This is the default for the list view. */
-    // return super.getDropDownView(position, convertView, parent);
-    // }
-    //
-    // @Override
-    // public View getView(int position, View convertView, ViewGroup parent) {
-    // /* Display currency code only when not in list view. */
-    // TextView result = (TextView) super.getView(position, convertView,
-    // parent);
-    // result.setText(((Currency)
-    // spinnerObjects.get(position).getRowObject()).getCurrencyCode());
-    // return result;
-    // }
-    // };
-    //
-    // adapter.setDropDownViewResource(R.layout.selection_list_medium);
-    // spinner.setPromptId(R.string.payment_view_spinner_prompt);
-    // spinner.setAdapter(adapter);
-    //
-    // Currency initialSelection2Be = (currencySelectedLastTime == null) ?
-    // (Currency) spinnerObjects.get(0)
-    // .getRowObject() : currencySelectedLastTime;
-    //
-    // SpinnerViewSupport.setSelection(spinner, initialSelection2Be, adapter);
-    //
-    // spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-    //
-    // @SuppressWarnings("unchecked")
-    // public void onItemSelected(AdapterView<?> parentView, View
-    // selectedItemView, int position, long id) {
-    // if (position >= 0) {
-    // Object o = spinner.getSelectedItem();
-    // Currency selectedCurrency = ((RowObject<Currency>) o).getRowObject();
-    // if (inputAmount.getUnit() == null ||
-    // !inputAmount.getUnit().equals(selectedCurrency)) {
-    // inputAmount.setUnit(selectedCurrency);
-    // loadAndInitExchangeRates(inputAmount.getUnit(), resultAmount.getUnit());
-    // updateCalculation();
-    // }
-    // }
-    // }
-    //
-    // public void onNothingSelected(AdapterView<?> parentView) {
-    // // intentionally blank
-    // }
-    //
-    // });
-    // }
-
     @SuppressWarnings("rawtypes")
     private void initExchangeRateSpinner(List<ExchangeRate> rates) {
+
         final Spinner spinner = (Spinner) findViewById(R.id.currencyCalculatorView_spinner_exchangeRateSelection);
         List<RowObject> spinnerObjects = wrapExchangeRatesInRowObject(rates);
 
@@ -312,34 +297,43 @@ public class CurrencyCalculatorActivity extends Activity {
         spinner.setPromptId(R.string.payment_view_spinner_prompt);
         spinner.setAdapter(adapter);
 
-        if (spinnerObjects.size() > 0) {
+        spinner.setOnItemSelectedListener(null);
+
+        if (ratesAreAvailable) {
 
             ExchangeRate initialSelection2Be = (ExchangeRate) spinnerObjects.get(0).getRowObject();
             SpinnerViewSupport.setSelection(spinner, initialSelection2Be, adapter);
 
             fillRateModel(initialSelection2Be);
             updateExchangeRateFieldFromModel();
-        }
-        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-            @SuppressWarnings("unchecked")
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (position >= 0) {
-                    Object o = spinner.getSelectedItem();
-                    ExchangeRate selectedRate = ((RowObject<ExchangeRate>) o).getRowObject();
-                    if (exchangeRateSelected == null || !exchangeRateSelected.equals(selectedRate)) {
-                        fillRateModel(selectedRate);
-                        updateExchangeRateFieldFromModel(); // xx
-                        updateCalculation(); // xx
+            spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+                @SuppressWarnings("unchecked")
+                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                    if (position >= 0) {
+                        Object o = spinner.getSelectedItem();
+                        ExchangeRate selectedRate = ((RowObject<ExchangeRate>) o).getRowObject();
+                        if (exchangeRateSelected == null || !exchangeRateSelected.equals(selectedRate)) {
+                            fillRateModel(selectedRate);
+                            updateExchangeRateFieldFromModel(); // xx
+                            System.out.println("OnItemSelected Rate Spinner");
+                            updateViews();
+                        }
                     }
                 }
-            }
 
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // intentionally blank
-            }
+                public void onNothingSelected(AdapterView<?> parentView) {
+                    // intentionally blank
+                }
 
-        });
+            });
+        }
+        else {
+            spinner.setEnabled(false);
+            nullRateModel();
+            updateViews();
+        }
     }
 
     private void fillRateModel(ExchangeRate exchangeRateToBeSet) {
@@ -347,24 +341,9 @@ public class CurrencyCalculatorActivity extends Activity {
         exchangeRateInput = exchangeRateToBeSet.getExchangeRate();
     }
 
-    @SuppressWarnings("rawtypes")
-    private List<RowObject> wrapCurrenciesInRowObject(List<Currency> supportedCurrencies, Currency exclusion) {
-        List<RowObject> result = new ArrayList<RowObject>();
-
-        for (final Currency c : supportedCurrencies) {
-            if (notExcluded(exclusion, c)) {
-                result.add(new RowObject<Currency>(new RowObjectCallback<Currency>() {
-                    public String getStringToDisplay(Currency c) {
-                        /*
-                         * This is the long description intended for the list
-                         * view.
-                         */
-                        return CurrencyUtil.getFullNameToCurrency(getResources(), c);
-                    }
-                }, c));
-            }
-        }
-        return result;
+    private void nullRateModel() {
+        exchangeRateSelected = null;
+        exchangeRateInput = Double.valueOf(0.0);
     }
 
     @SuppressWarnings("rawtypes")
@@ -378,11 +357,14 @@ public class CurrencyCalculatorActivity extends Activity {
                 }
             }, value));
         }
+        if (values.isEmpty()) {
+            result.add(new RowObject<ExchangeRate>(new RowObjectCallback<ExchangeRate>() {
+                public String getStringToDisplay(ExchangeRate c) {
+                    return getResources().getString(R.string.currencyCalculatorViewNoMatchingRatesAvailable);
+                }
+            }, new ExchangeRate()));
+        }
         return result;
-    }
-
-    private boolean notExcluded(Currency exclusion, final Currency c) {
-        return exclusion == null || !exclusion.equals(c);
     }
 
     private TrickyTripperApp getApp() {
@@ -397,7 +379,15 @@ public class CurrencyCalculatorActivity extends Activity {
     }
 
     private void prepareResultAndFinish() {
-        saveExchangeRateUsedLast(exchangeRateSelected);
+        if (isDirtyRate() && checkboxSelectionSaveNewAmendedExchangeRate) {
+            System.out.println("Dirty and to be saved");
+            createAndSaveNewExchangeRate();
+        }
+        else {
+            System.out.println("Not Dirty and not to be saved");
+            saveExchangeRateUsedLast(exchangeRateSelected);
+        }
+
         Intent resultIntent = new Intent();
         resultIntent.putExtra(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_OUT_AMOUNT, resultAmount);
         resultIntent.putExtra(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_OUT_VIEW_ID, resultViewId);
@@ -405,14 +395,40 @@ public class CurrencyCalculatorActivity extends Activity {
         finish();
     }
 
+    private boolean isDirtyRate() {
+        return exchangeRateSelected != null &&
+                exchangeRateSelected.getExchangeRate() != null &&
+                !exchangeRateSelected.getExchangeRate().equals(exchangeRateInput)
+                || exchangeRateSelected == null
+                && exchangeRateInput > 0.0d;
+    }
+
     /* ============ btn actions ==================== */
 
-    private void saveExchangeRateUsedLast(ExchangeRate exchangeRateSelected2) {
-        if (exchangeRateSelected2 != null) {
+    private void saveExchangeRateUsedLast(ExchangeRate exchangeRateSelectedHere) {
+        if (exchangeRateSelectedHere != null) {
             getApp().getExchangeRateController()
-                    .persistExchangeRateUsedLast(exchangeRateSelected2);
+                    .persistExchangeRateUsedLast(exchangeRateSelectedHere);
         }
+    }
 
+    private void createAndSaveNewExchangeRate() {
+
+        ExchangeRate newExchangeRate = new ExchangeRate();
+        newExchangeRate.setCurrencyFrom(inputAmount.getUnit());
+        newExchangeRate.setCurrencyTo(resultAmount.getUnit());
+        newExchangeRate.setDescription(new StringBuilder()
+                .append(getResources().getString(
+                        R.string.currencyCalculatorViewDefaultDescriptionAutoSaveExchangeRate))
+                .append(" ")
+                .append(getApp().getExchangeRateController().getNextExchangeRateAutoSaveSeqNumber())
+                .toString());
+        newExchangeRate.setExchangeRate(exchangeRateInput);
+        newExchangeRate.setImportOrigin(ImportOrigin.NONE);
+
+        ExchangeRate persisted = getApp().getExchangeRateController().persistExchangeRate(newExchangeRate);
+
+        saveExchangeRateUsedLast(persisted);
     }
 
     @SuppressWarnings("unused")

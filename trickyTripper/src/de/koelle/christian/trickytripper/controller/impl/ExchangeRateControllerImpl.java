@@ -66,6 +66,12 @@ public class ExchangeRateControllerImpl implements ExchangeRateController {
         return PrefWritrerReaderUtils.loadImportSettings(prefsResolver.getPrefs());
     }
 
+    public long getNextExchangeRateAutoSaveSeqNumber() {
+        long nextNumber = PrefWritrerReaderUtils.loadExchangeRateAutoSaveSeq(prefsResolver.getPrefs());
+        PrefWritrerReaderUtils.saveExchangeRateAutoSaveSeq(prefsResolver.getEditingPrefsEditor(), nextNumber + 1);
+        return nextNumber;
+    }
+
     public void saveImportSettingsUsedLast(ImportSettings importSettings) {
         PrefWritrerReaderUtils
                 .saveImportSettings(prefsResolver.getEditingPrefsEditor(), importSettings);

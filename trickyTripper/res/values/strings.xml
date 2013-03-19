@@ -52,12 +52,14 @@
     <string name="currencyCalculatorViewTextViewHeading">Money Exchange Calculation</string>
     <string name="currencyCalculatorViewTextViewLabelSource">Source</string>
     <string name="currencyCalculatorViewTextViewLabelTarget">Result</string>
-    <string name="currencyCalculatorViewTextViewHeadLabelRate">Exchange rate</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRate">Exchange rate factor</string>
     <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Exchange rate setting</string>
     <string name="currencyCalculatorViewTextViewHeadLabelOptions">Options</string>
     <string name="currencyCalculatorViewCheckboxSaveNewRate">Save newly entered exchange rate</string>
     <string name="currencyCalculatorViewImageViewDescription">Indicates the exchange calculation direction</string>
     <string name="currencyCalculatorViewButtonUseResult">Use result</string>
+    <string name="currencyCalculatorViewNoMatchingRatesAvailable">No matching exchange rates available.</string>
+    <string name="currencyCalculatorViewDefaultDescriptionAutoSaveExchangeRate">Auto-saved exchange rate</string>
     <!-- ===============================  Exchange rates common =============================== -->
     <string name="exchangeRate_common_import_description_prefix">Imported</string>
     <!-- ===============================  Currency Selection =============================== -->
@@ -67,10 +69,10 @@
     <string name="currency_selection_view_instruction_new_exchange_rate_label_left">Left side:</string>
     <string name="currency_selection_view_instruction_new_exchange_rate_label_right">Right side:</string> 
     <string name="currency_selection_view_instruction_new_exchange_rate_label_to_be_selected">to be selected</string>    
-    <string name="currency_selection_view_instruction_heading">Currenies (ordered by usage)</string>
-    <string name="currency_selection_view_instruction_group_label_used_and_matching"> Matching, in rates used</string>
-    <string name="currency_selection_view_instruction_group_label_used_in_rates_matching"> Matching, in rates</string>
-    <string name="currency_selection_view_instruction_group_label_used_unmatched"> In rates used </string>
+    <string name="currency_selection_view_instruction_heading">Currencies (ordered by usage)</string>
+    <string name="currency_selection_view_instruction_group_label_used_and_matching">Matching, in rates used</string>
+    <string name="currency_selection_view_instruction_group_label_used_in_rates_matching">Matching, in rates</string>
+    <string name="currency_selection_view_instruction_group_label_used_unmatched">In rates used</string>
     <string name="currency_selection_view_instruction_group_label_used_in_rates_unmatched">In rates</string>
     <string name="currency_selection_view_instruction_group_label_in_trips">In trips</string>
     <string name="currency_selection_view_instruction_group_label_else">All</string>

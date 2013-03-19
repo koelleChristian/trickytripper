@@ -20,13 +20,6 @@ public interface ExchangeRateController {
 
     boolean deleteExchangeRates(List<ExchangeRate> rates);
 
-    /**
-     * Returns the source currency of the last calculation, if any.
-     * 
-     * @return Null if there has not been anything used yet.
-     */
-    // Currency getSourceCurrencyUsedLast();
-
     void persistExchangeRateUsedLast(ExchangeRate exchangeRateUsedLast);
 
     ImportSettings getImportSettingsUsedLast();
@@ -34,5 +27,7 @@ public interface ExchangeRateController {
     void saveImportSettingsUsedLast(ImportSettings importSettings);
 
     ExchangeRate getExchangeRateById(Long technicalId);
+
+    long getNextExchangeRateAutoSaveSeqNumber();
 
 }

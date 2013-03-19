@@ -4,6 +4,8 @@
     <string name="app_name">Tricky Tripper</string>
     <string name="spinner_null_value_default"></string>
     <string name="symbol_arrow_down">∨</string>
+    <string name="defaultX">XX</string>
+    <string name="default_blank"></string>
     <!-- To be translated ff -->
     <string name="common_button_cancel">Abbrechen</string>
     <string name="common_button_yes">Ja</string>
@@ -32,32 +34,72 @@
     <string name="label_enum_payment_category_culture">Kultur</string>
     <string name="label_enum_payment_category_entrance_fee">Eintrittgeld</string>
     <string name="label_enum_payment_category_money_transfer">Geldtransfer</string>
+    <string name="label_enum_select_rates_all">&#8230; alle</string>
+    <string name="label_enum_select_rates_none">&#8230; keine</string>
+    <string name="label_enum_select_rates_all_imported">&#8230; alle Importierten</string>
+    <string name="label_enum_select_rates_all_custom">&#8230; alle Eigenen</string>
     <string name="option_help">Hilfe &amp; Info</string>
     <string name="option_settings">Einstellungen</string>
     <string name="option_export">Export</string>
     <string name="option_delete">Löschen</string>    
     <string name="option_create">Erstellen</string>
-    <string name="option_import_exchange_rates">Hilfe &amp; Info</string>
+    <string name="option_import">Import</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Ausgegeben:</string>
     <string name="participant_tab_row_view_label_paid">Bezahlt:</string>
-    <string name="participant_tab_msg_no_participants_in_trip">Erstelle neue Reisende mit einem Lang-Tap auf den Reisende-Tab-Reiter. Anschließend kannst Du mit einem Lang-Tap auf den erzeugten Reisenden eine Zahlung erstellen.</string>
+    <string name="participant_tab_blank_list_notification">Noch keine Reisenden vorhanden. \n\n\n\nErstelle neue Reisende mit einem Lang-Tap auf den Reisende-Tab-Reiter oder wähle \'Erstellen\' aus dem Menü.</string>
     <!-- ===============================  Currency calculator view =============================== -->
-    <string name="currencyCalculatorViewTextViewHeading">Money Exchange Calculation</string>
-    <string name="currencyCalculatorViewTextViewLabelSource">Source</string>
-    <string name="currencyCalculatorViewTextViewLabelTarget">Result</string>
-    <string name="currencyCalculatorViewTextViewHeadLabelRate">Exchange rate</string>
-    <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Exchange rate setting</string>
-    <string name="currencyCalculatorViewTextViewHeadLabelOptions">Options</string>
-    <string name="currencyCalculatorViewCheckboxSaveNewRate">Save newly entered exchange rate</string>
-    <string name="currencyCalculatorViewImageViewDescription">Indicates the exchange calculation direction</string>
-    <string name="currencyCalculatorViewButtonUseResult">Use result</string>
+    <string name="currencyCalculatorViewTextViewHeading">Geldwechselrechner</string>
+    <string name="currencyCalculatorViewTextViewLabelSource">Quelle</string>
+    <string name="currencyCalculatorViewTextViewLabelTarget">Ergebnis</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRate">Wechselkurswert</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Wechselkurs</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelOptions">Optionen</string>
+    <string name="currencyCalculatorViewCheckboxSaveNewRate">Neuen Wechselkurs speichern</string>
+    <string name="currencyCalculatorViewImageViewDescription">Signalisiert die Wechselrichtung</string>
+    <string name="currencyCalculatorViewButtonUseResult">Ergebnis verwenden</string>
+    <string name="currencyCalculatorViewNoMatchingRatesAvailable">Keine passenden Wechselkurse verfügbar.</string>    
+    <string name="currencyCalculatorViewDefaultDescriptionAutoSaveExchangeRate">Wechselkurs</string>
+    <!-- ===============================  Exchange rates common =============================== -->
+    <string name="exchangeRate_common_import_description_prefix">Importiert</string>
+    <!-- ===============================  Currency Selection =============================== -->
+    <string name="currency_selection_view_heading">Währungsauswahl</string>
+    <string name="currency_selection_view_instruction_exchange_rate_calc">Wähle die Quellwährung für Deine Währungsumrechnung zu</string>
+    <string name="currency_selection_view_instruction_new_exchange_rate">Wähle eine Währung für Deinen neuen Wechselkur:</string>
+    <string name="currency_selection_view_instruction_new_exchange_rate_label_left">Linke Seite:</string>
+    <string name="currency_selection_view_instruction_new_exchange_rate_label_right">Rechte Seite:</string> 
+    <string name="currency_selection_view_instruction_new_exchange_rate_label_to_be_selected">auszuwählen</string>    
+    <string name="currency_selection_view_instruction_heading">Währungen &#8230;</string>
+    <string name="currency_selection_view_instruction_group_label_used_and_matching">&#8230; in verwendeten Wechselkursen, passend</string>
+    <string name="currency_selection_view_instruction_group_label_used_in_rates_matching">&#8230; in Wechselkursen, passend</string>
+    <string name="currency_selection_view_instruction_group_label_used_unmatched">&#8230; in verwendeten Wechselkursen </string>
+    <string name="currency_selection_view_instruction_group_label_used_in_rates_unmatched">&#8230; in Wechselkursen</string>
+    <string name="currency_selection_view_instruction_group_label_in_trips">&#8230; in Reisen</string>
+    <string name="currency_selection_view_instruction_group_label_else">&#8230; alle</string>
     <!-- ===============================  Manage exchange rates view =============================== -->
-    <string name="manageExchangeRatesViewTextViewHeading">Exchange Rate Management</string>
+    <string name="manageExchangeRatesViewTextViewHeading">Wechselkurse</string>
+    <string name="manageExchangeRatesViewDeleteConfirmation">Soll der ausgewählte Wechselkurs wirklich gelöscht werden?</string>
+    <string name="manageExchangeRatesViewBlankListNotification">Noch keine Wechselkurse vorhanden. \n\n\n\nImportiere oder erzeuge Wechselkurse über die entsprechenden Funktionen im Menü.</string>
     <!-- ===============================  Import exchange rates view =============================== -->
-    <string name="importExchangeRatesViewTextViewHeading">Import Exchange Rates</string>
-    <string name="importExchangeRatesViewCheckboxLabelReplaceExisting">Replace rates already imported</string>
-    <string name="importExchangeRatesViewListViewLabel">Select all exchange relevant currencies</string>
+    <string name="importExchangeRatesViewTextViewHeading">Wechselkurse importieren</string>
+    <string name="importExchangeRatesViewOptions">Optionen</string>
+    <string name="importExchangeRatesViewCheckboxLabelReplaceExisting">Ersetze bereits importierte Kurse</string>
+    <string name="importExchangeRatesViewListViewLabel">Wähle alle wechselrelevanten Währungen</string>
+    <string name="importExchangeRatesViewButtonExecute">Importieren</string>
+    <!-- ===============================  Delete exchange rates view =============================== -->
+    <string name="deleteExchangeRatesViewTextViewHeading">Wechselkurse löschen</string>
+    <string name="deleteExchangeRatesViewButtonLabelPositive">Auswahl löschen</string>
+    <string name="deleteExchangeRatesViewSpinnerPrompt">Auswähl ändern &#8230;</string>
+    <string name="deleteExchangeRatesViewLabelSelectionOptions">Auswähl ändern  &#8230;</string>
+    <string name="deleteExchangeRatesViewLabelSelectionOptionsDesc">Öffnet Selektionsoptionen</string>
+    <string name="deleteExchangeRatesViewListViewLabel">Wähle alle zu löschenden Wechselkurse</string>
+    <string name="deleteExchangeRatesViewDeleteConfirmation">Soll(en) @@1@@ selektierte(r) Wechselkurs(e) gelöscht werden?</string>
+    <!-- ===============================  Edit Exchange Rate =============================== -->
+    <string name="editExchangeRateViewHeadingEdit">Wechselkurs bearbeiten</string>
+    <string name="editExchangeRateViewHeadingCreate">Neuen Wechselkurs erstellen</string>
+    <string name="editExchangeRateViewLabelRate">Kurs</string>
+    <string name="editExchangeRateViewLabelInputDescription">Beschreibung</string>
+    <string name="editExchangeRateViewMsgSaveDenialDuplicate">Ein Wechselkurs mit der gewünschten Beschreibung existiert bereits. Bitte ändere Deine Eingabe.</string>
     <!-- ===============================  export view =============================== -->
     <string name="exportViewTextViewHeading">Export</string>
     <string name="exportViewTextViewSubHeadingContent">Was?</string>
@@ -158,6 +200,7 @@
     <string name="payment_view_label_transfer_to">An:</string>
     <string name="payment_view_delete_confirmation_payment">Soll die ausgewählte Zahlung wirklich gelöscht werden?</string>
     <string name="payment_view_delete_confirmation_transfer">Soll der ausgewählte Geldtransfer wirklich gelöscht werden?</string>
+    <string name="payment_view_blank_list_notification">Noch keine Zahlungen vorhanden. \n\n\n\nErzeuge eine neue Zahlung durch einen Lang-Tap auf den Reisenden, der das Geld bezahlt und wähle \'Zahlung erzeugen\'.</string>
     <!-- ===============================  Payment edit =============================== -->
     <string name="payment_edit_view_label_category_desciption">Kategorie/Beschreibung</string>
     <string name="payment_edit_view_label_travellers_charged">Zu belastende Reisende:</string>

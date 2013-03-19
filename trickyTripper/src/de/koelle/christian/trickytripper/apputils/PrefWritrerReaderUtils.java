@@ -19,6 +19,8 @@ public class PrefWritrerReaderUtils {
 
     private static final String PREFS_VALUE_IMPORT_SETTINGS_REPLACE_EXISTING = "PREFS_VALUE_IMPORT_SETTINGS_REPLACE_EXISTING";
 
+    private static final String PREFS_VALUE_EXCHANGE_RATE_AUTO_SAVE_SEQ = "PREFS_VALUE_EXCHANGE_RATE_AUTO_SAVE_SEQ";
+
     private static final String PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS = "PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS";
     private static final String PREFS_VALUE_EXPORT_SETTINGS_EXPORT_TRANSFERS = "PREFS_VALUE_EXPORT_SETTINGS_EXPORT_TRANSFERS";
     private static final String PREFS_VALUE_EXPORT_SETTINGS_EXPORT_SPENDINGS = "PREFS_VALUE_EXPORT_SETTINGS_EXPORT_SPENDINGS";
@@ -84,6 +86,16 @@ public class PrefWritrerReaderUtils {
     public static long loadIdOfTripLastEdited(SharedPreferences prefs) {
         long result = prefs.getLong(PREFS_VALUE_ID_TRIP_LAST_EDITED_ID, 1);
         return result;
+    }
+
+    public static long loadExchangeRateAutoSaveSeq(SharedPreferences prefs) {
+        long result = prefs.getLong(PREFS_VALUE_EXCHANGE_RATE_AUTO_SAVE_SEQ, 1);
+        return result;
+    }
+
+    public static void saveExchangeRateAutoSaveSeq(Editor prefsEditor, long id) {
+        prefsEditor.putLong(PREFS_VALUE_EXCHANGE_RATE_AUTO_SAVE_SEQ, id);
+        prefsEditor.commit();
     }
 
     public static Currency loadDefaultCurrency(SharedPreferences prefs, Resources resources) {
