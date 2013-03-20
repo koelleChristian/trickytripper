@@ -13,6 +13,7 @@ import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -112,6 +113,7 @@ public class CurrencyCalculatorActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("On create()");
 
         setContentView(R.layout.currency_calculator_view);
 
@@ -166,6 +168,12 @@ public class CurrencyCalculatorActivity extends Activity {
             System.out.println("on result");
             updateViews();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        System.out.println("On resume()");
     }
 
     private void loadAndInitExchangeRates(Currency sourceCurrency, Currency resultCurrency) {
@@ -291,10 +299,26 @@ public class CurrencyCalculatorActivity extends Activity {
 
         ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this,
                 android.R.layout.simple_spinner_item,
-                spinnerObjects);
+                spinnerObjects) {
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                /* nothing special here. */
+                return super.getDropDownView(position, convertView, parent);
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                /* Display currency code only when not in list view. */
+                TextView result = (TextView) super.getView(position, convertView, parent);
+                result.setText(exchangeRateDescriptionUtils.deriveDescription(
+                        ((ExchangeRate) this.getItem(position).getRowObject())).toString());
+                return result;
+            }
+        };
 
         adapter.setDropDownViewResource(R.layout.selection_list_medium);
-        spinner.setPromptId(R.string.payment_view_spinner_prompt);
+        spinner.setPromptId(R.string.currencyCalculatorViewSpinnerPrompt);
         spinner.setAdapter(adapter);
 
         spinner.setOnItemSelectedListener(null);
@@ -336,16 +360,6 @@ public class CurrencyCalculatorActivity extends Activity {
         }
     }
 
-    private void fillRateModel(ExchangeRate exchangeRateToBeSet) {
-        exchangeRateSelected = exchangeRateToBeSet;
-        exchangeRateInput = exchangeRateToBeSet.getExchangeRate();
-    }
-
-    private void nullRateModel() {
-        exchangeRateSelected = null;
-        exchangeRateInput = Double.valueOf(0.0);
-    }
-
     @SuppressWarnings("rawtypes")
     private List<RowObject> wrapExchangeRatesInRowObject(List<ExchangeRate> values) {
         List<RowObject> result = new ArrayList<RowObject>();
@@ -353,7 +367,7 @@ public class CurrencyCalculatorActivity extends Activity {
         for (final ExchangeRate value : values) {
             result.add(new RowObject<ExchangeRate>(new RowObjectCallback<ExchangeRate>() {
                 public String getStringToDisplay(ExchangeRate c) {
-                    return exchangeRateDescriptionUtils.deriveDescription2(c).toString();
+                    return exchangeRateDescriptionUtils.deriveDescriptionWithRate(c).toString();
                 }
             }, value));
         }
@@ -365,6 +379,16 @@ public class CurrencyCalculatorActivity extends Activity {
             }, new ExchangeRate()));
         }
         return result;
+    }
+
+    private void fillRateModel(ExchangeRate exchangeRateToBeSet) {
+        exchangeRateSelected = exchangeRateToBeSet;
+        exchangeRateInput = exchangeRateToBeSet.getExchangeRate();
+    }
+
+    private void nullRateModel() {
+        exchangeRateSelected = null;
+        exchangeRateInput = Double.valueOf(0.0);
     }
 
     private TrickyTripperApp getApp() {

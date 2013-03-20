@@ -12,16 +12,20 @@ public class ExchangeRateDescriptionUtils {
 
     private final String prefixForImportedRecords;
     private final DateUtils dateUtils;
-    private final Locale locale;
+    private final Resources resources;
 
     public ExchangeRateDescriptionUtils(Resources resources) {
-        this.locale = resources.getConfiguration().locale;
-        this.dateUtils = new DateUtils(locale);
+        this.resources = resources;
+        this.dateUtils = new DateUtils(getLocale(resources));
         this.prefixForImportedRecords = resources.getString(R.string.exchangeRate_common_import_description_prefix)
                 + " ";
     }
 
-    public StringBuilder deriveDescriptionForList(ExchangeRate row) {
+    private Locale getLocale(Resources resources) {
+        return resources.getConfiguration().locale;
+    }
+
+    public StringBuilder deriveDescription(ExchangeRate row) {
         if (row.isImported()) {
             return new StringBuilder()
                     .append(prefixForImportedRecords)
@@ -33,10 +37,13 @@ public class ExchangeRateDescriptionUtils {
         }
     }
 
-    public StringBuilder deriveDescription2(ExchangeRate row) {
+    public StringBuilder deriveDescriptionWithRate(ExchangeRate row) {
         return new StringBuilder()
-                .append(AmountViewUtils.getDoubleString(locale, row.getExchangeRate(), true, true, false, true))
-                .append(" ")
-                .append(deriveDescriptionForList(row));
+                .append(resources.getString(R.string.currencyCalculatorViewTextViewHeadLabelRate))
+                .append(": ")
+                .append(AmountViewUtils.getDoubleString(getLocale(resources), row.getExchangeRate(), true, true, false,
+                        true))
+                .append("\n")
+                .append(deriveDescription(row));
     }
 }

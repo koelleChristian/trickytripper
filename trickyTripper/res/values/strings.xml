@@ -52,8 +52,9 @@
     <string name="currencyCalculatorViewTextViewHeading">Money Exchange Calculation</string>
     <string name="currencyCalculatorViewTextViewLabelSource">Source</string>
     <string name="currencyCalculatorViewTextViewLabelTarget">Result</string>
-    <string name="currencyCalculatorViewTextViewHeadLabelRate">Exchange rate factor</string>
-    <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Exchange rate setting</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRate">Rate</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Present</string>
+    <string name="currencyCalculatorViewSpinnerPrompt">Select a stored exchange rate</string>    
     <string name="currencyCalculatorViewTextViewHeadLabelOptions">Options</string>
     <string name="currencyCalculatorViewCheckboxSaveNewRate">Save newly entered exchange rate</string>
     <string name="currencyCalculatorViewImageViewDescription">Indicates the exchange calculation direction</string>
@@ -218,7 +219,7 @@
     <string name="fktn_participant_deactivate">Deactivate (for costs)</string>
     <string name="fktn_participant_activate">Activate (for costs)</string>
     <!-- ==================== Context menu Payment List ====================== -->
-    <string name="manageTripsView__heading">Manage trips</string>
+    <string name="manageTripsView_heading">Manage trips</string>
     <string name="manage_trips_view_label_long_click_to_edit">Tap to load, long-tap to edit</string>
     <string name="manage_trips_view_button_create_new_trip">Create new trip</string>
     <string name="manage_trips_view_delete_confirmation">Are  you sure you want to delete the selected trip including all its travelers and statistics?</string>

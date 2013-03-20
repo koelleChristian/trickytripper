@@ -52,10 +52,11 @@
     <string name="currencyCalculatorViewTextViewHeading">Geldwechselrechner</string>
     <string name="currencyCalculatorViewTextViewLabelSource">Quelle</string>
     <string name="currencyCalculatorViewTextViewLabelTarget">Ergebnis</string>
-    <string name="currencyCalculatorViewTextViewHeadLabelRate">Wechselkurswert</string>
-    <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Wechselkurs</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRate">Kurs</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Vorlagen</string>
+    <string name="currencyCalculatorViewSpinnerPrompt">Wähle einen gespeicherten Wechselkurs</string>    
     <string name="currencyCalculatorViewTextViewHeadLabelOptions">Optionen</string>
-    <string name="currencyCalculatorViewCheckboxSaveNewRate">Neuen Wechselkurs speichern</string>
+    <string name="currencyCalculatorViewCheckboxSaveNewRate">Neu eingegebenen Wechselkurs speichern</string>
     <string name="currencyCalculatorViewImageViewDescription">Signalisiert die Wechselrichtung</string>
     <string name="currencyCalculatorViewButtonUseResult">Ergebnis verwenden</string>
     <string name="currencyCalculatorViewNoMatchingRatesAvailable">Keine passenden Wechselkurse verfügbar.</string>    
@@ -211,6 +212,8 @@
     <string name="payment_edit_view_label_payed_by">Zahlung von</string>
     <string name="payment_edit_view_textView_label_amount">Betrag</string>
     <string name="payment_edit_view_button_divide_rest">Rest auf leere Felder aufteilen</string>
+    <string name="payment_edit_view_image_button_select_travellers_descr_top">Erlaubt die Auswahl der zahlenden Reisenden.</string>
+    <string name="payment_edit_view_image_button_select_travellers_descr_bottom">Erlaubt die Auswahl der zu belastenden Reisenden.</string>
     <!-- ==================== Context menu participants ====================== -->
     <string name="fktn_participant_create_payment">Zahlung erzeugen</string>
     <string name="fktn_participant_transfer_money">Geldtransfer</string>
@@ -218,7 +221,7 @@
     <string name="fktn_participant_deactivate">Deaktivierung (für Kosten)</string>
     <string name="fktn_participant_activate">Aktivieren (für Kosten)</string>
     <!-- ==================== Context menu Payment List ====================== -->
-    <string name="manageTripsView__heading">Reisen verwalten</string>
+    <string name="manageTripsView_heading">Reisen verwalten</string>
     <string name="manage_trips_view_label_long_click_to_edit">Tap zum Laden, Lang-Tap zum Editieren</string>
     <string name="manage_trips_view_button_create_new_trip">Neue Reise erstellen</string>
     <string name="manage_trips_view_delete_confirmation">Soll die ausgewählte Reise einschließlich aller Zahlungen wirklich gelöscht werden?</string>

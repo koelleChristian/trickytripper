@@ -118,7 +118,8 @@ public class MoneyTransferActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        CurrencyCalculatorResultSupport.onActivityResult(requestCode, resultCode, data, this, getLocale());
+        CurrencyCalculatorResultSupport.onActivityResult(requestCode, resultCode, data, this, getLocale(),
+                getDecimalNumberInputUtil());
     }
 
     private void initView(Participant transferer, List<Participant> allParticipants, Debts debtsOfTransferer) {

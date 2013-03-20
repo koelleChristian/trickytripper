@@ -76,7 +76,7 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
 
             viewId = R.id.exchangeRateRowView_output_comment;
             label = null;
-            value = exchangeRateDescUtils.deriveDescriptionForList(row);
+            value = exchangeRateDescUtils.deriveDescription(row);
             UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
             if (isDouble) {

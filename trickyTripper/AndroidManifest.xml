@@ -33,12 +33,11 @@
         <activity android:name=".activities.ReportTabActivity" >
         </activity>
         <activity
-            android:name=".activities.PaymentEditActivity"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:name=".activities.PaymentEditActivity" >
         </activity>
         <activity
             android:name=".activities.ManageTripsActivity"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/manageTripsView_heading">
         </activity>
         <activity
             android:name=".activities.ExportActivity"
@@ -88,7 +87,7 @@
         </activity>
         <activity
             android:name=".activities.CurrencyCalculatorActivity"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/currencyCalculatorViewTextViewHeading" >
         </activity>
         <activity
             android:name=".activities.CurrencySelectionActivity"

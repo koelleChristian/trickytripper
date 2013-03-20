@@ -37,6 +37,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
@@ -124,8 +125,7 @@ public class PaymentEditActivity extends Activity {
             for (Participant p : allRelevantParticipants) {
                 payment.getParticipantToSpending().put(p, getAmountFac().createAmount());
             }
-            ((TextView) findViewById(R.id.paymentView_textView_heading_create)).setVisibility(ViewGroup.VISIBLE);
-            ((TextView) findViewById(R.id.paymentView_textView_heading_edit)).setVisibility(ViewGroup.GONE);
+            setTitle(R.string.payment_view_heading_create_payment);
             ((Button) findViewById(R.id.paymentView_buttonCreate)).setVisibility(ViewGroup.VISIBLE);
             ((Button) findViewById(R.id.paymentView_buttonSave)).setVisibility(ViewGroup.GONE);
             divideEqually = true;
@@ -135,12 +135,12 @@ public class PaymentEditActivity extends Activity {
             payment = ObjectUtils.cloneDeep(getFktnController().loadPayment(paymentId));
             allRelevantParticipants = addAncientInactive(getApp().getTripController().getAllParticipants(true), payment);
             sortParticipants(allRelevantParticipants);
-            ((TextView) findViewById(R.id.paymentView_textView_heading_create)).setVisibility(ViewGroup.GONE);
-            ((TextView) findViewById(R.id.paymentView_textView_heading_edit)).setVisibility(ViewGroup.VISIBLE);
+            setTitle(R.string.payment_view_heading_edit_payment);
             ((Button) findViewById(R.id.paymentView_buttonCreate)).setVisibility(ViewGroup.GONE);
             ((Button) findViewById(R.id.paymentView_buttonSave)).setVisibility(ViewGroup.VISIBLE);
             divideEqually = false;
         }
+
         Object o = getLastNonConfigurationInstance();
         if (o != null) {
             PaymentEditActivityState state = (PaymentEditActivityState) o;
@@ -251,7 +251,8 @@ public class PaymentEditActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        CurrencyCalculatorResultSupport.onActivityResult(requestCode, resultCode, data, this, getLocale());
+        CurrencyCalculatorResultSupport.onActivityResult(requestCode, resultCode, data, this, getLocale(),
+                getDecimalNumberInputUtil());
     }
 
     private void updateParticipantSelectionDialog(Dialog dialog, Bundle args) {
@@ -437,9 +438,9 @@ public class PaymentEditActivity extends Activity {
     }
 
     private void bindParticipantSelectionButtons() {
-        Button button;
+        ImageButton button;
 
-        button = (Button) findViewById(R.id.paymentView_button_add_further_payees);
+        button = (ImageButton) findViewById(R.id.paymentView_button_add_further_payees);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ArrayList<Participant> participantsInUse = new ArrayList<Participant>(payment
@@ -448,7 +449,7 @@ public class PaymentEditActivity extends Activity {
                         createBundleForParticipantSelection(participantsInUse, amountTotalPayments, true));
             }
         });
-        button = (Button) findViewById(R.id.paymentView_button_payee_add_further_payees);
+        button = (ImageButton) findViewById(R.id.paymentView_button_payee_add_further_payees);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ArrayList<Participant> participantsInUse = new ArrayList<Participant>(payment
