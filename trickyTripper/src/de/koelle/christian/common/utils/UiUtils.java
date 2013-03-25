@@ -19,7 +19,7 @@ public class UiUtils {
     public static void makeProperNumberInput(final EditText editText,
             DecimalNumberInputPatternMatcher amountInputPatternMatcher) {
         editText.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
-        editText.setInputType(InputType.TYPE_CLASS_PHONE | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         editText.setFilters(new InputFilter[] { new DecimalNumberInputFilter(amountInputPatternMatcher) });
     }
 

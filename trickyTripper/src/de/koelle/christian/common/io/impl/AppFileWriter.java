@@ -116,8 +116,10 @@ public class AppFileWriter implements FileWriter {
         }
         finally {
             try {
-                fos.close();
-                fos.getFD().sync();
+                if (fos != null) {
+                    fos.close();
+                    fos.getFD().sync();
+                }
             }
             catch (IOException e) {
                 // ignored intentionally

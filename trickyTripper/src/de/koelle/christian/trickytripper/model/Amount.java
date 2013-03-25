@@ -5,7 +5,7 @@ import java.util.Currency;
 
 import de.koelle.christian.common.utils.NumberUtils;
 
-public class Amount implements Serializable {
+public class Amount implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 7992193936275624979L;
 

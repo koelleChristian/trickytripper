@@ -30,7 +30,7 @@ import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.constants.ViewMode;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ImportOrigin;
-import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
+import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
 public class EditExchangeRateActivity extends Activity {
 
@@ -77,36 +77,6 @@ public class EditExchangeRateActivity extends Activity {
 
             buttonLeft.setText(exchangeRate.getCurrencyFrom().getCurrencyCode());
             buttonRight.setText(exchangeRate.getCurrencyTo().getCurrencyCode());
-
-            // SpinnerViewUtils.initCurrencySpinner(null,
-            // exchangeRate.getCurrencyFrom(), spinnerLeft, this);
-            // SpinnerViewUtils.initCurrencySpinner(null,
-            // exchangeRate.getCurrencyTo(), spinnerRight, this);
-
-            // spinnerListenerLeft = new
-            // CurrencySpinnerSelectionListener(spinnerLeft);
-            // spinnerListenerLeft.setSpinnerCurrencySelectionCallback(new
-            // SpinnerCurrencySelectionCallback() {
-            //
-            // public void setSelection(Currency selectedCurrency) {
-            // exchangeRate.setCurrencyFrom(selectedCurrency);
-            // updateButtonState();
-            // }
-            // });
-            //
-            // spinnerListenerRight = new
-            // CurrencySpinnerSelectionListener(spinnerRight);
-            // spinnerListenerRight.setSpinnerCurrencySelectionCallback(new
-            // SpinnerCurrencySelectionCallback() {
-            //
-            // public void setSelection(Currency selectedCurrency) {
-            // exchangeRate.setCurrencyTo(selectedCurrency);
-            // updateButtonState();
-            // }
-            // });
-            //
-            // spinnerLeft.setOnItemSelectedListener(spinnerListenerLeft);
-            // spinnerRight.setOnItemSelectedListener(spinnerListenerRight);
         }
     }
 
@@ -184,7 +154,8 @@ public class EditExchangeRateActivity extends Activity {
         editTextListenerLeft = new BlankTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                Double valueInput = NumberUtils.getStringToDoubleUnrounded(getLocale(), s.toString());
+                String widgetInput = getDecimalNumberInputUtil().fixInputStringWidgetToParser(s.toString());
+                Double valueInput = NumberUtils.getStringToDoubleUnrounded(getLocale(), widgetInput);
                 exchangeRate.setExchangeRate(valueInput);
                 recalculateAndUpdateOtherSide(true);
                 updateButtonState();
@@ -193,7 +164,8 @@ public class EditExchangeRateActivity extends Activity {
         editTextListenerRight = new BlankTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                Double valueInput = NumberUtils.getStringToDoubleUnrounded(getLocale(), s.toString());
+                String widgetInput = getDecimalNumberInputUtil().fixInputStringWidgetToParser(s.toString());
+                Double valueInput = NumberUtils.getStringToDoubleUnrounded(getLocale(), widgetInput);
                 exchangeRateValueInverted = valueInput;
                 recalculateAndUpdateOtherSide(false);
                 updateButtonState();
@@ -280,11 +252,8 @@ public class EditExchangeRateActivity extends Activity {
 
     private void updatInputWidget(EditText editTextField, Locale locale, Double value,
             TextWatcher watcher) {
-
         editTextField.removeTextChangedListener(watcher);
-        editTextField.setText(
-                AmountViewUtils.getDoubleString(locale, value, true, true, false,
-                        true));
+        UiAmountViewUtils.writeDoubleToEditText(value, editTextField, locale, getDecimalNumberInputUtil());
         editTextField.addTextChangedListener(watcher);
     }
 

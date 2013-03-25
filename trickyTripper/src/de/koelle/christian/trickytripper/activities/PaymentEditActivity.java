@@ -76,6 +76,7 @@ import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
+import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
 public class PaymentEditActivity extends Activity {
 
@@ -334,7 +335,7 @@ public class PaymentEditActivity extends Activity {
             buttonCurrency.setText(getFktnController().getLodadedTripCurrencySymbol(false));
 
             UiUtils.makeProperNumberInput(editText, getDecimalNumberInputUtil().getInputPatternMatcher());
-            writeAmountToEditText(amount, editText);
+            UiAmountViewUtils.writeAmountToEditText(amount, editText, getLocale(), getDecimalNumberInputUtil());
 
             textView.setText(p.getName());
 
@@ -349,11 +350,6 @@ public class PaymentEditActivity extends Activity {
             dynViewId++;
 
         }
-    }
-
-    private void writeAmountToEditText(Amount amount, EditText editText) {
-        editText.setText(getDecimalNumberInputUtil().fixInputStringModelToWidget(
-                AmountViewUtils.getAmountString(getLocale(), amount, true, true, true, false, true)));
     }
 
     private void bindCurrencyCalculatorAction(final Button buttonCurrency, final Amount sourceAndTargetAmountReference,
@@ -543,7 +539,8 @@ public class PaymentEditActivity extends Activity {
             Participant p = participantsWithBlanks.get(i);
             EditText editText =
                     amountDebitorParticipantToWidget.get(p);
-            writeAmountToEditText(getAmountFac().createAmount(valueToBeUsed), editText);
+            UiAmountViewUtils.writeAmountToEditText(getAmountFac().createAmount(valueToBeUsed), editText, getLocale(),
+                    getDecimalNumberInputUtil());
             payment.getParticipantToSpending().get(p).setValue(valueToBeUsed);
 
         }
@@ -855,8 +852,7 @@ public class PaymentEditActivity extends Activity {
         Double totalAmountSpendingAbs = Math.abs(amountTotalDebits.getValue());
         Double totalAmountPaid = amountTotalPayments.getValue();
 
-        if (amountTotalDebits != null
-                && (totalAmountPaid.equals(totalAmountSpendingAbs) || totalAmountSpendingAbs > totalAmountPaid)) {
+        if (totalAmountPaid.equals(totalAmountSpendingAbs) || totalAmountSpendingAbs > totalAmountPaid) {
             return false;
         }
         for (Entry<Participant, Amount> entry : payment.getParticipantToSpending().entrySet()) {

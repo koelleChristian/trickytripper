@@ -212,6 +212,8 @@
     <string name="payment_edit_view_label_payed_by">Paid by</string>
     <string name="payment_edit_view_textView_label_amount">Amount</string>
     <string name="payment_edit_view_button_divide_rest">Divide rest among blanks</string>
+    <string name="payment_edit_view_image_button_select_travellers_descr_top">Allows the selection of the travelers who will spend the money.</string>
+    <string name="payment_edit_view_image_button_select_travellers_descr_bottom">Allows the selection of the travelers who will be charged.</string>
     <!-- ==================== Context menu participants ====================== -->
     <string name="fktn_participant_create_payment">Create payment</string>
     <string name="fktn_participant_transfer_money">Transfer money</string>

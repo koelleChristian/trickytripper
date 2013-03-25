@@ -43,7 +43,7 @@ import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
 import de.koelle.christian.trickytripper.ui.utils.ExchangeRateDescriptionUtils;
-import de.koelle.christian.trickytripper.ui.utils.UiViewUtils;
+import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
 public class CurrencyCalculatorActivity extends Activity {
 
@@ -226,7 +226,8 @@ public class CurrencyCalculatorActivity extends Activity {
         editTextInputValue.addTextChangedListener(new BlankTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                Double valueInput = NumberUtils.getStringToDoubleRounded(getLocale(), s.toString());
+                String widgetInput = getDecimalNumberInputUtil().fixInputStringWidgetToParser(s.toString());
+                Double valueInput = NumberUtils.getStringToDoubleRounded(getLocale(), widgetInput);
                 inputAmount.setValue(valueInput);
                 System.out.println("afterTextChanged input value");
                 updateViews();
@@ -236,7 +237,8 @@ public class CurrencyCalculatorActivity extends Activity {
         editTextInputExchangeRate.addTextChangedListener(new BlankTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                Double valueInput = NumberUtils.getStringToDoubleRounded(getLocale(), s.toString());
+                String widgetInput = getDecimalNumberInputUtil().fixInputStringWidgetToParser(s.toString());
+                Double valueInput = NumberUtils.getStringToDoubleUnrounded(getLocale(), widgetInput);
                 System.out.println("afterTextChanged rate value");
                 exchangeRateInput = valueInput;
                 updateViews();
@@ -251,13 +253,14 @@ public class CurrencyCalculatorActivity extends Activity {
 
     private void updateInputAmountFieldFromModel() {
         EditText editTextInputValue = (EditText) findViewById(R.id.currencyCalculatorView_editText_inputValue);
-        UiViewUtils.writeAmountToEditText(inputAmount, editTextInputValue, getLocale());
+        UiAmountViewUtils.writeAmountToEditText(inputAmount, editTextInputValue, getLocale(),
+                getDecimalNumberInputUtil());
     }
 
     private void updateExchangeRateFieldFromModel() {
         EditText editTextInputExchangeRate = (EditText) findViewById(R.id.currencyCalculatorView_editText_inputExchangeRate);
-        editTextInputExchangeRate.setText(AmountViewUtils.getDoubleString(getLocale(), exchangeRateInput, true, true,
-                true, false));
+        UiAmountViewUtils.writeDoubleToEditText(exchangeRateInput, editTextInputExchangeRate, getLocale(),
+                getDecimalNumberInputUtil());
     }
 
     private void updateViews() {

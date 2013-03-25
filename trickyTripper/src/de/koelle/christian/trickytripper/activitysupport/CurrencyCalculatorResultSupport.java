@@ -8,7 +8,7 @@ import android.widget.EditText;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.model.Amount;
-import de.koelle.christian.trickytripper.ui.utils.AmoutViewUtils;
+import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
 public class CurrencyCalculatorResultSupport {
 
@@ -20,7 +20,7 @@ public class CurrencyCalculatorResultSupport {
             int targetViewId = resultData.getIntExtra(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_OUT_VIEW_ID, -1);
             if (targetViewId >= 0) {
                 EditText targetEditText = (EditText) activity.findViewById(targetViewId);
-                AmoutViewUtils.writeAmountToEditText(resultAmount, targetEditText, locale, decimalNumberInputUtil);
+                UiAmountViewUtils.writeAmountToEditText(resultAmount, targetEditText, locale, decimalNumberInputUtil);
             }
         }
     }

@@ -17,7 +17,10 @@ public class PhoneContactResolver {
 
     public ArrayList<PhoneContact> findContactByNameString2(String nameSubstr) {
         String[] projection = { ContactsContract.Data._ID, ContactsContract.Data.DISPLAY_NAME };
-        String selection = ContactsContract.Data.IN_VISIBLE_GROUP + "=1 AND " +
+        String selection = /*
+                            * ContactsContract.Data.IN_VISIBLE_GROUP +
+                            * "=1 AND "+
+                            */
                 ContactsContract.Data.DISPLAY_NAME + " LIKE ?";
 
         String[] selectionArgs = { "%" + nameSubstr + "%" };

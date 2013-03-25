@@ -11,6 +11,7 @@ import java.util.Set;
 import android.content.res.Resources;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.model.CurrencyWithName;
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 
 public class CurrencyUtil {
 
@@ -174,6 +175,7 @@ public class CurrencyUtil {
                 currency);
     }
 
+    @SuppressWarnings("LI_LAZY_INIT_UPDATE_STATIC")
     private static void initIfRequired(Resources resources) {
         if (currencyCodes == null) {
             String[] currencyArray = resources.getStringArray(R.array.currencies);
