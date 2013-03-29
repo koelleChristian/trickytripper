@@ -32,8 +32,11 @@ public class ExchangeRateDescriptionUtils {
                     .append(dateUtils.date2String(row.getUpdateDate()));
         }
         else {
-            return new StringBuilder()
-                    .append(row.getDescription());
+            String description = row.getDescription();
+            if(description == null){
+            	description = resources.getString(R.string.currencyCalculatorViewNoMatchingRatesAvailable);
+            }
+			return new StringBuilder().append(description);
         }
     }
 
