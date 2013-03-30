@@ -49,7 +49,7 @@
     <string name="participant_tab_row_view_label_paid">Paid:</string>
     <string name="participant_tab_blank_list_notification">No travelers yet. \n\n\n\nCreate new travelers by long-tapping on the traveler tab header or choose \'Create\' from the menu.</string>
     <!-- ===============================  Currency calculator view =============================== -->
-    <string name="currencyCalculatorViewTextViewHeading">Money Exchange Calculation</string>
+    <string name="currencyCalculatorViewTextViewHeading">Exchange Calculator</string>
     <string name="currencyCalculatorViewTextViewLabelSource">Source</string>
     <string name="currencyCalculatorViewTextViewLabelTarget">Result</string>
     <string name="currencyCalculatorViewTextViewHeadLabelRate">Rate</string>

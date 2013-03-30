@@ -2,6 +2,8 @@ package de.koelle.christian.trickytripper.activities;
 
 import java.util.Currency;
 
+import com.actionbarsherlock.app.SherlockActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +20,7 @@ import de.koelle.christian.trickytripper.model.HierarchicalCurrencyList;
 import de.koelle.christian.trickytripper.model.modelAdapter.CurrencyExpandableListAdapter;
 import de.koelle.christian.trickytripper.model.modelAdapter.CurrencyGroupNamingCallback;
 
-public class CurrencySelectionActivity extends Activity {
+public class CurrencySelectionActivity extends SherlockActivity {
 
     private Currency currencyProvided;
     private int resultViewId;

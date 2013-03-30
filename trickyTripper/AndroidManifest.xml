@@ -48,13 +48,12 @@
         </activity>
         <activity
             android:name=".activities.MoneyTransferActivity"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/money_transfer_view_heading" >
         </activity>
         <activity
             android:name=".activities.SaveToSdCardActivity"
             android:exported="false"
-            android:label="@string/save2SdReceiverLabel"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/save2SdReceiverLabel" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND_MULTIPLE" />
 
@@ -65,8 +64,7 @@
         </activity>
         <activity
             android:name=".activities.DirectoryPickerActivity"
-            android:label="@string/save2SdReceiverLabel"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/save2SdReceiverLabel" >
         </activity>
         <activity
             android:name=".activities.PreferencesActivity"

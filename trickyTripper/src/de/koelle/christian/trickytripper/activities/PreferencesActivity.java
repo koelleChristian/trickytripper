@@ -105,7 +105,6 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 	private TrickyTripperApp getApp() {
 		return (TrickyTripperApp)getApplication();
 	}
-    /* ============== Options Shit [BGN] ============== */
 
     /* ============== Options Shit [BGN] ============== */
 

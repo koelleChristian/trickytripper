@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import android.app.ListActivity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,17 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
+import de.koelle.christian.common.abs.ActionBarSupport;
+import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.trickytripper.R;
+import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
+import de.koelle.christian.trickytripper.constants.Rd;
 
 /**
  * <p>
@@ -52,7 +62,7 @@ import de.koelle.christian.trickytripper.R;
  * SOFTWARE.
  */
 
-public class DirectoryPickerActivity extends ListActivity {
+public class DirectoryPickerActivity extends SherlockListActivity {
 
     public static final String EXTRA_START_DIR = "startDir";
     public static final String EXTRA_ONLY_DIRS = "onlyDirs";
@@ -87,9 +97,9 @@ public class DirectoryPickerActivity extends ListActivity {
         }
 
         setContentView(R.layout.picker_chooser_list);
-
-        TextView textViewHeading = (TextView) findViewById(R.id.dirPickerHeading);
-        textViewHeading.setText(title);
+        
+        setTitle(title);
+        
         TextView textViewPath = (TextView) findViewById(R.id.dirPickerPath);
         textViewPath.setText(dir.getAbsolutePath());
 
@@ -134,6 +144,7 @@ public class DirectoryPickerActivity extends ListActivity {
                 startActivityForResult(intent, REQUEST_CODE);
             }
         });
+        ActionBarSupport.addBackButton(this);
     }
 
     @Override
@@ -174,4 +185,54 @@ public class DirectoryPickerActivity extends ListActivity {
         }
         return names;
     }
+    
+    private TrickyTripperApp getApp() {
+        return (TrickyTripperApp)getApplication();
+    }
+
+    /* ============== Options Shit [BGN] ============== */
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
+                new OptionContraintsAbs().activity(getSupportMenuInflater()).menu(menu)
+                        .options(new int[] {
+                                R.id.option_help
+                        }));
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.option_help:
+            showDialog(Rd.DIALOG_HELP);
+            return true;
+        case android.R.id.home:
+            onBackPressed();
+            return true;                  
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+    /* ============== Options Shit [END] ============== */
+    /* ============== Dialog Shit [BGN] ============== */
+
+    @Override
+    protected Dialog onCreateDialog(int id, Bundle args) {
+        Dialog dialog;
+        switch (id) {
+        case Rd.DIALOG_HELP:
+            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
+            break;
+        default:
+            dialog = null;
+        }
+
+        return dialog;
+    }
+    /* ============== Dialog Shit [END] ============== */
+    
+
 }

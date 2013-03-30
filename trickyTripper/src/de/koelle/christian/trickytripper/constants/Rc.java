@@ -29,6 +29,7 @@ public class Rc {
     public static final String ACTIVITY_PARAM_VIEW_MODE_CREATE_MODE = "create";
 
     public static final String ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_RATE_TECH_ID = "activityParamExchangeRateInRateTechId";
+    public static final String ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_SOURCE_CURRENCY = "activityParamExchangeRateInScourceCurrrency";
 
     public static final String ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_VALUE = "activityParamCurrencyCalcInValue";
     public static final String ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_RESULT_CURRENCY = "activityParamCurrencyCalcInResultCurrency";

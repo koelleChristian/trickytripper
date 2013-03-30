@@ -53,7 +53,7 @@ public class EditExchangeRateActivity extends SherlockActivity {
         initAndBindStateDependingWidget();
         initAndBindEditText();
         updateButtonState();
-        
+
         ActionBarSupport.addBackButton(this);
     }
 
@@ -72,16 +72,19 @@ public class EditExchangeRateActivity extends SherlockActivity {
         UiUtils.setViewVisibility(labelRight, editMode);
 
         if (editMode) {
-            setTitle(getResources().getString(R.string.editExchangeRateViewHeadingEdit));
+            setTitle(getResources().getString(
+                    R.string.editExchangeRateViewHeadingEdit));
             labelLeft.setText(exchangeRate.getCurrencyFrom().getCurrencyCode());
             labelRight.setText(exchangeRate.getCurrencyTo().getCurrencyCode());
             saveButton.setText(R.string.common_button_save);
         }
         else {
-            setTitle(getResources().getString(R.string.editExchangeRateViewHeadingCreate));
+            setTitle(getResources().getString(
+                    R.string.editExchangeRateViewHeadingCreate));
             saveButton.setText(R.string.common_button_create);
 
-            buttonLeft.setText(exchangeRate.getCurrencyFrom().getCurrencyCode());
+            buttonLeft
+                    .setText(exchangeRate.getCurrencyFrom().getCurrencyCode());
             buttonRight.setText(exchangeRate.getCurrencyTo().getCurrencyCode());
         }
     }
@@ -99,27 +102,36 @@ public class EditExchangeRateActivity extends SherlockActivity {
     }
 
     private void readAndSetInput(Intent intent) {
-        viewMode = (ViewMode) getIntent().getExtras().get(Rc.ACTIVITY_PARAM_KEY_VIEW_MODE);
+        viewMode = (ViewMode) getIntent().getExtras().get(
+                Rc.ACTIVITY_PARAM_KEY_VIEW_MODE);
 
         if (ViewMode.EDIT == viewMode) {
-            Long technicalId = intent.getLongExtra(Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_RATE_TECH_ID,
+            Long technicalId = intent.getLongExtra(
+                    Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_RATE_TECH_ID,
                     Long.valueOf(-1L));
-            this.exchangeRate = (technicalId <= 0) ? createFreshExchangeRate() : loadExchangeRate(technicalId);
+            this.exchangeRate = loadExchangeRate(technicalId);
         }
         else {
-            this.exchangeRate = createFreshExchangeRate();
+            Currency sourceCurrency = (Currency) intent
+                    .getSerializableExtra(Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_SOURCE_CURRENCY);
+            this.exchangeRate = createFreshExchangeRate(sourceCurrency);
         }
-        exchangeRateValueInverted = NumberUtils.invertExchangeRateDouble(exchangeRate.getExchangeRate());
+        exchangeRateValueInverted = NumberUtils
+                .invertExchangeRateDouble(exchangeRate.getExchangeRate());
     }
 
     private ExchangeRate loadExchangeRate(Long technicalId) {
-        ExchangeRate result = getApp().getExchangeRateController().getExchangeRateById(technicalId);
-        return (result == null) ? createFreshExchangeRate() : result;
+        ExchangeRate result = getApp().getExchangeRateController()
+                .getExchangeRateById(technicalId);
+        return (result == null) ? createFreshExchangeRate(null) : result;
     }
 
-    private ExchangeRate createFreshExchangeRate() {
-        Currency currencyTo = getApp().getTripController().getLoadedTripBaseCurrency();
-        Currency currencyFrom = getApp().getMiscController().getCurrencyFavorite(currencyTo);
+    private ExchangeRate createFreshExchangeRate(Currency sourceCurrencyProvided) {
+        Currency currencyTo = getApp().getTripController()
+                .getLoadedTripBaseCurrency();
+        Currency currencyFrom = (sourceCurrencyProvided == null) ?
+                getApp().getMiscController().getCurrencyFavorite(currencyTo) :
+                sourceCurrencyProvided;
 
         ExchangeRate exchangeRate2 = new ExchangeRate();
         exchangeRate2.setImportOrigin(ImportOrigin.NONE);
@@ -141,10 +153,12 @@ public class EditExchangeRateActivity extends SherlockActivity {
         EditText editTextInputRateL2R = getInputWidgetL2R();
         EditText editTextInputRateR2L = getInputWidgetR2L();
 
-        UiUtils.makeProperNumberInput(editTextInputRateL2R, getDecimalNumberInputUtil()
-                .getExchangeRateInputPatternMatcher());
-        UiUtils.makeProperNumberInput(editTextInputRateR2L, getDecimalNumberInputUtil()
-                .getExchangeRateInputPatternMatcher());
+        UiUtils.makeProperNumberInput(editTextInputRateL2R,
+                getDecimalNumberInputUtil()
+                        .getExchangeRateInputPatternMatcher());
+        UiUtils.makeProperNumberInput(editTextInputRateR2L,
+                getDecimalNumberInputUtil()
+                        .getExchangeRateInputPatternMatcher());
 
         editTextInputDescription.setText(exchangeRate.getDescription());
 
@@ -160,8 +174,10 @@ public class EditExchangeRateActivity extends SherlockActivity {
         editTextListenerLeft = new BlankTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                String widgetInput = getDecimalNumberInputUtil().fixInputStringWidgetToParser(s.toString());
-                Double valueInput = NumberUtils.getStringToDoubleUnrounded(getLocale(), widgetInput);
+                String widgetInput = getDecimalNumberInputUtil()
+                        .fixInputStringWidgetToParser(s.toString());
+                Double valueInput = NumberUtils.getStringToDoubleUnrounded(
+                        getLocale(), widgetInput);
                 exchangeRate.setExchangeRate(valueInput);
                 recalculateAndUpdateOtherSide(true);
                 updateButtonState();
@@ -170,8 +186,10 @@ public class EditExchangeRateActivity extends SherlockActivity {
         editTextListenerRight = new BlankTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                String widgetInput = getDecimalNumberInputUtil().fixInputStringWidgetToParser(s.toString());
-                Double valueInput = NumberUtils.getStringToDoubleUnrounded(getLocale(), widgetInput);
+                String widgetInput = getDecimalNumberInputUtil()
+                        .fixInputStringWidgetToParser(s.toString());
+                Double valueInput = NumberUtils.getStringToDoubleUnrounded(
+                        getLocale(), widgetInput);
                 exchangeRateValueInverted = valueInput;
                 recalculateAndUpdateOtherSide(false);
                 updateButtonState();
@@ -190,11 +208,15 @@ public class EditExchangeRateActivity extends SherlockActivity {
     /* ============== Menu Shit [BGN] ============== */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsAbs().activity(getSupportMenuInflater()).menu(menu)
-                        .options(new int[] {
-                                R.id.option_help
-                        }));
+        return getApp()
+                .getMiscController()
+                .getOptionSupport()
+                .populateOptionsMenu(
+                        new OptionContraintsAbs()
+                                .activity(getSupportMenuInflater()).menu(menu)
+                                .options(new int[] {
+                                        R.id.option_help
+                                }));
     }
 
     @Override
@@ -205,7 +227,7 @@ public class EditExchangeRateActivity extends SherlockActivity {
             return true;
         case android.R.id.home:
             onBackPressed();
-            return true;                  
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -218,7 +240,8 @@ public class EditExchangeRateActivity extends SherlockActivity {
         Dialog dialog;
         switch (id) {
         case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
+            dialog = PopupFactory.createHelpDialog(this, getApp()
+                    .getMiscController(), Rd.DIALOG_HELP);
             break;
         default:
             dialog = null;
@@ -242,12 +265,16 @@ public class EditExchangeRateActivity extends SherlockActivity {
     /* ============== Dialog Shit [END] ============== */
     protected void recalculateAndUpdateOtherSide(boolean leftToRight) {
         if (leftToRight) {
-            exchangeRateValueInverted = NumberUtils.invertExchangeRateDouble(exchangeRate.getExchangeRate());
-            updatInputWidget(getInputWidgetR2L(), getLocale(), exchangeRateValueInverted, editTextListenerRight);
+            exchangeRateValueInverted = NumberUtils
+                    .invertExchangeRateDouble(exchangeRate.getExchangeRate());
+            updatInputWidget(getInputWidgetR2L(), getLocale(),
+                    exchangeRateValueInverted, editTextListenerRight);
         }
         else {
-            exchangeRate.setExchangeRate(NumberUtils.invertExchangeRateDouble(exchangeRateValueInverted));
-            updatInputWidget(getInputWidgetL2R(), getLocale(), exchangeRate.getExchangeRate(), editTextListenerLeft);
+            exchangeRate.setExchangeRate(NumberUtils
+                    .invertExchangeRateDouble(exchangeRateValueInverted));
+            updatInputWidget(getInputWidgetL2R(), getLocale(),
+                    exchangeRate.getExchangeRate(), editTextListenerLeft);
         }
     }
 
@@ -259,10 +286,12 @@ public class EditExchangeRateActivity extends SherlockActivity {
         return (EditText) findViewById(R.id.editExchangeRateViewInputRateL2R);
     }
 
-    private void updatInputWidget(EditText editTextField, Locale locale, Double value,
+    private void updatInputWidget(EditText editTextField, Locale locale,
+            Double value,
             TextWatcher watcher) {
         editTextField.removeTextChangedListener(watcher);
-        UiAmountViewUtils.writeDoubleToEditText(value, editTextField, locale, getDecimalNumberInputUtil());
+        UiAmountViewUtils.writeDoubleToEditText(value, editTextField, locale,
+                getDecimalNumberInputUtil());
         editTextField.addTextChangedListener(watcher);
     }
 
@@ -277,7 +306,8 @@ public class EditExchangeRateActivity extends SherlockActivity {
                 && exchangeRate.getDescription().length() > 0
                 && exchangeRate.getCurrencyFrom() != null
                 && exchangeRate.getCurrencyTo() != null
-                && !exchangeRate.getCurrencyFrom().equals(exchangeRate.getCurrencyTo());
+                && !exchangeRate.getCurrencyFrom().equals(
+                        exchangeRate.getCurrencyTo());
     }
 
     private Locale getLocale() {
@@ -295,22 +325,27 @@ public class EditExchangeRateActivity extends SherlockActivity {
     public void openCurrencySelectionLeft(View view) {
         View button = getCurrencySelectionButtonLeft();
         getApp().getViewController()
-                .openCurrencySelectionForNewExchangeRate(this, exchangeRate.getCurrencyTo(), button.getId(), true);
+                .openCurrencySelectionForNewExchangeRate(this,
+                        exchangeRate.getCurrencyTo(), button.getId(), true);
     }
 
     @SuppressWarnings("unused")
     public void openCurrencySelectionRight(View view) {
         View button = getCurrencySelectionButtonRight();
         getApp().getViewController()
-                .openCurrencySelectionForNewExchangeRate(this, exchangeRate.getCurrencyTo(), button.getId(), false);
+                .openCurrencySelectionForNewExchangeRate(this,
+                        exchangeRate.getCurrencyTo(), button.getId(), false);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Currency result = CurrencySelectionResultSupport.onActivityResult(requestCode, resultCode, data, this);
+        Currency result = CurrencySelectionResultSupport.onActivityResult(
+                requestCode, resultCode, data, this);
         if (result != null) {
-            boolean isLeftNotRight = data.getBooleanExtra(Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_WAS_LEFT_NOT_RIGHT,
-                    true);
+            boolean isLeftNotRight = data
+                    .getBooleanExtra(
+                            Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_WAS_LEFT_NOT_RIGHT,
+                            true);
             if (isLeftNotRight) {
                 exchangeRate.setCurrencyFrom(result);
             }
@@ -323,12 +358,15 @@ public class EditExchangeRateActivity extends SherlockActivity {
 
     @SuppressWarnings("unused")
     public void done(View view) {
-        if (getApp().getExchangeRateController().doesExchangeRateAlreadyExist(exchangeRate)) {
-            Toast.makeText(getApplicationContext(), R.string.editExchangeRateViewMsgSaveDenialDuplicate,
+        if (getApp().getExchangeRateController().doesExchangeRateAlreadyExist(
+                exchangeRate)) {
+            Toast.makeText(getApplicationContext(),
+                    R.string.editExchangeRateViewMsgSaveDenialDuplicate,
                     Toast.LENGTH_SHORT).show();
         }
         else {
-            getApp().getExchangeRateController().persistExchangeRate(exchangeRate);
+            getApp().getExchangeRateController().persistExchangeRate(
+                    exchangeRate);
             finish();
         }
     }

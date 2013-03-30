@@ -251,10 +251,10 @@
     <!-- ==================== Messages ====================== -->
     <string name="msg_delete_not_possible_inbalance">Der Reisende kann nicht gelöscht werden, da sein Konto nicht ausgeglichen ist.</string>
     <!-- ==================== Preferences ====================== -->
-    <string name="prefs_view_title_exchange_rate_management">Wechselkurse verwalten</string>	
-    <string name="prefs_view_heading_chooser_currency">Wähle Standard Währung</string>
+    <string name="prefs_view_heading">Einstellungen</string>	
+    <string name="prefs_view_title_exchange_rate_management">Wechselkurse</string>
     <string name="prefs_view_title_currency">Standard Währung</string>    
-    <string name="prefs_view_title_enable_smart_help">Interaktive Hilfe</string>
+    <string name="prefs_view_heading_chooser_currency">Wähle Deine Standardwährung</string>
     <!-- ==================== Context menu participant selection ====================== -->
     <string name="participant_selection_popup_traveler_selection_title">Reisende auswählen</string>
     <string name="participant_selection_popup_payer_selection_msg">Selektiere all die Reisenden, die das Geld ausgeben/ausgegeben haben und umgekehrt.</string>

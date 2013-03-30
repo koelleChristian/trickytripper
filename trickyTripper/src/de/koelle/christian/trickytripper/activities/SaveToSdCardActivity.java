@@ -3,6 +3,8 @@ package de.koelle.christian.trickytripper.activities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.actionbarsherlock.app.SherlockActivity;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,7 +20,7 @@ import de.koelle.christian.common.utils.FileUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.constants.Rc;
 
-public class SaveToSdCardActivity extends Activity {
+public class SaveToSdCardActivity extends SherlockActivity {
 
     private static final String MSG_SPACE = " ";
     private List<Uri> fileUris;

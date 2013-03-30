@@ -56,7 +56,6 @@
                             android:background="@drawable/btn_circle"
                             android:contentDescription="@string/deleteExchangeRatesViewLabelSelectionOptionsDesc"
                             android:src="@drawable/ic_btn_round_more" />
-
                     </LinearLayout>
                 </TableRow>
 
@@ -73,7 +72,8 @@
                 android:id="@+id/payment_edit_view_total_payment_sum_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/paymentView_createPaymentPayerTableLayout" >
+                android:layout_below="@id/paymentView_createPaymentPayerTableLayout"
+                android:layout_marginBottom="17dp" >
 
                 <TextView
                     style="@style/LargeFont"
@@ -103,19 +103,19 @@
 
             <Spinner
                 android:id="@+id/paymentView_spinnerPaymentCategory"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@id/paymentView_textView_label_description"
-                android:layout_marginBottom="17dp" />
+                android:layout_marginLeft="15dp" />
 
             <EditText
                 android:id="@+id/paymentView_editTextPaymentDescription"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/paymentView_spinnerPaymentCategory"
-                android:layout_alignBottom="@id/paymentView_spinnerPaymentCategory"
-                android:layout_toRightOf="@id/paymentView_spinnerPaymentCategory"
+                android:layout_below="@id/paymentView_spinnerPaymentCategory"
+                android:layout_marginBottom="17dp"
+                android:layout_marginLeft="15dp"
                 android:inputType="text" >
             </EditText>
 
@@ -124,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@id/paymentView_spinnerPaymentCategory"
+                android:layout_below="@id/paymentView_editTextPaymentDescription"
                 android:text="@string/payment_edit_view_label_travellers_charged" />
 
             <RadioGroup
@@ -132,7 +132,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/paymentView_textViewLabelTravellersCharged"
-                android:orientation="horizontal" >
+                android:orientation="vertical"
+                android:paddingLeft="15dp" >
 
                 <RadioButton
                     android:id="@+id/paymentView_radioTravellersChargedSplitEvenly"
@@ -189,7 +190,6 @@
                             android:background="@drawable/btn_circle"
                             android:contentDescription="@string/deleteExchangeRatesViewLabelSelectionOptionsDesc"
                             android:src="@drawable/ic_btn_round_more" />
-
                     </LinearLayout>
                 </TableRow>
 
@@ -244,6 +244,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_below="@id/payment_edit_view_total_spending_sum_layout"
+                android:layout_marginTop="17dp"
                 android:orientation="horizontal" >
 
                 <Button
