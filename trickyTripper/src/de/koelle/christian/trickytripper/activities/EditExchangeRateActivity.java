@@ -3,20 +3,24 @@ package de.koelle.christian.trickytripper.activities;
 import java.util.Currency;
 import java.util.Locale;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.koelle.christian.common.options.OptionContraints;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
+import de.koelle.christian.common.abs.ActionBarSupport;
+import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.NumberUtils;
@@ -32,7 +36,7 @@ import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ImportOrigin;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
-public class EditExchangeRateActivity extends Activity {
+public class EditExchangeRateActivity extends SherlockActivity {
 
     private ExchangeRate exchangeRate;
     private Double exchangeRateValueInverted;
@@ -49,6 +53,8 @@ public class EditExchangeRateActivity extends Activity {
         initAndBindStateDependingWidget();
         initAndBindEditText();
         updateButtonState();
+        
+        ActionBarSupport.addBackButton(this);
     }
 
     private void initAndBindStateDependingWidget() {
@@ -185,7 +191,7 @@ public class EditExchangeRateActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraints().activity(this).menu(menu)
+                new OptionContraintsAbs().activity(getSupportMenuInflater()).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
                         }));
@@ -197,6 +203,9 @@ public class EditExchangeRateActivity extends Activity {
         case R.id.option_help:
             showDialog(Rd.DIALOG_HELP);
             return true;
+        case android.R.id.home:
+            onBackPressed();
+            return true;                  
         default:
             return super.onOptionsItemSelected(item);
         }

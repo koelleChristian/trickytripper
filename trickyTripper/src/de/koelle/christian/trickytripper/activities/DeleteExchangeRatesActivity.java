@@ -5,18 +5,23 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
+import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraints;
+import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
@@ -28,7 +33,7 @@ import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListA
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter.DisplayMode;
 import de.koelle.christian.trickytripper.ui.model.SpinnerObject;
 
-public class DeleteExchangeRatesActivity extends Activity {
+public class DeleteExchangeRatesActivity extends SherlockActivity {
 
     private static final String DIALOG_PARAM_EXCHANGE_RATES = "dialogParamExchangeRates";
 
@@ -45,6 +50,8 @@ public class DeleteExchangeRatesActivity extends Activity {
         updateList();
         initInvisibleSpinner();
         updateButtonState();
+        
+        ActionBarSupport.addBackButton(this);
 
     }
 
@@ -197,7 +204,7 @@ public class DeleteExchangeRatesActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraints().activity(this).menu(menu)
+                new OptionContraintsAbs().activity(getSupportMenuInflater()).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
                         }));
@@ -209,6 +216,9 @@ public class DeleteExchangeRatesActivity extends Activity {
         case R.id.option_help:
             showDialog(Rd.DIALOG_HELP);
             return true;
+        case android.R.id.home:
+            onBackPressed();
+            return true;                  
         default:
             return super.onOptionsItemSelected(item);
         }
