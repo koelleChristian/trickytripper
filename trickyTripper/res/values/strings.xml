@@ -254,7 +254,7 @@
     <string name="prefs_view_heading">Settings</string>
     <string name="prefs_view_title_exchange_rate_management">Exchange Rates</string>
     <string name="prefs_view_title_currency">Default Currency</string>
-    <string name="prefs_view_heading_chooser_currency">Choose your default currency</string>
+    <string name="prefs_view_heading_chooser_currency">Choose your default currency</string>    
     <!-- ==================== Context menu participant selection ====================== -->
     <string name="participant_selection_popup_traveler_selection_title">Select travelers</string>
     <string name="participant_selection_popup_payer_selection_msg">Select all travelers who spend/spent the money and vice versa</string>

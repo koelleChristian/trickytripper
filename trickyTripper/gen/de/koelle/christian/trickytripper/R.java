@@ -522,13 +522,11 @@ public final class R {
         public static final int payment_view_popup=0x7f0700a7;
         public static final int payment_view_spinner_prompt=0x7f0700a6;
         /**  ==================== Preferences ====================== 
+ ==================== Preferences ====================== 
          */
         public static final int prefs_view_heading=0x7f0700e2;
         public static final int prefs_view_heading_chooser_currency=0x7f0700e5;
         public static final int prefs_view_title_currency=0x7f0700e4;
-        public static final int prefs_view_title_enable_smart_help=0x7f0700ef;
-        /**  ==================== Preferences ====================== 
-         */
         public static final int prefs_view_title_exchange_rate_management=0x7f0700e3;
         public static final int progress_dialog_text_loading=0x7f070010;
         public static final int report_view_entry_report_spinner_null_value=0x7f07009e;
