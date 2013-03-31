@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Dialog;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -167,8 +169,9 @@ public class ExportActivity extends SherlockActivity {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView result = (TextView) super.getView(position, convertView, parent);
+                int resid = result.getTextColors().getDefaultColor();                
                 UiUtils.setActiveOrInactive(isEnabled(position), result, R.string.exportViewSpinnerNotAvailable,
-                        getResources());
+                        getResources(), resid);
                 return result;
             }
 
@@ -176,7 +179,7 @@ public class ExportActivity extends SherlockActivity {
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 TextView result = (TextView) super.getDropDownView(position, convertView, parent);
                 UiUtils.setActiveOrInactive(isEnabled(position), result, R.string.exportViewSpinnerNotAvailable,
-                        getResources());
+                        getResources(), getResources().getColor(R.color.black));
                 return result;
             }
 

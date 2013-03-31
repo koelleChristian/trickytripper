@@ -72,7 +72,6 @@ public class CurrencyCalculatorActivity extends SherlockActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("On create()");
 
         setContentView(R.layout.currency_calculator_view);
 
@@ -117,7 +116,6 @@ public class CurrencyCalculatorActivity extends SherlockActivity {
                 Double valueInput = NumberUtils.getStringToDoubleRounded(
                         getLocale(), widgetInput);
                 inputAmount.setValue(valueInput);
-                System.out.println("afterTextChanged input value");
                 updateViewsState(UpdateExclusion.INPUT_VALUE);
             }
         };
@@ -130,7 +128,6 @@ public class CurrencyCalculatorActivity extends SherlockActivity {
                         .fixInputStringWidgetToParser(s.toString());
                 Double valueInput = NumberUtils.getStringToDoubleUnrounded(
                         getLocale(), widgetInput);
-                System.out.println("afterTextChanged rate value");
                 exchangeRateInput = valueInput;
                 updateViewsState(UpdateExclusion.RATE_VALUE);
             }
@@ -167,17 +164,14 @@ public class CurrencyCalculatorActivity extends SherlockActivity {
                 requestCode, resultCode, data, this);
         if (result != null) {
             inputAmount.setUnit(result);
-            System.out.println("on result not null");
             refreshOnResume();
         } else {
-            System.out.println("on result = null");
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        System.out.println("On resume()");
         refreshOnResume();
     }
 
@@ -331,7 +325,6 @@ public class CurrencyCalculatorActivity extends SherlockActivity {
                             || !exchangeRateSelected.equals(selectedRate)) {
                         fillRateModel(selectedRate);
                         updateExchangeRateFieldFromModel(); // xx
-                        System.out.println("OnItemSelected Rate Spinner");
                         updateViewsState(UpdateExclusion.NONE);
                     }
                 }
@@ -432,10 +425,8 @@ public class CurrencyCalculatorActivity extends SherlockActivity {
 
     private void prepareResultAndFinish() {
         if (isDirtyRate() && checkboxSelectionSaveNewAmendedExchangeRate) {
-            System.out.println("Dirty and to be saved");
             createAndSaveNewExchangeRate();
         } else {
-            System.out.println("Not Dirty and not to be saved");
             saveExchangeRateUsedLast(exchangeRateSelected);
         }
 

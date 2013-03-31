@@ -3,12 +3,16 @@ package de.koelle.christian.trickytripper.exchangerates.impl;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ExchangeRateResultExtractorGoogleImpl implements ExchangeRateResultExtractor {
+import de.koelle.christian.common.utils.NumberUtils;
+
+public class ExchangeRateResultExtractorGoogleImpl implements
+        ExchangeRateResultExtractor {
     private static final String NBS = new String(new char[] { 0xA0 });
 
     /* to parse strings like: '0.618850176 British pounds' or '1 British pounds' */
     public static final String REGEX_NUMBER_PATTERN_STRING = "^(\\d+(\\.\\d+)?).*$";
-    public static final Pattern REGEX_NUMBER_PATTERN = Pattern.compile(REGEX_NUMBER_PATTERN_STRING);
+    public static final Pattern REGEX_NUMBER_PATTERN = Pattern
+            .compile(REGEX_NUMBER_PATTERN_STRING);
 
     public Double extractValue(String exchangeRateString) {
         if (exchangeRateString == null) {
@@ -20,9 +24,9 @@ public class ExchangeRateResultExtractorGoogleImpl implements ExchangeRateResult
         if (matcher.matches()) {
             String rateAsString = matcher.group(1);
             try {
-                rate = Double.valueOf(rateAsString);
-            }
-            catch (RuntimeException e) {
+                rate = NumberUtils.ensureExchangeRateMinMax(Double
+                        .valueOf(rateAsString));
+            } catch (RuntimeException e) {
                 // intentionally blank;
             }
         }

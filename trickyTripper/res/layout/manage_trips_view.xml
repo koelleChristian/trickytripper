@@ -27,19 +27,4 @@
         android:layout_weight="1" >
     </ListView>
 
-    <LinearLayout
-        android:id="@+id/footer"
-        style="@android:style/ButtonBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/manageTripsView_button_create_new_trip"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="createNewTrip"
-            android:text="@string/manage_trips_view_button_create_new_trip" />
-    </LinearLayout>
-
 </LinearLayout>

@@ -106,6 +106,10 @@ public class ManageTripsActivity extends SherlockActivity {
         case R.id.option_help:
             showDialog(Rd.DIALOG_HELP);
             return true;
+        case R.id.option_create_trip  :
+            createNewTrip();
+            return true;
+                     
         case android.R.id.home:
             onBackPressed();
             return true;
@@ -238,8 +242,7 @@ public class ManageTripsActivity extends SherlockActivity {
         });
     }
 
-    public void createNewTrip(View view) {
-        if (R.id.manageTripsView_button_create_new_trip == view.getId()) {
+    public void createNewTrip() {
             TripSummary newTripSummary = new TripSummary();
             newTripSummary.setBaseCurrency(getApp().getMiscController()
                     .getDefaultBaseCurrency());
@@ -247,7 +250,6 @@ public class ManageTripsActivity extends SherlockActivity {
                     Rd.DIALOG_CREATE,
                     createBundleWithTripSummaryForPopup(newTripSummary, true,
                             false));
-        }
     }
 
     void updateList(List<TripSummary> currentList) {
@@ -354,7 +356,7 @@ public class ManageTripsActivity extends SherlockActivity {
                 spinnerObjects);
 
         adapter.setDropDownViewResource(R.layout.selection_list_medium);
-        spinner.setPromptId(R.string.payment_view_spinner_prompt);
+        spinner.setPromptId(R.string.edit_trip_view_label_base_currency_spinner_prompt);
         spinner.setAdapter(adapter);
 
         ButtonSupport.disableButtonOnBlankInput(editTextTripName,

@@ -53,7 +53,7 @@
     <string name="currencyCalculatorViewTextViewLabelSource">Quelle</string>
     <string name="currencyCalculatorViewTextViewLabelTarget">Ergebnis</string>
     <string name="currencyCalculatorViewTextViewHeadLabelRate">Kurs</string>
-    <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Vorlagen</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Vorlage</string>
     <string name="currencyCalculatorViewSpinnerPrompt">Wähle einen gespeicherten Wechselkurs</string>    
     <string name="currencyCalculatorViewTextViewHeadLabelOptions">Optionen</string>
     <string name="currencyCalculatorViewCheckboxSaveNewRate">Neu eingegebenen Wechselkurs speichern</string>
@@ -61,6 +61,7 @@
     <string name="currencyCalculatorViewButtonUseResult">Ergebnis verwenden</string>
     <string name="currencyCalculatorViewNoMatchingRatesAvailable">Keine passenden Wechselkurse verfügbar.</string>    
     <string name="currencyCalculatorViewDefaultDescriptionAutoSaveExchangeRate">Wechselkurs</string>
+    <string name="currencyCalculatorViewToastResultExceedsLimit">Das Umrechnungsergebnis übersteigt das Eingabelimit.</string>
     <!-- ===============================  Exchange rates common =============================== -->
     <string name="exchangeRate_common_import_description_prefix">Importiert</string>
     <!-- ===============================  Currency Selection =============================== -->
@@ -172,7 +173,7 @@
     <string name="report_view_subheading_spendings_by_category">Ausgaben nach Kategorie</string>
     <string name="report_view_subheading_spendings">Ausgaben</string>
     <string name="report_view_subheading_owing_debts_by_traveller">Schulden</string>
-    <string name="report_view_entry_report_spinner_null_value">alle Reisenden</string>
+    <string name="report_view_entry_report_spinner_null_value">Alle Reisenden</string>
     <string name="report_view_label_report_spinner_prompt">Wähle Reisenden für Bericht</string>
     <string name="report_view_label_report_spinner">Bericht für:</string>
     <string name="report_view_label_payment_count">Gesamtanzahl:</string>
@@ -235,6 +236,7 @@
     <!-- ==================== edit trip view ====================== -->
     <string name="edit_trip_view_label_name_input">Name:</string>
     <string name="edit_trip_view_label_base_currency">Stammwährung:</string>
+    <string name="edit_trip_view_label_base_currency_spinner_prompt">Wähle die Stammwährung für die Reise</string>    
     <string name="edit_trip_view_edit_heading">Reise bearbeiten</string>
     <string name="edit_trip_view_edit_positive_button">Speichern</string>
     <string name="edit_trip_view_edit_positive_button_and_load">Speichern &amp; Laden</string>

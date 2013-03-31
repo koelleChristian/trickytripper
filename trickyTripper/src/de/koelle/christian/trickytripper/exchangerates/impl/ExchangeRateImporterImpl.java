@@ -6,9 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import android.util.Log;
 import de.koelle.christian.common.utils.CurrencyUtil;
-import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.exchangerates.ExchangeRateImporter;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback.ExchangeRateImporterResultState;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
@@ -43,10 +41,6 @@ public class ExchangeRateImporterImpl implements ExchangeRateImporter {
 
                 }
             }
-            long responseTime = asyncExchangeRateJsonResolver.calculateResponseTime(
-                    Currency.getInstance("EUR"),
-                    Currency.getInstance("USD"));
-            Log.i(Rc.LT_IO, "Response time: " + responseTime + " [ms]");
             sendRequest(callback, permutations);
 
         }

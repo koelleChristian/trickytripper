@@ -73,7 +73,6 @@
 
             <Button
                 android:id="@+id/editExchangeRateViewButtonCurrencyLeft"
-                style="@style/SpinnerButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".40"
@@ -102,7 +101,6 @@
 
             <Button
                 android:id="@+id/editExchangeRateViewButtonCurrencyRight"
-                style="@style/SpinnerButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".40"

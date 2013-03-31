@@ -6,8 +6,6 @@
     <style name="MediumFont" parent="@android:style/TextAppearance.Medium" />
 
     <style name="LargeFont" parent="@android:style/TextAppearance.Large" />
-    
-    <style name="SpinnerButton" parent="@android:style/Widget.Spinner" />
 
     <color name="red">#ff0000</color>
     <color name="green">#008000</color>

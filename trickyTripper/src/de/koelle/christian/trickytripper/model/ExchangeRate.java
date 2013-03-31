@@ -7,7 +7,7 @@ import java.util.Date;
 import android.widget.Checkable;
 import de.koelle.christian.common.utils.NumberUtils;
 
-public class ExchangeRate implements Serializable, Checkable, Cloneable {
+public class ExchangeRate implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 2017174474860551532L;
 
@@ -173,16 +173,4 @@ public class ExchangeRate implements Serializable, Checkable, Cloneable {
         this.isSelected = isSelected;
     }
 
-    public void setChecked(boolean checked) {
-        setSelected(checked);
-    }
-
-    public boolean isChecked() {
-        return isSelected();
-    }
-
-    public void toggle() {
-        setSelected(!isSelected);
-
-    }
 }

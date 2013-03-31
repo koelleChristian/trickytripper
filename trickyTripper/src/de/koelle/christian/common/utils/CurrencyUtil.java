@@ -11,7 +11,6 @@ import java.util.Set;
 import android.content.res.Resources;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.model.CurrencyWithName;
-import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 
 public class CurrencyUtil {
 

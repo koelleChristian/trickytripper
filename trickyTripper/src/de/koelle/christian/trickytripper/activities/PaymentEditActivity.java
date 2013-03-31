@@ -53,6 +53,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
+import de.koelle.christian.common.primitives.DivisionResult;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.common.utils.ObjectUtils;
@@ -61,7 +62,6 @@ import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorResultSupport;
-import de.koelle.christian.trickytripper.activitysupport.DivisionResult;
 import de.koelle.christian.trickytripper.activitysupport.MathUtils;
 import de.koelle.christian.trickytripper.activitysupport.PaymentEditActivityState;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
