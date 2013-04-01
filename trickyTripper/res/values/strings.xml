@@ -5,7 +5,7 @@
     <string name="spinner_null_value_default"></string>
     <string name="symbol_arrow_down">∨</string>
     <string name="defaultX">XX</string>
-    <string name="default_blank"></string>
+    <string name="default_blank"></string> 
     <!-- To be translated ff -->
     <string name="common_button_cancel">Cancel</string>
     <string name="common_button_yes">Yes</string>
@@ -90,7 +90,10 @@
     <string name="importExchangeRatesViewButtonExecute">Do import</string>
     <string name="importExchangeRatesViewCancelImportToast">The import has been canceled.</string>  
     <string name="importExchangeRatesViewProgressBarMessage">Importing exchange rates &#8230;</string>        
-    <string name="importExchangeRatesViewSelectionPrefix">Selected:</string>            
+    <string name="importExchangeRatesViewSelectionPrefix">Selected:</string> 
+    <string name="importExchangeRatesViewPreconToastRequiresOnlineConnection">The import of exchange rates requires an online connection.</string>
+    <string name="importExchangeRatesViewPreconToastNotAlive1">Exchange rates cannot be obtained via internet for the following currencies:</string>               
+    <string name="importExchangeRatesViewPreconToastNotAlive2">Create the exchange rate by hand.</string>               
     <!-- ===============================  Delete exchange rates view =============================== -->
     <string name="deleteExchangeRatesViewTextViewHeading">Delete Exchange Rates</string>
     <string name="deleteExchangeRatesViewButtonLabelPositive">Delete selection</string>

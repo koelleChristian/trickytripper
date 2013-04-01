@@ -1221,10 +1221,10 @@ containing a value of this type.
         /**  ==================== Change Log ======================== 
  ==================== Change Log ======================== 
          */
-        public static final int changelog_full_title=0x7f0a00ff;
-        public static final int changelog_ok_button=0x7f0a0101;
-        public static final int changelog_show_full=0x7f0a0102;
-        public static final int changelog_title=0x7f0a0100;
+        public static final int changelog_full_title=0x7f0a0102;
+        public static final int changelog_ok_button=0x7f0a0104;
+        public static final int changelog_show_full=0x7f0a0105;
+        public static final int changelog_title=0x7f0a0103;
         /**  To be translated ff 
  To be translated ff 
          */
@@ -1273,132 +1273,135 @@ containing a value of this type.
         public static final int currency_selection_view_instruction_new_exchange_rate_label_to_be_selected=0x7f0a004f;
         public static final int defaultX=0x7f0a0012;
         public static final int default_blank=0x7f0a0013;
-        public static final int deleteExchangeRatesViewButtonLabelPositive=0x7f0a0063;
-        public static final int deleteExchangeRatesViewDeleteConfirmation=0x7f0a0068;
-        public static final int deleteExchangeRatesViewLabelSelectionOptions=0x7f0a0065;
-        public static final int deleteExchangeRatesViewLabelSelectionOptionsDesc=0x7f0a0066;
-        public static final int deleteExchangeRatesViewListViewLabel=0x7f0a0067;
-        public static final int deleteExchangeRatesViewSpinnerPrompt=0x7f0a0064;
+        public static final int deleteExchangeRatesViewButtonLabelPositive=0x7f0a0066;
+        public static final int deleteExchangeRatesViewDeleteConfirmation=0x7f0a006b;
+        public static final int deleteExchangeRatesViewLabelSelectionOptions=0x7f0a0068;
+        public static final int deleteExchangeRatesViewLabelSelectionOptionsDesc=0x7f0a0069;
+        public static final int deleteExchangeRatesViewListViewLabel=0x7f0a006a;
+        public static final int deleteExchangeRatesViewSpinnerPrompt=0x7f0a0067;
         /**  ===============================  Delete exchange rates view =============================== 
  ===============================  Delete exchange rates view =============================== 
          */
-        public static final int deleteExchangeRatesViewTextViewHeading=0x7f0a0062;
-        public static final int editExchangeRateViewHeadingCreate=0x7f0a006a;
+        public static final int deleteExchangeRatesViewTextViewHeading=0x7f0a0065;
+        public static final int editExchangeRateViewHeadingCreate=0x7f0a006d;
         /**  ===============================  Edit Exchange Rate =============================== 
  ===============================  Edit Exchange Rate =============================== 
          */
-        public static final int editExchangeRateViewHeadingEdit=0x7f0a0069;
-        public static final int editExchangeRateViewLabelInputDescription=0x7f0a006c;
-        public static final int editExchangeRateViewLabelRate=0x7f0a006b;
-        public static final int editExchangeRateViewMsgSaveDenialDuplicate=0x7f0a006d;
-        public static final int edit_participant_view_heading_create=0x7f0a00e1;
-        public static final int edit_participant_view_heading_edit=0x7f0a00e2;
+        public static final int editExchangeRateViewHeadingEdit=0x7f0a006c;
+        public static final int editExchangeRateViewLabelInputDescription=0x7f0a006f;
+        public static final int editExchangeRateViewLabelRate=0x7f0a006e;
+        public static final int editExchangeRateViewMsgSaveDenialDuplicate=0x7f0a0070;
+        public static final int edit_participant_view_heading_create=0x7f0a00e4;
+        public static final int edit_participant_view_heading_edit=0x7f0a00e5;
         /**  ==================== Context menu participant edit====================== 
  ==================== Context menu participant edit====================== 
          */
-        public static final int edit_participant_view_label_name=0x7f0a00e0;
-        public static final int edit_participant_view_msg_denial=0x7f0a00e5;
-        public static final int edit_participant_view_positive_button_create=0x7f0a00e3;
-        public static final int edit_participant_view_positive_button_edit=0x7f0a00e4;
-        public static final int edit_trip_view_create_heading=0x7f0a00ec;
-        public static final int edit_trip_view_create_negative_button=0x7f0a00ef;
-        public static final int edit_trip_view_create_positive_button=0x7f0a00ed;
-        public static final int edit_trip_view_create_positive_button_and_load=0x7f0a00ee;
-        public static final int edit_trip_view_edit_heading=0x7f0a00e9;
-        public static final int edit_trip_view_edit_positive_button=0x7f0a00ea;
-        public static final int edit_trip_view_edit_positive_button_and_load=0x7f0a00eb;
-        public static final int edit_trip_view_label_base_currency=0x7f0a00e7;
-        public static final int edit_trip_view_label_base_currency_spinner_prompt=0x7f0a00e8;
+        public static final int edit_participant_view_label_name=0x7f0a00e3;
+        public static final int edit_participant_view_msg_denial=0x7f0a00e8;
+        public static final int edit_participant_view_positive_button_create=0x7f0a00e6;
+        public static final int edit_participant_view_positive_button_edit=0x7f0a00e7;
+        public static final int edit_trip_view_create_heading=0x7f0a00ef;
+        public static final int edit_trip_view_create_negative_button=0x7f0a00f2;
+        public static final int edit_trip_view_create_positive_button=0x7f0a00f0;
+        public static final int edit_trip_view_create_positive_button_and_load=0x7f0a00f1;
+        public static final int edit_trip_view_edit_heading=0x7f0a00ec;
+        public static final int edit_trip_view_edit_positive_button=0x7f0a00ed;
+        public static final int edit_trip_view_edit_positive_button_and_load=0x7f0a00ee;
+        public static final int edit_trip_view_label_base_currency=0x7f0a00ea;
+        public static final int edit_trip_view_label_base_currency_spinner_prompt=0x7f0a00eb;
         /**  ==================== edit trip view ====================== 
  ==================== edit trip view ====================== 
          */
-        public static final int edit_trip_view_label_name_input=0x7f0a00e6;
-        public static final int edit_trip_view_msg=0x7f0a00f0;
+        public static final int edit_trip_view_label_name_input=0x7f0a00e9;
+        public static final int edit_trip_view_msg=0x7f0a00f3;
         /**  ===============================  Exchange rates common =============================== 
  ===============================  Exchange rates common =============================== 
          */
         public static final int exchangeRate_common_import_description_prefix=0x7f0a0049;
-        public static final int exportOutputChannelDropbox=0x7f0a0083;
-        public static final int exportOutputChannelEnumSave2Sd=0x7f0a0081;
-        public static final int exportOutputChannelEvernote=0x7f0a0084;
-        public static final int exportOutputChannelMail=0x7f0a0082;
-        public static final int exportViewButtonExecuteExport=0x7f0a007c;
-        public static final int exportViewCheckboxContentOwingDebts=0x7f0a0073;
-        public static final int exportViewCheckboxContentPayments=0x7f0a0070;
-        public static final int exportViewCheckboxContentSpendingReport=0x7f0a0072;
-        public static final int exportViewCheckboxContentTransfers=0x7f0a0071;
-        public static final int exportViewCheckboxFormatCsv=0x7f0a0076;
-        public static final int exportViewCheckboxFormatHtml=0x7f0a0077;
-        public static final int exportViewCheckboxFormatTxt=0x7f0a0078;
-        public static final int exportViewCheckboxSeparateFilesForIndividuals=0x7f0a0079;
-        public static final int exportViewCheckboxShowTripSumOnIndividualSpendingReport=0x7f0a007a;
-        public static final int exportViewIntentChooserHeader=0x7f0a007d;
-        public static final int exportViewSpinnerNotAvailable=0x7f0a0080;
-        public static final int exportViewSpinnerPromptChannel=0x7f0a007f;
-        public static final int exportViewSpinnerPromptScope=0x7f0a007b;
+        public static final int exportOutputChannelDropbox=0x7f0a0086;
+        public static final int exportOutputChannelEnumSave2Sd=0x7f0a0084;
+        public static final int exportOutputChannelEvernote=0x7f0a0087;
+        public static final int exportOutputChannelMail=0x7f0a0085;
+        public static final int exportViewButtonExecuteExport=0x7f0a007f;
+        public static final int exportViewCheckboxContentOwingDebts=0x7f0a0076;
+        public static final int exportViewCheckboxContentPayments=0x7f0a0073;
+        public static final int exportViewCheckboxContentSpendingReport=0x7f0a0075;
+        public static final int exportViewCheckboxContentTransfers=0x7f0a0074;
+        public static final int exportViewCheckboxFormatCsv=0x7f0a0079;
+        public static final int exportViewCheckboxFormatHtml=0x7f0a007a;
+        public static final int exportViewCheckboxFormatTxt=0x7f0a007b;
+        public static final int exportViewCheckboxSeparateFilesForIndividuals=0x7f0a007c;
+        public static final int exportViewCheckboxShowTripSumOnIndividualSpendingReport=0x7f0a007d;
+        public static final int exportViewIntentChooserHeader=0x7f0a0080;
+        public static final int exportViewSpinnerNotAvailable=0x7f0a0083;
+        public static final int exportViewSpinnerPromptChannel=0x7f0a0082;
+        public static final int exportViewSpinnerPromptScope=0x7f0a007e;
         /**  ===============================  export view =============================== 
  ===============================  export view =============================== 
          */
-        public static final int exportViewTextViewHeading=0x7f0a006e;
-        public static final int exportViewTextViewSubHeadingChannel=0x7f0a007e;
-        public static final int exportViewTextViewSubHeadingContent=0x7f0a006f;
-        public static final int exportViewTextViewSubHeadingFormat=0x7f0a0075;
-        public static final int exportViewTextViewSubHeadingScope=0x7f0a0074;
-        public static final int fileExportEmailContent=0x7f0a009d;
-        public static final int fileExportEmailSubjectPrefix=0x7f0a009c;
-        public static final int fileExportFileHeading=0x7f0a008f;
-        public static final int fileExportFileSummaryEventPrefix=0x7f0a0090;
-        public static final int fileExportFileSummaryReportForPrefix=0x7f0a0091;
-        public static final int fileExportFileSummaryReportForPrefixAll=0x7f0a0092;
-        public static final int fileExportOwingDebtsHeadingAmount=0x7f0a00aa;
-        public static final int fileExportOwingDebtsHeadingCreditor=0x7f0a00a9;
-        public static final int fileExportOwingDebtsHeadingDebtor=0x7f0a00a8;
-        public static final int fileExportPaymentsHeadingAmount=0x7f0a00a0;
-        public static final int fileExportPaymentsHeadingCategory=0x7f0a009f;
-        public static final int fileExportPaymentsHeadingDebitedTo=0x7f0a00a2;
-        public static final int fileExportPaymentsHeadingPaidBy=0x7f0a00a1;
-        public static final int fileExportPaymentsHeadingPaymentName=0x7f0a009e;
-        public static final int fileExportPostfix_Debts=0x7f0a0096;
-        public static final int fileExportPostfix_Payments=0x7f0a0093;
-        public static final int fileExportPostfix_Spendings=0x7f0a0095;
-        public static final int fileExportPostfix_Transfers=0x7f0a0094;
+        public static final int exportViewTextViewHeading=0x7f0a0071;
+        public static final int exportViewTextViewSubHeadingChannel=0x7f0a0081;
+        public static final int exportViewTextViewSubHeadingContent=0x7f0a0072;
+        public static final int exportViewTextViewSubHeadingFormat=0x7f0a0078;
+        public static final int exportViewTextViewSubHeadingScope=0x7f0a0077;
+        public static final int fileExportEmailContent=0x7f0a00a0;
+        public static final int fileExportEmailSubjectPrefix=0x7f0a009f;
+        public static final int fileExportFileHeading=0x7f0a0092;
+        public static final int fileExportFileSummaryEventPrefix=0x7f0a0093;
+        public static final int fileExportFileSummaryReportForPrefix=0x7f0a0094;
+        public static final int fileExportFileSummaryReportForPrefixAll=0x7f0a0095;
+        public static final int fileExportOwingDebtsHeadingAmount=0x7f0a00ad;
+        public static final int fileExportOwingDebtsHeadingCreditor=0x7f0a00ac;
+        public static final int fileExportOwingDebtsHeadingDebtor=0x7f0a00ab;
+        public static final int fileExportPaymentsHeadingAmount=0x7f0a00a3;
+        public static final int fileExportPaymentsHeadingCategory=0x7f0a00a2;
+        public static final int fileExportPaymentsHeadingDebitedTo=0x7f0a00a5;
+        public static final int fileExportPaymentsHeadingPaidBy=0x7f0a00a4;
+        public static final int fileExportPaymentsHeadingPaymentName=0x7f0a00a1;
+        public static final int fileExportPostfix_Debts=0x7f0a0099;
+        public static final int fileExportPostfix_Payments=0x7f0a0096;
+        public static final int fileExportPostfix_Spendings=0x7f0a0098;
+        public static final int fileExportPostfix_Transfers=0x7f0a0097;
         /**  ===============================  file export =============================== 
  ===============================  file export =============================== 
          */
-        public static final int fileExportPrefix=0x7f0a008e;
-        public static final int fileExportSpendingsHeadingAll=0x7f0a00a5;
-        public static final int fileExportSpendingsHeadingSpendingByCategory=0x7f0a00a4;
-        public static final int fileExportSpendingsHeadingSpendingGlobal=0x7f0a00a3;
-        public static final int fileExportSpendingsHeadingTotalCount=0x7f0a00a7;
-        public static final int fileExportSpendingsHeadingTotalSpent=0x7f0a00a6;
-        public static final int fileExportTableHeadingDebts=0x7f0a009a;
-        public static final int fileExportTableHeadingPayments=0x7f0a0097;
-        public static final int fileExportTableHeadingSpendings=0x7f0a0099;
-        public static final int fileExportTableHeadingTransfers=0x7f0a0098;
-        public static final int fileExportTransferHeadingAmount=0x7f0a00ad;
-        public static final int fileExportTransferHeadingPayer=0x7f0a00ab;
-        public static final int fileExportTransferHeadingReceiver=0x7f0a00ac;
-        public static final int fileExportrFix_Scope_All=0x7f0a009b;
-        public static final int fktn_participant_activate=0x7f0a00db;
+        public static final int fileExportPrefix=0x7f0a0091;
+        public static final int fileExportSpendingsHeadingAll=0x7f0a00a8;
+        public static final int fileExportSpendingsHeadingSpendingByCategory=0x7f0a00a7;
+        public static final int fileExportSpendingsHeadingSpendingGlobal=0x7f0a00a6;
+        public static final int fileExportSpendingsHeadingTotalCount=0x7f0a00aa;
+        public static final int fileExportSpendingsHeadingTotalSpent=0x7f0a00a9;
+        public static final int fileExportTableHeadingDebts=0x7f0a009d;
+        public static final int fileExportTableHeadingPayments=0x7f0a009a;
+        public static final int fileExportTableHeadingSpendings=0x7f0a009c;
+        public static final int fileExportTableHeadingTransfers=0x7f0a009b;
+        public static final int fileExportTransferHeadingAmount=0x7f0a00b0;
+        public static final int fileExportTransferHeadingPayer=0x7f0a00ae;
+        public static final int fileExportTransferHeadingReceiver=0x7f0a00af;
+        public static final int fileExportrFix_Scope_All=0x7f0a009e;
+        public static final int fktn_participant_activate=0x7f0a00de;
         /**  ==================== Context menu participants ====================== 
  ==================== Context menu participants ====================== 
          */
-        public static final int fktn_participant_create_payment=0x7f0a00d7;
-        public static final int fktn_participant_deactivate=0x7f0a00da;
-        public static final int fktn_participant_show_report=0x7f0a00d9;
-        public static final int fktn_participant_transfer_money=0x7f0a00d8;
-        public static final int fktn_payment_list_delete_payment=0x7f0a00f2;
-        public static final int fktn_payment_list_delete_transfer=0x7f0a00f4;
+        public static final int fktn_participant_create_payment=0x7f0a00da;
+        public static final int fktn_participant_deactivate=0x7f0a00dd;
+        public static final int fktn_participant_show_report=0x7f0a00dc;
+        public static final int fktn_participant_transfer_money=0x7f0a00db;
+        public static final int fktn_payment_list_delete_payment=0x7f0a00f5;
+        public static final int fktn_payment_list_delete_transfer=0x7f0a00f7;
         /**  ==================== Context menu Payment List ====================== 
  ==================== Context menu Payment List ====================== 
          */
-        public static final int fktn_payment_list_edit_payment=0x7f0a00f1;
-        public static final int fktn_payment_list_edit_transfer=0x7f0a00f3;
+        public static final int fktn_payment_list_edit_payment=0x7f0a00f4;
+        public static final int fktn_payment_list_edit_transfer=0x7f0a00f6;
         public static final int importExchangeRatesViewButtonExecute=0x7f0a005e;
         public static final int importExchangeRatesViewCancelImportToast=0x7f0a005f;
         public static final int importExchangeRatesViewCheckboxLabelReplaceExisting=0x7f0a005c;
         public static final int importExchangeRatesViewListViewLabel=0x7f0a005d;
         public static final int importExchangeRatesViewOptions=0x7f0a005b;
+        public static final int importExchangeRatesViewPreconToastNotAlive1=0x7f0a0063;
+        public static final int importExchangeRatesViewPreconToastNotAlive2=0x7f0a0064;
+        public static final int importExchangeRatesViewPreconToastRequiresOnlineConnection=0x7f0a0062;
         public static final int importExchangeRatesViewProgressBarMessage=0x7f0a0060;
         public static final int importExchangeRatesViewSelectionPrefix=0x7f0a0061;
         /**  ===============================  Import exchange rates view =============================== 
@@ -1408,7 +1411,7 @@ containing a value of this type.
         /**  ==================== Initial data ====================== 
  ==================== Initial data ====================== 
          */
-        public static final int initial_data_trip_name=0x7f0a00fe;
+        public static final int initial_data_trip_name=0x7f0a0101;
         public static final int label_enum_payment_category_beverages=0x7f0a0027;
         public static final int label_enum_payment_category_culture=0x7f0a002c;
         public static final int label_enum_payment_category_entrance_fee=0x7f0a002d;
@@ -1432,109 +1435,109 @@ containing a value of this type.
         /**  ==================== Context menu Payment List ====================== 
  ==================== Context menu Payment List ====================== 
          */
-        public static final int manageTripsView_heading=0x7f0a00dc;
-        public static final int manage_trips_view_button_create_new_trip=0x7f0a00de;
-        public static final int manage_trips_view_delete_confirmation=0x7f0a00df;
-        public static final int manage_trips_view_label_long_click_to_edit=0x7f0a00dd;
-        public static final int money_transfer_list_view_label_amount=0x7f0a00c2;
-        public static final int money_transfer_list_view_label_due=0x7f0a00c3;
-        public static final int money_transfer_list_view_label_name=0x7f0a00c1;
-        public static final int money_transfer_view_button_transfer=0x7f0a00c0;
+        public static final int manageTripsView_heading=0x7f0a00df;
+        public static final int manage_trips_view_button_create_new_trip=0x7f0a00e1;
+        public static final int manage_trips_view_delete_confirmation=0x7f0a00e2;
+        public static final int manage_trips_view_label_long_click_to_edit=0x7f0a00e0;
+        public static final int money_transfer_list_view_label_amount=0x7f0a00c5;
+        public static final int money_transfer_list_view_label_due=0x7f0a00c6;
+        public static final int money_transfer_list_view_label_name=0x7f0a00c4;
+        public static final int money_transfer_view_button_transfer=0x7f0a00c3;
         /**  ===============================  Money transfer view =============================== 
  ===============================  Money transfer view =============================== 
          */
-        public static final int money_transfer_view_heading=0x7f0a00bd;
-        public static final int money_transfer_view_label_from=0x7f0a00be;
-        public static final int money_transfer_view_output_participant_from=0x7f0a00bf;
+        public static final int money_transfer_view_heading=0x7f0a00c0;
+        public static final int money_transfer_view_label_from=0x7f0a00c1;
+        public static final int money_transfer_view_output_participant_from=0x7f0a00c2;
         /**  ==================== Messages ====================== 
  ==================== Messages ====================== 
          */
-        public static final int msg_delete_not_possible_inbalance=0x7f0a00f5;
+        public static final int msg_delete_not_possible_inbalance=0x7f0a00f8;
         public static final int option_create=0x7f0a0037;
         public static final int option_delete=0x7f0a0036;
         public static final int option_export=0x7f0a0035;
         public static final int option_help=0x7f0a0033;
         public static final int option_import=0x7f0a0038;
         public static final int option_settings=0x7f0a0034;
-        public static final int participant_selection_popup_payer_selection_msg=0x7f0a00fb;
-        public static final int participant_selection_popup_traveler_divide_amount=0x7f0a00fd;
+        public static final int participant_selection_popup_payer_selection_msg=0x7f0a00fe;
+        public static final int participant_selection_popup_traveler_divide_amount=0x7f0a0100;
         /**  ==================== Context menu participant selection ====================== 
  ==================== Context menu participant selection ====================== 
          */
-        public static final int participant_selection_popup_traveler_selection_title=0x7f0a00fa;
-        public static final int participant_selection_popup_traveler_to_debit_msg=0x7f0a00fc;
+        public static final int participant_selection_popup_traveler_selection_title=0x7f0a00fd;
+        public static final int participant_selection_popup_traveler_to_debit_msg=0x7f0a00ff;
         public static final int participant_tab_blank_list_notification=0x7f0a003b;
         public static final int participant_tab_row_view_label_paid=0x7f0a003a;
         /**  ===============================  Participant tab view =============================== 
  ===============================  Participant tab view =============================== 
          */
         public static final int participant_tab_row_view_label_spent=0x7f0a0039;
-        public static final int payment_edit_view_button_divide_rest=0x7f0a00d4;
-        public static final int payment_edit_view_image_button_select_travellers_descr_bottom=0x7f0a00d6;
-        public static final int payment_edit_view_image_button_select_travellers_descr_top=0x7f0a00d5;
+        public static final int payment_edit_view_button_divide_rest=0x7f0a00d7;
+        public static final int payment_edit_view_image_button_select_travellers_descr_bottom=0x7f0a00d9;
+        public static final int payment_edit_view_image_button_select_travellers_descr_top=0x7f0a00d8;
         /**  ===============================  Payment edit =============================== 
  ===============================  Payment edit =============================== 
          */
-        public static final int payment_edit_view_label_category_desciption=0x7f0a00cc;
-        public static final int payment_edit_view_label_payed_by=0x7f0a00d2;
-        public static final int payment_edit_view_label_radio_custom_split=0x7f0a00cf;
-        public static final int payment_edit_view_label_radio_split_evenly=0x7f0a00ce;
-        public static final int payment_edit_view_label_travellers_charged=0x7f0a00cd;
-        public static final int payment_edit_view_textView_label_amount=0x7f0a00d3;
-        public static final int payment_edit_view_textView_payee_label_amount=0x7f0a00d0;
-        public static final int payment_edit_view_textView_payee_label_spent_by=0x7f0a00d1;
-        public static final int payment_view_blank_list_notification=0x7f0a00cb;
-        public static final int payment_view_delete_confirmation_payment=0x7f0a00c9;
-        public static final int payment_view_delete_confirmation_transfer=0x7f0a00ca;
+        public static final int payment_edit_view_label_category_desciption=0x7f0a00cf;
+        public static final int payment_edit_view_label_payed_by=0x7f0a00d5;
+        public static final int payment_edit_view_label_radio_custom_split=0x7f0a00d2;
+        public static final int payment_edit_view_label_radio_split_evenly=0x7f0a00d1;
+        public static final int payment_edit_view_label_travellers_charged=0x7f0a00d0;
+        public static final int payment_edit_view_textView_label_amount=0x7f0a00d6;
+        public static final int payment_edit_view_textView_payee_label_amount=0x7f0a00d3;
+        public static final int payment_edit_view_textView_payee_label_spent_by=0x7f0a00d4;
+        public static final int payment_view_blank_list_notification=0x7f0a00ce;
+        public static final int payment_view_delete_confirmation_payment=0x7f0a00cc;
+        public static final int payment_view_delete_confirmation_transfer=0x7f0a00cd;
         /**  ===============================  Payment view =============================== 
  ===============================  Payment view =============================== 
          */
-        public static final int payment_view_heading_create_payment=0x7f0a00b7;
-        public static final int payment_view_heading_edit_payment=0x7f0a00b8;
-        public static final int payment_view_label_category=0x7f0a00c6;
-        public static final int payment_view_label_debited_to=0x7f0a00c5;
+        public static final int payment_view_heading_create_payment=0x7f0a00ba;
+        public static final int payment_view_heading_edit_payment=0x7f0a00bb;
+        public static final int payment_view_label_category=0x7f0a00c9;
+        public static final int payment_view_label_debited_to=0x7f0a00c8;
         /**  ===============================  Payment list view =============================== 
  ===============================  Payment list view =============================== 
          */
-        public static final int payment_view_label_payed_by=0x7f0a00c4;
-        public static final int payment_view_label_transfer_from=0x7f0a00c7;
-        public static final int payment_view_label_transfer_to=0x7f0a00c8;
-        public static final int payment_view_msg_cannot_save_msg=0x7f0a00bc;
-        public static final int payment_view_msg_cannot_save_title=0x7f0a00bb;
-        public static final int payment_view_popup=0x7f0a00ba;
-        public static final int payment_view_spinner_prompt=0x7f0a00b9;
+        public static final int payment_view_label_payed_by=0x7f0a00c7;
+        public static final int payment_view_label_transfer_from=0x7f0a00ca;
+        public static final int payment_view_label_transfer_to=0x7f0a00cb;
+        public static final int payment_view_msg_cannot_save_msg=0x7f0a00bf;
+        public static final int payment_view_msg_cannot_save_title=0x7f0a00be;
+        public static final int payment_view_popup=0x7f0a00bd;
+        public static final int payment_view_spinner_prompt=0x7f0a00bc;
         /**  ==================== Preferences ====================== 
  ==================== Preferences ====================== 
          */
-        public static final int prefs_view_heading=0x7f0a00f6;
-        public static final int prefs_view_heading_chooser_currency=0x7f0a00f9;
-        public static final int prefs_view_title_currency=0x7f0a00f8;
-        public static final int prefs_view_title_exchange_rate_management=0x7f0a00f7;
+        public static final int prefs_view_heading=0x7f0a00f9;
+        public static final int prefs_view_heading_chooser_currency=0x7f0a00fc;
+        public static final int prefs_view_title_currency=0x7f0a00fb;
+        public static final int prefs_view_title_exchange_rate_management=0x7f0a00fa;
         public static final int progress_dialog_text_loading=0x7f0a001f;
-        public static final int report_view_entry_report_spinner_null_value=0x7f0a00b1;
-        public static final int report_view_label_no_spendings=0x7f0a00b6;
-        public static final int report_view_label_payment_count=0x7f0a00b4;
-        public static final int report_view_label_report_spinner=0x7f0a00b3;
-        public static final int report_view_label_report_spinner_prompt=0x7f0a00b2;
-        public static final int report_view_label_total_spent=0x7f0a00b5;
-        public static final int report_view_subheading_owing_debts_by_traveller=0x7f0a00b0;
-        public static final int report_view_subheading_spendings=0x7f0a00af;
+        public static final int report_view_entry_report_spinner_null_value=0x7f0a00b4;
+        public static final int report_view_label_no_spendings=0x7f0a00b9;
+        public static final int report_view_label_payment_count=0x7f0a00b7;
+        public static final int report_view_label_report_spinner=0x7f0a00b6;
+        public static final int report_view_label_report_spinner_prompt=0x7f0a00b5;
+        public static final int report_view_label_total_spent=0x7f0a00b8;
+        public static final int report_view_subheading_owing_debts_by_traveller=0x7f0a00b3;
+        public static final int report_view_subheading_spendings=0x7f0a00b2;
         /**  ===============================  Report view =============================== 
  ===============================  Report view =============================== 
          */
-        public static final int report_view_subheading_spendings_by_category=0x7f0a00ae;
-        public static final int save2SdReceiverHeading=0x7f0a0086;
+        public static final int report_view_subheading_spendings_by_category=0x7f0a00b1;
+        public static final int save2SdReceiverHeading=0x7f0a0089;
         /**  ===============================  Save 2 SD receiver =============================== 
  ===============================  Save 2 SD receiver =============================== 
          */
-        public static final int save2SdReceiverLabel=0x7f0a0085;
-        public static final int save2SdReceiverProgressHeading=0x7f0a0088;
-        public static final int save2SdReceiverResultNothingSaved=0x7f0a0089;
-        public static final int save2SdReceiverResultSavedFile=0x7f0a008d;
-        public static final int save2SdReceiverResultSavedFiles=0x7f0a008c;
-        public static final int save2SdReceiverResultSavedPostfix=0x7f0a008b;
-        public static final int save2SdReceiverResultSavedPrefix=0x7f0a008a;
-        public static final int save2SdReceiverSelect=0x7f0a0087;
+        public static final int save2SdReceiverLabel=0x7f0a0088;
+        public static final int save2SdReceiverProgressHeading=0x7f0a008b;
+        public static final int save2SdReceiverResultNothingSaved=0x7f0a008c;
+        public static final int save2SdReceiverResultSavedFile=0x7f0a0090;
+        public static final int save2SdReceiverResultSavedFiles=0x7f0a008f;
+        public static final int save2SdReceiverResultSavedPostfix=0x7f0a008e;
+        public static final int save2SdReceiverResultSavedPrefix=0x7f0a008d;
+        public static final int save2SdReceiverSelect=0x7f0a008a;
         public static final int spinner_null_value_default=0x7f0a0010;
         public static final int symbol_arrow_down=0x7f0a0011;
     }

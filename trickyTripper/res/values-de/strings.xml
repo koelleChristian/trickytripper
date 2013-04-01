@@ -91,6 +91,9 @@
     <string name="importExchangeRatesViewCancelImportToast">Der Import von Wechselkursen wurde abgebrochen.</string>    
     <string name="importExchangeRatesViewProgressBarMessage">Importiere Wechselkurse &#8230;</string>        
     <string name="importExchangeRatesViewSelectionPrefix">Auswahl:</string> 
+    <string name="importExchangeRatesViewPreconToastRequiresOnlineConnection">Der Import von Wechselkursen erfordert eine Onlineverbindung.</string>
+    <string name="importExchangeRatesViewPreconToastNotAlive1">Wechselkurse für folgende Währungen können nicht aus dem Internet geladen werden:</string>               
+    <string name="importExchangeRatesViewPreconToastNotAlive2">Erzeugen sie den Wechselkurs per Hand.</string>               
     <!-- ===============================  Delete exchange rates view =============================== -->
     <string name="deleteExchangeRatesViewTextViewHeading">Wechselkurse löschen</string>
     <string name="deleteExchangeRatesViewButtonLabelPositive">Auswahl löschen</string>
