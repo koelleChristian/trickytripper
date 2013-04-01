@@ -73,7 +73,7 @@ public class ExportControllerImpl implements ExportController {
     }
 
     public List<File> exportReport(ExportSettings settings, Participant selectedParticipant, Activity activity) {
-        if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+        if (Rc.debugOn) {
             Log.d(Rc.LT_INPUT, "exportReport() settings=" + settings + " selected=" + selectedParticipant);
         }
         List<Participant> participantsForReport = new ArrayList<Participant>();

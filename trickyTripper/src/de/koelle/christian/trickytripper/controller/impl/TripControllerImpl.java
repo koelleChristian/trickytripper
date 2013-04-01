@@ -58,8 +58,8 @@ public class TripControllerImpl implements TripController, TripResolver {
         SharedPreferences prefs = prefsResolver.getPrefs();
         long tripId = PrefWritrerReaderUtils.loadIdOfTripLastEdited(prefs);
 
-        if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
-            Log.d(Rc.LT, "init() id of last trip=" + tripId);
+        if (Rc.debugOn) {
+            Log.;
         }
         tripToBeEdited = dataManager.loadTripById(tripId);
 
@@ -96,7 +96,7 @@ public class TripControllerImpl implements TripController, TripResolver {
     public void safeLoadedTripIdToPrefs() {
 
         if (tripToBeEdited != null) {
-            if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+            if (Rc.debugOn) {
                 Log.d(Rc.LT,
                         "safeLoadedTripIdToPrefs() id of last trip="
                                 + tripToBeEdited.getId());
@@ -180,7 +180,7 @@ public class TripControllerImpl implements TripController, TripResolver {
     }
 
     private void logPayment(String tag, String addition, Payment newPayment) {
-        if (Log.isLoggable(tag, Log.DEBUG)) {
+        if (Rc.debugOn) {
             Log.d(tag, addition + " Cat=" + newPayment.getCategory().toString());
             for (Entry<Participant, Amount> entry : newPayment.getParticipantToPayment().entrySet()) {
                 Log.d(tag,

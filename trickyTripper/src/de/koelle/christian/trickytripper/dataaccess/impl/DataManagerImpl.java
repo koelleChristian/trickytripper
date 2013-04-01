@@ -53,7 +53,7 @@ public class DataManagerImpl implements DataManager {
 
         SQLiteOpenHelper openHelper = new OpenHelper(this.context);
         db = openHelper.getWritableDatabase();
-        if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+        if (Rc.debugOn) {
             Log.d(Rc.LT, "DataManagerImplBackup created, db open status: " + db.isOpen());
         }
 
@@ -272,7 +272,7 @@ public class DataManagerImpl implements DataManager {
 
     public Payment persistPaymentInTrip(long tripId, Payment payment) {
 
-        if (Log.isLoggable(Rc.LT_DB, Log.DEBUG)) {
+        if (Rc.debugOn{
             Log.d(Rc.LT_DB, "persistPaymentInTrip()" + payment);
         }
 
@@ -409,7 +409,7 @@ public class DataManagerImpl implements DataManager {
 
     public void persistImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported) {
         if (rate == null) {
-            if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+            if (Rc.debugOn) {
                 Log.d(Rc.LT_IO, "persistImportedExchangeRate(): incoming value is null");
             }
             return;
@@ -477,7 +477,7 @@ public class DataManagerImpl implements DataManager {
         result.setCurrenciesInExchangeRatesMatching(exchangeRateDaoResult.getKey());
         result.setCurrenciesInExchangeRatesUnmatched(exchangeRateDaoResult.getValue());
 
-        if (Log.isLoggable(Rc.LT_DB, Log.DEBUG)) {
+        if (Rc.debugOn) {
             Log.d(Rc.LT_DB, "Currencies fetched from ExchangeRateDao: " + result);
         }
 
@@ -486,7 +486,7 @@ public class DataManagerImpl implements DataManager {
             tripDaoResult.remove(currency);
         }
         result.setCurrenciesInTrips(tripDaoResult);
-        if (Log.isLoggable(Rc.LT_DB, Log.DEBUG)) {
+        if (Rc.debugOn) {
             Log.d(Rc.LT_DB, "Currencies fetched from ExchangeRateDao and TripDao: " + result);
         }
         return result;

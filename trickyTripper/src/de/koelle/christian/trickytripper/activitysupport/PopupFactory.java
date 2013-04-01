@@ -174,7 +174,7 @@ public class PopupFactory {
                             .getItemAtPosition(position);
                     PhoneContact contact = contactMap.get(displayName);
                     if (contact != null) {
-                        if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+                        if (Rc.debugOn) {
                             Log.d("OnItemClick", contact.toString());
                         }
                     }

@@ -44,7 +44,7 @@ public class FileUtils {
     private static void deleteFiles(List<File> fileList) {
         if (fileList != null) {
             for (File f : fileList) {
-                if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+                if (Rc.debugOn) {
                     Log.d(Rc.LT_IO, "Delete file f=" + f.getAbsolutePath());
                 }
                 /*

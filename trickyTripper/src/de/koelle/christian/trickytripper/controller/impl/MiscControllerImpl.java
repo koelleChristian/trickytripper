@@ -122,7 +122,7 @@ public class MiscControllerImpl implements MiscController {
                 CurrencyUtil.convertOthersToCurrencyWithName(
                         currenciesToBeExcludedFromElseList
                         , null));
-        if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+        if (Rc.debugOn) {
             Log.d(Rc.LT, "Currencies requested for target=" + currency + ": " + result);
         }
         return result;

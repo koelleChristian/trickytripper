@@ -202,7 +202,7 @@ public class PaymentDao {
                 Amount amount = new Amount();
                 amount.setUnit(Currency.getInstance(c.getString(6)));
                 amount.setValue(NumberUtils.round(Double.valueOf(c.getDouble(7)).doubleValue()));
-                if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+                if (Rc.debugOn) {
                     Log.d(Rc.LT, amount + "");
                 }
                 PaymentParticipantRelationKey position = new PaymentParticipantRelationKey(paymentId, partipantId,

@@ -138,9 +138,8 @@ public class ExportActivity extends SherlockActivity {
 
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 participantSelected = participantsInSpinner.get(position);
-                if (Log.isLoggable(Rc.LT_INPUT, Log.DEBUG)) {
-                    Log.d(Rc.LT_INPUT,
-                            "selected=" + ((participantSelected == null) ? null : participantSelected.getName()));
+                if (Rc.debugOn) {
+                    Log.d(Rc.LT_INPUT,"selected=" + ((participantSelected == null) ? null : participantSelected.getName()));
                 }
                 updateAllCheckboxStates();
             }

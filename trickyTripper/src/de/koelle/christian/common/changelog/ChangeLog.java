@@ -29,6 +29,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.webkit.WebView;
 import de.koelle.christian.trickytripper.R;
+import de.koelle.christian.trickytripper.constants.Rc;
 
 public class ChangeLog {
 
@@ -64,7 +65,9 @@ public class ChangeLog {
 
         // get version numbers
         this.lastVersion = sp.getString(VERSION_KEY, "");
-        Log.d(TAG, "lastVersion: " + lastVersion);
+        if(Rc.debugOn){            
+            Log.d(TAG, "lastVersion: " + lastVersion);
+        }
         try {
             this.thisVersion = context.getPackageManager().getPackageInfo(
                     context.getPackageName(), 0).versionName;
@@ -74,7 +77,9 @@ public class ChangeLog {
             Log.e(TAG, "could not get version name from manifest!");
             e.printStackTrace();
         }
-        Log.d(TAG, "appVersion: " + this.thisVersion);
+        if(Rc.debugOn){            
+            Log.d(TAG, "appVersion: " + this.thisVersion);
+        }
 
         int DELAY = 5000;
         final String thisFinalVersion = thisVersion;

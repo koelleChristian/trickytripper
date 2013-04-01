@@ -77,7 +77,7 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
 
             public void onItemClick(AdapterView<?> list, View lv, int position,
                     long id) {
-                updateCurrentSelectionDisplay();
+                updateViewState();
             }
         });
 
@@ -87,22 +87,27 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
 
         bindWidgets();
 
-        updateCurrentSelectionDisplay();
-        udpateButtonState();
+        updateViewState();
 
         ActionBarSupport.addBackButton(this);
     }
 
-    private void udpateButtonState() {
+    private void updateViewState() {
+        final Set<Currency> currencSelection = getSelection();
+        updateCurrentSelectionDisplay(currencSelection);
+        udpateButtonState(currencSelection);
+    }
+
+    private void udpateButtonState(Set<Currency> currencSelection) {
         Button button = (Button) findViewById(R.id.importExchangeRatesListViewButtonDoImport);
-        button.setEnabled(getSelection().size() >= 2);
+        button.setEnabled(currencSelection.size() >= 2);
     }
 
     private void setIncomingSelection(List<Currency> allCurrenciesAlive) {
         @SuppressWarnings("unchecked")
         ArrayList<Currency> incomingCurrencies = (ArrayList<Currency>) getIntent().getSerializableExtra(
                 Rc.ACTIVITY_PARAM_IMPORT_EXCHANGE_RATES_IN_CURRENCY_LIST);
-        if(incomingCurrencies != null && !incomingCurrencies.isEmpty()){            
+        if (incomingCurrencies != null && !incomingCurrencies.isEmpty()) {
             SparseBooleanArray selection = listView.getCheckedItemPositions();
             for (Currency c : incomingCurrencies) {
                 int index = allCurrenciesAlive.indexOf(c);
@@ -124,20 +129,19 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
 
     }
 
-    private void updateCurrentSelectionDisplay() {
+    private void updateCurrentSelectionDisplay(Set<Currency> currencSelection) {
 
         final TextView textView = (TextView) findViewById(R.id.importExchangeRatesListViewLabelSelection);
         final StringBuilder builder = new StringBuilder()
                 .append(getResources().getString(R.string.importExchangeRatesViewSelectionPrefix))
                 .append(" ");
 
-        final Set<Currency> selectionResult = getSelection();
-        if (selectionResult.size() == 0) {
+        if (currencSelection.size() == 0) {
             builder.append(0);
-        } else if (selectionResult.size() > 3) {
-            builder.append(selectionResult.size());
+        } else if (currencSelection.size() > 3) {
+            builder.append(currencSelection.size());
         } else {
-            for (Iterator<Currency> it = selectionResult.iterator(); it.hasNext();) {
+            for (Iterator<Currency> it = currencSelection.iterator(); it.hasNext();) {
                 builder.append(it.next().getCurrencyCode());
                 if (it.hasNext()) {
                     builder.append(", ");

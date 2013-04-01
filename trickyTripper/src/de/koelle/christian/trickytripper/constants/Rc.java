@@ -4,6 +4,7 @@ import java.text.Collator;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 public class Rc {
 
@@ -15,6 +16,9 @@ public class Rc {
     public static final String LT_DB = "TT_DB";
     public static final String LT_IO = "TT_IO";
     public static final String LT_PROV = "TT_PROV";
+
+    /*So that the compiler can remove the statements, instead of Log.isLoggable(Rc.LT, Log.DEBUG)*/
+    public static final boolean debugOn = true;
 
     public static final String TAB_SPEC_ID_PAYMENT = "payment";
     public static final String TAB_SPEC_ID_PARTICIPANTS = "participants";

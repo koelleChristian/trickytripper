@@ -51,14 +51,14 @@ public class OpenHelper extends SQLiteOpenHelper {
             Cursor c = db.rawQuery("PRAGMA foreign_keys", null);
             if (c.moveToFirst()) {
                 int result = c.getInt(0);
-                if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+                if (Rc.debugOn) {
                     Log.d(Rc.LT, "SQLite foreign key support (1 is on, 0 is off): " + result);
                 }
             }
             else {
                 // could use this approach in onCreate, and not rely on foreign
                 // keys it not available, etc.
-                if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+                if (Rc.debugOn) {
                     Log.d(Rc.LT, "SQLite foreign key support NOT AVAILABLE");
                 }
                 // if you had to here you could fall back to triggers
@@ -71,7 +71,7 @@ public class OpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(final SQLiteDatabase db) {
-        if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+        if (Rc.debugOn) {
             Log.d(Rc.LT, "DataHelper.OpenHelper onCreate creating database " + DataConstants.DATABASE_NAME);
         }
         TripTable.onCreate(db);
