@@ -25,7 +25,7 @@ public abstract class AbstractCurrencyImportTest extends ApplicationTestCase<Tri
     protected void setUp() {
 
         importer = new ExchangeRateImporterImpl();
-        importer.setAsyncExchangeRateJsonResolver(new AsyncExchangeRateJsonResolverGoogleImpl());
+        importer.setAsyncExchangeRateJsonResolver(new AsyncExchangeRateJsonResolverGoogleImpl(getContext()));
         importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorGoogleImpl());
         importer.setChunkDelay(2000);
         /* ================= Desire SIM-connection ========================= */
