@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import de.koelle.christian.common.json.AsyncJsonParser;
 import de.koelle.christian.common.json.AsyncJsonParserResultCallback;
 import de.koelle.christian.trickytripper.model.ImportOrigin;
@@ -17,8 +18,18 @@ public class AsyncExchangeRateJsonResolverGoogleImpl implements AsyncExchangeRat
     public static final String EXCHANGE_RATE_SERVICE_URL = "http://www.google.com/ig/calculator?hl=en&q=1"
             + SOURCE_CURRENCY_CODE_PLACEHOLDER + "=?" + TARGET_CURRENCY_CODE_PLACEHOLDER;
 
+    private final Context context;
+
+    public AsyncExchangeRateJsonResolverGoogleImpl(Context context) {
+        this.context = context;
+    }
+
+    public void cancelRunningRequests() {
+        AsyncJsonParser.cancelRunningRequests(context);
+    }
+
     public void getExchangeRate(Currency from, Currency to, final AsyncExchangeRateJsonResolverResultCallback callback) {
-        AsyncJsonParser.getJSONFromUrl(provideUrl(from, to), new AsyncJsonParserResultCallback() {
+        AsyncJsonParser.getJSONFromUrl(context, provideUrl(from, to), new AsyncJsonParserResultCallback() {
 
             public void deliverResult(JSONObject jsonObject) {
                 String result = null;
@@ -40,12 +51,11 @@ public class AsyncExchangeRateJsonResolverGoogleImpl implements AsyncExchangeRat
     public long calculateResponseTime(Currency from, Currency to) {
 
         ResponseTimeDeterminationCallback callback = new ResponseTimeDeterminationCallback(System.nanoTime());
-        AsyncJsonParser.getJSONFromUrl(provideUrl(from, to), callback);
+        AsyncJsonParser.getJSONFromUrl(context, provideUrl(from, to), callback);
         while (!callback.hasResult()) {
             try {
                 Thread.currentThread().sleep(1000);
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }

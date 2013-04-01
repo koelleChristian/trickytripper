@@ -88,6 +88,8 @@
     <string name="importExchangeRatesViewCheckboxLabelReplaceExisting">Ersetze bereits importierte Kurse</string>
     <string name="importExchangeRatesViewListViewLabel">Wähle alle wechselrelevanten Währungen</string>
     <string name="importExchangeRatesViewButtonExecute">Importieren</string>
+    <string name="importExchangeRatesViewCancelImportToast">Der Import von Wechselkursen wurde abgebrochen.</string>    
+    <string name="importExchangeRatesViewProgressBarMessage">Importiere Wechselkurse &#8230;</string>        
     <!-- ===============================  Delete exchange rates view =============================== -->
     <string name="deleteExchangeRatesViewTextViewHeading">Wechselkurse löschen</string>
     <string name="deleteExchangeRatesViewButtonLabelPositive">Auswahl löschen</string>

@@ -11,4 +11,6 @@ public interface AsyncExchangeRateJsonResolver {
     long calculateResponseTime(Currency from, Currency to);
 
     ImportOrigin getOriginToBeUsed();
+    
+    void cancelRunningRequests();
 }

@@ -3,6 +3,7 @@ package de.koelle.christian.common.json;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -13,9 +14,9 @@ import de.koelle.christian.trickytripper.constants.Rc;
 public class AsyncJsonParser {
     private static final AsyncHttpClient httpClient = new AsyncHttpClient();
 
-    public static void getJSONFromUrl(String url, final AsyncJsonParserResultCallback callback) {
+    public static void getJSONFromUrl(Context context, String url, final AsyncJsonParserResultCallback callback) {
 
-        httpClient.post(url, new AsyncHttpResponseHandler() {
+        httpClient.post(context, url, null, new AsyncHttpResponseHandler() {
 
             @Override
             protected void sendSuccessMessage(String arg0) {
@@ -45,6 +46,9 @@ public class AsyncJsonParser {
             }
 
         });
+    }
 
+    public static void cancelRunningRequests(Context context) {
+        httpClient.cancelRequests(context, true);
     }
 }

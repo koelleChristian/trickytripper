@@ -71,7 +71,7 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         this.importSettings = getApp().getExchangeRateController().getImportSettingsUsedLast();
         bindWidgets();
-        
+
         ActionBarSupport.addBackButton(this);
 
     }
@@ -99,7 +99,7 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
         final int progressCeiling = CurrencyUtil.calcExpectedAmountOfExchangeRates(amoutOfCurrenciesSelected);
 
         final ExchangeRateImporterImpl importer = new ExchangeRateImporterImpl();
-        importer.setAsyncExchangeRateJsonResolver(new AsyncExchangeRateJsonResolverGoogleImpl());
+        importer.setAsyncExchangeRateJsonResolver(new AsyncExchangeRateJsonResolverGoogleImpl(this));
         importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorGoogleImpl());
 
         progressBar = new ProgressDialog(view.getContext());
@@ -111,13 +111,15 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
         progressBar.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
+                importer.cancelRunningRequests();
                 dialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Canceled TODO", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.importExchangeRatesViewCancelImportToast), Toast.LENGTH_SHORT).show();
             }
         });
         progressBar.show();
 
         progressBarStatus = 0;
+
 
         final Set<Currency> currenciesToBeLoaded = new LinkedHashSet<Currency>(selectionResult);
 
@@ -143,6 +145,12 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
                                 }
                                 finally {
                                     progressBarStatus++;
+
+                                    progressBarHandler.post(new Runnable() {
+                                        public void run() {
+                                            progressBar.setProgress(progressBarStatus);
+                                        }
+                                    });
                                 }
                             }
                         });
@@ -155,19 +163,13 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
                     catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-                    progressBarHandler.post(new Runnable() {
-                        public void run() {
-                            progressBar.setProgress(progressBarStatus);
-                        }
-                    });
                 }
 
                 if (progressBarStatus >= progressCeiling) {
 
-                    /* sleep 2 seconds, so that you can see the 100% */
+                    /* sleep, so that you can see the 100% */
                     try {
-                        Thread.sleep(2000);
+                        Thread.sleep(1000);
                     }
                     catch (InterruptedException e) {
                         e.printStackTrace();
@@ -193,6 +195,7 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
     private TrickyTripperApp getApp() {
         return ((TrickyTripperApp) getApplication());
     }
+
     /* ============== Options Shit [BGN] ============== */
 
     @Override
@@ -212,7 +215,7 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
             return true;
         case android.R.id.home:
             onBackPressed();
-            return true;                  
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }

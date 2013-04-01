@@ -16,10 +16,18 @@ public class ExchangeRateImporterImpl implements ExchangeRateImporter {
 
     private AsyncExchangeRateJsonResolver asyncExchangeRateJsonResolver;
     private ExchangeRateResultExtractor exchangeRateResultExtractor;
-    private int chunkSize = 25;
+    private int chunkSize = 20;
     private int chunkDelay = 2000;
+    private boolean stopped;
+    
+
+    public void cancelRunningRequests() {
+        stopped = true;
+        asyncExchangeRateJsonResolver.cancelRunningRequests();
+    }
 
     public void importExchangeRates(Set<Currency> currencies, ExchangeRateImporterResultCallback callback) {
+        stopped = false;
         List<FromToCurrencyPair> permutations = new ArrayList<FromToCurrencyPair>();
         if (currencies.size() >= 2) {
             Currency[] currencyArray = new Currency[currencies.size()];
@@ -49,6 +57,9 @@ public class ExchangeRateImporterImpl implements ExchangeRateImporter {
     private void sendRequest(ExchangeRateImporterResultCallback callback, List<FromToCurrencyPair> permutations) {
         if (permutations.size() <= chunkSize) {
             for (FromToCurrencyPair pair : permutations) {
+                if(stopped){
+                    return;
+                }
                 asyncExchangeRateJsonResolver.getExchangeRate(pair.getFrom(), pair.getTo(),
                         new MyAsyncExchangeRateJsonResolverResult(pair.getFrom(), pair.getTo(),
                                 exchangeRateResultExtractor, callback));
@@ -75,8 +86,7 @@ public class ExchangeRateImporterImpl implements ExchangeRateImporter {
         if (chunkDelay > 0) {
             try {
                 Thread.currentThread().sleep(chunkDelay);
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
