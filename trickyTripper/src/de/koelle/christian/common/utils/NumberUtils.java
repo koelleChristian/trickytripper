@@ -14,7 +14,7 @@ public class NumberUtils {
     private static final int DEFAULT_SCALE = 2;
     private static final Double EXCHANGE_RATE_MAX = Double.valueOf(9999999999.999);
     private static final Double EXCHANGE_RATE_MIN = Double.valueOf(0.0000000001);
-    
+
     private static final Double AMOUNT_MAX = Double.valueOf(9999999999.99);
     private static final Double AMOUNT_MIN = Double.valueOf(0.01);
 
@@ -100,21 +100,25 @@ public class NumberUtils {
     }
 
     public static Double divideForExchangeRates(Double divident, Double divisor) {
-        Double double1 = (Double.valueOf(0d).equals(divisor)) ?
-                Double.valueOf(0d) :
-                divide(divident, divisor,
-                        Math.min(divisor.toString().length() - 2, 10));
+        Double double1 =
+                (Double.valueOf(0d).equals(divisor)) ?
+                        Double.valueOf(0d) :
+                        divide(divident, divisor, 10);
         return ensureExchangeRateMinMax(double1);
     }
 
     public static Double ensureExchangeRateMinMax(Double double1) {
-        return Double.valueOf(Math.max(Math.min(EXCHANGE_RATE_MAX, double1), EXCHANGE_RATE_MIN));
+        return (double1 != null && Double.valueOf(0.0).equals(double1)) ?
+                double1 :
+                Double.valueOf(Math.max(Math.min(EXCHANGE_RATE_MAX, double1), EXCHANGE_RATE_MIN));
     }
+
     public static Double ensureAmountMinMax(Double double1) {
         return Double.valueOf(Math.max(Math.min(EXCHANGE_RATE_MAX, double1), EXCHANGE_RATE_MIN));
     }
+
     public static boolean isExceedingAmountLimit(Double double1) {
-        return  double1  < AMOUNT_MIN   || double1 > AMOUNT_MAX;
+        return double1 < AMOUNT_MIN || double1 > AMOUNT_MAX;
     }
 
     public static Double invertExchangeRateDouble(Double exchangeRate) {

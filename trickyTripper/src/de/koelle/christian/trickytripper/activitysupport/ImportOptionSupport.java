@@ -20,13 +20,17 @@ public class ImportOptionSupport {
     }
 
     public boolean onOptionsItemSelected(Activity caller) {
+        return onOptionsItemSelected(caller, new Currency[0]);
+    }
+
+    public boolean onOptionsItemSelected(Activity caller, Currency [] currenciesToBeSelected) {
         if (!miscCtrl.isOnline()) {
             Toast.makeText(
                     context, "The import of exchange rates requires an online connection.",
                     Toast.LENGTH_LONG).show();
         }
         else {
-            viewCtrl.openImportExchangeRates(caller, new Currency[0]);
+            viewCtrl.openImportExchangeRates(caller, currenciesToBeSelected);
         }
         return true;
     }

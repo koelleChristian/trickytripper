@@ -505,15 +505,6 @@ public class PaymentEditActivity extends SherlockActivity {
 
     }
 
-    /**
-     * View method.
-     * 
-     * @param view
-     *            Required parameter.
-     */
-    public void cancelEdit(View view) {
-        finish();
-    }
 
     /**
      * View method.

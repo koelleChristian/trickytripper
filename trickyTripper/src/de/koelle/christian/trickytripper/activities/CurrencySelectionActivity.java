@@ -76,6 +76,8 @@ public class CurrencySelectionActivity extends SherlockActivity {
                 return true;
             }
         });
+        
+        list.expandGroup(0);
     }
 
     private SparseArray<String> localizeGroupLabels() {

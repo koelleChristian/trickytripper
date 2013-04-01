@@ -1,6 +1,8 @@
 package de.koelle.christian.trickytripper.activities;
 
+import java.util.ArrayList;
 import java.util.Currency;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,7 +14,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,7 +25,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -40,7 +43,6 @@ import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporter
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorGoogleImpl;
-import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ImportSettings;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.utils.UiViewUtils;
@@ -63,17 +65,52 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
         setContentView(R.layout.import_exchange_rates_view);
 
         listView = (ListView) findViewById(R.id.importExchangeRatesViewListViewCurrenciesForImport);
+        List<Currency> allCurrenciesAlive = CurrencyUtil.getAllCurrenciesAlive();
+
         List<RowObject> spinnerObjects = CurrencyViewSupport.wrapCurrenciesInRowObject(
-                CurrencyUtil.getAllCurrenciesAlive(), getResources());
+                allCurrenciesAlive, getResources());
 
         adapter = new ArrayAdapter<RowObject>(this, R.layout.general_checked_text_view, spinnerObjects);
         listView.setAdapter(adapter);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> list, View lv, int position,
+                    long id) {
+                updateCurrentSelectionDisplay();
+            }
+        });
+
+        setIncomingSelection(allCurrenciesAlive);
+
         this.importSettings = getApp().getExchangeRateController().getImportSettingsUsedLast();
+
         bindWidgets();
 
-        ActionBarSupport.addBackButton(this);
+        updateCurrentSelectionDisplay();
+        udpateButtonState();
 
+        ActionBarSupport.addBackButton(this);
+    }
+
+    private void udpateButtonState() {
+        Button button = (Button) findViewById(R.id.importExchangeRatesListViewButtonDoImport);
+        button.setEnabled(getSelection().size() >= 2);
+    }
+
+    private void setIncomingSelection(List<Currency> allCurrenciesAlive) {
+        @SuppressWarnings("unchecked")
+        ArrayList<Currency> incomingCurrencies = (ArrayList<Currency>) getIntent().getSerializableExtra(
+                Rc.ACTIVITY_PARAM_IMPORT_EXCHANGE_RATES_IN_CURRENCY_LIST);
+        if(incomingCurrencies != null && !incomingCurrencies.isEmpty()){            
+            SparseBooleanArray selection = listView.getCheckedItemPositions();
+            for (Currency c : incomingCurrencies) {
+                int index = allCurrenciesAlive.indexOf(c);
+                if (index >= 0) {
+                    selection.put(index, true);
+                }
+            }
+        }
     }
 
     private void bindWidgets() {
@@ -84,12 +121,36 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
                 importSettings.setReplaceImportedRecordWhenAlreadyImported(isChecked);
             }
         });
+
+    }
+
+    private void updateCurrentSelectionDisplay() {
+
+        final TextView textView = (TextView) findViewById(R.id.importExchangeRatesListViewLabelSelection);
+        final StringBuilder builder = new StringBuilder()
+                .append(getResources().getString(R.string.importExchangeRatesViewSelectionPrefix))
+                .append(" ");
+
+        final Set<Currency> selectionResult = getSelection();
+        if (selectionResult.size() == 0) {
+            builder.append(0);
+        } else if (selectionResult.size() > 3) {
+            builder.append(selectionResult.size());
+        } else {
+            for (Iterator<Currency> it = selectionResult.iterator(); it.hasNext();) {
+                builder.append(it.next().getCurrencyCode());
+                if (it.hasNext()) {
+                    builder.append(", ");
+                }
+            }
+        }
+        textView.setText(builder.toString());
+
     }
 
     public void importExchangeRates(View view) {
 
-        final Set<Currency> selectionResult = UiViewUtils.getListSelection(listView, adapter,
-                Currency.getInstance("EUR"));
+        final Set<Currency> selectionResult = getSelection();
 
         int amoutOfCurrenciesSelected = selectionResult.size();
         if (amoutOfCurrenciesSelected <= 0) {
@@ -103,7 +164,7 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
         importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorGoogleImpl());
 
         progressBar = new ProgressDialog(view.getContext());
-        progressBar.setMessage("Importing exchange rates ...");
+        progressBar.setMessage(getResources().getString(R.string.importExchangeRatesViewProgressBarMessage));
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressBar.setProgress(0);
         progressBar.setMax(progressCeiling);
@@ -113,13 +174,14 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
             public void onClick(DialogInterface dialog, int which) {
                 importer.cancelRunningRequests();
                 dialog.dismiss();
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.importExchangeRatesViewCancelImportToast), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        getResources().getString(R.string.importExchangeRatesViewCancelImportToast), Toast.LENGTH_SHORT)
+                        .show();
             }
         });
         progressBar.show();
 
         progressBarStatus = 0;
-
 
         final Set<Currency> currenciesToBeLoaded = new LinkedHashSet<Currency>(selectionResult);
 
@@ -185,6 +247,12 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
             }
         }).start();
 
+    }
+
+    private Set<Currency> getSelection() {
+        final Set<Currency> selectionResult = UiViewUtils.getListSelection(listView, adapter,
+                Currency.getInstance("EUR"));
+        return selectionResult;
     }
 
     protected void finishHere() {

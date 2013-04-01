@@ -498,9 +498,6 @@ public class CurrencyCalculatorActivity extends SherlockActivity {
         prepareResultAndFinish();
     }
 
-    public void cancel(View view) {
-        finish();
-    }
 
     private DecimalNumberInputUtil getDecimalNumberInputUtil() {
         return getApp().getMiscController().getDecimalNumberInputUtil();
@@ -528,7 +525,7 @@ public class CurrencyCalculatorActivity extends SherlockActivity {
             showDialog(Rd.DIALOG_HELP);
             return true;
         case R.id.option_import:
-            return importOptionSupport.onOptionsItemSelected(this);
+            return importOptionSupport.onOptionsItemSelected(this, new Currency[]{inputAmount.getUnit(), resultAmount.getUnit()});
         case android.R.id.home:
             onBackPressed();
             return true;

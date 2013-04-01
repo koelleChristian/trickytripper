@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.model.CurrencyWithName;
 
 public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
@@ -23,10 +24,10 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
     private final List<List<CurrencyWithName>> currencies;
     private final LayoutInflater inflater;
 
-    private final int mCollapsedGroupLayout = android.R.layout.simple_expandable_list_item_1;
-    private final int mExpandedGroupLayout = android.R.layout.simple_expandable_list_item_1;
-    private final int mChildLayout = android.R.layout.simple_expandable_list_item_2;
-    private final int mLastChildLayout = android.R.layout.simple_expandable_list_item_2;
+    private final int mCollapsedGroupLayout = R.layout.simple_expandable_list_item_1;
+    private final int mExpandedGroupLayout = R.layout.simple_expandable_list_item_1;
+    private final int mChildLayout = R.layout.simple_expandable_list_item_2;
+    private final int mLastChildLayout = R.layout.simple_expandable_list_item_2;
 
     private final String[] mChildFrom = new String[] { NAME };
     private final int[] mChildTo = new int[] { android.R.id.text1 };
@@ -96,6 +97,7 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
         return listById.get(childPosition);
     }
 
+    @SuppressWarnings("unchecked")
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         View v;
         if (convertView == null) {
@@ -108,6 +110,7 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
         return v;
     }
 
+    @SuppressWarnings("unchecked")
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView,
             ViewGroup parent) {
         View v;
@@ -165,4 +168,5 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
             }
         }
     }
+
 }

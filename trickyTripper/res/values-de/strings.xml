@@ -77,7 +77,7 @@
     <string name="currency_selection_view_instruction_group_label_used_unmatched">&#8230; in verwendeten Wechselkursen </string>
     <string name="currency_selection_view_instruction_group_label_used_in_rates_unmatched">&#8230; in Wechselkursen</string>
     <string name="currency_selection_view_instruction_group_label_in_trips">&#8230; in Reisen</string>
-    <string name="currency_selection_view_instruction_group_label_else">&#8230; alle</string>
+    <string name="currency_selection_view_instruction_group_label_else">Alle Währungen</string>
     <!-- ===============================  Manage exchange rates view =============================== -->
     <string name="manageExchangeRatesViewTextViewHeading">Wechselkurse</string>
     <string name="manageExchangeRatesViewDeleteConfirmation">Soll der ausgewählte Wechselkurs wirklich gelöscht werden?</string>
@@ -90,6 +90,7 @@
     <string name="importExchangeRatesViewButtonExecute">Importieren</string>
     <string name="importExchangeRatesViewCancelImportToast">Der Import von Wechselkursen wurde abgebrochen.</string>    
     <string name="importExchangeRatesViewProgressBarMessage">Importiere Wechselkurse &#8230;</string>        
+    <string name="importExchangeRatesViewSelectionPrefix">Auswahl:</string> 
     <!-- ===============================  Delete exchange rates view =============================== -->
     <string name="deleteExchangeRatesViewTextViewHeading">Wechselkurse löschen</string>
     <string name="deleteExchangeRatesViewButtonLabelPositive">Auswahl löschen</string>

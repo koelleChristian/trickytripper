@@ -263,13 +263,6 @@
                     android:onClick="saveEdit"
                     android:text="@string/common_button_save" />
 
-                <Button
-                    android:id="@+id/paymentView_buttonCancel"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="cancelEdit"
-                    android:text="@string/common_button_cancel" />
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

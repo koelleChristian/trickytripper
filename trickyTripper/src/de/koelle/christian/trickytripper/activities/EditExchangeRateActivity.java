@@ -174,10 +174,7 @@ public class EditExchangeRateActivity extends SherlockActivity {
         editTextListenerLeft = new BlankTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                String widgetInput = getDecimalNumberInputUtil()
-                        .fixInputStringWidgetToParser(s.toString());
-                Double valueInput = NumberUtils.getStringToDoubleUnrounded(
-                        getLocale(), widgetInput);
+                Double valueInput = getWidgetDoubleInput(s);
                 exchangeRate.setExchangeRate(valueInput);
                 recalculateAndUpdateOtherSide(true);
                 updateButtonState();
@@ -186,14 +183,13 @@ public class EditExchangeRateActivity extends SherlockActivity {
         editTextListenerRight = new BlankTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                String widgetInput = getDecimalNumberInputUtil()
-                        .fixInputStringWidgetToParser(s.toString());
-                Double valueInput = NumberUtils.getStringToDoubleUnrounded(
-                        getLocale(), widgetInput);
+                Double valueInput = getWidgetDoubleInput(s);
                 exchangeRateValueInverted = valueInput;
                 recalculateAndUpdateOtherSide(false);
                 updateButtonState();
             }
+
+
         };
 
         editTextInputRateL2R.addTextChangedListener(editTextListenerLeft);
@@ -204,7 +200,13 @@ public class EditExchangeRateActivity extends SherlockActivity {
         updatInputWidget(editTextInputRateR2L, getLocale(),
                 exchangeRateValueInverted, editTextListenerRight);
     }
-
+    private Double getWidgetDoubleInput(Editable s) {
+        String widgetInput = getDecimalNumberInputUtil()
+                .fixInputStringWidgetToParser(s.toString());
+        Double valueInput = NumberUtils.getStringToDoubleUnrounded(
+                getLocale(), widgetInput);
+        return valueInput;
+    }
     /* ============== Menu Shit [BGN] ============== */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -356,7 +358,6 @@ public class EditExchangeRateActivity extends SherlockActivity {
         }
     }
 
-    @SuppressWarnings("unused")
     public void done(View view) {
         if (getApp().getExchangeRateController().doesExchangeRateAlreadyExist(
                 exchangeRate)) {
@@ -365,15 +366,26 @@ public class EditExchangeRateActivity extends SherlockActivity {
                     Toast.LENGTH_SHORT).show();
         }
         else {
+            String inputLeft = getDecimalNumberInputUtil().fixInputStringWidgetToParser(getInputWidgetL2R().getText().toString());
+            String inputRight =  getDecimalNumberInputUtil().fixInputStringWidgetToParser(getInputWidgetR2L().getText().toString());
+            if(inputRight.length() < inputLeft.length()){
+             flipRatesToAvoidRoundingConfusion(exchangeRate, inputRight);   
+            }
+            
             getApp().getExchangeRateController().persistExchangeRate(
                     exchangeRate);
             finish();
         }
     }
 
-    @SuppressWarnings("unused")
-    public void cancel(View view) {
-        finish();
+
+    private void flipRatesToAvoidRoundingConfusion(ExchangeRate exchangeRate2,  String inputRight) {
+        Currency interim = exchangeRate2.getCurrencyFrom();
+        exchangeRate2.setCurrencyFrom(exchangeRate2.getCurrencyTo());
+        exchangeRate2.setCurrencyTo(interim);
+        Double valueInput = NumberUtils.getStringToDoubleUnrounded(getLocale(), inputRight);
+        exchangeRate2.setExchangeRate(valueInput);
+        
     }
 
     private DecimalNumberInputUtil getDecimalNumberInputUtil() {
