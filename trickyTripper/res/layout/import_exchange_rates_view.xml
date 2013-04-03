@@ -37,17 +37,21 @@
         android:layout_width="fill_parent"
         android:layout_height="4dp" />
 
-    <LinearLayout
+    <CheckBox
+        android:id="@+id/importExchangeRatesViewCheckboxReplaceExisting"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:text="@string/importExchangeRatesViewCheckboxLabelNewRateOnValueChange" />
 
-        <CheckBox
-            android:id="@+id/importExchangeRatesViewCheckboxReplaceExisting"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/importExchangeRatesViewCheckboxLabelReplaceExisting" />
-    </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="4dp" />
+
+    <TextView
+        android:id="@+id/importExchangeRatesListViewLabelSelection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <View
         android:layout_width="fill_parent"
@@ -61,6 +65,7 @@
         android:orientation="vertical" >
 
         <Button
+            android:id="@+id/importExchangeRatesListViewButtonDoImport"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="importExchangeRates"

@@ -5,7 +5,7 @@
     <string name="spinner_null_value_default"></string>
     <string name="symbol_arrow_down">∨</string>
     <string name="defaultX">XX</string>
-    <string name="default_blank"></string>
+    <string name="default_blank"></string> 
     <!-- To be translated ff -->
     <string name="common_button_cancel">Cancel</string>
     <string name="common_button_yes">Yes</string>
@@ -44,16 +44,17 @@
     <string name="option_delete">Delete</string>
     <string name="option_create">Create</string>
     <string name="option_import">Import</string>
+    <string name="option_option_create_exchange_rate_for_source">Create matching rate</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Spent:</string>
     <string name="participant_tab_row_view_label_paid">Paid:</string>
     <string name="participant_tab_blank_list_notification">No travelers yet. \n\n\n\nCreate new travelers by long-tapping on the traveler tab header or choose \'Create\' from the menu.</string>
     <!-- ===============================  Currency calculator view =============================== -->
-    <string name="currencyCalculatorViewTextViewHeading">Money Exchange Calculation</string>
+    <string name="currencyCalculatorViewTextViewHeading">Exchange Calculator</string>
     <string name="currencyCalculatorViewTextViewLabelSource">Source</string>
     <string name="currencyCalculatorViewTextViewLabelTarget">Result</string>
     <string name="currencyCalculatorViewTextViewHeadLabelRate">Rate</string>
-    <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Present</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Rate setting</string>
     <string name="currencyCalculatorViewSpinnerPrompt">Select a stored exchange rate</string>    
     <string name="currencyCalculatorViewTextViewHeadLabelOptions">Options</string>
     <string name="currencyCalculatorViewCheckboxSaveNewRate">Save newly entered exchange rate</string>
@@ -61,6 +62,7 @@
     <string name="currencyCalculatorViewButtonUseResult">Use result</string>
     <string name="currencyCalculatorViewNoMatchingRatesAvailable">No matching exchange rates available.</string>
     <string name="currencyCalculatorViewDefaultDescriptionAutoSaveExchangeRate">Auto-saved exchange rate</string>
+    <string name="currencyCalculatorViewToastResultExceedsLimit">The currency calculator result exceeds the input limit.</string>
     <!-- ===============================  Exchange rates common =============================== -->
     <string name="exchangeRate_common_import_description_prefix">Imported</string>
     <!-- ===============================  Currency Selection =============================== -->
@@ -71,12 +73,12 @@
     <string name="currency_selection_view_instruction_new_exchange_rate_label_right">Right side:</string> 
     <string name="currency_selection_view_instruction_new_exchange_rate_label_to_be_selected">to be selected</string>    
     <string name="currency_selection_view_instruction_heading">Currencies (ordered by usage)</string>
-    <string name="currency_selection_view_instruction_group_label_used_and_matching">Matching, in rates used</string>
-    <string name="currency_selection_view_instruction_group_label_used_in_rates_matching">Matching, in rates</string>
-    <string name="currency_selection_view_instruction_group_label_used_unmatched">In rates used</string>
-    <string name="currency_selection_view_instruction_group_label_used_in_rates_unmatched">In rates</string>
-    <string name="currency_selection_view_instruction_group_label_in_trips">In trips</string>
-    <string name="currency_selection_view_instruction_group_label_else">All</string>
+    <string name="currency_selection_view_instruction_group_label_used_and_matching">&#8230; matching, in rates used</string>
+    <string name="currency_selection_view_instruction_group_label_used_in_rates_matching">&#8230; matching, in rates</string>
+    <string name="currency_selection_view_instruction_group_label_used_unmatched">&#8230; in rates used</string>
+    <string name="currency_selection_view_instruction_group_label_used_in_rates_unmatched">&#8230; in rates</string>
+    <string name="currency_selection_view_instruction_group_label_in_trips">&#8230; in trips</string>
+    <string name="currency_selection_view_instruction_group_label_else">All currencies</string>
     <!-- ===============================  Manage exchange rates view =============================== -->
     <string name="manageExchangeRatesViewTextViewHeading">Exchange Rates</string>
     <string name="manageExchangeRatesViewDeleteConfirmation">Are you sure you want to delete the selected exchange rate?</string>
@@ -84,9 +86,15 @@
     <!-- ===============================  Import exchange rates view =============================== -->
     <string name="importExchangeRatesViewTextViewHeading">Import Exchange Rates</string>
     <string name="importExchangeRatesViewOptions">Options</string>
-    <string name="importExchangeRatesViewCheckboxLabelReplaceExisting">Replace rates already imported</string>
+    <string name="importExchangeRatesViewCheckboxLabelNewRateOnValueChange">Create new rate on value change</string>
     <string name="importExchangeRatesViewListViewLabel">Select all exchange relevant currencies</string>
     <string name="importExchangeRatesViewButtonExecute">Do import</string>
+    <string name="importExchangeRatesViewCancelImportToast">The import has been canceled.</string>  
+    <string name="importExchangeRatesViewProgressBarMessage">Importing exchange rates &#8230;</string>        
+    <string name="importExchangeRatesViewSelectionPrefix">Selected:</string> 
+    <string name="importExchangeRatesViewPreconToastRequiresOnlineConnection">The import of exchange rates requires an online connection.</string>
+    <string name="importExchangeRatesViewPreconToastNotAlive1">Exchange rates cannot be obtained via internet for the following currencies:</string>               
+    <string name="importExchangeRatesViewPreconToastNotAlive2">Enter a rate by hand or create a new exchange rate by choosing \'Create matching rate\' from the menu. </string>               
     <!-- ===============================  Delete exchange rates view =============================== -->
     <string name="deleteExchangeRatesViewTextViewHeading">Delete Exchange Rates</string>
     <string name="deleteExchangeRatesViewButtonLabelPositive">Delete selection</string>
@@ -172,7 +180,7 @@
     <string name="report_view_subheading_spendings_by_category">Spending by category</string>
     <string name="report_view_subheading_spendings">Expenditure</string>
     <string name="report_view_subheading_owing_debts_by_traveller">Owing debts</string>
-    <string name="report_view_entry_report_spinner_null_value">all travelers</string>
+    <string name="report_view_entry_report_spinner_null_value">All travelers</string>
     <string name="report_view_label_report_spinner_prompt">Choose traveler for report</string>
     <string name="report_view_label_report_spinner">Report for:</string>
     <string name="report_view_label_payment_count">Total payment count:</string>
@@ -202,8 +210,9 @@
     <string name="payment_view_delete_confirmation_payment">Are you sure you want to delete the selected payment?</string>
     <string name="payment_view_delete_confirmation_transfer">Are you sure you want to delete the selected money transfer?</string>
     <string name="payment_view_blank_list_notification">No payments yet. \n\n\n\nCreate a new payment by long-tapping on a traveler who pays the money and select \'Create payment\'.</string>
-    <!-- ===============================  Payment edit =============================== -->
-    <string name="payment_edit_view_label_category_desciption">Category/Description</string>
+    <!-- ===============================  Payment edit =============================== --> 
+    <string name="payment_edit_view_label_category">Category</string>
+    <string name="payment_edit_view_label_desciption">Description</string>
     <string name="payment_edit_view_label_travellers_charged">Travelers charged:</string>
     <string name="payment_edit_view_label_radio_split_evenly">Split evenly</string>
     <string name="payment_edit_view_label_radio_custom_split">Custom split</string>
@@ -235,6 +244,7 @@
     <!-- ==================== edit trip view ====================== -->
     <string name="edit_trip_view_label_name_input">Name:</string>
     <string name="edit_trip_view_label_base_currency">Base currency:</string>
+    <string name="edit_trip_view_label_base_currency_spinner_prompt">Select a base currency for the trip</string>    
     <string name="edit_trip_view_edit_heading">Edit trip</string>
     <string name="edit_trip_view_edit_positive_button">Save</string>
     <string name="edit_trip_view_edit_positive_button_and_load">Save &amp; load</string>

@@ -44,8 +44,7 @@ public class ExchangeRateDescriptionUtils {
         return new StringBuilder()
                 .append(resources.getString(R.string.currencyCalculatorViewTextViewHeadLabelRate))
                 .append(": ")
-                .append(AmountViewUtils.getDoubleString(getLocale(resources), row.getExchangeRate(), true, true, false,
-                        true))
+                .append(AmountViewUtils.getDoubleString(getLocale(resources), row.getExchangeRate()))
                 .append("\n")
                 .append(deriveDescription(row));
     }

@@ -28,7 +28,7 @@ public class TrickyTripperFileProvider extends ContentProvider {
     @Override
     public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
 
-        if (Log.isLoggable(Rc.LT_PROV, Log.DEBUG)) {
+        if (Rc.debugOn) {
             Log.d(Rc.LT_PROV, "Called with uri: '" + uri + "'." + uri.getLastPathSegment());
         }
 

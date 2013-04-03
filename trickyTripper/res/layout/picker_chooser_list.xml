@@ -4,13 +4,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-   <TextView android:id="@+id/dirPickerHeading"
-   		android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
    <TextView android:id="@+id/dirPickerPath"
    		android:layout_width="fill_parent"
         android:layout_height="wrap_content"        />
+   
     <ListView android:id="@android:id/list"
    		android:layout_width="fill_parent"
         android:layout_height="0dip"

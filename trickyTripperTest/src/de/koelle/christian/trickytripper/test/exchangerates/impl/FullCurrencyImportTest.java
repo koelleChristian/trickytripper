@@ -16,7 +16,7 @@ public class FullCurrencyImportTest extends AbstractCurrencyImportTest {
     /**
      * Removed from automatic execution as this test runs for a very long time.
      */
-    public void testExchangeRateAvailabilityAll() {
+    public void exchangeRateAvailabilityAll() {
 
         Set<Currency> input;
         input = new LinkedHashSet<Currency>(CurrencyUtil.getAllCurrenciesAlive());

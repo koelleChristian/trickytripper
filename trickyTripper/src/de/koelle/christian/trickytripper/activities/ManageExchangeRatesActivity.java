@@ -8,19 +8,24 @@ import java.util.Currency;
 import java.util.List;
 
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
+import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraints;
+import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -31,7 +36,7 @@ import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter;
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter.DisplayMode;
 
-public class ManageExchangeRatesActivity extends ListActivity {
+public class ManageExchangeRatesActivity extends SherlockListActivity {
 
     private static final String DIALOG_PARAM_EXCHANGE_RATE = "dialogParamExchangeRate";
 
@@ -47,27 +52,33 @@ public class ManageExchangeRatesActivity extends ListActivity {
 
         TrickyTripperApp app = getApp();
 
-        this.importOptionSupport = new ImportOptionSupport(getApp().getViewController(), getApp().getMiscController(),
-                this);
+        this.importOptionSupport = new ImportOptionSupport(getApp()
+                .getViewController(), getApp().getMiscController(), this);
 
-        final Collator collator = app.getMiscController().getDefaultStringCollator();
+        final Collator collator = app.getMiscController()
+                .getDefaultStringCollator();
         comparator = new Comparator<ExchangeRate>() {
             public int compare(ExchangeRate object1, ExchangeRate object2) {
-                return collator.compare(object1.getSortString(), object2.getSortString());
+                return collator.compare(object1.getSortString(),
+                        object2.getSortString());
             }
         };
 
         initListView(getListView());
 
         TextView textView = (TextView) findViewById(android.R.id.empty);
-        textView.setText(getResources().getString(R.string.manageExchangeRatesViewBlankListNotification));
+        textView.setText(getResources().getString(
+                R.string.manageExchangeRatesViewBlankListNotification));
 
         registerForContextMenu(getListView());
+
+        ActionBarSupport.addBackButton(this);
     }
 
     private void initListView(ListView listView2) {
-        listAdapter = new ExchangeRateRowListAdapter(this, android.R.layout.simple_list_item_1,
-                exchangeRateList, DisplayMode.SINGLE);
+        listAdapter = new ExchangeRateRowListAdapter(this,
+                android.R.layout.simple_list_item_1, exchangeRateList,
+                DisplayMode.SINGLE);
 
         listView2.setAdapter(listAdapter);
         listView2.setChoiceMode(ListView.CHOICE_MODE_NONE);
@@ -76,7 +87,8 @@ public class ManageExchangeRatesActivity extends ListActivity {
     }
 
     void updateList() {
-        List<ExchangeRate> currentList = getApp().getExchangeRateController().getAllExchangeRatesWithoutInversion();
+        List<ExchangeRate> currentList = getApp().getExchangeRateController()
+                .getAllExchangeRatesWithoutInversion();
         listAdapter.clear();
         for (ExchangeRate rate : currentList) {
             listAdapter.add(rate);
@@ -90,25 +102,29 @@ public class ManageExchangeRatesActivity extends ListActivity {
     protected void onResume() {
         super.onResume();
         updateList();
+        supportInvalidateOptionsMenu();
     }
 
     /* ============== Options Shit [BGN] ============== */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraints().activity(this).menu(menu)
-                        .options(new int[] {
-                                R.id.option_help,
-                                R.id.option_import,
-                                R.id.option_delete,
-                                R.id.option_create_exchange_rate
-                        }));
+
+        return getApp()
+                .getMiscController()
+                .getOptionSupport()
+                .populateOptionsMenu(
+                        new OptionContraintsAbs()
+                                .activity(getSupportMenuInflater()).menu(menu)
+                                .options(new int[] {
+                                        R.id.option_help, R.id.option_import,
+                                        R.id.option_delete,
+                                        R.id.option_create_exchange_rate }));
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.option_delete).setEnabled(!exchangeRateList.isEmpty());
+        menu.findItem(R.id.option_delete).setVisible(!exchangeRateList.isEmpty());
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -126,6 +142,9 @@ public class ManageExchangeRatesActivity extends ListActivity {
         case R.id.option_create_exchange_rate:
             openCreateActivity();
             return true;
+        case android.R.id.home:
+            onBackPressed();
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -139,7 +158,8 @@ public class ManageExchangeRatesActivity extends ListActivity {
         Dialog dialog;
         switch (id) {
         case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
+            dialog = PopupFactory.createHelpDialog(this, getApp()
+                    .getMiscController(), Rd.DIALOG_HELP);
             break;
         case Rd.DIALOG_DELETE:
             dialog = PopupFactory.showDeleteConfirmationDialog(this);
@@ -161,16 +181,19 @@ public class ManageExchangeRatesActivity extends ListActivity {
             final Dialog dialogFinal = dialog;
             final ExchangeRate row = makeUninverted(getRowFromBundle(args));
             StringBuilder builder = new StringBuilder()
-                    .append(getResources().getString(R.string.manageExchangeRatesViewDeleteConfirmation))
-                    .append("\n")
-                    .append(getStringOfExchangeRate(row));
-            ((TextView) dialog.findViewById(android.R.id.message)).setText(builder.toString());
-            ((Button) dialog.findViewById(android.R.id.button1)).setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    dialogFinal.dismiss();
-                    ManageExchangeRatesActivity.this.deleteRowAndUpdateList(row);
-                }
-            });
+                    .append(getResources().getString(
+                            R.string.manageExchangeRatesViewDeleteConfirmation))
+                    .append("\n").append(getStringOfExchangeRate(row));
+            ((TextView) dialog.findViewById(android.R.id.message))
+                    .setText(builder.toString());
+            ((Button) dialog.findViewById(android.R.id.button1))
+                    .setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            dialogFinal.dismiss();
+                            ManageExchangeRatesActivity.this
+                                    .deleteRowAndUpdateList(row);
+                        }
+                    });
             break;
         default:
             dialog = null;
@@ -186,7 +209,8 @@ public class ManageExchangeRatesActivity extends ListActivity {
     private static final int CTX_MENU_ID_DELETE = 21;
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(ContextMenu menu, View v,
+            ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         ExchangeRate row = makeUninverted(getRateByInfo(info));
 
@@ -220,8 +244,9 @@ public class ManageExchangeRatesActivity extends ListActivity {
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+    public boolean onContextItemSelected(android.view.MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
+                .getMenuInfo();
         TrickyTripperApp app = getApp();
         ExchangeRate row = getRateByInfo(info);
         switch (item.getItemId()) {
@@ -243,17 +268,13 @@ public class ManageExchangeRatesActivity extends ListActivity {
     private StringBuilder getStringOfExchangeRate(ExchangeRate row) {
         ExchangeRate inversion = row.cloneToInversion();
         return new StringBuilder()
-                .append(row.getCurrencyFrom().getCurrencyCode())
-                .append(" > ")
-                .append(row.getCurrencyTo().getCurrencyCode())
-                .append(" = ")
-                .append(row.getExchangeRate())
-                .append("\n")
+                .append(row.getCurrencyFrom().getCurrencyCode()).append(" > ")
+                .append(row.getCurrencyTo().getCurrencyCode()).append(" = ")
+                .append(row.getExchangeRate()).append("\n")
                 .append(inversion.getCurrencyFrom().getCurrencyCode())
                 .append(" > ")
                 .append(inversion.getCurrencyTo().getCurrencyCode())
-                .append(" = ")
-                .append(inversion.getExchangeRate())
+                .append(" = ").append(inversion.getExchangeRate())
         /**/;
     }
 
@@ -272,12 +293,14 @@ public class ManageExchangeRatesActivity extends ListActivity {
     }
 
     private void deleteRowAndUpdateList(ExchangeRate row) {
-        getApp().getExchangeRateController().deleteExchangeRates(Arrays.asList(new ExchangeRate[] { row }));
+        getApp().getExchangeRateController().deleteExchangeRates(
+                Arrays.asList(new ExchangeRate[] { row }));
         updateList();
     }
 
     private void openDeleteActivity() {
-        getApp().getViewController().openDeleteExchangeRates(this, new Currency[0]);
+        getApp().getViewController().openDeleteExchangeRates(this,
+                new Currency[0]);
     }
 
     private void openCreateActivity() {

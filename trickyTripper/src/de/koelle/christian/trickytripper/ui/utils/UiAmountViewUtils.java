@@ -17,7 +17,7 @@ public class UiAmountViewUtils {
 
     public static void writeDoubleToEditText(Double value, EditText editText, Locale locale,
             DecimalNumberInputUtil decimalNumberInputUtil) {
-        String amountString = AmountViewUtils.getDoubleString(locale, value, true, true, true, false);
+        String amountString = AmountViewUtils.getDoubleString(locale, value);
         writeValueToEditText(editText, decimalNumberInputUtil, amountString);
     }
 

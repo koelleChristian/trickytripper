@@ -77,6 +77,9 @@ public class ReportTabActivity extends Activity {
         case R.id.option_preferences:
             getApp().getViewController().openSettings();
             return true;
+        case android.R.id.home:
+            onBackPressed();
+            return true;               
         default:
             return super.onOptionsItemSelected(item);
         }

@@ -3,12 +3,10 @@ package de.koelle.christian.trickytripper.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.Dialog;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,9 +15,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import de.koelle.christian.common.options.OptionContraints;
+
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
+import de.koelle.christian.common.abs.ActionBarSupport;
+import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -32,7 +37,7 @@ import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChanne
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 
-public class ExportActivity extends Activity {
+public class ExportActivity extends SherlockActivity {
 
     private List<Participant> participantsInSpinner;
     private Participant participantSelected;
@@ -44,13 +49,14 @@ public class ExportActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.export_view);
         initPanel();
+        ActionBarSupport.addBackButton(this);
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraints().activity(this).menu(menu)
+                new OptionContraintsAbs().activity(getSupportMenuInflater()).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
                         }));
@@ -62,6 +68,9 @@ public class ExportActivity extends Activity {
         case R.id.option_help:
             showDialog(Rd.DIALOG_HELP);
             return true;
+        case android.R.id.home:
+            onBackPressed();
+            return true;  
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -129,9 +138,8 @@ public class ExportActivity extends Activity {
 
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 participantSelected = participantsInSpinner.get(position);
-                if (Log.isLoggable(Rc.LT_INPUT, Log.DEBUG)) {
-                    Log.d(Rc.LT_INPUT,
-                            "selected=" + ((participantSelected == null) ? null : participantSelected.getName()));
+                if (Rc.debugOn) {
+                    Log.d(Rc.LT_INPUT,"selected=" + ((participantSelected == null) ? null : participantSelected.getName()));
                 }
                 updateAllCheckboxStates();
             }
@@ -160,8 +168,9 @@ public class ExportActivity extends Activity {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView result = (TextView) super.getView(position, convertView, parent);
+                int resid = result.getTextColors().getDefaultColor();                
                 UiUtils.setActiveOrInactive(isEnabled(position), result, R.string.exportViewSpinnerNotAvailable,
-                        getResources());
+                        getResources(), resid);
                 return result;
             }
 
@@ -169,7 +178,7 @@ public class ExportActivity extends Activity {
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 TextView result = (TextView) super.getDropDownView(position, convertView, parent);
                 UiUtils.setActiveOrInactive(isEnabled(position), result, R.string.exportViewSpinnerNotAvailable,
-                        getResources());
+                        getResources(), getResources().getColor(R.color.black));
                 return result;
             }
 

@@ -48,6 +48,7 @@ public class MiscControllerImpl implements MiscController {
                 R.id.option_create_participant,
                 R.id.option_create_trip,
                 R.id.option_create_exchange_rate,
+                R.id.option_create_exchange_rate_for_source,
                 R.id.option_delete,
                 R.id.option_export,
                 R.id.option_help,
@@ -122,7 +123,7 @@ public class MiscControllerImpl implements MiscController {
                 CurrencyUtil.convertOthersToCurrencyWithName(
                         currenciesToBeExcludedFromElseList
                         , null));
-        if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
+        if (Rc.debugOn) {
             Log.d(Rc.LT, "Currencies requested for target=" + currency + ": " + result);
         }
         return result;

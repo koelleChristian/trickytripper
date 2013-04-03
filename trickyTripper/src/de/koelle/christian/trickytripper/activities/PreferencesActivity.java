@@ -2,20 +2,30 @@ package de.koelle.christian.trickytripper.activities;
 
 import java.util.Currency;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
+import de.koelle.christian.common.abs.ActionBarSupport;
+import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.constants.Rc;
+import de.koelle.christian.trickytripper.constants.Rd;
 
-public class PreferencesActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
+public class PreferencesActivity extends SherlockPreferenceActivity implements OnSharedPreferenceChangeListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +33,8 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 
         configurePreferencesToBeUsed();
         setPreferenceScreen(createPreferenceHierarchy());
+        
+        ActionBarSupport.addBackButton(this);
 
     }
 
@@ -70,7 +82,7 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
         root.addPreference(intentPref);
 
         /* =============== Default currency picker ================= */
-        Currency defaultBaseCurrency = ((TrickyTripperApp) getApplication()).getMiscController()
+        Currency defaultBaseCurrency = getApp().getMiscController()
                 .getDefaultBaseCurrency();
 
         ListPreference listPref = new ListPreference(this);
@@ -90,4 +102,51 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
     private String getDisplayStringForCurrency(Currency currency) {
         return CurrencyUtil.getFullNameToCurrency(getResources(), currency);
     }
+	private TrickyTripperApp getApp() {
+		return (TrickyTripperApp)getApplication();
+	}
+
+    /* ============== Options Shit [BGN] ============== */
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
+                new OptionContraintsAbs().activity(getSupportMenuInflater()).menu(menu)
+                        .options(new int[] {
+                                R.id.option_help
+                        }));
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.option_help:
+            showDialog(Rd.DIALOG_HELP);
+            return true;
+        case android.R.id.home:
+            onBackPressed();
+            return true;                  
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+    /* ============== Options Shit [END] ============== */
+    /* ============== Dialog Shit [BGN] ============== */
+
+    @Override
+    protected Dialog onCreateDialog(int id, Bundle args) {
+        Dialog dialog;
+        switch (id) {
+        case Rd.DIALOG_HELP:
+            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
+            break;
+        default:
+            dialog = null;
+        }
+
+        return dialog;
+    }
+    /* ============== Dialog Shit [END] ============== */
 }

@@ -44,6 +44,7 @@
     <string name="option_delete">Löschen</string>    
     <string name="option_create">Erstellen</string>
     <string name="option_import">Import</string>
+    <string name="option_option_create_exchange_rate_for_source">Erstelle passenden Wechselkurs</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Ausgegeben:</string>
     <string name="participant_tab_row_view_label_paid">Bezahlt:</string>
@@ -53,7 +54,7 @@
     <string name="currencyCalculatorViewTextViewLabelSource">Quelle</string>
     <string name="currencyCalculatorViewTextViewLabelTarget">Ergebnis</string>
     <string name="currencyCalculatorViewTextViewHeadLabelRate">Kurs</string>
-    <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Vorlagen</string>
+    <string name="currencyCalculatorViewTextViewHeadLabelRateSetting">Vorlage</string>
     <string name="currencyCalculatorViewSpinnerPrompt">Wähle einen gespeicherten Wechselkurs</string>    
     <string name="currencyCalculatorViewTextViewHeadLabelOptions">Optionen</string>
     <string name="currencyCalculatorViewCheckboxSaveNewRate">Neu eingegebenen Wechselkurs speichern</string>
@@ -61,6 +62,7 @@
     <string name="currencyCalculatorViewButtonUseResult">Ergebnis verwenden</string>
     <string name="currencyCalculatorViewNoMatchingRatesAvailable">Keine passenden Wechselkurse verfügbar.</string>    
     <string name="currencyCalculatorViewDefaultDescriptionAutoSaveExchangeRate">Wechselkurs</string>
+    <string name="currencyCalculatorViewToastResultExceedsLimit">Das Umrechnungsergebnis übersteigt das Eingabelimit.</string>
     <!-- ===============================  Exchange rates common =============================== -->
     <string name="exchangeRate_common_import_description_prefix">Importiert</string>
     <!-- ===============================  Currency Selection =============================== -->
@@ -76,7 +78,7 @@
     <string name="currency_selection_view_instruction_group_label_used_unmatched">&#8230; in verwendeten Wechselkursen </string>
     <string name="currency_selection_view_instruction_group_label_used_in_rates_unmatched">&#8230; in Wechselkursen</string>
     <string name="currency_selection_view_instruction_group_label_in_trips">&#8230; in Reisen</string>
-    <string name="currency_selection_view_instruction_group_label_else">&#8230; alle</string>
+    <string name="currency_selection_view_instruction_group_label_else">Alle Währungen</string>
     <!-- ===============================  Manage exchange rates view =============================== -->
     <string name="manageExchangeRatesViewTextViewHeading">Wechselkurse</string>
     <string name="manageExchangeRatesViewDeleteConfirmation">Soll der ausgewählte Wechselkurs wirklich gelöscht werden?</string>
@@ -84,9 +86,15 @@
     <!-- ===============================  Import exchange rates view =============================== -->
     <string name="importExchangeRatesViewTextViewHeading">Wechselkurse importieren</string>
     <string name="importExchangeRatesViewOptions">Optionen</string>
-    <string name="importExchangeRatesViewCheckboxLabelReplaceExisting">Ersetze bereits importierte Kurse</string>
+    <string name="importExchangeRatesViewCheckboxLabelNewRateOnValueChange">Bei Wertänderung neuen Kurs erstellen</string>
     <string name="importExchangeRatesViewListViewLabel">Wähle alle wechselrelevanten Währungen</string>
     <string name="importExchangeRatesViewButtonExecute">Importieren</string>
+    <string name="importExchangeRatesViewCancelImportToast">Der Import von Wechselkursen wurde abgebrochen.</string>    
+    <string name="importExchangeRatesViewProgressBarMessage">Importiere Wechselkurse &#8230;</string>        
+    <string name="importExchangeRatesViewSelectionPrefix">Auswahl:</string> 
+    <string name="importExchangeRatesViewPreconToastRequiresOnlineConnection">Der Import von Wechselkursen erfordert eine Onlineverbindung.</string>
+    <string name="importExchangeRatesViewPreconToastNotAlive1">Wechselkurse für folgende Währungen können nicht aus dem Internet geladen werden:</string>               
+    <string name="importExchangeRatesViewPreconToastNotAlive2">Gebe einen Kurs per Hand ein oder erstelle einen Wechselkurs durch \'Erstelle passenden Wechselkurs\' aus dem Menü.</string>               
     <!-- ===============================  Delete exchange rates view =============================== -->
     <string name="deleteExchangeRatesViewTextViewHeading">Wechselkurse löschen</string>
     <string name="deleteExchangeRatesViewButtonLabelPositive">Auswahl löschen</string>
@@ -172,7 +180,7 @@
     <string name="report_view_subheading_spendings_by_category">Ausgaben nach Kategorie</string>
     <string name="report_view_subheading_spendings">Ausgaben</string>
     <string name="report_view_subheading_owing_debts_by_traveller">Schulden</string>
-    <string name="report_view_entry_report_spinner_null_value">alle Reisenden</string>
+    <string name="report_view_entry_report_spinner_null_value">Alle Reisenden</string>
     <string name="report_view_label_report_spinner_prompt">Wähle Reisenden für Bericht</string>
     <string name="report_view_label_report_spinner">Bericht für:</string>
     <string name="report_view_label_payment_count">Gesamtanzahl:</string>
@@ -203,7 +211,8 @@
     <string name="payment_view_delete_confirmation_transfer">Soll der ausgewählte Geldtransfer wirklich gelöscht werden?</string>
     <string name="payment_view_blank_list_notification">Noch keine Zahlungen vorhanden. \n\n\n\nErzeuge eine neue Zahlung durch einen Lang-Tap auf den Reisenden, der das Geld bezahlt und wähle \'Zahlung erzeugen\'.</string>
     <!-- ===============================  Payment edit =============================== -->
-    <string name="payment_edit_view_label_category_desciption">Kategorie/Beschreibung</string>
+    <string name="payment_edit_view_label_category">Kategorie</string>
+    <string name="payment_edit_view_label_desciption">Beschreibung</string>
     <string name="payment_edit_view_label_travellers_charged">Zu belastende Reisende:</string>
     <string name="payment_edit_view_label_radio_split_evenly">Gleichmäßig aufteilen</string>
     <string name="payment_edit_view_label_radio_custom_split">Spezielle Aufteilung</string>
@@ -235,6 +244,7 @@
     <!-- ==================== edit trip view ====================== -->
     <string name="edit_trip_view_label_name_input">Name:</string>
     <string name="edit_trip_view_label_base_currency">Stammwährung:</string>
+    <string name="edit_trip_view_label_base_currency_spinner_prompt">Wähle die Stammwährung für die Reise</string>    
     <string name="edit_trip_view_edit_heading">Reise bearbeiten</string>
     <string name="edit_trip_view_edit_positive_button">Speichern</string>
     <string name="edit_trip_view_edit_positive_button_and_load">Speichern &amp; Laden</string>

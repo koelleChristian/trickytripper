@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
+import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.utils.ExchangeRateDescriptionUtils;
 
 public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
@@ -71,12 +72,12 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
 
             viewId = R.id.exchangeRateRowView_output_main_rate;
             label = null;
-            value = row.getExchangeRate();
+            value = AmountViewUtils.getDoubleString(context.getResources().getConfiguration().locale, row.getExchangeRate());
             UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
             viewId = R.id.exchangeRateRowView_output_comment;
             label = null;
-            value = exchangeRateDescUtils.deriveDescription(row);
+            value = exchangeRateDescUtils.deriveDescription(row); 
             UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
             if (isDouble) {
@@ -104,7 +105,7 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
 
                 viewId = R.id.exchangeRateRowView_output_main_rate2;
                 label = null;
-                value = rowInverted.getExchangeRate();
+                value = AmountViewUtils.getDoubleString(context.getResources().getConfiguration().locale, rowInverted.getExchangeRate());
                 UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
             }

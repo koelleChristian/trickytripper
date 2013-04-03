@@ -3,6 +3,8 @@ package de.koelle.christian.trickytripper.activities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.actionbarsherlock.app.SherlockActivity;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,7 +20,7 @@ import de.koelle.christian.common.utils.FileUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.constants.Rc;
 
-public class SaveToSdCardActivity extends Activity {
+public class SaveToSdCardActivity extends SherlockActivity {
 
     private static final String MSG_SPACE = " ";
     private List<Uri> fileUris;
@@ -104,7 +106,7 @@ public class SaveToSdCardActivity extends Activity {
             Bundle extras = data.getExtras();
             /* e.g. /mnt/sdcard/tmp */
             directoryPickedPath = (String) extras.get(DirectoryPickerActivity.EXTRA_RESULT_CHOSEN_DIRECTORY);
-            if (Log.isLoggable(Rc.LT_IO, Log.DEBUG)) {
+            if (Rc.debugOn) {
                 Log.d(Rc.LT_IO, "File to be written to disc=" + directoryPickedPath);
             }
             Runnable runnable = new Runnable() {
@@ -145,7 +147,7 @@ public class SaveToSdCardActivity extends Activity {
         List<Uri> result = new ArrayList<Uri>();
         ArrayList<Uri> fileUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
         if (fileUris != null) {
-            if (Log.isLoggable(Rc.LT_IO, Log.DEBUG)) {
+            if (Rc.debugOn) {
                 for (Uri uri : fileUris) {
                     Log.d(Rc.LT_IO, "File to be written to disc=" + uri);
                 }

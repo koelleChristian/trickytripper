@@ -13,7 +13,6 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -26,8 +25,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -49,7 +46,14 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.koelle.christian.common.options.OptionContraints;
+
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
+import de.koelle.christian.common.abs.ActionBarSupport;
+import de.koelle.christian.common.options.OptionContraintsAbs;
+import de.koelle.christian.common.primitives.DivisionResult;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.common.utils.ObjectUtils;
@@ -58,7 +62,6 @@ import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorResultSupport;
-import de.koelle.christian.trickytripper.activitysupport.DivisionResult;
 import de.koelle.christian.trickytripper.activitysupport.MathUtils;
 import de.koelle.christian.trickytripper.activitysupport.PaymentEditActivityState;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
@@ -78,7 +81,7 @@ import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
-public class PaymentEditActivity extends Activity {
+public class PaymentEditActivity extends SherlockActivity {
 
     private static final int DIALOG_SELECT_PAYERS = 1;
     private static final int DIALOG_SELECT_DEBITORS = 2;
@@ -161,6 +164,8 @@ public class PaymentEditActivity extends Activity {
         buildPaymentInput();
 
         setVisibilitySpendingTable(!divideEqually);
+        
+        ActionBarSupport.addBackButton(this);
     }
 
     private void sortParticipants(List<Participant> allRelevantParticipants2) {
@@ -195,7 +200,7 @@ public class PaymentEditActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraints().activity(this).menu(menu)
+                new OptionContraintsAbs().activity(getSupportMenuInflater()).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
                         }));
@@ -207,6 +212,9 @@ public class PaymentEditActivity extends Activity {
         case R.id.option_help:
             showDialog(Rd.DIALOG_HELP);
             return true;
+        case android.R.id.home:
+            onBackPressed();
+            return true;              
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -225,6 +233,7 @@ public class PaymentEditActivity extends Activity {
         case Rd.DIALOG_HELP:
             dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
             break;
+            
         default:
             dialog = null;
         }
@@ -496,15 +505,6 @@ public class PaymentEditActivity extends Activity {
 
     }
 
-    /**
-     * View method.
-     * 
-     * @param view
-     *            Required parameter.
-     */
-    public void cancelEdit(View view) {
-        finish();
-    }
 
     /**
      * View method.

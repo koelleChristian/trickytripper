@@ -13,7 +13,7 @@ import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 
 public class UiViewUtils {
-    @SuppressWarnings({ "rawtypes", "unchecked", "unused" })
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static <T> Set<T> getListSelection(ListView listView2, ArrayAdapter<RowObject> adapter2, T type) {
 
         final Set<T> selectionResult = new LinkedHashSet<T>();

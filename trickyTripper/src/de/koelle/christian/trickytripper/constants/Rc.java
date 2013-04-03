@@ -4,6 +4,7 @@ import java.text.Collator;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 public class Rc {
 
@@ -15,6 +16,12 @@ public class Rc {
     public static final String LT_DB = "TT_DB";
     public static final String LT_IO = "TT_IO";
     public static final String LT_PROV = "TT_PROV";
+
+    /*
+     * So that the compiler can remove the statements, instead of
+     * Log.isLoggable(Rc.LT, Log.DEBUG)
+     */
+    public static final boolean debugOn = true;
 
     public static final String TAB_SPEC_ID_PAYMENT = "payment";
     public static final String TAB_SPEC_ID_PARTICIPANTS = "participants";
@@ -29,6 +36,7 @@ public class Rc {
     public static final String ACTIVITY_PARAM_VIEW_MODE_CREATE_MODE = "create";
 
     public static final String ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_RATE_TECH_ID = "activityParamExchangeRateInRateTechId";
+    public static final String ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_SOURCE_CURRENCY = "activityParamExchangeRateInScourceCurrrency";
 
     public static final String ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_VALUE = "activityParamCurrencyCalcInValue";
     public static final String ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_RESULT_CURRENCY = "activityParamCurrencyCalcInResultCurrency";
@@ -69,7 +77,5 @@ public class Rc {
     public static final int PREFS_MODE = Context.MODE_PRIVATE;
 
     public static final String PREFS_VALUE_ID_BASE_CURRENCY = "PREFS_VALUE_ID_BASE_CURRENCY";
-    // public static final String PREFS_VALUE_ID_ENABLE_SMART_HELP =
-    // "PREFS_VALUE_ID_ENABLE_SMART_HELP";
 
 }

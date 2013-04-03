@@ -350,7 +350,7 @@ public class ExchangeRateDao {
         if (!c.isClosed()) {
             c.close();
         }
-        if (Log.isLoggable(Rc.LT_DB, Log.DEBUG)) {
+        if (Rc.debugOn) {
             Log.d(Rc.LT_DB, "Ordered exchange rates last used: " + resultList);
         }
         return resultList;

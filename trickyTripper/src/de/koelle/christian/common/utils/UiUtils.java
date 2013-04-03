@@ -80,7 +80,7 @@ public class UiUtils {
         return resources.getColor(android.R.color.darker_gray);
     }
 
-    public static void setActiveOrInactive(boolean enabled, TextView result, int extensionStringId, Resources resources) {
+    public static void setActiveOrInactive(boolean enabled, TextView result, int extensionStringId, Resources resources, int resid) {
         if (!enabled) {
             result.setTextColor(UiUtils.getInactiveColor(resources));
             result.setTypeface(Typeface.DEFAULT, Typeface.ITALIC);
@@ -90,7 +90,8 @@ public class UiUtils {
 
         }
         else {
-            result.setTextColor(Color.BLACK);
+            
+            result.setTextColor(resid);
             result.setTypeface(Typeface.DEFAULT, Typeface.NORMAL);
         }
     }

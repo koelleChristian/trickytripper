@@ -6,7 +6,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import de.koelle.christian.trickytripper.activitysupport.DivisionResult;
+import de.koelle.christian.common.primitives.DivisionResult;
 
 public class NumberUtilsTest {
 
@@ -63,20 +63,28 @@ public class NumberUtilsTest {
 
     @Test
     public void testDivisionForExchangeRates() {
-        Assert.assertEquals(0.7585d, NumberUtils.divideForExchangeRates(1d, 1.3184d));
-        Assert.assertEquals(1.3184d, NumberUtils.divideForExchangeRates(1d, 0.7585d));
-        Assert.assertEquals(0.99991802d, NumberUtils.divideForExchangeRates(1d, 1.00008199d));
-        Assert.assertEquals(1.00008199d, NumberUtils.divideForExchangeRates(1d, 0.99991802d));
-        Assert.assertEquals(0.00005873d, NumberUtils.divideForExchangeRates(1d, 17026.2708d));
-        Assert.assertEquals(17027.073046d, NumberUtils.divideForExchangeRates(1d, 0.00005873d));
+        Assert.assertEquals(0.6666666667d, NumberUtils.divideForExchangeRates(1d, 1.5d));
+        
+        Assert.assertEquals(0.7584951456d, NumberUtils.divideForExchangeRates(1d, 1.3184d));
+        Assert.assertEquals(1.3183915623d, NumberUtils.divideForExchangeRates(1d, 0.7585d));
+        Assert.assertEquals(0.9999180167d, NumberUtils.divideForExchangeRates(1d, 1.00008199d));
 
-        Assert.assertEquals(0.81001d, NumberUtils.divideForExchangeRates(1d, 1.23456d));
-        Assert.assertEquals(1.23456d, NumberUtils.divideForExchangeRates(1d, 0.81001d));
+        Assert.assertEquals(0.8100051840d, NumberUtils.divideForExchangeRates(1d, 1.23456d));
+        Assert.assertEquals(10.0d, NumberUtils.divideForExchangeRates(1d, 0.1d));
+        Assert.assertEquals(1.0d, NumberUtils.divideForExchangeRates(1d, 1.0d));
+    }
+    @Test
+    public void testDivisionForExchangeRatesMinMaxForEntry() {
+        Assert.assertEquals(9999999999.999d, NumberUtils.divideForExchangeRates(1d, 0.0000000001d));
+        Assert.assertEquals(0.0000000001d, NumberUtils.divideForExchangeRates(1d, 9999999999.999d));
+        Assert.assertEquals(0.0010010010d, NumberUtils.divideForExchangeRates(1d, 999.0000000001d));
+        Assert.assertEquals(0.000000001d, NumberUtils.divideForExchangeRates(1d, 1000000000.999d));        
     }
 
     @Test
     public void testDivisionForExchangeRatesFreaky() {
         Assert.assertEquals(1d, NumberUtils.divideForExchangeRates(1d, 1d));
+        Assert.assertEquals(0d, NumberUtils.divideForExchangeRates(1d, 0d));
     }
 
     public void testRoundingDivisionDoubleInt() {

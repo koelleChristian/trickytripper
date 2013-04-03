@@ -133,11 +133,32 @@ public class PopupFactory {
 
         final Context context;
         final AutoCompleteTextView textView;
+        private ArrayAdapter<String> adapter;
 
         private NameLookupTask(Context context, AutoCompleteTextView textView) {
             super();
             this.context = context;
             this.textView = textView;
+            
+            adapter = new ArrayAdapter<String>(context,
+                    R.layout.selection_list_medium, new ArrayList<String>());
+            
+            textView.setAdapter(adapter);
+//            adapter.notifyDataSetChanged();
+//            textView.setOnItemClickListener(new OnItemClickListener() {
+//
+//                public void onItemClick(AdapterView<?> autoCompleteView,
+//                        View view, int position, long id) {
+//                    String displayName = (String) autoCompleteView
+//                            .getItemAtPosition(position);
+//                    PhoneContact contact = contactMap.get(displayName);
+//                    if (contact != null) {
+//                        if (Rc.debugOn) {
+//                            Log.d("OnItemClick", contact.toString());
+//                        }
+//                    }
+//                }
+//            });
         }
 
         @Override
@@ -151,7 +172,7 @@ public class PopupFactory {
 
         @Override
         protected void onPostExecute(ArrayList<PhoneContact> result) {
-            final HashMap<String, PhoneContact> contactMap = new HashMap<String, PhoneContact>();
+//            final HashMap<String, PhoneContact> contactMap = new HashMap<String, PhoneContact>();
             final List<String> contactList = new ArrayList<String>(result.size());
             for (int i = 0; i < result.size(); i++) {
                 PhoneContact oc = result.get(i);
@@ -160,26 +181,14 @@ public class PopupFactory {
                 }
                 String displayNameTrimmed = oc.displayName.trim();
                 contactList.add(displayNameTrimmed);
-                contactMap.put(displayNameTrimmed, oc);
+//                contactMap.put(displayNameTrimmed, oc);
             }
-            ArrayAdapter<String> suggestionAdapter = new ArrayAdapter<String>(context,
-                    R.layout.selection_list_medium, contactList);
-            textView.setAdapter(suggestionAdapter);
-            suggestionAdapter.notifyDataSetChanged();
-            textView.setOnItemClickListener(new OnItemClickListener() {
+            adapter.clear();
+            for (int i = 0; i < contactList.size(); i++) {
+                adapter.add(contactList.get(i));
+            }
+            adapter.notifyDataSetChanged();
 
-                public void onItemClick(AdapterView<?> autoCompleteView,
-                        View view, int position, long id) {
-                    String displayName = (String) autoCompleteView
-                            .getItemAtPosition(position);
-                    PhoneContact contact = contactMap.get(displayName);
-                    if (contact != null) {
-                        if (Log.isLoggable(Rc.LT, Log.DEBUG)) {
-                            Log.d("OnItemClick", contact.toString());
-                        }
-                    }
-                }
-            });
         }
     }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import de.koelle.christian.common.primitives.DivisionResult;
 import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.trickytripper.factories.AmountFactory;
 import de.koelle.christian.trickytripper.model.Amount;

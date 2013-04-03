@@ -254,6 +254,7 @@ public class DetachedCurrencyImportTest {
         private int counter = 0;
         private final String resultPrefix;
         private final boolean returnPrefixOnly;
+        private boolean stopped;
 
         public DetachedTestAsyncExchangeRateJsonResolver(String resultPrefix, boolean returnPrefixOnly) {
             this.resultPrefix = resultPrefix;
@@ -262,12 +263,15 @@ public class DetachedCurrencyImportTest {
 
         @Override
         public void getExchangeRate(Currency from, Currency to, AsyncExchangeRateJsonResolverResultCallback callback) {
+            stopped = false;
             counter++;
             String result = resultPrefix;
             if (!returnPrefixOnly) {
                 result = result + counter + " XXX";
             }
-            callback.deliverResult(result);
+            if (!stopped) {
+                callback.deliverResult(result);
+            }
         }
 
         @Override
@@ -279,5 +283,11 @@ public class DetachedCurrencyImportTest {
         public long calculateResponseTime(Currency from, Currency to) {
             return 50;
         }
+
+        @Override
+        public void cancelRunningRequests() {
+           stopped = true;
+        }
+
     }
 }

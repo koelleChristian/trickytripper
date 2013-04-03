@@ -8,5 +8,7 @@ import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporter
 public interface ExchangeRateImporter {
 
     void importExchangeRates(Set<Currency> currencies, ExchangeRateImporterResultCallback callback);
+    
+    void cancelRunningRequests();
 
 }

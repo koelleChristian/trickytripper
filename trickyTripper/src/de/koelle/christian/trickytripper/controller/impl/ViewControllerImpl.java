@@ -79,8 +79,21 @@ public class ViewControllerImpl implements ViewController {
                 Rc.ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE, caller);
 
     }
+    
+    public void openCreateExchangeRate(Activity caller,  Currency fromCurrency) {
+         openEditExchangeRate(caller, null, fromCurrency);
+    }
+    
 
-    public void openEditExchangeRate(Activity caller, ExchangeRate exchangeRate) {
+    public void openEditExchangeRate(Activity caller, ExchangeRate exchangeRate ) {
+         openEditExchangeRate(caller, exchangeRate, null);
+    }
+
+    public void openCreateExchangeRate(Activity caller) {
+        openEditExchangeRate(caller, null, null);
+    }
+    
+    public void openEditExchangeRate(Activity caller, ExchangeRate exchangeRate, Currency fromCurrency) {
         Class<? extends Activity> activity = EditExchangeRateActivity.class;
         ViewMode viewMode = ViewMode.CREATE;
         Map<String, Serializable> extras = new HashMap<String, Serializable>();
@@ -88,11 +101,10 @@ public class ViewControllerImpl implements ViewController {
             extras.put(Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_RATE_TECH_ID, exchangeRate.getId());
             viewMode = ViewMode.EDIT;
         }
+        if(fromCurrency != null){
+            extras.put(Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_SOURCE_CURRENCY, fromCurrency);            
+        }
         startActivityWithParams(extras, activity, viewMode);
-    }
-
-    public void openCreateExchangeRate(Activity caller) {
-        openEditExchangeRate(caller, null);
     }
 
     public void openExport() {

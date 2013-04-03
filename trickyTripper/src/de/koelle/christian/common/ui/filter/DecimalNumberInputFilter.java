@@ -45,21 +45,19 @@ public class DecimalNumberInputFilter implements InputFilter {
     }
 
     private void logPotentialResult(StringBuilder potentialResult) {
-        if (Log.isLoggable(Rc.LT_INPUT, Log.DEBUG)) {
-            Log.d(Rc.LT_INPUT,
-                    "potentialResult=" + potentialResult.toString()
-                    );
+        if (Rc.debugOn) {
+            Log.d(Rc.LT_INPUT, "potentialResult=" + potentialResult.toString());
         }
     }
 
     private void logResult(boolean resultAccepted) {
-        if (Log.isLoggable(Rc.LT_INPUT, Log.DEBUG)) {
+        if (Rc.debugOn) {
             Log.d(Rc.LT_INPUT, "resultAccepted=" + resultAccepted);
         }
     }
 
     private void logStart(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-        if (Log.isLoggable(Rc.LT_INPUT, Log.DEBUG)) {
+        if (Rc.debugOn) {
             Log.d(Rc.LT_INPUT, "source=" + source
                     + " start=" + start
                     + " end=" + end

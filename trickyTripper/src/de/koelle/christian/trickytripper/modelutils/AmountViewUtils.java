@@ -35,10 +35,8 @@ public class AmountViewUtils {
         return (blankIfNull) ? "" : null;
     }
 
-    public static String getDoubleString(Locale locale, Double value, boolean blankIfZero, boolean blankIfNull,
-            boolean forceFraction,
-            boolean stripOffSign) {
-        return getDoubleString(locale, value, blankIfZero, blankIfNull, forceFraction, stripOffSign,
+    public static String getDoubleString(Locale locale, Double value) {
+        return getDoubleString(locale, value, true, true, false, true,
                 new StringBuilder());
     }
 

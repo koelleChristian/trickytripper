@@ -37,7 +37,6 @@
 
                 <Button
                     android:id="@+id/currencyCalculatorView_button_inputCurrencySelection"
-                    style="@style/SpinnerButton"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:onClick="openCurrencySelection" />
@@ -88,8 +87,9 @@
                     android:id="@+id/currencyCalculatorView_txt_outputCurrency"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
+                    android:gravity="right|center_vertical"
                     android:height="50dip"
+                    android:text="@string/defaultX"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -100,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:height="50dip"
+                    android:text="@string/defaultX"                    
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -162,13 +163,6 @@
             android:onClick="done"
             android:text="@string/currencyCalculatorViewButtonUseResult" />
 
-        <Button
-            android:id="@+id/currencyCalculatorView_btn_cancel"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="cancel"
-            android:text="@string/common_button_cancel" />
     </LinearLayout>
 
 </LinearLayout>

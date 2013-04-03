@@ -27,4 +27,20 @@ public class OptionsSupport {
         }
         return true;
     }
+    public boolean populateOptionsMenu(OptionContraintsAbs optionContraints) {
+        com.actionbarsherlock.view.MenuInflater inflater = optionContraints.getMenuInflater();
+        inflater.inflate(R.layout.options, optionContraints.getMenu());
+        for (int i = 0; i < allOptions.length; i++) {
+            boolean contained = false;
+            for (int j = 0; j < optionContraints.getOptionIds().length; j++) {
+                if (optionContraints.getOptionIds()[j] == allOptions[i]) {
+                    contained = true;
+                }
+            }
+            if (!contained) {
+                optionContraints.getMenu().removeItem(allOptions[i]);
+            }
+        }
+        return true;
+    }
 }

@@ -2,14 +2,14 @@ package de.koelle.christian.trickytripper.model;
 
 public class ImportSettings {
 
-    private boolean replaceImportedRecordWhenAlreadyImported;
+    private boolean createNewRateOnValueChange;
 
-    public void setReplaceImportedRecordWhenAlreadyImported(boolean replaceImportedRecordWhenAlreadyImported) {
-        this.replaceImportedRecordWhenAlreadyImported = replaceImportedRecordWhenAlreadyImported;
+    public void setCreateNewRateOnValueChange(boolean replaceImportedRecordWhenAlreadyImported) {
+        this.createNewRateOnValueChange = replaceImportedRecordWhenAlreadyImported;
     }
 
-    public boolean isReplaceImportedRecordWhenAlreadyImported() {
-        return replaceImportedRecordWhenAlreadyImported;
+    public boolean isCreateNewRateOnValueChange() {
+        return createNewRateOnValueChange;
     }
 
 }
