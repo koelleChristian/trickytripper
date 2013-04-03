@@ -158,16 +158,6 @@ public class MoneyTransferActivity extends SherlockActivity {
      * @param view
      *            Required parameter.
      */
-    public void cancel(View view) {
-        finish();
-    }
-
-    /**
-     * View method.
-     * 
-     * @param view
-     *            Required parameter.
-     */
     public void transfer(View view) {
         createNewPayments();
         finish();
