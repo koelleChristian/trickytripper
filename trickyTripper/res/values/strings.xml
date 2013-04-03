@@ -44,6 +44,7 @@
     <string name="option_delete">Delete</string>
     <string name="option_create">Create</string>
     <string name="option_import">Import</string>
+    <string name="option_option_create_exchange_rate_for_source">Create matching rate</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Spent:</string>
     <string name="participant_tab_row_view_label_paid">Paid:</string>
@@ -85,7 +86,7 @@
     <!-- ===============================  Import exchange rates view =============================== -->
     <string name="importExchangeRatesViewTextViewHeading">Import Exchange Rates</string>
     <string name="importExchangeRatesViewOptions">Options</string>
-    <string name="importExchangeRatesViewCheckboxLabelReplaceExisting">Replace rates already imported</string>
+    <string name="importExchangeRatesViewCheckboxLabelNewRateOnValueChange">Create new rate on value change</string>
     <string name="importExchangeRatesViewListViewLabel">Select all exchange relevant currencies</string>
     <string name="importExchangeRatesViewButtonExecute">Do import</string>
     <string name="importExchangeRatesViewCancelImportToast">The import has been canceled.</string>  
@@ -93,7 +94,7 @@
     <string name="importExchangeRatesViewSelectionPrefix">Selected:</string> 
     <string name="importExchangeRatesViewPreconToastRequiresOnlineConnection">The import of exchange rates requires an online connection.</string>
     <string name="importExchangeRatesViewPreconToastNotAlive1">Exchange rates cannot be obtained via internet for the following currencies:</string>               
-    <string name="importExchangeRatesViewPreconToastNotAlive2">Create the exchange rate by hand.</string>               
+    <string name="importExchangeRatesViewPreconToastNotAlive2">Enter a rate by hand or create a new exchange rate by choosing \'Create matching rate\' from the menu. </string>               
     <!-- ===============================  Delete exchange rates view =============================== -->
     <string name="deleteExchangeRatesViewTextViewHeading">Delete Exchange Rates</string>
     <string name="deleteExchangeRatesViewButtonLabelPositive">Delete selection</string>
@@ -209,8 +210,9 @@
     <string name="payment_view_delete_confirmation_payment">Are you sure you want to delete the selected payment?</string>
     <string name="payment_view_delete_confirmation_transfer">Are you sure you want to delete the selected money transfer?</string>
     <string name="payment_view_blank_list_notification">No payments yet. \n\n\n\nCreate a new payment by long-tapping on a traveler who pays the money and select \'Create payment\'.</string>
-    <!-- ===============================  Payment edit =============================== -->
-    <string name="payment_edit_view_label_category_desciption">Category/Description</string>
+    <!-- ===============================  Payment edit =============================== --> 
+    <string name="payment_edit_view_label_category">Category</string>
+    <string name="payment_edit_view_label_desciption">Description</string>
     <string name="payment_edit_view_label_travellers_charged">Travelers charged:</string>
     <string name="payment_edit_view_label_radio_split_evenly">Split evenly</string>
     <string name="payment_edit_view_label_radio_custom_split">Custom split</string>

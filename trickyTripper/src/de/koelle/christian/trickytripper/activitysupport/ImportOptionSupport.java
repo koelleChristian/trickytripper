@@ -28,36 +28,41 @@ public class ImportOptionSupport {
 
     public boolean onOptionsItemSelected(Activity caller, Currency[] currenciesToBeSelected) {
         if (!miscCtrl.isOnline()) {
-            Toast.makeText(                    
-                    context, context.getResources().getString(R.string.importExchangeRatesViewPreconToastRequiresOnlineConnection),
+            Toast.makeText(
+                    context,
+                    context.getResources().getString(
+                            R.string.importExchangeRatesViewPreconToastRequiresOnlineConnection),
                     Toast.LENGTH_LONG).show();
             return true;
-        } 
-        
-        if(currenciesToBeSelected.length > 0){            
+        }
+
+        if (currenciesToBeSelected.length > 0) {
             BitSet aliveFlags = new BitSet();
-            for(int i =  0 ; i < currenciesToBeSelected.length ; i ++){
-                aliveFlags.set(i, CurrencyUtil.isAlive(currenciesToBeSelected[i].getCurrencyCode()));                
+            for (int i = 0; i < currenciesToBeSelected.length; i++) {
+                aliveFlags.set(i, CurrencyUtil.isAlive(currenciesToBeSelected[i].getCurrencyCode()));
             }
-            
-            if(aliveFlags.cardinality() < 2){
-                StringBuilder builder = new StringBuilder().append(context.getResources().getString(R.string.importExchangeRatesViewPreconToastNotAlive1));
-                for(int i  = 0; i < currenciesToBeSelected.length; i++){
-                    if(!aliveFlags.get(i)){                        
-                        builder.append(currenciesToBeSelected[i]);
-                        if(i < currenciesToBeSelected.length-1){
+
+            if (aliveFlags.cardinality() < 2) {
+                StringBuilder builder = new StringBuilder()
+                        .append(context.getResources().getString(R.string.importExchangeRatesViewPreconToastNotAlive1))
+                        .append(" ");
+                boolean oneAdded = false;
+                for (int i = 0; i < currenciesToBeSelected.length; i++) {
+                    if (!aliveFlags.get(i)) {
+                        if (oneAdded) {
                             builder.append(", ");
-                        } else{
-                            builder.append("\n");
                         }
+                        builder.append(currenciesToBeSelected[i]);
+                        oneAdded=true;
                     }
+                    builder.append("\n");
                 }
                 builder.append(context.getResources().getString(R.string.importExchangeRatesViewPreconToastNotAlive2));
-                Toast.makeText(context, builder.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(context, builder.toString(), Toast.LENGTH_LONG).show();
                 return true;
             }
         }
-                
+
         viewCtrl.openImportExchangeRates(caller, currenciesToBeSelected);
         return true;
     }

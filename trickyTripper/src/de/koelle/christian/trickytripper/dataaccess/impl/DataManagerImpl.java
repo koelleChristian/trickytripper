@@ -93,11 +93,9 @@ public class DataManagerImpl implements DataManager {
                 tripDao.delete(tripId);
             }
             db.setTransactionSuccessful();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             Log.e(Rc.LT, "Error deleting trip (transaction rolled back)", e);
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
     }
@@ -108,11 +106,9 @@ public class DataManagerImpl implements DataManager {
             db.beginTransaction();
             paymentDao.deletePayment(paymentId);
             db.setTransactionSuccessful();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             Log.e(Rc.LT, "Error deleting payment (transaction rolled back)", e);
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
     }
@@ -123,12 +119,10 @@ public class DataManagerImpl implements DataManager {
             db.beginTransaction();
             participantDao.deleteParticipant(participantId);
             db.setTransactionSuccessful();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             Log.e(Rc.LT, "Error deleting participant (transaction rolled back)", e);
             result = false;
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
         return result;
@@ -223,12 +217,10 @@ public class DataManagerImpl implements DataManager {
             // On trip creation there will be neither participants nor payments.
 
             db.setTransactionSuccessful();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             Log.e(Rc.LT, "Error saving trip (transaction rolled back)", e);
             tripId = 0L;
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
         if (isNew) {
@@ -256,12 +248,10 @@ public class DataManagerImpl implements DataManager {
             }
 
             db.setTransactionSuccessful();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             Log.e(Rc.LT, "Error saving participant (transaction rolled back)", e);
             participantId = 0L;
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
         if (isNew) {
@@ -272,7 +262,7 @@ public class DataManagerImpl implements DataManager {
 
     public Payment persistPaymentInTrip(long tripId, Payment payment) {
 
-        if (Rc.debugOn{
+        if (Rc.debugOn) {
             Log.d(Rc.LT_DB, "persistPaymentInTrip()" + payment);
         }
 
@@ -296,12 +286,10 @@ public class DataManagerImpl implements DataManager {
                 paymentDao.update(paymentReference);
             }
             db.setTransactionSuccessful();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             Log.e(Rc.LT, "Error saving participant (transaction rolled back)", e);
             paymentId = 0L;
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
         if (isNew) {
@@ -343,11 +331,9 @@ public class DataManagerImpl implements DataManager {
             db.beginTransaction();
             exchangeRateDao.persistExchangeRateUsedLast(exchangeRateUsedLast);
             db.setTransactionSuccessful();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             Log.e(Rc.LT, "Error saving exchange rate preferences (transaction rolled back)", e);
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
     }
@@ -366,12 +352,10 @@ public class DataManagerImpl implements DataManager {
             db.beginTransaction();
             exchangeRateDao.delete(idsToBeDeleted);
             db.setTransactionSuccessful();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             Log.e(Rc.LT, "Error deleting exchange rates (transaction rolled back)", e);
             result = false;
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
         return result;
@@ -394,11 +378,9 @@ public class DataManagerImpl implements DataManager {
                 exchangeRateDao.update(result);
             }
             db.setTransactionSuccessful();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             rateId = 0L;
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
         if (isNew) {

@@ -120,10 +120,10 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
 
     private void bindWidgets() {
         CheckBox checkboxReplaceExisting = (CheckBox) findViewById(R.id.importExchangeRatesViewCheckboxReplaceExisting);
-        checkboxReplaceExisting.setChecked(importSettings.isReplaceImportedRecordWhenAlreadyImported());
+        checkboxReplaceExisting.setChecked(importSettings.isCreateNewRateOnValueChange());
         checkboxReplaceExisting.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                importSettings.setReplaceImportedRecordWhenAlreadyImported(isChecked);
+                importSettings.setCreateNewRateOnValueChange(isChecked);
             }
         });
 
@@ -202,7 +202,7 @@ public class ImportExchangeRatesActivity extends SherlockActivity {
                                         try {
                                             getApp().getExchangeRateController().persitImportedExchangeRate(
                                                     parameterObject.exchangeRateResult,
-                                                    importSettings.isReplaceImportedRecordWhenAlreadyImported());
+                                                    !importSettings.isCreateNewRateOnValueChange());
                                         }
                                         catch (Throwable ex) {
                                             Log.e(Rc.LT_IO, "An imported record could not be persisted.", ex);

@@ -59,7 +59,7 @@ public class TripControllerImpl implements TripController, TripResolver {
         long tripId = PrefWritrerReaderUtils.loadIdOfTripLastEdited(prefs);
 
         if (Rc.debugOn) {
-            Log.;
+            Log.d(Rc.LT, "init() id of last trip=" + tripId);
         }
         tripToBeEdited = dataManager.loadTripById(tripId);
 

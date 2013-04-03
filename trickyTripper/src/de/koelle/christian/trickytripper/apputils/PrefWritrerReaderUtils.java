@@ -72,14 +72,14 @@ public class PrefWritrerReaderUtils {
 
     public static void saveImportSettings(Editor prefsEditor, ImportSettings settings) {
         prefsEditor.putBoolean(PREFS_VALUE_IMPORT_SETTINGS_REPLACE_EXISTING,
-                settings.isReplaceImportedRecordWhenAlreadyImported());
+                settings.isCreateNewRateOnValueChange());
         prefsEditor.commit();
     }
 
     public static ImportSettings loadImportSettings(SharedPreferences prefs) {
         ImportSettings settings = new ImportSettings();
-        settings.setReplaceImportedRecordWhenAlreadyImported(prefs.getBoolean(
-                PREFS_VALUE_IMPORT_SETTINGS_REPLACE_EXISTING, Boolean.TRUE));
+        settings.setCreateNewRateOnValueChange(prefs.getBoolean(
+                PREFS_VALUE_IMPORT_SETTINGS_REPLACE_EXISTING, Boolean.FALSE));
         return settings;
     }
 

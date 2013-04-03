@@ -31,6 +31,10 @@
         android:title="@string/option_import"/>
 
     <item
+        android:id="@+id/option_create_exchange_rate_for_source"
+        android:title="@string/option_option_create_exchange_rate_for_source"/>
+
+    <item
         android:id="@+id/option_export"
         android:icon="@android:drawable/ic_menu_share"
         android:showAsAction="ifRoom"

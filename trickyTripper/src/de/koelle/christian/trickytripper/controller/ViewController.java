@@ -21,6 +21,8 @@ public interface ViewController {
     void openEditExchangeRate(Activity caller, ExchangeRate exchangeRate);
 
     void openCreateExchangeRate(Activity caller);
+    
+    void openCreateExchangeRate(Activity caller,  Currency fromCurrency);
 
     void openMoneyCalculatorView(Amount amount, int viewIdForResult, Activity caller);
 

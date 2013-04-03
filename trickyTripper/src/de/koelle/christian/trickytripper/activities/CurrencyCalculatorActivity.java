@@ -164,9 +164,8 @@ public class CurrencyCalculatorActivity extends SherlockActivity {
                 requestCode, resultCode, data, this);
         if (result != null) {
             inputAmount.setUnit(result);
-            refreshOnResume();
-        } else {
         }
+        refreshOnResume();
     }
 
     @Override
@@ -498,7 +497,6 @@ public class CurrencyCalculatorActivity extends SherlockActivity {
         prepareResultAndFinish();
     }
 
-
     private DecimalNumberInputUtil getDecimalNumberInputUtil() {
         return getApp().getMiscController().getDecimalNumberInputUtil();
     }
@@ -515,6 +513,7 @@ public class CurrencyCalculatorActivity extends SherlockActivity {
                                 .menu(menu)
                                 .options(
                                         new int[] { R.id.option_import,
+                                                R.id.option_create_exchange_rate_for_source,
                                                 R.id.option_help }));
     }
 
@@ -525,7 +524,11 @@ public class CurrencyCalculatorActivity extends SherlockActivity {
             showDialog(Rd.DIALOG_HELP);
             return true;
         case R.id.option_import:
-            return importOptionSupport.onOptionsItemSelected(this, new Currency[]{inputAmount.getUnit(), resultAmount.getUnit()});
+            return importOptionSupport.onOptionsItemSelected(this,
+                    new Currency[] { inputAmount.getUnit(), resultAmount.getUnit() });
+        case R.id.option_create_exchange_rate_for_source:
+            getApp().getViewController().openCreateExchangeRate(this, inputAmount.getUnit());
+            return true;
         case android.R.id.home:
             onBackPressed();
             return true;

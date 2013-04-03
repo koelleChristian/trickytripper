@@ -17,7 +17,10 @@ public class Rc {
     public static final String LT_IO = "TT_IO";
     public static final String LT_PROV = "TT_PROV";
 
-    /*So that the compiler can remove the statements, instead of Log.isLoggable(Rc.LT, Log.DEBUG)*/
+    /*
+     * So that the compiler can remove the statements, instead of
+     * Log.isLoggable(Rc.LT, Log.DEBUG)
+     */
     public static final boolean debugOn = true;
 
     public static final String TAB_SPEC_ID_PAYMENT = "payment";
@@ -74,7 +77,5 @@ public class Rc {
     public static final int PREFS_MODE = Context.MODE_PRIVATE;
 
     public static final String PREFS_VALUE_ID_BASE_CURRENCY = "PREFS_VALUE_ID_BASE_CURRENCY";
-    // public static final String PREFS_VALUE_ID_ENABLE_SMART_HELP =
-    // "PREFS_VALUE_ID_ENABLE_SMART_HELP";
 
 }
