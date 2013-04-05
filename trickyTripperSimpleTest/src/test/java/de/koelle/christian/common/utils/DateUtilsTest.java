@@ -20,6 +20,8 @@ public class DateUtilsTest {
         Assert.assertEquals("03/28/2013 10:45", dateUtils.date2String(date));
         dateUtils = new DateUtils(Locale.UK);
         Assert.assertEquals("28/03/2013 10:45", dateUtils.date2String(date));
+        dateUtils = new DateUtils(Locale.ENGLISH);
+        Assert.assertEquals("03/28/2013 10:45", dateUtils.date2String(date));
         dateUtils = new DateUtils(Locale.GERMANY);
         Assert.assertEquals("28.03.2013 10:45", dateUtils.date2String(date));
     }

@@ -25,7 +25,9 @@ public class DateUtils {
 
         String localizedDatePattern = ((SimpleDateFormat) DateFormat.getDateInstance(DateFormat.SHORT, locale))
                 .toPattern();
-        localizedDatePattern = localizedDatePattern.replace("yy", "yyyy");
+        if (!localizedDatePattern.contains("yyyy")) {
+            localizedDatePattern = localizedDatePattern.replace("yy", "yyyy");
+        }
         if (!localizedDatePattern.contains("dd")) {
             localizedDatePattern = localizedDatePattern.replace("d", "dd");
         }
