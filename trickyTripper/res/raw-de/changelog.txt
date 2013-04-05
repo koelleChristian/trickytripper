@@ -28,7 +28,7 @@
   <body> 
 $ 1.3.0
 % Version 1.3.0
-  _ 2013-04-06  
+  _ 2013-04-05
 * Wechselkursverwaltung und Währungsumrechner wurden hinzugefügt.
 * Allgemein: Überarbeitung des Frontends.
 * ActionBar steht jetzt zur Verwendung auf Sekundärdialogen bereit.
