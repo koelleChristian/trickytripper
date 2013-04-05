@@ -21,7 +21,7 @@ public class Rc {
      * So that the compiler can remove the statements, instead of
      * Log.isLoggable(Rc.LT, Log.DEBUG)
      */
-    public static final boolean debugOn = true;
+    public static final boolean debugOn = false;
 
     public static final String TAB_SPEC_ID_PAYMENT = "payment";
     public static final String TAB_SPEC_ID_PARTICIPANTS = "participants";

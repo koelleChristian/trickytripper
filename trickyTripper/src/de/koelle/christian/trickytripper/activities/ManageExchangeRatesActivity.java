@@ -35,6 +35,7 @@ import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter;
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter.DisplayMode;
+import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 
 public class ManageExchangeRatesActivity extends SherlockListActivity {
 
@@ -270,12 +271,16 @@ public class ManageExchangeRatesActivity extends SherlockListActivity {
         return new StringBuilder()
                 .append(row.getCurrencyFrom().getCurrencyCode()).append(" > ")
                 .append(row.getCurrencyTo().getCurrencyCode()).append(" = ")
-                .append(row.getExchangeRate()).append("\n")
+                .append(getRateString(row.getExchangeRate())).append("\n")
                 .append(inversion.getCurrencyFrom().getCurrencyCode())
                 .append(" > ")
                 .append(inversion.getCurrencyTo().getCurrencyCode())
-                .append(" = ").append(inversion.getExchangeRate())
+                .append(" = ").append(getRateString(inversion.getExchangeRate()))
         /**/;
+    }
+
+    public String getRateString(Double input) {
+        return AmountViewUtils.getDoubleString(getResources().getConfiguration().locale, input);
     }
 
     /* ========= Context menu [END] =========== */
