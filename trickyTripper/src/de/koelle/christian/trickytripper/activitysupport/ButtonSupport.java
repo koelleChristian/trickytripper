@@ -4,6 +4,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
+import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.utils.StringUtils;
 
 public class ButtonSupport {
@@ -17,14 +18,7 @@ public class ButtonSupport {
             button.setEnabled(true);
         }
 
-        textInput.addTextChangedListener(new TextWatcher() {
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
+        textInput.addTextChangedListener(new BlankTextWatcher() {
             public void afterTextChanged(Editable s) {
                 String textInputString = textInput.getEditableText().toString();
                 if (StringUtils.isBlank(textInputString)) {

@@ -32,6 +32,10 @@ public interface ViewController {
     void openCurrencySelectionForCalculation(Activity caller, Currency targetCurrency, int viewIdForResult);
 
     void openEditPayment(Payment payment);
+    
+    void openEditParticipant(Participant participant);
+
+    void openCreateParticipant();
 
     void openTransferMoney(Participant participant);
 

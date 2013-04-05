@@ -82,8 +82,7 @@ public class ParticipantTabActivity extends ListActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_create_participant:
-            getParent().showDialog(Rd.DIALOG_CREATE_PARTICIPANT,
-                    TabDialogSupport.createBundleWithParticipantSelected(new Participant()));
+            getApp().getViewController().openCreateParticipant();
             return true;
         case R.id.option_help:
             getParent().showDialog(Rd.DIALOG_HELP);
@@ -197,9 +196,7 @@ public class ParticipantTabActivity extends ListActivity {
             return true;
         }
         case R.string.common_button_edit: {
-            getParent().showDialog(Rd.DIALOG_EDIT_PARTICIPANT,
-                    TabDialogSupport.createBundleWithParticipantSelected(participant));
-
+            getApp().getViewController().openEditParticipant(participant);
             return true;
         }
         default:

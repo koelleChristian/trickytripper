@@ -238,7 +238,8 @@
     <string name="edit_participant_view_label_name">Name:</string>
     <string name="edit_participant_view_heading_create">Create traveler</string>
     <string name="edit_participant_view_heading_edit">Edit traveler</string>
-    <string name="edit_participant_view_positive_button_create">Create</string>
+    <string name="edit_participant_view_positive_button_create">Create &amp; close</string>
+    <string name="edit_participant_view_positive_button_create_another">Create &amp; create another one</string>
     <string name="edit_participant_view_positive_button_edit">Save</string>
     <string name="edit_participant_view_msg_denial">A participant with the name entered already exists in this trip. Please modify your input.</string>
     <!-- ==================== edit trip view ====================== -->

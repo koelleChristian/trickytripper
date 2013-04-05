@@ -238,7 +238,8 @@
     <string name="edit_participant_view_label_name">Name:</string>
     <string name="edit_participant_view_heading_create">Reisenden erstellen</string>
     <string name="edit_participant_view_heading_edit">Reisenden bearbeiten</string>
-    <string name="edit_participant_view_positive_button_create">Erstellen</string>
+    <string name="edit_participant_view_positive_button_create">Erstellen und schließen</string>
+    <string name="edit_participant_view_positive_button_create_another">Erstellen &amp; weiteren erstellen</string>
     <string name="edit_participant_view_positive_button_edit">Speichern</string>
     <string name="edit_participant_view_msg_denial">In der Reise existiert bereits ein Reisender mit dem gewünschten Namen. Bitte gib einen noch nicht vorhandenen Namen ein.</string>
     <!-- ==================== edit trip view ====================== -->

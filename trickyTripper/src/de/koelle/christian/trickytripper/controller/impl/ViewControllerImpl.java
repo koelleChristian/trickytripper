@@ -19,6 +19,7 @@ import de.koelle.christian.trickytripper.activities.ExportActivity;
 import de.koelle.christian.trickytripper.activities.ImportExchangeRatesActivity;
 import de.koelle.christian.trickytripper.activities.ManageTripsActivity;
 import de.koelle.christian.trickytripper.activities.MoneyTransferActivity;
+import de.koelle.christian.trickytripper.activities.ParticipantEditActivity;
 import de.koelle.christian.trickytripper.activities.PaymentEditActivity;
 import de.koelle.christian.trickytripper.activities.PreferencesActivity;
 import de.koelle.christian.trickytripper.constants.Rc;
@@ -35,6 +36,18 @@ public class ViewControllerImpl implements ViewController {
 
     public ViewControllerImpl(Context context) {
         this.context = context;
+    }
+
+    public void openEditParticipant(Participant participant) {
+        Class<? extends Activity> activity = ParticipantEditActivity.class;
+        Map<String, Serializable> extras = new HashMap<String, Serializable>();
+        extras.put(Rc.ACTIVITY_PARAM_PARTICIPANT_EDIT_IN_PARTICIPANT, participant);
+        startActivityWithParams(extras, activity, ViewMode.EDIT);
+    }
+
+    public void openCreateParticipant() {
+        Class<? extends Activity> activity = ParticipantEditActivity.class;
+        startActivityWithParams(new HashMap<String, Serializable>(), activity, ViewMode.CREATE);
     }
 
     public void openCreatePayment(Participant p) {
@@ -79,20 +92,19 @@ public class ViewControllerImpl implements ViewController {
                 Rc.ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE, caller);
 
     }
-    
-    public void openCreateExchangeRate(Activity caller,  Currency fromCurrency) {
-         openEditExchangeRate(caller, null, fromCurrency);
-    }
-    
 
-    public void openEditExchangeRate(Activity caller, ExchangeRate exchangeRate ) {
-         openEditExchangeRate(caller, exchangeRate, null);
+    public void openCreateExchangeRate(Activity caller, Currency fromCurrency) {
+        openEditExchangeRate(caller, null, fromCurrency);
+    }
+
+    public void openEditExchangeRate(Activity caller, ExchangeRate exchangeRate) {
+        openEditExchangeRate(caller, exchangeRate, null);
     }
 
     public void openCreateExchangeRate(Activity caller) {
         openEditExchangeRate(caller, null, null);
     }
-    
+
     public void openEditExchangeRate(Activity caller, ExchangeRate exchangeRate, Currency fromCurrency) {
         Class<? extends Activity> activity = EditExchangeRateActivity.class;
         ViewMode viewMode = ViewMode.CREATE;
@@ -101,8 +113,8 @@ public class ViewControllerImpl implements ViewController {
             extras.put(Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_RATE_TECH_ID, exchangeRate.getId());
             viewMode = ViewMode.EDIT;
         }
-        if(fromCurrency != null){
-            extras.put(Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_SOURCE_CURRENCY, fromCurrency);            
+        if (fromCurrency != null) {
+            extras.put(Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_SOURCE_CURRENCY, fromCurrency);
         }
         startActivityWithParams(extras, activity, viewMode);
     }

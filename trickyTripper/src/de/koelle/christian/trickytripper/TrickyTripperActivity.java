@@ -69,12 +69,6 @@ public class TrickyTripperActivity extends TabActivity {
     protected Dialog onCreateDialog(int id, Bundle args) {
         Dialog dialog;
         switch (id) {
-        case Rd.DIALOG_CREATE_PARTICIPANT:
-            dialog = PopupFactory.createAndShowEditParticipantPopupCreateMode(this);
-            break;
-        case Rd.DIALOG_EDIT_PARTICIPANT:
-            dialog = PopupFactory.createAndShowEditParticipantPopupEditMode(this);
-            break;
         case Rd.DIALOG_HELP:
             dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(),
                     Rd.DIALOG_HELP);
@@ -94,15 +88,6 @@ public class TrickyTripperActivity extends TabActivity {
     @Override
     protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
         switch (id) {
-        case Rd.DIALOG_CREATE_PARTICIPANT:
-            PopupCallback callBack1 = createPopupCallBackParticipantUpdate();
-            updateCreateOrEditParticipantDialog(dialog, args, callBack1);
-            break;
-
-        case Rd.DIALOG_EDIT_PARTICIPANT:
-            PopupCallback callBack2 = createPopupCallBackParticipantUpdate();
-            updateCreateOrEditParticipantDialog(dialog, args, callBack2);
-            break;
 
         case Rd.DIALOG_HELP:
             // intentionally do nothing
@@ -126,17 +111,18 @@ public class TrickyTripperActivity extends TabActivity {
         super.onPrepareDialog(id, dialog, args);
     }
 
-    private PopupCallback createPopupCallBackParticipantUpdate() {
-        LocalActivityManager manager = getLocalActivityManager();
-        final ParticipantTabActivity participantActivity = (ParticipantTabActivity) manager
-                .getActivity(Rt.PARTICIPANTS.getId());
-        return new PopupCallBackAdapter() {
-            @Override
-            public void done() {
-                participantActivity.updateRows();
-            }
-        };
-    }
+    // private PopupCallback createPopupCallBackParticipantUpdate() {
+    // LocalActivityManager manager = getLocalActivityManager();
+    // final ParticipantTabActivity participantActivity =
+    // (ParticipantTabActivity) manager
+    // .getActivity(Rt.PARTICIPANTS.getId());
+    // return new PopupCallBackAdapter() {
+    // @Override
+    // public void done() {
+    // participantActivity.updateRows();
+    // }
+    // };
+    // }
 
     private PopupCallback createPopupCallPaymentDelete(final Payment payment) {
         LocalActivityManager manager = getLocalActivityManager();
@@ -149,49 +135,6 @@ public class TrickyTripperActivity extends TabActivity {
                 paymentTabActivity.sortAndUpdateView();
             }
         };
-    }
-
-    private void updateCreateOrEditParticipantDialog(final Dialog dialog, Bundle args, final PopupCallback popupCallback) {
-        final AutoCompleteTextView autoCompleteTextView =
-                (AutoCompleteTextView) dialog.findViewById(R.id.createParticipantView_autocomplete_name);
-        final Participant participant = TabDialogSupport.getParticipantFromBundle(args);
-        String text = (participant != null && participant.getName() != null) ? participant.getName() : "";
-        autoCompleteTextView.setText(text);
-
-        Button buttonPositive = (Button) dialog.findViewById(R.id.createParticipantView_button_positive);
-        Button buttonCancel = (Button) dialog.findViewById(R.id.createParticipantView_button_cancel);
-
-        buttonPositive.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-
-                String input = autoCompleteTextView.getEditableText().toString();
-                input = input.trim();
-                participant.setName(input);
-                if (getApp().getTripController().persistParticipant(participant)) {
-                    dialog.dismiss();
-                    if (popupCallback != null) {
-                        popupCallback.done();
-                    }
-                }
-                else {
-                    Toast.makeText(TrickyTripperActivity.this.getApplicationContext(),
-                            R.string.edit_participant_view_msg_denial,
-                            Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                dialog.cancel();
-                if (popupCallback != null) {
-                    popupCallback.canceled();
-                }
-
-            }
-        });
     }
 
     private void updateCreateOrEditPaymentDeleteDialog(final Dialog dialog, Bundle args, boolean isTransfer,
@@ -313,8 +256,7 @@ public class TrickyTripperActivity extends TabActivity {
         tabWidget.getChildAt(0).setOnLongClickListener(new OnLongClickListener() {
 
             public boolean onLongClick(View v) {
-                showDialog(Rd.DIALOG_CREATE_PARTICIPANT,
-                        TabDialogSupport.createBundleWithParticipantSelected(new Participant()));
+                getApp().getViewController().openCreateParticipant();
                 return true;
             }
         });

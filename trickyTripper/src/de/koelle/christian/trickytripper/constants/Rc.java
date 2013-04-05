@@ -59,6 +59,8 @@ public class Rc {
     public static final String ACTIVITY_PARAM_DELETE_EXCHANGE_RATES_IN_CURRENCY_LIST = "activityParamImportExchangeRatesInCurrencyList";
 
     public static final String ACTIVITY_PARAM_IMPORT_EXCHANGE_RATES_IN_CURRENCY_LIST = "activityParamImportExchangeRatesInCurrencyList";
+    
+    public static final String ACTIVITY_PARAM_PARTICIPANT_EDIT_IN_PARTICIPANT = "activityParamParticipantEditInParticipant";
 
     public static final int DEFAULT_COLLATOR_STRENGTH = Collator.TERTIARY;
 

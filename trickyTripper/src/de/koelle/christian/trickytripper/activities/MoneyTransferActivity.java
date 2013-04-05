@@ -31,6 +31,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
+import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.common.utils.UiUtils;
@@ -258,13 +259,7 @@ public class MoneyTransferActivity extends SherlockActivity {
 
     private void bindPaymentInputAndUpdate(final EditText widget, final Amount amount) {
 
-        widget.addTextChangedListener(new TextWatcher() {
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
+        widget.addTextChangedListener(new BlankTextWatcher() {
             public void afterTextChanged(Editable s) {
                 String widgetInput = getDecimalNumberInputUtil().fixInputStringWidgetToParser(s.toString());
                 amount.setValue(NumberUtils.getStringToDoubleRounded(getLocale(), widgetInput));

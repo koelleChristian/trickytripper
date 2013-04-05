@@ -54,6 +54,7 @@ import com.actionbarsherlock.view.MenuItem;
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.common.primitives.DivisionResult;
+import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.common.utils.ObjectUtils;
@@ -763,13 +764,7 @@ public class PaymentEditActivity extends SherlockActivity {
         EditText editText = (EditText) findViewById(R.id.paymentView_editTextPaymentDescription);
         editText.setText(payment.getDescription());
 
-        editText.addTextChangedListener(new TextWatcher() {
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
+        editText.addTextChangedListener(new BlankTextWatcher() {
             public void afterTextChanged(Editable s) {
                 String input = StringUtils.clearInput(s);
                 paymentFinal.setDescription(input);
@@ -779,13 +774,7 @@ public class PaymentEditActivity extends SherlockActivity {
 
     private void bindAmountInput(final EditText widget, final Amount amount, final boolean isPayment) {
 
-        widget.addTextChangedListener(new TextWatcher() {
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
+        widget.addTextChangedListener(new BlankTextWatcher() {
             public void afterTextChanged(Editable s) {
                 String widgetInput = getDecimalNumberInputUtil().fixInputStringWidgetToParser(s.toString());
                 Double valueInput = NumberUtils.getStringToDoubleRounded(getLocale(), widgetInput);

@@ -38,6 +38,13 @@
         </activity>
         <activity android:name=".activities.PaymentEditActivity" >
         </activity>
+        
+        
+        
+        <activity
+            android:name=".activities.ParticipantEditActivity"
+            android:label="@string/manageTripsView_heading" >
+        </activity>
         <activity
             android:name=".activities.ManageTripsActivity"
             android:label="@string/manageTripsView_heading" >
