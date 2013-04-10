@@ -4,6 +4,7 @@ import java.text.Collator;
 import java.util.Currency;
 
 import de.koelle.christian.common.options.OptionsSupport;
+import de.koelle.christian.common.support.DimensionSupport;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.trickytripper.model.HierarchicalCurrencyList;
 
@@ -28,4 +29,6 @@ public interface MiscController {
     Currency getCurrencyFavorite(Currency currencyToBeExcluded);
 
     DecimalNumberInputUtil getDecimalNumberInputUtil();
+
+    DimensionSupport getDimensionSupport();
 }

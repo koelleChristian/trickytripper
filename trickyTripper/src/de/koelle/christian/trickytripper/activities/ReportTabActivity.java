@@ -7,25 +7,25 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import de.koelle.christian.common.options.OptionContraints;
+
+import com.actionbarsherlock.app.SherlockFragment;
+
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
-import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Debts;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -34,7 +34,7 @@ import de.koelle.christian.trickytripper.model.Trip;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.strategies.SumReport;
 
-public class ReportTabActivity extends Activity {
+public class ReportTabActivity extends SherlockFragment{
 
     private final static int PADDING = 3;
 
@@ -43,63 +43,71 @@ public class ReportTabActivity extends Activity {
 
     private List<Participant> participantsInSpinner;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//    }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
-        return super.onPrepareOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onPrepareOptionsMenu(Menu menu) {
+//        menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
+//        return super.onPrepareOptionsMenu(menu);
+//    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraints().activity(this).menu(menu)
-                        .options(new int[] {
-                                R.id.option_help,
-                                R.id.option_preferences,
-                                R.id.option_export
-                        }));
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
+//                new OptionContraints().activity(this).menu(menu)
+//                        .options(new int[] {
+//                                R.id.option_help,
+//                                R.id.option_preferences,
+//                                R.id.option_export
+//                        }));
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.option_help:
-            getParent().showDialog(Rd.DIALOG_HELP);
-            return true;
-        case R.id.option_export:
-            getApp().getViewController().openExport();
-            return true;
-        case R.id.option_preferences:
-            getApp().getViewController().openSettings();
-            return true;
-        case android.R.id.home:
-            onBackPressed();
-            return true;               
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//        case R.id.option_help:
+//            getParent().showDialog(Rd.DIALOG_HELP);
+//            return true;
+//        case R.id.option_export:
+//            getApp().getViewController().openExport();
+//            return true;
+//        case R.id.option_preferences:
+//            getApp().getViewController().openSettings();
+//            return true;
+//        case android.R.id.home:
+//            onBackPressed();
+//            return true;               
+//        default:
+//            return super.onOptionsItemSelected(item);
+//        }
+//    }
+    
+    
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        createPanel();
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        createPanel();
+//    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.report_tab_view);
-        createPanel();
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);        
+//        setContentView(R.layout.report_tab_view);
+//        createPanel();
+//
+//    }
+    
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.report_tab_view, container, false);
+        createPanel(view);
+        return view;
+}
 
-    }
-
-    private void createPanel() {
+    private void createPanel(final View view) {
 
         final TrickyTripperApp app = getApp();
 
@@ -108,8 +116,8 @@ public class ReportTabActivity extends Activity {
         participantsInSpinner.addAll(app.getTripController().getAllParticipants(false, true));
 
         Spinner spinner = SpinnerViewSupport.configureReportSelectionSpinner(
-                this,
-                this,
+                view,
+                getActivity(),
                 R.id.reportViewBaseSpinner,
                 participantsInSpinner);
 
@@ -120,8 +128,8 @@ public class ReportTabActivity extends Activity {
         spinner.setSelection(spinnerPositionToBe, false);
 
         final Locale locale = getResources().getConfiguration().locale;
-        updateDynamicRows(app, p, locale);
-        updateStaticRows(app, p, locale);
+        updateDynamicRows(app, p, locale, view);
+        updateStaticRows(app, p, locale, view);
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -130,8 +138,8 @@ public class ReportTabActivity extends Activity {
                                                                                        // be
                                                                                        // null
                 app.getTripController().getDialogState().setParticipantReporting(participantSelected);
-                ReportTabActivity.this.updateDynamicRows(app, participantSelected, locale);
-                ReportTabActivity.this.updateStaticRows(app, participantSelected, locale);
+                ReportTabActivity.this.updateDynamicRows(app, participantSelected, locale, view );
+                ReportTabActivity.this.updateStaticRows(app, participantSelected, locale, view);
             }
 
             public void onNothingSelected(AdapterView<?> parentView) {
@@ -160,11 +168,11 @@ public class ReportTabActivity extends Activity {
     }
 
     private TrickyTripperApp getApp() {
-        final TrickyTripperApp app = ((TrickyTripperApp) getApplication());
+        final TrickyTripperApp app = ((TrickyTripperApp) getActivity().getApplication());
         return app;
     }
 
-    private void updateStaticRows(TrickyTripperApp app, Participant participantSelected, Locale locale) {
+    private void updateStaticRows(TrickyTripperApp app, Participant participantSelected, Locale locale, View view) {
 
         int viewId;
         Object valueCount;
@@ -184,14 +192,14 @@ public class ReportTabActivity extends Activity {
             valueCount = getTripLoaded(app).getSumReport().getTotalSpendingCount();
         }
         viewId = R.id.reportViewOutputTotalSpent;
-        UiUtils.setLabelAndValueOnTextView(this, viewId, null, valueTotalSpent);
+        UiUtils.setLabelAndValueOnTextView(view, viewId, null, valueTotalSpent);
         viewId = R.id.reportViewOutputPaymentCount;
-        UiUtils.setLabelAndValueOnTextView(this, viewId, null, valueCount);
+        UiUtils.setLabelAndValueOnTextView(view, viewId, null, valueCount);
     }
 
-    private void updateDynamicRows(TrickyTripperApp app, Participant participantSelected, Locale locale) {
+    private void updateDynamicRows(TrickyTripperApp app, Participant participantSelected, Locale locale, View view) {
 
-        TableLayout tableLayout = (TableLayout) findViewById(R.id.reportViewTableLayout);
+        TableLayout tableLayout = (TableLayout) view.findViewById(R.id.reportViewTableLayout);
         TextView heading = (TextView) tableLayout.findViewById(R.id.reportViewOutputHeadingOwingDebts);
         View delimiterLine = tableLayout.findViewById(R.id.reportViewOutputDelimiterLine);
 
@@ -218,7 +226,7 @@ public class ReportTabActivity extends Activity {
         String value;
         int column;
         if (categorySpending == null || categorySpending.isEmpty()) {
-            newRow = new TableRow(this);
+            newRow = new TableRow(getActivity());
 
             value = getResources().getString(R.string.report_view_label_no_spendings);
             column = 4;
@@ -237,7 +245,7 @@ public class ReportTabActivity extends Activity {
             for (Entry<PaymentCategory, Amount> catAmountMapEntry : categorySpending.entrySet()) {
 
                 if (!catAmountMapEntry.getKey().isInternal()) {
-                    newRow = new TableRow(this);
+                    newRow = new TableRow(getActivity());
                     String categoryDisplayName = getResources().getString(
                             catAmountMapEntry.getKey().getResourceStringId());
 
@@ -287,7 +295,7 @@ public class ReportTabActivity extends Activity {
 
             Debts debts = getTripLoaded(app).getDebts().get(participantSelected);
             if (debts.getLoanerToDepts().entrySet().isEmpty()) {
-                newRow = new TableRow(this);
+                newRow = new TableRow(getActivity());
 
                 value = AmountViewUtils.getAmountString(locale, app.getTripController().getAmountFactory()
                         .createAmount(), true, true,
@@ -308,7 +316,7 @@ public class ReportTabActivity extends Activity {
 
                 for (Entry<Participant, Amount> debt : debts.getLoanerToDepts().entrySet()) {
 
-                    newRow = new TableRow(this);
+                    newRow = new TableRow(getActivity());
                     String displayName = debt.getKey().getName();
 
                     value = displayName;
@@ -348,7 +356,7 @@ public class ReportTabActivity extends Activity {
             TableRow.LayoutParams columnRowParams) {
         TableRow.LayoutParams columnRowParamsHere = columnRowParams;
         TextView textView;
-        textView = new TextView(this);
+        textView = new TextView(getActivity());
         textView.setText(valueForDisplay);
         textView.setPadding(PADDING, PADDING, PADDING, PADDING);
         columnRowParamsHere.column = column;

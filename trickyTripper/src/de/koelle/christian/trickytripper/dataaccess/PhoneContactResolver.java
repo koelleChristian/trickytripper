@@ -17,17 +17,12 @@ public class PhoneContactResolver {
 
     public ArrayList<PhoneContact> findContactByNameString2(String nameSubstr) {
         String[] projection = { ContactsContract.Data._ID, ContactsContract.Data.DISPLAY_NAME };
-        String selection = /*
-                            * ContactsContract.Data.IN_VISIBLE_GROUP +
-                            * "=1 AND "+
-                            */
-                ContactsContract.Data.DISPLAY_NAME + " LIKE ?";
-
-        String[] selectionArgs = { "%" + nameSubstr + "%" };
-        if (nameSubstr == null) {
-            selection = null;
-            selectionArgs = null;
-        }
+        String selection = null;
+        String[] selectionArgs = null;
+        if (nameSubstr != null) {
+            selection = ContactsContract.Data.DISPLAY_NAME + " LIKE ?";
+            selectionArgs = new String []{ "%" + nameSubstr + "%" };
+        } 
         Cursor phoneCursor = null;
         ArrayList<PhoneContact> contacts = new ArrayList<PhoneContact>();
         try {

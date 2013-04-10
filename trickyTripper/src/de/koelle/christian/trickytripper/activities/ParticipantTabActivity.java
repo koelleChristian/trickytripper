@@ -5,23 +5,24 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.koelle.christian.common.options.OptionContraints;
+
+import com.actionbarsherlock.app.SherlockListFragment;
+
 import de.koelle.christian.trickytripper.R;
-import de.koelle.christian.trickytripper.TrickyTripperActivity;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.activitysupport.TabDialogSupport;
-import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.constants.Rt;
 import de.koelle.christian.trickytripper.controller.TripController;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -29,7 +30,7 @@ import de.koelle.christian.trickytripper.model.modelAdapter.ParticipantRowListAd
 import de.koelle.christian.trickytripper.strategies.SumReport;
 import de.koelle.christian.trickytripper.ui.model.ParticipantRow;
 
-public class ParticipantTabActivity extends ListActivity {
+public class ParticipantTabActivity extends SherlockListFragment {
 
     private static final int MENU_GROUP_P_STD = 1;
     private static final int MENU_GROUP_P_ACTIVE_REQ = 2;
@@ -40,63 +41,76 @@ public class ParticipantTabActivity extends ListActivity {
 
     private ParticipantRowListAdapter adapter;
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateRows();
-    }
+    // @Override
+    // protected void onResume() {
+    // super.onResume();
+    // updateRows();
+    // }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_view);
-        adapter = new ParticipantRowListAdapter(this, R.layout.participant_tab_row_view, participantRows);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.list_view, container, false);
+        TextView textView = (TextView) view.findViewById(android.R.id.empty);
+        ListView listView = (ListView) view.findViewById(android.R.id.list);
+
+        adapter = new ParticipantRowListAdapter(getActivity(), R.layout.participant_tab_row_view, participantRows);
         setListAdapter(adapter);
-        ListView lv = getListView();
-        registerForContextMenu(lv);
+
+        registerForContextMenu(view);
+        listView.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TrickyTripperApp app = getApp();
+                ParticipantRow row = (ParticipantRow) getListView().getItemAtPosition(position);
+                if (row.getParticipant().isActive()) {
+                    Participant p = row.getParticipant();
+                    app.getViewController().openCreatePayment(p);
+                }
+            }
+        });
         updateRows();
-        TextView textView = (TextView) findViewById(android.R.id.empty);
         textView.setText(getResources().getString(R.string.participant_tab_blank_list_notification));
-
+        return view;
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
-        return super.onPrepareOptionsMenu(menu);
-    }
+    // @Override
+    // public boolean onPrepareOptionsMenu(Menu menu) {
+    // menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
+    // return super.onPrepareOptionsMenu(menu);
+    // }
+    //
+    // @Override
+    // public boolean onCreateOptionsMenu(Menu menu) {
+    // return
+    // getApp().getMiscController().getOptionSupport().populateOptionsMenu(
+    // new OptionContraints().activity(this).menu(menu)
+    // .options(new int[] {
+    // R.id.option_create_participant,
+    // R.id.option_help,
+    // R.id.option_export,
+    // R.id.option_preferences
+    // }));
+    // }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraints().activity(this).menu(menu)
-                        .options(new int[] {
-                                R.id.option_create_participant,
-                                R.id.option_help,
-                                R.id.option_export,
-                                R.id.option_preferences
-                        }));
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.option_create_participant:
-            getApp().getViewController().openCreateParticipant();
-            return true;
-        case R.id.option_help:
-            getParent().showDialog(Rd.DIALOG_HELP);
-            return true;
-        case R.id.option_export:
-            getApp().getViewController().openExport();
-            return true;
-        case R.id.option_preferences:
-            getApp().getViewController().openSettings();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-    }
+    // @Override
+    // public boolean onOptionsItemSelected(MenuItem item) {
+    // switch (item.getItemId()) {
+    // case R.id.option_create_participant:
+    // getApp().getViewController().openCreateParticipant();
+    // return true;
+    // case R.id.option_help:
+    // getParent().showDialog(Rd.DIALOG_HELP);
+    // return true;
+    // case R.id.option_export:
+    // getApp().getViewController().openExport();
+    // return true;
+    // case R.id.option_preferences:
+    // getApp().getViewController().openSettings();
+    // return true;
+    // default:
+    // return super.onOptionsItemSelected(item);
+    // }
+    // }
 
     public void updateRows() {
         participantRows.clear();
@@ -112,7 +126,7 @@ public class ParticipantTabActivity extends ListActivity {
     }
 
     private TrickyTripperApp getApp() {
-        return (TrickyTripperApp) getApplication();
+        return (TrickyTripperApp) getActivity().getApplication();
     }
 
     @Override
@@ -185,7 +199,7 @@ public class ParticipantTabActivity extends ListActivity {
         }
         case R.string.common_button_delete: {
             if (!app.getTripController().deleteParticipant(participant)) {
-                Toast.makeText(getApplicationContext(),
+                Toast.makeText(getActivity(),
                         getResources().getString(R.string.msg_delete_not_possible_inbalance),
                         Toast.LENGTH_SHORT)
                         .show();
@@ -216,8 +230,9 @@ public class ParticipantTabActivity extends ListActivity {
     }
 
     public void switchTabInActivity(Rt tabId) {
-        TrickyTripperActivity parent = (TrickyTripperActivity) this.getParent();
-        parent.switchTab(tabId);
+        // TrickyTripperActivity parent = (TrickyTripperActivity)
+        // this.getParent();
+        // parent.switchTab(tabId);
     }
 
     private void refillListFromModel(List<ParticipantRow> participantRows, TripController fktnController) {

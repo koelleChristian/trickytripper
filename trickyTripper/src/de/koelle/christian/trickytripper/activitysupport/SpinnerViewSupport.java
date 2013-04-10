@@ -9,6 +9,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import de.koelle.christian.trickytripper.R;
@@ -96,10 +97,10 @@ public class SpinnerViewSupport {
         return result;
     }
 
-    public static Spinner configureReportSelectionSpinner(Activity activity, Context context, int spinnerViewId,
+    public static Spinner configureReportSelectionSpinner(View view, Context context, int spinnerViewId,
             List<Participant> participants) {
 
-        Spinner spinner = (Spinner) activity.findViewById(spinnerViewId);
+        Spinner spinner = (Spinner) view.findViewById(spinnerViewId);
         ArrayAdapter<SpinnerObject> adapter = new ArrayAdapter<SpinnerObject>(
                 context,
                 android.R.layout.simple_spinner_item,

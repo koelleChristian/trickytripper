@@ -128,11 +128,12 @@ public class ExportActivity extends SherlockActivity {
         participantsInSpinner.add(null);
         participantsInSpinner.addAll(app.getTripController().getAllParticipants(false, true));
 
-        Spinner spinner = SpinnerViewSupport.configureReportSelectionSpinner(
-                this,
-                this,
-                R.id.reportViewBaseSpinner,
-                participantsInSpinner);
+        Spinner spinner = null;
+//        Spinner spinner = SpinnerViewSupport.configureReportSelectionSpinner(
+//                this,
+//                this,
+//                R.id.reportViewBaseSpinner,
+//                participantsInSpinner);
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 

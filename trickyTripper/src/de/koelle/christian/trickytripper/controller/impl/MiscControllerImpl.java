@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 import de.koelle.christian.common.options.OptionsSupport;
+import de.koelle.christian.common.support.DimensionSupport;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.common.utils.SystemUtil;
@@ -31,6 +32,7 @@ public class MiscControllerImpl implements MiscController {
     private final DecimalNumberInputUtil decimalNumberInputUtil;
     private final DataManager dataManager;
     private final OptionsSupport optionSupport;
+    private final DimensionSupport dimensionSupport;
     private List<String> allAssetsList = null;
     private final Context context;
     private final PrefsResolver prefsResolver;
@@ -55,6 +57,7 @@ public class MiscControllerImpl implements MiscController {
                 R.id.option_import,
                 R.id.option_preferences
         });
+        this.dimensionSupport = new DimensionSupport(context);
     }
 
     private Locale getLocale(Context context) {
@@ -74,8 +77,7 @@ public class MiscControllerImpl implements MiscController {
             AssetManager am = context.getAssets();
             try {
                 allAssetsList = Arrays.asList(am.list(""));
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
             }
         }
         return allAssetsList.contains(assetName) ? true : false;
@@ -141,6 +143,10 @@ public class MiscControllerImpl implements MiscController {
 
     public DecimalNumberInputUtil getDecimalNumberInputUtil() {
         return decimalNumberInputUtil;
+    }
+
+    public DimensionSupport getDimensionSupport() {
+        return dimensionSupport;
     }
 
 }
