@@ -238,8 +238,8 @@
     <string name="edit_participant_view_label_name">Name:</string>
     <string name="edit_participant_view_heading_create">Add traveler to trip</string>
     <string name="edit_participant_view_heading_edit">Edit traveler</string>
-    <string name="edit_participant_view_positive_button_create">Create &amp; Close</string>
-    <string name="edit_participant_view_positive_button_create_another">Create &amp; Create another one</string>
+    <string name="edit_participant_view_positive_button_create">Add &amp; Close</string>
+    <string name="edit_participant_view_positive_button_create_another">Add &amp; Add another one</string>
     <string name="edit_participant_view_positive_button_edit">Save</string>
     <string name="edit_participant_view_msg_denial">A participant with the name entered already exists in this trip. Please modify your input.</string>
     <string name="edit_participant_view_label_already_created">Already added:</string>

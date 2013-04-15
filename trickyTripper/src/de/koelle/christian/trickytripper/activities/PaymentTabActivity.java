@@ -18,9 +18,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
+import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.model.modelAdapter.PaymentRowListAdapter;
@@ -30,48 +34,45 @@ public class PaymentTabActivity extends SherlockListFragment {
     private final List<Payment> paymentRows = new ArrayList<Payment>();
     private ArrayAdapter<Payment> adapter;
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        sortAndUpdateView();
-//    }
+    // @Override
+    // protected void onResume() {
+    // super.onResume();
+    // sortAndUpdateView();
+    // }
 
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//        menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
-//        return super.onPrepareOptionsMenu(menu);
-//    }
+    @Override
+    public void onPrepareOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+        menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
+    }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-//                new OptionContraints().activity(this).menu(menu)
-//                        .options(new int[] {
-//                                R.id.option_help,
-//                                R.id.option_preferences,
-//                                R.id.option_export
-//                        }));
-//    }
-    
-    
+    @Override
+    public void onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu, MenuInflater inflater) {
+        getApp().getMiscController().getOptionSupport().populateOptionsMenu(
+                new OptionContraintsAbs().activity(inflater).menu(menu)
+                        .options(new int[] {
+                                R.id.option_help,
+                                R.id.option_preferences,
+                                R.id.option_export
+                        }));
+    }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//        case R.id.option_help:
-//            getParent().showDialog(Rd.DIALOG_HELP);
-//            return true;
-//        case R.id.option_export:
-//            getApp().getViewController().openExport();
-//            return true;
-//        case R.id.option_preferences:
-//            getApp().getViewController().openSettings();
-//            return true;
-//        default:
-//            return super.onOptionsItemSelected(item);
-//        }
-//    }
-    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.option_help:
+            getActivity().showDialog(Rd.DIALOG_HELP);
+            return true;
+        case R.id.option_export:
+            getApp().getViewController().openExport();
+            return true;
+        case R.id.option_preferences:
+            getApp().getViewController().openSettings();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -79,16 +80,18 @@ public class PaymentTabActivity extends SherlockListFragment {
         TextView textView = (TextView) view.findViewById(android.R.id.empty);
         ListView listView = (ListView) view.findViewById(android.R.id.list);
 
+        setHasOptionsMenu(true);
+
         adapter = new PaymentRowListAdapter(getActivity(), R.layout.payment_tab_row_view, paymentRows, getApp()
                 .getTripController()
                 .getAmountFactory(), getApp().getMiscController().getDefaultStringCollator());
 
         setListAdapter(adapter);
-        
+
         listView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Payment row = (Payment) getListView().getItemAtPosition(position);
-                if(!isMoneyTransfer(row)){            
+                if (!isMoneyTransfer(row)) {
                     startEditPaymentActivity(row);
                 }
             }
@@ -101,7 +104,6 @@ public class PaymentTabActivity extends SherlockListFragment {
 
         return view;
     }
-
 
     public void sortAndUpdateView() {
         paymentRows.clear();
@@ -146,34 +148,35 @@ public class PaymentTabActivity extends SherlockListFragment {
         return PaymentCategory.MONEY_TRANSFER.equals(row.getCategory());
     }
 
-//    @Override
-//    public boolean onContextItemSelected(MenuItem item) {
-//        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-//        final Payment row = adapter.getItem(info.position);
-//        switch (item.getItemId()) {
-//        case R.string.fktn_payment_list_edit_payment: {
-//            startEditPaymentActivity(row);
-//            return true;
-//        }
-//        case R.string.fktn_payment_list_delete_payment: {
-//            getParent().showDialog(Rd.DIALOG_DELETE_PAYMENT,
-//                    TabDialogSupport.createBundleWithPaymentSelected(row));
-//            return true;
-//        }
-//        case R.string.fktn_payment_list_edit_transfer: {
-//            startEditPaymentActivity(row);
-//            return true;
-//        }
-//        case R.string.fktn_payment_list_delete_transfer: {
-//            getParent().showDialog(Rd.DIALOG_DELETE_TRANSFER,
-//                    TabDialogSupport.createBundleWithPaymentSelected(row));
-//            return true;
-//        }
-//        default:
-//            break;
-//        }
-//        return false;
-//    }
+    // @Override
+    // public boolean onContextItemSelected(MenuItem item) {
+    // AdapterView.AdapterContextMenuInfo info =
+    // (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+    // final Payment row = adapter.getItem(info.position);
+    // switch (item.getItemId()) {
+    // case R.string.fktn_payment_list_edit_payment: {
+    // startEditPaymentActivity(row);
+    // return true;
+    // }
+    // case R.string.fktn_payment_list_delete_payment: {
+    // getParent().showDialog(Rd.DIALOG_DELETE_PAYMENT,
+    // TabDialogSupport.createBundleWithPaymentSelected(row));
+    // return true;
+    // }
+    // case R.string.fktn_payment_list_edit_transfer: {
+    // startEditPaymentActivity(row);
+    // return true;
+    // }
+    // case R.string.fktn_payment_list_delete_transfer: {
+    // getParent().showDialog(Rd.DIALOG_DELETE_TRANSFER,
+    // TabDialogSupport.createBundleWithPaymentSelected(row));
+    // return true;
+    // }
+    // default:
+    // break;
+    // }
+    // return false;
+    // }
 
     private void startEditPaymentActivity(final Payment row) {
         getApp().getViewController().openEditPayment(row);

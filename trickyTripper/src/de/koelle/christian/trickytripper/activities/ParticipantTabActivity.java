@@ -20,9 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.view.MenuInflater;
 
+import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.constants.Rt;
 import de.koelle.christian.trickytripper.controller.TripController;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -54,6 +57,8 @@ public class ParticipantTabActivity extends SherlockListFragment {
         TextView textView = (TextView) view.findViewById(android.R.id.empty);
         ListView listView = (ListView) view.findViewById(android.R.id.list);
 
+        setHasOptionsMenu(true);
+
         adapter = new ParticipantRowListAdapter(getActivity(), R.layout.participant_tab_row_view, participantRows);
         setListAdapter(adapter);
 
@@ -73,44 +78,42 @@ public class ParticipantTabActivity extends SherlockListFragment {
         return view;
     }
 
-    // @Override
-    // public boolean onPrepareOptionsMenu(Menu menu) {
-    // menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
-    // return super.onPrepareOptionsMenu(menu);
-    // }
-    //
-    // @Override
-    // public boolean onCreateOptionsMenu(Menu menu) {
-    // return
-    // getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-    // new OptionContraints().activity(this).menu(menu)
-    // .options(new int[] {
-    // R.id.option_create_participant,
-    // R.id.option_help,
-    // R.id.option_export,
-    // R.id.option_preferences
-    // }));
-    // }
+    @Override
+    public void onPrepareOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+        menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
+    }
 
-    // @Override
-    // public boolean onOptionsItemSelected(MenuItem item) {
-    // switch (item.getItemId()) {
-    // case R.id.option_create_participant:
-    // getApp().getViewController().openCreateParticipant();
-    // return true;
-    // case R.id.option_help:
-    // getParent().showDialog(Rd.DIALOG_HELP);
-    // return true;
-    // case R.id.option_export:
-    // getApp().getViewController().openExport();
-    // return true;
-    // case R.id.option_preferences:
-    // getApp().getViewController().openSettings();
-    // return true;
-    // default:
-    // return super.onOptionsItemSelected(item);
-    // }
-    // }
+    @Override
+    public void onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu, MenuInflater inflater) {
+        getApp().getMiscController().getOptionSupport().populateOptionsMenu(
+                new OptionContraintsAbs().activity(inflater).menu(menu)
+                        .options(new int[] {
+                                R.id.option_create_participant,
+                                R.id.option_help,
+                                R.id.option_export,
+                                R.id.option_preferences
+                        }));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.option_create_participant:
+            getApp().getViewController().openCreateParticipant();
+            return true;
+        case R.id.option_help:
+            getActivity().showDialog(Rd.DIALOG_HELP);
+            return true;
+        case R.id.option_export:
+            getApp().getViewController().openExport();
+            return true;
+        case R.id.option_preferences:
+            getApp().getViewController().openSettings();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
 
     public void updateRows() {
         participantRows.clear();

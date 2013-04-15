@@ -1,0 +1,220 @@
+android.support.v4.app.BackStackState
+android.support.v4.app.BackStackState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.Fragment: Fragment()
+android.support.v4.app.Fragment$SavedState
+android.support.v4.app.Fragment$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentActivity
+android.support.v4.app.FragmentActivity: FragmentActivity()
+android.support.v4.app.FragmentManagerState
+android.support.v4.app.FragmentManagerState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentState
+android.support.v4.app.FragmentState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.ListFragment: ListFragment()
+android.support.v4.app.Watson
+android.support.v4.app.Watson: Watson()
+android.support.v4.content.ModernAsyncTask$3: void done()
+android.support.v4.content.ModernAsyncTask$Status: android.support.v4.content.ModernAsyncTask$Status[] values()
+android.support.v4.content.ModernAsyncTask$Status: android.support.v4.content.ModernAsyncTask$Status valueOf(java.lang.String)
+android.support.v4.view.PagerTitleStrip
+android.support.v4.view.PagerTitleStrip: PagerTitleStrip(android.content.Context,android.util.AttributeSet)
+android.support.v4.view.ViewPager
+android.support.v4.view.ViewPager: ViewPager(android.content.Context,android.util.AttributeSet)
+android.support.v4.view.ViewPager$LayoutParams
+android.support.v4.view.ViewPager$LayoutParams: ViewPager$LayoutParams(android.content.Context,android.util.AttributeSet)
+android.support.v4.view.ViewPager$SavedState
+android.support.v4.view.ViewPager$SavedState: android.os.Parcelable$Creator CREATOR
+com.actionbarsherlock.app.ActionBar$LayoutParams
+com.actionbarsherlock.app.ActionBar$LayoutParams: ActionBar$LayoutParams(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.app.ActionBar$Tab: void select()
+com.actionbarsherlock.app.SherlockActivity
+com.actionbarsherlock.app.SherlockActivity: SherlockActivity()
+com.actionbarsherlock.app.SherlockActivity: void setContentView(android.view.View)
+com.actionbarsherlock.app.SherlockExpandableListActivity
+com.actionbarsherlock.app.SherlockExpandableListActivity: void setContentView(android.view.View)
+com.actionbarsherlock.app.SherlockFragment: SherlockFragment()
+com.actionbarsherlock.app.SherlockFragmentActivity
+com.actionbarsherlock.app.SherlockFragmentActivity: SherlockFragmentActivity()
+com.actionbarsherlock.app.SherlockFragmentActivity: void setContentView(android.view.View)
+com.actionbarsherlock.app.SherlockListActivity
+com.actionbarsherlock.app.SherlockListActivity: SherlockListActivity()
+com.actionbarsherlock.app.SherlockListActivity: void setContentView(android.view.View)
+com.actionbarsherlock.app.SherlockListFragment: SherlockListFragment()
+com.actionbarsherlock.app.SherlockPreferenceActivity
+com.actionbarsherlock.app.SherlockPreferenceActivity: SherlockPreferenceActivity()
+com.actionbarsherlock.app.SherlockPreferenceActivity: void setContentView(android.view.View)
+com.actionbarsherlock.internal.app.ActionBarImpl$TabImpl: void select()
+com.actionbarsherlock.internal.app.ActionBarWrapper$TabWrapper: void select()
+com.actionbarsherlock.internal.nineoldandroids.view.NineViewGroup
+com.actionbarsherlock.internal.nineoldandroids.view.NineViewGroup: NineViewGroup(android.content.Context)
+com.actionbarsherlock.internal.nineoldandroids.view.NineViewGroup: NineViewGroup(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.nineoldandroids.view.NineViewGroup: NineViewGroup(android.content.Context,android.util.AttributeSet,int)
+com.actionbarsherlock.internal.nineoldandroids.widget.NineFrameLayout
+com.actionbarsherlock.internal.nineoldandroids.widget.NineFrameLayout: NineFrameLayout(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.nineoldandroids.widget.NineLinearLayout
+com.actionbarsherlock.internal.nineoldandroids.widget.NineLinearLayout: NineLinearLayout(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.view.menu.ActionMenuItemView
+com.actionbarsherlock.internal.view.menu.ActionMenuItemView: ActionMenuItemView(android.content.Context)
+com.actionbarsherlock.internal.view.menu.ActionMenuItemView: ActionMenuItemView(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.view.menu.ActionMenuItemView: ActionMenuItemView(android.content.Context,android.util.AttributeSet,int)
+com.actionbarsherlock.internal.view.menu.ActionMenuPresenter$SavedState
+com.actionbarsherlock.internal.view.menu.ActionMenuPresenter$SavedState: android.os.Parcelable$Creator CREATOR
+com.actionbarsherlock.internal.view.menu.ActionMenuView
+com.actionbarsherlock.internal.view.menu.ActionMenuView: ActionMenuView(android.content.Context)
+com.actionbarsherlock.internal.view.menu.ActionMenuView: ActionMenuView(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.view.menu.ActionMenuView$LayoutParams
+com.actionbarsherlock.internal.view.menu.ActionMenuView$LayoutParams: ActionMenuView$LayoutParams(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.view.menu.ListMenuItemView
+com.actionbarsherlock.internal.view.menu.ListMenuItemView: ListMenuItemView(android.content.Context,android.util.AttributeSet,int)
+com.actionbarsherlock.internal.view.menu.ListMenuItemView: ListMenuItemView(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.AbsActionBarView
+com.actionbarsherlock.internal.widget.AbsActionBarView: AbsActionBarView(android.content.Context)
+com.actionbarsherlock.internal.widget.AbsActionBarView: AbsActionBarView(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.AbsActionBarView: AbsActionBarView(android.content.Context,android.util.AttributeSet,int)
+com.actionbarsherlock.internal.widget.ActionBarContainer
+com.actionbarsherlock.internal.widget.ActionBarContainer: ActionBarContainer(android.content.Context)
+com.actionbarsherlock.internal.widget.ActionBarContainer: ActionBarContainer(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.ActionBarContextView
+com.actionbarsherlock.internal.widget.ActionBarContextView: ActionBarContextView(android.content.Context)
+com.actionbarsherlock.internal.widget.ActionBarContextView: ActionBarContextView(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.ActionBarContextView: ActionBarContextView(android.content.Context,android.util.AttributeSet,int)
+com.actionbarsherlock.internal.widget.ActionBarView
+com.actionbarsherlock.internal.widget.ActionBarView: ActionBarView(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.ActionBarView$HomeView
+com.actionbarsherlock.internal.widget.ActionBarView$HomeView: ActionBarView$HomeView(android.content.Context)
+com.actionbarsherlock.internal.widget.ActionBarView$HomeView: ActionBarView$HomeView(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.ActionBarView$SavedState
+com.actionbarsherlock.internal.widget.ActionBarView$SavedState: android.os.Parcelable$Creator CREATOR
+com.actionbarsherlock.internal.widget.CapitalizingButton
+com.actionbarsherlock.internal.widget.CapitalizingButton: CapitalizingButton(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.CapitalizingTextView
+com.actionbarsherlock.internal.widget.CapitalizingTextView: CapitalizingTextView(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.CapitalizingTextView: CapitalizingTextView(android.content.Context,android.util.AttributeSet,int)
+com.actionbarsherlock.internal.widget.FakeDialogPhoneWindow
+com.actionbarsherlock.internal.widget.FakeDialogPhoneWindow: FakeDialogPhoneWindow(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.IcsAbsSpinner
+com.actionbarsherlock.internal.widget.IcsAbsSpinner: IcsAbsSpinner(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.IcsAbsSpinner: IcsAbsSpinner(android.content.Context,android.util.AttributeSet,int)
+com.actionbarsherlock.internal.widget.IcsAbsSpinner$SavedState
+com.actionbarsherlock.internal.widget.IcsAbsSpinner$SavedState: android.os.Parcelable$Creator CREATOR
+com.actionbarsherlock.internal.widget.IcsAdapterView
+com.actionbarsherlock.internal.widget.IcsAdapterView: IcsAdapterView(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.IcsAdapterView: IcsAdapterView(android.content.Context,android.util.AttributeSet,int)
+com.actionbarsherlock.internal.widget.IcsLinearLayout
+com.actionbarsherlock.internal.widget.IcsLinearLayout: IcsLinearLayout(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.IcsListPopupWindow
+com.actionbarsherlock.internal.widget.IcsListPopupWindow: IcsListPopupWindow(android.content.Context,android.util.AttributeSet,int)
+com.actionbarsherlock.internal.widget.IcsProgressBar
+com.actionbarsherlock.internal.widget.IcsProgressBar: IcsProgressBar(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.IcsProgressBar: IcsProgressBar(android.content.Context,android.util.AttributeSet,int)
+com.actionbarsherlock.internal.widget.IcsProgressBar$SavedState
+com.actionbarsherlock.internal.widget.IcsProgressBar$SavedState: android.os.Parcelable$Creator CREATOR
+com.actionbarsherlock.internal.widget.IcsSpinner
+com.actionbarsherlock.internal.widget.IcsSpinner: IcsSpinner(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.IcsSpinner: IcsSpinner(android.content.Context,android.util.AttributeSet,int)
+com.actionbarsherlock.internal.widget.ScrollingTabContainerView$TabView
+com.actionbarsherlock.internal.widget.ScrollingTabContainerView$TabView: ScrollingTabContainerView$TabView(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.widget.ActivityChooserView
+com.actionbarsherlock.widget.ActivityChooserView: ActivityChooserView(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.widget.ActivityChooserView: ActivityChooserView(android.content.Context,android.util.AttributeSet,int)
+com.actionbarsherlock.widget.SearchView
+com.actionbarsherlock.widget.SearchView: SearchView(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.widget.SearchView$SearchAutoComplete
+com.actionbarsherlock.widget.SearchView$SearchAutoComplete: SearchView$SearchAutoComplete(android.content.Context)
+com.actionbarsherlock.widget.SearchView$SearchAutoComplete: SearchView$SearchAutoComplete(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.widget.SearchView$SearchAutoComplete: SearchView$SearchAutoComplete(android.content.Context,android.util.AttributeSet,int)
+de.koelle.christian.common.changelog.ChangeLog$Listmode: de.koelle.christian.common.changelog.ChangeLog$Listmode[] values()
+de.koelle.christian.common.changelog.ChangeLog$Listmode: de.koelle.christian.common.changelog.ChangeLog$Listmode valueOf(java.lang.String)
+de.koelle.christian.trickytripper.TrickyTripperActivity
+de.koelle.christian.trickytripper.TrickyTripperActivity: TrickyTripperActivity()
+de.koelle.christian.trickytripper.TrickyTripperActivity: void openManageTrips(android.view.View)
+de.koelle.christian.trickytripper.TrickyTripperApp
+de.koelle.christian.trickytripper.TrickyTripperApp: TrickyTripperApp()
+de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity
+de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity: CurrencyCalculatorActivity()
+de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity: void openCurrencySelection(android.view.View)
+de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity: void done(android.view.View)
+de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity$UpdateExclusion: de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity$UpdateExclusion[] values()
+de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity$UpdateExclusion: de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity$UpdateExclusion valueOf(java.lang.String)
+de.koelle.christian.trickytripper.activities.CurrencySelectionActivity
+de.koelle.christian.trickytripper.activities.CurrencySelectionActivity: CurrencySelectionActivity()
+de.koelle.christian.trickytripper.activities.CurrencySelectionActivity$CurrencySelectionMode: de.koelle.christian.trickytripper.activities.CurrencySelectionActivity$CurrencySelectionMode[] values()
+de.koelle.christian.trickytripper.activities.CurrencySelectionActivity$CurrencySelectionMode: de.koelle.christian.trickytripper.activities.CurrencySelectionActivity$CurrencySelectionMode valueOf(java.lang.String)
+de.koelle.christian.trickytripper.activities.DeleteExchangeRatesActivity
+de.koelle.christian.trickytripper.activities.DeleteExchangeRatesActivity: DeleteExchangeRatesActivity()
+de.koelle.christian.trickytripper.activities.DeleteExchangeRatesActivity: void deleteExchangeRates(android.view.View)
+de.koelle.christian.trickytripper.activities.DeleteExchangeRatesActivity: void select(android.view.View)
+de.koelle.christian.trickytripper.activities.DirectoryPickerActivity
+de.koelle.christian.trickytripper.activities.DirectoryPickerActivity: DirectoryPickerActivity()
+de.koelle.christian.trickytripper.activities.EditExchangeRateActivity
+de.koelle.christian.trickytripper.activities.EditExchangeRateActivity: EditExchangeRateActivity()
+de.koelle.christian.trickytripper.activities.EditExchangeRateActivity: void openCurrencySelectionLeft(android.view.View)
+de.koelle.christian.trickytripper.activities.EditExchangeRateActivity: void openCurrencySelectionRight(android.view.View)
+de.koelle.christian.trickytripper.activities.EditExchangeRateActivity: void done(android.view.View)
+de.koelle.christian.trickytripper.activities.ExportActivity
+de.koelle.christian.trickytripper.activities.ExportActivity: ExportActivity()
+de.koelle.christian.trickytripper.activities.ExportActivity: void doExport(android.view.View)
+de.koelle.christian.trickytripper.activities.ImportExchangeRatesActivity
+de.koelle.christian.trickytripper.activities.ImportExchangeRatesActivity: ImportExchangeRatesActivity()
+de.koelle.christian.trickytripper.activities.ImportExchangeRatesActivity: void importExchangeRates(android.view.View)
+de.koelle.christian.trickytripper.activities.ManageExchangeRatesActivity
+de.koelle.christian.trickytripper.activities.ManageExchangeRatesActivity: ManageExchangeRatesActivity()
+de.koelle.christian.trickytripper.activities.ManageTripsActivity
+de.koelle.christian.trickytripper.activities.ManageTripsActivity: ManageTripsActivity()
+de.koelle.christian.trickytripper.activities.ManageTripsActivity$ButtonClickMode: de.koelle.christian.trickytripper.activities.ManageTripsActivity$ButtonClickMode[] values()
+de.koelle.christian.trickytripper.activities.ManageTripsActivity$ButtonClickMode: de.koelle.christian.trickytripper.activities.ManageTripsActivity$ButtonClickMode valueOf(java.lang.String)
+de.koelle.christian.trickytripper.activities.MoneyTransferActivity
+de.koelle.christian.trickytripper.activities.MoneyTransferActivity: MoneyTransferActivity()
+de.koelle.christian.trickytripper.activities.MoneyTransferActivity: void notPartOfThisRelease(android.view.View)
+de.koelle.christian.trickytripper.activities.MoneyTransferActivity: void transfer(android.view.View)
+de.koelle.christian.trickytripper.activities.ParticipantEditActivity
+de.koelle.christian.trickytripper.activities.ParticipantEditActivity: ParticipantEditActivity()
+de.koelle.christian.trickytripper.activities.ParticipantEditActivity: void createAndCreateAnother(android.view.View)
+de.koelle.christian.trickytripper.activities.ParticipantEditActivity: void saveAndClose(android.view.View)
+de.koelle.christian.trickytripper.activities.ParticipantTabActivity
+de.koelle.christian.trickytripper.activities.ParticipantTabActivity: ParticipantTabActivity()
+de.koelle.christian.trickytripper.activities.PaymentEditActivity
+de.koelle.christian.trickytripper.activities.PaymentEditActivity: PaymentEditActivity()
+de.koelle.christian.trickytripper.activities.PaymentEditActivity: void notPartOfThisRelease(android.view.View)
+de.koelle.christian.trickytripper.activities.PaymentEditActivity: void saveEdit(android.view.View)
+de.koelle.christian.trickytripper.activities.PaymentEditActivity: void divideRest(android.view.View)
+de.koelle.christian.trickytripper.activities.PaymentTabActivity
+de.koelle.christian.trickytripper.activities.PaymentTabActivity: PaymentTabActivity()
+de.koelle.christian.trickytripper.activities.PreferencesActivity
+de.koelle.christian.trickytripper.activities.PreferencesActivity: PreferencesActivity()
+de.koelle.christian.trickytripper.activities.ReportTabActivity
+de.koelle.christian.trickytripper.activities.ReportTabActivity: ReportTabActivity()
+de.koelle.christian.trickytripper.activities.SaveToSdCardActivity
+de.koelle.christian.trickytripper.activities.SaveToSdCardActivity: SaveToSdCardActivity()
+de.koelle.christian.trickytripper.activitysupport.PopupCallBackAdapter: void done()
+de.koelle.christian.trickytripper.activitysupport.PopupCallback: void done()
+de.koelle.christian.trickytripper.constants.Rt: de.koelle.christian.trickytripper.constants.Rt[] values()
+de.koelle.christian.trickytripper.constants.Rt: de.koelle.christian.trickytripper.constants.Rt valueOf(java.lang.String)
+de.koelle.christian.trickytripper.constants.ViewMode: de.koelle.christian.trickytripper.constants.ViewMode[] values()
+de.koelle.christian.trickytripper.constants.ViewMode: de.koelle.christian.trickytripper.constants.ViewMode valueOf(java.lang.String)
+de.koelle.christian.trickytripper.controller.ExchangeRateController: boolean deleteExchangeRates(java.util.List)
+de.koelle.christian.trickytripper.controller.ViewController: void openManageTrips()
+de.koelle.christian.trickytripper.controller.impl.ExchangeRateControllerImpl: boolean deleteExchangeRates(java.util.List)
+de.koelle.christian.trickytripper.controller.impl.ViewControllerImpl: void openManageTrips()
+de.koelle.christian.trickytripper.controller.impl.ViewControllerImpl: void openCurrencySelection(android.app.Activity,java.util.Currency,int,de.koelle.christian.trickytripper.activities.CurrencySelectionActivity$CurrencySelectionMode)
+de.koelle.christian.trickytripper.dataaccess.DataManager: boolean deleteExchangeRates(java.util.List)
+de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl: boolean deleteExchangeRates(java.util.List)
+de.koelle.christian.trickytripper.exchangerates.ExchangeRateImporter: void importExchangeRates(java.util.Set,de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback)
+de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl: void importExchangeRates(java.util.Set,de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback)
+de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback$ExchangeRateImporterResultState: de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback$ExchangeRateImporterResultState[] values()
+de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback$ExchangeRateImporterResultState: de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback$ExchangeRateImporterResultState valueOf(java.lang.String)
+de.koelle.christian.trickytripper.export.impl.StyleClass: de.koelle.christian.trickytripper.export.impl.StyleClass[] values()
+de.koelle.christian.trickytripper.export.impl.StyleClass: de.koelle.christian.trickytripper.export.impl.StyleClass valueOf(java.lang.String)
+de.koelle.christian.trickytripper.model.ExchangeRateSelection: de.koelle.christian.trickytripper.model.ExchangeRateSelection[] values()
+de.koelle.christian.trickytripper.model.ExchangeRateSelection: de.koelle.christian.trickytripper.model.ExchangeRateSelection valueOf(java.lang.String)
+de.koelle.christian.trickytripper.model.ExportSettings$ExportOutputChannel: de.koelle.christian.trickytripper.model.ExportSettings$ExportOutputChannel[] values()
+de.koelle.christian.trickytripper.model.ExportSettings$ExportOutputChannel: de.koelle.christian.trickytripper.model.ExportSettings$ExportOutputChannel valueOf(java.lang.String)
+de.koelle.christian.trickytripper.model.ImportOrigin: de.koelle.christian.trickytripper.model.ImportOrigin[] values()
+de.koelle.christian.trickytripper.model.ImportOrigin: de.koelle.christian.trickytripper.model.ImportOrigin valueOf(java.lang.String)
+de.koelle.christian.trickytripper.model.PaymentCategory: de.koelle.christian.trickytripper.model.PaymentCategory[] values()
+de.koelle.christian.trickytripper.model.PaymentCategory: de.koelle.christian.trickytripper.model.PaymentCategory valueOf(java.lang.String)
+de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter$DisplayMode: de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter$DisplayMode[] values()
+de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter$DisplayMode: de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter$DisplayMode valueOf(java.lang.String)
+de.koelle.christian.trickytripper.provider.TrickyTripperFileProvider
+de.koelle.christian.trickytripper.provider.TrickyTripperFileProvider: TrickyTripperFileProvider()
+de.koelle.christian.trickytripper.ui.view.CheckableLinearLayout
+de.koelle.christian.trickytripper.ui.view.CheckableLinearLayout: CheckableLinearLayout(android.content.Context,android.util.AttributeSet)

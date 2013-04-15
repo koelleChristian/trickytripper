@@ -14,18 +14,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
+import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
+import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Debts;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -48,42 +52,42 @@ public class ReportTabActivity extends SherlockFragment{
 //        super.onStart();
 //    }
 
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//        menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
-//        return super.onPrepareOptionsMenu(menu);
-//    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
+    }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-//                new OptionContraints().activity(this).menu(menu)
-//                        .options(new int[] {
-//                                R.id.option_help,
-//                                R.id.option_preferences,
-//                                R.id.option_export
-//                        }));
-//    }
+    
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        getApp().getMiscController().getOptionSupport().populateOptionsMenu(
+                new OptionContraintsAbs().activity(inflater).menu(menu)
+                .options(new int[] {
+                        R.id.option_help,
+                        R.id.option_preferences,
+                        R.id.option_export
+                }));
+    }
+    
+   
+    
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//        case R.id.option_help:
-//            getParent().showDialog(Rd.DIALOG_HELP);
-//            return true;
-//        case R.id.option_export:
-//            getApp().getViewController().openExport();
-//            return true;
-//        case R.id.option_preferences:
-//            getApp().getViewController().openSettings();
-//            return true;
-//        case android.R.id.home:
-//            onBackPressed();
-//            return true;               
-//        default:
-//            return super.onOptionsItemSelected(item);
-//        }
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.option_help:
+            getActivity().showDialog(Rd.DIALOG_HELP);
+            return true;
+        case R.id.option_export:
+            getApp().getViewController().openExport();
+            return true;
+        case R.id.option_preferences:
+            getApp().getViewController().openSettings();
+            return true;              
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
     
     
 
@@ -102,6 +106,9 @@ public class ReportTabActivity extends SherlockFragment{
 //    }
     
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        
+        setHasOptionsMenu(true);
+        
         View view = inflater.inflate(R.layout.report_tab_view, container, false);
         createPanel(view);
         return view;
