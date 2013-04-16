@@ -4,7 +4,7 @@ package de.koelle.christian.trickytripper.constants;
  * Identifiers for dialogs and dialog parameters.
  */
 public class Rd {
-    public static final int DIALOG_HELP = 3;
+//    public static final int DIALOG_HELP = 3;
     public static final int DIALOG_DELETE_PAYMENT = 4;
     public static final int DIALOG_DELETE_TRANSFER = 5;
     public static final int DIALOG_DELETE = 6;

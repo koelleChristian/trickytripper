@@ -3,7 +3,6 @@ package de.koelle.christian.trickytripper.activities;
 import java.util.Currency;
 import java.util.Locale;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,8 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
@@ -28,15 +26,13 @@ import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.CurrencySelectionResultSupport;
-import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.constants.Rc;
-import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.constants.ViewMode;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ImportOrigin;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
-public class EditExchangeRateActivity extends SherlockActivity {
+public class EditExchangeRateActivity extends SherlockFragmentActivity {
 
     private ExchangeRate exchangeRate;
     private Double exchangeRateValueInverted;
@@ -233,7 +229,7 @@ public class EditExchangeRateActivity extends SherlockActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            showDialog(Rd.DIALOG_HELP);
+            getApp().getViewController().openHelp(getSupportFragmentManager());
             return true;
         case android.R.id.home:
             onBackPressed();
@@ -244,35 +240,7 @@ public class EditExchangeRateActivity extends SherlockActivity {
     }
 
     /* ============== Menu Shit [END] ============== */
-    /* ============== Dialog Shit [END] ============== */
-    @Override
-    protected Dialog onCreateDialog(int id, Bundle args) {
-        Dialog dialog;
-        switch (id) {
-        case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp()
-                    .getMiscController(), Rd.DIALOG_HELP);
-            break;
-        default:
-            dialog = null;
-        }
 
-        return dialog;
-    }
-
-    @Override
-    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
-        switch (id) {
-        case Rd.DIALOG_HELP:
-            // intentionally blank
-            break;
-        default:
-            dialog = null;
-        }
-        super.onPrepareDialog(id, dialog, args);
-    }
-
-    /* ============== Dialog Shit [END] ============== */
     protected void recalculateAndUpdateOtherSide(boolean leftToRight) {
         if (leftToRight) {
             exchangeRateValueInverted = NumberUtils
@@ -331,7 +299,6 @@ public class EditExchangeRateActivity extends SherlockActivity {
 
     /* ============ btn actions ==================== */
 
-    @SuppressWarnings("unused")
     public void openCurrencySelectionLeft(View view) {
         View button = getCurrencySelectionButtonLeft();
         getApp().getViewController()
@@ -339,7 +306,6 @@ public class EditExchangeRateActivity extends SherlockActivity {
                         exchangeRate.getCurrencyTo(), button.getId(), true);
     }
 
-    @SuppressWarnings("unused")
     public void openCurrencySelectionRight(View view) {
         View button = getCurrencySelectionButtonRight();
         getApp().getViewController()

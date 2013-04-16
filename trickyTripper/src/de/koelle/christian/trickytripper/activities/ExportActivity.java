@@ -3,8 +3,6 @@ package de.koelle.christian.trickytripper.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Dialog;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,11 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
@@ -28,16 +25,14 @@ import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
-import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 
-public class ExportActivity extends SherlockActivity {
+public class ExportActivity extends SherlockFragmentActivity {
 
     private List<Participant> participantsInSpinner;
     private Participant participantSelected;
@@ -66,7 +61,7 @@ public class ExportActivity extends SherlockActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            showDialog(Rd.DIALOG_HELP);
+            getApp().getViewController().openHelp(getSupportFragmentManager());
             return true;
         case android.R.id.home:
             onBackPressed();
@@ -76,35 +71,12 @@ public class ExportActivity extends SherlockActivity {
         }
     }
 
-    @Override
-    protected Dialog onCreateDialog(int id, Bundle args) {
-        Dialog dialog;
-        switch (id) {
-        case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
-            break;
-        default:
-            dialog = null;
-        }
-
-        return dialog;
-    }
+ 
 
     private TrickyTripperApp getApp() {
         return (TrickyTripperApp) getApplication();
     }
 
-    @Override
-    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
-        switch (id) {
-        case Rd.DIALOG_HELP:
-            // intentionally blank
-            break;
-        default:
-            dialog = null;
-        }
-        super.onPrepareDialog(id, dialog, args);
-    }
 
     private void initPanel() {
         final TrickyTripperApp app = getApp();

@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.Currency;
 import java.util.List;
 
-import android.R.anim;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -25,7 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
@@ -36,7 +35,6 @@ import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.ButtonSupport;
 import de.koelle.christian.trickytripper.activitysupport.CurrencyViewSupport;
-import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.controller.TripController;
@@ -44,7 +42,7 @@ import de.koelle.christian.trickytripper.model.TripSummary;
 import de.koelle.christian.trickytripper.model.modelAdapter.TripSummarySymbolResolvingDelegator;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 
-public class ManageTripsActivity extends SherlockActivity {
+public class ManageTripsActivity extends SherlockFragmentActivity {
 
     private enum ButtonClickMode {
         SAVE,
@@ -104,7 +102,7 @@ public class ManageTripsActivity extends SherlockActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            showDialog(Rd.DIALOG_HELP);
+            getApp().getViewController().openHelp(getSupportFragmentManager());
             return true;
         case R.id.option_create_trip  :
             createNewTrip();
@@ -145,10 +143,7 @@ public class ManageTripsActivity extends SherlockActivity {
         case Rd.DIALOG_DELETE:
             dialog = createDeletePopup();
             break;
-        case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp()
-                    .getMiscController(), Rd.DIALOG_HELP);
-            break;
+
         default:
             dialog = null;
         }
@@ -166,9 +161,6 @@ public class ManageTripsActivity extends SherlockActivity {
             break;
         case Rd.DIALOG_DELETE:
             updateDeleteDialog(dialog, args);
-            break;
-        case Rd.DIALOG_HELP:
-            // intentionally blank
             break;
         default:
             dialog = null;

@@ -3,6 +3,7 @@ package de.koelle.christian.trickytripper.controller;
 import java.util.Currency;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentManager;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -21,8 +22,8 @@ public interface ViewController {
     void openEditExchangeRate(Activity caller, ExchangeRate exchangeRate);
 
     void openCreateExchangeRate(Activity caller);
-    
-    void openCreateExchangeRate(Activity caller,  Currency fromCurrency);
+
+    void openCreateExchangeRate(Activity caller, Currency fromCurrency);
 
     void openMoneyCalculatorView(Amount amount, int viewIdForResult, Activity caller);
 
@@ -32,7 +33,7 @@ public interface ViewController {
     void openCurrencySelectionForCalculation(Activity caller, Currency targetCurrency, int viewIdForResult);
 
     void openEditPayment(Payment payment);
-    
+
     void openEditParticipant(Participant participant);
 
     void openCreateParticipant();
@@ -42,5 +43,9 @@ public interface ViewController {
     void openExport();
 
     void openSettings();
+
+    void openHelp(FragmentManager fragmentManager);
+
+    void openHelp(android.app.FragmentManager fragmentManager);
 
 }

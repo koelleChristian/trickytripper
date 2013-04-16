@@ -22,7 +22,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +46,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
@@ -65,10 +64,8 @@ import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorResultSupport;
 import de.koelle.christian.trickytripper.activitysupport.MathUtils;
 import de.koelle.christian.trickytripper.activitysupport.PaymentEditActivityState;
-import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
-import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.constants.Rx;
 import de.koelle.christian.trickytripper.constants.ViewMode;
 import de.koelle.christian.trickytripper.controller.TripController;
@@ -82,7 +79,7 @@ import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
-public class PaymentEditActivity extends SherlockActivity {
+public class PaymentEditActivity extends SherlockFragmentActivity {
 
     private static final int DIALOG_SELECT_PAYERS = 1;
     private static final int DIALOG_SELECT_DEBITORS = 2;
@@ -110,10 +107,12 @@ public class PaymentEditActivity extends SherlockActivity {
     private final Map<Participant, EditText> amountPayedParticipantToWidget = new HashMap<Participant, EditText>();
     private final Map<Participant, EditText> amountDebitorParticipantToWidget = new HashMap<Participant, EditText>();
 
-    @Override
-    public Object onRetainNonConfigurationInstance() {
-        return new PaymentEditActivityState(payment, divideEqually, spendingInputInitialized);
-    };
+    // TODO(ckoelle) JunkFuck super shit.
+    // @Override
+    // public Object onRetainNonConfigurationInstance() {
+    // return new PaymentEditActivityState(payment, divideEqually,
+    // spendingInputInitialized);
+    // };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -165,7 +164,7 @@ public class PaymentEditActivity extends SherlockActivity {
         buildPaymentInput();
 
         setVisibilitySpendingTable(!divideEqually);
-        
+
         ActionBarSupport.addBackButton(this);
     }
 
@@ -211,11 +210,11 @@ public class PaymentEditActivity extends SherlockActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            showDialog(Rd.DIALOG_HELP);
+            getApp().getViewController().openHelp(getSupportFragmentManager());
             return true;
         case android.R.id.home:
             onBackPressed();
-            return true;              
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -231,10 +230,6 @@ public class PaymentEditActivity extends SherlockActivity {
         case DIALOG_SELECT_DEBITORS:
             dialog = createDialogDebitorSelection();
             break;
-        case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
-            break;
-            
         default:
             dialog = null;
         }
@@ -250,9 +245,6 @@ public class PaymentEditActivity extends SherlockActivity {
             break;
         case DIALOG_SELECT_DEBITORS:
             updateParticipantSelectionDialog(dialog, args);
-            break;
-        case Rd.DIALOG_HELP:
-            // intentionally blank
             break;
         default:
             dialog = null;
@@ -505,7 +497,6 @@ public class PaymentEditActivity extends SherlockActivity {
         MathUtils.divideAndSetOnMap(amountTotal, participants, targetMap, true, getAmountFac());
 
     }
-
 
     /**
      * View method.

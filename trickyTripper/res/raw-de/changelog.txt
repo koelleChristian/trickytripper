@@ -26,6 +26,14 @@
     </style>
   </head>  
   <body> 
+   
+$ 1.3.1
+% Version 1.3.1
+  _ 2013-05-05
+* Verkleinerung der App-Größe (proguard).
+* Das Hinzufügen von Reisenden zu einer Reise wurde vereinfacht und überarbeitet. Mehrere Reisende können in einem Rutsch hinzugefügt werden.
+* Actionbar findet auf den Hauptdialogen Verwendung. 
+  
 $ 1.3.0
 % Version 1.3.0
   _ 2013-04-05

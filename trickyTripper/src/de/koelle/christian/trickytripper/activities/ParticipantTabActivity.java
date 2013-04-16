@@ -25,8 +25,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.constants.Rd;
-import de.koelle.christian.trickytripper.constants.Rt;
+import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.controller.TripController;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.modelAdapter.ParticipantRowListAdapter;
@@ -43,26 +42,12 @@ public class ParticipantTabActivity extends SherlockListFragment {
     final List<ParticipantRow> participantRows = new ArrayList<ParticipantRow>();
 
     private ParticipantRowListAdapter adapter;
-
-    // @Override
-    // protected void onResume() {
-    // super.onResume();
-    // updateRows();
-    // }
+    private ListView listView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.list_view, container, false);
-        TextView textView = (TextView) view.findViewById(android.R.id.empty);
-        ListView listView = (ListView) view.findViewById(android.R.id.list);
-
-        setHasOptionsMenu(true);
-
-        adapter = new ParticipantRowListAdapter(getActivity(), R.layout.participant_tab_row_view, participantRows);
-        setListAdapter(adapter);
-
-        registerForContextMenu(view);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        registerForContextMenu(listView);
         listView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TrickyTripperApp app = getApp();
@@ -73,6 +58,20 @@ public class ParticipantTabActivity extends SherlockListFragment {
                 }
             }
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.list_view, container, false);
+        TextView textView = (TextView) view.findViewById(android.R.id.empty);
+        listView = (ListView) view.findViewById(android.R.id.list);
+
+        setHasOptionsMenu(true);
+
+        adapter = new ParticipantRowListAdapter(getActivity(), R.layout.participant_tab_row_view, participantRows);
+        setListAdapter(adapter);
+
         updateRows();
         textView.setText(getResources().getString(R.string.participant_tab_blank_list_notification));
         return view;
@@ -102,7 +101,7 @@ public class ParticipantTabActivity extends SherlockListFragment {
             getApp().getViewController().openCreateParticipant();
             return true;
         case R.id.option_help:
-            getActivity().showDialog(Rd.DIALOG_HELP);
+            getApp().getViewController().openHelp(getFragmentManager());
             return true;
         case R.id.option_export:
             getApp().getViewController().openExport();
@@ -185,7 +184,7 @@ public class ParticipantTabActivity extends SherlockListFragment {
         }
         case R.string.fktn_participant_show_report: {
             app.getTripController().getDialogState().setParticipantReporting(participant);
-            switchTabInActivity(Rt.REPORT);
+            getSherlockActivity().getSupportActionBar().setSelectedNavigationItem(Rc.TAB_ID_REPORT);
             return true;
         }
         case R.string.fktn_participant_deactivate: {
@@ -230,12 +229,6 @@ public class ParticipantTabActivity extends SherlockListFragment {
     private Participant getParticipantByInfo(AdapterView.AdapterContextMenuInfo info) {
         Participant participant = adapter.getItem(info.position).getParticipant();
         return participant;
-    }
-
-    public void switchTabInActivity(Rt tabId) {
-        // TrickyTripperActivity parent = (TrickyTripperActivity)
-        // this.getParent();
-        // parent.switchTab(tabId);
     }
 
     private void refillListFromModel(List<ParticipantRow> participantRows, TripController fktnController) {

@@ -29,7 +29,6 @@ import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
-import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Debts;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -46,11 +45,6 @@ public class ReportTabActivity extends SherlockFragment{
     private final List<View> dynamicOwingDebtsRows = new ArrayList<View>();
 
     private List<Participant> participantsInSpinner;
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//    }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
@@ -76,7 +70,7 @@ public class ReportTabActivity extends SherlockFragment{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            getActivity().showDialog(Rd.DIALOG_HELP);
+            getApp().getViewController().openHelp(getFragmentManager());
             return true;
         case R.id.option_export:
             getApp().getViewController().openExport();

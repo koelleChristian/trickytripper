@@ -10,11 +10,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,7 +23,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
@@ -38,9 +36,7 @@ import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorResultSupport;
-import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.constants.Rc;
-import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.constants.Rx;
 import de.koelle.christian.trickytripper.controller.MiscController;
 import de.koelle.christian.trickytripper.controller.TripController;
@@ -53,7 +49,7 @@ import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 
-public class MoneyTransferActivity extends SherlockActivity {
+public class MoneyTransferActivity extends SherlockFragmentActivity {
 
     private final Map<Participant, Amount> amountByParticipant = new HashMap<Participant, Amount>();
     private Participant transferer;
@@ -89,7 +85,7 @@ public class MoneyTransferActivity extends SherlockActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            showDialog(Rd.DIALOG_HELP);
+            getApp().getViewController().openHelp(getSupportFragmentManager());
             return true;
         case android.R.id.home:
             onBackPressed();
@@ -97,32 +93,6 @@ public class MoneyTransferActivity extends SherlockActivity {
         default:
             return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id, Bundle args) {
-        Dialog dialog;
-        switch (id) {
-        case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
-            break;
-        default:
-            dialog = null;
-        }
-
-        return dialog;
-    }
-
-    @Override
-    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
-        switch (id) {
-        case Rd.DIALOG_HELP:
-            // intentionally blank
-            break;
-        default:
-            dialog = null;
-        }
-        super.onPrepareDialog(id, dialog, args);
     }
 
     @Override

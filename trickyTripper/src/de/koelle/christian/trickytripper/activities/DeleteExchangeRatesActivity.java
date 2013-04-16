@@ -14,13 +14,11 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -33,7 +31,7 @@ import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListA
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter.DisplayMode;
 import de.koelle.christian.trickytripper.ui.model.SpinnerObject;
 
-public class DeleteExchangeRatesActivity extends SherlockActivity {
+public class DeleteExchangeRatesActivity extends SherlockFragmentActivity {
 
     private static final String DIALOG_PARAM_EXCHANGE_RATES = "dialogParamExchangeRates";
 
@@ -214,7 +212,7 @@ public class DeleteExchangeRatesActivity extends SherlockActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            showDialog(Rd.DIALOG_HELP);
+            getApp().getViewController().openHelp(getSupportFragmentManager());;
             return true;
         case android.R.id.home:
             onBackPressed();
@@ -232,9 +230,6 @@ public class DeleteExchangeRatesActivity extends SherlockActivity {
     protected Dialog onCreateDialog(int id, Bundle args) {
         Dialog dialog;
         switch (id) {
-        case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
-            break;
         case Rd.DIALOG_DELETE:
             dialog = PopupFactory.showDeleteConfirmationDialog(this);
             break;
@@ -248,9 +243,7 @@ public class DeleteExchangeRatesActivity extends SherlockActivity {
     @Override
     protected void onPrepareDialog(int id, Dialog dialog, final Bundle args) {
         switch (id) {
-        case Rd.DIALOG_HELP:
-            // intentionally blank
-            break;
+
         case Rd.DIALOG_DELETE:
             final Dialog dialogFinal = dialog;
             final List<ExchangeRate> selection = getSelectionFromBundle(args);

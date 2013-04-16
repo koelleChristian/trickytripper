@@ -5,7 +5,6 @@ import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,7 +20,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
@@ -35,10 +34,8 @@ import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.CurrencySelectionResultSupport;
 import de.koelle.christian.trickytripper.activitysupport.ImportOptionSupport;
-import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
-import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ImportOrigin;
@@ -48,7 +45,7 @@ import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
 import de.koelle.christian.trickytripper.ui.utils.ExchangeRateDescriptionUtils;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
-public class CurrencyCalculatorActivity extends SherlockActivity {
+public class CurrencyCalculatorActivity extends SherlockFragmentActivity {
 
     private Amount inputAmount;
     private Amount resultAmount;
@@ -521,7 +518,7 @@ public class CurrencyCalculatorActivity extends SherlockActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            showDialog(Rd.DIALOG_HELP);
+            getApp().getViewController().openHelp(getSupportFragmentManager());;
             return true;
         case R.id.option_import:
             return importOptionSupport.onOptionsItemSelected(this,
@@ -536,34 +533,5 @@ public class CurrencyCalculatorActivity extends SherlockActivity {
             return super.onOptionsItemSelected(item);
         }
     }
-
-    @Override
-    protected Dialog onCreateDialog(int id, Bundle args) {
-        Dialog dialog;
-        switch (id) {
-        case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp()
-                    .getMiscController(), Rd.DIALOG_HELP);
-            break;
-        default:
-            dialog = null;
-        }
-
-        return dialog;
-    }
-
-    @Override
-    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
-        switch (id) {
-        case Rd.DIALOG_HELP:
-            // intentionally blank
-            break;
-        default:
-            dialog = null;
-        }
-        super.onPrepareDialog(id, dialog, args);
-    }
-
-    /* ============== Menu Shit [END] ============== */
 
 }

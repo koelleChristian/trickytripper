@@ -16,6 +16,10 @@ public class Rc {
     public static final String LT_DB = "TT_DB";
     public static final String LT_IO = "TT_IO";
     public static final String LT_PROV = "TT_PROV";
+    
+    public static final int TAB_ID_PARTICIPANTS = 0;
+    public static final int TAB_ID_PAYMENTS= 1;
+    public static final int TAB_ID_REPORT= 2;
 
     /*
      * So that the compiler can remove the statements, instead of

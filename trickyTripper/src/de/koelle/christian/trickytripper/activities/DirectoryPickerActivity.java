@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,8 +25,6 @@ import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
-import de.koelle.christian.trickytripper.constants.Rd;
 
 /**
  * <p>
@@ -207,7 +204,8 @@ public class DirectoryPickerActivity extends SherlockListActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            showDialog(Rd.DIALOG_HELP);
+            // TODO(ckoelle) JunkFuck super shit.
+//            getApp().getViewController().openHelp(getSupportFragmentManager());
             return true;
         case android.R.id.home:
             onBackPressed();
@@ -217,22 +215,6 @@ public class DirectoryPickerActivity extends SherlockListActivity {
         }
     }
     /* ============== Options Shit [END] ============== */
-    /* ============== Dialog Shit [BGN] ============== */
-
-    @Override
-    protected Dialog onCreateDialog(int id, Bundle args) {
-        Dialog dialog;
-        switch (id) {
-        case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
-            break;
-        default:
-            dialog = null;
-        }
-
-        return dialog;
-    }
-    /* ============== Dialog Shit [END] ============== */
     
 
 }

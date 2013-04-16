@@ -27,6 +27,13 @@
   </head>  
   <body>
   
+$ 1.3.1
+% Version 1.3.1
+  _ 2013-04-05
+* Shrink app size (proguard).
+* Add participant to trip has been refurbished and allows to add more than one at once.
+* Actionbar now in use on primary dialogs.
+  
 $ 1.3.0
 % Version 1.3.0
   _ 2013-04-05

@@ -138,7 +138,8 @@ public class ManageExchangeRatesActivity extends SherlockListActivity {
         case R.id.option_import:
             return importOptionSupport.onOptionsItemSelected(this);
         case R.id.option_help:
-            showDialog(Rd.DIALOG_HELP);
+            // TODO(ckoelle) JunkFuck super shit.
+//            getApp().getViewController().openHelp(getSupportFragmentManager());
             return true;
         case R.id.option_create_exchange_rate:
             openCreateActivity();
@@ -158,10 +159,6 @@ public class ManageExchangeRatesActivity extends SherlockListActivity {
     protected Dialog onCreateDialog(int id, Bundle args) {
         Dialog dialog;
         switch (id) {
-        case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp()
-                    .getMiscController(), Rd.DIALOG_HELP);
-            break;
         case Rd.DIALOG_DELETE:
             dialog = PopupFactory.showDeleteConfirmationDialog(this);
             break;
@@ -175,9 +172,6 @@ public class ManageExchangeRatesActivity extends SherlockListActivity {
     @Override
     protected void onPrepareDialog(int id, Dialog dialog, final Bundle args) {
         switch (id) {
-        case Rd.DIALOG_HELP:
-            // intentionally blank
-            break;
         case Rd.DIALOG_DELETE:
             final Dialog dialogFinal = dialog;
             final ExchangeRate row = makeUninverted(getRowFromBundle(args));

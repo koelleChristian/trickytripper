@@ -24,6 +24,7 @@ import com.actionbarsherlock.view.MenuItem;
 import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.activitysupport.TabDialogSupport;
 import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
@@ -33,12 +34,43 @@ public class PaymentTabActivity extends SherlockListFragment {
 
     private final List<Payment> paymentRows = new ArrayList<Payment>();
     private ArrayAdapter<Payment> adapter;
+    private ListView listView;
 
-    // @Override
-    // protected void onResume() {
-    // super.onResume();
-    // sortAndUpdateView();
-    // }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        registerForContextMenu(listView);
+        listView.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Payment row = (Payment) getListView().getItemAtPosition(position);
+                if (!isMoneyTransfer(row)) {
+                    startEditPaymentActivity(row);
+                }
+            }
+        });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.list_view, container, false);
+        TextView textView = (TextView) view.findViewById(android.R.id.empty);
+        listView = (ListView) view.findViewById(android.R.id.list);
+
+        setHasOptionsMenu(true);
+
+        adapter = new PaymentRowListAdapter(getActivity(), R.layout.payment_tab_row_view, paymentRows, getApp()
+                .getTripController()
+                .getAmountFactory(), getApp().getMiscController().getDefaultStringCollator());
+
+        setListAdapter(adapter);
+
+        sortAndUpdateView();
+
+        textView.setText(getResources().getString(R.string.payment_view_blank_list_notification));
+
+        return view;
+    }
 
     @Override
     public void onPrepareOptionsMenu(com.actionbarsherlock.view.Menu menu) {
@@ -60,7 +92,7 @@ public class PaymentTabActivity extends SherlockListFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            getActivity().showDialog(Rd.DIALOG_HELP);
+            getApp().getViewController().openHelp(getFragmentManager());
             return true;
         case R.id.option_export:
             getApp().getViewController().openExport();
@@ -71,38 +103,6 @@ public class PaymentTabActivity extends SherlockListFragment {
         default:
             return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.list_view, container, false);
-        TextView textView = (TextView) view.findViewById(android.R.id.empty);
-        ListView listView = (ListView) view.findViewById(android.R.id.list);
-
-        setHasOptionsMenu(true);
-
-        adapter = new PaymentRowListAdapter(getActivity(), R.layout.payment_tab_row_view, paymentRows, getApp()
-                .getTripController()
-                .getAmountFactory(), getApp().getMiscController().getDefaultStringCollator());
-
-        setListAdapter(adapter);
-
-        listView.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Payment row = (Payment) getListView().getItemAtPosition(position);
-                if (!isMoneyTransfer(row)) {
-                    startEditPaymentActivity(row);
-                }
-            }
-        });
-
-        registerForContextMenu(listView);
-        sortAndUpdateView();
-
-        textView.setText(getResources().getString(R.string.payment_view_blank_list_notification));
-
-        return view;
     }
 
     public void sortAndUpdateView() {
@@ -148,35 +148,33 @@ public class PaymentTabActivity extends SherlockListFragment {
         return PaymentCategory.MONEY_TRANSFER.equals(row.getCategory());
     }
 
-    // @Override
-    // public boolean onContextItemSelected(MenuItem item) {
-    // AdapterView.AdapterContextMenuInfo info =
-    // (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-    // final Payment row = adapter.getItem(info.position);
-    // switch (item.getItemId()) {
-    // case R.string.fktn_payment_list_edit_payment: {
-    // startEditPaymentActivity(row);
-    // return true;
-    // }
-    // case R.string.fktn_payment_list_delete_payment: {
-    // getParent().showDialog(Rd.DIALOG_DELETE_PAYMENT,
-    // TabDialogSupport.createBundleWithPaymentSelected(row));
-    // return true;
-    // }
-    // case R.string.fktn_payment_list_edit_transfer: {
-    // startEditPaymentActivity(row);
-    // return true;
-    // }
-    // case R.string.fktn_payment_list_delete_transfer: {
-    // getParent().showDialog(Rd.DIALOG_DELETE_TRANSFER,
-    // TabDialogSupport.createBundleWithPaymentSelected(row));
-    // return true;
-    // }
-    // default:
-    // break;
-    // }
-    // return false;
-    // }
+    @Override
+    public boolean onContextItemSelected(android.view.MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info =
+                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final Payment row = adapter.getItem(info.position);
+        switch (item.getItemId()) {
+        case R.string.fktn_payment_list_edit_payment: {
+            startEditPaymentActivity(row);
+            return true;
+        }
+        case R.string.fktn_payment_list_delete_payment: {
+            getActivity().showDialog(Rd.DIALOG_DELETE_PAYMENT,TabDialogSupport.createBundleWithPaymentSelected(row));
+            return true;
+        }
+        case R.string.fktn_payment_list_edit_transfer: {
+            startEditPaymentActivity(row);
+            return true;
+        }
+        case R.string.fktn_payment_list_delete_transfer: {
+            getActivity().showDialog(Rd.DIALOG_DELETE_TRANSFER,TabDialogSupport.createBundleWithPaymentSelected(row));
+            return true;
+        }
+        default:
+            break;
+        }
+        return false;
+    }
 
     private void startEditPaymentActivity(final Payment row) {
         getApp().getViewController().openEditPayment(row);

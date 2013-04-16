@@ -80,10 +80,6 @@ public class TrickyTripperActivity extends SherlockFragmentActivity {
     protected Dialog onCreateDialog(int id, Bundle args) {
         Dialog dialog;
         switch (id) {
-        case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(),
-                    Rd.DIALOG_HELP);
-            break;
         case Rd.DIALOG_DELETE_PAYMENT:
             dialog = PopupFactory.showDeleteConfirmationDialog(this);
             break;

@@ -123,7 +123,8 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            showDialog(Rd.DIALOG_HELP);
+            // TODO(ckoelle) JunkFuck super shit.
+//            getApp().getViewController().openHelp(FragmentManager());
             return true;
         case android.R.id.home:
             onBackPressed();
@@ -133,20 +134,4 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
         }
     }
     /* ============== Options Shit [END] ============== */
-    /* ============== Dialog Shit [BGN] ============== */
-
-    @Override
-    protected Dialog onCreateDialog(int id, Bundle args) {
-        Dialog dialog;
-        switch (id) {
-        case Rd.DIALOG_HELP:
-            dialog = PopupFactory.createHelpDialog(this, getApp().getMiscController(), Rd.DIALOG_HELP);
-            break;
-        default:
-            dialog = null;
-        }
-
-        return dialog;
-    }
-    /* ============== Dialog Shit [END] ============== */
 }
