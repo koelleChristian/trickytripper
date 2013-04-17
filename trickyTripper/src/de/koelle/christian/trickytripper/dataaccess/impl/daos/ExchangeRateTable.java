@@ -5,8 +5,6 @@ import android.provider.BaseColumns;
 
 public class ExchangeRateTable {
 
-    // TODO(ckoelle) Größe der Dezimalzahl?
-
     public static final String TABLE_NAME = "exchangerate";
 
     public static class ExchangeRateColumns implements BaseColumns {

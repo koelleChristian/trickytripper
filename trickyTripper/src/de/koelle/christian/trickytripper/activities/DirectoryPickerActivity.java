@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
@@ -59,7 +59,7 @@ import de.koelle.christian.trickytripper.TrickyTripperApp;
  * SOFTWARE.
  */
 
-public class DirectoryPickerActivity extends SherlockListActivity {
+public class DirectoryPickerActivity extends SherlockFragmentActivity {
 
     public static final String EXTRA_START_DIR = "startDir";
     public static final String EXTRA_ONLY_DIRS = "onlyDirs";
@@ -111,7 +111,7 @@ public class DirectoryPickerActivity extends SherlockListActivity {
             }
         });
 
-        ListView lv = getListView();
+        ListView lv = (ListView) findViewById(android.R.id.list);
         lv.setTextFilterEnabled(true);
 
         if (!dir.canRead()) {
@@ -124,7 +124,7 @@ public class DirectoryPickerActivity extends SherlockListActivity {
 
         final ArrayList<File> files = filter(dir.listFiles(), onlyDirs, showHidden);
         String[] names = names(files);
-        setListAdapter(new ArrayAdapter<String>(this, R.layout.picker_list_item, names));
+        lv.setAdapter(new ArrayAdapter<String>(this, R.layout.picker_list_item, names));
 
         lv.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -204,8 +204,7 @@ public class DirectoryPickerActivity extends SherlockListActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            // TODO(ckoelle) JunkFuck super shit.
-//            getApp().getViewController().openHelp(getSupportFragmentManager());
+            getApp().getViewController().openHelp(getSupportFragmentManager());
             return true;
         case android.R.id.home:
             onBackPressed();

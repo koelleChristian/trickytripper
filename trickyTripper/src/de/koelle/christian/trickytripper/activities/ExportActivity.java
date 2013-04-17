@@ -65,18 +65,15 @@ public class ExportActivity extends SherlockFragmentActivity {
             return true;
         case android.R.id.home:
             onBackPressed();
-            return true;  
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }
     }
 
- 
-
     private TrickyTripperApp getApp() {
         return (TrickyTripperApp) getApplication();
     }
-
 
     private void initPanel() {
         final TrickyTripperApp app = getApp();
@@ -100,19 +97,16 @@ public class ExportActivity extends SherlockFragmentActivity {
         participantsInSpinner.add(null);
         participantsInSpinner.addAll(app.getTripController().getAllParticipants(false, true));
 
-        Spinner spinner = null;
-//        Spinner spinner = SpinnerViewSupport.configureReportSelectionSpinner(
-//                this,
-//                this,
-//                R.id.reportViewBaseSpinner,
-//                participantsInSpinner);
+        Spinner spinner = (Spinner) findViewById(R.id.reportViewBaseSpinner);
+        SpinnerViewSupport.configureReportSelectionSpinner(this, participantsInSpinner,spinner);
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 participantSelected = participantsInSpinner.get(position);
                 if (Rc.debugOn) {
-                    Log.d(Rc.LT_INPUT,"selected=" + ((participantSelected == null) ? null : participantSelected.getName()));
+                    Log.d(Rc.LT_INPUT,
+                            "selected=" + ((participantSelected == null) ? null : participantSelected.getName()));
                 }
                 updateAllCheckboxStates();
             }
@@ -141,7 +135,7 @@ public class ExportActivity extends SherlockFragmentActivity {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView result = (TextView) super.getView(position, convertView, parent);
-                int resid = result.getTextColors().getDefaultColor();                
+                int resid = result.getTextColors().getDefaultColor();
                 UiUtils.setActiveOrInactive(isEnabled(position), result, R.string.exportViewSpinnerNotAvailable,
                         getResources(), resid);
                 return result;
@@ -319,7 +313,7 @@ public class ExportActivity extends SherlockFragmentActivity {
                 );
     }
 
-    public void doExport(@SuppressWarnings("unused") View view) {
+    public void doExport(View view) {
         /* participant selected is null, if nobody is selected. */
         /*
          * Files will be deleted on application's termination as usually files

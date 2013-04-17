@@ -55,10 +55,10 @@ public class Rc {
     public static final String ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_CURRENCY = "activityParamCurrencySelectionOutCurrency";
     public static final String ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_WAS_LEFT_NOT_RIGHT = "activityParamCurrencySelectionOutWasLeftNotRight";
 
-    public static final int ACTIVITY_PARAM_CURRENCY_CALCULATOR_REQUEST_CODE = 532147439;
-    public static final int ACTIVITY_PARAM_CURRENCY_SELECTION_REQUEST_CODE = 622147448;
+    public static final int ACTIVITY_PARAM_CURRENCY_CALCULATOR_REQUEST_CODE = 53214;
+    public static final int ACTIVITY_PARAM_CURRENCY_SELECTION_REQUEST_CODE = 62214;
     /* TODO(ckoelle) I think this is not for result anymore. */
-    public static final int ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE = 49494949;
+    public static final int ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE = 49499;
 
     public static final String ACTIVITY_PARAM_DELETE_EXCHANGE_RATES_IN_CURRENCY_LIST = "activityParamImportExchangeRatesInCurrencyList";
 

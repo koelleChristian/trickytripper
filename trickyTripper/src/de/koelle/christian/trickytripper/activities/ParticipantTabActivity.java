@@ -31,6 +31,7 @@ import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.modelAdapter.ParticipantRowListAdapter;
 import de.koelle.christian.trickytripper.strategies.SumReport;
 import de.koelle.christian.trickytripper.ui.model.ParticipantRow;
+import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
 public class ParticipantTabActivity extends SherlockListFragment {
 
@@ -61,6 +62,12 @@ public class ParticipantTabActivity extends SherlockListFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getSherlockActivity().invalidateOptionsMenu();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.list_view, container, false);
@@ -79,7 +86,7 @@ public class ParticipantTabActivity extends SherlockListFragment {
 
     @Override
     public void onPrepareOptionsMenu(com.actionbarsherlock.view.Menu menu) {
-        menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
+        PrepareOptionsSupport.prepareMajorTabOptions(menu, getApp(), true);
     }
 
     @Override

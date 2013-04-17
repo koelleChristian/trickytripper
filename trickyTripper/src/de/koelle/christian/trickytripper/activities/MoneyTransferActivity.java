@@ -116,19 +116,6 @@ public class MoneyTransferActivity extends SherlockFragmentActivity {
      * @param view
      *            Required parameter.
      */
-    public void notPartOfThisRelease(View view) {
-        Toast.makeText(
-                getApplicationContext(),
-                R.string.common_toast_currency_not_part_of_this_release,
-                Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * View method.
-     * 
-     * @param view
-     *            Required parameter.
-     */
     public void transfer(View view) {
         createNewPayments();
         finish();
@@ -186,7 +173,6 @@ public class MoneyTransferActivity extends SherlockFragmentActivity {
             buttonDueAmount = (Button) newRow.findViewById(R.id.money_transfer_list_view_button_due_amount);
             buttonCurrency = (Button) newRow.findViewById(R.id.money_transfer_list_view_button_currency);
 
-            // TODO(ckoelle) Post merge
             UiUtils.makeProperNumberInput(editText, getDecimalNumberInputUtil().getInputPatternMatcher());
             editText.setId(dynViewId);
             tableLayout.addView(newRow, i + offset);

@@ -18,13 +18,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraints;
 import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.trickytripper.R;
@@ -37,7 +35,7 @@ import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListA
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter.DisplayMode;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 
-public class ManageExchangeRatesActivity extends SherlockListActivity {
+public class ManageExchangeRatesActivity extends SherlockFragmentActivity {
 
     private static final String DIALOG_PARAM_EXCHANGE_RATE = "dialogParamExchangeRate";
 
@@ -65,13 +63,14 @@ public class ManageExchangeRatesActivity extends SherlockListActivity {
             }
         };
 
-        initListView(getListView());
+        listView = (ListView) findViewById(android.R.id.list);
+        initListView(listView);
+        registerForContextMenu(listView);
 
         TextView textView = (TextView) findViewById(android.R.id.empty);
         textView.setText(getResources().getString(
                 R.string.manageExchangeRatesViewBlankListNotification));
 
-        registerForContextMenu(getListView());
 
         ActionBarSupport.addBackButton(this);
     }
@@ -96,7 +95,7 @@ public class ManageExchangeRatesActivity extends SherlockListActivity {
             listAdapter.add(rate.cloneToInversion());
         }
         listAdapter.sort(comparator);
-        getListView().invalidateViews();
+        listView.invalidateViews();
     }
 
     @Override
@@ -138,8 +137,7 @@ public class ManageExchangeRatesActivity extends SherlockListActivity {
         case R.id.option_import:
             return importOptionSupport.onOptionsItemSelected(this);
         case R.id.option_help:
-            // TODO(ckoelle) JunkFuck super shit.
-//            getApp().getViewController().openHelp(getSupportFragmentManager());
+            getApp().getViewController().openHelp(getSupportFragmentManager());
             return true;
         case R.id.option_create_exchange_rate:
             openCreateActivity();
@@ -202,6 +200,8 @@ public class ManageExchangeRatesActivity extends SherlockListActivity {
     private static int CTX_MENU_GROUP_ID_DELETE = 2;
     private static final int CTX_MENU_ID_EDIT = 20;
     private static final int CTX_MENU_ID_DELETE = 21;
+
+    private ListView listView;
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,

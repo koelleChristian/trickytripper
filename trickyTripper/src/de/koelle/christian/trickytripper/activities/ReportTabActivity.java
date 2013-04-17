@@ -36,8 +36,9 @@ import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.model.Trip;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.strategies.SumReport;
+import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
-public class ReportTabActivity extends SherlockFragment{
+public class ReportTabActivity extends SherlockFragment {
 
     private final static int PADDING = 3;
 
@@ -48,23 +49,26 @@ public class ReportTabActivity extends SherlockFragment{
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
+        PrepareOptionsSupport.prepareMajorTabOptions(menu, getApp(), false);
     }
 
-    
+    @Override
+    public void onResume() {
+        super.onResume();
+        getSherlockActivity().invalidateOptionsMenu();
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraintsAbs().activity(inflater).menu(menu)
-                .options(new int[] {
-                        R.id.option_help,
-                        R.id.option_preferences,
-                        R.id.option_export
-                }));
+                        .options(new int[] {
+                                R.id.option_create_participant,
+                                R.id.option_help,
+                                R.id.option_preferences,
+                                R.id.option_export
+                        }));
     }
-    
-   
-    
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -77,36 +81,34 @@ public class ReportTabActivity extends SherlockFragment{
             return true;
         case R.id.option_preferences:
             getApp().getViewController().openSettings();
-            return true;              
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }
     }
-    
-    
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        createPanel();
-//    }
+    // @Override
+    // protected void onResume() {
+    // super.onResume();
+    // createPanel();
+    // }
 
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);        
-//        setContentView(R.layout.report_tab_view);
-//        createPanel();
-//
-//    }
-    
+    // @Override
+    // public void onCreate(Bundle savedInstanceState) {
+    // super.onCreate(savedInstanceState);
+    // setContentView(R.layout.report_tab_view);
+    // createPanel();
+    //
+    // }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        
+
         setHasOptionsMenu(true);
-        
+
         View view = inflater.inflate(R.layout.report_tab_view, container, false);
         createPanel(view);
         return view;
-}
+    }
 
     private void createPanel(final View view) {
 
@@ -139,7 +141,7 @@ public class ReportTabActivity extends SherlockFragment{
                                                                                        // be
                                                                                        // null
                 app.getTripController().getDialogState().setParticipantReporting(participantSelected);
-                ReportTabActivity.this.updateDynamicRows(app, participantSelected, locale, view );
+                ReportTabActivity.this.updateDynamicRows(app, participantSelected, locale, view);
                 ReportTabActivity.this.updateStaticRows(app, participantSelected, locale, view);
             }
 

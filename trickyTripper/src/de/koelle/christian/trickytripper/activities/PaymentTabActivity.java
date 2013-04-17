@@ -29,6 +29,7 @@ import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.model.modelAdapter.PaymentRowListAdapter;
+import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
 public class PaymentTabActivity extends SherlockListFragment {
 
@@ -50,6 +51,11 @@ public class PaymentTabActivity extends SherlockListFragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getSherlockActivity().invalidateOptionsMenu();
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -74,14 +80,17 @@ public class PaymentTabActivity extends SherlockListFragment {
 
     @Override
     public void onPrepareOptionsMenu(com.actionbarsherlock.view.Menu menu) {
-        menu.findItem(R.id.option_export).setEnabled(getApp().getTripController().hasLoadedTripPayments());
+        PrepareOptionsSupport.prepareMajorTabOptions(menu, getApp(), false);
     }
+
+
 
     @Override
     public void onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu, MenuInflater inflater) {
         getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraintsAbs().activity(inflater).menu(menu)
                         .options(new int[] {
+                                R.id.option_create_participant,
                                 R.id.option_help,
                                 R.id.option_preferences,
                                 R.id.option_export

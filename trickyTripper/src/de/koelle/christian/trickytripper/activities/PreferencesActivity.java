@@ -2,7 +2,6 @@ package de.koelle.christian.trickytripper.activities;
 
 import java.util.Currency;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -11,19 +10,14 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
-import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.constants.Rc;
-import de.koelle.christian.trickytripper.constants.Rd;
 
 public class PreferencesActivity extends SherlockPreferenceActivity implements OnSharedPreferenceChangeListener {
 
@@ -33,7 +27,7 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
 
         configurePreferencesToBeUsed();
         setPreferenceScreen(createPreferenceHierarchy());
-        
+
         ActionBarSupport.addBackButton(this);
 
     }
@@ -102,33 +96,21 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
     private String getDisplayStringForCurrency(Currency currency) {
         return CurrencyUtil.getFullNameToCurrency(getResources(), currency);
     }
-	private TrickyTripperApp getApp() {
-		return (TrickyTripperApp)getApplication();
-	}
 
-    /* ============== Options Shit [BGN] ============== */
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsAbs().activity(getSupportMenuInflater()).menu(menu)
-                        .options(new int[] {
-                                R.id.option_help
-                        }));
+    private TrickyTripperApp getApp() {
+        return (TrickyTripperApp) getApplication();
     }
 
-
-
+    /* ============== Options Shit [BGN] ============== */
+    
+    /*There will be no help here due to API limitations.*/
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.option_help:
-            // TODO(ckoelle) JunkFuck super shit.
-//            getApp().getViewController().openHelp(FragmentManager());
-            return true;
         case android.R.id.home:
             onBackPressed();
-            return true;                  
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }

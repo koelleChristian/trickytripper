@@ -101,6 +101,12 @@ public class SpinnerViewSupport {
             List<Participant> participants) {
 
         Spinner spinner = (Spinner) view.findViewById(spinnerViewId);
+         configureReportSelectionSpinner(context, participants, spinner);
+         return spinner;
+    }
+
+    public static void configureReportSelectionSpinner(Context context, List<Participant> participants,
+            Spinner spinner) {
         ArrayAdapter<SpinnerObject> adapter = new ArrayAdapter<SpinnerObject>(
                 context,
                 android.R.layout.simple_spinner_item,
@@ -108,7 +114,6 @@ public class SpinnerViewSupport {
                 ));
         adapter.setDropDownViewResource(R.layout.selection_list_medium);
         spinner.setAdapter(adapter);
-        return spinner;
     }
 
     public static Spinner configureDeleteExchangeRateSpinner(Activity activity, Context context, int spinnerViewId) {

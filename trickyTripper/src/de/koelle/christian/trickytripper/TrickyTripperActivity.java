@@ -54,9 +54,8 @@ public class TrickyTripperActivity extends SherlockFragmentActivity {
 
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setDisplayShowTitleEnabled(false);
-
-
+        actionBar.setDisplayShowTitleEnabled(false);               
+        
         actionBar.selectTab(addTab(actionBar, new ParticipantTabActivity(), R.string.activity_label_participants));
         addTab(actionBar, new PaymentTabActivity(), R.string.activity_label_payments);
         addTab(actionBar, new ReportTabActivity(), R.string.activity_label_report);

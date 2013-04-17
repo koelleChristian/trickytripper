@@ -376,21 +376,6 @@ public class PaymentEditActivity extends SherlockFragmentActivity {
         return viewInf;
     }
 
-    /**
-     * View method.
-     * 
-     * TODO(ckoelle) Remove?
-     * 
-     * @param view
-     *            Required parameter.
-     */
-    public void notPartOfThisRelease(View view) {
-        Toast.makeText(
-                getApplicationContext(),
-                R.string.common_toast_currency_not_part_of_this_release,
-                Toast.LENGTH_SHORT).show();
-    }
-
     private void addRadioListener() {
         int idToEnable = (divideEqually) ?
                 R.id.paymentView_radioTravellersChargedSplitEvenly :

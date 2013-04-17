@@ -4,12 +4,15 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="4dp" />
+
     <Button
         android:id="@+id/mainView_trip_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:onClick="openManageTrips"
-        android:padding="5dp" />
+        android:onClick="openManageTrips" />
 
     <FrameLayout
         android:id="@+id/mainView_fragment_content"
