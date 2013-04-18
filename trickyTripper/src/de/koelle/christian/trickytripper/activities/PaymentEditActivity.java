@@ -669,8 +669,9 @@ public class PaymentEditActivity extends SherlockFragmentActivity {
         AlertDialog alert = builder.create();
 
         /**
-         * Workaround for bug: Button cannot be retrieved unless shown.
+         * Workaround for bug: Button cannot be retrieved unless shown API 8 + 
          */
+        /*TODO(ckoelle) Kickout and reduce minimum api requirement.*/
         alert.setOnShowListener(new OnShowListener() {
 
             public void onShow(DialogInterface dialog) {

@@ -4,18 +4,12 @@ import java.util.Locale;
 import java.util.Map.Entry;
 
 import android.app.Dialog;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.widget.Button;
-import android.widget.TabHost;
-import android.widget.TabWidget;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -30,7 +24,6 @@ import de.koelle.christian.trickytripper.activitysupport.PopupCallback;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.TabDialogSupport;
 import de.koelle.christian.trickytripper.constants.Rd;
-import de.koelle.christian.trickytripper.constants.Rt;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
@@ -183,10 +176,6 @@ public class TrickyTripperActivity extends SherlockFragmentActivity {
         }
     }
 
-    // public void switchTab(Rt tabId) {
-    // getTabHost().setCurrentTab(tabId.getPosition());
-    // }
-
     private void updateButtonText() {
         Button button = (Button) findViewById(R.id.mainView_trip_button);
         Trip trip = getApp().getTripController().getTripLoaded();
@@ -239,42 +228,6 @@ public class TrickyTripperActivity extends SherlockFragmentActivity {
 
     }
 
-    private void createTabs(Resources res, TabHost tabHost) {
-        TabHost.TabSpec spec;
-        Intent intent;
-
-        intent = new Intent().setClass(this, ParticipantTabActivity.class); //
-
-        spec = tabHost
-                .newTabSpec(Rt.PARTICIPANTS.getId())
-                .setIndicator(res.getString(R.string.activity_label_participants),
-                        res.getDrawable(R.drawable.ic_tab_participants)).setContent(intent);
-        tabHost.addTab(spec);
-
-        intent = new Intent().setClass(this, PaymentTabActivity.class);
-        spec = tabHost
-                .newTabSpec(Rt.PAYMENT.getId())
-                .setIndicator(res.getString(R.string.activity_label_payments),
-                        res.getDrawable(R.drawable.ic_tabl_payment)).setContent(intent);
-        tabHost.addTab(spec);
-
-        intent = new Intent().setClass(this, ReportTabActivity.class);
-        spec = tabHost.newTabSpec(Rt.REPORT.getId())
-                .setIndicator(res.getString(R.string.activity_label_report), res.getDrawable(R.drawable.ic_tab_report))
-                .setContent(intent);
-        tabHost.addTab(spec);
-
-        TabWidget tabWidget = (TabWidget) findViewById(android.R.id.tabs);
-        tabWidget.getChildAt(0).setOnLongClickListener(new OnLongClickListener() {
-
-            public boolean onLongClick(View v) {
-                getApp().getViewController().openCreateParticipant();
-                return true;
-            }
-        });
-
-    }
-
     class MyTabListener implements ActionBar.TabListener {
         private Fragment fragment;
 
@@ -283,7 +236,6 @@ public class TrickyTripperActivity extends SherlockFragmentActivity {
         }
 
         public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-            // ft.replace(R.id.mainView_fragment_content, fragment, null);
             ft.add(R.id.mainView_fragment_content, fragment, null);
         }
 
