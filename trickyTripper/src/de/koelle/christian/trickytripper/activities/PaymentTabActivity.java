@@ -54,6 +54,7 @@ public class PaymentTabActivity extends SherlockListFragment {
     @Override
     public void onResume() {
         super.onResume();
+        sortAndUpdateView();
         getSherlockActivity().invalidateOptionsMenu();
     }
     @Override

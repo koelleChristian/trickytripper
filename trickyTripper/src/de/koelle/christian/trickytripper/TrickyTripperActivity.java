@@ -236,7 +236,7 @@ public class TrickyTripperActivity extends SherlockFragmentActivity {
         }
 
         public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-            ft.add(R.id.mainView_fragment_content, fragment, null);
+            ft.replace(R.id.mainView_fragment_content, fragment, null);
         }
 
         public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {

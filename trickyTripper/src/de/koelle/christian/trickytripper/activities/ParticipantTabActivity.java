@@ -64,6 +64,7 @@ public class ParticipantTabActivity extends SherlockListFragment {
     @Override
     public void onResume() {
         super.onResume();
+        updateRows();
         getSherlockActivity().invalidateOptionsMenu();
     }
 

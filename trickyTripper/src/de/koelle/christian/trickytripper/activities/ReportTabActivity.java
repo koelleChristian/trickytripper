@@ -47,6 +47,8 @@ public class ReportTabActivity extends SherlockFragment {
 
     private List<Participant> participantsInSpinner;
 
+    private View view;
+
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         PrepareOptionsSupport.prepareMajorTabOptions(menu, getApp(), false);
@@ -55,6 +57,7 @@ public class ReportTabActivity extends SherlockFragment {
     @Override
     public void onResume() {
         super.onResume();
+        createPanel(view);
         getSherlockActivity().invalidateOptionsMenu();
     }
 
@@ -87,25 +90,11 @@ public class ReportTabActivity extends SherlockFragment {
         }
     }
 
-    // @Override
-    // protected void onResume() {
-    // super.onResume();
-    // createPanel();
-    // }
-
-    // @Override
-    // public void onCreate(Bundle savedInstanceState) {
-    // super.onCreate(savedInstanceState);
-    // setContentView(R.layout.report_tab_view);
-    // createPanel();
-    //
-    // }
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         setHasOptionsMenu(true);
 
-        View view = inflater.inflate(R.layout.report_tab_view, container, false);
+        view = inflater.inflate(R.layout.report_tab_view, container, false);
         createPanel(view);
         return view;
     }
