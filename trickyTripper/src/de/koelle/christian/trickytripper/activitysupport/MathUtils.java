@@ -1,8 +1,9 @@
 package de.koelle.christian.trickytripper.activitysupport;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import de.koelle.christian.common.primitives.DivisionResult;
 import de.koelle.christian.common.utils.NumberUtils;
@@ -23,15 +24,24 @@ public class MathUtils {
             targetMap.put(p, amountFactory.createAmount(divisionResult.getResult()));
         }
         if (divisionResult.getLoss() != 0) {
-            getRandomAmountFromMap(participantCount, targetMap).addValue(divisionResult.getLoss());
+            Double cents = (divisionResult.getLoss() < 0) ? -0.01d : 0.01d;
+            List<Integer> randomParticipantIndices = getRandomizedIndices(participantCount);
+            int noOfIterations = (int) Math.abs(divisionResult.getLoss() / cents);
+            Object[] entries = targetMap.values().toArray();
+            for (int i = 0; i < noOfIterations; i++) {
+                Integer index = randomParticipantIndices.get(i);
+                ((Amount) entries[index]).addValue(cents);
+            }
         }
-
     }
 
-    private static Amount getRandomAmountFromMap(int participantCount, Map<Participant, Amount> map) {
-        Amount randomAmount;
-        Object[] entries = map.values().toArray();
-        randomAmount = ((Amount) entries[new Random().nextInt(participantCount - 1)]);
-        return randomAmount;
+    private static List<Integer> getRandomizedIndices(int participantCount) {
+        List<Integer> participantIndices = new ArrayList<Integer>();
+        for (int i = 0; i < participantCount; i++) {
+            participantIndices.add(Integer.valueOf(i));
+        }
+        Collections.shuffle(participantIndices);
+        return participantIndices;
     }
+
 }
