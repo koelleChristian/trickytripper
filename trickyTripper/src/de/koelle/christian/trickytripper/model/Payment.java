@@ -120,4 +120,7 @@ public class Payment implements Serializable {
             result.addValue(entry.getValue().getValue());
         }
     }
+    public boolean isMoneyTransfer(){
+        return PaymentCategory.MONEY_TRANSFER.equals(this.getCategory());
+    }
 }

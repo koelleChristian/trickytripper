@@ -10,6 +10,8 @@ import java.util.Map.Entry;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity;
 import de.koelle.christian.trickytripper.activities.CurrencySelectionActivity;
@@ -26,6 +28,7 @@ import de.koelle.christian.trickytripper.activities.PreferencesActivity;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.ViewMode;
 import de.koelle.christian.trickytripper.controller.ViewController;
+import de.koelle.christian.trickytripper.dialogs.DeleteDialogFragement;
 import de.koelle.christian.trickytripper.dialogs.HelpDialogFragment;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
@@ -210,9 +213,12 @@ public class ViewControllerImpl implements ViewController {
         HelpDialogFragment helpDialogFragment = new HelpDialogFragment();
         helpDialogFragment.show(fragmentManager, "help");
     }
-    
-    public void openHelp(android.app.FragmentManager fragmentManager) {
-        HelpDialogFragment helpDialogFragment = new HelpDialogFragment();
-//        helpDialogFragment.show(fragmentManager, "help");
+
+    public void openDeleteConfirmation(FragmentManager fragementManager, Bundle bundle, Fragment fragment) {
+        DeleteDialogFragement dialogFragment = new DeleteDialogFragement();
+        dialogFragment.setArguments(bundle);
+        dialogFragment.setTargetFragment(fragment, 1);
+        dialogFragment.show(fragementManager, "delete");
     }
+
 }

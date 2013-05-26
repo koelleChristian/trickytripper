@@ -1,15 +1,11 @@
 package de.koelle.christian.trickytripper;
 
-import java.util.Locale;
-import java.util.Map.Entry;
-
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -20,19 +16,13 @@ import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.activities.ParticipantTabActivity;
 import de.koelle.christian.trickytripper.activities.PaymentTabActivity;
 import de.koelle.christian.trickytripper.activities.ReportTabActivity;
-import de.koelle.christian.trickytripper.activitysupport.PopupCallback;
 import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
-import de.koelle.christian.trickytripper.activitysupport.TabDialogSupport;
 import de.koelle.christian.trickytripper.constants.Rd;
-import de.koelle.christian.trickytripper.model.Amount;
-import de.koelle.christian.trickytripper.model.Participant;
-import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.Trip;
-import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 
 public class TrickyTripperActivity extends SherlockFragmentActivity {
 
-    private static final String DELIMITER = ": ";
+    
 
     @Override
     protected void onResume() {
@@ -127,48 +117,22 @@ public class TrickyTripperActivity extends SherlockFragmentActivity {
     // };
     // }
 
-    // private PopupCallback createPopupCallPaymentDelete(final Payment payment)
-    // {
-    // LocalActivityManager manager = getLocalActivityManager();
-    // final PaymentTabActivity paymentTabActivity = (PaymentTabActivity)
-    // manager
-    // .getActivity(Rt.PAYMENT.getId());
-    // return new PopupCallBackAdapter() {
-    // @Override
-    // public void done() {
-    // getApp().getTripController().deletePayment(payment);
-    // paymentTabActivity.sortAndUpdateView();
-    // }
-    // };
-    // }
+//    private PopupCallback createPopupCallPaymentDelete(final Payment payment)
+//    {
+//        LocalActivityManager manager = getLocalActivityManager();
+//        final PaymentTabActivity paymentTabActivity = (PaymentTabActivity)
+//                manager
+//                        .getActivity(Rt.PAYMENT.getId());
+//        return new PopupCallBackAdapter() {
+//            @Override
+//            public void done() {
+//                getApp().getTripController().deletePayment(payment);
+//                paymentTabActivity.sortAndUpdateView();
+//            }
+//        };
+//    }
 
-    private void updateCreateOrEditPaymentDeleteDialog(final Dialog dialog, Bundle args, boolean isTransfer,
-            final PopupCallback callback) {
-        Payment payment = TabDialogSupport.getPaymentFromBundle(args);
-        int idDeleteConfirmation = (isTransfer) ?
-                R.string.payment_view_delete_confirmation_transfer :
-                R.string.payment_view_delete_confirmation_payment;
-        String deleteConfirmationPrefix = (isTransfer) ?
-                getPrefixTextForTransferDeletion(payment) :
-                getPrefixTextForPaymentDeletion(payment);
-        String msg = deleteConfirmationPrefix + getResources().getString(idDeleteConfirmation);
-        ((TextView) dialog.findViewById(android.R.id.message)).setText(msg);
 
-        Button buttonOk = (Button) dialog.findViewById(android.R.id.button1);
-        Button buttonCancel = (Button) dialog.findViewById(android.R.id.button3);
-
-        buttonOk.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                dialog.dismiss();
-                callback.done();
-            }
-        });
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                callback.canceled();
-            }
-        });
-    }
 
     public void openManageTrips(View view) {
         if (view.getId() == R.id.mainView_trip_button) {
@@ -187,46 +151,7 @@ public class TrickyTripperActivity extends SherlockFragmentActivity {
         return ((TrickyTripperApp) getApplication());
     }
 
-    private String getPrefixTextForTransferDeletion(Payment row) {
-        Entry<Participant, Amount> transfererEntry = row.getParticipantToSpending().entrySet().iterator()
-                .next();
 
-        Locale locale = getResources().getConfiguration().locale;
-
-        StringBuilder builder = new StringBuilder();
-        builder.append(getResources().getString(
-                row.getCategory().getResourceStringId()));
-        builder.append(" (");
-        builder.append(AmountViewUtils.getAmountString(locale, transfererEntry.getValue(), true, true, true));
-        builder.append(")\n");
-        builder.append(transfererEntry.getKey().getName());
-        builder.append(" >> ");
-        builder.append(row.getParticipantToPayment().entrySet().iterator().next().getKey().getName());
-        builder.append(DELIMITER);
-        builder.append("\n");
-
-        return builder.toString();
-    }
-
-    private String getPrefixTextForPaymentDeletion(Payment payment) {
-        Locale locale = getResources().getConfiguration().locale;
-
-        Amount totalAmount = getApp().getTripController().getAmountFactory().createAmount();
-        payment.getTotalAmount(totalAmount);
-
-        StringBuilder builder = new StringBuilder();
-        builder.append((payment.getDescription() != null && payment.getDescription().length() > 0) ? payment
-                .getDescription()
-                + " " : "");
-        builder.append("(");
-        builder.append(AmountViewUtils.getAmountString(locale, totalAmount, true, true, true));
-        builder.append(") ");
-        builder.append(DELIMITER);
-        builder.append("\n");
-
-        return builder.toString();
-
-    }
 
     class MyTabListener implements ActionBar.TabListener {
         private Fragment fragment;

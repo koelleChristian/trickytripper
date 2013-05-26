@@ -3,6 +3,8 @@ package de.koelle.christian.trickytripper.controller;
 import java.util.Currency;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
@@ -46,6 +48,6 @@ public interface ViewController {
 
     void openHelp(FragmentManager fragmentManager);
 
-    void openHelp(android.app.FragmentManager fragmentManager);
+    void openDeleteConfirmation(FragmentManager fragementManager,  Bundle bundle, Fragment fragment );
 
 }

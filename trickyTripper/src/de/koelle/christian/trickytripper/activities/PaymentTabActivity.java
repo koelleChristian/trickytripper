@@ -3,7 +3,10 @@ package de.koelle.christian.trickytripper.activities;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map.Entry;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -25,13 +28,18 @@ import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.TabDialogSupport;
-import de.koelle.christian.trickytripper.constants.Rd;
+import de.koelle.christian.trickytripper.dialogs.DeleteDialogFragement.DeleteConfirmationCallback;
+import de.koelle.christian.trickytripper.model.Amount;
+import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.model.modelAdapter.PaymentRowListAdapter;
+import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
-public class PaymentTabActivity extends SherlockListFragment {
+public class PaymentTabActivity extends SherlockListFragment implements DeleteConfirmationCallback {
+    
+    private static final String DELIMITER = ": ";
 
     private final List<Payment> paymentRows = new ArrayList<Payment>();
     private ArrayAdapter<Payment> adapter;
@@ -57,6 +65,7 @@ public class PaymentTabActivity extends SherlockListFragment {
         sortAndUpdateView();
         getSherlockActivity().invalidateOptionsMenu();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -83,8 +92,6 @@ public class PaymentTabActivity extends SherlockListFragment {
     public void onPrepareOptionsMenu(com.actionbarsherlock.view.Menu menu) {
         PrepareOptionsSupport.prepareMajorTabOptions(menu, getApp(), false);
     }
-
-
 
     @Override
     public void onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu, MenuInflater inflater) {
@@ -169,7 +176,8 @@ public class PaymentTabActivity extends SherlockListFragment {
             return true;
         }
         case R.string.fktn_payment_list_delete_payment: {
-            getActivity().showDialog(Rd.DIALOG_DELETE_PAYMENT,TabDialogSupport.createBundleWithPaymentSelected(row));
+            getApp().getViewController().openDeleteConfirmation(getFragmentManager(),
+                    TabDialogSupport.createBundleWithPaymentSelected(row), this);
             return true;
         }
         case R.string.fktn_payment_list_edit_transfer: {
@@ -177,7 +185,8 @@ public class PaymentTabActivity extends SherlockListFragment {
             return true;
         }
         case R.string.fktn_payment_list_delete_transfer: {
-            getActivity().showDialog(Rd.DIALOG_DELETE_TRANSFER,TabDialogSupport.createBundleWithPaymentSelected(row));
+            getApp().getViewController().openDeleteConfirmation(getFragmentManager(),
+                    TabDialogSupport.createBundleWithPaymentSelected(row), this);
             return true;
         }
         default:
@@ -198,5 +207,66 @@ public class PaymentTabActivity extends SherlockListFragment {
         return (row.getCategory() != null) ? getResources().getString(
                 row.getCategory().getResourceStringId()) : "";
     }
+
+    public String getDeleteConfirmationMsg(Bundle bundle) {
+        Payment payment = TabDialogSupport.getPaymentFromBundle(bundle);
+        int idDeleteConfirmation = (payment.isMoneyTransfer()) ?
+                R.string.payment_view_delete_confirmation_transfer :
+                R.string.payment_view_delete_confirmation_payment;
+        String deleteConfirmationPrefix = (payment.isMoneyTransfer()) ?
+                getPrefixTextForTransferDeletion(payment) :
+                getPrefixTextForPaymentDeletion(payment, getActivity());
+        return deleteConfirmationPrefix + getResources().getString(idDeleteConfirmation);
+    }
+
+    public void doDelete(Bundle bundle) {
+        Payment payment = TabDialogSupport.getPaymentFromBundle(bundle);
+        ((TrickyTripperApp) getActivity().getApplication()).getTripController().deletePayment(payment);
+        sortAndUpdateView();
+    }
+
+    private String getPrefixTextForTransferDeletion(Payment row) {
+        Entry<Participant, Amount> transfererEntry = row.getParticipantToSpending().entrySet().iterator()
+                .next();
+
+        Locale locale = getResources().getConfiguration().locale;
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(getResources().getString(
+                row.getCategory().getResourceStringId()));
+        builder.append(" (");
+        builder.append(AmountViewUtils.getAmountString(locale, transfererEntry.getValue(), true, true, true));
+        builder.append(")\n");
+        builder.append(transfererEntry.getKey().getName());
+        builder.append(" >> ");
+        builder.append(row.getParticipantToPayment().entrySet().iterator().next().getKey().getName());
+        builder.append(DELIMITER);
+        builder.append("\n");
+
+        return builder.toString();
+    }
+
+    private String getPrefixTextForPaymentDeletion(Payment payment, Activity activity) {
+        Locale locale = getResources().getConfiguration().locale;
+
+        Amount totalAmount = ((TrickyTripperApp) activity.getApplication()).getTripController().getAmountFactory()
+                .createAmount();
+        payment.getTotalAmount(totalAmount);
+
+        StringBuilder builder = new StringBuilder();
+        builder.append((payment.getDescription() != null && payment.getDescription().length() > 0) ? payment
+                .getDescription()
+                + " " : "");
+        builder.append("(");
+        builder.append(AmountViewUtils.getAmountString(locale, totalAmount, true, true, true));
+        builder.append(") ");
+        builder.append(DELIMITER);
+        builder.append("\n");
+
+        return builder.toString();
+
+    }
+
+
 
 }
