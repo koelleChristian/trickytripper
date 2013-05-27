@@ -48,6 +48,8 @@ public interface ViewController {
 
     void openHelp(FragmentManager fragmentManager);
 
-    void openDeleteConfirmation(FragmentManager fragementManager,  Bundle bundle, Fragment fragment );
+    void openDeleteConfirmationOnFragment(FragmentManager fragmentManager,  Bundle bundle, Fragment targetFragment );
+    
+    void openDeleteConfirmationOnActivity(FragmentManager fragmentManager,  Bundle bundle);
 
 }

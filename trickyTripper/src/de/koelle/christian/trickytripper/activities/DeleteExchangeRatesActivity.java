@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -22,16 +20,15 @@ import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.activitysupport.PopupFactory;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
-import de.koelle.christian.trickytripper.constants.Rd;
+import de.koelle.christian.trickytripper.dialogs.DeleteDialogFragement.DeleteConfirmationCallback;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ExchangeRateSelection;
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter;
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter.DisplayMode;
 import de.koelle.christian.trickytripper.ui.model.SpinnerObject;
 
-public class DeleteExchangeRatesActivity extends SherlockFragmentActivity {
+public class DeleteExchangeRatesActivity extends SherlockFragmentActivity implements DeleteConfirmationCallback {
 
     private static final String DIALOG_PARAM_EXCHANGE_RATES = "dialogParamExchangeRates";
 
@@ -48,7 +45,7 @@ public class DeleteExchangeRatesActivity extends SherlockFragmentActivity {
         updateList();
         initInvisibleSpinner();
         updateButtonState();
-        
+
         ActionBarSupport.addBackButton(this);
 
     }
@@ -80,9 +77,10 @@ public class DeleteExchangeRatesActivity extends SherlockFragmentActivity {
         };
     }
 
-    @SuppressWarnings("unused")
     public void deleteExchangeRates(View view) {
-        showDialog(Rd.DIALOG_DELETE, wrapSelectionInBundle(getSelection()));
+        getApp().getViewController().openDeleteConfirmationOnActivity(
+                getSupportFragmentManager(),
+                wrapSelectionInBundle(getSelection()));
     }
 
     private Bundle wrapSelectionInBundle(ArrayList<ExchangeRate> selection) {
@@ -99,7 +97,6 @@ public class DeleteExchangeRatesActivity extends SherlockFragmentActivity {
         return null;
     }
 
-    @SuppressWarnings("unused")
     public void select(View view) {
         ((Spinner) findViewById(R.id.deleteExchangeRatesViewSpinner)).performClick();
     }
@@ -197,6 +194,17 @@ public class DeleteExchangeRatesActivity extends SherlockFragmentActivity {
         return false;
     }
 
+    public String getDeleteConfirmationMsg(Bundle bundle) {
+        return getResources()
+                .getString(R.string.deleteExchangeRatesViewDeleteConfirmation)
+                .replace("@@1@@", getSelectionFromBundle(bundle).size() + "");
+    }
+
+    public void doDelete(Bundle bundle) {
+        getApp().getExchangeRateController().deleteExchangeRates(getSelectionFromBundle(bundle));
+        updateList();
+    }
+
     /* ============== Options Shit [BGN] ============== */
 
     @Override
@@ -212,56 +220,16 @@ public class DeleteExchangeRatesActivity extends SherlockFragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            getApp().getViewController().openHelp(getSupportFragmentManager());;
+            getApp().getViewController().openHelp(getSupportFragmentManager());
+            ;
             return true;
         case android.R.id.home:
             onBackPressed();
-            return true;                  
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }
     }
 
     /* ============== Options Shit [END] ============== */
-
-    /* ============== Dialog Shit [END] ============== */
-
-    @Override
-    protected Dialog onCreateDialog(int id, Bundle args) {
-        Dialog dialog;
-        switch (id) {
-        case Rd.DIALOG_DELETE:
-            dialog = PopupFactory.showDeleteConfirmationDialog(this);
-            break;
-        default:
-            dialog = null;
-        }
-
-        return dialog;
-    }
-
-    @Override
-    protected void onPrepareDialog(int id, Dialog dialog, final Bundle args) {
-        switch (id) {
-
-        case Rd.DIALOG_DELETE:
-            final Dialog dialogFinal = dialog;
-            final List<ExchangeRate> selection = getSelectionFromBundle(args);
-            ((TextView) dialog.findViewById(android.R.id.message)).setText(getResources().getString(
-                    R.string.deleteExchangeRatesViewDeleteConfirmation).replace("@@1@@", selection.size() + ""));
-            ((Button) dialog.findViewById(android.R.id.button1)).setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    dialogFinal.dismiss();
-                    getApp().getExchangeRateController().deleteExchangeRates(selection);
-                    updateList();
-                }
-            });
-            break;
-        default:
-            dialog = null;
-        }
-        super.onPrepareDialog(id, dialog, args);
-    }
-
-    /* ============== Dialog Shit [END] ============== */
 }

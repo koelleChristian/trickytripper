@@ -176,7 +176,7 @@ public class PaymentTabActivity extends SherlockListFragment implements DeleteCo
             return true;
         }
         case R.string.fktn_payment_list_delete_payment: {
-            getApp().getViewController().openDeleteConfirmation(getFragmentManager(),
+            getApp().getViewController().openDeleteConfirmationOnFragment(getFragmentManager(),
                     TabDialogSupport.createBundleWithPaymentSelected(row), this);
             return true;
         }
@@ -185,7 +185,7 @@ public class PaymentTabActivity extends SherlockListFragment implements DeleteCo
             return true;
         }
         case R.string.fktn_payment_list_delete_transfer: {
-            getApp().getViewController().openDeleteConfirmation(getFragmentManager(),
+            getApp().getViewController().openDeleteConfirmationOnFragment(getFragmentManager(),
                     TabDialogSupport.createBundleWithPaymentSelected(row), this);
             return true;
         }

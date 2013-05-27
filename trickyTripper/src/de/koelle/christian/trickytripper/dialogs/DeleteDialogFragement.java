@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 
+import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.trickytripper.R;
 
 public class DeleteDialogFragement extends SherlockDialogFragment {
@@ -50,10 +51,21 @@ public class DeleteDialogFragement extends SherlockDialogFragment {
     }
 
     private DeleteConfirmationCallback getCallBack() {
-        try {
-            return (DeleteConfirmationCallback) getTargetFragment();
-        } catch (ClassCastException e) {
-            throw new ClassCastException(getTargetFragment() + " must implement OnArticleSelectedListener");
+        DeleteConfirmationCallback result;        
+        if(getTargetFragment() != null){            
+            try {            
+                result = (DeleteConfirmationCallback) getTargetFragment();
+            } catch (ClassCastException e) {
+                throw new ClassCastException("The targetFragment had been set but did not implement DeleteConfirmationCallback. Was: "  +getTargetFragment().getClass());
+            }
+        } else{
+            try {            
+                result = (DeleteConfirmationCallback) getActivity();
+            } catch (ClassCastException e) {
+                throw new ClassCastException("At least "+ getActivity() + " must implement DeleteConfirmationCallback");
+            }
         }
+        Assert.notNull(result);
+        return result;
     }
 }

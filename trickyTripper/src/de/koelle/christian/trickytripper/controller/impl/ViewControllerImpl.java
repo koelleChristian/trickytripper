@@ -214,11 +214,21 @@ public class ViewControllerImpl implements ViewController {
         helpDialogFragment.show(fragmentManager, "help");
     }
 
-    public void openDeleteConfirmation(FragmentManager fragementManager, Bundle bundle, Fragment fragment) {
+    public void openDeleteConfirmationOnFragment(FragmentManager fragmentManager, Bundle bundle, Fragment targetFragment ) {
+        openDeleteConfirmation(fragmentManager, bundle, targetFragment);
+    }
+
+    public void openDeleteConfirmationOnActivity(FragmentManager fragmentManager, Bundle bundle) {
+        openDeleteConfirmation(fragmentManager, bundle, null);     
+    }
+    private void openDeleteConfirmation(FragmentManager fragmentManager, Bundle bundle, Fragment targetFragment) {
         DeleteDialogFragement dialogFragment = new DeleteDialogFragement();
         dialogFragment.setArguments(bundle);
-        dialogFragment.setTargetFragment(fragment, 1);
-        dialogFragment.show(fragementManager, "delete");
+        if(targetFragment != null){            
+            dialogFragment.setTargetFragment(targetFragment, 1);
+        }
+        dialogFragment.show(fragmentManager, "delete");
     }
+    
 
 }
