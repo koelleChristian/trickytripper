@@ -53,6 +53,11 @@ public class TripSummarySymbolResolvingDelegator extends TripSummary {
     public int compareTo(TripSummary another) {
         return nested.compareTo(another);
     }
+    
+
+    public TripSummary getNested() {
+        return nested;
+    }
 
     @Override
     public String toString() {

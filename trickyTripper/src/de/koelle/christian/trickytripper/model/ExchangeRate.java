@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Currency;
 import java.util.Date;
 
-import android.widget.Checkable;
 import de.koelle.christian.common.utils.NumberUtils;
 
 public class ExchangeRate implements Serializable, Cloneable {

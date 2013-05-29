@@ -10,6 +10,7 @@ import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
+import de.koelle.christian.trickytripper.model.TripSummary;
 
 public interface ViewController {
 
@@ -37,6 +38,8 @@ public interface ViewController {
     void openEditPayment(Payment payment);
 
     void openEditParticipant(Participant participant);
+    
+    void openEditTrip(Activity caller, TripSummary tripSummary);
 
     void openCreateParticipant();
 

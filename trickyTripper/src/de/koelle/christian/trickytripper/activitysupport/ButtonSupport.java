@@ -1,7 +1,6 @@
 package de.koelle.christian.trickytripper.activitysupport;
 
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import de.koelle.christian.common.text.BlankTextWatcher;

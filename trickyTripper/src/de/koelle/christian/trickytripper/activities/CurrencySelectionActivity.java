@@ -2,9 +2,6 @@ package de.koelle.christian.trickytripper.activities;
 
 import java.util.Currency;
 
-import com.actionbarsherlock.app.SherlockActivity;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseArray;
@@ -12,6 +9,9 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
+
+import com.actionbarsherlock.app.SherlockActivity;
+
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;

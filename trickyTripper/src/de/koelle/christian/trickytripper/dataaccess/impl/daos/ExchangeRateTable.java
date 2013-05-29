@@ -33,7 +33,6 @@ public class ExchangeRateTable {
         db.execSQL(sb.toString());
     }
 
-    @SuppressWarnings("unused")
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (newVersion >= 4) {
             ExchangeRateTable.onCreate(db);

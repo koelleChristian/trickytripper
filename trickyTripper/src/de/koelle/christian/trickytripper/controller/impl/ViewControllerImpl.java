@@ -25,6 +25,7 @@ import de.koelle.christian.trickytripper.activities.MoneyTransferActivity;
 import de.koelle.christian.trickytripper.activities.ParticipantEditActivity;
 import de.koelle.christian.trickytripper.activities.PaymentEditActivity;
 import de.koelle.christian.trickytripper.activities.PreferencesActivity;
+import de.koelle.christian.trickytripper.activities.TripEditActivity;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.ViewMode;
 import de.koelle.christian.trickytripper.controller.ViewController;
@@ -34,6 +35,7 @@ import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
+import de.koelle.christian.trickytripper.model.TripSummary;
 
 public class ViewControllerImpl implements ViewController {
 
@@ -81,6 +83,20 @@ public class ViewControllerImpl implements ViewController {
         }
         startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
                 Rc.ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE, caller);
+    }
+
+    public void openEditTrip(Activity caller, TripSummary tripSummary) {
+        Class<? extends Activity> activity = TripEditActivity.class;
+        HashMap<String, Serializable> extras = new HashMap<String, Serializable>();
+        ViewMode viewMode;
+        if (tripSummary == null) {
+            viewMode = ViewMode.CREATE;
+        } else {
+            viewMode = ViewMode.EDIT;
+            extras.put(Rc.ACTIVITY_PARAM_TRIP_EDIT_IN_TRIP_SUMMARY, tripSummary);
+        }
+        startActivityWithParamsForResult(extras, activity, viewMode,Rc.ACTIVITY_PARAM_EDIT_TRIP_REQUEST_CODE, caller);
+
     }
 
     public void openDeleteExchangeRates(Activity caller, Currency... currencies) {
@@ -214,21 +230,21 @@ public class ViewControllerImpl implements ViewController {
         helpDialogFragment.show(fragmentManager, "help");
     }
 
-    public void openDeleteConfirmationOnFragment(FragmentManager fragmentManager, Bundle bundle, Fragment targetFragment ) {
+    public void openDeleteConfirmationOnFragment(FragmentManager fragmentManager, Bundle bundle, Fragment targetFragment) {
         openDeleteConfirmation(fragmentManager, bundle, targetFragment);
     }
 
     public void openDeleteConfirmationOnActivity(FragmentManager fragmentManager, Bundle bundle) {
-        openDeleteConfirmation(fragmentManager, bundle, null);     
+        openDeleteConfirmation(fragmentManager, bundle, null);
     }
+
     private void openDeleteConfirmation(FragmentManager fragmentManager, Bundle bundle, Fragment targetFragment) {
         DeleteDialogFragement dialogFragment = new DeleteDialogFragement();
         dialogFragment.setArguments(bundle);
-        if(targetFragment != null){            
+        if (targetFragment != null) {
             dialogFragment.setTargetFragment(targetFragment, 1);
         }
         dialogFragment.show(fragmentManager, "delete");
     }
-    
 
 }

@@ -233,7 +233,7 @@
     <string name="manageTripsView_heading">Manage trips</string>
     <string name="manage_trips_view_label_long_click_to_edit">Tap to load, long-tap to edit</string>
     <string name="manage_trips_view_button_create_new_trip">Create new trip</string>
-    <string name="manage_trips_view_delete_confirmation">Are  you sure you want to delete the selected trip including all its travelers and statistics?</string>
+    <string name="manage_trips_view_delete_confirmation">Are  you sure you want to delete the selected trip including all its travelers, payments and statistics?</string>
     <!-- ==================== Context menu participant edit====================== -->
     <string name="edit_participant_view_label_name">Name:</string>
     <string name="edit_participant_view_heading_create">Add traveler to trip</string>

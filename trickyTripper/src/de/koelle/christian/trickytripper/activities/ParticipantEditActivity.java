@@ -58,11 +58,7 @@ public class ParticipantEditActivity extends SherlockFragmentActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateWidgets();
-    }
+
 
     private void updateWidgets() {
         String text = (participant != null && participant.getName() != null) ? participant.getName() : "";

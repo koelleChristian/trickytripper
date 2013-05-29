@@ -29,7 +29,6 @@ public class ParticipantTable {
         db.execSQL(sb.toString());
     }
 
-    @SuppressWarnings("unused")
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Currently nothing to do here.
     }

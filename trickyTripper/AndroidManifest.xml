@@ -20,26 +20,20 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Sherlock" >
-        
         <activity
             android:name=".TrickyTripperActivity"
-            android:label="@string/app_name"  >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ParticipantTabActivity" >
-        </activity>
-        <activity android:name=".activities.PaymentTabActivity" >
-        </activity>
-        <activity android:name=".activities.ReportTabActivity" >
-        </activity>
-        <activity android:name=".activities.PaymentEditActivity" >
-        </activity>
-        
-        
-        
+        <activity android:name=".activities.ParticipantTabActivity" />
+        <activity android:name=".activities.PaymentTabActivity" />
+        <activity android:name=".activities.ReportTabActivity" />
+        <activity android:name=".activities.PaymentEditActivity" />
+        <activity android:name=".activities.TripEditActivity" />        
         <activity
             android:name=".activities.ParticipantEditActivity"
             android:label="@string/manageTripsView_heading" >

@@ -4,7 +4,6 @@ import java.text.Collator;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 public class Rc {
 
@@ -59,12 +58,17 @@ public class Rc {
     public static final int ACTIVITY_PARAM_CURRENCY_SELECTION_REQUEST_CODE = 62214;
     /* TODO(ckoelle) I think this is not for result anymore. */
     public static final int ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE = 49499;
+    public static final int ACTIVITY_PARAM_EDIT_TRIP_REQUEST_CODE = 36214;
 
     public static final String ACTIVITY_PARAM_DELETE_EXCHANGE_RATES_IN_CURRENCY_LIST = "activityParamImportExchangeRatesInCurrencyList";
 
     public static final String ACTIVITY_PARAM_IMPORT_EXCHANGE_RATES_IN_CURRENCY_LIST = "activityParamImportExchangeRatesInCurrencyList";
     
     public static final String ACTIVITY_PARAM_PARTICIPANT_EDIT_IN_PARTICIPANT = "activityParamParticipantEditInParticipant";
+    
+    public static final String ACTIVITY_PARAM_TRIP_EDIT_IN_TRIP_SUMMARY = "activityParamTripEditInTripSummary";
+    
+    public static final String ACTIVITY_PARAM_TRIP_EDIT_OUT_SAVE_AND_LOAD = "activityParamTripEditOutSaveAndLoad";
 
     public static final int DEFAULT_COLLATOR_STRENGTH = Collator.TERTIARY;
 
@@ -83,5 +87,6 @@ public class Rc {
     public static final int PREFS_MODE = Context.MODE_PRIVATE;
 
     public static final String PREFS_VALUE_ID_BASE_CURRENCY = "PREFS_VALUE_ID_BASE_CURRENCY";
+
 
 }

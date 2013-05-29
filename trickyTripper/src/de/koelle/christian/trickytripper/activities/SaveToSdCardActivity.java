@@ -3,9 +3,6 @@ package de.koelle.christian.trickytripper.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.actionbarsherlock.app.SherlockActivity;
-
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -15,6 +12,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.actionbarsherlock.app.SherlockActivity;
+
 import de.koelle.christian.common.io.impl.AppFileWriter;
 import de.koelle.christian.common.utils.FileUtils;
 import de.koelle.christian.trickytripper.R;
