@@ -235,6 +235,7 @@ public class ManageTripsActivity extends SherlockFragmentActivity implements Del
     public void doDelete(Bundle bundle) {
         TripSummary tripSummary = getTripSummaryFromBundle(bundle);
         getApp().getTripController().deleteTrip(tripSummary);
+        updateList(getApp().getTripController().getAllTrips());
     }
 
 }

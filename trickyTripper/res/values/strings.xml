@@ -17,7 +17,6 @@
     <string name="common_button_edit">Edit</string>
     <string name="common_label_total_amount">Total:</string>
     <string name="common_label_inactive_addon">[Inactive]</string>
-    <string name="common_toast_currency_not_part_of_this_release">The currency selection is not part of this release.</string>
     <string name="progress_dialog_text_loading">Loading …</string>
     <string name="activity_label_participants">Travelers</string>
     <string name="activity_label_report">Report</string>
@@ -48,7 +47,7 @@
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Spent:</string>
     <string name="participant_tab_row_view_label_paid">Paid:</string>
-    <string name="participant_tab_blank_list_notification">No travelers yet. \n\n\n\nCreate new travelers by long-tapping on the traveler tab header or choose \'Create\' from the menu.</string>
+    <string name="participant_tab_blank_list_notification">No travelers yet. \n\n\n\nCreate new travelers with \'+\' from the action bar or menu.</string>
     <!-- ===============================  Currency calculator view =============================== -->
     <string name="currencyCalculatorViewTextViewHeading">Exchange Calculator</string>
     <string name="currencyCalculatorViewTextViewLabelSource">Source</string>
@@ -82,7 +81,7 @@
     <!-- ===============================  Manage exchange rates view =============================== -->
     <string name="manageExchangeRatesViewTextViewHeading">Exchange Rates</string>
     <string name="manageExchangeRatesViewDeleteConfirmation">Are you sure you want to delete the selected exchange rate?</string>
-    <string name="manageExchangeRatesViewBlankListNotification">No exchange rates yet. \n\n\n\nImport or create exchange rates with the equivalent functions from the menu.</string>
+    <string name="manageExchangeRatesViewBlankListNotification">No exchange rates yet. \n\n\n\nImport or create exchange rates with the equivalent functions from the action bar or menu.</string>
     <!-- ===============================  Import exchange rates view =============================== -->
     <string name="importExchangeRatesViewTextViewHeading">Import Exchange Rates</string>
     <string name="importExchangeRatesViewOptions">Options</string>
@@ -209,7 +208,7 @@
     <string name="payment_view_label_transfer_to">To:</string>
     <string name="payment_view_delete_confirmation_payment">Are you sure you want to delete the selected payment?</string>
     <string name="payment_view_delete_confirmation_transfer">Are you sure you want to delete the selected money transfer?</string>
-    <string name="payment_view_blank_list_notification">No payments yet. \n\n\n\nCreate a new payment by long-tapping on a traveler who pays the money and select \'Create payment\'.</string>
+    <string name="payment_view_blank_list_notification">No payments yet. \n\n\n\nCreate new payments by tapping on a traveler who pays the money.</string>
     <!-- ===============================  Payment edit =============================== --> 
     <string name="payment_edit_view_label_category">Category</string>
     <string name="payment_edit_view_label_desciption">Description</string>

@@ -198,7 +198,10 @@ public class TripDao implements Dao<Trip> {
                         null);
         if (c.moveToFirst()) {
             do {
-                result.add(Currency.getInstance(c.getString(0)));
+                Currency currencyLoaded = Currency.getInstance(c.getString(0));
+                if(!result.contains(currencyLoaded)){                    
+                    result.add(currencyLoaded);
+                }
             }
             while (c.moveToNext());
         }

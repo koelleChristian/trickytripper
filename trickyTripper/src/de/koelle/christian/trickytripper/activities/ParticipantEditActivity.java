@@ -44,6 +44,7 @@ public class ParticipantEditActivity extends SherlockFragmentActivity {
 
         readAndSetInput(getIntent());
         initWidgets();
+        updateWidgets();
 
         ActionBarSupport.addBackButton(this);
     }

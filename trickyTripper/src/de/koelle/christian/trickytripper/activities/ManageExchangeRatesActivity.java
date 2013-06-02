@@ -12,6 +12,7 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -71,13 +72,26 @@ public class ManageExchangeRatesActivity extends SherlockFragmentActivity implem
         ActionBarSupport.addBackButton(this);
     }
 
-    private void initListView(ListView listView2) {
+    private void initListView(final ListView listView2) {
+        
+        listView2.setEmptyView(findViewById(android.R.id.empty));
+        
         listAdapter = new ExchangeRateRowListAdapter(this,
                 android.R.layout.simple_list_item_1, exchangeRateList,
                 DisplayMode.SINGLE);
 
         listView2.setAdapter(listAdapter);
         listView2.setChoiceMode(ListView.CHOICE_MODE_NONE);
+        
+        listView2.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TrickyTripperApp app = getApp();
+                ExchangeRate row =  (ExchangeRate) listView2.getItemAtPosition(position);
+                if (!row.isImported()) {
+                    app.getViewController().openEditExchangeRate(ManageExchangeRatesActivity.this, row);
+                }
+            }
+        });
 
         updateList();
     }

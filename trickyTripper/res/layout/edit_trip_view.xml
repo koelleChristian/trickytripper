@@ -34,12 +34,18 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/edit_trip_view_label_base_currency" />
 
+    <View
+        android:id="@+id/edit_trip_view_button_spacer"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/edit_trip_view_spinner_base_currency" />
+
     <LinearLayout
         android:id="@+id/footer"
         style="@android:style/ButtonBar"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edit_trip_view_spinner_base_currency"
+        android:layout_below="@id/edit_trip_view_button_spacer"
         android:orientation="vertical" >
 
         <Button
@@ -55,8 +61,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/edit_trip_view_create_positive_button_and_load" />
-
-
     </LinearLayout>
 
 </RelativeLayout>

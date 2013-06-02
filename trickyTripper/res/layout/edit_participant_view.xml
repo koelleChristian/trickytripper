@@ -17,12 +17,18 @@
         android:layout_below="@+id/editParticipantView_label_name_input"
         android:inputType="text" />
 
+    <View
+        android:id="@+id/editParticipantView_button_spacer"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_below="@+id/editParticipantView_autocomplete_name" />
+
     <LinearLayout
         android:id="@+id/editParticipantView_buttonBar"
         style="@android:style/ButtonBar"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editParticipantView_autocomplete_name"
+        android:layout_below="@id/editParticipantView_button_spacer"
         android:orientation="vertical" >
 
         <Button
@@ -53,9 +59,9 @@
         android:id="@+id/editParticipantViewListViewAlreadyCreated"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:focusable="false"
-        android:clickable="false"        
         android:layout_below="@id/editParticipantView_label_already_created"
+        android:clickable="false"
+        android:focusable="false"
         android:visibility="invisible" >
     </ListView>
 

@@ -17,7 +17,6 @@
     <string name="common_button_edit">Bearbeiten</string>
     <string name="common_label_total_amount">Summe:</string>
     <string name="common_label_inactive_addon">[Inaktiv]</string>
-    <string name="common_toast_currency_not_part_of_this_release">Die Währungsauswahl ist nicht Teil dieses Releases.</string>
     <string name="progress_dialog_text_loading">Lade …</string>
     <string name="activity_label_participants">Reisende</string>
     <string name="activity_label_report">Bericht</string>
@@ -48,7 +47,7 @@
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Ausgegeben:</string>
     <string name="participant_tab_row_view_label_paid">Bezahlt:</string>
-    <string name="participant_tab_blank_list_notification">Noch keine Reisenden vorhanden. \n\n\n\nErstelle neue Reisende mit einem Lang-Tap auf den Reisende-Tab-Reiter oder wähle \'Erstellen\' aus dem Menü.</string>
+    <string name="participant_tab_blank_list_notification">Noch keine Reisenden vorhanden. \n\n\n\nErstelle neue Reisende mittels \'+\' aus der Actionbar bzw. dem Menü.</string>
     <!-- ===============================  Currency calculator view =============================== -->
     <string name="currencyCalculatorViewTextViewHeading">Geldwechselrechner</string>
     <string name="currencyCalculatorViewTextViewLabelSource">Quelle</string>
@@ -82,7 +81,7 @@
     <!-- ===============================  Manage exchange rates view =============================== -->
     <string name="manageExchangeRatesViewTextViewHeading">Wechselkurse</string>
     <string name="manageExchangeRatesViewDeleteConfirmation">Soll der ausgewählte Wechselkurs wirklich gelöscht werden?</string>
-    <string name="manageExchangeRatesViewBlankListNotification">Noch keine Wechselkurse vorhanden. \n\n\n\nImportiere oder erzeuge Wechselkurse über die entsprechenden Funktionen im Menü.</string>
+    <string name="manageExchangeRatesViewBlankListNotification">Noch keine Wechselkurse vorhanden. \n\n\n\nImportiere oder erzeuge Wechselkurse über die entsprechenden Funktionen aus der Actionbar bzw. dem Menü.</string>
     <!-- ===============================  Import exchange rates view =============================== -->
     <string name="importExchangeRatesViewTextViewHeading">Wechselkurse importieren</string>
     <string name="importExchangeRatesViewOptions">Optionen</string>
@@ -209,7 +208,7 @@
     <string name="payment_view_label_transfer_to">An:</string>
     <string name="payment_view_delete_confirmation_payment">Soll die ausgewählte Zahlung wirklich gelöscht werden?</string>
     <string name="payment_view_delete_confirmation_transfer">Soll der ausgewählte Geldtransfer wirklich gelöscht werden?</string>
-    <string name="payment_view_blank_list_notification">Noch keine Zahlungen vorhanden. \n\n\n\nErzeuge eine neue Zahlung durch einen Lang-Tap auf den Reisenden, der das Geld bezahlt und wähle \'Zahlung erzeugen\'.</string>
+    <string name="payment_view_blank_list_notification">Noch keine Zahlungen vorhanden. \n\n\n\nErstelle Zahlungen durch Tab auf den Reisenden, der das Geld bezahlt.</string>
     <!-- ===============================  Payment edit =============================== -->
     <string name="payment_edit_view_label_category">Kategorie</string>
     <string name="payment_edit_view_label_desciption">Beschreibung</string>
@@ -224,7 +223,7 @@
     <string name="payment_edit_view_image_button_select_travellers_descr_top">Erlaubt die Auswahl der zahlenden Reisenden.</string>
     <string name="payment_edit_view_image_button_select_travellers_descr_bottom">Erlaubt die Auswahl der zu belastenden Reisenden.</string>
     <!-- ==================== Context menu participants ====================== -->
-    <string name="fktn_participant_create_payment">Zahlung erzeugen</string>
+    <string name="fktn_participant_create_payment">Zahlung ertellen</string>
     <string name="fktn_participant_transfer_money">Geldtransfer</string>
     <string name="fktn_participant_show_report">Bericht</string>
     <string name="fktn_participant_deactivate">Deaktivierung (für Kosten)</string>
@@ -239,7 +238,7 @@
     <string name="edit_participant_view_heading_create">Reisenden zur Reise hinzufügen</string>
     <string name="edit_participant_view_heading_edit">Reisenden bearbeiten</string>
     <string name="edit_participant_view_positive_button_create">Hinzufügen  &amp; Schließen</string>
-    <string name="edit_participant_view_positive_button_create_another">Hinzufügen &amp; weiteren Hinzufügen</string>
+    <string name="edit_participant_view_positive_button_create_another">Hinzufügen &amp; Weiteren Hinzufügen</string>
     <string name="edit_participant_view_positive_button_edit">Speichern</string>
     <string name="edit_participant_view_msg_denial">In der Reise existiert bereits ein Reisender mit dem gewünschten Namen. Bitte gib einen noch nicht vorhandenen Namen ein.</string>
     <string name="edit_participant_view_label_already_created">Zuvor hinzugefügt:</string>
