@@ -31,7 +31,7 @@ $ 1.4.0
 % Version 1.4.0
   _ 2013-06-03
 * Bugfix: Der Rest einer gleichmäßigen Zahlungsaufteilung wird jetzt centweise gleichmäßig auf die Reisenden verteilt.
-* Statt Umweg über das Kontextmenü öffnent nun ein einfacher Tap auf einen Reisenden <span class="appinternal">Zahlung erstellen</span>, auf eine Zahlung <span class="appinternal">Zahlung bearbeiten</span>.
+* Statt Umweg über das Kontextmenü öffnet nun ein einfacher Tap auf einen Reisenden <span class="appinternal">Zahlung erstellen</span>, auf eine Zahlung <span class="appinternal">Zahlung bearbeiten</span>.
 * Actionbar-Funktionen wurden den Hauptdialogen, d.h. den Tab-Reitern, hinzugefügt.
 * Die Funktionalität zum Hinzufügen von Reisenden zu einer Reise wurde ergonomisch verbessert.
 * Einige Popup-Fenster wurden durch echte Dialoge ersetzt.

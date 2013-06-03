@@ -30,7 +30,7 @@
 $ 1.4.0
 % Version 1.4.0
   _ 2013-06-03
-* Bugfix: The rest of the equal spilt division is now equally distributed among the travellers.
+* Bugfix: The rest of the equal split division is now equally distributed among the travelers.
 * No detour via context menu: A Single tap on a traveler now opens <span class="appinternal">Create Payment</span>, on payment it opens <span class="appinternal">Edit Payment</span> when suitable.
 * Action bar features have been enabled for the primary tabs.
 * The functionality to add travelers to a trip has been ergonomically improved.
