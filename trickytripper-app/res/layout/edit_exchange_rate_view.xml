@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="15dp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:weightSum="1.0" >
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:gravity="center_horizontal"
+                android:text="@string/default_blank" />
+
+            <EditText
+                android:id="@+id/editExchangeRateViewInputRateL2R"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".60"
+                android:gravity="center_horizontal"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:gravity="center_horizontal"
+                android:text="@string/default_blank" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:layout_gravity="center"
+                android:layout_weight=".20"
+                android:contentDescription="@string/currencyCalculatorViewImageViewDescription"
+                android:src="@android:drawable/ic_media_ff" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <!-- The span attribute does not work properly in conjuction with width per cent -->
+
+            <TextView
+                android:id="@+id/editExchangeRateViewLabelCurrencyLeft"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".40"
+                android:gravity="center"
+                android:text="@string/defaultX"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/editExchangeRateViewButtonCurrencyLeft"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".40"
+                android:onClick="openCurrencySelectionLeft"
+                android:visibility="gone" />
+
+            <!-- Height combo = 44dp height text = -->
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:layout_weight=".20"
+                android:gravity="center_horizontal"
+                android:text="@string/editExchangeRateViewLabelRate" />
+
+            <TextView
+                android:id="@+id/editExchangeRateViewLabelCurrencyRight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".40"
+                android:gravity="center"
+                android:text="@string/defaultX"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/editExchangeRateViewButtonCurrencyRight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".40"
+                android:onClick="openCurrencySelectionRight"
+                android:visibility="gone" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:layout_gravity="center"
+                android:layout_weight=".20"
+                android:contentDescription="@string/currencyCalculatorViewImageViewDescription"
+                android:src="@android:drawable/ic_media_rew" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:gravity="center_horizontal"
+                android:text="@string/default_blank" />
+
+            <EditText
+                android:id="@+id/editExchangeRateViewInputRateR2L"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".60"
+                android:gravity="center_horizontal"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:gravity="center_horizontal"
+                android:text="@string/default_blank" />
+        </TableRow>
+    </TableLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/editExchangeRateViewLabelInputDescription" />
+
+    <EditText
+        android:id="@+id/editExchangeRateViewInputDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:inputType="text" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="20dp" />
+
+    <!-- ============= Buttons ============= -->
+
+    <LinearLayout
+        android:id="@+id/footer"
+        style="@android:style/ButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/editExchangeRateViewButtonSave"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="done"
+            android:text="@string/defaultX" />
+
+    </LinearLayout>
+
+</LinearLayout>

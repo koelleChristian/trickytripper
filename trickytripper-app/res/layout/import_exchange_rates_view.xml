@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/importExchangeRatesListViewLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/importExchangeRatesViewListViewLabel" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="4dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <!-- This scolling shit only scales properly in conjunction with linear layout. -->
+
+    <ListView
+        android:id="@+id/importExchangeRatesViewListViewCurrenciesForImport"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </ListView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="4dp" />
+
+    <CheckBox
+        android:id="@+id/importExchangeRatesViewCheckboxReplaceExisting"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/importExchangeRatesViewCheckboxLabelNewRateOnValueChange" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="4dp" />
+
+    <TextView
+        android:id="@+id/importExchangeRatesListViewLabelSelection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="4dp" />
+
+    <LinearLayout
+        android:id="@+id/footer"
+        style="@android:style/ButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/importExchangeRatesListViewButtonDoImport"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="importExchangeRates"
+            android:text="@string/importExchangeRatesViewButtonExecute" />
+    </LinearLayout>
+
+</LinearLayout>
