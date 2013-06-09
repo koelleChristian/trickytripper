@@ -1,2 +1,7 @@
 /trickyTripperRobolectricTest/*.log
 /trickyTripperTest/*.log
+/src/
+/res/
+/META-INF/
+/ckoelle*
+/AndroidManifest.xml
