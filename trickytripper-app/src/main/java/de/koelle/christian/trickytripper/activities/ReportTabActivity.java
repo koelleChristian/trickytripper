@@ -193,7 +193,7 @@ public class ReportTabActivity extends SherlockFragment {
 
         TableLayout tableLayout = (TableLayout) view.findViewById(R.id.reportViewTableLayout);
         TextView heading = (TextView) tableLayout.findViewById(R.id.reportViewOutputHeadingOwingDebts);
-        View delimiterLine = tableLayout.findViewById(R.id.reportViewOutputDelimiterLine);
+        View delimiterLine = tableLayout.findViewById(R.id.reportViewOutputHeadingOwingDebtsRow);
 
         removeDynamicRows(tableLayout);
 
@@ -221,7 +221,7 @@ public class ReportTabActivity extends SherlockFragment {
             newRow = new TableRow(getActivity());
 
             value = getResources().getString(R.string.report_view_label_no_spendings);
-            column = 4;
+            column = 3;
 
             TextView textView = addNewTextViewToRow(newRow, value, column);
             textView.setGravity(Gravity.RIGHT);
@@ -242,11 +242,11 @@ public class ReportTabActivity extends SherlockFragment {
                             catAmountMapEntry.getKey().getResourceStringId());
 
                     value = categoryDisplayName + ":";
-                    column = 1;
+                    column = 0;
                     addNewTextViewToRow(newRow, value, column);
 
                     value = AmountViewUtils.getAmountString(locale, catAmountMapEntry.getValue(), true, true, true);
-                    column = 4;
+                    column = 3;
                     TextView textView = addNewTextViewToRow(newRow, value, column);
                     textView.setGravity(Gravity.RIGHT);
                     textView.setPadding(PADDING, PADDING, 0, PADDING);
@@ -279,7 +279,6 @@ public class ReportTabActivity extends SherlockFragment {
             TableLayout tableLayout, TextView heading, View delimiterLine) {
         if (participantSelected != null) {
             heading.setVisibility(ViewGroup.VISIBLE);
-            delimiterLine.setVisibility(ViewGroup.VISIBLE);
 
             TableRow newRow;
             String value;
@@ -292,15 +291,15 @@ public class ReportTabActivity extends SherlockFragment {
                 value = AmountViewUtils.getAmountString(locale, app.getTripController().getAmountFactory()
                         .createAmount(), true, true,
                         true);
-                column = 2;
+                column = 0;
                 TableRow.LayoutParams params = new TableRow.LayoutParams();
-                params.span = 3;
+                params.span = 2;
                 TextView textView = addNewTextViewToRow(newRow, value, column, params);
                 textView.setGravity(Gravity.RIGHT);
                 textView.setPadding(PADDING, PADDING, 0, PADDING);
 
                 this.dynamicOwingDebtsRows.add(newRow);
-                tableLayout.addView(newRow, tableLayout.getChildCount() - 1);
+                tableLayout.addView(newRow );
             }
             else {
                 TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getMiscController()
@@ -312,11 +311,11 @@ public class ReportTabActivity extends SherlockFragment {
                     String displayName = debt.getKey().getName();
 
                     value = displayName;
-                    column = 1;
+                    column = 0;
                     addNewTextViewToRow(newRow, value, column);
 
                     value = AmountViewUtils.getAmountString(locale, debt.getValue(), true, true, true);
-                    column = 4;
+                    column = 3;
                     TextView textView = addNewTextViewToRow(newRow, value, column);
                     textView.setGravity(Gravity.RIGHT);
                     textView.setPadding(PADDING, PADDING, 0, PADDING);
@@ -325,14 +324,14 @@ public class ReportTabActivity extends SherlockFragment {
                     newRows.put(displayName, newRow);
                 }
                 for (Entry<String, View> entry : newRows.entrySet()) {
-                    tableLayout.addView(entry.getValue(), tableLayout.getChildCount() - 1);
+                    tableLayout.addView(entry.getValue());
                 }
             }
 
         }
         else {
             heading.setVisibility(ViewGroup.GONE);
-            delimiterLine.setVisibility(ViewGroup.GONE);
+
         }
     }
 
@@ -350,11 +349,17 @@ public class ReportTabActivity extends SherlockFragment {
         TextView textView;
         textView = new TextView(getActivity());
         textView.setText(valueForDisplay);
-        textView.setPadding(PADDING, PADDING, PADDING, PADDING);
+        textView.setPadding(dpi2px(10), PADDING, PADDING, PADDING);
         columnRowParamsHere.column = column;
 
         target.addView(textView, columnRowParams);
         return textView;
+    }
+
+    //TODO(ckoelle) extract
+    public int dpi2px(int dpi){
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (dpi * scale + 0.5f);
     }
 
     private void removeDynamicRows(TableLayout tableLayout) {

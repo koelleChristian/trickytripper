@@ -1,121 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
     <TextView
-        android:id="@+id/reportViewSpinnerLabel"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
-        android:text="@string/report_view_label_report_spinner" />
-
-    <Spinner
-        android:id="@+id/reportViewBaseSpinner"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/reportViewSpinnerLabel"
-        android:prompt="@string/report_view_label_report_spinner_prompt" />
-
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/reportViewBaseSpinner"
-        android:scrollbars="vertical" >
-
-        <TableLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/reportViewTableLayout"
+            android:id="@+id/reportViewSpinnerLabel"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:shrinkColumns="1"
-            android:stretchColumns="1" >
+            android:layout_marginTop="10dip"
+            android:text="@string/report_view_label_report_spinner"/>
 
-            <TableRow>
+    <Spinner
+            android:id="@+id/reportViewBaseSpinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/reportViewSpinnerLabel"
+            android:prompt="@string/report_view_label_report_spinner_prompt"/>
 
-                <TextView
-                    android:layout_span="3"
-                    android:padding="3dip"
-                    android:text="@string/report_view_subheading_spendings"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-            </TableRow>
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/reportViewBaseSpinner"
+            android:scrollbars="vertical">
 
-            <TableRow>
+        <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_column="1"
-                    android:padding="3dip"
-                    android:text="@string/report_view_label_total_spent" />
 
-                <TextView
-                    android:id="@+id/reportViewOutputTotalSpent"
-                    android:layout_column="4"
-                    android:gravity="right"
-                    android:padding="0dip" />
-            </TableRow>
+            <TableLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/reportViewTableLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:shrinkColumns="0"
+                    android:layout_marginLeft="5dip"
+                    android:layout_marginRight="5dip"
+                    android:stretchColumns="0">
 
-            <TableRow>
+                <TableRow
+                        android:paddingTop="15dip"
+                        android:paddingBottom="5dip">
 
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="left"
-                    android:padding="3dip"
-                    android:text="@string/report_view_label_payment_count" />
+                    <TextView
+                            android:layout_span="2"
+                            android:text="@string/report_view_subheading_spendings"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"/>
+                </TableRow>
 
-                <TextView
-                    android:id="@+id/reportViewOutputPaymentCount"
-                    android:layout_column="4"
-                    android:gravity="right"
-                    android:padding="0dip" />
-            </TableRow>
+                <TableRow>
 
-            <TableRow>
+                    <TextView
+                            android:paddingLeft="10dip"
+                            android:text="@string/report_view_label_total_spent"/>
 
-                <TextView
-                    android:layout_span="3"
-                    android:padding="3dip"
-                    android:text="@string/report_view_subheading_spendings_by_category"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-            </TableRow>
+                    <TextView
+                            android:id="@+id/reportViewOutputTotalSpent"
+                            android:layout_column="3"
+                            android:gravity="right"
+                            android:padding="0dip"/>
+                </TableRow>
 
-            <View
-                android:id="@+id/reportViewOutputDelimiterLine"
-                android:layout_height="2dip"
-                android:background="#FF909090" />
+                <TableRow>
 
-            <TableRow>
+                    <TextView
+                            android:paddingLeft="10dip"
+                            android:text="@string/report_view_label_payment_count"/>
 
-                <TextView
-                    android:id="@+id/reportViewOutputHeadingOwingDebts"
-                    android:layout_span="3"
-                    android:padding="3dip"
-                    android:text="@string/report_view_subheading_owing_debts_by_traveller"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-            </TableRow>
+                    <TextView
+                            android:id="@+id/reportViewOutputPaymentCount"
+                            android:layout_column="3"
+                            android:gravity="right"
+                            android:padding="0dip"/>
+                </TableRow>
 
-            <TableRow>
+                <TableRow
+                        android:paddingTop="15dip"
+                        android:paddingBottom="5dip">
 
-                <TextView
-                    android:padding="5dip"
-                    android:text="" />
+                    <TextView
+                            android:layout_span="2"
+                            android:text="@string/report_view_subheading_spendings_by_category"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"/>
+                </TableRow>
 
-                <TextView
-                    android:padding="5dip"
-                    android:text="" />
+  <!--              <View
+                        android:id="@+id/reportViewOutputDelimiterLine"
+                        android:layout_height="2dip"
+                        android:background="#FF909090"/>-->
 
-                <TextView
-                    android:padding="5dip"
-                    android:text="" />
+                <TableRow android:id="@+id/reportViewOutputHeadingOwingDebtsRow">
 
-                <TextView
-                    android:padding="5dip"
-                    android:text="" />
-            </TableRow>
-        </TableLayout>
+                    <TextView
+                            android:id="@+id/reportViewOutputHeadingOwingDebts"
+                            android:layout_span="2"
+                            android:text="@string/report_view_subheading_owing_debts_by_traveller"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"/>
+                </TableRow>
+
+
+            </TableLayout>
+
+            <TableLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/reportViewTableLayoutxyxx"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:shrinkColumns="1"
+                    android:layout_marginLeft="5dip"
+                    android:layout_marginRight="5dip"
+                    android:layout_below="@id/reportViewTableLayout"
+                    android:stretchColumns="1">
+
+                <TableRow android:paddingTop="15dip"
+                          android:paddingBottom="5dip">
+
+                    <TextView
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:text="Reisender"/>
+
+                    <TextView
+                            android:paddingLeft="10dip"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:text="schuldet"/>
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                            android:paddingLeft="10dip"
+                            android:text="Christian"/>
+
+                    <TextView
+                            android:paddingLeft="20dip"
+                            android:text="Peter"/>
+
+                    <TextView
+                            android:gravity="right"
+                            android:paddingRight="0dip"
+                            android:text="50"/>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                            android:paddingLeft="10dip"
+                            android:text="Christian"/>
+
+                    <TextView
+                            android:paddingLeft="20dip"
+                            android:text="Peter"/>
+
+                    <TextView
+                            android:gravity="right"
+                            android:paddingRight="0dip"
+                            android:text="50"/>
+                </TableRow>
+
+            </TableLayout>
+        </RelativeLayout>
     </ScrollView>
 
 </RelativeLayout>
