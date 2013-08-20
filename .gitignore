@@ -5,3 +5,6 @@
 /META-INF/
 /ckoelle*
 /AndroidManifest.xml
+/.gradle/
+/gen/
+/.idea/
