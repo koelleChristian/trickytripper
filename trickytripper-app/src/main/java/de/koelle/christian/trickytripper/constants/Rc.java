@@ -54,6 +54,7 @@ public class Rc {
     public static final String ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_CURRENCY = "activityParamCurrencySelectionOutCurrency";
     public static final String ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_WAS_LEFT_NOT_RIGHT = "activityParamCurrencySelectionOutWasLeftNotRight";
 
+    // Maximum 16 bits, i.e. 65535
     public static final int ACTIVITY_PARAM_CURRENCY_CALCULATOR_REQUEST_CODE = 53214;
     public static final int ACTIVITY_PARAM_CURRENCY_SELECTION_REQUEST_CODE = 62214;
     /* TODO(ckoelle) I think this is not for result anymore. */

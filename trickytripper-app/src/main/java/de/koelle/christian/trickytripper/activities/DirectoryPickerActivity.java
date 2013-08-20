@@ -68,7 +68,7 @@ public class DirectoryPickerActivity extends SherlockFragmentActivity {
     public static final String EXTRA_CHOOSE_TXT_PREFIX = "extraChooseText";
 
     public static final String EXTRA_RESULT_CHOSEN_DIRECTORY = "chosenDir";
-    public static final int REQUEST_CODE = 43522432;
+    public static final int REQUEST_CODE = 49300;
 
     private File dir;
     private boolean showHidden = false;
