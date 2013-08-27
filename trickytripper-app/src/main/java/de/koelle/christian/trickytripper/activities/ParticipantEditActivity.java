@@ -126,6 +126,8 @@ public class ParticipantEditActivity extends SherlockFragmentActivity {
 
     public void saveAndClose(View view) {
         if (save()) {
+            /*To update the report.*/
+            getApp().getTripController().reloadTrip();
             finish();
         }
     }

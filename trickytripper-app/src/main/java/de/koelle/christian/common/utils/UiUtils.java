@@ -42,6 +42,10 @@ public class UiUtils {
         int visibility = (visible) ? View.VISIBLE : View.GONE;
         view.setVisibility(visibility);
     }
+    public static int dpi2px(Resources resources, int dpi) {
+        final float scale = resources.getDisplayMetrics().density;
+        return (int) (dpi * scale + 0.5f);
+    }
 
     public static TextView setLabelAndValueOnTextView(Activity activity, int viewId, Object label, Object value) {
         TextView textView = (TextView) activity.findViewById(viewId);

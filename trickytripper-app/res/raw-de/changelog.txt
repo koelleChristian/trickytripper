@@ -26,6 +26,18 @@
     </style>
   </head>  
   <body>
+
+$ 1.4.2
+% Version 1.4.2
+  _ 2013-09-15
+* Bugfix: Die Aktualisierung von Reisenden aktualisiert nun auch den Bericht, auch ohne eine Reise neu laden zu müssen.
+* Der Berichts-Tab wurde überarbeitet: Die Schulden von allen Reisenden werden angezeigt.
+
+$ 1.4.1
+% Version 1.4.1
+  _ 2013-08-31
+* Bugfix: Das Speichern von Berichten auf SD-Karte funktioniert wieder.
+* Die Italienische Übersetzung ist jetzt verfügbar (Dank an Andrea Zanella).
   
 $ 1.4.0
 % Version 1.4.0

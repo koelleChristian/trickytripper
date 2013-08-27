@@ -1,11 +1,7 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -65,7 +61,7 @@ public class ReportTabActivity extends SherlockFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraintsAbs().activity(inflater).menu(menu)
-                        .options(new int[] {
+                        .options(new int[]{
                                 R.id.option_create_participant,
                                 R.id.option_help,
                                 R.id.option_preferences,
@@ -76,17 +72,17 @@ public class ReportTabActivity extends SherlockFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.option_help:
-            getApp().getViewController().openHelp(getFragmentManager());
-            return true;
-        case R.id.option_export:
-            getApp().getViewController().openExport();
-            return true;
-        case R.id.option_preferences:
-            getApp().getViewController().openSettings();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.option_help:
+                getApp().getViewController().openHelp(getFragmentManager());
+                return true;
+            case R.id.option_export:
+                getApp().getViewController().openExport();
+                return true;
+            case R.id.option_preferences:
+                getApp().getViewController().openSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -95,7 +91,7 @@ public class ReportTabActivity extends SherlockFragment {
         setHasOptionsMenu(true);
 
         view = inflater.inflate(R.layout.report_tab_view, container, false);
-        createPanel(view);
+        //createPanel(view);
         return view;
     }
 
@@ -105,7 +101,7 @@ public class ReportTabActivity extends SherlockFragment {
 
         participantsInSpinner = new ArrayList<Participant>();
         participantsInSpinner.add(null);
-        participantsInSpinner.addAll(app.getTripController().getAllParticipants(false, true));
+        participantsInSpinner.addAll(getAllParticipants(app));
 
         Spinner spinner = SpinnerViewSupport.configureReportSelectionSpinner(
                 view,
@@ -127,8 +123,8 @@ public class ReportTabActivity extends SherlockFragment {
 
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 Participant participantSelected = participantsInSpinner.get(position); // can
-                                                                                       // be
-                                                                                       // null
+                // be
+                // null
                 app.getTripController().getDialogState().setParticipantReporting(participantSelected);
                 ReportTabActivity.this.updateDynamicRows(app, participantSelected, locale, view);
                 ReportTabActivity.this.updateStaticRows(app, participantSelected, locale, view);
@@ -142,6 +138,10 @@ public class ReportTabActivity extends SherlockFragment {
 
     }
 
+    private List<Participant> getAllParticipants(TrickyTripperApp app) {
+        return app.getTripController().getAllParticipants(false, true);
+    }
+
     private int getPositionInSpinner(Participant p, List<Participant> participantsInSpinner2) {
         if (p == null) {
             return 0;
@@ -151,8 +151,7 @@ public class ReportTabActivity extends SherlockFragment {
             Participant pInList = participantsInSpinner2.get(i);
             if (pInList == null) {
                 continue;
-            }
-            else if (pInList.equals(p)) {
+            } else if (pInList.equals(p)) {
                 return i;
             }
         }
@@ -176,8 +175,7 @@ public class ReportTabActivity extends SherlockFragment {
                     .getSpendingByUser().get(participantSelected), true, true, true);
             valueCount = getTripLoaded(app).getSumReport().getSpendingByUserCount()
                     .get(participantSelected);
-        }
-        else {
+        } else {
             valueTotalSpent = AmountViewUtils.getAmountString(locale, getTripLoaded(app)
                     .getSumReport()
                     .getTotalSpendings(), true, true, true);
@@ -191,27 +189,25 @@ public class ReportTabActivity extends SherlockFragment {
 
     private void updateDynamicRows(TrickyTripperApp app, Participant participantSelected, Locale locale, View view) {
 
-        TableLayout tableLayout = (TableLayout) view.findViewById(R.id.reportViewTableLayout);
-        TextView heading = (TextView) tableLayout.findViewById(R.id.reportViewOutputHeadingOwingDebts);
-        View delimiterLine = tableLayout.findViewById(R.id.reportViewOutputHeadingOwingDebtsRow);
+        TableLayout tableLayoutUpper = (TableLayout) view.findViewById(R.id.reportViewTableLayout);
+        TableLayout tableLayoutLower = (TableLayout) view.findViewById(R.id.reportViewTableLayoutDebts);
 
-        removeDynamicRows(tableLayout);
+        removeDynamicRows(tableLayoutLower, tableLayoutUpper);
 
-        addDynamicCategoryRows(app, participantSelected, locale, tableLayout, delimiterLine);
-        addDynamicDebtRows(app, participantSelected, locale, tableLayout, heading, delimiterLine);
+        addDynamicCategoryRows(app, participantSelected, locale, tableLayoutUpper);
+        addDynamicDebtRows(app, participantSelected, locale, tableLayoutLower);
 
     }
 
     private void addDynamicCategoryRows(TrickyTripperApp app, Participant participantSelected, Locale locale,
-            TableLayout tableLayout, View delimiterLine) {
+                                        TableLayout tableLayout) {
 
         SumReport sumReport = getTripLoaded(app).getSumReport();
         Map<PaymentCategory, Amount> categorySpending;
 
         if (participantSelected != null) {
             categorySpending = sumReport.getSpendingByUserByCategory().get(participantSelected);
-        }
-        else {
+        } else {
             categorySpending = sumReport.getTotalSpendingByCategory();
         }
         TableRow newRow;
@@ -227,10 +223,9 @@ public class ReportTabActivity extends SherlockFragment {
             textView.setGravity(Gravity.RIGHT);
             textView.setPadding(PADDING, PADDING, 0, PADDING);
 
-            this.dynamicOwingDebtsRows.add(newRow);
-            tableLayout.addView(newRow, calculatePositionToInsert(tableLayout, delimiterLine));
-        }
-        else {
+            this.dynamicSpendingRows.add(newRow);
+            tableLayout.addView(newRow);
+        } else {
             TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getMiscController()
                     .getDefaultStringCollator());
 
@@ -256,83 +251,74 @@ public class ReportTabActivity extends SherlockFragment {
                 }
 
             }
-            int positionToInsert = calculatePositionToInsert(tableLayout, delimiterLine);
             for (Entry<String, View> entry : newRows.entrySet()) {
-                tableLayout.addView(entry.getValue(), positionToInsert);
-                positionToInsert++;
+                tableLayout.addView(entry.getValue());
+
             }
         }
 
     }
 
-    private int calculatePositionToInsert(TableLayout tableLayout, View delimiterLine) {
-        for (int i = 0; i < tableLayout.getChildCount(); i++) {
-            View view = tableLayout.getChildAt(i);
-            if (delimiterLine.getId() == view.getId()) {
-                return i;
-            }
-        }
-        return -1;
-    }
+    private void addDynamicDebtRows(TrickyTripperApp app, Participant participantSelected, Locale locale, TableLayout tableLayoutDebts) {
 
-    private void addDynamicDebtRows(TrickyTripperApp app, Participant participantSelected, Locale locale,
-            TableLayout tableLayout, TextView heading, View delimiterLine) {
+        TableRow headingDebts = (TableRow) view.findViewById(R.id.reportViewTableLayoutDebtsHeading2);
+        TableRow headingNoDebts = (TableRow) view.findViewById(R.id.reportViewTableLayoutDebtsHeadingNoDebts);
+
+        Collection<Participant> involvedParticipants = new ArrayList<Participant>();
         if (participantSelected != null) {
-            heading.setVisibility(ViewGroup.VISIBLE);
+            involvedParticipants.add(participantSelected);
+        } else {
+            involvedParticipants.addAll(getAllParticipants(app));
+        }
+        boolean areThereDebtsToBeDisplayed = false;
+        TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getMiscController()
+                .getDefaultStringCollator());
 
-            TableRow newRow;
-            String value;
-            int column;
-
-            Debts debts = getTripLoaded(app).getDebts().get(participantSelected);
-            if (debts.getLoanerToDepts().entrySet().isEmpty()) {
-                newRow = new TableRow(getActivity());
-
-                value = AmountViewUtils.getAmountString(locale, app.getTripController().getAmountFactory()
-                        .createAmount(), true, true,
-                        true);
-                column = 0;
-                TableRow.LayoutParams params = new TableRow.LayoutParams();
-                params.span = 2;
-                TextView textView = addNewTextViewToRow(newRow, value, column, params);
-                textView.setGravity(Gravity.RIGHT);
-                textView.setPadding(PADDING, PADDING, 0, PADDING);
-
-                this.dynamicOwingDebtsRows.add(newRow);
-                tableLayout.addView(newRow );
-            }
-            else {
-                TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getMiscController()
-                        .getDefaultStringCollator());
-
+        for (Entry<Participant, Debts> entry : getTripLoaded(app).getDebts().entrySet()) {
+            Debts debts = entry.getValue();
+            if (debts != null && debts.getLoanerToDepts() != null) {
+                TableRow newRow;
+                TextView textView;
+                String value;
+                int column;
                 for (Entry<Participant, Amount> debt : debts.getLoanerToDepts().entrySet()) {
+                    if (isInScope(involvedParticipants, entry, debt)) {
+                        areThereDebtsToBeDisplayed = true;
 
-                    newRow = new TableRow(getActivity());
-                    String displayName = debt.getKey().getName();
+                        newRow = new TableRow(getActivity());
 
-                    value = displayName;
-                    column = 0;
-                    addNewTextViewToRow(newRow, value, column);
+                        value = entry.getKey().getName();
+                        column = 0;
+                        textView = addNewTextViewToRow(newRow, value, column, 0.35f);
+                        textView.setPadding(UiUtils.dpi2px(getResources(), 10), PADDING, PADDING, PADDING);
 
-                    value = AmountViewUtils.getAmountString(locale, debt.getValue(), true, true, true);
-                    column = 3;
-                    TextView textView = addNewTextViewToRow(newRow, value, column);
-                    textView.setGravity(Gravity.RIGHT);
-                    textView.setPadding(PADDING, PADDING, 0, PADDING);
+                        value = debt.getKey().getName();
+                        column = 1;
+                        textView = addNewTextViewToRow(newRow, value, column, 0.35f);
+                        textView.setPadding(UiUtils.dpi2px(getResources(), 10), PADDING, PADDING, PADDING);
 
-                    this.dynamicOwingDebtsRows.add(newRow);
-                    newRows.put(displayName, newRow);
-                }
-                for (Entry<String, View> entry : newRows.entrySet()) {
-                    tableLayout.addView(entry.getValue());
+                        value = AmountViewUtils.getAmountString(locale, debt.getValue(), true, true, true);
+                        column = 2;
+                        textView = addNewTextViewToRow(newRow, value, column, 0.3f);
+                        textView.setGravity(Gravity.RIGHT);
+                        textView.setPadding(PADDING, PADDING, 0, PADDING);
+
+                        this.dynamicOwingDebtsRows.add(newRow);
+                        newRows.put(entry.getKey().getName() + debt.getKey().getName(), newRow);
+                    }
                 }
             }
-
         }
-        else {
-            heading.setVisibility(ViewGroup.GONE);
-
+        for (Entry<String, View> entry : newRows.entrySet()) {
+            tableLayoutDebts.addView(entry.getValue());
         }
+        UiUtils.setViewVisibility(headingDebts, areThereDebtsToBeDisplayed);
+        UiUtils.setViewVisibility(headingNoDebts, !areThereDebtsToBeDisplayed);
+    }
+
+    private boolean isInScope(Collection<Participant> participants, Entry<Participant, Debts> entry,
+                              Entry<Participant, Amount> debt) {
+        return participants.contains(entry.getKey()) || participants.contains(debt.getKey());
     }
 
     private Trip getTripLoaded(TrickyTripperApp app) {
@@ -342,35 +328,33 @@ public class ReportTabActivity extends SherlockFragment {
     private TextView addNewTextViewToRow(TableRow target, String valueForDisplay, int column) {
         return addNewTextViewToRow(target, valueForDisplay, column, new TableRow.LayoutParams());
     }
-
+    private TextView addNewTextViewToRow(TableRow target, String valueForDisplay, int column, float widthPercentage) {
+        TableRow.LayoutParams columnRowParams = new TableRow.LayoutParams();
+        columnRowParams.weight=widthPercentage;
+        return addNewTextViewToRow(target, valueForDisplay, column, columnRowParams);
+    }
     private TextView addNewTextViewToRow(TableRow target, String valueForDisplay, int column,
-            TableRow.LayoutParams columnRowParams) {
+                                         TableRow.LayoutParams columnRowParams) {
         TableRow.LayoutParams columnRowParamsHere = columnRowParams;
         TextView textView;
         textView = new TextView(getActivity());
         textView.setText(valueForDisplay);
-        textView.setPadding(dpi2px(10), PADDING, PADDING, PADDING);
+        textView.setPadding(UiUtils.dpi2px(getResources(), 10), PADDING, PADDING, PADDING);
         columnRowParamsHere.column = column;
 
         target.addView(textView, columnRowParams);
         return textView;
     }
 
-    //TODO(ckoelle) extract
-    public int dpi2px(int dpi){
-        final float scale = getResources().getDisplayMetrics().density;
-        return (int) (dpi * scale + 0.5f);
-    }
-
-    private void removeDynamicRows(TableLayout tableLayout) {
+    private void removeDynamicRows(TableLayout tableLayoutDebts, TableLayout tableLayoutSpending) {
         if (!dynamicOwingDebtsRows.isEmpty()) {
             for (View dynamicRow : dynamicOwingDebtsRows) {
-                tableLayout.removeView(dynamicRow);
+                tableLayoutDebts.removeView(dynamicRow);
             }
         }
         if (!dynamicSpendingRows.isEmpty()) {
             for (View dynamicRow : dynamicSpendingRows) {
-                tableLayout.removeView(dynamicRow);
+                tableLayoutSpending.removeView(dynamicRow);
             }
         }
     }

@@ -51,7 +51,6 @@ public class DebtTableExporter {
                         resultBuilder.append(charResolver.getColumnDelimiter(StyleClass.NUMERIC_VALUE));
                         resultBuilder.append(TableExporterUtils.getAmount(locale, debt.getValue()));
                         resultBuilder.append(charResolver.getRowEndDelimiter());
-                 //TODO(ckoelle)
                     }
                 }
             }

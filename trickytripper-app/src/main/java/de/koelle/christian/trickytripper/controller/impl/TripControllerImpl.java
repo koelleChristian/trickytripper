@@ -371,4 +371,12 @@ public class TripControllerImpl implements TripController, TripResolver {
                 wrapInBrackets);
     }
 
+    @Override
+    public void reloadTrip() {
+        TripSummary summary = new TripSummary();
+        summary.setId(getTripLoaded().getId());
+        loadTrip(summary);
+    }
+
+
 }

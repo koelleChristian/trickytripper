@@ -87,84 +87,66 @@
                             android:textStyle="bold"/>
                 </TableRow>
 
-  <!--              <View
-                        android:id="@+id/reportViewOutputDelimiterLine"
-                        android:layout_height="2dip"
-                        android:background="#FF909090"/>-->
-
-                <TableRow android:id="@+id/reportViewOutputHeadingOwingDebtsRow">
-
-                    <TextView
-                            android:id="@+id/reportViewOutputHeadingOwingDebts"
-                            android:layout_span="2"
-                            android:text="@string/report_view_subheading_owing_debts_by_traveller"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"/>
-                </TableRow>
-
-
             </TableLayout>
 
             <TableLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/reportViewTableLayoutxyxx"
+                    android:id="@+id/reportViewTableLayoutDebts"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:shrinkColumns="1"
                     android:layout_marginLeft="5dip"
                     android:layout_marginRight="5dip"
                     android:layout_below="@id/reportViewTableLayout"
-                    android:stretchColumns="1">
+                    android:weightSum="1.0" >
 
                 <TableRow android:paddingTop="15dip"
-                          android:paddingBottom="5dip">
+                          android:paddingBottom="5dip"
+                          android:id="@+id/reportViewTableLayoutDebtsHeading">
 
                     <TextView
                             android:textColor="@color/white"
                             android:textStyle="bold"
-                            android:text="Reisender"/>
+                            android:layout_span="3"
+                            android:layout_weight=".35"
+                            android:text="@string/exportViewCheckboxContentOwingDebts"/>
+
+
+                </TableRow>
+
+                <TableRow
+                          android:paddingBottom="5dip"
+                          android:id="@+id/reportViewTableLayoutDebtsHeading2">
 
                     <TextView
                             android:paddingLeft="10dip"
                             android:textColor="@color/white"
                             android:textStyle="bold"
-                            android:text="schuldet"/>
-
-
-                </TableRow>
-
-                <TableRow>
+                            android:layout_weight=".35"
+                            android:text="@string/fileExportOwingDebtsHeadingDebtor"/>
 
                     <TextView
                             android:paddingLeft="10dip"
-                            android:text="Christian"/>
-
-                    <TextView
-                            android:paddingLeft="20dip"
-                            android:text="Peter"/>
-
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:layout_weight=".35"
+                            android:text="@string/fileExportOwingDebtsHeadingCreditor"/>
                     <TextView
                             android:gravity="right"
                             android:paddingRight="0dip"
-                            android:text="50"/>
+                            android:layout_weight=".30"
+                            android:text=" "/>
                 </TableRow>
 
-                <TableRow>
+                <TableRow android:paddingTop="15dip"
+                          android:paddingBottom="5dip"
+                          android:id="@+id/reportViewTableLayoutDebtsHeadingNoDebts">
 
                     <TextView
-                            android:paddingLeft="10dip"
-                            android:text="Christian"/>
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:text="No debts"/>
 
-                    <TextView
-                            android:paddingLeft="20dip"
-                            android:text="Peter"/>
-
-                    <TextView
-                            android:gravity="right"
-                            android:paddingRight="0dip"
-                            android:text="50"/>
                 </TableRow>
-
             </TableLayout>
         </RelativeLayout>
     </ScrollView>
