@@ -26,7 +26,13 @@
     </style>
   </head>  
   <body>
-  
+
+$ 1.4.1
+% Version 1.4.1
+  _ 2013-08-31
+* Bugfix: Saving to SD card now works again.
+* Italian translation added (thanks to Andrea Zanella).
+
 $ 1.4.0
 % Version 1.4.0
   _ 2013-06-03

@@ -26,6 +26,12 @@
     </style>
   </head>  
   <body>
+
+$ 1.4.1
+% Version 1.4.1
+  _ 2013-08-31
+* Bugfix: Das Speichern von Berichten auf SD-Karte funktioniert wieder.
+* Die Italienische Übersetzung ist jetzt verfügbar (Dank an Andrea Zanella).
   
 $ 1.4.0
 % Version 1.4.0
