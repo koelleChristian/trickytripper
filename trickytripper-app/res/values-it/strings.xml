@@ -31,7 +31,7 @@
     <string name="label_enum_payment_category_other">Varie</string>
     <string name="label_enum_payment_category_rentals">Noleggio</string>
     <string name="label_enum_payment_category_culture">Cultura</string>
-    <string name="label_enum_payment_category_entrance_fee">Biglietto d'ingresso</string>
+    <string name="label_enum_payment_category_entrance_fee">Biglietto d\'ingresso</string>
     <string name="label_enum_payment_category_money_transfer">Trasferimento di denaro</string>
     <string name="label_enum_select_rates_all">&#8230; tutto</string>
     <string name="label_enum_select_rates_none">&#8230; nulla</string>
@@ -47,7 +47,7 @@
     <!-- =============================== Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Speso:</string>
     <string name="participant_tab_row_view_label_paid">Pagato:</string>
-    <string name="participant_tab_blank_list_notification">Non c'è ancora nessun viaggiatore. \n\n\n\nCrea nuovi viaggiatori selezionando \'+\' dalla barra delle azioni o dal menu.</string>
+    <string name="participant_tab_blank_list_notification">Non c\'è ancora nessun viaggiatore. \n\n\n\nCrea nuovi viaggiatori selezionando \'+\' dalla barra delle azioni o dal menu.</string>
     <!-- =============================== Currency calculator view =============================== -->
     <string name="currencyCalculatorViewTextViewHeading">Convertitore di valuta</string>
     <string name="currencyCalculatorViewTextViewLabelSource">Origine</string>
@@ -88,12 +88,12 @@
     <string name="importExchangeRatesViewCheckboxLabelNewRateOnValueChange">Crea nuovo tasso dal cambio valore</string>
     <string name="importExchangeRatesViewListViewLabel">Selezionare tutti i tassi di valute rilevanti</string>
     <string name="importExchangeRatesViewButtonExecute">Inizia importazione</string>
-    <string name="importExchangeRatesViewCancelImportToast">L'importazione è stata annullata.</string>
+    <string name="importExchangeRatesViewCancelImportToast">L\'importazione è stata annullata.</string>
     <string name="importExchangeRatesViewProgressBarMessage">Importazione tassi di cambio &#8230;</string>
     <string name="importExchangeRatesViewSelectionPrefix">Selezionato:</string>
-    <string name="importExchangeRatesViewPreconToastRequiresOnlineConnection">L'importazione dei tassi di cambio richiede una connessione online.</string>
+    <string name="importExchangeRatesViewPreconToastRequiresOnlineConnection">L\'importazione dei tassi di cambio richiede una connessione online.</string>
     <string name="importExchangeRatesViewPreconToastNotAlive1">I tassi di cambio non possono essere ottenuti via internet per le seguenti valute:</string>
-    <string name="importExchangeRatesViewPreconToastNotAlive2">Inserisci un tasso a mano o crea un nuovo tasso di cambio, scegliendo \ 'Crea tasso corrispondente \' dal menu.</string>
+    <string name="importExchangeRatesViewPreconToastNotAlive2">Inserisci un tasso a mano o crea un nuovo tasso di cambio, scegliendo \'Crea tasso corrispondente \' dal menu.</string>
     <!-- =============================== Delete exchange rates view =============================== -->
     <string name="deleteExchangeRatesViewTextViewHeading">Elimina tasso di cambio</string>
     <string name="deleteExchangeRatesViewButtonLabelPositive">Elimina selezione</string>
@@ -121,12 +121,12 @@
     <string name="exportViewCheckboxFormatHtml">HTML</string>
     <string name="exportViewCheckboxFormatTxt">TXT</string>
     <string name="exportViewCheckboxSeparateFilesForIndividuals">File(s) separati per ciascun viaggiatore</string>
-    <string name="exportViewCheckboxShowTripSumOnIndividualSpendingReport">Spese: Mostra le somme dell'intero viaggio nei singoli files</string>
-    <string name="exportViewSpinnerPromptScope">Scegli viaggiatore per l'esportazione</string>
+    <string name="exportViewCheckboxShowTripSumOnIndividualSpendingReport">Spese: Mostra le somme dell\'intero viaggio nei singoli files</string>
+    <string name="exportViewSpinnerPromptScope">Scegli viaggiatore per l\'esportazione</string>
     <string name="exportViewButtonExecuteExport">Esporta</string>
     <string name="exportViewIntentChooserHeader">Scegli il servizio a cui esportare</string>
-    <string name="exportViewTextViewSubHeadingChannel">Destinazione dell'output?</string>
-    <string name="exportViewSpinnerPromptChannel">Scegli la destinazione dell'output</string>
+    <string name="exportViewTextViewSubHeadingChannel">Destinazione dell\'output?</string>
+    <string name="exportViewSpinnerPromptChannel">Scegli la destinazione dell\'output</string>
     <string name="exportViewSpinnerNotAvailable">non disponibile</string>
     <string name="exportOutputChannelEnumSave2Sd">Salva su SD card</string>
     <string name="exportOutputChannelMail">Posta</string>
@@ -171,10 +171,10 @@
     <string name="fileExportSpendingsHeadingTotalCount">Numero totale di pagamenti</string>
     <string name="fileExportOwingDebtsHeadingDebtor">Viaggiatore</string>
     <string name="fileExportOwingDebtsHeadingCreditor">deve a</string>
-    <string name="fileExportOwingDebtsHeadingAmount">l'importo di</string>
+    <string name="fileExportOwingDebtsHeadingAmount">l\'importo di</string>
     <string name="fileExportTransferHeadingPayer">Viaggiatore</string>
     <string name="fileExportTransferHeadingReceiver">ha trasferito a</string>
-    <string name="fileExportTransferHeadingAmount">l'importo di</string>
+    <string name="fileExportTransferHeadingAmount">l\'importo di</string>
     <!-- =============================== Report view =============================== -->
     <string name="report_view_subheading_spendings_by_category">Spese per categoria</string>
     <string name="report_view_subheading_spendings">Spese</string>
@@ -240,7 +240,7 @@
     <string name="edit_participant_view_positive_button_create">Aggiungi &amp; Chiudi</string>
     <string name="edit_participant_view_positive_button_create_another">Aggiungi &amp; Aggiungi un altro</string>
     <string name="edit_participant_view_positive_button_edit">Salva</string>
-    <string name="edit_participant_view_msg_denial">Un partecipante con il nome immesso esiste già in questo viaggio. Si prega di modificare l'inserimento.</string>
+    <string name="edit_participant_view_msg_denial">Un partecipante con il nome immesso esiste già in questo viaggio. Si prega di modificare l\'inserimento.</string>
     <string name="edit_participant_view_label_already_created">Già aggiunto:</string>
     <!-- ==================== edit trip view ====================== -->
     <string name="edit_trip_view_label_name_input">Nome:</string>
@@ -253,14 +253,14 @@
     <string name="edit_trip_view_create_positive_button">Crea</string>
     <string name="edit_trip_view_create_positive_button_and_load">Crea &amp; carica</string>
     <string name="edit_trip_view_create_negative_button">Annulla</string>
-    <string name="edit_trip_view_msg">Un viaggio con il nome immesso esiste già. Si prega di modificare l'inserimento.</string>
+    <string name="edit_trip_view_msg">Un viaggio con il nome immesso esiste già. Si prega di modificare l\'inserimento.</string>
     <!-- ==================== Context menu Payment List ====================== -->
     <string name="fktn_payment_list_edit_payment">Modifica pagamento</string>
     <string name="fktn_payment_list_delete_payment">Elimina pagamento</string>
     <string name="fktn_payment_list_edit_transfer">Modifica trasferimento di denaro</string>
     <string name="fktn_payment_list_delete_transfer">Elimina trasferimento di denaro</string>
     <!-- ==================== Messages ====================== -->
-    <string name="msg_delete_not_possible_inbalance">L'utente non può essere eliminato perchè il suo conto non è equilibrato.</string>
+    <string name="msg_delete_not_possible_inbalance">L\'utente non può essere eliminato perchè il suo conto non è equilibrato.</string>
     <!-- ==================== Preferences ====================== -->
     <string name="prefs_view_heading">Impostazioni</string>
     <string name="prefs_view_title_exchange_rate_management">Tassi di Cambio</string>
