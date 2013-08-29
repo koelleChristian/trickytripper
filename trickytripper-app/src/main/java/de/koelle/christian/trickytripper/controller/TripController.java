@@ -68,4 +68,5 @@ public interface TripController extends TripResolver {
 
     String getLodadedTripCurrencySymbol(boolean wrapInBrackets);
 
+    void reloadTrip();
 }

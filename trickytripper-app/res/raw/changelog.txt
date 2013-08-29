@@ -31,6 +31,7 @@ $ 1.4.1
 % Version 1.4.1
   _ 2013-08-31
 * Bugfix: Saving to SD card now works again.
+* Bugfix: Update of a traveler's name did not update the report, unless the trip was reloaded.
 * Italian translation added (thanks to Andrea Zanella).
 
 $ 1.4.0
