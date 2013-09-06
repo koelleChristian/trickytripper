@@ -30,14 +30,15 @@
 $ 1.4.2
 % Version 1.4.2
   _ 2013-09-15
-* Bugfix: Update of a travelers's name did not update the report, unless the trip was reloaded.
 * Refurbished report tab view: All owing debts are displayed when report scope is for all travellers.
 
 $ 1.4.1
 % Version 1.4.1
   _ 2013-08-31
-* Bugfix: Saving to SD card now works again.
 * Italian translation added (thanks to Andrea Zanella).
+* Bugfix: Saving to SD card now works again.
+* Bugfix: Update of a travelers's name did not update the report, unless the trip was reloaded.
+
 
 $ 1.4.0
 % Version 1.4.0
