@@ -1,17 +1,8 @@
 package de.koelle.christian.trickytripper.activities;
 
 import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Random;
-import java.util.Set;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -54,20 +45,15 @@ import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.common.primitives.DivisionResult;
 import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
-import de.koelle.christian.common.utils.NumberUtils;
-import de.koelle.christian.common.utils.ObjectUtils;
-import de.koelle.christian.common.utils.StringUtils;
-import de.koelle.christian.common.utils.UiUtils;
+import de.koelle.christian.common.utils.*;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorResultSupport;
-import de.koelle.christian.trickytripper.activitysupport.MathUtils;
-import de.koelle.christian.trickytripper.activitysupport.PaymentEditActivityState;
-import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
+import de.koelle.christian.trickytripper.activitysupport.*;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rx;
 import de.koelle.christian.trickytripper.constants.ViewMode;
 import de.koelle.christian.trickytripper.controller.TripController;
+import de.koelle.christian.trickytripper.dialogs.DatePickerDialogFragment;
 import de.koelle.christian.trickytripper.factories.AmountFactory;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -78,7 +64,7 @@ import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
-public class PaymentEditActivity extends SherlockFragmentActivity {
+public class PaymentEditActivity extends SherlockFragmentActivity implements DatePickerDialogFragment.DatePickerDialogCallback {
 
     private static final int DIALOG_SELECT_PAYERS = 1;
     private static final int DIALOG_SELECT_DEBITORS = 2;
@@ -106,6 +92,8 @@ public class PaymentEditActivity extends SherlockFragmentActivity {
     private final Map<Participant, EditText> amountPayedParticipantToWidget = new HashMap<Participant, EditText>();
     private final Map<Participant, EditText> amountDebitorParticipantToWidget = new HashMap<Participant, EditText>();
 
+    private DateUtils dateUtils;
+
     // TODO(ckoelle) JunkFuck super shit.
     // @Override
     // public Object onRetainNonConfigurationInstance() {
@@ -113,16 +101,21 @@ public class PaymentEditActivity extends SherlockFragmentActivity {
     // spendingInputInitialized);
     // };
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment_edit_view);
+
+        dateUtils = new DateUtils(getLocale());
 
         viewMode = (ViewMode) getIntent().getExtras().get(Rc.ACTIVITY_PARAM_KEY_VIEW_MODE);
 
         if (ViewMode.CREATE.equals(viewMode)) {
             long participantId = getIntent().getLongExtra(Rc.ACTIVITY_PARAM_KEY_PARTICIPANT_ID, -1L);
             payment = getFktnController().prepareNewPayment(participantId);
+            payment.setPaymentDateTime(null);
             allRelevantParticipants = getApp().getTripController().getAllParticipants(true);
             sortParticipants(allRelevantParticipants);
             for (Participant p : allRelevantParticipants) {
@@ -157,6 +150,7 @@ public class PaymentEditActivity extends SherlockFragmentActivity {
         initAndBindSpinner(payment.getCategory());
         bindPlainTextInput();
         bindParticipantSelectionButtons();
+        updateDatePickerButtonText();
         addRadioListener();
 
         buildDebitorInput();
@@ -419,6 +413,15 @@ public class PaymentEditActivity extends SherlockFragmentActivity {
         UiUtils.setViewVisibility(view, visible);
     }
 
+    private void updateDatePickerButtonText() {
+        Button  button = (Button) findViewById(R.id.paymentView_button_payment_time_selection);
+
+        String text = (payment.getPaymentDateTime() == null)?
+                getResources().getString(R.string.payment_edit_view_label_date_time_now):
+                dateUtils.date2String(payment.getPaymentDateTime());
+        button.setText(text);
+    }
+
     private void bindParticipantSelectionButtons() {
         ImageButton button;
 
@@ -481,6 +484,7 @@ public class PaymentEditActivity extends SherlockFragmentActivity {
         MathUtils.divideAndSetOnMap(amountTotal, participants, targetMap, true, getAmountFac());
 
     }
+
 
     /**
      * View method.
@@ -897,5 +901,23 @@ public class PaymentEditActivity extends SherlockFragmentActivity {
     private TripController getFktnController() {
         return getApp().getTripController();
     }
+    public void selectPaymentTime(View view){
+        getApp().getViewController().openDatePickerOnActivity(getSupportFragmentManager());
+    }
 
+    @Override
+    public Date getDatePickerInitialDate() {
+        return payment.getPaymentDateTime();
+    }
+
+    @Override
+    public void deliverDatePickerResult(Date pickedDate) {
+        payment.setPaymentDateTime(pickedDate);
+        updateDatePickerButtonText();
+    }
+
+    @Override
+    public int getDatePickerStringIdForTitle() {
+        return R.string.payment_edit_view_date_picker_title;
+    }
 }

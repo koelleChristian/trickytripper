@@ -29,7 +29,8 @@ import de.koelle.christian.trickytripper.activities.TripEditActivity;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.ViewMode;
 import de.koelle.christian.trickytripper.controller.ViewController;
-import de.koelle.christian.trickytripper.dialogs.DeleteDialogFragement;
+import de.koelle.christian.trickytripper.dialogs.DatePickerDialogFragment;
+import de.koelle.christian.trickytripper.dialogs.DeleteDialogFragment;
 import de.koelle.christian.trickytripper.dialogs.HelpDialogFragment;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
@@ -238,13 +239,21 @@ public class ViewControllerImpl implements ViewController {
         openDeleteConfirmation(fragmentManager, bundle, null);
     }
 
+
+
+
+
     private void openDeleteConfirmation(FragmentManager fragmentManager, Bundle bundle, Fragment targetFragment) {
-        DeleteDialogFragement dialogFragment = new DeleteDialogFragement();
+        DeleteDialogFragment dialogFragment = new DeleteDialogFragment();
         dialogFragment.setArguments(bundle);
         if (targetFragment != null) {
             dialogFragment.setTargetFragment(targetFragment, 1);
         }
         dialogFragment.show(fragmentManager, "delete");
     }
-
+    
+    public void openDatePickerOnActivity(FragmentManager fragmentManager) {
+        DatePickerDialogFragment dialogFragment = new DatePickerDialogFragment();
+        dialogFragment.show(fragmentManager, "datepicker");
+    }
 }

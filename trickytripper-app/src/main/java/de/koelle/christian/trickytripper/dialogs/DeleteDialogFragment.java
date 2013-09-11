@@ -12,7 +12,7 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.trickytripper.R;
 
-public class DeleteDialogFragement extends SherlockDialogFragment {
+public class DeleteDialogFragment extends SherlockDialogFragment {
 
     public interface DeleteConfirmationCallback {
         public String getDeleteConfirmationMsg(Bundle bundle);
@@ -30,12 +30,12 @@ public class DeleteDialogFragement extends SherlockDialogFragment {
                 .setPositiveButton(R.string.common_button_yes, new OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         doDelete(arguments);
-                        DeleteDialogFragement.this.dismiss();
+                        DeleteDialogFragment.this.dismiss();
                     }
                 })
                 .setNegativeButton(R.string.common_button_no, new OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        DeleteDialogFragement.this.dismiss();
+                        DeleteDialogFragment.this.dismiss();
                     }
                 });
 

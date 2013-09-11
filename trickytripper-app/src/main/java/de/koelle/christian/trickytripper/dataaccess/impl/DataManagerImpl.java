@@ -270,7 +270,8 @@ public class DataManagerImpl implements DataManager {
 
         boolean isNew = (1 > payment.getId());
 
-        if (isNew) {
+
+        if (payment.getPaymentDateTime() == null) {
             payment.setPaymentDateTime(new Date());
         }
 

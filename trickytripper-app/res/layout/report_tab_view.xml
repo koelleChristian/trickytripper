@@ -30,7 +30,6 @@
 
 
             <TableLayout
-                    xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/reportViewTableLayout"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -90,7 +89,6 @@
             </TableLayout>
 
             <TableLayout
-                    xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/reportViewTableLayoutDebts"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"

@@ -51,6 +51,8 @@ public interface ViewController {
 
     void openHelp(FragmentManager fragmentManager);
 
+    void openDatePickerOnActivity(FragmentManager fragmentManager);
+
     void openDeleteConfirmationOnFragment(FragmentManager fragmentManager,  Bundle bundle, Fragment targetFragment );
     
     void openDeleteConfirmationOnActivity(FragmentManager fragmentManager,  Bundle bundle);

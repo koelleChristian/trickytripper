@@ -212,6 +212,9 @@
     <!-- ===============================  Payment edit =============================== -->
     <string name="payment_edit_view_label_category">Kategorie</string>
     <string name="payment_edit_view_label_desciption">Beschreibung</string>
+    <string name="payment_edit_view_label_date_time">Datum &amp; Uhrzeit</string>
+    <string name="payment_edit_view_label_date_time_now">Jetzt</string>
+    <string name="payment_edit_view_date_picker_title">Wähle Datum und Uhrzeit deiner Zahlung</string>
     <string name="payment_edit_view_label_travellers_charged">Zu belastende Reisende:</string>
     <string name="payment_edit_view_label_radio_split_evenly">Gleichmäßig aufteilen</string>
     <string name="payment_edit_view_label_radio_custom_split">Spezielle Aufteilung</string>
