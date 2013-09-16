@@ -159,6 +159,7 @@
     <string name="fileExportrFix_Scope_All">All</string>
     <string name="fileExportEmailSubjectPrefix">Esportazione da Tricky Tripper</string>
     <string name="fileExportEmailContent">� vedi files allegati.</string>
+
     <string name="fileExportPaymentsHeadingPaymentName">Pagamenti</string>
     <string name="fileExportPaymentsHeadingCategory">Categoria</string>
     <string name="fileExportPaymentsHeadingAmount">Importo</string>

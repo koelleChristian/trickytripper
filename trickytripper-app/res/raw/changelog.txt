@@ -30,6 +30,7 @@
 $ 1.4.2
 % Version 1.4.2
   _ 2013-09-15
+* Date and time of payment: Enable display, editing, export and sorting of/by payment time.
 * Refurbished report tab view: All owing debts are displayed when report scope is for all travellers.
 
 $ 1.4.1

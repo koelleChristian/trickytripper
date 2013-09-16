@@ -261,7 +261,7 @@ public class ReportTabActivity extends SherlockFragment {
 
     private void addDynamicDebtRows(TrickyTripperApp app, Participant participantSelected, Locale locale, TableLayout tableLayoutDebts) {
 
-        TableRow headingDebts = (TableRow) view.findViewById(R.id.reportViewTableLayoutDebtsHeading2);
+        TableRow headingDebtsSubheading = (TableRow) view.findViewById(R.id.reportViewTableLayoutDebtsHeading2);
         TableRow headingNoDebts = (TableRow) view.findViewById(R.id.reportViewTableLayoutDebtsHeadingNoDebts);
 
         Collection<Participant> involvedParticipants = new ArrayList<Participant>();
@@ -312,7 +312,7 @@ public class ReportTabActivity extends SherlockFragment {
         for (Entry<String, View> entry : newRows.entrySet()) {
             tableLayoutDebts.addView(entry.getValue());
         }
-        UiUtils.setViewVisibility(headingDebts, areThereDebtsToBeDisplayed);
+        UiUtils.setViewVisibility(headingDebtsSubheading, areThereDebtsToBeDisplayed);
         UiUtils.setViewVisibility(headingNoDebts, !areThereDebtsToBeDisplayed);
     }
 

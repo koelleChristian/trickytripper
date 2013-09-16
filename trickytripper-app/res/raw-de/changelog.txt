@@ -30,6 +30,7 @@
 $ 1.4.2
 % Version 1.4.2
   _ 2013-09-15
+* Anzeige, Bearbeitung, Export und Sortierung von/nach Zeitpunkt einer Zahlung.
 * Der Berichts-Tab wurde überarbeitet: Die Schulden von allen Reisenden werden angezeigt.
 
 $ 1.4.1

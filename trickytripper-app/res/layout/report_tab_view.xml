@@ -95,11 +95,12 @@
                     android:layout_marginLeft="5dip"
                     android:layout_marginRight="5dip"
                     android:layout_below="@id/reportViewTableLayout"
-                    android:weightSum="1.0" >
+                    android:weightSum="1.0">
 
-                <TableRow android:paddingTop="15dip"
-                          android:paddingBottom="5dip"
-                          android:id="@+id/reportViewTableLayoutDebtsHeading">
+                <TableRow
+                        android:paddingTop="15dip"
+                        android:paddingBottom="5dip"
+                        android:id="@+id/reportViewTableLayoutDebtsHeading">
 
                     <TextView
                             android:textColor="@color/white"
@@ -110,10 +111,34 @@
 
 
                 </TableRow>
+                <TableRow
+                        android:paddingBottom="5dip"
+                        android:id="@+id/reportViewTableLayoutDebtsHeadingNoDebts">
+
+                    <TextView
+                            android:paddingLeft="10dip"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:layout_weight=".35"
+                            android:text="@string/default_blank"/>
+
+                    <TextView
+                            android:paddingLeft="10dip"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:layout_weight=".35"
+                            android:text="@string/default_blank"/>
+
+                    <TextView
+                            android:gravity="right"
+                            android:layout_weight=".30"
+                            android:text="No debts"/>
+
+                </TableRow>
 
                 <TableRow
-                          android:paddingBottom="5dip"
-                          android:id="@+id/reportViewTableLayoutDebtsHeading2">
+                        android:paddingBottom="5dip"
+                        android:id="@+id/reportViewTableLayoutDebtsHeading2">
 
                     <TextView
                             android:paddingLeft="10dip"
@@ -128,23 +153,15 @@
                             android:textStyle="bold"
                             android:layout_weight=".35"
                             android:text="@string/fileExportOwingDebtsHeadingCreditor"/>
+
                     <TextView
                             android:gravity="right"
                             android:paddingRight="0dip"
                             android:layout_weight=".30"
-                            android:text=" "/>
+                            android:text="@string/default_blank"/>
                 </TableRow>
 
-                <TableRow android:paddingTop="15dip"
-                          android:paddingBottom="5dip"
-                          android:id="@+id/reportViewTableLayoutDebtsHeadingNoDebts">
 
-                    <TextView
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:text="No debts"/>
-
-                </TableRow>
             </TableLayout>
         </RelativeLayout>
     </ScrollView>

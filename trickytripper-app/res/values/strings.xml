@@ -159,6 +159,7 @@
     <string name="fileExportrFix_Scope_All">All</string>
     <string name="fileExportEmailSubjectPrefix">Tricky Tripper Export</string>
     <string name="fileExportEmailContent">… see exported files attached.</string>
+    <string name="fileExportPaymentsHeadingPaymentDateTime">Date &amp; Time</string>
     <string name="fileExportPaymentsHeadingPaymentName">Payment</string>
     <string name="fileExportPaymentsHeadingCategory">Category</string>
     <string name="fileExportPaymentsHeadingAmount">Amount</string>
@@ -206,6 +207,7 @@
     <string name="payment_view_label_category">Category:</string>
     <string name="payment_view_label_transfer_from">From:</string>
     <string name="payment_view_label_transfer_to">To:</string>
+    <string name="payment_view_label_date_time">When:</string>
     <string name="payment_view_delete_confirmation_payment">Are you sure you want to delete the selected payment?</string>
     <string name="payment_view_delete_confirmation_transfer">Are you sure you want to delete the selected money transfer?</string>
     <string name="payment_view_blank_list_notification">No payments yet. \n\n\n\nCreate new payments by tapping on a traveler who pays the money.</string>

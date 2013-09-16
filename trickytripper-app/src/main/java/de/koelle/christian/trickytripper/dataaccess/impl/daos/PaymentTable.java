@@ -11,7 +11,6 @@ public class PaymentTable {
         public static final String DESCRIPTION = "description";
         public static final String CATEGORY = "category";
         public static final String DATE = "date";
-        public static final String ORDER_ID = "order_id";
     }
 
     public static void onCreate(SQLiteDatabase db) {
@@ -23,7 +22,7 @@ public class PaymentTable {
         sb.append(PaymentColumns.DESCRIPTION + " TEXT, ");
         sb.append(PaymentColumns.CATEGORY + " INTEGER NOT NULL, ");
         sb.append(PaymentColumns.DATE + " INTEGER NOT NULL, ");
-        sb.append(PaymentColumns.ORDER_ID + " INTEGER NOT NULL, ");
+
 
         sb.append("FOREIGN KEY("
                 + PaymentColumns.TRIP_ID + ") REFERENCES "
@@ -35,7 +34,7 @@ public class PaymentTable {
     }
 
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion == newVersion) {
+   /*     if (oldVersion == newVersion) {
             return;
         } else if (oldVersion == 4) {
             addOrderIdColumn(db);
@@ -51,5 +50,7 @@ public class PaymentTable {
         sb.append(" ADD ");
         sb.append(PaymentColumns.ORDER_ID + " INTEGER NOT NULL;");
         db.execSQL(sb.toString());
+    }
+    */
     }
 }

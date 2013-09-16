@@ -11,6 +11,7 @@ import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import de.koelle.christian.common.utils.DateUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.decoupling.ResourceResolver;
@@ -21,11 +22,13 @@ import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.Trip;
+import de.koelle.christian.trickytripper.model.utils.PaymentComparator;
 import de.koelle.christian.trickytripper.modelutils.CurrencyViewUtils;
 
 public class PaymentTableExporter {
 
     private ExportCharResolver charResolver;
+    private final Comparator<Payment> paymentComparator = new PaymentComparator();
 
     public StringBuilder prepareContents(Trip trip, ResourceResolver resourceResolver,
             Collection<Participant> participants, AmountFactory amountFactory) {
@@ -48,13 +51,16 @@ public class PaymentTableExporter {
         resultBuilder.append(charResolver.getRowStartDelimiter(StyleClass.HEADING));
 
         resultBuilder.append(charResolver.translateValue(resourceResolver
-                .resolve(R.string.fileExportPaymentsHeadingPaymentName))); // 0
+                .resolve(R.string.fileExportPaymentsHeadingPaymentDateTime)));
         resultBuilder.append(charResolver.getColumnDelimiter(StyleClass.HEADING));
         resultBuilder.append(charResolver.translateValue(resourceResolver
-                .resolve(R.string.fileExportPaymentsHeadingCategory))); // 1
+                .resolve(R.string.fileExportPaymentsHeadingPaymentName)));
+        resultBuilder.append(charResolver.getColumnDelimiter(StyleClass.HEADING));
+        resultBuilder.append(charResolver.translateValue(resourceResolver
+                .resolve(R.string.fileExportPaymentsHeadingCategory)));
         resultBuilder.append(charResolver.getColumnDelimiter(StyleClass.HEADING));
         resultBuilder.append(charResolver.translateValue(resourceResolver.resolve(
-                R.string.fileExportPaymentsHeadingAmount) + currencyCodeInBrackets)); // 2
+                R.string.fileExportPaymentsHeadingAmount) + currencyCodeInBrackets));
 
         /* First heading */
         for (int i = 0; i < relevantPayers.size(); i++) {
@@ -77,7 +83,7 @@ public class PaymentTableExporter {
 
         /* ############################ Line 2: Names ######################## */
         resultBuilder.append(charResolver.getRowStartDelimiter(StyleClass.HEADING));
-
+        resultBuilder.append(charResolver.getColumnDelimiter(StyleClass.HEADING));
         resultBuilder.append(charResolver.getColumnDelimiter(StyleClass.HEADING));
         resultBuilder.append(charResolver.getColumnDelimiter(StyleClass.HEADING));
 
@@ -93,17 +99,21 @@ public class PaymentTableExporter {
 
         /* ############################ Line ff values ######################## */
 
+        Collections.sort(relevantPayments, paymentComparator);
+
         for (Payment p : relevantPayments) {
             resultBuilder.append(charResolver.getRowStartDelimiter());
-            resultBuilder.append(charResolver.translateValue(p.getDescription())); // 0
+            resultBuilder.append(charResolver.translateValue(new DateUtils(locale).date2String(p.getPaymentDateTime())));
+            resultBuilder.append(charResolver.getColumnDelimiter());
+            resultBuilder.append(charResolver.translateValue(p.getDescription()));
             resultBuilder.append(charResolver.getColumnDelimiter());
             resultBuilder.append(charResolver.translateValue(resourceResolver.resolve(p.getCategory()
-                    .getResourceStringId()))); // 1
+                    .getResourceStringId())));
             resultBuilder.append(charResolver.getColumnDelimiter(StyleClass.NUMERIC_VALUE));
             Amount totalAmount = amountFactory.createAmount();
             p.getTotalAmount(totalAmount);
             resultBuilder.append(charResolver.translateValue(TableExporterUtils.getAmount(locale,
-                    totalAmount))); // 2
+                    totalAmount)));
 
             Amount value = null;
 

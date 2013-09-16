@@ -34,6 +34,7 @@ import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.model.modelAdapter.PaymentRowListAdapter;
+import de.koelle.christian.trickytripper.model.utils.PaymentComparator;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
@@ -44,6 +45,7 @@ public class PaymentTabActivity extends SherlockListFragment implements DeleteCo
     private final List<Payment> paymentRows = new ArrayList<Payment>();
     private ArrayAdapter<Payment> adapter;
     private ListView listView;
+    private Comparator<Payment> comparator = new PaymentComparator();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -125,12 +127,7 @@ public class PaymentTabActivity extends SherlockListFragment implements DeleteCo
     public void sortAndUpdateView() {
         paymentRows.clear();
         paymentRows.addAll(getApp().getTripController().getTripLoaded().getPayments());
-        adapter.sort(new Comparator<Payment>() {
-            public int compare(Payment lhs, Payment rhs) {
-                return lhs.getPaymentDateTime().compareTo(rhs.getPaymentDateTime()) * -1;
-            }
-        });
-        // Alternatively getListView().invalidateViews();
+        adapter.sort(comparator);
         adapter.notifyDataSetChanged();
     }
 

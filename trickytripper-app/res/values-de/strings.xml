@@ -159,6 +159,7 @@
     <string name="fileExportrFix_Scope_All">Alle</string>
     <string name="fileExportEmailSubjectPrefix">Tricky Tripper Bericht</string>
     <string name="fileExportEmailContent">… exportierte Dateien im Anhang.</string>
+    <string name="fileExportPaymentsHeadingPaymentDateTime">Datum &amp; Uhrzeit</string>
     <string name="fileExportPaymentsHeadingPaymentName">Zahlung</string>
     <string name="fileExportPaymentsHeadingCategory">Kategorie</string>
     <string name="fileExportPaymentsHeadingAmount">Betrag</string>
@@ -206,6 +207,7 @@
     <string name="payment_view_label_category">Kategorie:</string>
     <string name="payment_view_label_transfer_from">Von:</string>
     <string name="payment_view_label_transfer_to">An:</string>
+    <string name="payment_view_label_date_time">Wann:</string>
     <string name="payment_view_delete_confirmation_payment">Soll die ausgewählte Zahlung wirklich gelöscht werden?</string>
     <string name="payment_view_delete_confirmation_transfer">Soll der ausgewählte Geldtransfer wirklich gelöscht werden?</string>
     <string name="payment_view_blank_list_notification">Noch keine Zahlungen vorhanden. \n\n\n\nErstelle Zahlungen durch Tab auf den Reisenden, der das Geld bezahlt.</string>
@@ -281,5 +283,6 @@
     <string name="changelog_title">Was ist neu</string>
     <string name="changelog_ok_button">OK</string>
     <string name="changelog_show_full">mehr…</string>
+
 
 </resources>

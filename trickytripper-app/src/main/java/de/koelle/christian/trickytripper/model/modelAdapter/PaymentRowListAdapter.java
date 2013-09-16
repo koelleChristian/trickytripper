@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import de.koelle.christian.common.utils.DateUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.factories.AmountFactory;
@@ -27,6 +28,8 @@ public class PaymentRowListAdapter extends ArrayAdapter<Payment> {
     private final AmountFactory amountFactory;
     private final Locale locale;
     private final Collator collator;
+    private DateUtils dateUtils;
+
 
     public PaymentRowListAdapter(Context context, int textViewResourceId, List<Payment> objects,
             AmountFactory amountFactory, Collator collator) {
@@ -36,6 +39,7 @@ public class PaymentRowListAdapter extends ArrayAdapter<Payment> {
         this.amountFactory = amountFactory;
         this.locale = context.getResources().getConfiguration().locale;
         this.collator = collator;
+        this.dateUtils = new DateUtils(locale);
     }
 
     @Override
@@ -61,12 +65,17 @@ public class PaymentRowListAdapter extends ArrayAdapter<Payment> {
                 UiUtils.removeFromView(result, R.id.paymentTabRowView_label_transfer_to);
                 UiUtils.removeFromView(result, R.id.paymentTabRowView_output_transfer_to);
 
+                UiUtils.showInView(result, R.id.paymentTabRowView_date_label);
+                UiUtils.showInView(result, R.id.paymentTabRowView_output_date_time);
                 UiUtils.showInView(result, R.id.paymentTabRowView_category_label);
                 UiUtils.showInView(result, R.id.paymentTabRowView_output_category);
                 UiUtils.showInView(result, R.id.paymentTabRowView_label_payed_by);
                 UiUtils.showInView(result, R.id.paymentTabRowView_output_payed_by);
                 UiUtils.showInView(result, R.id.paymentTabRowView_label_debited_to);
                 UiUtils.showInView(result, R.id.paymentTabRowView_output_debited_to);
+
+
+
 
                 viewId = R.id.paymentTabRowView_output_payment_amount;
                 value = report.getTotal();
@@ -96,6 +105,10 @@ public class PaymentRowListAdapter extends ArrayAdapter<Payment> {
                 UiUtils.showInView(result, R.id.paymentTabRowView_label_transfer_to);
                 UiUtils.showInView(result, R.id.paymentTabRowView_output_transfer_to);
 
+
+                UiUtils.showInView(result, R.id.paymentTabRowView_date_label);
+                UiUtils.showInView(result, R.id.paymentTabRowView_output_date_time);
+
                 UiUtils.removeFromView(result, R.id.paymentTabRowView_category_label);
                 UiUtils.removeFromView(result, R.id.paymentTabRowView_output_category);
                 UiUtils.removeFromView(result, R.id.paymentTabRowView_label_payed_by);
@@ -124,6 +137,9 @@ public class PaymentRowListAdapter extends ArrayAdapter<Payment> {
                 UiUtils.setLabelAndValueOnTextView(result, viewId, null, value);
             }
 
+            viewId = R.id.paymentTabRowView_output_date_time;
+            value = dateUtils.date2String(row.getPaymentDateTime());
+            UiUtils.setLabelAndValueOnTextView(result, viewId, null, value);
         }
         return result;
     }

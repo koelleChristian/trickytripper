@@ -150,6 +150,7 @@ public class PaymentDao {
         final ContentValues values = new ContentValues();
         values.put(PaymentColumns.DESCRIPTION, ConversionUtils.nullSafe(type.getDescription()));
         values.put(PaymentColumns.CATEGORY, type.getCategory().ordinal());
+        values.put(PaymentColumns.DATE, type.getPaymentDateTime().getTime() );
 
         db.update(
                 PaymentTable.TABLE_NAME,
