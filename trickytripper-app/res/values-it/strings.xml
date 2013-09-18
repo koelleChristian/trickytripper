@@ -186,6 +186,7 @@
     <string name="report_view_label_payment_count">Numero totale di pagamenti:</string>
     <string name="report_view_label_total_spent">Totale speso:</string>
     <string name="report_view_label_no_spendings">Nessuna spesa</string>
+    <string name="report_view_label_no_debts">No debts</string>
     <!-- =============================== Payment view =============================== -->
     <string name="payment_view_heading_create_payment">Crea Pagamento</string>
     <string name="payment_view_heading_edit_payment">Modifica Pagamento</string>

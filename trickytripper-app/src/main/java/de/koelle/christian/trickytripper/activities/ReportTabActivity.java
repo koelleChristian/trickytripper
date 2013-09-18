@@ -274,14 +274,23 @@ public class ReportTabActivity extends SherlockFragment {
         TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getMiscController()
                 .getDefaultStringCollator());
 
-        for (Entry<Participant, Debts> entry : getTripLoaded(app).getDebts().entrySet()) {
+        int tenDpi = UiUtils.dpi2px(getResources(), 10);
+        int fifteenDpi = UiUtils.dpi2px(getResources(), 15);
+
+        for (Iterator<Entry<Participant, Debts>> it = getTripLoaded(app).getDebts().entrySet().iterator();it.hasNext();) {
+            Entry<Participant, Debts> entry = it.next();
             Debts debts = entry.getValue();
             if (debts != null && debts.getLoanerToDepts() != null) {
                 TableRow newRow;
                 TextView textView;
                 String value;
                 int column;
+
+
                 for (Entry<Participant, Amount> debt : debts.getLoanerToDepts().entrySet()) {
+
+
+                    int bottomPadding = (it.hasNext())? fifteenDpi : PADDING;
                     if (isInScope(involvedParticipants, entry, debt)) {
                         areThereDebtsToBeDisplayed = true;
 
@@ -290,18 +299,25 @@ public class ReportTabActivity extends SherlockFragment {
                         value = entry.getKey().getName();
                         column = 0;
                         textView = addNewTextViewToRow(newRow, value, column, 0.35f);
-                        textView.setPadding(UiUtils.dpi2px(getResources(), 10), PADDING, PADDING, PADDING);
+                        textView.setPadding(tenDpi, PADDING, PADDING, bottomPadding);
+                        textView.setWidth(0);
+
 
                         value = debt.getKey().getName();
                         column = 1;
                         textView = addNewTextViewToRow(newRow, value, column, 0.35f);
-                        textView.setPadding(UiUtils.dpi2px(getResources(), 10), PADDING, PADDING, PADDING);
+                        textView.setPadding(PADDING, PADDING, PADDING, bottomPadding);
+                        textView.setWidth(0);
+
 
                         value = AmountViewUtils.getAmountString(locale, debt.getValue(), true, true, true);
                         column = 2;
-                        textView = addNewTextViewToRow(newRow, value, column, 0.3f);
+                        textView = addNewTextViewToRow(newRow, value, column, 0.30f);
                         textView.setGravity(Gravity.RIGHT);
-                        textView.setPadding(PADDING, PADDING, 0, PADDING);
+
+                        textView.setPadding(0, 0, 0, bottomPadding);
+                        textView.setWidth(0);
+
 
                         this.dynamicOwingDebtsRows.add(newRow);
                         newRows.put(entry.getKey().getName() + debt.getKey().getName(), newRow);

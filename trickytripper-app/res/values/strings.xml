@@ -185,7 +185,8 @@
     <string name="report_view_label_report_spinner">Report for:</string>
     <string name="report_view_label_payment_count">Total payment count:</string>
     <string name="report_view_label_total_spent">Total spent:</string>
-    <string name="report_view_label_no_spendings">No Spending</string>
+    <string name="report_view_label_no_spendings">No spending</string>
+    <string name="report_view_label_no_debts">No debts</string>
     <!-- ===============================  Payment view =============================== -->
     <string name="payment_view_heading_create_payment">Create Payment</string>
     <string name="payment_view_heading_edit_payment">Edit Payment</string>
