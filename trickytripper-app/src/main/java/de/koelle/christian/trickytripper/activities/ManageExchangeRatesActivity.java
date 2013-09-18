@@ -32,6 +32,7 @@ import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter;
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter.DisplayMode;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
+import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
 public class ManageExchangeRatesActivity extends SherlockFragmentActivity implements DeleteConfirmationCallback {
 
@@ -135,6 +136,9 @@ public class ManageExchangeRatesActivity extends SherlockFragmentActivity implem
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.option_delete).setVisible(!exchangeRateList.isEmpty());
+
+        PrepareOptionsSupport.reset(menu);
+
         return super.onPrepareOptionsMenu(menu);
     }
 

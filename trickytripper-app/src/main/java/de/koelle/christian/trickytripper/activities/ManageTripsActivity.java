@@ -29,6 +29,7 @@ import de.koelle.christian.trickytripper.controller.TripController;
 import de.koelle.christian.trickytripper.dialogs.DeleteDialogFragment.DeleteConfirmationCallback;
 import de.koelle.christian.trickytripper.model.TripSummary;
 import de.koelle.christian.trickytripper.model.modelAdapter.TripSummarySymbolResolvingDelegator;
+import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
 public class ManageTripsActivity extends SherlockFragmentActivity implements DeleteConfirmationCallback {
 
@@ -69,6 +70,7 @@ public class ManageTripsActivity extends SherlockFragmentActivity implements Del
     protected void onResume() {
         super.onResume();
         updateList(getApp().getTripController().getAllTrips());
+        supportInvalidateOptionsMenu();
     }
 
     @Override
@@ -79,10 +81,16 @@ public class ManageTripsActivity extends SherlockFragmentActivity implements Del
                 .populateOptionsMenu(
                         new OptionContraintsAbs()
                                 .activity(getSupportMenuInflater()).menu(menu)
-                                .options(new int[] {
+                                .options(new int[]{
                                         R.id.option_help,
                                         R.id.option_create_trip
                                 }));
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+         PrepareOptionsSupport.reset(menu);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -99,17 +107,17 @@ public class ManageTripsActivity extends SherlockFragmentActivity implements Del
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.option_help:
-            getApp().getViewController().openHelp(getSupportFragmentManager());
-            return true;
-        case R.id.option_create_trip:
-            getApp().getViewController().openEditTrip(this, null);
-            return true;
-        case android.R.id.home:
-            onBackPressed();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.option_help:
+                getApp().getViewController().openHelp(getSupportFragmentManager());
+                return true;
+            case R.id.option_create_trip:
+                getApp().getViewController().openEditTrip(this, null);
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -125,7 +133,7 @@ public class ManageTripsActivity extends SherlockFragmentActivity implements Del
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
+                                    ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         TripSummary p = arrayAdapterTripSummary.getItem(info.position);
         menu.setHeaderTitle(p.getName());
@@ -147,15 +155,15 @@ public class ManageTripsActivity extends SherlockFragmentActivity implements Del
         TripSummary selectedTripSummary = unwrap(arrayAdapterTripSummary.getItem(info.position));
 
         switch (item.getItemId()) {
-        case R.string.common_button_edit:
-            getApp().getViewController().openEditTrip(this, selectedTripSummary);
-            return true;
+            case R.string.common_button_edit:
+                getApp().getViewController().openEditTrip(this, selectedTripSummary);
+                return true;
 
-        case R.string.common_button_delete:
-            getApp().getViewController().openDeleteConfirmationOnActivity(
-                    getSupportFragmentManager(),
-                    createBundleWithTripSummaryForPopup(selectedTripSummary));
-            return true;
+            case R.string.common_button_delete:
+                getApp().getViewController().openDeleteConfirmationOnActivity(
+                        getSupportFragmentManager(),
+                        createBundleWithTripSummaryForPopup(selectedTripSummary));
+                return true;
 
         }
         return false;
@@ -169,11 +177,11 @@ public class ManageTripsActivity extends SherlockFragmentActivity implements Del
     }
 
     private void addClickListener(final ListView listView,
-            final TrickyTripperApp app) {
+                                  final TrickyTripperApp app) {
         listView.setOnItemClickListener(new OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> arg0, View arg1,
-                    int position, long id) {
+                                    int position, long id) {
                 TripSummary selectedTripSummary = arrayAdapterTripSummary
                         .getItem(position);
                 app.getTripController().loadTrip(selectedTripSummary);

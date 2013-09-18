@@ -14,5 +14,12 @@ public class PrepareOptionsSupport {
         menu.findItem(R.id.option_create_participant).getIcon().setAlpha(showCreateParticipant ? 255 : 0);
         
     }
+    public static void reset(com.actionbarsherlock.view.Menu menu){
+        for(int i = 0 ; i < menu.size(); i++){
+            if(menu.getItem(i) != null && menu.getItem(i).getIcon() !=  null){
+                menu.getItem(i).getIcon().setAlpha(255);
+            }
+        }
+    }
 
 }

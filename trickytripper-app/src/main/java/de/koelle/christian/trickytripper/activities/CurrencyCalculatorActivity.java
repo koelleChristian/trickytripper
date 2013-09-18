@@ -43,6 +43,7 @@ import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
 import de.koelle.christian.trickytripper.ui.utils.ExchangeRateDescriptionUtils;
+import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
 public class CurrencyCalculatorActivity extends SherlockFragmentActivity {
@@ -174,6 +175,7 @@ public class CurrencyCalculatorActivity extends SherlockFragmentActivity {
     private void refreshOnResume() {
         updateExchangeRates();
         updateViewsState(UpdateExclusion.NONE);
+        supportInvalidateOptionsMenu();
     }
 
     private void readAndSetInput(Intent intent) {
@@ -534,4 +536,9 @@ public class CurrencyCalculatorActivity extends SherlockFragmentActivity {
         }
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        PrepareOptionsSupport.reset(menu);
+        return super.onPrepareOptionsMenu(menu);
+    }
 }

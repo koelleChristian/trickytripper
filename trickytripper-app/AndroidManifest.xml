@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.koelle.christian.trickytripper"
     android:installLocation="preferExternal"
-    android:versionCode="11"
-    android:versionName="1.4.1" >
+    android:versionCode="12"
+    android:versionName="1.4.2" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -30,9 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ParticipantTabActivity" />
-        <activity android:name=".activities.PaymentTabActivity" />
-        <activity android:name=".activities.ReportTabActivity" />
         <activity android:name=".activities.PaymentEditActivity" />
         <activity android:name=".activities.TripEditActivity" />
         <activity
