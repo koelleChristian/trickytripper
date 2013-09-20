@@ -101,7 +101,7 @@ public class CurrencyCalculatorActivity extends SherlockFragmentActivity {
 
         UiUtils.makeProperNumberInput(editTextInputValue,
                 getDecimalNumberInputUtil()
-                        .getExchangeRateInputPatternMatcher());
+                        .getInputPatternMatcher());
         UiUtils.makeProperNumberInput(editTextInputExchangeRate,
                 getDecimalNumberInputUtil()
                         .getExchangeRateInputPatternMatcher());
