@@ -17,7 +17,7 @@
     <string name="common_button_edit">Modifica</string>
     <string name="common_label_total_amount">Totale:</string>
     <string name="common_label_inactive_addon">[Inattivo]</string>
-    <string name="progress_dialog_text_loading">Caricamento �</string>
+    <string name="progress_dialog_text_loading">Caricamento …</string>
     <string name="activity_label_participants">Viaggiatori</string>
     <string name="activity_label_report">Resoconto</string>
     <string name="activity_label_payments">Pagamenti</string>
@@ -158,8 +158,8 @@
     <string name="fileExportTableHeadingDebts">Debiti dovuti</string>
     <string name="fileExportrFix_Scope_All">All</string>
     <string name="fileExportEmailSubjectPrefix">Esportazione da Tricky Tripper</string>
-    <string name="fileExportEmailContent">� vedi files allegati.</string>
-
+    <string name="fileExportEmailContent">… vedi files allegati.</string>
+    <string name="fileExportPaymentsHeadingPaymentDateTime">Data &amp; Ora</string>
     <string name="fileExportPaymentsHeadingPaymentName">Pagamenti</string>
     <string name="fileExportPaymentsHeadingCategory">Categoria</string>
     <string name="fileExportPaymentsHeadingAmount">Importo</string>
@@ -186,7 +186,7 @@
     <string name="report_view_label_payment_count">Numero totale di pagamenti:</string>
     <string name="report_view_label_total_spent">Totale speso:</string>
     <string name="report_view_label_no_spendings">Nessuna spesa</string>
-    <string name="report_view_label_no_debts">No debts</string>
+    <string name="report_view_label_no_debts">Nessun debito</string>
     <!-- =============================== Payment view =============================== -->
     <string name="payment_view_heading_create_payment">Crea Pagamento</string>
     <string name="payment_view_heading_edit_payment">Modifica Pagamento</string>
@@ -208,12 +208,16 @@
     <string name="payment_view_label_category">Categoria:</string>
     <string name="payment_view_label_transfer_from">Da:</string>
     <string name="payment_view_label_transfer_to">A:</string>
+    <string name="payment_view_label_date_time">Quando:</string>
     <string name="payment_view_delete_confirmation_payment">Sei sicuro di voler eliminare il pagamento selezionato?</string>
     <string name="payment_view_delete_confirmation_transfer">Sei sicuro di voler eliminare il trasferimento di denaro selezionato?</string>
     <string name="payment_view_blank_list_notification">Nessun pagamento. \n\n\n\nCreare nuovi pagamenti toccando il viaggiatore che ha pagato.</string>
     <!-- =============================== Payment edit =============================== -->
     <string name="payment_edit_view_label_category">Categoria</string>
     <string name="payment_edit_view_label_desciption">Descrizione</string>
+    <string name="payment_edit_view_label_date_time">Data &amp; Ora</string>
+    <string name="payment_edit_view_label_date_time_now">Adesso</string>
+    <string name="payment_edit_view_date_picker_title">Scegli data e ora del tuo pagamento</string>
     <string name="payment_edit_view_label_travellers_charged">Viaggiatori paganti:</string>
     <string name="payment_edit_view_label_radio_split_evenly">Divisione equa</string>
     <string name="payment_edit_view_label_radio_custom_split">Divisione personalizzata</string>
