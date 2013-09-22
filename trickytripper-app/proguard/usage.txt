@@ -334,14 +334,14 @@ de.koelle.christian.common.ascii.AsciTable:
     238:239:public void setKopfTrennMode(int)
     246:246:public int getTrennMode()
     255:256:public void setTrennMode(int)
-    269:274:public AsciTable(int,int)
-    286:301:public AsciTable(int,int,int,int,int,int,int)
+    272:274:public AsciTable(int,int)
+    294:301:public AsciTable(int,int,int,int,int,int,int)
     321:322:public void set(int,int,de.koelle.christian.common.ascii.AsciTable$Cell)
     336:345:public void set(int,int,java.lang.String)
     359:361:public void set(int,int,java.lang.Number)
     375:382:public void setAlignment(int,int,int)
-    419:426:public static java.lang.String buildLayout(de.koelle.christian.common.ascii.AsciTable$Cell[][],int,int,int)
-    647:654:public static java.lang.String buildLayoutColspan(de.koelle.christian.common.ascii.AsciTable$Cell[][],int,int,int)
+    418:426:public static java.lang.String buildLayout(de.koelle.christian.common.ascii.AsciTable$Cell[][],int,int,int)
+    646:654:public static java.lang.String buildLayoutColspan(de.koelle.christian.common.ascii.AsciTable$Cell[][],int,int,int)
     700:820:public static java.lang.String buildLayoutColspan(de.koelle.christian.common.ascii.AsciTable$Cell[][],int,int,int,int,int)
     853:967:private static void computeMaxHeightWidthColspan(de.koelle.christian.common.ascii.AsciTable$Cell[][],int[],int[])
     1453:1468:public static de.koelle.christian.common.ascii.AsciTable$Cell[][] addHeader(de.koelle.christian.common.ascii.AsciTable$Cell[][],java.lang.String[])
@@ -408,7 +408,7 @@ de.koelle.christian.common.utils.SystemUtil:
     7:7:public SystemUtil()
 de.koelle.christian.common.utils.UiUtils:
     16:16:public UiUtils()
-    47:49:public static android.widget.TextView setLabelAndValueOnTextView(android.app.Activity,int,java.lang.Object,java.lang.Object)
+    51:53:public static android.widget.TextView setLabelAndValueOnTextView(android.app.Activity,int,java.lang.Object,java.lang.Object)
 de.koelle.christian.common.widget.tab.GenericTabListener:
     27:28:public GenericTabListener(com.actionbarsherlock.app.SherlockFragmentActivity,java.lang.String,java.lang.Class)
 de.koelle.christian.trickytripper.BuildConfig
@@ -460,7 +460,7 @@ de.koelle.christian.trickytripper.activities.PaymentEditActivity:
     private static final java.lang.String DIALOG_PARAM_IS_PAYMENT
 de.koelle.christian.trickytripper.activities.PaymentTabActivity:
     private static final java.lang.String DELIMITER
-    203:204:protected void deletePayment(de.koelle.christian.trickytripper.model.Payment)
+    200:201:protected void deletePayment(de.koelle.christian.trickytripper.model.Payment)
 de.koelle.christian.trickytripper.activities.ReportTabActivity:
     private static final int PADDING
 de.koelle.christian.trickytripper.activities.SaveToSdCardActivity:
@@ -587,11 +587,11 @@ de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRateDao:
     405:425:public de.koelle.christian.trickytripper.model.ExchangeRate findRateUseLastTime(java.util.Currency,java.util.Currency)
 de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRatePrefTable:
     public static final java.lang.String TABLE_NAME
-    6:6:public ExchangeRatePrefTable()
+    6:10:public ExchangeRatePrefTable()
 de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRatePrefTable$ExchangeRatePrefColumns
 de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRateTable:
     public static final java.lang.String TABLE_NAME
-    6:6:public ExchangeRateTable()
+    6:10:public ExchangeRateTable()
 de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRateTable$ExchangeRateColumns
 de.koelle.christian.trickytripper.dataaccess.impl.daos.ParticipantDao:
     private static final java.lang.String INSERT
@@ -600,7 +600,7 @@ de.koelle.christian.trickytripper.dataaccess.impl.daos.ParticipantDao:
     private static final java.lang.String DELETE
 de.koelle.christian.trickytripper.dataaccess.impl.daos.ParticipantTable:
     public static final java.lang.String TABLE_NAME
-    6:6:public ParticipantTable()
+    6:9:public ParticipantTable()
 de.koelle.christian.trickytripper.dataaccess.impl.daos.ParticipantTable$ParticipantColumns
 de.koelle.christian.trickytripper.dataaccess.impl.daos.PaymentDao:
     private static final java.lang.String INSERT
@@ -614,11 +614,11 @@ de.koelle.christian.trickytripper.dataaccess.impl.daos.PaymentDao:
     private static final java.lang.String PAYMENT_QUERY
 de.koelle.christian.trickytripper.dataaccess.impl.daos.PaymentTable:
     public static final java.lang.String TABLE_NAME
-    6:6:public PaymentTable()
+    6:9:public PaymentTable()
 de.koelle.christian.trickytripper.dataaccess.impl.daos.PaymentTable$PaymentColumns
 de.koelle.christian.trickytripper.dataaccess.impl.daos.RelPaymentParticipantTable:
     public static final java.lang.String TABLE_NAME
-    6:6:public RelPaymentParticipantTable()
+    6:9:public RelPaymentParticipantTable()
 de.koelle.christian.trickytripper.dataaccess.impl.daos.RelPaymentParticipantTable$RelPaymentParticipantColumns
 de.koelle.christian.trickytripper.dataaccess.impl.daos.TripDao:
     private static final java.lang.String INSERT
@@ -626,13 +626,13 @@ de.koelle.christian.trickytripper.dataaccess.impl.daos.TripDao:
     private static final java.lang.String COUNT_NAME_IN_TRIP_UNLESS
     private static final java.lang.String COUNT_TRIPS
     101:105:public void deleteWithRelations(de.koelle.christian.trickytripper.model.Trip)
-    1:1:public bridge synthetic void deleteWithRelations(java.lang.Object)
-    1:1:public bridge synthetic java.lang.Object get(long)
-    1:1:public bridge synthetic long create(java.lang.Object)
-    1:1:public bridge synthetic void update(java.lang.Object)
+    18:18:public bridge synthetic java.lang.Object get(long)
+    18:18:public bridge synthetic void deleteWithRelations(java.lang.Object)
+    18:18:public bridge synthetic void update(java.lang.Object)
+    18:18:public bridge synthetic long create(java.lang.Object)
 de.koelle.christian.trickytripper.dataaccess.impl.daos.TripTable:
     public static final java.lang.String TABLE_NAME
-    6:6:public TripTable()
+    6:10:public TripTable()
 de.koelle.christian.trickytripper.dataaccess.impl.daos.TripTable$TripColumns
 de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.ParticipantReference:
     24:25:public void setTrip_id(long)
@@ -641,6 +641,8 @@ de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.ParticipantReference:
 de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.PaymentReference:
     73:74:public void setTrip_id(long)
     93:94:public void setPaymentRelationKeys(java.util.List)
+de.koelle.christian.trickytripper.dialogs.DatePickerDialogFragment:
+    private java.util.Date datePickerInitialDate
 de.koelle.christian.trickytripper.dialogs.HelpDialogFragment:
     private static final java.lang.String HELP_ASSET_URL_BASE
     private static final java.lang.String HELP_FILE_NAME_ENDING
