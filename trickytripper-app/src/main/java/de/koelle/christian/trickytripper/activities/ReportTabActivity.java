@@ -287,10 +287,10 @@ public class ReportTabActivity extends SherlockFragment {
                 int column;
 
 
-                for (Entry<Participant, Amount> debt : debts.getLoanerToDepts().entrySet()) {
+                for (Iterator<Entry<Participant, Amount>> itInternal = debts.getLoanerToDepts().entrySet().iterator(); itInternal.hasNext();) {
+                    Entry<Participant, Amount> debt = itInternal.next();
 
-
-                    int bottomPadding = (it.hasNext())? fifteenDpi : PADDING;
+                    int bottomPadding = (it.hasNext() || itInternal.hasNext())? fifteenDpi : PADDING;
                     if (isInScope(involvedParticipants, entry, debt)) {
                         areThereDebtsToBeDisplayed = true;
 
