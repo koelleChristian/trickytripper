@@ -286,11 +286,9 @@ public class ReportTabActivity extends SherlockFragment {
                 String value;
                 int column;
 
-
                 for (Iterator<Entry<Participant, Amount>> itInternal = debts.getLoanerToDepts().entrySet().iterator(); itInternal.hasNext();) {
                     Entry<Participant, Amount> debt = itInternal.next();
 
-                    int bottomPadding = (it.hasNext() || itInternal.hasNext())? fifteenDpi : PADDING;
                     if (isInScope(involvedParticipants, entry, debt)) {
                         areThereDebtsToBeDisplayed = true;
 
@@ -299,14 +297,14 @@ public class ReportTabActivity extends SherlockFragment {
                         value = entry.getKey().getName();
                         column = 0;
                         textView = addNewTextViewToRow(newRow, value, column, 0.35f);
-                        textView.setPadding(tenDpi, PADDING, PADDING, bottomPadding);
+                        textView.setPadding(tenDpi, PADDING, PADDING, PADDING);
                         textView.setWidth(0);
 
 
                         value = debt.getKey().getName();
                         column = 1;
                         textView = addNewTextViewToRow(newRow, value, column, 0.35f);
-                        textView.setPadding(PADDING, PADDING, PADDING, bottomPadding);
+                        textView.setPadding(PADDING, PADDING, PADDING, PADDING);
                         textView.setWidth(0);
 
 
@@ -315,7 +313,7 @@ public class ReportTabActivity extends SherlockFragment {
                         textView = addNewTextViewToRow(newRow, value, column, 0.30f);
                         textView.setGravity(Gravity.RIGHT);
 
-                        textView.setPadding(0, 0, 0, bottomPadding);
+                        textView.setPadding(0, 0, 0, 0);
                         textView.setWidth(0);
 
 
@@ -326,7 +324,9 @@ public class ReportTabActivity extends SherlockFragment {
             }
         }
         for (Entry<String, View> entry : newRows.entrySet()) {
-            tableLayoutDebts.addView(entry.getValue());
+            View value = entry.getValue();
+            value.setPadding(0 , 0, 0, tenDpi);
+            tableLayoutDebts.addView(value);
         }
         UiUtils.setViewVisibility(headingDebtsSubheading, areThereDebtsToBeDisplayed);
         UiUtils.setViewVisibility(headingNoDebts, !areThereDebtsToBeDisplayed);
