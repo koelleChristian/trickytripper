@@ -3,14 +3,11 @@ package de.koelle.christian.trickytripper.test.exchangerates.impl;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import de.koelle.christian.trickytripper.exchangerates.impl.*;
 import junit.framework.Assert;
 import android.test.ApplicationTestCase;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverGoogleImpl;
-import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl;
-import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
-import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
-import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorGoogleImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorJsonGoogleImpl;
 
 public abstract class AbstractCurrencyImportTest extends ApplicationTestCase<TrickyTripperApp> {
 
@@ -25,8 +22,8 @@ public abstract class AbstractCurrencyImportTest extends ApplicationTestCase<Tri
     protected void setUp() {
 
         importer = new ExchangeRateImporterImpl();
-        importer.setAsyncExchangeRateJsonResolver(new AsyncExchangeRateJsonResolverGoogleImpl(getContext()));
-        importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorGoogleImpl());
+        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverGoogleImpl(getContext()));
+        importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorJsonGoogleImpl());
         importer.setChunkDelay(2000);
         /* ================= Desire SIM-connection ========================= */
         /* ResponseTimes: [2829, 171,173, 162, 162, 203, 151, 158, 205, 157] */
@@ -81,6 +78,8 @@ public abstract class AbstractCurrencyImportTest extends ApplicationTestCase<Tri
             resultCollector.add(resultContainer);
         }
     }
+
+
     
 
     protected Set<ExchangeRateImporterResultContainer> getResultCollector() {

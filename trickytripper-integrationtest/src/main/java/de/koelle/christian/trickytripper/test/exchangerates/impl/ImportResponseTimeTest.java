@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
-import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolver;
+import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolver;
 import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverGoogleImpl;
 
 public class ImportResponseTimeTest extends AbstractCurrencyImportTest {
@@ -16,7 +16,7 @@ public class ImportResponseTimeTest extends AbstractCurrencyImportTest {
     public void testRealCurrencyImportTest() {
 
         List<Long> responseTimesInMs = new ArrayList<Long>();
-        AsyncExchangeRateJsonResolver resolver = new AsyncExchangeRateJsonResolverGoogleImpl(getContext());
+        AsyncExchangeRateResolver resolver = new AsyncExchangeRateJsonResolverGoogleImpl(getContext());
         for (int i = 0; i < 10; i++) {
             responseTimesInMs.add(resolver.calculateResponseTime(Currency.getInstance("EUR"),
                     Currency.getInstance("USD")));
