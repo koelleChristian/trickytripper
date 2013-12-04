@@ -11,7 +11,7 @@ import de.koelle.christian.common.json.AsyncJsonParser;
 import de.koelle.christian.common.json.AsyncJsonParserResultCallback;
 import de.koelle.christian.trickytripper.model.ImportOrigin;
 
-public class AsyncExchangeRateJsonResolverGoogleImpl implements AsyncExchangeRateResolver {
+public class AsyncExchangeRateHttpResolverGoogleImpl implements AsyncExchangeRateJsonResolver {
 
     private static final String SOURCE_CURRENCY_CODE_PLACEHOLDER = "%%CURR_A%%";
     private static final String TARGET_CURRENCY_CODE_PLACEHOLDER = "%%CURR_B%%";
@@ -19,7 +19,7 @@ public class AsyncExchangeRateJsonResolverGoogleImpl implements AsyncExchangeRat
             + SOURCE_CURRENCY_CODE_PLACEHOLDER + "&to=" + TARGET_CURRENCY_CODE_PLACEHOLDER;
     private final Context context;
 
-    public AsyncExchangeRateJsonResolverGoogleImpl(Context context) {
+    public AsyncExchangeRateHttpResolverGoogleImpl(Context context) {
         this.context = context;
     }
 

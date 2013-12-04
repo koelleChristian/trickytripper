@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import de.koelle.christian.common.utils.NumberUtils;
 
-public class ExchangeRateResultExtractorGoogleImpl implements
+public class ExchangeRateResultExtractorHttpGoogleImpl implements
         ExchangeRateResultExtractor {
     private static final String NBS = new String(new char[] { 0xA0 });
 

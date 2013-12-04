@@ -4,9 +4,9 @@ import java.util.Currency;
 
 import de.koelle.christian.trickytripper.model.ImportOrigin;
 
-public interface AsyncExchangeRateJsonResolver {
+public interface AsyncExchangeRateResolver {
 
-    void getExchangeRate(Currency from, Currency to, AsyncExchangeRateJsonResolverResultCallback callback);
+    void getExchangeRate(Currency from, Currency to, AsyncExchangeRateResolverResultCallback callback);
 
     long calculateResponseTime(Currency from, Currency to);
 
