@@ -1,17 +1,16 @@
 package de.koelle.christian.trickytripper.exchangerates.impl;
 
+import android.content.Context;
+import de.koelle.christian.common.http.AsyncHttpParser;
+import de.koelle.christian.common.http.AsyncHttpParserResultCallback;
+import de.koelle.christian.common.json.AsyncJsonParserResultCallback;
+import de.koelle.christian.trickytripper.model.ImportOrigin;
+import org.json.JSONObject;
+
 import java.util.Currency;
 import java.util.concurrent.TimeUnit;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.content.Context;
-import de.koelle.christian.common.json.AsyncJsonParser;
-import de.koelle.christian.common.json.AsyncJsonParserResultCallback;
-import de.koelle.christian.trickytripper.model.ImportOrigin;
-
-public class AsyncExchangeRateHttpResolverGoogleImpl implements AsyncExchangeRateJsonResolver {
+public class AsyncExchangeRateHttpResolverGoogleImpl implements AsyncExchangeRateResolver {
 
     private static final String SOURCE_CURRENCY_CODE_PLACEHOLDER = "%%CURR_A%%";
     private static final String TARGET_CURRENCY_CODE_PLACEHOLDER = "%%CURR_B%%";
@@ -24,23 +23,16 @@ public class AsyncExchangeRateHttpResolverGoogleImpl implements AsyncExchangeRat
     }
 
     public void cancelRunningRequests() {
-        AsyncJsonParser.cancelRunningRequests(context);
+        AsyncHttpParser.cancelRunningRequests(context);
     }
 
     public void getExchangeRate(Currency from, Currency to, final AsyncExchangeRateResolverResultCallback callback) {
-        AsyncJsonParser.getJSONFromUrl(context, provideUrl(from, to), new AsyncJsonParserResultCallback() {
+        String url = provideUrl(from, to);
+        AsyncHttpParser.getHttpFromUrl(context, url, new AsyncHttpParserResultCallback() {
 
-            public void deliverResult(JSONObject jsonObject) {
-                String result = null;
-                if (jsonObject != null) {
-                    try {
-                        result = jsonObject.getString("rhs");
-                    }
-                    catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                callback.deliverResult(result);
+            public void deliverResult(String httpResponseString) {
+                System.out.println(httpResponseString);
+                callback.deliverResult(httpResponseString);
             }
 
         });
@@ -50,7 +42,7 @@ public class AsyncExchangeRateHttpResolverGoogleImpl implements AsyncExchangeRat
     public long calculateResponseTime(Currency from, Currency to) {
 
         ResponseTimeDeterminationCallback callback = new ResponseTimeDeterminationCallback(System.nanoTime());
-        AsyncJsonParser.getJSONFromUrl(context, provideUrl(from, to), callback);
+        AsyncHttpParser.getHttpFromUrl(context, provideUrl(from, to), callback);
         while (!callback.hasResult()) {
             try {
                 Thread.currentThread().sleep(1000);
@@ -71,7 +63,7 @@ public class AsyncExchangeRateHttpResolverGoogleImpl implements AsyncExchangeRat
         return ImportOrigin.GOOGLE;
     }
 
-    private final class ResponseTimeDeterminationCallback implements AsyncJsonParserResultCallback {
+    private final class ResponseTimeDeterminationCallback implements AsyncJsonParserResultCallback, AsyncHttpParserResultCallback {
 
         boolean hasResult = false;
         long result = 0;
@@ -82,13 +74,12 @@ public class AsyncExchangeRateHttpResolverGoogleImpl implements AsyncExchangeRat
         }
 
         public void deliverResult(JSONObject jsonObject) {
-            if (jsonObject != null) {
-                result = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime);
-            }
-            else {
-                result = -1;
-            }
-            hasResult = true;
+            deliverResult((Object) jsonObject);
+        }
+
+        @Override
+        public void deliverResult(String arg0) {
+            deliverResult((Object) arg0);
         }
 
         public boolean hasResult() {
@@ -98,6 +89,17 @@ public class AsyncExchangeRateHttpResolverGoogleImpl implements AsyncExchangeRat
         public long getResultinMillis() {
             return result;
         }
+
+
+        public void deliverResult(Object arg0) {
+            if (arg0 != null) {
+                result = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime);
+            } else {
+                result = -1;
+            }
+            hasResult = true;
+        }
+
 
     }
 

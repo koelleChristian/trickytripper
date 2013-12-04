@@ -14,7 +14,7 @@ import de.koelle.christian.trickytripper.model.ImportOrigin;
 
 public class ExchangeRateImporterImpl implements ExchangeRateImporter {
 
-    private AsyncExchangeRateJsonResolver asyncExchangeRateJsonResolver;
+    private AsyncExchangeRateResolver asyncExchangeRateResolver;
     private ExchangeRateResultExtractor exchangeRateResultExtractor;
     private int chunkSize = 20;
     private int chunkDelay = 2000;
@@ -23,7 +23,7 @@ public class ExchangeRateImporterImpl implements ExchangeRateImporter {
 
     public void cancelRunningRequests() {
         stopped = true;
-        asyncExchangeRateJsonResolver.cancelRunningRequests();
+        asyncExchangeRateResolver.cancelRunningRequests();
     }
 
     public void importExchangeRates(Set<Currency> currencies, ExchangeRateImporterResultCallback callback) {
@@ -60,8 +60,8 @@ public class ExchangeRateImporterImpl implements ExchangeRateImporter {
                 if(stopped){
                     return;
                 }
-                asyncExchangeRateJsonResolver.getExchangeRate(pair.getFrom(), pair.getTo(),
-                        new MyAsyncExchangeRateJsonResolverResult(pair.getFrom(), pair.getTo(),
+                asyncExchangeRateResolver.getExchangeRate(pair.getFrom(), pair.getTo(),
+                        new MyAsyncExchangeRateResolverResult(pair.getFrom(), pair.getTo(),
                                 exchangeRateResultExtractor, callback));
             }
         }
@@ -93,17 +93,17 @@ public class ExchangeRateImporterImpl implements ExchangeRateImporter {
 
     }
 
-    private static final class MyAsyncExchangeRateJsonResolverResult implements
-            AsyncExchangeRateJsonResolverResultCallback {
+    private static final class MyAsyncExchangeRateResolverResult implements
+            AsyncExchangeRateResolverResultCallback {
 
         private final Currency from;
         private final Currency to;
         private final ExchangeRateResultExtractor exchangeRateResultExtractor;
         private final ExchangeRateImporterResultCallback exchangeRateImporterCallback;
 
-        private MyAsyncExchangeRateJsonResolverResult(final Currency from, final Currency to,
-                final ExchangeRateResultExtractor exchangeRateResultExtractor,
-                ExchangeRateImporterResultCallback exchangeRateImporterCallback) {
+        private MyAsyncExchangeRateResolverResult(final Currency from, final Currency to,
+                                                  final ExchangeRateResultExtractor exchangeRateResultExtractor,
+                                                  ExchangeRateImporterResultCallback exchangeRateImporterCallback) {
             super();
             this.from = from;
             this.to = to;
@@ -169,8 +169,8 @@ public class ExchangeRateImporterImpl implements ExchangeRateImporter {
 
     /* ============ setter for injection =========== */
 
-    public void setAsyncExchangeRateJsonResolver(AsyncExchangeRateJsonResolver asyncExchangeRateJsonResolver) {
-        this.asyncExchangeRateJsonResolver = asyncExchangeRateJsonResolver;
+    public void setAsyncExchangeRateResolver(AsyncExchangeRateResolver asyncExchangeRateResolver) {
+        this.asyncExchangeRateResolver = asyncExchangeRateResolver;
     }
 
     public void setExchangeRateResultExtractor(ExchangeRateResultExtractor exchangeRateResultExtractor) {

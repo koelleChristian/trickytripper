@@ -35,11 +35,8 @@ import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.CurrencyViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
-import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverGoogleImpl;
-import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl;
-import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
-import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
-import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorGoogleImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.*;
+import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorJsonGoogleImpl;
 import de.koelle.christian.trickytripper.model.ImportSettings;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.utils.UiViewUtils;
@@ -161,8 +158,8 @@ public class ImportExchangeRatesActivity extends SherlockFragmentActivity {
         final int progressCeiling = CurrencyUtil.calcExpectedAmountOfExchangeRates(amoutOfCurrenciesSelected);
 
         final ExchangeRateImporterImpl importer = new ExchangeRateImporterImpl();
-        importer.setAsyncExchangeRateJsonResolver(new AsyncExchangeRateJsonResolverGoogleImpl(this));
-        importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorGoogleImpl());
+        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateHttpResolverGoogleImpl(this));
+        importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorHttpGoogleImpl());
 
         progressBar = new ProgressDialog(view.getContext());
         progressBar.setMessage(getResources().getString(R.string.importExchangeRatesViewProgressBarMessage));
