@@ -22,7 +22,7 @@ public class DetachedCurrencyImportTest {
     @Before
     public void init() {
         importer = new ExchangeRateImporterImpl();
-        importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorGoogleImpl());
+        importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorJsonGoogleImpl());
         resetResultFields();
     }
 
@@ -38,7 +38,7 @@ public class DetachedCurrencyImportTest {
 
     @Test
     public void testImporterIgnoreUnsupportedCurrencies() {
-        importer.setAsyncExchangeRateJsonResolver(new DetachedTestAsyncExchangeRateJsonResolver("0.9876 French Francs",
+        importer.setAsyncExchangeRateResolver(new DetachedTestAsyncExchangeRateResolver("0.9876 French Francs",
                 false));
 
         Set<Currency> input;
@@ -63,7 +63,7 @@ public class DetachedCurrencyImportTest {
 
     @Test
     public void testImporterWithLessThanOne() {
-        importer.setAsyncExchangeRateJsonResolver(new DetachedTestAsyncExchangeRateJsonResolver("0.9876 XYs", false));
+        importer.setAsyncExchangeRateResolver(new DetachedTestAsyncExchangeRateResolver("0.9876 XYs", false));
 
         Set<Currency> input;
 
@@ -113,7 +113,7 @@ public class DetachedCurrencyImportTest {
     @Test
     public void testImporterWithMoreThanOne() {
 
-        importer.setAsyncExchangeRateJsonResolver(new DetachedTestAsyncExchangeRateJsonResolver("17.9876 XYs", false));
+        importer.setAsyncExchangeRateResolver(new DetachedTestAsyncExchangeRateResolver("17.9876 XYs", false));
 
         Set<Currency> input;
 
@@ -163,7 +163,7 @@ public class DetachedCurrencyImportTest {
     public void testExchangeRateResultExtractorWithFreakValue01() {
 
         /* This is returned sometimes instead of 1.00008, whatever. */
-        importer.setAsyncExchangeRateJsonResolver(new DetachedTestAsyncExchangeRateJsonResolver("1 Singapore dollar",
+        importer.setAsyncExchangeRateResolver(new DetachedTestAsyncExchangeRateResolver("1 Singapore dollar",
                 true));
 
         Set<Currency> input;
@@ -191,8 +191,8 @@ public class DetachedCurrencyImportTest {
     @Test
     public void testExchangeRateResultExtractorWithFreakValue02() {
 
-        importer.setAsyncExchangeRateJsonResolver(new DetachedTestAsyncExchangeRateJsonResolver("1"
-                + new String(new char[] { 0xA0 }) + "123.43 Singapore dollar",
+        importer.setAsyncExchangeRateResolver(new DetachedTestAsyncExchangeRateResolver("1"
+                + new String(new char[]{0xA0}) + "123.43 Singapore dollar",
                 true));
 
         Set<Currency> input;
@@ -219,7 +219,7 @@ public class DetachedCurrencyImportTest {
 
     @Test
     public void testExchangeRateResultExtractorWithUnparsableValue() {
-        importer.setAsyncExchangeRateJsonResolver(new DetachedTestAsyncExchangeRateJsonResolver("Hello", false));
+        importer.setAsyncExchangeRateResolver(new DetachedTestAsyncExchangeRateResolver("Hello", false));
 
         Set<Currency> input;
 
@@ -249,20 +249,20 @@ public class DetachedCurrencyImportTest {
     /**
      * Resolver to be used in conjunction with this test only. *
      */
-    private final class DetachedTestAsyncExchangeRateJsonResolver implements AsyncExchangeRateJsonResolver {
+    private final class DetachedTestAsyncExchangeRateResolver implements AsyncExchangeRateResolver {
 
         private int counter = 0;
         private final String resultPrefix;
         private final boolean returnPrefixOnly;
         private boolean stopped;
 
-        public DetachedTestAsyncExchangeRateJsonResolver(String resultPrefix, boolean returnPrefixOnly) {
+        public DetachedTestAsyncExchangeRateResolver(String resultPrefix, boolean returnPrefixOnly) {
             this.resultPrefix = resultPrefix;
             this.returnPrefixOnly = returnPrefixOnly;
         }
 
         @Override
-        public void getExchangeRate(Currency from, Currency to, AsyncExchangeRateJsonResolverResultCallback callback) {
+        public void getExchangeRate(Currency from, Currency to, AsyncExchangeRateResolverResultCallback callback) {
             stopped = false;
             counter++;
             String result = resultPrefix;

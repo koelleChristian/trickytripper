@@ -10,10 +10,10 @@
 <div class=g-doc>
 <form action="/finance/converter" method="get" name="f">
 <div class=sfe-break-top>
-<input name=a maxlength=12 size=5 autocomplete=off value="10">
+<input name=a maxlength=12 size=5 autocomplete=off value="1">
 </div>
 <div class=sfe-break-top>
-<select name=from value="USD">
+<select name=from value="TRY">
 <option  value="AED">United Arab Emirates Dirham (AED)</option>
 <option  value="AFN">Afghan Afghani (AFN)</option>
 <option  value="ALL">Albanian Lek (ALL)</option>
@@ -158,13 +158,13 @@
 <option  value="TMT">Turkmenistani Manat (TMT)</option>
 <option  value="TND">Tunisian Dinar (TND)</option>
 <option  value="TOP">Tongan Paʻanga (TOP)</option>
-<option  value="TRY">Turkish Lira (TRY)</option>
+<option SELECTED value="TRY">Turkish Lira (TRY)</option>
 <option  value="TTD">Trinidad and Tobago Dollar (TTD)</option>
 <option  value="TWD">New Taiwan Dollar (NT$)</option>
 <option  value="TZS">Tanzanian Shilling (TZS)</option>
 <option  value="UAH">Ukrainian Hryvnia (UAH)</option>
 <option  value="UGX">Ugandan Shilling (UGX)</option>
-<option SELECTED value="USD">US Dollar ($)</option>
+<option  value="USD">US Dollar ($)</option>
 <option  value="UYU">Uruguayan Peso (UYU)</option>
 <option  value="UZS">Uzbekistan Som (UZS)</option>
 <option  value="VEF">Venezuelan Bolívar (VEF)</option>
@@ -356,10 +356,10 @@
 </select>
 </div>
 &nbsp;
-<div id=currency_converter_result>10 USD = <span class=bld>7.3580 EUR</span>
+<div id=currency_converter_result>1 TRY = <span class=bld>0.3593 EUR</span>
 <input type=submit value="Convert">
 </div>
-<input type=hidden name=meta value=ei&#61;o1WeUtCILK6UwQPgIg>
+<input type=hidden name=meta value=ei&#61;eoOfUsC9KueZwQPlygE>
 </form>
 </body>
 </div>
