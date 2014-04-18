@@ -5981,24 +5981,24 @@ de.koelle.christian.common.changelog.ChangeLog$Listmode -> de.koelle.christian.a
     de.koelle.christian.common.changelog.ChangeLog$Listmode[] $VALUES -> d
     de.koelle.christian.common.changelog.ChangeLog$Listmode[] values() -> values
     de.koelle.christian.common.changelog.ChangeLog$Listmode valueOf(java.lang.String) -> valueOf
-de.koelle.christian.common.io.FileWriter -> de.koelle.christian.a.d.a:
+de.koelle.christian.common.http.AsyncHttpParser -> de.koelle.christian.a.d.a:
+    com.loopj.android.http.AsyncHttpClient httpClient -> a
+    void getHttpFromUrl(android.content.Context,java.lang.String,de.koelle.christian.common.http.AsyncHttpParserResultCallback) -> a
+    void cancelRunningRequests(android.content.Context) -> a
+de.koelle.christian.common.http.AsyncHttpParser$1 -> de.koelle.christian.a.d.b:
+    de.koelle.christian.common.http.AsyncHttpParserResultCallback val$callback -> a
+    void sendSuccessMessage(java.lang.String) -> a
+    void sendFailureMessage(java.lang.Throwable,java.lang.String) -> b
+    void onFailure(java.lang.Throwable,java.lang.String) -> a
+de.koelle.christian.common.http.AsyncHttpParserResultCallback -> de.koelle.christian.a.d.c:
+    void deliverResult(java.lang.String) -> a
+de.koelle.christian.common.io.FileWriter -> de.koelle.christian.a.e.a:
     java.io.File write(java.lang.String,java.lang.StringBuilder) -> a
-de.koelle.christian.common.io.impl.AppFileWriter -> de.koelle.christian.a.d.a.a:
+de.koelle.christian.common.io.impl.AppFileWriter -> de.koelle.christian.a.e.a.a:
     android.content.Context context -> a
     boolean isCacheDirNotFileDir -> b
     int mode -> c
     java.io.File write(java.lang.String,java.lang.StringBuilder) -> a
-de.koelle.christian.common.json.AsyncJsonParser -> de.koelle.christian.a.e.a:
-    com.loopj.android.http.AsyncHttpClient httpClient -> a
-    void getJSONFromUrl(android.content.Context,java.lang.String,de.koelle.christian.common.json.AsyncJsonParserResultCallback) -> a
-    void cancelRunningRequests(android.content.Context) -> a
-de.koelle.christian.common.json.AsyncJsonParser$1 -> de.koelle.christian.a.e.b:
-    de.koelle.christian.common.json.AsyncJsonParserResultCallback val$callback -> a
-    void sendSuccessMessage(java.lang.String) -> a
-    void sendFailureMessage(java.lang.Throwable,java.lang.String) -> b
-    void onFailure(java.lang.Throwable,java.lang.String) -> a
-de.koelle.christian.common.json.AsyncJsonParserResultCallback -> de.koelle.christian.a.e.c:
-    void deliverResult(org.json.JSONObject) -> a
 de.koelle.christian.common.options.OptionContraintsAbs -> de.koelle.christian.a.f.a:
     com.actionbarsherlock.view.MenuInflater menuInflater -> a
     com.actionbarsherlock.view.Menu menu -> b
@@ -7279,21 +7279,25 @@ de.koelle.christian.trickytripper.dialogs.HelpDialogFragment -> de.koelle.christ
 de.koelle.christian.trickytripper.dialogs.HelpDialogFragment$1 -> de.koelle.christian.trickytripper.g.l:
     de.koelle.christian.trickytripper.dialogs.HelpDialogFragment this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolver -> de.koelle.christian.trickytripper.h.a.a:
-    void getExchangeRate(java.util.Currency,java.util.Currency,de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverResultCallback) -> a
-    void cancelRunningRequests() -> a
-de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverGoogleImpl -> de.koelle.christian.trickytripper.h.a.b:
+de.koelle.christian.trickytripper.exchangerates.impl.AbstractExchangeRateResultExtractor -> de.koelle.christian.trickytripper.h.a.a:
+    java.lang.String NBS -> a
+    java.util.regex.Pattern getPattern() -> a
+    java.lang.Double extractValue(java.lang.String) -> a
+de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateHttpResolverGoogleImpl -> de.koelle.christian.trickytripper.h.a.b:
     android.content.Context context -> a
     void cancelRunningRequests() -> a
-    void getExchangeRate(java.util.Currency,java.util.Currency,de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverResultCallback) -> a
-de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverGoogleImpl$1 -> de.koelle.christian.trickytripper.h.a.c:
-    de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverResultCallback val$callback -> a
-    de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverGoogleImpl this$0 -> b
-    void deliverResult(org.json.JSONObject) -> a
-de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverResultCallback -> de.koelle.christian.trickytripper.h.a.d:
+    void getExchangeRate(java.util.Currency,java.util.Currency,de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolverResultCallback) -> a
+de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateHttpResolverGoogleImpl$1 -> de.koelle.christian.trickytripper.h.a.c:
+    de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolverResultCallback val$callback -> a
+    de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateHttpResolverGoogleImpl this$0 -> b
     void deliverResult(java.lang.String) -> a
-de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl -> de.koelle.christian.trickytripper.h.a.e:
-    de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolver asyncExchangeRateJsonResolver -> a
+de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolver -> de.koelle.christian.trickytripper.h.a.d:
+    void getExchangeRate(java.util.Currency,java.util.Currency,de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolverResultCallback) -> a
+    void cancelRunningRequests() -> a
+de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolverResultCallback -> de.koelle.christian.trickytripper.h.a.e:
+    void deliverResult(java.lang.String) -> a
+de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl -> de.koelle.christian.trickytripper.h.a.f:
+    de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolver asyncExchangeRateResolver -> a
     de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractor exchangeRateResultExtractor -> b
     int chunkSize -> c
     int chunkDelay -> d
@@ -7301,22 +7305,22 @@ de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl ->
     void cancelRunningRequests() -> a
     void importExchangeRates(java.util.Set,de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback) -> importExchangeRates
     void sendRequest(de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback,java.util.List) -> a
-    void setAsyncExchangeRateJsonResolver(de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolver) -> a
+    void setAsyncExchangeRateResolver(de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolver) -> a
     void setExchangeRateResultExtractor(de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractor) -> a
-de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl$FromToCurrencyPair -> de.koelle.christian.trickytripper.h.a.f:
+de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl$FromToCurrencyPair -> de.koelle.christian.trickytripper.h.a.g:
     java.util.Currency from -> a
     java.util.Currency to -> b
     java.util.Currency getFrom() -> a
     java.util.Currency getTo() -> b
-de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl$MyAsyncExchangeRateJsonResolverResult -> de.koelle.christian.trickytripper.h.a.g:
+de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl$MyAsyncExchangeRateResolverResult -> de.koelle.christian.trickytripper.h.a.h:
     java.util.Currency from -> a
     java.util.Currency to -> b
     de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractor exchangeRateResultExtractor -> c
     de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback exchangeRateImporterCallback -> d
     void deliverResult(java.lang.String) -> a
-de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback -> de.koelle.christian.trickytripper.h.a.h:
+de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback -> de.koelle.christian.trickytripper.h.a.i:
     void deliverResult(de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer) -> a
-de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback$ExchangeRateImporterResultState -> de.koelle.christian.trickytripper.h.a.i:
+de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback$ExchangeRateImporterResultState -> de.koelle.christian.trickytripper.h.a.j:
     de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback$ExchangeRateImporterResultState SUCCESS -> a
     de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback$ExchangeRateImporterResultState CURRENCY_NOT_ALIVE -> b
     de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback$ExchangeRateImporterResultState UNPARSABLE_JSON_RESULT -> c
@@ -7324,19 +7328,18 @@ de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultC
     de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback$ExchangeRateImporterResultState[] $VALUES -> e
     de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback$ExchangeRateImporterResultState[] values() -> values
     de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback$ExchangeRateImporterResultState valueOf(java.lang.String) -> valueOf
-de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer -> de.koelle.christian.trickytripper.h.a.j:
+de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer -> de.koelle.christian.trickytripper.h.a.k:
     de.koelle.christian.trickytripper.model.ExchangeRate exchangeRateResult -> a
     java.util.Currency from -> b
     java.util.Currency to -> c
     de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback$ExchangeRateImporterResultState resultState -> d
     java.lang.String stateComment -> e
     java.lang.String toString() -> toString
-de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractor -> de.koelle.christian.trickytripper.h.a.k:
+de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractor -> de.koelle.christian.trickytripper.h.a.l:
     java.lang.Double extractValue(java.lang.String) -> a
-de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorGoogleImpl -> de.koelle.christian.trickytripper.h.a.l:
-    java.lang.String NBS -> b
+de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorHttpGoogleImpl -> de.koelle.christian.trickytripper.h.a.m:
     java.util.regex.Pattern REGEX_NUMBER_PATTERN -> a
-    java.lang.Double extractValue(java.lang.String) -> a
+    java.util.regex.Pattern getPattern() -> a
 de.koelle.christian.trickytripper.export.Exporter -> de.koelle.christian.trickytripper.i.a:
     java.util.List exportReport(de.koelle.christian.trickytripper.model.ExportSettings,java.util.List,de.koelle.christian.trickytripper.model.Trip,de.koelle.christian.trickytripper.decoupling.ResourceResolver,de.koelle.christian.trickytripper.decoupling.ActivityResolver,de.koelle.christian.trickytripper.factories.AmountFactory) -> a
 de.koelle.christian.trickytripper.export.StreamSender -> de.koelle.christian.trickytripper.i.b:

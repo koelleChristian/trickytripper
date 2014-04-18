@@ -366,12 +366,15 @@ de.koelle.christian.common.constants.Rglob
 de.koelle.christian.common.currencyspinner.SpinnerViewUtils
 de.koelle.christian.common.currencyspinner.SpinnerViewUtils$1
 de.koelle.christian.common.currencyspinner.SpinnerViewUtils$2
+de.koelle.christian.common.http.AsyncHttpParser:
+    11:11:public AsyncHttpParser()
 de.koelle.christian.common.io.impl.AppFileWriter:
     134:135:public void setContext(android.content.Context)
     138:139:public void setCacheDirNotFileDir(boolean)
     142:143:public void setMode(int)
-de.koelle.christian.common.json.AsyncJsonParser:
-    14:14:public AsyncJsonParser()
+de.koelle.christian.common.json.AsyncJsonParser
+de.koelle.christian.common.json.AsyncJsonParser$1
+de.koelle.christian.common.json.AsyncJsonParserResultCallback
 de.koelle.christian.common.options.OptionContraints
 de.koelle.christian.common.options.OptionsSupport:
     15:28:public boolean populateOptionsMenu(de.koelle.christian.common.options.OptionContraints)
@@ -649,16 +652,19 @@ de.koelle.christian.trickytripper.dialogs.HelpDialogFragment:
     private static final java.lang.String HELP_FILE_NAME_BASE
     private static final java.lang.String HELP_FILE_URL_EN
 de.koelle.christian.trickytripper.exchangerates.ExchangeRateImporter
-de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolver:
-    public abstract long calculateResponseTime(java.util.Currency,java.util.Currency)
-    public abstract de.koelle.christian.trickytripper.model.ImportOrigin getOriginToBeUsed()
-de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverGoogleImpl:
+de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateHttpResolverGoogleImpl:
     private static final java.lang.String SOURCE_CURRENCY_CODE_PLACEHOLDER
     private static final java.lang.String TARGET_CURRENCY_CODE_PLACEHOLDER
     public static final java.lang.String EXCHANGE_RATE_SERVICE_URL
-    53:62:public long calculateResponseTime(java.util.Currency,java.util.Currency)
-    72:72:public de.koelle.christian.trickytripper.model.ImportOrigin getOriginToBeUsed()
+    44:53:public long calculateResponseTime(java.util.Currency,java.util.Currency)
+    63:63:public de.koelle.christian.trickytripper.model.ImportOrigin getOriginToBeUsed()
+de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateHttpResolverGoogleImpl$ResponseTimeDeterminationCallback
+de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverGoogleImpl
+de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverGoogleImpl$1
 de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverGoogleImpl$ResponseTimeDeterminationCallback
+de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolver:
+    public abstract long calculateResponseTime(java.util.Currency,java.util.Currency)
+    public abstract de.koelle.christian.trickytripper.model.ImportOrigin getOriginToBeUsed()
 de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl:
     181:182:public void setChunkSize(int)
     185:186:public void setChunkDelay(int)
@@ -669,8 +675,9 @@ de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultC
     41:41:public java.util.Currency getTo()
     45:45:public de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback$ExchangeRateImporterResultState getResultState()
     49:49:public java.lang.String getStateComment()
-de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorGoogleImpl:
+de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorHttpGoogleImpl:
     public static final java.lang.String REGEX_NUMBER_PATTERN_STRING
+de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorJsonGoogleImpl
 de.koelle.christian.trickytripper.export.impl.ExporterFileNameUtils:
     7:7:public ExporterFileNameUtils()
 de.koelle.christian.trickytripper.export.impl.ExporterImpl:
