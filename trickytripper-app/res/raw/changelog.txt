@@ -29,7 +29,7 @@
 
 $ 1.4.3
 % Version 1.4.3
-  _ 2013-12-08
+  _ 2013-12-09
 * Exchange rate import from the internet now works again: The former interfaces by Google had been switched off.
 
 $ 1.4.2

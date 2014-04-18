@@ -29,8 +29,8 @@
 
 $ 1.4.3
 % Version 1.4.3
-  _ 2013-12-08
-* Wechselkursimport (Internet) funktioniert nun wieder: Die bisherige Schnittstelle von Google wurde leider abgeschaltet.
+  _ 2013-12-09
+* Wechselkursimport aus dem Internet funktioniert nun wieder: Die bisherige Schnittstelle von Google wurde leider abgeschaltet.
 
 $ 1.4.2
 % Version 1.4.2
