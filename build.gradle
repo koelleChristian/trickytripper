@@ -1,0 +1,29 @@
+
+buildscript {
+    dependencies {
+        repositories {
+            jcenter()
+            mavenLocal()
+            maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        }
+
+        classpath 'com.android.tools.build:gradle:0.12.2'
+        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.2.+'
+    }
+}
+allprojects {
+    repositories {
+        jcenter()
+        mavenLocal()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+
+    }
+    ext {
+        junitVersion = '4.10'
+        comAndroidToolsBuildGradleVersion = '0.10.4'
+        comAndroidSupport_supportV4Version = '18.0.0'
+        android_androidVersion = '4.1.2_r4' // V16
+        actionbarsherlockVersion = '4.4.0@aar'
+        comLoopjAndroidHttpAsyncHttpClientVersion = '1.4.2'
+    }
+}

@@ -1,10 +1,0 @@
-System.out.println(Integer.toBinaryString(8));
-Syntax error, insert ";" to complete BlockStatementsjava.util.BitSet set = new java.util.BitSet(4);
-set.clear();
-set.set(0);
-set.set(1);
-set.set(2);
-set.set(3);
-set.set(4);
-set.clear(4);
-System.out.println(set);
