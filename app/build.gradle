@@ -1,16 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion '19.1.0'
+    compileSdkVersion 21
+    buildToolsVersion '21.1.2'
     defaultConfig {
         applicationId 'de.koelle.christian.trickytripper'
         minSdkVersion 8
-        targetSdkVersion 19
+        targetSdkVersion 21
         versionCode 14
         versionName '1.5.1'
-        // ------------> This is for com.github.jcandksolutions.gradle
-        packageName "de.koelle.christian.trickytripper"
+        // ------------> This used to be required for for com.github.jcandksolutions.gradle
+        //packageName "de.koelle.christian.trickytripper"
     }
     File signFile = rootProject.file('sign/keystore.properties')
     if (signFile.exists()) {
@@ -28,8 +28,9 @@ android {
 
     buildTypes {
         release {
-            runProguard true
-            zipAlign true
+            // This used to work before going to 1.0.0. RC of new build system.
+            //runProguard true
+            //zipAlign true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
@@ -44,10 +45,10 @@ apply plugin: 'android-unit-test'
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     //compile 'com.android.support:appcompat-v7:19.1.0' //--> clashes with ABS
-    compile 'com.android.support:support-v4:19.0.0'
+    compile 'com.android.support:support-v4:21.0.0'
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
     //compile 'com.loopj.android:android-async-http:1.4.5'  //--> Has api changes
     testCompile 'junit:junit:4.10'
-    testCompile 'org.robolectric:robolectric:2.4-SNAPSHOT'
+    testCompile 'org.robolectric:robolectric:2.4'
     testCompile 'org.mockito:mockito-core:1.9.5'
 }

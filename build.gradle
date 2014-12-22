@@ -7,8 +7,8 @@ buildscript {
             maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         }
 
-        classpath 'com.android.tools.build:gradle:0.12.2'
-        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.2.+'
+        classpath 'com.android.tools.build:gradle:1.0.0-rc4'
+        classpath 'com.github.jcandksolutions.gradle:android-unit-test:2.1.1'
     }
 }
 allprojects {
@@ -19,11 +19,11 @@ allprojects {
 
     }
     ext {
-        junitVersion = '4.10'
-        comAndroidToolsBuildGradleVersion = '0.10.4'
-        comAndroidSupport_supportV4Version = '18.0.0'
-        android_androidVersion = '4.1.2_r4' // V16
-        actionbarsherlockVersion = '4.4.0@aar'
-        comLoopjAndroidHttpAsyncHttpClientVersion = '1.4.2'
+//        junitVersion = '4.10'
+//        comAndroidToolsBuildGradleVersion = '1.0.0-rc4'
+//        comAndroidSupport_supportV4Version = '18.0.0'
+//        android_androidVersion = '4.1.2_r4' // V16
+//        actionbarsherlockVersion = '4.4.0@aar'
+//        comLoopjAndroidHttpAsyncHttpClientVersion = '1.4.2'
     }
 }
