@@ -8,18 +8,17 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.controller.MiscController;
 
-public class HelpDialogFragment extends SherlockDialogFragment {
+public class HelpDialogFragment extends DialogFragment {
 
     private static final String HELP_ASSET_URL_BASE = "file:///android_asset/";
     private static final String HELP_FILE_NAME_ENDING = ".html";

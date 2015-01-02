@@ -8,10 +8,10 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-import com.actionbarsherlock.view.MenuItem;
+import android.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.utils.CurrencyUtil;
@@ -19,7 +19,7 @@ import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.constants.Rc;
 
-public class PreferencesActivity extends SherlockPreferenceActivity implements OnSharedPreferenceChangeListener {
+public class PreferencesActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

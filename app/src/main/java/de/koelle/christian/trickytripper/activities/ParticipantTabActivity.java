@@ -6,10 +6,13 @@ import java.util.Comparator;
 import java.util.List;
 
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ListFragment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +21,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.actionbarsherlock.app.SherlockListFragment;
-import com.actionbarsherlock.view.MenuInflater;
 
 import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.trickytripper.R;
@@ -33,7 +33,7 @@ import de.koelle.christian.trickytripper.strategies.SumReport;
 import de.koelle.christian.trickytripper.ui.model.ParticipantRow;
 import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
-public class ParticipantTabActivity extends SherlockListFragment {
+public class ParticipantTabActivity extends ListFragment {
 
     private static final int MENU_GROUP_P_STD = 1;
     private static final int MENU_GROUP_P_ACTIVE_REQ = 2;
@@ -65,7 +65,7 @@ public class ParticipantTabActivity extends SherlockListFragment {
     public void onResume() {
         super.onResume();
         updateRows();
-        getSherlockActivity().invalidateOptionsMenu();
+        ActivityCompat.invalidateOptionsMenu(getActivity());
     }
 
     @Override
@@ -86,12 +86,12 @@ public class ParticipantTabActivity extends SherlockListFragment {
     }
 
     @Override
-    public void onPrepareOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+    public void onPrepareOptionsMenu(Menu menu) {
         PrepareOptionsSupport.prepareMajorTabOptions(menu, getApp(), true);
     }
 
     @Override
-    public void onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraintsAbs().activity(inflater).menu(menu)
                         .options(new int[] {
@@ -103,7 +103,7 @@ public class ParticipantTabActivity extends SherlockListFragment {
     }
 
     @Override
-    public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_create_participant:
             getApp().getViewController().openCreateParticipant();
@@ -192,7 +192,7 @@ public class ParticipantTabActivity extends SherlockListFragment {
         }
         case R.string.fktn_participant_show_report: {
             app.getTripController().getDialogState().setParticipantReporting(participant);
-            getSherlockActivity().getSupportActionBar().setSelectedNavigationItem(Rc.TAB_ID_REPORT);
+            getActivity().getActionBar().setSelectedNavigationItem(Rc.TAB_ID_REPORT);
             return true;
         }
         case R.string.fktn_participant_deactivate: {

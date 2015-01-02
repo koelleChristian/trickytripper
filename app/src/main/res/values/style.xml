@@ -12,6 +12,16 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="even_darker_grey">#040404</color>
+    <!-- Main color deep purple-->
+    <color name="main">#673ab7</color> <!-- 500 -->
+    <color name="mainLight">#d1c4e9</color> <!-- 100-->
+    <color name="mainDark">#4527a0</color> <!-- 800-->
+    <!-- Accent: Green -->
+    <color name="accent">#69f0ae</color> <!-- 200-->
+    <color name="accentLight">#b9f6ca</color> <!--  100 -->
+    <color name="accentDark">#00e676</color>  <!--  400 -->
+    <color name="accentDarkest">#00c853</color>  <!--  700 -->
+
     
 
 </resources>

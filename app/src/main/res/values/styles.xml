@@ -1,8 +1,16 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Sherlock.__Theme.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- colorPrimary is used for the default action bar background -->
+        <item name="colorPrimary">@color/main</item>
+
+        <!-- colorPrimaryDark is used for the status bar -->
+<!--        <item name="colorPrimaryDark">@color/main</item>  -->
+
+        <!-- colorAccent is used as the default value for colorControlActivated
+             which is used to tint widgets -->
+        <item name="colorAccent">@color/accentDark</item>
     </style>
 
 </resources>

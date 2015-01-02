@@ -14,9 +14,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
@@ -31,7 +31,7 @@ import de.koelle.christian.trickytripper.dataaccess.PhoneContactResolver;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.PhoneContact;
 
-public class ParticipantEditActivity extends SherlockFragmentActivity {
+public class ParticipantEditActivity extends ActionBarActivity {
 
     private ViewMode viewMode;
     private Participant participant;
@@ -207,7 +207,7 @@ public class ParticipantEditActivity extends SherlockFragmentActivity {
                 .getOptionSupport()
                 .populateOptionsMenu(
                         new OptionContraintsAbs()
-                                .activity(getSupportMenuInflater()).menu(menu)
+                                .activity(getMenuInflater()).menu(menu)
                                 .options(new int[] {
                                         R.id.option_help
                                 }));

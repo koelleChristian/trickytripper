@@ -8,8 +8,11 @@ import java.util.Currency;
 import java.util.List;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -17,9 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
@@ -34,7 +35,7 @@ import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListA
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
-public class ManageExchangeRatesActivity extends SherlockFragmentActivity implements DeleteConfirmationCallback {
+public class ManageExchangeRatesActivity extends ActionBarActivity implements DeleteConfirmationCallback {
 
     private static final String DIALOG_PARAM_EXCHANGE_RATE = "dialogParamExchangeRate";
 
@@ -126,7 +127,7 @@ public class ManageExchangeRatesActivity extends SherlockFragmentActivity implem
                 .getOptionSupport()
                 .populateOptionsMenu(
                         new OptionContraintsAbs()
-                                .activity(getSupportMenuInflater()).menu(menu)
+                                .activity(getMenuInflater()).menu(menu)
                                 .options(new int[] {
                                         R.id.option_help, R.id.option_import,
                                         R.id.option_delete,

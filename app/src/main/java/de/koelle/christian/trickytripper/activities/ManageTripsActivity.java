@@ -16,9 +16,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
@@ -31,7 +31,7 @@ import de.koelle.christian.trickytripper.model.TripSummary;
 import de.koelle.christian.trickytripper.model.modelAdapter.TripSummarySymbolResolvingDelegator;
 import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
-public class ManageTripsActivity extends SherlockFragmentActivity implements DeleteConfirmationCallback {
+public class ManageTripsActivity extends ActionBarActivity implements DeleteConfirmationCallback {
 
     private static final int MENU_GROUP_STD = 1;
     private static final int MENU_GROUP_DELETE = 2;
@@ -80,7 +80,7 @@ public class ManageTripsActivity extends SherlockFragmentActivity implements Del
                 .getOptionSupport()
                 .populateOptionsMenu(
                         new OptionContraintsAbs()
-                                .activity(getSupportMenuInflater()).menu(menu)
+                                .activity(getMenuInflater()).menu(menu)
                                 .options(new int[]{
                                         R.id.option_help,
                                         R.id.option_create_trip

@@ -8,10 +8,13 @@ import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ListFragment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,9 +23,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockListFragment;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
+
+import android.view.MenuItem;
 
 import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.trickytripper.R;
@@ -38,7 +40,7 @@ import de.koelle.christian.trickytripper.model.utils.PaymentComparator;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
-public class PaymentTabActivity extends SherlockListFragment implements DeleteConfirmationCallback {
+public class PaymentTabActivity extends ListFragment implements DeleteConfirmationCallback {
     
     private static final String DELIMITER = ": ";
 
@@ -65,7 +67,7 @@ public class PaymentTabActivity extends SherlockListFragment implements DeleteCo
     public void onResume() {
         super.onResume();
         sortAndUpdateView();
-        getSherlockActivity().invalidateOptionsMenu();
+        ActivityCompat.invalidateOptionsMenu(getActivity());
     }
 
     @Override
@@ -91,12 +93,12 @@ public class PaymentTabActivity extends SherlockListFragment implements DeleteCo
     }
 
     @Override
-    public void onPrepareOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+    public void onPrepareOptionsMenu(Menu menu) {
         PrepareOptionsSupport.prepareMajorTabOptions(menu, getApp(), false);
     }
 
     @Override
-    public void onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraintsAbs().activity(inflater).menu(menu)
                         .options(new int[] {

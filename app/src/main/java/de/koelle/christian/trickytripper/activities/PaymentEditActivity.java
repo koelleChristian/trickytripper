@@ -36,9 +36,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
@@ -64,7 +64,7 @@ import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
-public class PaymentEditActivity extends SherlockFragmentActivity implements DatePickerDialogFragment.DatePickerDialogCallback {
+public class PaymentEditActivity extends ActionBarActivity implements DatePickerDialogFragment.DatePickerDialogCallback {
 
     private static final int DIALOG_SELECT_PAYERS = 1;
     private static final int DIALOG_SELECT_DEBITORS = 2;
@@ -193,7 +193,7 @@ public class PaymentEditActivity extends SherlockFragmentActivity implements Dat
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsAbs().activity(getSupportMenuInflater()).menu(menu)
+                new OptionContraintsAbs().activity(getMenuInflater()).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
                         }));

@@ -13,14 +13,14 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import android.support.v7.app.ActionBarActivity;
 
 import de.koelle.christian.common.io.impl.AppFileWriter;
 import de.koelle.christian.common.utils.FileUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.constants.Rc;
 
-public class SaveToSdCardActivity extends SherlockActivity {
+public class SaveToSdCardActivity extends ActionBarActivity {
 
     private static final String MSG_SPACE = " ";
     private List<Uri> fileUris;
@@ -37,10 +37,11 @@ public class SaveToSdCardActivity extends SherlockActivity {
         }
     }
 
-    @Override
-    public Object onRetainNonConfigurationInstance() {
-        return directoryPickedPath;
-    };
+    //TODO(ckoelle) ABS
+//    @Override
+ //   public Object onRetainNonConfigurationInstance() {
+  //      return directoryPickedPath;
+   // };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

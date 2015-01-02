@@ -1,7 +1,8 @@
 package de.koelle.christian.common.options;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
+
+import android.view.Menu;
+import android.view.MenuInflater;
 
 public class OptionContraintsAbs {
     private MenuInflater menuInflater;

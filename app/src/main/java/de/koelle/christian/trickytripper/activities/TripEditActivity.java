@@ -12,9 +12,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
@@ -29,7 +29,7 @@ import de.koelle.christian.trickytripper.constants.ViewMode;
 import de.koelle.christian.trickytripper.model.TripSummary;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 
-public class TripEditActivity extends SherlockFragmentActivity {
+public class TripEditActivity extends ActionBarActivity {
 
     private ViewMode viewMode;
     private TripSummary trip;
@@ -165,7 +165,7 @@ public class TripEditActivity extends SherlockFragmentActivity {
                 .getOptionSupport()
                 .populateOptionsMenu(
                         new OptionContraintsAbs()
-                                .activity(getSupportMenuInflater()).menu(menu)
+                                .activity(getMenuInflater()).menu(menu)
                                 .options(new int[] {
                                         R.id.option_help
                                 }));

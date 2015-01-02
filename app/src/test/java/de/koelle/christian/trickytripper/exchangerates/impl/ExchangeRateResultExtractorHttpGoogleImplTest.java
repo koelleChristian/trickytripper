@@ -1,6 +1,6 @@
 package de.koelle.christian.trickytripper.exchangerates.impl;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

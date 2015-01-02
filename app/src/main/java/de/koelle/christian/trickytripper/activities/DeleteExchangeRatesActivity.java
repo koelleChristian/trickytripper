@@ -6,15 +6,16 @@ import java.util.Comparator;
 import java.util.List;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
@@ -28,7 +29,7 @@ import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListA
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter.DisplayMode;
 import de.koelle.christian.trickytripper.ui.model.SpinnerObject;
 
-public class DeleteExchangeRatesActivity extends SherlockFragmentActivity implements DeleteConfirmationCallback {
+public class DeleteExchangeRatesActivity extends ActionBarActivity implements DeleteConfirmationCallback {
 
     private static final String DIALOG_PARAM_EXCHANGE_RATES = "dialogParamExchangeRates";
 
@@ -210,7 +211,7 @@ public class DeleteExchangeRatesActivity extends SherlockFragmentActivity implem
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsAbs().activity(getSupportMenuInflater()).menu(menu)
+                new OptionContraintsAbs().activity(getMenuInflater()).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
                         }));

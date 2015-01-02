@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tt="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/option_create_participant"
         android:icon="@android:drawable/ic_menu_add"
-        android:showAsAction="ifRoom"
+        tt:showAsAction="ifRoom"
         android:title="@string/option_create"/>
 
     <item
         android:id="@+id/option_create_exchange_rate"
         android:icon="@android:drawable/ic_menu_add"
-        android:showAsAction="ifRoom"
+        tt:showAsAction="ifRoom"
         android:title="@string/option_create"/>
 
     <item
         android:id="@+id/option_create_trip"
         android:icon="@android:drawable/ic_menu_add"
-        android:showAsAction="ifRoom"
+        tt:showAsAction="ifRoom"
         android:title="@string/option_create"/>
 
     <item
         android:id="@+id/option_delete"
         android:icon="@android:drawable/ic_menu_delete"
-        android:showAsAction="ifRoom"
+        tt:showAsAction="ifRoom"
         android:title="@string/option_delete"/>
 
     <item
         android:id="@+id/option_import"
-        android:showAsAction="ifRoom|withText"
+        tt:showAsAction="ifRoom|withText"
         android:title="@string/option_import"/>
 
     <item
@@ -37,7 +39,7 @@
     <item
         android:id="@+id/option_export"
         android:icon="@android:drawable/ic_menu_share"
-        android:showAsAction="ifRoom"
+        tt:showAsAction="ifRoom"
         android:title="@string/option_export"/>
 
     <item

@@ -28,7 +28,7 @@ public class OptionsSupport {
         return true;
     }
     public boolean populateOptionsMenu(OptionContraintsAbs optionContraints) {
-        com.actionbarsherlock.view.MenuInflater inflater = optionContraints.getMenuInflater();
+        MenuInflater inflater = optionContraints.getMenuInflater();
         inflater.inflate(R.layout.options, optionContraints.getMenu());
         for (int i = 0; i < allOptions.length; i++) {
             boolean contained = false;

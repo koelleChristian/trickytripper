@@ -10,7 +10,7 @@ import android.widget.ExpandableListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import android.support.v7.app.ActionBarActivity;
 
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
@@ -20,7 +20,7 @@ import de.koelle.christian.trickytripper.model.HierarchicalCurrencyList;
 import de.koelle.christian.trickytripper.model.modelAdapter.CurrencyExpandableListAdapter;
 import de.koelle.christian.trickytripper.model.modelAdapter.CurrencyGroupNamingCallback;
 
-public class CurrencySelectionActivity extends SherlockActivity {
+public class CurrencySelectionActivity extends ActionBarActivity {
 
     private Currency currencyProvided;
     private int resultViewId;

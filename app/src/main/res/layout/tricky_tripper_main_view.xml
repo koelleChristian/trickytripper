@@ -2,11 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="4dp" />
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/mainView_trip_button"
@@ -14,10 +10,23 @@
         android:layout_height="wrap_content"
         android:onClick="openManageTrips" />
 
-    <FrameLayout
-        android:id="@+id/mainView_fragment_content"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1" />
+        android:layout_height="match_parent">
+
+
+        <android.support.v4.view.PagerTitleStrip
+            android:id="@+id/pager_title_strip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@color/main"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:textColor="#fff" />
+
+
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>

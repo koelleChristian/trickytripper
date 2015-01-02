@@ -22,9 +22,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
@@ -48,7 +48,7 @@ import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 
-public class MoneyTransferActivity extends SherlockFragmentActivity {
+public class MoneyTransferActivity extends ActionBarActivity {
 
     private final Map<Participant, Amount> amountByParticipant = new HashMap<Participant, Amount>();
     private Participant transferer;
@@ -74,7 +74,7 @@ public class MoneyTransferActivity extends SherlockFragmentActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsAbs().activity(getSupportMenuInflater()).menu(menu)
+                new OptionContraintsAbs().activity(getMenuInflater()).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
                         }));

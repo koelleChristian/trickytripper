@@ -4,8 +4,11 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,10 +18,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
+
+import android.view.Menu;
+import android.view.MenuItem;
 
 import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.common.utils.UiUtils;
@@ -34,7 +36,7 @@ import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.strategies.SumReport;
 import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
-public class ReportTabActivity extends SherlockFragment {
+public class ReportTabActivity extends Fragment {
 
     private final static int PADDING = 3;
 
@@ -54,7 +56,7 @@ public class ReportTabActivity extends SherlockFragment {
     public void onResume() {
         super.onResume();
         createPanel(view);
-        getSherlockActivity().invalidateOptionsMenu();
+        ActivityCompat.invalidateOptionsMenu(getActivity());
     }
 
     @Override

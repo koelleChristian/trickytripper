@@ -12,8 +12,11 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,9 +27,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
@@ -41,7 +41,7 @@ import de.koelle.christian.trickytripper.model.ImportSettings;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.utils.UiViewUtils;
 
-public class ImportExchangeRatesActivity extends SherlockFragmentActivity {
+public class ImportExchangeRatesActivity extends ActionBarActivity{
 
     private ListView listView;
     @SuppressWarnings("rawtypes")
@@ -267,7 +267,7 @@ public class ImportExchangeRatesActivity extends SherlockFragmentActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsAbs().activity(getSupportMenuInflater()).menu(menu)
+                new OptionContraintsAbs().activity(getMenuInflater()).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
                         }));

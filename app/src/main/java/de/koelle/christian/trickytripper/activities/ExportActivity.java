@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,9 +19,6 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
@@ -32,7 +32,7 @@ import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChanne
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 
-public class ExportActivity extends SherlockFragmentActivity {
+public class ExportActivity extends ActionBarActivity {
 
     private List<Participant> participantsInSpinner;
     private Participant participantSelected;
@@ -51,7 +51,7 @@ public class ExportActivity extends SherlockFragmentActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsAbs().activity(getSupportMenuInflater()).menu(menu)
+                new OptionContraintsAbs().activity(getMenuInflater()).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
                         }));

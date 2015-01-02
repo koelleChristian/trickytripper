@@ -7,7 +7,10 @@ import java.util.Locale;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,9 +23,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
@@ -46,7 +46,7 @@ import de.koelle.christian.trickytripper.ui.utils.ExchangeRateDescriptionUtils;
 import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
-public class CurrencyCalculatorActivity extends SherlockFragmentActivity {
+public class CurrencyCalculatorActivity extends ActionBarActivity {
 
     private Amount inputAmount;
     private Amount resultAmount;
@@ -508,7 +508,7 @@ public class CurrencyCalculatorActivity extends SherlockFragmentActivity {
                 .getOptionSupport()
                 .populateOptionsMenu(
                         new OptionContraintsAbs()
-                                .activity(getSupportMenuInflater())
+                                .activity(getMenuInflater())
                                 .menu(menu)
                                 .options(
                                         new int[] { R.id.option_import,

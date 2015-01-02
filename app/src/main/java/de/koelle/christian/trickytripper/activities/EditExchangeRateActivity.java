@@ -5,17 +5,20 @@ import java.util.Locale;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsAbs;
@@ -32,7 +35,7 @@ import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ImportOrigin;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
-public class EditExchangeRateActivity extends SherlockFragmentActivity {
+public class EditExchangeRateActivity extends ActionBarActivity {
 
     private ExchangeRate exchangeRate;
     private Double exchangeRateValueInverted;
@@ -219,7 +222,7 @@ public class EditExchangeRateActivity extends SherlockFragmentActivity {
                 .getOptionSupport()
                 .populateOptionsMenu(
                         new OptionContraintsAbs()
-                                .activity(getSupportMenuInflater()).menu(menu)
+                                .activity(getMenuInflater()).menu(menu)
                                 .options(new int[] {
                                         R.id.option_help
                                 }));
