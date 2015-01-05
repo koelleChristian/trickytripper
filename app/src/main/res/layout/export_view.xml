@@ -1,256 +1,226 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:scrollbars="vertical">
 
-    <TextView
-        android:id="@+id/export_view_label_trip_name_output"
-        android:layout_width="wrap_content"
+    <TableLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp" />
+        android:shrinkColumns="2"
+        android:stretchColumns="2">
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scrollbars="vertical" >
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <TableLayout
+            <TextView
+                android:layout_span="3"
+                android:padding="3dip"
+                android:text="@string/exportViewTextViewSubHeadingChannel"
+                android:textColor="@color/abc_primary_text_material_light"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:id="@+id/exportViewSpinnerChannel"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:prompt="@string/exportViewSpinnerPromptChannel" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_span="3"
+                android:padding="3dip"
+                android:text="@string/exportViewTextViewSubHeadingFormat"
+                android:textColor="@color/abc_primary_text_material_light"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/exportViewCheckboxFormatCsv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/exportViewCheckboxFormatCsv" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/exportViewCheckboxFormatHtml"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/exportViewCheckboxFormatHtml" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/exportViewCheckboxFormatTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/exportViewCheckboxFormatTxt" />
+        </TableRow>
+
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:shrinkColumns="2"
-            android:stretchColumns="2" >
+            android:layout_height="wrap_content">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+            <TextView
+                android:layout_span="3"
+                android:padding="3dip"
+                android:text="@string/exportViewTextViewSubHeadingContent"
+                android:textColor="@color/abc_primary_text_material_light"
+                android:textStyle="bold" />
+        </TableRow>
 
-                <TextView
-                    android:layout_span="3"
-                    android:padding="3dip"
-                    android:text="@string/exportViewTextViewSubHeadingContent"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-            </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <TableRow
+            <TextView
+                android:padding="15dip"
+                android:text="@string/default_space"
+                android:textColor="@color/abc_primary_text_material_light"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/exportViewCheckboxContentPayments"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/exportViewCheckboxContentPayments">
 
-                <TextView
-                    android:padding="15dip"
-                    android:text=" "
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
+                <requestFocus />
+            </CheckBox>
+        </TableRow>
 
-                <CheckBox
-                    android:id="@+id/exportViewCheckboxContentPayments"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:text="@string/exportViewCheckboxContentPayments" >
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-                    <requestFocus />
-                </CheckBox>
-            </TableRow>
+            <TextView
+                android:padding="15dip"
+                android:text="@string/default_space"
+                android:textColor="@color/abc_primary_text_material_light"
+                android:textStyle="bold" />
 
-            <TableRow
+            <CheckBox
+                android:id="@+id/exportViewCheckboxContentTransfers"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/exportViewCheckboxContentTransfers">
 
-                <TextView
-                    android:padding="15dip"
-                    android:text=" "
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
+                <requestFocus />
+            </CheckBox>
+        </TableRow>
 
-                <CheckBox
-                    android:id="@+id/exportViewCheckboxContentTransfers"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:text="@string/exportViewCheckboxContentTransfers" >
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-                    <requestFocus />
-                </CheckBox>
-            </TableRow>
+            <TextView
+                android:padding="15dip"
+                android:text="@string/default_space"
+                android:textColor="@color/abc_primary_text_material_light"
+                android:textStyle="bold" />
 
-            <TableRow
+            <CheckBox
+                android:id="@+id/exportViewCheckboxContentSpendingReport"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/exportViewCheckboxContentSpendingReport">
 
-                <TextView
-                    android:padding="15dip"
-                    android:text=" "
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
+                <requestFocus />
+            </CheckBox>
+        </TableRow>
 
-                <CheckBox
-                    android:id="@+id/exportViewCheckboxContentSpendingReport"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:text="@string/exportViewCheckboxContentSpendingReport" >
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-                    <requestFocus />
-                </CheckBox>
-            </TableRow>
-
-            <TableRow
+            <CheckBox
+                android:id="@+id/exportViewCheckboxContentOwingDebts"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/exportViewCheckboxContentOwingDebts" />
+        </TableRow>
 
-                <CheckBox
-                    android:id="@+id/exportViewCheckboxContentOwingDebts"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:text="@string/exportViewCheckboxContentOwingDebts" />
-            </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <TableRow
+            <TextView
+                android:layout_span="3"
+                android:padding="3dip"
+                android:text="@string/exportViewTextViewSubHeadingScope"
+                android:textColor="@color/abc_primary_text_material_light"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:id="@+id/reportViewBaseSpinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:prompt="@string/exportViewSpinnerPromptScope" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/exportViewCheckboxSeparateFilesForIndividuals"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/exportViewCheckboxSeparateFilesForIndividuals" />
+        </TableRow>
 
-                <TextView
-                    android:layout_span="3"
-                    android:padding="3dip"
-                    android:text="@string/exportViewTextViewSubHeadingScope"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-            </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <TableRow
+            <CheckBox
+                android:id="@+id/exportViewCheckboxShowTripSumOnIndividualSpendingReport"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/exportViewCheckboxShowTripSumOnIndividualSpendingReport" />
+        </TableRow>
 
-                <Spinner
-                    android:id="@+id/reportViewBaseSpinner"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:prompt="@string/exportViewSpinnerPromptScope" />
-            </TableRow>
 
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
 
-                <CheckBox
-                    android:id="@+id/exportViewCheckboxSeparateFilesForIndividuals"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:text="@string/exportViewCheckboxSeparateFilesForIndividuals" />
-            </TableRow>
 
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
 
-                <CheckBox
-                    android:id="@+id/exportViewCheckboxShowTripSumOnIndividualSpendingReport"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:text="@string/exportViewCheckboxShowTripSumOnIndividualSpendingReport" />
-            </TableRow>
+    </TableLayout>
+</ScrollView>
 
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    android:layout_span="3"
-                    android:padding="3dip"
-                    android:text="@string/exportViewTextViewSubHeadingFormat"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <CheckBox
-                    android:id="@+id/exportViewCheckboxFormatCsv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:text="@string/exportViewCheckboxFormatCsv" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <CheckBox
-                    android:id="@+id/exportViewCheckboxFormatHtml"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:text="@string/exportViewCheckboxFormatHtml" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <CheckBox
-                    android:id="@+id/exportViewCheckboxFormatTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:text="@string/exportViewCheckboxFormatTxt" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    android:layout_span="3"
-                    android:padding="3dip"
-                    android:text="@string/exportViewTextViewSubHeadingChannel"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <Spinner
-                    android:id="@+id/exportViewSpinnerChannel"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:prompt="@string/exportViewSpinnerPromptChannel" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    android:layout_span="3"
-                    android:padding="3dip"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <Button
-                    android:id="@+id/exportViewButtonDoExport"
-                    android:layout_span="3"
-                    android:onClick="doExport"
-                    android:text="@string/exportViewButtonExecuteExport" />
-            </TableRow>
-        </TableLayout>
-    </ScrollView>
-
-</LinearLayout>

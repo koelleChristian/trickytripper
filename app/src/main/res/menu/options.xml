@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tt="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/option_add_participant"
+        android:icon="@drawable/ic_action_add_person"
+        tt:showAsAction="ifRoom"
+        android:title="@string/option_add_participant"/>
+
+    <item
+        android:id="@+id/option_create_exchange_rate"
+        android:icon="@drawable/ic_action_new"
+        tt:showAsAction="ifRoom"
+        android:title="@string/option_create"/>
+
+    <item
+        android:id="@+id/option_create_trip"
+        android:icon="@drawable/ic_action_new"
+        tt:showAsAction="ifRoom"
+        android:title="@string/option_create"/>
+
+    <item
+        android:id="@+id/option_upload"
+        android:icon="@drawable/ic_action_upload"
+        tt:showAsAction="ifRoom"
+        android:title="@string/option_upload"/>
+
+    <item
+        android:id="@+id/option_edit"
+        android:icon="@drawable/ic_action_edit"
+        tt:showAsAction="ifRoom"
+        android:title="@string/option_edit"/>
+
+    <item
+        android:id="@+id/option_delete"
+        android:icon="@drawable/ic_action_discard"
+        tt:showAsAction="ifRoom"
+        android:title="@string/option_delete"/>
+
+    <item
+        android:id="@+id/option_save_create"
+        android:icon="@drawable/ic_action_accept"
+        tt:showAsAction="ifRoom"
+        android:title="@string/option_save_create"/>
+
+    <item
+        android:id="@+id/option_save_edit"
+        android:icon="@drawable/ic_action_accept"
+        tt:showAsAction="ifRoom"
+        android:title="@string/option_save_edit"/>
+
+    <item
+        android:id="@+id/option_save_add"
+        android:icon="@drawable/ic_action_accept"
+        tt:showAsAction="ifRoom"
+        android:title="@string/option_save_add"/>
+
+    <item
+        android:id="@+id/option_import"
+        android:icon="@drawable/ic_action_download"
+        tt:showAsAction="ifRoom|withText"
+        android:title="@string/option_import"/>
+
+    <item
+        android:id="@+id/option_create_exchange_rate_for_source"
+        android:title="@string/option_option_create_exchange_rate_for_source"/>
+
+    <item
+        android:id="@+id/option_export"
+        android:icon="@drawable/ic_action_import_export"
+        tt:showAsAction="ifRoom"
+        android:title="@string/option_export"/>
+
+    <item
+        android:id="@+id/option_preferences"
+        android:title="@string/option_settings"
+        tt:showAsAction="never"/>
+
+    <item
+        android:id="@+id/option_help"
+        android:title="@string/option_help"
+        tt:showAsAction="never"/>
+
+</menu>

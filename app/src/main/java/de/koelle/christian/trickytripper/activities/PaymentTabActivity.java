@@ -1,20 +1,13 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map.Entry;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ListFragment;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,11 +16,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map.Entry;
 
-import android.view.MenuItem;
-
-import de.koelle.christian.common.options.OptionContraintsAbs;
+import de.koelle.christian.common.options.OptionContraintsInflater;
 import de.koelle.christian.trickytripper.R;
+import de.koelle.christian.trickytripper.TrickyTripperActivity;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.TabDialogSupport;
 import de.koelle.christian.trickytripper.dialogs.DeleteDialogFragment.DeleteConfirmationCallback;
@@ -38,10 +35,9 @@ import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.model.modelAdapter.PaymentRowListAdapter;
 import de.koelle.christian.trickytripper.model.utils.PaymentComparator;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
-import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
 public class PaymentTabActivity extends ListFragment implements DeleteConfirmationCallback {
-    
+
     private static final String DELIMITER = ": ";
 
     private final List<Payment> paymentRows = new ArrayList<Payment>();
@@ -49,16 +45,41 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
     private ListView listView;
     private Comparator<Payment> comparator = new PaymentComparator();
 
+    private MyActionModeCallback mActionModeCallback = new MyActionModeCallback();
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        registerForContextMenu(listView);
         listView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (getRunningActionMode() != null) {
+                    return;
+                }
                 Payment row = (Payment) getListView().getItemAtPosition(position);
                 if (!isMoneyTransfer(row)) {
                     startEditPaymentActivity(row);
                 }
+            }
+        });
+        listView.setLongClickable(true);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (getRunningActionMode() != null) {
+                    return false;
+                }
+
+                // Start the CAB using the ActionMode.Callback defined above
+                Payment selection = adapter.getItem(position);
+                mActionModeCallback.setSelectedPayment(selection);
+                ActionBarActivity activity = ((ActionBarActivity) PaymentTabActivity.this.getActivity());
+
+                ActionMode actionMode = activity.startSupportActionMode(mActionModeCallback);
+                actionMode.setTitle(selection.getDescription());
+                setRunningActionMode(actionMode);
+                view.setSelected(true);
+                return true;
             }
         });
     }
@@ -67,7 +88,7 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
     public void onResume() {
         super.onResume();
         sortAndUpdateView();
-        ActivityCompat.invalidateOptionsMenu(getActivity());
+        getActivity().supportInvalidateOptionsMenu();
     }
 
     @Override
@@ -76,8 +97,6 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
         View view = inflater.inflate(R.layout.list_view, container, false);
         TextView textView = (TextView) view.findViewById(android.R.id.empty);
         listView = (ListView) view.findViewById(android.R.id.list);
-
-        setHasOptionsMenu(true);
 
         adapter = new PaymentRowListAdapter(getActivity(), R.layout.payment_tab_row_view, paymentRows, getApp()
                 .getTripController()
@@ -92,40 +111,6 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
         return view;
     }
 
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        PrepareOptionsSupport.prepareMajorTabOptions(menu, getApp(), false);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsAbs().activity(inflater).menu(menu)
-                        .options(new int[] {
-                                R.id.option_create_participant,
-                                R.id.option_help,
-                                R.id.option_preferences,
-                                R.id.option_export
-                        }));
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.option_help:
-            getApp().getViewController().openHelp(getFragmentManager());
-            return true;
-        case R.id.option_export:
-            getApp().getViewController().openExport();
-            return true;
-        case R.id.option_preferences:
-            getApp().getViewController().openSettings();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
     public void sortAndUpdateView() {
         paymentRows.clear();
         paymentRows.addAll(getApp().getTripController().getTripLoaded().getPayments());
@@ -137,74 +122,12 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
         return ((TrickyTripperApp) getActivity().getApplication());
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-
-        Payment row = adapter.getItem(info.position);
-        String heading;
-
-        if (isMoneyTransfer(row)) {
-            heading = getCategoryText(row);
-            menu.add(Menu.NONE, R.string.fktn_payment_list_delete_transfer, 1,
-                    getResources().getString(R.string.fktn_payment_list_delete_transfer));
-        }
-        else {
-            heading = row.getDescription();
-
-            menu.add(Menu.NONE, R.string.fktn_payment_list_edit_payment, 1,
-                    getResources().getString(R.string.fktn_payment_list_edit_payment));
-            menu.add(Menu.NONE, R.string.fktn_payment_list_delete_payment, 1,
-                    getResources().getString(R.string.fktn_payment_list_delete_payment));
-        }
-        menu.setHeaderTitle(heading);
-    }
-
     private boolean isMoneyTransfer(Payment row) {
         return PaymentCategory.MONEY_TRANSFER.equals(row.getCategory());
     }
 
-    @Override
-    public boolean onContextItemSelected(android.view.MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info =
-                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        final Payment row = adapter.getItem(info.position);
-        switch (item.getItemId()) {
-        case R.string.fktn_payment_list_edit_payment: {
-            startEditPaymentActivity(row);
-            return true;
-        }
-        case R.string.fktn_payment_list_delete_payment: {
-            getApp().getViewController().openDeleteConfirmationOnFragment(getFragmentManager(),
-                    TabDialogSupport.createBundleWithPaymentSelected(row), this);
-            return true;
-        }
-        case R.string.fktn_payment_list_edit_transfer: {
-            startEditPaymentActivity(row);
-            return true;
-        }
-        case R.string.fktn_payment_list_delete_transfer: {
-            getApp().getViewController().openDeleteConfirmationOnFragment(getFragmentManager(),
-                    TabDialogSupport.createBundleWithPaymentSelected(row), this);
-            return true;
-        }
-        default:
-            break;
-        }
-        return false;
-    }
-
     private void startEditPaymentActivity(final Payment row) {
         getApp().getViewController().openEditPayment(row);
-    }
-
-    protected void deletePayment(Payment row) {
-        getApp().getTripController().deletePayment(row);
-    }
-
-    private String getCategoryText(Payment row) {
-        return (row.getCategory() != null) ? getResources().getString(
-                row.getCategory().getResourceStringId()) : "";
     }
 
     public String getDeleteConfirmationMsg(Bundle bundle) {
@@ -222,6 +145,7 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
         Payment payment = TabDialogSupport.getPaymentFromBundle(bundle);
         ((TrickyTripperApp) getActivity().getApplication()).getTripController().deletePayment(payment);
         sortAndUpdateView();
+        getActivity().supportInvalidateOptionsMenu();
     }
 
     private String getPrefixTextForTransferDeletion(Payment row) {
@@ -266,6 +190,72 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
 
     }
 
+    private class MyActionModeCallback implements ActionMode.Callback {
+
+        private Payment payment;
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            int[] optionIds;
+            if (!isMoneyTransfer(payment)) {
+                optionIds = new int[]{
+                        R.id.option_delete,
+                        R.id.option_edit
+                };
+            } else {
+                optionIds = new int[]{
+                        R.id.option_delete
+                };
+            }
+
+            return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
+                    new OptionContraintsInflater()
+                            .activity(mode.getMenuInflater())
+                            .menu(menu)
+                            .options(optionIds));
+        }
+
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.option_delete:
+                    getApp().getViewController().openDeleteConfirmationOnFragment(getFragmentManager(),
+                            TabDialogSupport.createBundleWithPaymentSelected(payment), PaymentTabActivity.this);
+                    mode.finish();
+                    return true;
+                case R.id.option_edit:
+                    startEditPaymentActivity(payment);
+                    mode.finish();
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            setRunningActionMode(null);
+        }
+
+        public void setSelectedPayment(Payment payment) {
+            this.payment = payment;
+        }
+    }
+
+    public ActionMode getRunningActionMode() {
+        return ((TrickyTripperActivity) getActivity()).getRunningActionMode();
+    }
+
+    public void setRunningActionMode(ActionMode actionMode) {
+        ((TrickyTripperActivity) getActivity()).setRunningActionMode(actionMode);
+    }
 
 
 }

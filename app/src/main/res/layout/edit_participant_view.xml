@@ -23,35 +23,13 @@
         android:layout_height="20dp"
         android:layout_below="@+id/editParticipantView_autocomplete_name" />
 
-    <LinearLayout
-        android:id="@+id/editParticipantView_buttonBar"
-        style="@android:style/ButtonBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editParticipantView_button_spacer"
-        android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/editParticipantView_button_save_and_close"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="saveAndClose" />
-
-        <Button
-            android:id="@+id/editParticipantView_button_create_another"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="createAndCreateAnother"
-            android:text="@string/edit_participant_view_positive_button_create_another" />
-    </LinearLayout>
 
     <TextView
         android:id="@+id/editParticipantView_label_already_created"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editParticipantView_buttonBar"
+        android:layout_below="@id/editParticipantView_button_spacer"
         android:text="@string/edit_participant_view_label_already_created"
         android:visibility="invisible" />
 

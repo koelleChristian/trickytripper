@@ -25,7 +25,7 @@ import android.widget.TextView;
 
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsAbs;
+import de.koelle.christian.common.options.OptionContraintsInflater;
 import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.NumberUtils;
@@ -507,7 +507,7 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
                 .getMiscController()
                 .getOptionSupport()
                 .populateOptionsMenu(
-                        new OptionContraintsAbs()
+                        new OptionContraintsInflater()
                                 .activity(getMenuInflater())
                                 .menu(menu)
                                 .options(

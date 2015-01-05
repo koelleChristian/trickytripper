@@ -1,15 +1,10 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ListFragment;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,8 +17,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import de.koelle.christian.common.options.OptionContraintsAbs;
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 import de.koelle.christian.trickytripper.R;
+import de.koelle.christian.trickytripper.TrickyTripperActivity;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.controller.TripController;
@@ -31,51 +31,40 @@ import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.modelAdapter.ParticipantRowListAdapter;
 import de.koelle.christian.trickytripper.strategies.SumReport;
 import de.koelle.christian.trickytripper.ui.model.ParticipantRow;
-import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
 public class ParticipantTabActivity extends ListFragment {
-
-    private static final int MENU_GROUP_P_STD = 1;
-    private static final int MENU_GROUP_P_ACTIVE_REQ = 2;
-    private static final int MENU_GROUP_P_DELETE_ABLE_REQ = 3;
-    private static final int MENU_GROUP_P_AT_LEAST_ONE = 4;
 
     final List<ParticipantRow> participantRows = new ArrayList<ParticipantRow>();
 
     private ParticipantRowListAdapter adapter;
     private ListView listView;
 
+    private MyActionModeCallback mActionModeCallback = new MyActionModeCallback();
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        registerForContextMenu(listView);
-        listView.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TrickyTripperApp app = getApp();
-                ParticipantRow row = (ParticipantRow) getListView().getItemAtPosition(position);
-                if (row.getParticipant().isActive()) {
-                    Participant p = row.getParticipant();
-                    app.getViewController().openCreatePayment(p);
-                }
-            }
-        });
+
+        listView.setLongClickable(true);
+
+        listView.setOnItemClickListener(new ShortTabListener());
+        listView.setOnItemLongClickListener(new LongTabListener());
     }
 
     @Override
     public void onResume() {
         super.onResume();
         updateRows();
-        ActivityCompat.invalidateOptionsMenu(getActivity());
+        getActivity().supportInvalidateOptionsMenu();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.list_view, container, false);
+        view.setTag(Rc.TAB_ID_PARTICIPANTS);
         TextView textView = (TextView) view.findViewById(android.R.id.empty);
         listView = (ListView) view.findViewById(android.R.id.list);
-
-        setHasOptionsMenu(true);
 
         adapter = new ParticipantRowListAdapter(getActivity(), R.layout.participant_tab_row_view, participantRows);
         setListAdapter(adapter);
@@ -83,43 +72,6 @@ public class ParticipantTabActivity extends ListFragment {
         updateRows();
         textView.setText(getResources().getString(R.string.participant_tab_blank_list_notification));
         return view;
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        PrepareOptionsSupport.prepareMajorTabOptions(menu, getApp(), true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsAbs().activity(inflater).menu(menu)
-                        .options(new int[] {
-                                R.id.option_create_participant,
-                                R.id.option_help,
-                                R.id.option_export,
-                                R.id.option_preferences
-                        }));
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.option_create_participant:
-            getApp().getViewController().openCreateParticipant();
-            return true;
-        case R.id.option_help:
-            getApp().getViewController().openHelp(getFragmentManager());
-            return true;
-        case R.id.option_export:
-            getApp().getViewController().openExport();
-            return true;
-        case R.id.option_preferences:
-            getApp().getViewController().openSettings();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
     }
 
     public void updateRows() {
@@ -139,105 +91,11 @@ public class ParticipantTabActivity extends ListFragment {
         return (TrickyTripperApp) getActivity().getApplication();
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        Participant p = getParticipantByInfo(info);
-        menu.setHeaderTitle(p.getName());
-
-        menu.add(MENU_GROUP_P_ACTIVE_REQ, R.string.fktn_participant_create_payment, Menu.NONE,
-                getResources().getString(R.string.fktn_participant_create_payment));
-
-        menu.add(MENU_GROUP_P_AT_LEAST_ONE, R.string.fktn_participant_transfer_money, Menu.NONE,
-                getResources().getString(R.string.fktn_participant_transfer_money));
-
-        menu.add(MENU_GROUP_P_STD, R.string.fktn_participant_show_report, Menu.NONE,
-                getResources().getString(R.string.fktn_participant_show_report));
-
-        if (p.isActive()) {
-            menu.add(MENU_GROUP_P_STD, R.string.fktn_participant_deactivate, Menu.NONE,
-                    getResources().getString(R.string.fktn_participant_deactivate));
-        }
-        else {
-            menu.add(MENU_GROUP_P_STD, R.string.fktn_participant_activate, Menu.NONE,
-                    getResources().getString(R.string.fktn_participant_activate));
-        }
-        menu.add(MENU_GROUP_P_STD, R.string.common_button_edit, Menu.NONE, getResources()
-                .getString(R.string.common_button_edit));
-
-        menu.add(MENU_GROUP_P_DELETE_ABLE_REQ, R.string.common_button_delete,
-                Menu.NONE,
-                getResources().getString(R.string.common_button_delete));
-
-        menu.setGroupEnabled(MENU_GROUP_P_ACTIVE_REQ, p.isActive());
-        menu.setGroupEnabled(MENU_GROUP_P_DELETE_ABLE_REQ, getApp().getTripController().isParticipantDeleteable(p));
-        menu.setGroupEnabled(MENU_GROUP_P_AT_LEAST_ONE,
-                getApp().getTripController().getAllParticipants(false).size() > 1);
-
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        TrickyTripperApp app = getApp();
-        Participant participant = getParticipantByInfo(info);
-        switch (item.getItemId()) {
-        case R.string.fktn_participant_create_payment: {
-            app.getViewController().openCreatePayment(participant);
-            return true;
-        }
-        case R.string.fktn_participant_transfer_money: {
-            app.getViewController().openTransferMoney(participant);
-            return true;
-        }
-        case R.string.fktn_participant_show_report: {
-            app.getTripController().getDialogState().setParticipantReporting(participant);
-            getActivity().getActionBar().setSelectedNavigationItem(Rc.TAB_ID_REPORT);
-            return true;
-        }
-        case R.string.fktn_participant_deactivate: {
-            boolean isActive = false;
-            setActiveAndPersist(participant, isActive);
-            adapter.notifyDataSetChanged();
-            return true;
-        }
-        case R.string.fktn_participant_activate: {
-            boolean isActive = true;
-            setActiveAndPersist(participant, isActive);
-            adapter.notifyDataSetChanged();
-            return true;
-        }
-        case R.string.common_button_delete: {
-            if (!app.getTripController().deleteParticipant(participant)) {
-                Toast.makeText(getActivity(),
-                        getResources().getString(R.string.msg_delete_not_possible_inbalance),
-                        Toast.LENGTH_SHORT)
-                        .show();
-            }
-            else {
-                updateRows();
-            }
-            return true;
-        }
-        case R.string.common_button_edit: {
-            getApp().getViewController().openEditParticipant(participant);
-            return true;
-        }
-        default:
-            break;
-        }
-        return false;
-    }
-
     private void setActiveAndPersist(Participant participant, boolean isActive) {
         participant.setActive(isActive);
         getApp().getTripController().persistParticipant(participant);
     }
 
-    private Participant getParticipantByInfo(AdapterView.AdapterContextMenuInfo info) {
-        Participant participant = adapter.getItem(info.position).getParticipant();
-        return participant;
-    }
 
     private void refillListFromModel(List<ParticipantRow> participantRows, TripController fktnController) {
         List<Participant> allParticipants = fktnController.getAllParticipants(false);
@@ -252,6 +110,138 @@ public class ParticipantTabActivity extends ListFragment {
             row.setAmountOfPaymentLines(sumReport.getPaymentByUserCount().get(participant));
 
             participantRows.add(row);
+        }
+    }
+
+
+    private class MyActionModeCallback implements ActionMode.Callback {
+
+        private Participant selectedParticipant;
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.options_participant, menu);
+
+            menu.setGroupEnabled(R.id.menu_group_participant_active_required, selectedParticipant.isActive());
+            menu.setGroupEnabled(R.id.menu_group_participant_deletable_required,
+                    getApp().getTripController().isParticipantDeleteable(selectedParticipant));
+            menu.setGroupEnabled(R.id.menu_group_participant_at_least_another, getApp().getTripController().getAllParticipants(false).size() > 1);
+
+            if (selectedParticipant.isActive()) {
+                menu.removeItem(R.id.option_participant_activate_for_costs);
+            } else {
+                menu.removeItem(R.id.option_participant_deactivate_for_costs);
+            }
+            return true;
+        }
+
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.option_participant_create_payment:
+                    getApp().getViewController().openCreatePayment(selectedParticipant);
+                    mode.finish();
+                    return true;
+                case R.id.option_participant_create_money_transfer:
+                    getApp().getViewController().openTransferMoney(selectedParticipant);
+                    mode.finish();
+                    return true;
+                case R.id.option_participant_show_report:
+                    getApp().getTripController().getDialogState().setParticipantReporting(selectedParticipant);
+                    ViewPager pager = (ViewPager) getActivity().findViewById(R.id.drawer_content_pager);
+                    pager.setCurrentItem(Rc.TAB_ID_REPORT);
+                    mode.finish();
+                    return true;
+                case R.id.option_participant_deactivate_for_costs:
+                    boolean isActive = false;
+                    setActiveAndPersist(selectedParticipant, isActive);
+                    adapter.notifyDataSetChanged();
+                    mode.finish();
+                    return true;
+                case R.id.option_participant_activate_for_costs:
+                    isActive = true;
+                    setActiveAndPersist(selectedParticipant, isActive);
+                    adapter.notifyDataSetChanged();
+                    mode.finish();
+                    return true;
+                case R.id.option_participant_edit:
+                    getApp().getViewController().openEditParticipant(selectedParticipant);
+                    mode.finish();
+                    return true;
+                case R.id.option_participant_delete:
+                    if (!getApp().getTripController().deleteParticipant(selectedParticipant)) {
+                        Toast.makeText(getActivity(),
+                                getResources().getString(R.string.msg_delete_not_possible_inbalance),
+                                Toast.LENGTH_SHORT)
+                                .show();
+                    } else {
+                        mode.finish();
+                        updateRows();
+                    }
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            setRunningActionMode(null);
+        }
+
+        public void setSelectedParticipant(Participant selectedParticipant) {
+            this.selectedParticipant = selectedParticipant;
+        }
+    }
+
+    private class ShortTabListener implements OnItemClickListener {
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if (getRunningActionMode() != null) {
+                return;
+            }
+            TrickyTripperApp app = getApp();
+            ParticipantRow row = (ParticipantRow) getListView().getItemAtPosition(position);
+            if (row.getParticipant().isActive()) {
+                Participant p = row.getParticipant();
+                app.getViewController().openCreatePayment(p);
+            }
+        }
+    }
+
+    public ActionMode getRunningActionMode() {
+        return ((TrickyTripperActivity) getActivity()).getRunningActionMode();
+    }
+
+    public void setRunningActionMode(ActionMode actionMode) {
+        ((TrickyTripperActivity) getActivity()).setRunningActionMode(actionMode);
+    }
+
+
+    private class LongTabListener implements AdapterView.OnItemLongClickListener {
+
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            if (getRunningActionMode() != null) {
+                return false;
+            }
+            Participant selection = adapter.getItem(position).getParticipant();
+            mActionModeCallback.setSelectedParticipant(selection);
+            ActionBarActivity activity = ((ActionBarActivity) ParticipantTabActivity.this.getActivity());
+
+
+            ActionMode actionMode = activity.startSupportActionMode(mActionModeCallback);
+            actionMode.setTitle(selection.getName());
+            setRunningActionMode(actionMode);
+            view.setSelected(true);
+            return true;
         }
     }
 }

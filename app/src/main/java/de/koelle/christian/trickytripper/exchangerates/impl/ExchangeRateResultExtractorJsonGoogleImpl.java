@@ -1,9 +1,6 @@
 package de.koelle.christian.trickytripper.exchangerates.impl;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import de.koelle.christian.common.utils.NumberUtils;
 
 public class ExchangeRateResultExtractorJsonGoogleImpl extends AbstractExchangeRateResultExtractor {
 

@@ -1,9 +1,5 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.text.Collator;
-import java.util.*;
-import java.util.Map.Entry;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -12,9 +8,12 @@ import android.content.DialogInterface.OnShowListener;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -36,19 +35,36 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
+import java.util.Set;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsAbs;
+import de.koelle.christian.common.options.OptionContraintsInflater;
 import de.koelle.christian.common.primitives.DivisionResult;
 import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
-import de.koelle.christian.common.utils.*;
+import de.koelle.christian.common.utils.DateUtils;
+import de.koelle.christian.common.utils.NumberUtils;
+import de.koelle.christian.common.utils.ObjectUtils;
+import de.koelle.christian.common.utils.StringUtils;
+import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.activitysupport.*;
+import de.koelle.christian.trickytripper.activitysupport.CurrencyCalculatorResultSupport;
+import de.koelle.christian.trickytripper.activitysupport.MathUtils;
+import de.koelle.christian.trickytripper.activitysupport.PaymentEditActivityState;
+import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.Rx;
 import de.koelle.christian.trickytripper.constants.ViewMode;
@@ -94,14 +110,10 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
 
     private DateUtils dateUtils;
 
-    // TODO(ckoelle) JunkFuck super shit.
-    // @Override
-    // public Object onRetainNonConfigurationInstance() {
-    // return new PaymentEditActivityState(payment, divideEqually,
-    // spendingInputInitialized);
-    // };
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -122,18 +134,13 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
                 payment.getParticipantToSpending().put(p, getAmountFac().createAmount());
             }
             setTitle(R.string.payment_view_heading_create_payment);
-            ((Button) findViewById(R.id.paymentView_buttonCreate)).setVisibility(ViewGroup.VISIBLE);
-            ((Button) findViewById(R.id.paymentView_buttonSave)).setVisibility(ViewGroup.GONE);
             divideEqually = true;
-        }
-        else {
+        } else {
             long paymentId = getIntent().getLongExtra(Rc.ACTIVITY_PARAM_KEY_PAYMENT_ID, -1L);
             payment = ObjectUtils.cloneDeep(getFktnController().loadPayment(paymentId));
             allRelevantParticipants = addAncientInactive(getApp().getTripController().getAllParticipants(true), payment);
             sortParticipants(allRelevantParticipants);
             setTitle(R.string.payment_view_heading_edit_payment);
-            ((Button) findViewById(R.id.paymentView_buttonCreate)).setVisibility(ViewGroup.GONE);
-            ((Button) findViewById(R.id.paymentView_buttonSave)).setVisibility(ViewGroup.VISIBLE);
             divideEqually = false;
         }
 
@@ -192,24 +199,53 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        int[] optionIds;
+        if (ViewMode.CREATE.equals(viewMode)) {
+            optionIds = new int[]{
+                    R.id.option_save_create,
+                    R.id.option_help
+            };
+        } else {
+            optionIds = new int[]{
+                    R.id.option_save_edit,
+                    R.id.option_help
+            };
+        }
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsAbs().activity(getMenuInflater()).menu(menu)
-                        .options(new int[] {
-                                R.id.option_help
-                        }));
+                new OptionContraintsInflater().activity(getMenuInflater()).menu(menu)
+                        .options(optionIds));
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean saveEnabled = isPaymentSaveable();
+        int itemId = (ViewMode.CREATE.equals(viewMode)) ? R.id.option_save_create : R.id.option_save_edit;
+        MenuItem item = menu.findItem(itemId);
+        item.setEnabled(saveEnabled);
+        item.getIcon().setAlpha((saveEnabled) ? 255 : 64);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.option_help:
-            getApp().getViewController().openHelp(getSupportFragmentManager());
-            return true;
-        case android.R.id.home:
-            onBackPressed();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+
+            case R.id.option_save_create:
+                saveEdit();
+                return true;
+
+            case R.id.option_save_edit:
+                saveEdit();
+                return true;
+
+            case R.id.option_help:
+                getApp().getViewController().openHelp(getSupportFragmentManager());
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -217,14 +253,14 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     protected Dialog onCreateDialog(int id, Bundle args) {
         Dialog dialog;
         switch (id) {
-        case DIALOG_SELECT_PAYERS:
-            dialog = createDialogPayerSelection();
-            break;
-        case DIALOG_SELECT_DEBITORS:
-            dialog = createDialogDebitorSelection();
-            break;
-        default:
-            dialog = null;
+            case DIALOG_SELECT_PAYERS:
+                dialog = createDialogPayerSelection();
+                break;
+            case DIALOG_SELECT_DEBITORS:
+                dialog = createDialogDebitorSelection();
+                break;
+            default:
+                dialog = null;
         }
 
         return dialog;
@@ -233,14 +269,14 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     @Override
     protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
         switch (id) {
-        case DIALOG_SELECT_PAYERS:
-            updateParticipantSelectionDialog(dialog, args);
-            break;
-        case DIALOG_SELECT_DEBITORS:
-            updateParticipantSelectionDialog(dialog, args);
-            break;
-        default:
-            dialog = null;
+            case DIALOG_SELECT_PAYERS:
+                updateParticipantSelectionDialog(dialog, args);
+                break;
+            case DIALOG_SELECT_DEBITORS:
+                updateParticipantSelectionDialog(dialog, args);
+                break;
+            default:
+                dialog = null;
         }
         super.onPrepareDialog(id, dialog, args);
     }
@@ -263,8 +299,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
             boolean isPayment = getParamFromBundleIsPayment(args);
             checkbox.setText(getDivisionCheckboxOnParticipantSelectionText(totalAmount));
             checkbox.setChecked(isPayment);
-        }
-        else {
+        } else {
             checkbox.setVisibility(View.GONE);
         }
         SparseBooleanArray selection = listView.getCheckedItemPositions();
@@ -302,7 +337,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     }
 
     private void refreshRows(TableLayout tableLayout, Map<Participant, Amount> amountMap,
-            Map<Participant, EditText> widgetMap, List<View> previousRows, final boolean isPayment) {
+                             Map<Participant, EditText> widgetMap, List<View> previousRows, final boolean isPayment) {
         removePreviouslyCreatedRows(tableLayout, previousRows);
         previousRows.clear();
         widgetMap.clear();
@@ -324,6 +359,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
 
             EditText editText = (EditText) row.findViewById(R.id.payment_edit_payer_row_view_input_amount);
             editText.setId(dynViewId);
+
             TextView textView = (TextView) row.findViewById(R.id.payment_edit_payer_row_view_output_name);
 
             Button buttonCurrency = (Button) row.findViewById(R.id.payment_edit_payer_row_view_button_currency);
@@ -348,7 +384,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     }
 
     private void bindCurrencyCalculatorAction(final Button buttonCurrency, final Amount sourceAndTargetAmountReference,
-            final int viewIdForResult) {
+                                              final int viewIdForResult) {
         buttonCurrency.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getApp().getViewController().openMoneyCalculatorView(sourceAndTargetAmountReference, viewIdForResult,
@@ -384,13 +420,12 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
                 if (checkedId == R.id.paymentView_radioTravellersChargedSplitEvenly) {
                     divideEqually = true;
                     setVisibilitySpendingTable(false);
-                    updateSaveButtonState();
+                    supportInvalidateOptionsMenu();
                     updateDivideRestButtonState();
-                }
-                else if (checkedId == R.id.paymentView_radioTravellersChargedCustom) {
+                } else if (checkedId == R.id.paymentView_radioTravellersChargedCustom) {
                     divideEqually = false;
                     setVisibilitySpendingTable(true);
-                    updateSaveButtonState();
+                    supportInvalidateOptionsMenu();
                     updateDivideRestButtonState();
                 }
             }
@@ -402,10 +437,26 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     private void setVisibilitySpendingTable(boolean visible) {
         TableLayout spendingTable = (TableLayout) findViewById(R.id.paymentView_createSpendingTableLayout);
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.payment_edit_view_total_spending_sum_layout);
-
         int visibility = (visible) ? View.VISIBLE : View.GONE;
         spendingTable.setVisibility(visibility);
         relativeLayout.setVisibility(visibility);
+
+        findViewById(R.id.paymentView_total_sum_value_divider).setVisibility(visibility);
+        findViewById(R.id.paymentView_payee_createPaymentPayerTableLayout_total_sum_value).setVisibility(visibility);
+
+        TextView sumLabel = (TextView) findViewById(R.id.paymentView_createPaymentPayerTableLayout_total_sum_label);
+        sumLabel.setText((visible) ? R.string.common_label_total_amounts : R.string.common_label_total_amount);
+
+//        Well the following text view is to be aligned right. Achieved by ALIGN_PARENT_RIGHT, not allowed to be set
+        // when the other components are visible.
+        TextView sumOutputPaid = (TextView) findViewById(R.id.paymentView_createPaymentPayerTableLayout_total_sum_value);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) sumOutputPaid.getLayoutParams();
+        if (visible) {
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
+        } else {
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        }
+
     }
 
     private void setViewVisibility(int viewId, boolean visible) {
@@ -414,10 +465,10 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     }
 
     private void updateDatePickerButtonText() {
-        Button  button = (Button) findViewById(R.id.paymentView_button_payment_time_selection);
+        Button button = (Button) findViewById(R.id.paymentView_button_payment_time_selection);
 
-        String text = (payment.getPaymentDateTime() == null)?
-                getResources().getString(R.string.payment_edit_view_label_date_time_now):
+        String text = (payment.getPaymentDateTime() == null) ?
+                getResources().getString(R.string.payment_edit_view_label_date_time_now) :
                 dateUtils.date2String(payment.getPaymentDateTime());
         button.setText(text);
     }
@@ -446,13 +497,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
 
     }
 
-    /**
-     * View method.
-     * 
-     * @param view
-     *            Required parameter.
-     */
-    public void saveEdit(View view) {
+    public void saveEdit() {
         Amount amountTotal = calculateTotalSumPayer();
 
         if (amountTotal.getValue() <= 0) {
@@ -488,9 +533,8 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
 
     /**
      * View method.
-     * 
-     * @param view
-     *            Required parameter.
+     *
+     * @param view Required parameter.
      */
     public void divideRest(View view) {
         Double rest = NumberUtils.round(amountTotalPayments.getValue()
@@ -540,7 +584,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     }
 
     private Bundle createBundleForParticipantSelection(ArrayList<Participant> participantsInUse,
-            Amount currentTotalAmount, boolean isPayerSelection) {
+                                                       Amount currentTotalAmount, boolean isPayerSelection) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(DIALOG_PARAM_PARTICIPANTS_IN_USE, participantsInUse);
         bundle.putSerializable(DIALOG_PARAM_TOTAL_PAYMENT_AMOUNT, currentTotalAmount);
@@ -562,7 +606,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
         return args.getBoolean(DIALOG_PARAM_IS_PAYMENT);
     }
 
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     private List<Participant> getParamFromBundleParticipantsInUse(Bundle args) {
         if (args == null) {
             return null;
@@ -587,7 +631,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     }
 
     private Dialog createParticipantSelectionPopup(List<Participant> participants, int idParticipantSelectorTitle,
-            int idParticipantSelectorMessage, final boolean isPayment) {
+                                                   int idParticipantSelectorMessage, final boolean isPayment) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         // sss
@@ -697,7 +741,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     }
 
     protected void updateParticipantsAfterSelection(List<Participant> selectionResult, boolean divideAmountResult,
-            boolean isPayment) {
+                                                    boolean isPayment) {
 
         Map<Participant, Amount> target = (isPayment) ?
                 payment.getParticipantToPayment() :
@@ -713,8 +757,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
             Map<Participant, Amount> targetMap = target;
             Amount amountTotal = (isPayment) ? calculateTotalSum(oldValues) : calculateTotalSumPayer();
             MathUtils.divideAndSetOnMap(amountTotal, participants, targetMap, !isPayment, getAmountFac());
-        }
-        else {
+        } else {
             for (Participant pSelected : selectionResult) {
                 Amount amount = getAmountFac().createAmount();
                 target.put(pSelected, amount);
@@ -730,8 +773,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
         if (isPayment) {
             buildPaymentInput();
             updatePayerSum();
-        }
-        else {
+        } else {
             buildDebitorInput();
             updateSpentSum();
         }
@@ -764,8 +806,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
                 amount.setValue(valueInput);
                 if (isPayment) {
                     PaymentEditActivity.this.updatePayerSum();
-                }
-                else {
+                } else {
                     PaymentEditActivity.this.updateSpentSum();
                 }
             }
@@ -774,32 +815,39 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
 
     protected void updatePayerSum() {
         amountTotalPayments = calculateTotalSumPayer();
-        Amount amountHere = amountTotalPayments;
         int viewId = R.id.paymentView_createPaymentPayerTableLayout_total_sum_value;
-        updateSumText(amountHere, viewId);
-        updateSaveButtonState();
+        boolean addCurrencySymbol = true;
+        updateSumText(viewId, amountTotalPayments, addCurrencySymbol);
+        supportInvalidateOptionsMenu();
         updateDivideRestButtonState();
+        updateTotalDebitAmountColor();
     }
 
     protected void updateSpentSum() {
         amountTotalDebits = calculateTotalSumSpending();
-        Amount amountHere = amountTotalDebits;
         int viewId = R.id.paymentView_payee_createPaymentPayerTableLayout_total_sum_value;
-        updateSumText(amountHere, viewId);
-        updateSaveButtonState();
+        boolean addCurrencySymbol = false;
+        updateSumText(viewId, amountTotalDebits, addCurrencySymbol);
+        supportInvalidateOptionsMenu();
         updateDivideRestButtonState();
+        updateTotalDebitAmountColor();
     }
 
-    private void updateSumText(Amount amountHere, int viewId) {
+    private void updateSumText(int viewId, Amount amount, boolean addCurrency) {
         TextView textView = (TextView) findViewById(viewId);
-        textView.setText(AmountViewUtils.getAmountString(getLocale(), amountHere, false, false, false, true, true));
+        textView.setText(AmountViewUtils.getAmountString(getLocale(), amount, !addCurrency, false, false, true, true));
     }
 
-    private void updateSaveButtonState() {
-        int buttonId = (ViewMode.CREATE.equals(viewMode)) ? R.id.paymentView_buttonCreate : R.id.paymentView_buttonSave;
-        Button saveButton = (Button) findViewById(buttonId);
-        saveButton.setEnabled(isPaymentSaveable());
+    private void updateTotalDebitAmountColor() {
+        boolean markRed = !(
+                amountTotalPayments != null
+                        && amountTotalDebits != null &&
+                        amountTotalPayments.getValue().doubleValue() == Math.abs(amountTotalDebits.getValue().doubleValue()));
+        TextView textView = (TextView) findViewById(R.id.paymentView_payee_createPaymentPayerTableLayout_total_sum_value);
+        int colorId = (markRed) ? R.color.red : R.color.main;
+        textView.setTextColor(getResources().getColor(colorId));
     }
+
 
     private void updateDivideRestButtonState() {
         Button button = (Button) findViewById(R.id.paymentView_button_divide_remaining_spending);
@@ -809,8 +857,8 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     private boolean isPaymentSaveable() {
         return isAmountBiggerZero(amountTotalPayments)
                 && (divideEqually || (amountTotalDebits != null && amountTotalPayments.getValue().doubleValue() == Math
-                        .abs(amountTotalDebits
-                                .getValue().doubleValue())));
+                .abs(amountTotalDebits
+                        .getValue().doubleValue())));
     }
 
     private boolean areBlankDebitors() {
@@ -853,7 +901,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     private void initAndBindSpinner(PaymentCategory paymentCategory) {
         final Spinner spinner = (Spinner) findViewById(R.id.paymentView_spinnerPaymentCategory);
         List<RowObject> spinnerObjects = SpinnerViewSupport.createSpinnerObjects(PaymentCategory.BEVERAGES, false,
-                Arrays.asList(new Object[] { PaymentCategory.MONEY_TRANSFER }), getResources(), getApp()
+                Arrays.asList(new Object[]{PaymentCategory.MONEY_TRANSFER}), getResources(), getApp()
                         .getMiscController().getDefaultStringCollator());
         ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this, android.R.layout.simple_spinner_item,
                 spinnerObjects);
@@ -901,7 +949,8 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     private TripController getFktnController() {
         return getApp().getTripController();
     }
-    public void selectPaymentTime(View view){
+
+    public void selectPaymentTime(View view) {
         getApp().getViewController().openDatePickerOnActivity(getSupportFragmentManager());
     }
 

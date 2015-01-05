@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsAbs;
+import de.koelle.christian.common.options.OptionContraintsInflater;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 
@@ -193,7 +193,7 @@ public class DirectoryPickerActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsAbs().activity(getMenuInflater()).menu(menu)
+                new OptionContraintsInflater().activity(getMenuInflater()).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
                         }));

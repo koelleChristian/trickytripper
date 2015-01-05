@@ -41,8 +41,14 @@
     <string name="option_settings">Impostazioni</string>
     <string name="option_export">Esporta</string>
     <string name="option_delete">Elimina</string>
+    <string name="option_add_participant">Aggiungi viaggiatore al viaggio</string>
     <string name="option_create">Crea</string>
     <string name="option_import">Importa</string>
+    <string name="option_upload">Esporta</string>
+    <string name="option_edit">Edit</string>
+    <string name="option_save_create">Crea</string>
+    <string name="option_save_edit">Salva</string>
+    <string name="option_save_add">Aggiungi</string>
     <string name="option_option_create_exchange_rate_for_source">Crea tasso corrispondente</string>
     <!-- =============================== Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Speso:</string>
@@ -123,7 +129,6 @@
     <string name="exportViewCheckboxSeparateFilesForIndividuals">File(s) separati per ciascun viaggiatore</string>
     <string name="exportViewCheckboxShowTripSumOnIndividualSpendingReport">Spese: Mostra le somme dell\'intero viaggio nei singoli files</string>
     <string name="exportViewSpinnerPromptScope">Scegli viaggiatore per l\'esportazione</string>
-    <string name="exportViewButtonExecuteExport">Esporta</string>
     <string name="exportViewIntentChooserHeader">Scegli il servizio a cui esportare</string>
     <string name="exportViewTextViewSubHeadingChannel">Destinazione dell\'output?</string>
     <string name="exportViewSpinnerPromptChannel">Scegli la destinazione dell\'output</string>
@@ -198,7 +203,7 @@
     <string name="money_transfer_view_heading">Trasferimento di denaro</string>
     <string name="money_transfer_view_label_from">da:</string>
     <string name="money_transfer_view_output_participant_from">Seleziona una categoria di pagamento</string>
-    <string name="money_transfer_view_button_transfer">Trasferimento</string>
+    <string name="option_money_transfer_execute">Trasferimento</string>
     <string name="money_transfer_list_view_label_name">a:</string>
     <string name="money_transfer_list_view_label_amount">Importo</string>
     <string name="money_transfer_list_view_label_due">&lt; Dovuto</string>
@@ -243,9 +248,6 @@
     <string name="edit_participant_view_label_name">Nome:</string>
     <string name="edit_participant_view_heading_create">Aggiungi viaggiatore al viaggio</string>
     <string name="edit_participant_view_heading_edit">Modifica viaggiatore</string>
-    <string name="edit_participant_view_positive_button_create">Aggiungi &amp; Chiudi</string>
-    <string name="edit_participant_view_positive_button_create_another">Aggiungi &amp; Aggiungi un altro</string>
-    <string name="edit_participant_view_positive_button_edit">Salva</string>
     <string name="edit_participant_view_msg_denial">Un partecipante con il nome immesso esiste già in questo viaggio. Si prega di modificare l\'inserimento.</string>
     <string name="edit_participant_view_label_already_created">Già aggiunto:</string>
     <!-- ==================== edit trip view ====================== -->
@@ -253,11 +255,7 @@
     <string name="edit_trip_view_label_base_currency">Valuta base:</string>
     <string name="edit_trip_view_label_base_currency_spinner_prompt">Selezionare una valuta di base per il viaggio</string>
     <string name="edit_trip_view_edit_heading">Modifica viaggio</string>
-    <string name="edit_trip_view_edit_positive_button">Salva</string>
-    <string name="edit_trip_view_edit_positive_button_and_load">Salva &amp; carica</string>
     <string name="edit_trip_view_create_heading">Crea nuovo viaggio</string>
-    <string name="edit_trip_view_create_positive_button">Crea</string>
-    <string name="edit_trip_view_create_positive_button_and_load">Crea &amp; carica</string>
     <string name="edit_trip_view_create_negative_button">Annulla</string>
     <string name="edit_trip_view_msg">Un viaggio con il nome immesso esiste già. Si prega di modificare l\'inserimento.</string>
     <!-- ==================== Context menu Payment List ====================== -->
@@ -272,7 +270,7 @@
     <string name="prefs_view_title_exchange_rate_management">Tassi di Cambio</string>
     <string name="prefs_view_title_currency">Valuta predefinita</string>
     <string name="prefs_view_heading_chooser_currency">Scegli la valuta predefinita</string>
-    <!-- ==================== Context menu participant selection ====================== -->
+    <!-- ==================== Context menu participant selectedTrip ====================== -->
     <string name="participant_selection_popup_traveler_selection_title">Seleziona viaggiatori</string>
     <string name="participant_selection_popup_payer_selection_msg">Seleziona tutti i viaggiatori che spendono/hanno speso i soldi e viceversa</string>
     <string name="participant_selection_popup_traveler_to_debit_msg">Seleziona tutti i viaggiatori a cui addebitare il pagamento e viceversa.</string>

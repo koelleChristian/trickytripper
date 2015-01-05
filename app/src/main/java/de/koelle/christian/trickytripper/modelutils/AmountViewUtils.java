@@ -12,7 +12,7 @@ public class AmountViewUtils {
 
     public static int getColor(Context context, Amount amount) {
         if (amount == null || amount.getValue() == null || amount.getValue() == 0) {
-            return context.getResources().getColor(android.R.color.white);
+            return context.getResources().getColor(R.color.abc_primary_text_material_light);
         }
         else if (amount.getValue() < 0) {
             return context.getResources().getColor(R.color.red);

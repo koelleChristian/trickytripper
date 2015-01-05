@@ -2,10 +2,7 @@ package de.koelle.christian.trickytripper.exchangerates.impl;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.MethodRule;
-import org.junit.rules.Timeout;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,7 +11,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class ExchangeRateResultExtractorHttpGoogleImplTest {
-
 
     Map<String, Double> sample2Expected;
 
@@ -29,7 +25,7 @@ public class ExchangeRateResultExtractorHttpGoogleImplTest {
 
     @Test
     public void testStringParsing() {
-        for(Map.Entry<String, Double> entry : sample2Expected.entrySet()){
+        for (Map.Entry<String, Double> entry : sample2Expected.entrySet()) {
             String input = null;
             try {
                 input = new Scanner(new File(entry.getKey()), "UTF-8").useDelimiter("\\A").next();

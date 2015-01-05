@@ -16,8 +16,6 @@ public interface ViewController {
 
     void openCreatePayment(Participant participant);
 
-    void openManageTrips();
-
     void openImportExchangeRates(Activity caller, Currency... currencies);
 
     void openDeleteExchangeRates(Activity caller, Currency... currencies);

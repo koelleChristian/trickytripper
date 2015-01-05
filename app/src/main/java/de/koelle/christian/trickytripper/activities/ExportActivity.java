@@ -1,8 +1,5 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -13,15 +10,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsAbs;
+import de.koelle.christian.common.options.OptionContraintsInflater;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -38,6 +36,7 @@ public class ExportActivity extends ActionBarActivity {
     private Participant participantSelected;
     private ExportSettings exportSettings;
     private List<ExportOutputChannel> supportedOutputChannels;
+    private boolean exportEnabled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,29 +44,41 @@ public class ExportActivity extends ActionBarActivity {
         setContentView(R.layout.export_view);
         initPanel();
         ActionBarSupport.addBackButton(this);
+        getSupportActionBar().setTitle(this.getTitle() + ": " + getApp().getTripController().getTripLoaded().getName());
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsAbs().activity(getMenuInflater()).menu(menu)
-                        .options(new int[] {
+                new OptionContraintsInflater().activity(getMenuInflater()).menu(menu)
+                        .options(new int[]{
+                                R.id.option_upload,
                                 R.id.option_help
                         }));
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.option_upload).setEnabled(exportEnabled);
+        menu.findItem(R.id.option_upload).getIcon().setAlpha((exportEnabled) ? 255 : 64);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.option_help:
-            getApp().getViewController().openHelp(getSupportFragmentManager());
-            return true;
-        case android.R.id.home:
-            onBackPressed();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.option_help:
+                getApp().getViewController().openHelp(getSupportFragmentManager());
+                return true;
+            case R.id.option_upload:
+                doExport();
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -78,18 +89,12 @@ public class ExportActivity extends ActionBarActivity {
     private void initPanel() {
         final TrickyTripperApp app = getApp();
         exportSettings = app.getExportController().getDefaultExportSettings();
-        setTripName();
         initAndBindSpinner(app);
         supportedOutputChannels = app.getExportController().getEnabledExportOutputChannel();
         initAndBindOutputChannelSpinner(exportSettings.getOutputChannel(), supportedOutputChannels);
         bindCheckBoxes();
         updateAllCheckboxStates();
-        updateButtonState();
-    }
-
-    private void setTripName() {
-        TextView textView = (TextView) findViewById(R.id.export_view_label_trip_name_output);
-        textView.setText(getApp().getTripController().getTripLoaded().getName());
+        updateExportState();
     }
 
     private void initAndBindSpinner(final TrickyTripperApp app) {
@@ -98,7 +103,7 @@ public class ExportActivity extends ActionBarActivity {
         participantsInSpinner.addAll(app.getTripController().getAllParticipants(false, true));
 
         Spinner spinner = (Spinner) findViewById(R.id.reportViewBaseSpinner);
-        SpinnerViewSupport.configureReportSelectionSpinner(this, participantsInSpinner,spinner);
+        SpinnerViewSupport.configureReportSelectionSpinner(this, participantsInSpinner, spinner);
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -120,7 +125,7 @@ public class ExportActivity extends ActionBarActivity {
 
     @SuppressWarnings("rawtypes")
     private void initAndBindOutputChannelSpinner(ExportOutputChannel selection,
-            final List<ExportOutputChannel> enabledOnes) {
+                                                 final List<ExportOutputChannel> enabledOnes) {
         final Spinner spinner = (Spinner) findViewById(R.id.exportViewSpinnerChannel);
 
         List<RowObject> spinnerObjects = SpinnerViewSupport.createSpinnerObjects(selection, false,
@@ -163,7 +168,7 @@ public class ExportActivity extends ActionBarActivity {
                     Object o = spinner.getSelectedItem();
                     ExportOutputChannel spinnerSelection = ((RowObject<ExportOutputChannel>) o).getRowObject();
                     ExportActivity.this.exportSettings.setOutputChannel(spinnerSelection);
-                    updateButtonState();
+                    updateExportState();
                 }
             }
 
@@ -199,20 +204,20 @@ public class ExportActivity extends ActionBarActivity {
         contentContentPayments.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 exportSettings.setExportPayments(isChecked);
-                updateButtonState();
+                updateExportState();
             }
         });
         contentContentTransfers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 exportSettings.setExportTransfers(isChecked);
-                updateButtonState();
+                updateExportState();
             }
         });
 
         contentContentSpendingReport.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 exportSettings.setExportSpendings(isChecked);
-                updateButtonState();
+                updateExportState();
                 updateCheckboxStateShowGlobalSumsOnIndivudiualSpendings();
             }
         });
@@ -220,28 +225,28 @@ public class ExportActivity extends ActionBarActivity {
         contentContentOwingDebts.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 exportSettings.setExportDebts(isChecked);
-                updateButtonState();
+                updateExportState();
             }
         });
 
         contentFormatCsv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 exportSettings.setFormatCsv(isChecked);
-                updateButtonState();
+                updateExportState();
             }
         });
 
         contentFormatHtml.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 exportSettings.setFormatHtml(isChecked);
-                updateButtonState();
+                updateExportState();
             }
         });
 
         contentFormatTxt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 exportSettings.setFormatTxt(isChecked);
-                updateButtonState();
+                updateExportState();
             }
         });
         contentSeparateFilesForIndividuals.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -260,11 +265,9 @@ public class ExportActivity extends ActionBarActivity {
 
     }
 
-    private void updateButtonState() {
-        Button exportButton = (Button) findViewById(R.id.exportViewButtonDoExport);
-        boolean buttonStateToBe = deriveEnableButtonStateFromSettings(exportSettings, supportedOutputChannels);
-        exportButton.setEnabled(buttonStateToBe);
-
+    private void updateExportState() {
+        exportEnabled = deriveEnableButtonStateFromSettings(exportSettings, supportedOutputChannels);
+        supportInvalidateOptionsMenu();
     }
 
     private void updateAllCheckboxStates() {
@@ -285,35 +288,34 @@ public class ExportActivity extends ActionBarActivity {
     }
 
     private boolean deriveEnabledCheckboxStateFromSettings(Participant participantSelected2,
-            ExportSettings exportSettings2,
-            boolean individualFilesNotHideSums) {
+                                                           ExportSettings exportSettings2,
+                                                           boolean individualFilesNotHideSums) {
         if (individualFilesNotHideSums) {
             return participantSelected2 == null;
-        }
-        else {
+        } else {
             return exportSettings2.isExportSpendings() &&
                     (participantSelected2 != null
-                    || (participantSelected2 == null && exportSettings2.isSeparateFilesForIndividuals()));
+                            || (participantSelected2 == null && exportSettings2.isSeparateFilesForIndividuals()));
         }
     }
 
     private boolean deriveEnableButtonStateFromSettings(ExportSettings exportSettings2,
-            List<ExportOutputChannel> supportedOutputChannels2) {
+                                                        List<ExportOutputChannel> supportedOutputChannels2) {
         return (
                 exportSettings2.isExportDebts()
                         || exportSettings2.isExportPayments()
                         || exportSettings2.isExportTransfers()
                         || exportSettings2.isExportSpendings()
-                ) && (
+        ) && (
                 exportSettings2.isFormatTxt()
                         || exportSettings2.isFormatHtml()
                         || exportSettings2.isFormatCsv()
-                ) && (
+        ) && (
                 supportedOutputChannels2.contains(exportSettings2.getOutputChannel())
-                );
+        );
     }
 
-    public void doExport(View view) {
+    public void doExport() {
         /* participant selected is null, if nobody is selected. */
         /*
          * Files will be deleted on application's termination as usually files

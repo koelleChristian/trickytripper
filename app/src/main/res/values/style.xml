@@ -7,6 +7,13 @@
 
     <style name="LargeFont" parent="@android:style/TextAppearance.Large" />
 
+    <style name="AutoCompleteTextViewLight" parent="@android:style/Widget.AutoCompleteTextView">
+        <item name="android:textColor">@android:color/primary_text_light</item>
+    </style>
+    <style name="Widget.DropDownItemLight" parent="@android:style/Widget.DropDownItem">
+        <item name="android:textColor">@android:color/primary_text_light</item>
+    </style>
+
     <color name="red">#ff0000</color>
     <color name="green">#008000</color>
     <color name="white">#ffffff</color>

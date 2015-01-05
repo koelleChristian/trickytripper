@@ -1,33 +1,33 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.util.Currency;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import java.util.Currency;
+import java.util.List;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsAbs;
+import de.koelle.christian.common.options.OptionContraintsInflater;
+import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.utils.CurrencyUtil;
+import de.koelle.christian.common.utils.StringUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.activitysupport.ButtonSupport;
 import de.koelle.christian.trickytripper.activitysupport.CurrencyViewSupport;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.ViewMode;
 import de.koelle.christian.trickytripper.model.TripSummary;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
+
 
 public class TripEditActivity extends ActionBarActivity {
 
@@ -52,8 +52,7 @@ public class TripEditActivity extends ActionBarActivity {
             trip = (TripSummary) intent
                     .getSerializableExtra(Rc.ACTIVITY_PARAM_TRIP_EDIT_IN_TRIP_SUMMARY);
             hasTripPayments = getApp().getTripController().hasTripPayments(trip);
-        }
-        else {
+        } else {
             trip = new TripSummary();
             hasTripPayments = false;
             trip.setBaseCurrency(getApp().getMiscController().getDefaultBaseCurrency());
@@ -62,25 +61,17 @@ public class TripEditActivity extends ActionBarActivity {
 
     private void initWidgets() {
 
-        Button buttonPositive = (Button) findViewById(R.id.edit_trip_view_button_positive);
-        Button buttonPositiveAndLoad = (Button) findViewById(R.id.edit_trip_view_button_positive_and_load);
         EditText editTextTripName = getEditText();
         Spinner spinner = getSpinner();
 
         int titleId;
-        int positiveButtonLabelId;
-        int positiveAndLoadButtonLabelId;
 
         boolean isEdit = ViewMode.EDIT == viewMode;
 
         if (isEdit) {
             titleId = R.string.edit_trip_view_edit_heading;
-            positiveButtonLabelId = R.string.edit_trip_view_edit_positive_button;
-            positiveAndLoadButtonLabelId = R.string.edit_trip_view_edit_positive_button_and_load;
         } else {
             titleId = R.string.edit_trip_view_create_heading;
-            positiveButtonLabelId = R.string.edit_trip_view_create_positive_button;
-            positiveAndLoadButtonLabelId = R.string.edit_trip_view_create_positive_button_and_load;
         }
 
         setTitle(titleId);
@@ -97,11 +88,6 @@ public class TripEditActivity extends ActionBarActivity {
         spinner.setPromptId(R.string.edit_trip_view_label_base_currency_spinner_prompt);
         spinner.setAdapter(spinnerAdapter);
 
-        ButtonSupport.disableButtonOnBlankInput(editTextTripName, buttonPositive);
-        ButtonSupport.disableButtonOnBlankInput(editTextTripName, buttonPositiveAndLoad);
-
-        buttonPositive.setText(positiveButtonLabelId);
-        buttonPositiveAndLoad.setText(positiveAndLoadButtonLabelId);
 
         String name = trip.getName();
         Currency currency = trip.getBaseCurrency();
@@ -109,23 +95,18 @@ public class TripEditActivity extends ActionBarActivity {
         spinner.setEnabled(!isEdit || !hasTripPayments);
         editTextTripName.setText(name);
 
+        editTextTripName.addTextChangedListener(new BlankTextWatcher() {
+            public void afterTextChanged(Editable s) {
+                supportInvalidateOptionsMenu();
+            }
+        });
+
         SpinnerViewSupport.setSelection(spinner, currency, (ArrayAdapter) spinnerAdapter);
 
-        buttonPositive.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                processButtonClick(false);
-            }
-        });
-
-        buttonPositiveAndLoad.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                processButtonClick(true);
-            }
-        });
     }
 
     @SuppressWarnings("unchecked")
-    private void processButtonClick(boolean isSaveAndLoad) {
+    private void doSave() {
 
         String inputName = getEditText().getText().toString().trim();
         Object o = getSpinner().getSelectedItem();
@@ -134,20 +115,17 @@ public class TripEditActivity extends ActionBarActivity {
         trip.setName(inputName);
         trip.setBaseCurrency(inputCurrency);
 
-        if (tryToSave(isSaveAndLoad)) {
+        if (tryToSave()) {
             Toast.makeText(getApplicationContext(),
                     R.string.edit_trip_view_msg, Toast.LENGTH_SHORT)
                     .show();
-        }
-        else {
-            prepareResultAndFinish(isSaveAndLoad);
+        } else {
+            prepareResultAndFinish();
         }
     }
 
-    private boolean tryToSave(boolean isSaveAndLoad) {
-        return (isSaveAndLoad) ?
-                !(getApp().getTripController().persistAndLoadTrip(trip)) :
-                !(getApp().getTripController().persist(trip));
+    private boolean tryToSave() {
+        return !getApp().getTripController().persist(trip);
     }
 
     private Spinner getSpinner() {
@@ -160,29 +138,57 @@ public class TripEditActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        int[] optionIds;
+        if (ViewMode.CREATE.equals(viewMode)) {
+            optionIds = new int[]{
+                    R.id.option_save_create,
+                    R.id.option_help
+            };
+        } else {
+            optionIds = new int[]{
+                    R.id.option_save_edit,
+                    R.id.option_help
+            };
+        }
         return getApp()
                 .getMiscController()
                 .getOptionSupport()
                 .populateOptionsMenu(
-                        new OptionContraintsAbs()
+                        new OptionContraintsInflater()
                                 .activity(getMenuInflater()).menu(menu)
-                                .options(new int[] {
-                                        R.id.option_help
-                                }));
+                                .options(optionIds));
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        //TODO(ckoelle) The button could be disabled in edit mode when nothing has changed.
+        boolean inputNotBlank = !StringUtils.isBlank(getEditText().getEditableText().toString());
+        MenuItem item = menu.findItem(R.id.option_save_create);
+        if (item == null) {
+            item = menu.findItem(R.id.option_save_edit);
+        }
+        item.setEnabled(inputNotBlank);
+        item.getIcon().setAlpha((inputNotBlank) ? 255 : 64);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.option_help:
-            
-            getApp().getViewController().openHelp(getSupportFragmentManager());
-            return true;
-        case android.R.id.home:
-            onBackPressed();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.option_save_create:
+                doSave();
+                return true;
+            case R.id.option_save_edit:
+                doSave();
+                return true;
+            case R.id.option_help:
+                getApp().getViewController().openHelp(getSupportFragmentManager());
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -190,9 +196,8 @@ public class TripEditActivity extends ActionBarActivity {
         return (TrickyTripperApp) getApplication();
     }
 
-    private void prepareResultAndFinish(boolean isSaveAndLoad) {
+    private void prepareResultAndFinish() {
         Intent resultIntent = new Intent();
-        resultIntent.putExtra(Rc.ACTIVITY_PARAM_TRIP_EDIT_OUT_SAVE_AND_LOAD, isSaveAndLoad);
         setResult(RESULT_OK, resultIntent);
         finish();
     }

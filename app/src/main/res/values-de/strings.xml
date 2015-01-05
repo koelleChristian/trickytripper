@@ -16,6 +16,7 @@
     <string name="common_button_delete">Löschen</string>
     <string name="common_button_edit">Bearbeiten</string>
     <string name="common_label_total_amount">Summe:</string>
+    <string name="common_label_total_amounts">Summen:</string>
     <string name="common_label_inactive_addon">[Inaktiv]</string>
     <string name="progress_dialog_text_loading">Lade …</string>
     <string name="activity_label_participants">Reisende</string>
@@ -40,10 +41,18 @@
     <string name="option_help">Hilfe &amp; Info</string>
     <string name="option_settings">Einstellungen</string>
     <string name="option_export">Export</string>
-    <string name="option_delete">Löschen</string>    
+    <string name="option_delete">Löschen</string>
+    <string name="option_add_participant">Reisenden zur Reise hinzufügen</string>
     <string name="option_create">Erstellen</string>
     <string name="option_import">Import</string>
+    <string name="option_upload">Exportieren</string>
+    <string name="option_edit">Bearbeiten</string>
+    <string name="option_save_create">Erstellen</string>
+    <string name="option_save_edit">Speichern</string>
+    <string name="option_save_add">Hinzufügen</string>
     <string name="option_option_create_exchange_rate_for_source">Erstelle passenden Wechselkurs</string>
+    <string name="drawer_open">Navigation öffnen</string>
+    <string name="drawer_close">Navigation schließen</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Ausgegeben:</string>
     <string name="participant_tab_row_view_label_paid">Bezahlt:</string>
@@ -123,7 +132,6 @@
     <string name="exportViewCheckboxSeparateFilesForIndividuals">Individualle Dateien für jeden Reisenden</string>
     <string name="exportViewCheckboxShowTripSumOnIndividualSpendingReport">Ausgaben: Gesamtsummen der Reise in individuelle Dateien einfügen</string>
     <string name="exportViewSpinnerPromptScope">Wähle Reisenden für Export</string>
-    <string name="exportViewButtonExecuteExport">Exportieren</string>
     <string name="exportViewIntentChooserHeader">Wähle Dienst für Export</string>
     <string name="exportViewTextViewSubHeadingChannel">Ausgabeweg?</string>
     <string name="exportViewSpinnerPromptChannel">Wähle Ausgabeweg</string>
@@ -198,7 +206,7 @@
     <string name="money_transfer_view_heading">Geldtransfer</string>
     <string name="money_transfer_view_label_from">von:</string>
     <string name="money_transfer_view_output_participant_from">_Beispiel Name</string>
-    <string name="money_transfer_view_button_transfer">Transferieren</string>
+    <string name="option_money_transfer_execute">Transferieren</string>
     <string name="money_transfer_list_view_label_name">an:</string>
     <string name="money_transfer_list_view_label_amount">Betrag</string>
     <string name="money_transfer_list_view_label_due">&lt; Fällig</string>
@@ -243,9 +251,6 @@
     <string name="edit_participant_view_label_name">Name:</string>
     <string name="edit_participant_view_heading_create">Reisenden zur Reise hinzufügen</string>
     <string name="edit_participant_view_heading_edit">Reisenden bearbeiten</string>
-    <string name="edit_participant_view_positive_button_create">Hinzufügen  &amp; Schließen</string>
-    <string name="edit_participant_view_positive_button_create_another">Hinzufügen &amp; Weiteren Hinzufügen</string>
-    <string name="edit_participant_view_positive_button_edit">Speichern</string>
     <string name="edit_participant_view_msg_denial">In der Reise existiert bereits ein Reisender mit dem gewünschten Namen. Bitte gib einen noch nicht vorhandenen Namen ein.</string>
     <string name="edit_participant_view_label_already_created">Zuvor hinzugefügt:</string>
     <!-- ==================== edit trip view ====================== -->
@@ -253,11 +258,7 @@
     <string name="edit_trip_view_label_base_currency">Stammwährung:</string>
     <string name="edit_trip_view_label_base_currency_spinner_prompt">Wähle die Stammwährung für die Reise</string>    
     <string name="edit_trip_view_edit_heading">Reise bearbeiten</string>
-    <string name="edit_trip_view_edit_positive_button">Speichern</string>
-    <string name="edit_trip_view_edit_positive_button_and_load">Speichern &amp; Laden</string>
     <string name="edit_trip_view_create_heading">Neue Reise erstellen</string>
-    <string name="edit_trip_view_create_positive_button">Erstellen</string>
-    <string name="edit_trip_view_create_positive_button_and_load">Erstellen &amp; Laden</string>
     <string name="edit_trip_view_create_negative_button">Abbr.</string>
     <string name="edit_trip_view_msg">Eine Reise mit dem gewünschten Namen existiert bereits. Bitte gib einen noch nicht vorhandenen Reisenamen ein.</string>
     <!-- ==================== Context menu Payment List ====================== -->
@@ -272,7 +273,7 @@
     <string name="prefs_view_title_exchange_rate_management">Wechselkurse</string>
     <string name="prefs_view_title_currency">Standard Währung</string>    
     <string name="prefs_view_heading_chooser_currency">Wähle Deine Standardwährung</string>
-    <!-- ==================== Context menu participant selection ====================== -->
+    <!-- ==================== Context menu participant selectedTrip ====================== -->
     <string name="participant_selection_popup_traveler_selection_title">Reisende auswählen</string>
     <string name="participant_selection_popup_payer_selection_msg">Selektiere all die Reisenden, die das Geld ausgeben/ausgegeben haben und umgekehrt.</string>
     <string name="participant_selection_popup_traveler_to_debit_msg">Selektiere all die Reisenden, die belastet werden sollen und umgekehrt.</string>

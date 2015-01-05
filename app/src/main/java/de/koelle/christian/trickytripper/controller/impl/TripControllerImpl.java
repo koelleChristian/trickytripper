@@ -1,5 +1,9 @@
 package de.koelle.christian.trickytripper.controller.impl;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,9 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
@@ -49,7 +50,7 @@ public class TripControllerImpl implements TripController, TripResolver {
     private Trip tripToBeEdited;
 
     public TripControllerImpl(Context context, DataManager dataManager, PrefsResolver prefsResolver,
-            MiscController miscController) {
+                              MiscController miscController) {
         this.context = context;
         this.dataManager = dataManager;
         this.prefsResolver = prefsResolver;
@@ -137,8 +138,7 @@ public class TripControllerImpl implements TripController, TripResolver {
         if (isNew) {
             getTripToBeEdited().getDebts().put(participant, new Debts());
             getTripToBeEdited().getSumReport().addNewParticipant(participant, amountFactory.createAmount());
-        }
-        else {
+        } else {
             int index = getTripToBeEdited().getParticipant().indexOf(participantPersisted);
             getTripToBeEdited().getParticipant().set(index, participantPersisted);
         }
@@ -266,14 +266,17 @@ public class TripControllerImpl implements TripController, TripResolver {
         Trip trip = null;
         if (isNew) {
             trip = ModelFactory.createTrip(summary.getBaseCurrency(), summary.getName());
-        }
-        else {
+        } else {
             trip = dataManager.loadTripById(summary.getId());
             trip.setName(summary.getName());
             trip.setBaseCurrency(summary.getBaseCurrency());
+            if (tripToBeEdited != null && tripToBeEdited.getId() == summary.getId()) {
+                tripToBeEdited.setName(summary.getName());
+                tripToBeEdited.setBaseCurrency(summary.getBaseCurrency());
+            }
         }
-
         dataManager.persistTrip(trip);
+
 
         return true;
     }

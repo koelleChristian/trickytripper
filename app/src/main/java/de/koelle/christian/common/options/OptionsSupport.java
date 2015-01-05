@@ -13,7 +13,7 @@ public class OptionsSupport {
 
     public boolean populateOptionsMenu(OptionContraints optionContraints) {
         MenuInflater inflater = optionContraints.getActivity().getMenuInflater();
-        inflater.inflate(R.layout.options, optionContraints.getMenu());
+        inflater.inflate(R.menu.options, optionContraints.getMenu());
         for (int i = 0; i < allOptions.length; i++) {
             boolean contained = false;
             for (int j = 0; j < optionContraints.getOptionIds().length; j++) {
@@ -27,9 +27,9 @@ public class OptionsSupport {
         }
         return true;
     }
-    public boolean populateOptionsMenu(OptionContraintsAbs optionContraints) {
+    public boolean populateOptionsMenu(OptionContraintsInflater optionContraints) {
         MenuInflater inflater = optionContraints.getMenuInflater();
-        inflater.inflate(R.layout.options, optionContraints.getMenu());
+        inflater.inflate(R.menu.options, optionContraints.getMenu());
         for (int i = 0; i < allOptions.length; i++) {
             boolean contained = false;
             for (int j = 0; j < optionContraints.getOptionIds().length; j++) {

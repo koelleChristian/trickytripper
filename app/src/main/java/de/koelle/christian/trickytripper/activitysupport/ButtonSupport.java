@@ -8,6 +8,8 @@ import de.koelle.christian.common.utils.StringUtils;
 
 public class ButtonSupport {
 
+    // TODO(ckoelle) ABS Is this still required?
+
     public static void disableButtonOnBlankInput(final EditText textInput, final Button button) {
 
         if (StringUtils.isBlank(textInput.getEditableText().toString())) {

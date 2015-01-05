@@ -1,5 +1,12 @@
 package de.koelle.christian.trickytripper.controller.impl;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -7,12 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity;
 import de.koelle.christian.trickytripper.activities.CurrencySelectionActivity;
 import de.koelle.christian.trickytripper.activities.CurrencySelectionActivity.CurrencySelectionMode;
@@ -20,7 +21,6 @@ import de.koelle.christian.trickytripper.activities.DeleteExchangeRatesActivity;
 import de.koelle.christian.trickytripper.activities.EditExchangeRateActivity;
 import de.koelle.christian.trickytripper.activities.ExportActivity;
 import de.koelle.christian.trickytripper.activities.ImportExchangeRatesActivity;
-import de.koelle.christian.trickytripper.activities.ManageTripsActivity;
 import de.koelle.christian.trickytripper.activities.MoneyTransferActivity;
 import de.koelle.christian.trickytripper.activities.ParticipantEditActivity;
 import de.koelle.christian.trickytripper.activities.PaymentEditActivity;
@@ -96,7 +96,7 @@ public class ViewControllerImpl implements ViewController {
             viewMode = ViewMode.EDIT;
             extras.put(Rc.ACTIVITY_PARAM_TRIP_EDIT_IN_TRIP_SUMMARY, tripSummary);
         }
-        startActivityWithParamsForResult(extras, activity, viewMode,Rc.ACTIVITY_PARAM_EDIT_TRIP_REQUEST_CODE, caller);
+        startActivityWithParamsForResult(extras, activity, viewMode, Rc.ACTIVITY_PARAM_EDIT_TRIP_REQUEST_CODE, caller);
 
     }
 
@@ -151,12 +151,6 @@ public class ViewControllerImpl implements ViewController {
         startActivityWithParams(new HashMap<String, Serializable>(), activity, ViewMode.NONE);
     }
 
-    public void openManageTrips() {
-        Class<? extends Activity> activity = ManageTripsActivity.class;
-        Map<String, Serializable> extras = new HashMap<String, Serializable>();
-        startActivityWithParams(extras, activity, ViewMode.CREATE);
-    }
-
     public void openMoneyCalculatorView(Amount amount, int resultViewId, Activity caller) {
         Class<? extends Activity> activity = CurrencyCalculatorActivity.class;
         Map<String, Serializable> extras = new HashMap<String, Serializable>();
@@ -167,7 +161,7 @@ public class ViewControllerImpl implements ViewController {
     }
 
     public void openCurrencySelectionForNewExchangeRate(Activity caller, Currency targetCurrency, int viewIdForResult,
-            boolean selectLeftNotRight) {
+                                                        boolean selectLeftNotRight) {
         openCurrencySelection(caller, targetCurrency, viewIdForResult, (selectLeftNotRight) ?
                 CurrencySelectionMode.SELECT_EXCHANGE_RATE_LEFT :
                 CurrencySelectionMode.SELECT_EXCHANGE_RATE_RIGHT);
@@ -180,7 +174,7 @@ public class ViewControllerImpl implements ViewController {
     }
 
     public void openCurrencySelection(Activity caller, Currency targetCurrency, int viewIdForResult,
-            CurrencySelectionMode mode) {
+                                      CurrencySelectionMode mode) {
         Class<? extends Activity> activity = CurrencySelectionActivity.class;
         Map<String, Serializable> extras = new HashMap<String, Serializable>();
         extras.put(Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_IN_CURRENCY, targetCurrency);
@@ -199,7 +193,7 @@ public class ViewControllerImpl implements ViewController {
     }
 
     private void startActivityWithParamsForResult(Map<String, Serializable> extras, Class<? extends Activity> activity,
-            ViewMode viewMode, int requestCode, Activity caller) {
+                                                  ViewMode viewMode, int requestCode, Activity caller) {
         Intent intent = new Intent().setClass(context, activity);
 
         /* No flag like new task for 'forResult' */
@@ -213,7 +207,7 @@ public class ViewControllerImpl implements ViewController {
     }
 
     private void startActivityWithParams(Map<String, Serializable> extras, Class<? extends Activity> activity,
-            ViewMode viewMode) {
+                                         ViewMode viewMode) {
         Intent intent = new Intent().setClass(context, activity);
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -240,9 +234,6 @@ public class ViewControllerImpl implements ViewController {
     }
 
 
-
-
-
     private void openDeleteConfirmation(FragmentManager fragmentManager, Bundle bundle, Fragment targetFragment) {
         DeleteDialogFragment dialogFragment = new DeleteDialogFragment();
         dialogFragment.setArguments(bundle);
@@ -251,7 +242,7 @@ public class ViewControllerImpl implements ViewController {
         }
         dialogFragment.show(fragmentManager, "delete");
     }
-    
+
     public void openDatePickerOnActivity(FragmentManager fragmentManager) {
         DatePickerDialogFragment dialogFragment = new DatePickerDialogFragment();
         dialogFragment.show(fragmentManager, "datepicker");

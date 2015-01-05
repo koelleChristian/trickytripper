@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsAbs;
+import de.koelle.christian.common.options.OptionContraintsInflater;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -126,7 +126,7 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
                 .getMiscController()
                 .getOptionSupport()
                 .populateOptionsMenu(
-                        new OptionContraintsAbs()
+                        new OptionContraintsInflater()
                                 .activity(getMenuInflater()).menu(menu)
                                 .options(new int[] {
                                         R.id.option_help, R.id.option_import,

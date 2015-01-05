@@ -5,12 +5,16 @@
         <!-- colorPrimary is used for the default action bar background -->
         <item name="colorPrimary">@color/main</item>
 
-        <!-- colorPrimaryDark is used for the status bar -->
-<!--        <item name="colorPrimaryDark">@color/main</item>  -->
-
         <!-- colorAccent is used as the default value for colorControlActivated
              which is used to tint widgets -->
         <item name="colorAccent">@color/accentDark</item>
+        <item name="actionModeBackground">@color/main</item>
+
+        <!-- Workaround: Old AutoCompleteTextView have a white text on white background with the material
+         theme applied. Likely there will be app compatibility support in the future.-->
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewLight</item>
+        <item name="android:dropDownItemStyle">@style/Widget.DropDownItemLight</item>
+
     </style>
 
 </resources>

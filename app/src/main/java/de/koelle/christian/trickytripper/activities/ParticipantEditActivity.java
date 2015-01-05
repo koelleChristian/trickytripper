@@ -1,30 +1,27 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
-
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsAbs;
+import de.koelle.christian.common.options.OptionContraintsInflater;
 import de.koelle.christian.common.text.BlankTextWatcher;
+import de.koelle.christian.common.utils.StringUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.activitysupport.ButtonSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.ViewMode;
 import de.koelle.christian.trickytripper.dataaccess.PhoneContactResolver;
@@ -59,8 +56,6 @@ public class ParticipantEditActivity extends ActionBarActivity {
         }
     }
 
-
-
     private void updateWidgets() {
         String text = (participant != null && participant.getName() != null) ? participant.getName() : "";
         getAutoCompleteTextView().setText(text);
@@ -68,21 +63,13 @@ public class ParticipantEditActivity extends ActionBarActivity {
 
     private void initWidgets() {
         int titleId;
-        int positiveButtonLabelId;
-        boolean createAnotherVisible;
 
-        Button buttonPositive = (Button) findViewById(R.id.editParticipantView_button_save_and_close);
-        Button buttonCreateAnother = (Button) findViewById(R.id.editParticipantView_button_create_another);
         final AutoCompleteTextView autoCompleteTextView = getAutoCompleteTextView();
 
         if (ViewMode.EDIT == viewMode) {
             titleId = R.string.edit_participant_view_heading_edit;
-            positiveButtonLabelId = R.string.edit_participant_view_positive_button_edit;
-            createAnotherVisible = false;
         } else {
             titleId = R.string.edit_participant_view_heading_create;
-            positiveButtonLabelId = R.string.edit_participant_view_positive_button_create;
-            createAnotherVisible = true;
         }
 
         setTitle(titleId);
@@ -93,18 +80,14 @@ public class ParticipantEditActivity extends ActionBarActivity {
                 if (s.length() == 2) {
                     NameLookupTask task = new NameLookupTask(ParticipantEditActivity.this, autoCompleteTextView);
                     task.execute(s.toString());
+                } else if(s.length() == 0 || s.length() == 1){
+                    supportInvalidateOptionsMenu();
                 }
             }
         });
-
-        buttonPositive.setText(positiveButtonLabelId);
-        ButtonSupport.disableButtonOnBlankInput(autoCompleteTextView, buttonPositive);
-        ButtonSupport.disableButtonOnBlankInput(autoCompleteTextView, buttonCreateAnother);
-
-        UiUtils.setViewVisibility(buttonCreateAnother, createAnotherVisible);
     }
 
-    public void createAndCreateAnother(View view) {
+    public void createAndCreateAnother() {
         if (save()) {
             updateAlreadyCreatedList();
             participant = new Participant();
@@ -116,7 +99,7 @@ public class ParticipantEditActivity extends ActionBarActivity {
         if (adapter == null) {
             ListView listView = (ListView) findViewById(R.id.editParticipantViewListViewAlreadyCreated);
             adapter = new ArrayAdapter<String>(this,
-                    R.layout.simple_list_item_1, new ArrayList<String>());
+                    android.R.layout.simple_list_item_1, new ArrayList<String>());
             listView.setAdapter(adapter);
             UiUtils.setViewVisibility(listView, true);
             UiUtils.setViewVisibility(findViewById(R.id.editParticipantView_label_already_created), true);
@@ -124,7 +107,7 @@ public class ParticipantEditActivity extends ActionBarActivity {
         adapter.insert(participant.getName(), 0);
     }
 
-    public void saveAndClose(View view) {
+    public void saveAndClose() {
         if (save()) {
             /*To update the report.*/
             getApp().getTripController().reloadTrip();
@@ -200,22 +183,54 @@ public class ParticipantEditActivity extends ActionBarActivity {
 
         }
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        int[] optionIds;
+        if(ViewMode.CREATE.equals(viewMode)){
+            optionIds = new int[]{
+                    R.id.option_save_add,
+                    R.id.option_help
+            };
+        } else{
+            optionIds = new int[]{
+                    R.id.option_save_edit,
+                    R.id.option_help
+            };
+        }
         return getApp()
                 .getMiscController()
                 .getOptionSupport()
                 .populateOptionsMenu(
-                        new OptionContraintsAbs()
+                        new OptionContraintsInflater()
                                 .activity(getMenuInflater()).menu(menu)
-                                .options(new int[] {
-                                        R.id.option_help
-                                }));
+                                .options(optionIds));
     }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        //TODO(ckoelle) The button could be disabled in edit mode when nothing has changed.
+        boolean inputNotBlank = !StringUtils.isBlank(getAutoCompleteTextView().getEditableText().toString());
+        MenuItem item = menu.findItem(R.id.option_save_add);
+        if(item == null){
+            item = menu.findItem(R.id.option_save_edit);
+        }
+        item.setEnabled(inputNotBlank);
+        item.getIcon().setAlpha((inputNotBlank) ? 255 : 64);
+        return true;
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.option_save_add:
+                createAndCreateAnother();
+                return true;
+            case R.id.option_save_edit:
+                saveAndClose();
+                return true;
         case R.id.option_help:
             getApp().getViewController().openHelp(getSupportFragmentManager());
             return true;

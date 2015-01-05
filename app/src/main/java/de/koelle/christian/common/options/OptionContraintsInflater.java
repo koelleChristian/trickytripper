@@ -4,22 +4,22 @@ package de.koelle.christian.common.options;
 import android.view.Menu;
 import android.view.MenuInflater;
 
-public class OptionContraintsAbs {
+public class OptionContraintsInflater {
     private MenuInflater menuInflater;
     private Menu menu;
     private int[] optionIds;
 
-    public OptionContraintsAbs menu(Menu menu) {
+    public OptionContraintsInflater menu(Menu menu) {
         this.menu = menu;
         return this;
     }
 
-    public OptionContraintsAbs activity(MenuInflater menuInflater) {
+    public OptionContraintsInflater activity(MenuInflater menuInflater) {
         this.menuInflater = menuInflater;
         return this;
     }
 
-    public OptionContraintsAbs options(int... optionIds) {
+    public OptionContraintsInflater options(int... optionIds) {
         this.optionIds = optionIds;
         return this;
     }

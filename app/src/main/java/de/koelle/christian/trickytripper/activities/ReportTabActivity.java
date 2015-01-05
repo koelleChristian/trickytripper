@@ -1,14 +1,9 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.util.*;
-import java.util.Map.Entry;
-
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,11 +13,15 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
-import android.view.Menu;
-import android.view.MenuItem;
-
-import de.koelle.christian.common.options.OptionContraintsAbs;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -34,7 +33,6 @@ import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.model.Trip;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.strategies.SumReport;
-import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
 public class ReportTabActivity extends Fragment {
 
@@ -48,52 +46,14 @@ public class ReportTabActivity extends Fragment {
     private View view;
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        PrepareOptionsSupport.prepareMajorTabOptions(menu, getApp(), false);
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         createPanel(view);
-        ActivityCompat.invalidateOptionsMenu(getActivity());
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsAbs().activity(inflater).menu(menu)
-                        .options(new int[]{
-                                R.id.option_create_participant,
-                                R.id.option_help,
-                                R.id.option_preferences,
-                                R.id.option_export
-                        }));
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.option_help:
-                getApp().getViewController().openHelp(getFragmentManager());
-                return true;
-            case R.id.option_export:
-                getApp().getViewController().openExport();
-                return true;
-            case R.id.option_preferences:
-                getApp().getViewController().openSettings();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        getActivity().supportInvalidateOptionsMenu();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        setHasOptionsMenu(true);
-
         view = inflater.inflate(R.layout.report_tab_view, container, false);
-        //createPanel(view);
         return view;
     }
 

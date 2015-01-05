@@ -1,5 +1,20 @@
 package de.koelle.christian.trickytripper.activities;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,24 +25,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.Editable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsAbs;
+import de.koelle.christian.common.options.OptionContraintsInflater;
 import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.NumberUtils;
@@ -60,13 +59,14 @@ public class MoneyTransferActivity extends ActionBarActivity {
 
         setContentView(R.layout.money_transfer_view);
 
+
         transferer = (Participant) getIntent().getExtras().getSerializable(
                 Rc.ACTIVITY_PARAM_KEY_PARTICIPANT);
         List<Participant> allParticipants = getFktnController().getAllParticipants(false);
         Debts debtsOfTransferer = getFktnController().getDebts().get(transferer);
 
         initView(transferer, allParticipants, debtsOfTransferer);
-        
+
         ActionBarSupport.addBackButton(this);
 
     }
@@ -74,23 +74,38 @@ public class MoneyTransferActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsAbs().activity(getMenuInflater()).menu(menu)
-                        .options(new int[] {
+                new OptionContraintsInflater().activity(getMenuInflater()).menu(menu)
+                        .options(new int[]{
+                                R.id.option_save_edit,
                                 R.id.option_help
                         }));
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean saveEnabled = amountTotal.getValue() > 0;
+        MenuItem item = menu.findItem(R.id.option_save_edit);
+        item.setEnabled(saveEnabled);
+        item.getIcon().setAlpha((saveEnabled) ? 255 : 64);
+        item.setTitle(R.string.option_money_transfer_execute);
+        return true;
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.option_help:
-            getApp().getViewController().openHelp(getSupportFragmentManager());
-            return true;
-        case android.R.id.home:
-            onBackPressed();
-            return true;  
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.option_save_edit:
+                transfer();
+                return true;
+            case R.id.option_help:
+                getApp().getViewController().openHelp(getSupportFragmentManager());
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -109,13 +124,7 @@ public class MoneyTransferActivity extends ActionBarActivity {
         addDynamicRows(transferer, allParticipants, debtsOfTransferer, listView);
     }
 
-    /**
-     * View method.
-     * 
-     * @param view
-     *            Required parameter.
-     */
-    public void transfer(View view) {
+    public void transfer() {
         createNewPayments();
         finish();
     }
@@ -137,7 +146,7 @@ public class MoneyTransferActivity extends ActionBarActivity {
     }
 
     private void addDynamicRows(Participant transferer, List<Participant> allParticipants,
-            Debts debtsOfTransferer, TableLayout tableLayout) {
+                                Debts debtsOfTransferer, TableLayout tableLayout) {
 
         TextView textView = ((TextView) findViewById(R.id.money_transfer_view_output_participant_from));
         textView.setText(transferer.getName());
@@ -151,7 +160,7 @@ public class MoneyTransferActivity extends ActionBarActivity {
     }
 
     private void addTransferRow(Debts debtsOfTransferer, TableLayout tableLayout, List<Participant> allToBe,
-            boolean firstAddRows) {
+                                boolean firstAddRows) {
         TableRow newRow;
         Button buttonDueAmount;
         Button buttonCurrency;
@@ -184,8 +193,7 @@ public class MoneyTransferActivity extends ActionBarActivity {
             if (amountDue == null) {
                 buttonDueAmount.setEnabled(false);
                 buttonDueAmount.setText("0");
-            }
-            else {
+            } else {
                 buttonDueAmount.setText(AmountViewUtils.getAmountString(getLocale(), amountDue, true, true));
                 buttonDueAmount.setOnClickListener(new OnClickListener() {
                     public void onClick(View v) {
@@ -199,11 +207,11 @@ public class MoneyTransferActivity extends ActionBarActivity {
             dynViewId++;
         }
         updateSum();
-        updateSaveButtonState();
+        supportInvalidateOptionsMenu();
     }
 
     private void bindCurrencyCalculatorAction(final Button buttonCurrency, final Amount sourceAndTargetAmountReference,
-            final int viewIdForResult) {
+                                              final int viewIdForResult) {
         buttonCurrency.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getApp().getViewController().openMoneyCalculatorView(sourceAndTargetAmountReference, viewIdForResult,
@@ -219,7 +227,7 @@ public class MoneyTransferActivity extends ActionBarActivity {
                 String widgetInput = getDecimalNumberInputUtil().fixInputStringWidgetToParser(s.toString());
                 amount.setValue(NumberUtils.getStringToDoubleRounded(getLocale(), widgetInput));
                 MoneyTransferActivity.this.updateSum();
-                MoneyTransferActivity.this.updateSaveButtonState();
+                MoneyTransferActivity.this.supportInvalidateOptionsMenu();
             }
         });
     }
@@ -231,10 +239,6 @@ public class MoneyTransferActivity extends ActionBarActivity {
         textView.setText(AmountViewUtils.getAmountString(locale, amountTotal, false, false, false, true, true));
     }
 
-    private void updateSaveButtonState() {
-        Button saveButton = (Button) findViewById(R.id.money_transfer_view_button_transfer);
-        saveButton.setEnabled(amountTotal.getValue() > 0);
-    }
 
     private Amount calculateTotalSum() {
         Amount amountTotal = getAmountFac().createAmount();
@@ -251,21 +255,20 @@ public class MoneyTransferActivity extends ActionBarActivity {
                         && debtsOfTransferer.getLoanerToDepts().get(p) != null
                         && debtsOfTransferer.getLoanerToDepts().get(p).getValue() > 0) ?
 
-                        debtsOfTransferer.getLoanerToDepts().get(p) :
-                        null;
+                debtsOfTransferer.getLoanerToDepts().get(p) :
+                null;
         return a;
     }
 
     private List<Participant> getAllToBeListed(Participant transferer, List<Participant> allParticipants,
-            Debts debtsOfTransferer, boolean onlyOwing) {
+                                               Debts debtsOfTransferer, boolean onlyOwing) {
         List<Participant> result = new ArrayList<Participant>();
         for (Participant p : allParticipants) {
             if (!p.equals(transferer)) {
                 Amount owingAmount = getNullSafeDebts(debtsOfTransferer, p);
                 if (onlyOwing && owingAmount != null) {
                     result.add(p);
-                }
-                else if (!onlyOwing && owingAmount == null) {
+                } else if (!onlyOwing && owingAmount == null) {
                     result.add(p);
                 }
             }

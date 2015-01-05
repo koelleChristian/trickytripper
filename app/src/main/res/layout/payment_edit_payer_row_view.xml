@@ -1,24 +1,29 @@
-<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+<TableRow
+    android:id="@+id/payment_edit_payer_row_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/payment_edit_payer_row_view" >
+    android:layout_height="wrap_content">
 
     <Button
         android:id="@+id/payment_edit_payer_row_view_button_currency"
         android:layout_column="0"
-        android:gravity="center"        
-        android:width="50dp" />
+        android:width="50dp"
+        android:gravity="center"/>
 
     <EditText
         android:id="@+id/payment_edit_payer_row_view_input_amount"
         android:layout_column="1"
-        android:width="100dp" />
+        android:width="100dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+        <requestFocus/>
+    </EditText>
 
     <TextView
         android:id="@+id/payment_edit_payer_row_view_output_name"
         android:layout_column="2"
         android:gravity="left|center_vertical"
         android:paddingLeft="10dp"
-        android:singleLine="false" />
+        android:singleLine="false"/>
 
 </TableRow>

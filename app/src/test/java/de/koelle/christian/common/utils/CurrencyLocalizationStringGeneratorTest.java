@@ -1,11 +1,10 @@
 package de.koelle.christian.common.utils;
 
-import java.util.Currency;
-import java.util.Locale;
-import java.util.TreeSet;
-
 import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.Locale;
+import java.util.TreeSet;
 
 public class CurrencyLocalizationStringGeneratorTest {
 

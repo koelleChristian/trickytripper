@@ -47,11 +47,16 @@ public class MiscControllerImpl implements MiscController {
         this.decimalNumberInputUtil = new DecimalNumberInputUtil(getLocale(context));
 
         this.optionSupport = new OptionsSupport(new int[] {
-                R.id.option_create_participant,
+                R.id.option_add_participant,
                 R.id.option_create_trip,
                 R.id.option_create_exchange_rate,
                 R.id.option_create_exchange_rate_for_source,
+                R.id.option_upload,
+                R.id.option_edit,
                 R.id.option_delete,
+                R.id.option_save_create,
+                R.id.option_save_edit,
+                R.id.option_save_add,
                 R.id.option_export,
                 R.id.option_help,
                 R.id.option_import,
