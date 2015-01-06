@@ -111,9 +111,7 @@ public class ReportTabActivity extends Fragment {
 
         for (int i = 0; i < participantsInSpinner2.size(); i++) {
             Participant pInList = participantsInSpinner2.get(i);
-            if (pInList == null) {
-                continue;
-            } else if (pInList.equals(p)) {
+            if (pInList != null && pInList.equals(p)) {
                 return i;
             }
         }
@@ -238,7 +236,7 @@ public class ReportTabActivity extends Fragment {
 
         int tenDpi = UiUtils.dpi2px(getResources(), 10);
 
-        for (Iterator<Entry<Participant, Debts>> it = getTripLoaded(app).getDebts().entrySet().iterator();it.hasNext();) {
+        for (Iterator<Entry<Participant, Debts>> it = getTripLoaded(app).getDebts().entrySet().iterator(); it.hasNext(); ) {
             Entry<Participant, Debts> entry = it.next();
             Debts debts = entry.getValue();
             if (debts != null && debts.getLoanerToDepts() != null) {
@@ -247,7 +245,7 @@ public class ReportTabActivity extends Fragment {
                 String value;
                 int column;
 
-                for (Iterator<Entry<Participant, Amount>> itInternal = debts.getLoanerToDepts().entrySet().iterator(); itInternal.hasNext();) {
+                for (Iterator<Entry<Participant, Amount>> itInternal = debts.getLoanerToDepts().entrySet().iterator(); itInternal.hasNext(); ) {
                     Entry<Participant, Amount> debt = itInternal.next();
 
                     if (isInScope(involvedParticipants, entry, debt)) {
@@ -286,7 +284,7 @@ public class ReportTabActivity extends Fragment {
         }
         for (Entry<String, View> entry : newRows.entrySet()) {
             View value = entry.getValue();
-            value.setPadding(0 , 0, 0, tenDpi);
+            value.setPadding(0, 0, 0, tenDpi);
             tableLayoutDebts.addView(value);
         }
         UiUtils.setViewVisibility(headingDebtsSubheading, areThereDebtsToBeDisplayed);
@@ -305,11 +303,13 @@ public class ReportTabActivity extends Fragment {
     private TextView addNewTextViewToRow(TableRow target, String valueForDisplay, int column) {
         return addNewTextViewToRow(target, valueForDisplay, column, new TableRow.LayoutParams());
     }
+
     private TextView addNewTextViewToRow(TableRow target, String valueForDisplay, int column, float widthPercentage) {
         TableRow.LayoutParams columnRowParams = new TableRow.LayoutParams();
-        columnRowParams.weight=widthPercentage;
+        columnRowParams.weight = widthPercentage;
         return addNewTextViewToRow(target, valueForDisplay, column, columnRowParams);
     }
+
     private TextView addNewTextViewToRow(TableRow target, String valueForDisplay, int column,
                                          TableRow.LayoutParams columnRowParams) {
         TableRow.LayoutParams columnRowParamsHere = columnRowParams;

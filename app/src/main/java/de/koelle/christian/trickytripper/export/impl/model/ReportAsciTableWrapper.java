@@ -37,7 +37,6 @@ public class ReportAsciTableWrapper {
     private void appendUnderline(int length, StringBuilder collector) {
         if (length < -1) {
             collector.append(Rc.LINE_FEED);
-            return;
         }
         else {
             collector.append(UNDERLINE_CHAR);

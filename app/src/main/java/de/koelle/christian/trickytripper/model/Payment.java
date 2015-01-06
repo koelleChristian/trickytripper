@@ -86,9 +86,7 @@ public class Payment implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         Payment other = (Payment) obj;
-        if (id != other.id)
-            return false;
-        return true;
+        return id == other.id;
     }
 
     @Override

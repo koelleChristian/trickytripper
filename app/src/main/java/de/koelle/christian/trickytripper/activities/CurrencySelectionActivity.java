@@ -1,16 +1,15 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.util.Currency;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import android.support.v7.app.ActionBarActivity;
+import java.util.Currency;
 
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
@@ -155,7 +154,7 @@ public class CurrencySelectionActivity extends ActionBarActivity {
         resultIntent.putExtra(Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_VIEW_ID, resultViewId);
         if (!CurrencySelectionMode.SELECT_FOR_EXCHANGE_CALCULATION.equals(mode)) {
             resultIntent.putExtra(Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_OUT_WAS_LEFT_NOT_RIGHT,
-                    CurrencySelectionMode.SELECT_EXCHANGE_RATE_LEFT.equals(mode) ? true : false);
+                    CurrencySelectionMode.SELECT_EXCHANGE_RATE_LEFT.equals(mode));
         }
         setResult(RESULT_OK, resultIntent);
         finish();

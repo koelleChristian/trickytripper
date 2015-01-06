@@ -153,7 +153,6 @@ public class DeleteExchangeRatesActivity extends ActionBarActivity implements De
                 ExchangeRateSelection instruction = ExchangeRateSelection.getByResourceId((int) spinnerObject
                         .getId());
                 modifySelection(instruction);
-                return;
             }
 
             public void onNothingSelected(AdapterView<?> parent) {

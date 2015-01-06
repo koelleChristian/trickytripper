@@ -1,14 +1,15 @@
 package de.koelle.christian.trickytripper.dataaccess.impl.daos;
 
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.provider.BaseColumns;
+
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
+
 import de.koelle.christian.common.utils.ConversionUtils;
 import de.koelle.christian.trickytripper.dataaccess.impl.Dao;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.TripTable.TripColumns;
@@ -81,7 +82,7 @@ public class TripDao implements Dao<Trip> {
     }
 
     public boolean onlyOneTripLeft() {
-        return (countTripStatement.simpleQueryForLong() <= 1) ? true : false;
+        return (countTripStatement.simpleQueryForLong() <= 1);
     }
 
     public void update(Trip type) {

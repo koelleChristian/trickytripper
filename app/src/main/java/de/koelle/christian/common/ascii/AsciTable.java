@@ -93,6 +93,7 @@ import java.util.ArrayList;
  * K�cker</a><br/>
  * <br/>
  */
+@SuppressWarnings("ALL")
 public class AsciTable
 {
     /** Zellen-Array */

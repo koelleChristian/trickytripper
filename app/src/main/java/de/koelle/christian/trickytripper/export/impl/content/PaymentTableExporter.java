@@ -158,7 +158,6 @@ public class PaymentTableExporter {
             for (Payment payment : trip.getPayments()) {
                 if (!payment.getCategory().isInternal()) {
                     result.add(payment);
-                    continue;
                 }
             }
 
@@ -170,7 +169,6 @@ public class PaymentTableExporter {
                         && (TableExporterUtils.partOf(p, payment.getParticipantToPayment().entrySet())
                         || TableExporterUtils.partOf(p, payment.getParticipantToSpending().entrySet()))) {
                     result.add(payment);
-                    continue;
                 }
             }
         }

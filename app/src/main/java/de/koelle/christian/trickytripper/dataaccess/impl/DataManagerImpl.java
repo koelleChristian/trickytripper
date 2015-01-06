@@ -1,5 +1,11 @@
 package de.koelle.christian.trickytripper.dataaccess.impl;
 
+import android.content.Context;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Date;
@@ -8,11 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import android.content.Context;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.dataaccess.DataManager;
@@ -179,7 +180,7 @@ public class DataManagerImpl implements DataManager {
     }
 
     public boolean hasTripPayments(long tripId) {
-        return (paymentDao.countPaymentsInTrip(tripId) > 0) ? true : false;
+        return (paymentDao.countPaymentsInTrip(tripId) > 0);
     }
 
     public Trip persistTripBySummary(TripSummary tripSummary) {

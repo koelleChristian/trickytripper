@@ -70,9 +70,7 @@ public class Participant implements Serializable, Comparable<Participant> {
         if (getClass() != obj.getClass())
             return false;
         Participant other = (Participant) obj;
-        if (id != other.id)
-            return false;
-        return true;
+        return id == other.id;
     }
 
 }

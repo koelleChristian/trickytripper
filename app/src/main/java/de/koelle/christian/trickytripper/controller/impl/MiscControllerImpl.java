@@ -1,5 +1,9 @@
 package de.koelle.christian.trickytripper.controller.impl;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.util.Log;
+
 import java.io.IOException;
 import java.text.Collator;
 import java.util.Arrays;
@@ -9,9 +13,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import android.content.Context;
-import android.content.res.AssetManager;
-import android.util.Log;
 import de.koelle.christian.common.options.OptionsSupport;
 import de.koelle.christian.common.support.DimensionSupport;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
@@ -85,7 +86,7 @@ public class MiscControllerImpl implements MiscController {
             } catch (IOException e) {
             }
         }
-        return allAssetsList.contains(assetName) ? true : false;
+        return allAssetsList.contains(assetName);
     }
 
     public boolean isOnline() {

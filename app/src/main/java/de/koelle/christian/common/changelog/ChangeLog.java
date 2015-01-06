@@ -31,6 +31,7 @@ import android.webkit.WebView;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.constants.Rc;
 
+@SuppressWarnings("ALL")
 public class ChangeLog {
 
     private final Context context;

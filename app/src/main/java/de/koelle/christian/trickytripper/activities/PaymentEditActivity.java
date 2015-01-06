@@ -601,10 +601,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     }
 
     private boolean getParamFromBundleIsPayment(Bundle args) {
-        if (args == null) {
-            return true;
-        }
-        return args.getBoolean(DIALOG_PARAM_IS_PAYMENT);
+        return args == null || args.getBoolean(DIALOG_PARAM_IS_PAYMENT);
     }
 
     @SuppressWarnings({"unchecked"})

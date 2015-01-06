@@ -10,7 +10,7 @@ public class ConversionUtils {
     }
 
     public static boolean int2bool(int in) {
-        return (in > 0) ? true : false;
+        return (in > 0);
     }
 
     public static String nullSafe(String in) {
