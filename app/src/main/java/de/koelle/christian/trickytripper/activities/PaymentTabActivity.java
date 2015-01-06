@@ -56,7 +56,7 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
                     return;
                 }
                 Payment row = (Payment) getListView().getItemAtPosition(position);
-                if (!isMoneyTransfer(row)) {
+                if (isNotMoneyTransfer(row)) {
                     startEditPaymentActivity(row);
                 }
             }
@@ -122,8 +122,8 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
         return ((TrickyTripperApp) getActivity().getApplication());
     }
 
-    private boolean isMoneyTransfer(Payment row) {
-        return PaymentCategory.MONEY_TRANSFER.equals(row.getCategory());
+    private boolean isNotMoneyTransfer(Payment row) {
+        return !PaymentCategory.MONEY_TRANSFER.equals(row.getCategory());
     }
 
     private void startEditPaymentActivity(final Payment row) {
@@ -197,7 +197,7 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             int[] optionIds;
-            if (!isMoneyTransfer(payment)) {
+            if (isNotMoneyTransfer(payment)) {
                 optionIds = new int[]{
                         R.id.option_delete,
                         R.id.option_edit

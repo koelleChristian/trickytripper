@@ -49,6 +49,7 @@ public class ExporterImplTest {
     private final Pattern patternTxtAll = Pattern.compile(
             "^\\d{10}_\\w+\\d{10}_\\d{12}\\.txt$");
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final boolean deleteCreatedFiles = true;
 
     private Exporter exporter;

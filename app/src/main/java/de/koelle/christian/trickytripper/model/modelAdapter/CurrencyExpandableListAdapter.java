@@ -1,16 +1,17 @@
 package de.koelle.christian.trickytripper.model.modelAdapter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.model.CurrencyWithName;
 
@@ -23,11 +24,6 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
 
     private final List<List<CurrencyWithName>> currencies;
     private final LayoutInflater inflater;
-
-    private final int mCollapsedGroupLayout = R.layout.simple_expandable_list_item_1;
-    private final int mExpandedGroupLayout = R.layout.simple_expandable_list_item_1;
-    private final int mChildLayout = R.layout.simple_expandable_list_item_2;
-    private final int mLastChildLayout = R.layout.simple_expandable_list_item_2;
 
     private final String[] mChildFrom = new String[] { NAME };
     private final int[] mChildTo = new int[] { android.R.id.text1 };
@@ -141,6 +137,8 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     public View newChildView(boolean isLastChild, ViewGroup parent) {
+        int mChildLayout = R.layout.simple_expandable_list_item_2;
+        int mLastChildLayout = R.layout.simple_expandable_list_item_2;
         return inflater.inflate((isLastChild) ? mLastChildLayout : mChildLayout, parent, false);
     }
 
@@ -154,6 +152,8 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
      * @return A new group View
      */
     public View newGroupView(boolean isExpanded, ViewGroup parent) {
+        int mCollapsedGroupLayout = R.layout.simple_expandable_list_item_1;
+        int mExpandedGroupLayout = R.layout.simple_expandable_list_item_1;
         return inflater.inflate((isExpanded) ? mExpandedGroupLayout : mCollapsedGroupLayout,
                 parent, false);
     }

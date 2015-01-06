@@ -1,9 +1,10 @@
 package de.koelle.christian.trickytripper.modelutils;
 
+import android.content.Context;
+
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import android.content.Context;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.model.Amount;
@@ -21,7 +22,7 @@ public class AmountViewUtils {
         return context.getResources().getColor(R.color.green);
     }
 
-    public static final String getAmountString(Locale locale, Amount amount, boolean justTheNumber,
+    public static String getAmountString(Locale locale, Amount amount, boolean justTheNumber,
             boolean blankIfZero, boolean blankIfNull, boolean forceFraction, boolean stripOffSign) {
         if (amount != null) {
 
@@ -63,20 +64,20 @@ public class AmountViewUtils {
         return result.toString();
     }
 
-    public static final String getAmountString(Locale locale, Amount amount, boolean justTheNumber,
+    public static String getAmountString(Locale locale, Amount amount, boolean justTheNumber,
             boolean stripOffSign, boolean forceFraction) {
         return getAmountString(locale, amount, justTheNumber, false, true, forceFraction, stripOffSign);
     }
 
-    public static final String getAmountString(Locale locale, Amount amount, boolean justTheNumber, boolean stripOffSign) {
+    public static String getAmountString(Locale locale, Amount amount, boolean justTheNumber, boolean stripOffSign) {
         return getAmountString(locale, amount, justTheNumber, false, true, false, stripOffSign);
     }
 
-    public static final String getAmountString(Locale locale, Amount amount, boolean justTheNumber) {
+    public static String getAmountString(Locale locale, Amount amount, boolean justTheNumber) {
         return getAmountString(locale, amount, justTheNumber, false, true, false, false);
     }
 
-    public static final String getAmountString(Locale locale, Amount amount) {
+    public static String getAmountString(Locale locale, Amount amount) {
         return getAmountString(locale, amount, false);
     }
 }

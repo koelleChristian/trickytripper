@@ -20,7 +20,6 @@ import de.koelle.christian.trickytripper.decoupling.PrefsResolver;
 public class TrickyTripperApp extends Application {
 
     private DataManager dataManager;
-    private PrefsResolver prefsResolver;
     private ExchangeRateController exchangeRateController;
     private ExportController exportController;
     private MiscController miscController;
@@ -57,7 +56,7 @@ public class TrickyTripperApp extends Application {
 
         FileUtils.deleteAllFiles(this);
 
-        prefsResolver = new PrefAccessor(this);
+        PrefsResolver prefsResolver = new PrefAccessor(this);
         dataManager = new DataManagerImpl(getBaseContext());
 
         exchangeRateController = new ExchangeRateControllerImpl(dataManager, prefsResolver);
