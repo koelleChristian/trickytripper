@@ -1,10 +1,10 @@
 package de.koelle.christian.trickytripper.exchangerates.impl;
 
-import java.util.Currency;
-
 import junit.framework.Assert;
 
 import org.junit.Test;
+
+import java.util.Currency;
 
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 
@@ -33,7 +33,6 @@ public class ExchangeRateEqualityTest {
 
         rate2 = createExchangeRateForThisTest(USD, EUR, 1.23456);
         Assert.assertEquals(false, rate1.equalsFromImportPointOfView(rate2));
-        ;
 
     }
 

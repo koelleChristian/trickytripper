@@ -1,7 +1,5 @@
 package de.koelle.christian.trickytripper.dataaccess.impl;
 
-import java.util.Currency;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -9,6 +7,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.Currency;
+
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
@@ -50,7 +51,7 @@ public class OpenHelper extends SQLiteOpenHelper {
             // shouldn't even TRY to use them)
             Cursor c = db.rawQuery("PRAGMA foreign_keys", null);
             if (c.moveToFirst()) {
-                int result = c.getInt(0);
+                @SuppressWarnings("UnusedAssignment") int result = c.getInt(0);
                 if (Rc.debugOn) {
                     Log.d(Rc.LT, "SQLite foreign key support (1 is on, 0 is off): " + result);
                 }

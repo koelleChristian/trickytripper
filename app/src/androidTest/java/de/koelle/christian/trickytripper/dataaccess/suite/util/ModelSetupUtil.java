@@ -10,7 +10,7 @@ import de.koelle.christian.trickytripper.model.Payment;
 public class ModelSetupUtil {
     public static void addAmountToPayment(Payment payment01In, double value, String unit, boolean isPayer,
             Participant participant) {
-        Map<Participant, Amount> map = null;
+        Map<Participant, Amount> map;
         if (isPayer) {
             map = payment01In.getParticipantToPayment();
         }

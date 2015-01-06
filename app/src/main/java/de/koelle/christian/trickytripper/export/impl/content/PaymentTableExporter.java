@@ -115,7 +115,7 @@ public class PaymentTableExporter {
             resultBuilder.append(charResolver.translateValue(TableExporterUtils.getAmount(locale,
                     totalAmount)));
 
-            Amount value = null;
+            Amount value;
 
             for (int i = 0; i < relevantPayers.size(); i++) {
                 resultBuilder.append(charResolver.getColumnDelimiter(StyleClass.NUMERIC_VALUE));

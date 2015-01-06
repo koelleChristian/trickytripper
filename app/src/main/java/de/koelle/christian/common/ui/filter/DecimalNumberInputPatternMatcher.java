@@ -12,22 +12,11 @@ public class DecimalNumberInputPatternMatcher {
     private final Pattern pattern;
     private final int maxLength;
 
-    /**
-     * Constructor
-     * 
-     * @param amoutOfDecimalDigits
-     * @param amountOfLeftHandDigits
-     */
     public DecimalNumberInputPatternMatcher(int amountOfLeftHandDigits, int amoutOfDecimalDigits) {
         this(amountOfLeftHandDigits, amoutOfDecimalDigits, -1);
     }
 
-    /**
-     * Constructor
-     * 
-     * @param amoutOfDecimalDigits
-     * @param amountOfLeftHandDigits
-     */
+
     public DecimalNumberInputPatternMatcher(int amountOfLeftHandDigits, int amoutOfDecimalDigits, int maxLength) {
         String patternString = "\\d{0," + amountOfLeftHandDigits + "}([" + Rglob.DECIMAL_DEL_DOT
                 + Rglob.DECIMAL_DEL_COMMA

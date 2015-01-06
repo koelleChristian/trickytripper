@@ -1,8 +1,7 @@
 package de.koelle.christian.trickytripper.dataaccess.suite.payment;
 
-import junit.framework.Assert;
 import android.test.ApplicationTestCase;
-import de.koelle.christian.trickytripper.R;
+
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.dataaccess.impl.DataConstants;
 import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;

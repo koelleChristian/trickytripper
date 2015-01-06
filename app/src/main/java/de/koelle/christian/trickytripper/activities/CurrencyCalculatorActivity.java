@@ -1,10 +1,5 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.List;
-import java.util.Locale;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -23,6 +18,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
+import java.util.Locale;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsInflater;
@@ -64,7 +63,7 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
     private OnItemSelectedListener rateSelectionListener;
 
     private enum UpdateExclusion {
-        NONE, RATE_VALUE, INPUT_VALUE;
+        NONE, RATE_VALUE, INPUT_VALUE
     }
 
     @Override
@@ -520,7 +519,7 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.option_help:
-            getApp().getViewController().openHelp(getSupportFragmentManager());;
+            getApp().getViewController().openHelp(getSupportFragmentManager());
             return true;
         case R.id.option_import:
             return importOptionSupport.onOptionsItemSelected(this,

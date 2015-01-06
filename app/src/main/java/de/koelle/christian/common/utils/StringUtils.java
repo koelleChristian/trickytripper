@@ -29,7 +29,6 @@ public class StringUtils {
         for (int i = 0; i < amount; i++) {
             result.append(txtHeadingSymbol);
         }
-        /**/;
         return result;
     }
 }

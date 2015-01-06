@@ -1,12 +1,17 @@
 package de.koelle.christian.trickytripper.dataaccess.manual.exchangerateimport;
 
+import android.test.ApplicationTestCase;
+
+import junit.framework.Assert;
+
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import de.koelle.christian.trickytripper.exchangerates.impl.*;
-import junit.framework.Assert;
-import android.test.ApplicationTestCase;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverGoogleImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
+import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorJsonGoogleImpl;
 
 public abstract class AbstractCurrencyImportTest extends ApplicationTestCase<TrickyTripperApp> {
@@ -50,11 +55,10 @@ public abstract class AbstractCurrencyImportTest extends ApplicationTestCase<Tri
 
     @SuppressWarnings("static-access")
     protected void waitForResult(int maxIterations, int runIterations) {
-        if(runIterations < maxIterations){            
+        if (runIterations < maxIterations) {
             try {
                 Thread.currentThread().sleep(1000);
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -69,18 +73,16 @@ public abstract class AbstractCurrencyImportTest extends ApplicationTestCase<Tri
 
         public void deliverResult(ExchangeRateImporterResultContainer resultContainer) {
             Assert.assertTrue("An exchange rate result returned from the importer was null result="
-                    + resultContainer,
+                            + resultContainer,
                     resultContainer.exchangeRateResult != null);
             boolean requestWasSuccess = resultContainer.requestWasSuccess();
             Assert.assertEquals(true, requestWasSuccess);
-            System.out.println("success="+requestWasSuccess);
+            System.out.println("success=" + requestWasSuccess);
 
             resultCollector.add(resultContainer);
         }
     }
 
-
-    
 
     protected Set<ExchangeRateImporterResultContainer> getResultCollector() {
         return resultCollector;

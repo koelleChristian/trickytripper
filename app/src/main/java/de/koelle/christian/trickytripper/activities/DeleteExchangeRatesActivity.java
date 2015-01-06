@@ -1,10 +1,5 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -15,7 +10,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsInflater;
@@ -222,7 +220,6 @@ public class DeleteExchangeRatesActivity extends ActionBarActivity implements De
         switch (item.getItemId()) {
         case R.id.option_help:
             getApp().getViewController().openHelp(getSupportFragmentManager());
-            ;
             return true;
         case android.R.id.home:
             onBackPressed();

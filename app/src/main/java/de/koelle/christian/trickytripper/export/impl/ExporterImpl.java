@@ -1,10 +1,11 @@
 package de.koelle.christian.trickytripper.export.impl;
 
+import android.app.Activity;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import de.koelle.christian.common.io.FileWriter;
 import de.koelle.christian.common.utils.FileUtils;
 import de.koelle.christian.trickytripper.R;
@@ -40,7 +41,7 @@ public class ExporterImpl implements Exporter {
     }
 
     public List<File> exportReport(ExportSettings settings, List<Participant> participants, Trip trip,
-            ResourceResolver resourceResolver, ActivityResolver activityResolver, AmountFactory amountFactory) {
+                                   ResourceResolver resourceResolver, ActivityResolver activityResolver, AmountFactory amountFactory) {
 
         List<File> filesCreated = new ArrayList<File>();
 
@@ -82,8 +83,7 @@ public class ExporterImpl implements Exporter {
                         txtExportCharResolver,
                         amountFactory);
             }
-        }
-        else {
+        } else {
             createAndWriteFiles(settings,
                     participants,
                     trip,
@@ -120,10 +120,10 @@ public class ExporterImpl implements Exporter {
     }
 
     private void createAndWriteFiles(ExportSettings settings, List<Participant> participants, Trip trip,
-            ResourceResolver resourceResolver, FileWriter fileWriter, List<File> filesCreated,
-            StringBuilder fileNamePrefix, StringBuilder timestamp, HtmlExportCharResolver htmlExportCharResolver,
-            CsvExportCharResolver csvExportCharResolver, TxtExportCharResolver txtExportCharResolver,
-            AmountFactory amountFactory) {
+                                     ResourceResolver resourceResolver, FileWriter fileWriter, List<File> filesCreated,
+                                     StringBuilder fileNamePrefix, StringBuilder timestamp, HtmlExportCharResolver htmlExportCharResolver,
+                                     CsvExportCharResolver csvExportCharResolver, TxtExportCharResolver txtExportCharResolver,
+                                     AmountFactory amountFactory) {
         // reuse
         StringBuilder contents;
         File writtenFile;
@@ -173,9 +173,8 @@ public class ExporterImpl implements Exporter {
                 paymentExporter.setCharResolver(txtExportCharResolver);
                 contents = paymentExporter.prepareContents(trip, resourceResolver, participants, amountFactory);
                 txtCollector.addTable(resourceResolver
-                        .resolve(R.string.fileExportTableHeadingPayments),
+                                .resolve(R.string.fileExportTableHeadingPayments),
                         ReportAsciTableUtils.buildReportAsciiTable(contents));
-                /**/;
             }
 
         }
@@ -212,9 +211,8 @@ public class ExporterImpl implements Exporter {
                 transferExporter.setCharResolver(txtExportCharResolver);
                 contents = transferExporter.prepareContents(trip, resourceResolver, participants);
                 txtCollector.addTable(resourceResolver
-                        .resolve(R.string.fileExportTableHeadingTransfers),
+                                .resolve(R.string.fileExportTableHeadingTransfers),
                         ReportAsciTableUtils.buildReportAsciiTable(contents));
-                /**/;
             }
         }
 
@@ -253,9 +251,8 @@ public class ExporterImpl implements Exporter {
                 spendingExporter.setCharResolver(txtExportCharResolver);
                 contents = spendingExporter.prepareContents(trip, resourceResolver, participants, hideTotalSum, false);
                 txtCollector.addTable(resourceResolver
-                        .resolve(R.string.fileExportTableHeadingSpendings),
+                                .resolve(R.string.fileExportTableHeadingSpendings),
                         ReportAsciTableUtils.buildReportAsciiTable(contents));
-                /**/;
             }
         }
         if (settings.isExportDebts()) {
@@ -290,9 +287,8 @@ public class ExporterImpl implements Exporter {
                 debtsExporter.setCharResolver(txtExportCharResolver);
                 contents = debtsExporter.prepareContents(trip, resourceResolver, participants);
                 txtCollector.addTable(resourceResolver
-                        .resolve(R.string.fileExportTableHeadingDebts),
+                                .resolve(R.string.fileExportTableHeadingDebts),
                         ReportAsciTableUtils.buildReportAsciiTable(contents));
-                /**/;
             }
         }
         if (settings.isFormatHtml() || settings.isFormatTxt()) {
@@ -353,20 +349,20 @@ public class ExporterImpl implements Exporter {
     }
 
     private StringBuilder buildFileName(StringBuilder fileNamePrefix, StringBuilder timestamp,
-            List<Participant> participants, ResourceResolver resourceResolver) {
+                                        List<Participant> participants, ResourceResolver resourceResolver) {
         return new StringBuilder()
                 .
-                append(fileNamePrefix)
+                        append(fileNamePrefix)
                 .
-                append(FILE_NAME_SEPARATOR)
+                        append(FILE_NAME_SEPARATOR)
                 .
-                append(
-                        (participants.size() > 1) ?
-                                resourceResolver.resolve(R.string.fileExportrFix_Scope_All) :
-                                ExporterFileNameUtils.clean(participants.get(0).getName()))
+                        append(
+                                (participants.size() > 1) ?
+                                        resourceResolver.resolve(R.string.fileExportrFix_Scope_All) :
+                                        ExporterFileNameUtils.clean(participants.get(0).getName()))
                 .
-                append(FILE_NAME_SEPARATOR)
+                        append(FILE_NAME_SEPARATOR)
                 .
-                append(timestamp);
+                        append(timestamp);
     }
 }

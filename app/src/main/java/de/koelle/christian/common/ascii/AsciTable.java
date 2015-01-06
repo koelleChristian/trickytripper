@@ -1191,7 +1191,6 @@ public class AsciTable
 
             case RIGHT_ALIGNMENT:
                 retStr = strLeftAlign(retStr.trim(), pWidth);
-                ;
                 break;
 
             default:

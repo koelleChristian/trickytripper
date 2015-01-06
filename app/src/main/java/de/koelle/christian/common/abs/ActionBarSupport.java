@@ -3,7 +3,6 @@ package de.koelle.christian.common.abs;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 
-import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.activities.PreferencesActivity;
 
 

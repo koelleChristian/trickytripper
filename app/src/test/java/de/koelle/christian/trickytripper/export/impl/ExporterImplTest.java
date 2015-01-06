@@ -1,5 +1,13 @@
 package de.koelle.christian.trickytripper.export.impl;
 
+import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -9,15 +17,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-import junit.framework.Assert;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-
 import de.koelle.christian.common.io.FileWriter;
+import de.koelle.christian.common.testsupport.TestDataFactory;
+import de.koelle.christian.common.testsupport.TestDataSet;
+import de.koelle.christian.common.testsupport.TransientDataHelper;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.decoupling.ActivityResolver;
 import de.koelle.christian.trickytripper.decoupling.ResourceResolver;
@@ -27,9 +30,6 @@ import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Trip;
 import de.koelle.christian.trickytripper.strategies.TripReportLogic;
-import de.koelle.christian.common.testsupport.TestDataFactory;
-import de.koelle.christian.common.testsupport.TestDataSet;
-import de.koelle.christian.common.testsupport.TransientDataHelper;
 
 public class ExporterImplTest {
 
@@ -745,7 +745,7 @@ public class ExporterImplTest {
             Assert.assertTrue(patternTxtIndividual.matcher(result.get(17).getName()).matches());
 
             for (int i = 0; i < result.size(); i++) {
-                String name = null;
+                String name;
                 if (i <= 5) {
                     name = factory.chris.getName();
                 }
@@ -799,7 +799,7 @@ public class ExporterImplTest {
             Assert.assertTrue(patternTxtIndividual.matcher(result.get(8).getName()).matches());
 
             for (int i = 0; i < result.size(); i++) {
-                String name = null;
+                String name;
                 if (i <= 2) {
                     name = factory.chris.getName();
                 }
@@ -857,7 +857,7 @@ public class ExporterImplTest {
             Assert.assertTrue(patternTxtIndividual.matcher(result.get(8).getName()).matches());
 
             for (int i = 0; i < result.size(); i++) {
-                String name = null;
+                String name;
                 if (i <= 2) {
                     name = factory.chris.getName();
                 }
@@ -918,7 +918,7 @@ public class ExporterImplTest {
             Assert.assertTrue(patternTxtIndividual.matcher(result.get(11).getName()).matches());
 
             for (int i = 0; i < result.size(); i++) {
-                String name = null;
+                String name;
                 if (i <= 3) {
                     name = factory.chris.getName();
                 }
@@ -983,7 +983,7 @@ public class ExporterImplTest {
             Assert.assertTrue(patternTxtIndividual.matcher(result.get(11).getName()).matches());
 
             for (int i = 0; i < result.size(); i++) {
-                String name = null;
+                String name;
                 if (i <= 3) {
                     name = factory.chris.getName();
                 }
@@ -1037,7 +1037,7 @@ public class ExporterImplTest {
             Assert.assertTrue(patternHtmlIndividual.matcher(result.get(2).getName()).matches());
 
             for (int i = 0; i < result.size(); i++) {
-                String name = null;
+                String name;
                 if (i == 0) {
                     name = factory.chris.getName();
                 }
@@ -1083,7 +1083,7 @@ public class ExporterImplTest {
             Assert.assertTrue(patternTxtIndividual.matcher(result.get(2).getName()).matches());
 
             for (int i = 0; i < result.size(); i++) {
-                String name = null;
+                String name;
                 if (i == 0) {
                     name = factory.chris.getName();
                 }
@@ -1134,7 +1134,7 @@ public class ExporterImplTest {
             Assert.assertTrue(patternCsvIndividual.matcher(result.get(5).getName()).matches());
 
             for (int i = 0; i < result.size(); i++) {
-                String name = null;
+                String name;
                 if (i <= 1) {
                     name = factory.chris.getName();
                 }
@@ -1199,7 +1199,7 @@ public class ExporterImplTest {
             Assert.assertTrue(patternCsvIndividual.matcher(result.get(11).getName()).matches());
 
             for (int i = 0; i < result.size(); i++) {
-                String name = null;
+                String name;
                 if (i <= 3) {
                     name = factory.chris.getName();
                 }
@@ -1245,7 +1245,7 @@ public class ExporterImplTest {
             Assert.assertTrue(patternHtmlIndividual.matcher(result.get(2).getName()).matches());
 
             for (int i = 0; i < result.size(); i++) {
-                String name = null;
+                String name;
                 if (i == 0) {
                     name = factory.chris.getName();
                 }
@@ -1291,7 +1291,7 @@ public class ExporterImplTest {
             Assert.assertTrue(patternTxtIndividual.matcher(result.get(2).getName()).matches());
 
             for (int i = 0; i < result.size(); i++) {
-                String name = null;
+                String name;
                 if (i == 0) {
                     name = factory.chris.getName();
                 }

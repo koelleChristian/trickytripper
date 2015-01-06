@@ -1,5 +1,7 @@
 package de.koelle.christian.common.utils;
 
+import android.content.res.Resources;
+
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.HashMap;
@@ -8,7 +10,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import android.content.res.Resources;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.model.CurrencyWithName;
 

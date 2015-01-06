@@ -237,7 +237,6 @@ public class ReportTabActivity extends Fragment {
                 .getDefaultStringCollator());
 
         int tenDpi = UiUtils.dpi2px(getResources(), 10);
-        int fifteenDpi = UiUtils.dpi2px(getResources(), 15);
 
         for (Iterator<Entry<Participant, Debts>> it = getTripLoaded(app).getDebts().entrySet().iterator();it.hasNext();) {
             Entry<Participant, Debts> entry = it.next();

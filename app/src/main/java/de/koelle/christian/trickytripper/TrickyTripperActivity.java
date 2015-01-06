@@ -125,7 +125,7 @@ public class TrickyTripperActivity extends ActionBarActivity implements DeleteDi
                 TextView result = (TextView) super.getView(position,
                         convertView, parent);
                 TripSummary row = this.getItem(position);
-                int color = mainColor;
+                int color;
                 int typefaceStyle;
                 if (row.getId() == getApp().getTripController().getTripLoaded().getId()) {
                     color = getResources().getColor(R.color.main);

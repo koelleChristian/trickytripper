@@ -1,17 +1,18 @@
 package de.koelle.christian.trickytripper.dataaccess.impl.daos;
 
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.provider.BaseColumns;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import de.koelle.christian.common.utils.ConversionUtils;
 import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
@@ -104,7 +105,7 @@ public class PaymentDao {
     }
 
     public long create(PaymentReference type) {
-        long result = 0L;
+        long result;
 
         stmtInsert.clearBindings();
         stmtInsert.bindLong(1, type.getTrip_id());

@@ -87,7 +87,7 @@ public class NumberUtils {
         if (factorA == 0 || factorB == 0) {
             return Double.valueOf(0);
         }
-        BigDecimal result = null;
+        BigDecimal result;
         BigDecimal a = new BigDecimal(factorA, MathContext.DECIMAL128);
         BigDecimal b = new BigDecimal(factorB, MathContext.DECIMAL128);
         result = a.multiply(b);

@@ -1,13 +1,14 @@
 package de.koelle.christian.trickytripper.model.modelAdapter;
 
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+
+import java.util.List;
+
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
@@ -18,7 +19,7 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
 
     public enum DisplayMode {
         SINGLE,
-        DOUBLE_WITH_SELECTION;
+        DOUBLE_WITH_SELECTION
     }
 
     private final List<ExchangeRate> rows;
@@ -27,7 +28,7 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
     private final ExchangeRateDescriptionUtils exchangeRateDescUtils;
 
     public ExchangeRateRowListAdapter(Context context, int textViewResourceId, List<ExchangeRate> objects,
-            DisplayMode mode) {
+                                      DisplayMode mode) {
         super(context, textViewResourceId, objects);
         this.rows = objects;
         this.context = context;
@@ -77,7 +78,7 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
 
             viewId = R.id.exchangeRateRowView_output_comment;
             label = null;
-            value = exchangeRateDescUtils.deriveDescription(row); 
+            value = exchangeRateDescUtils.deriveDescription(row);
             UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
 
             if (isDouble) {

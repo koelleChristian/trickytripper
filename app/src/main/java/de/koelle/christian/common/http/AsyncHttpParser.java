@@ -2,11 +2,11 @@ package de.koelle.christian.common.http;
 
 import android.content.Context;
 import android.util.Log;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+
 import de.koelle.christian.trickytripper.constants.Rc;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class AsyncHttpParser {
     private static final AsyncHttpClient httpClient = new AsyncHttpClient();

@@ -1,15 +1,19 @@
 package de.koelle.christian.trickytripper.dataaccess.manual.exchangerateimport;
 
-import android.os.HandlerThread;
 import android.test.ApplicationTestCase;
-import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.exchangerates.impl.*;
+
 import junit.framework.Assert;
 
 import java.util.Currency;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.concurrent.CountDownLatch;
+
+import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateHttpResolverGoogleImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
+import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
+import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorHttpGoogleImpl;
 
 public class ApiResponseTest extends ApplicationTestCase<TrickyTripperApp> {
 
@@ -45,14 +49,14 @@ public class ApiResponseTest extends ApplicationTestCase<TrickyTripperApp> {
         });
         //int iteration = 0;
         //if (iteration < SLEEP_ITERATIONS) {
-            try {
-                System.out.println("Sleep ...");
-                Thread.currentThread().sleep(10000);
-                //iteration++;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-       // }
+        try {
+            System.out.println("Sleep ...");
+            Thread.currentThread().sleep(10000);
+            //iteration++;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // }
         System.out.println("Sleeping done.");
 
         Assert.assertNotNull(resultContainerHere);

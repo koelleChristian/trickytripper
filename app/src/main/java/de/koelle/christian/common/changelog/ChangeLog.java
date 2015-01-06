@@ -206,7 +206,7 @@ public class ChangeLog {
         NONE,
         ORDERED,
         UNORDERED,
-    };
+    }
 
     private Listmode listMode = Listmode.NONE;
     private StringBuffer sb = null;

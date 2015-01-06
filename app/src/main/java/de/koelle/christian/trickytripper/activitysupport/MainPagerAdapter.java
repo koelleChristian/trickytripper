@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.ViewGroup;
 
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.activities.ParticipantTabActivity;
@@ -33,35 +32,6 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
             default:
                 throw new UnsupportedOperationException("There is no tab with id " + i + " supported.");
         }
-    }
-//
-//    @Override
-//    public int getItemPosition(Object object) {
-//        if(reset){
-//            return POSITION_NONE;
-//        } else{
-//
-//        }
-//        return super.getItemPosition(object);
-//    }
-
-    @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        switch (position) {
-            case Rc.TAB_ID_PARTICIPANTS:
-                container.setTag(Rc.TAB_ID_PARTICIPANTS);
-                break;
-            case Rc.TAB_ID_PAYMENTS:
-                container.setTag(Rc.TAB_ID_PAYMENTS);
-                break;
-            case Rc.TAB_ID_REPORT:
-                container.setTag(Rc.TAB_ID_REPORT);
-                break;
-            default:
-                throw new UnsupportedOperationException("There is no tab with position " + position + " supported.");
-        }
-
-        return super.instantiateItem(container, position);
     }
 
     @Override
