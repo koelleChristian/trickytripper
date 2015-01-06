@@ -45,7 +45,6 @@
             android:layout_below="@id/money_transfer_view_label_from"
             android:padding="10dip"
             android:paddingBottom="20dp"
-            android:text="Christian"
             />
 
     </RelativeLayout>

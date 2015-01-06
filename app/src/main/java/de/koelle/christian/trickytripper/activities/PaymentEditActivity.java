@@ -358,6 +358,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
             amount = amountMap.get(p);
 
             EditText editText = (EditText) row.findViewById(R.id.payment_edit_payer_row_view_input_amount);
+            //noinspection ResourceType
             editText.setId(dynViewId);
 
             TextView textView = (TextView) row.findViewById(R.id.payment_edit_payer_row_view_output_name);

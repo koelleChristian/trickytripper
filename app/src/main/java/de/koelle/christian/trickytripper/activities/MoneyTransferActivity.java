@@ -182,6 +182,7 @@ public class MoneyTransferActivity extends ActionBarActivity {
             buttonCurrency = (Button) newRow.findViewById(R.id.money_transfer_list_view_button_currency);
 
             UiUtils.makeProperNumberInput(editText, getDecimalNumberInputUtil().getInputPatternMatcher());
+            //noinspection ResourceType
             editText.setId(dynViewId);
             tableLayout.addView(newRow, i + offset);
             nameTextView.setText(p.getName());
