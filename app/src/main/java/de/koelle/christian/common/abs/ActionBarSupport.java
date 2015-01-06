@@ -3,21 +3,14 @@ package de.koelle.christian.common.abs;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 
-import de.koelle.christian.trickytripper.activities.PreferencesActivity;
-
 
 public class ActionBarSupport {
-    public static void addBackButton(PreferencesActivity activity) {
-        //TODO(ckoelle) ABS
-        //addBackButton( activity.getActionBar());
-    }
 
     public static void addBackButton(ActionBarActivity activity) {
         addBackButton(activity.getSupportActionBar());
     }
 
-    private static void addBackButton(ActionBar supportActionBar) {
-        ActionBar actionBar = supportActionBar;
+    private static void addBackButton(ActionBar actionBar) {
 
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);

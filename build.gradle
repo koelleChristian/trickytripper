@@ -22,6 +22,7 @@ allprojects {
         junitVersion = '4.10'
         orgRobolectricRobolectricVersion = '2.4'
         orgMockitoMockitoCoreVersion = '1.9.5'
+        comGithubMachinarius_preferenceFragmentVersion = '0.1.1'
 //        comAndroidToolsBuildGradleVersion = '1.0.0-rc4'
         comAndroidSupport_supportV4Version = '21.0.3'
         comAndroidSupport_supportV7Version = '21.0.3'

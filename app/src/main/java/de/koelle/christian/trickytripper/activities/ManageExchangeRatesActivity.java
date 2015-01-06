@@ -1,12 +1,5 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Currency;
-import java.util.List;
-
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
@@ -20,7 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Currency;
+import java.util.List;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsInflater;
@@ -129,7 +127,8 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
                         new OptionContraintsInflater()
                                 .activity(getMenuInflater()).menu(menu)
                                 .options(new int[] {
-                                        R.id.option_help, R.id.option_import,
+                                        R.id.option_help,
+                                        R.id.option_import,
                                         R.id.option_delete,
                                         R.id.option_create_exchange_rate }));
     }
