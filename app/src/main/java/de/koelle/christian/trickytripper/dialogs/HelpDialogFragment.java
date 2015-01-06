@@ -1,7 +1,5 @@
 package de.koelle.christian.trickytripper.dialogs;
 
-import java.util.Locale;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
 
+import java.util.Locale;
+
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.controller.MiscController;
@@ -24,11 +24,6 @@ public class HelpDialogFragment extends DialogFragment {
     private static final String HELP_FILE_NAME_ENDING = ".html";
     private static final String HELP_FILE_NAME_BASE = "help";
     private static final String HELP_FILE_URL_EN = HELP_ASSET_URL_BASE + HELP_FILE_NAME_BASE + HELP_FILE_NAME_ENDING;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

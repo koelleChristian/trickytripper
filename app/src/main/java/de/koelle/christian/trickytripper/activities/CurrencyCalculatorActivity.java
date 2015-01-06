@@ -287,13 +287,6 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
                 android.R.layout.simple_spinner_item, spinnerObjects) {
 
             @Override
-            public View getDropDownView(int position, View convertView,
-                    ViewGroup parent) {
-                /* nothing special here. */
-                return super.getDropDownView(position, convertView, parent);
-            }
-
-            @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 /* Display currency code only when not in list view. */
                 TextView result = (TextView) super.getView(position,

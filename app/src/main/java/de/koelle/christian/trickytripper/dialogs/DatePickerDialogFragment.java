@@ -11,12 +11,12 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
-import de.koelle.christian.common.utils.Assert;
-import de.koelle.christian.trickytripper.R;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import de.koelle.christian.common.utils.Assert;
+import de.koelle.christian.trickytripper.R;
 
 public class DatePickerDialogFragment extends DialogFragment {
 
@@ -67,13 +67,6 @@ public class DatePickerDialogFragment extends DialogFragment {
                     }
                 });
         return builder.create();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-
     }
 
     private void bindWidgets(View view) {

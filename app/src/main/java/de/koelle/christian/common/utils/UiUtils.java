@@ -1,6 +1,5 @@
 package de.koelle.christian.common.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -10,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import de.koelle.christian.common.ui.filter.DecimalNumberInputFilter;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputPatternMatcher;
 
@@ -45,12 +45,6 @@ public class UiUtils {
     public static int dpi2px(Resources resources, int dpi) {
         final float scale = resources.getDisplayMetrics().density;
         return (int) (dpi * scale + 0.5f);
-    }
-
-    public static TextView setLabelAndValueOnTextView(Activity activity, int viewId, Object label, Object value) {
-        TextView textView = (TextView) activity.findViewById(viewId);
-        setValue(label, value, textView);
-        return textView;
     }
 
     private static void setValue(Object label, Object value, TextView textView) {

@@ -1,8 +1,5 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.util.Currency;
-import java.util.Locale;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -15,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Currency;
+import java.util.Locale;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsInflater;
@@ -144,11 +144,6 @@ public class EditExchangeRateActivity extends ActionBarActivity {
         return exchangeRate2;
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-    }
 
     private void initAndBindEditText() {
         EditText editTextInputDescription = (EditText) findViewById(R.id.editExchangeRateViewInputDescription);
