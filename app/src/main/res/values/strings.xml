@@ -97,7 +97,7 @@
     <string name="importExchangeRatesViewOptions">Options</string>
     <string name="importExchangeRatesViewCheckboxLabelNewRateOnValueChange">Create new rate on value change</string>
     <string name="importExchangeRatesViewListViewLabel">Select all exchange relevant currencies</string>
-    <string name="importExchangeRatesViewButtonExecute">Do import</string>
+    <string name="option_accept_execute_import">Do import</string>
     <string name="importExchangeRatesViewCancelImportToast">The import has been canceled.</string>  
     <string name="importExchangeRatesViewProgressBarMessage">Importing exchange rates &#8230;</string>        
     <string name="importExchangeRatesViewSelectionPrefix">Selected:</string> 
@@ -106,7 +106,7 @@
     <string name="importExchangeRatesViewPreconToastNotAlive2">Enter a rate by hand or create a new exchange rate by choosing \'Create matching rate\' from the menu. </string>               
     <!-- ===============================  Delete exchange rates view =============================== -->
     <string name="deleteExchangeRatesViewTextViewHeading">Delete Exchange Rates</string>
-    <string name="option_accept_exange_rate_delete">Delete selectedTrip</string>
+    <string name="option_accept_exchange_rate_delete">Delete selectedTrip</string>
     <string name="deleteExchangeRatesViewSpinnerPrompt">Select &#8230;</string>
     <string name="deleteExchangeRatesViewLabelSelectionOptions">Change selectedTrip &#8230;</string>
     <string name="deleteExchangeRatesViewLabelSelectionOptionsDesc">Opens selectedTrip options</string>

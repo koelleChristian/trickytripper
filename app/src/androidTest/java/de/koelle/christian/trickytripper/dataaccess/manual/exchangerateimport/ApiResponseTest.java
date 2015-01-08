@@ -74,7 +74,7 @@ public class ApiResponseTest extends ApplicationTestCase<TrickyTripperApp> {
         Set<Currency> currencies = new LinkedHashSet<Currency>();
         currencies.add(Currency.getInstance("EUR"));
         currencies.add(Currency.getInstance("USD"));
-        importer.importExchangeRates(currencies, new ExchangeRateImporterResultCallback() {
+        importer.importSelectedExchangeRates(currencies, new ExchangeRateImporterResultCallback() {
             @Override
             public void deliverResult(ExchangeRateImporterResultContainer resultContainer) {
                 resultContainerHere = resultContainer;

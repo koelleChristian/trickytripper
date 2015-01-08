@@ -93,7 +93,7 @@
     <string name="importExchangeRatesViewOptions">Opzioni</string>
     <string name="importExchangeRatesViewCheckboxLabelNewRateOnValueChange">Crea nuovo tasso dal cambio valore</string>
     <string name="importExchangeRatesViewListViewLabel">Selezionare tutti i tassi di valute rilevanti</string>
-    <string name="importExchangeRatesViewButtonExecute">Inizia importazione</string>
+    <string name="option_accept_execute_import">Inizia importazione</string>
     <string name="importExchangeRatesViewCancelImportToast">L\'importazione è stata annullata.</string>
     <string name="importExchangeRatesViewProgressBarMessage">Importazione tassi di cambio &#8230;</string>
     <string name="importExchangeRatesViewSelectionPrefix">Selezionato:</string>
@@ -102,7 +102,7 @@
     <string name="importExchangeRatesViewPreconToastNotAlive2">Inserisci un tasso a mano o crea un nuovo tasso di cambio, scegliendo \'Crea tasso corrispondente \' dal menu.</string>
     <!-- =============================== Delete exchange rates view =============================== -->
     <string name="deleteExchangeRatesViewTextViewHeading">Elimina tasso di cambio</string>
-    <string name="option_accept_exange_rate_delete">Elimina selezione</string>
+    <string name="option_accept_exchange_rate_delete">Elimina selezione</string>
     <string name="deleteExchangeRatesViewSpinnerPrompt">Seleziona &#8230;</string>
     <string name="deleteExchangeRatesViewLabelSelectionOptions">Modifica selezione &#8230;</string>
     <string name="deleteExchangeRatesViewLabelSelectionOptionsDesc">Apri opzioni di selezione</string>

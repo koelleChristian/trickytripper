@@ -1,12 +1,5 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -20,13 +13,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionContraintsInflater;
@@ -35,21 +33,24 @@ import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.CurrencyViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
-import de.koelle.christian.trickytripper.exchangerates.impl.*;
+import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateHttpResolverGoogleImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
+import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
+import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorHttpGoogleImpl;
 import de.koelle.christian.trickytripper.model.ImportSettings;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.utils.UiViewUtils;
 
-public class ImportExchangeRatesActivity extends ActionBarActivity{
+public class ImportExchangeRatesActivity extends ActionBarActivity {
 
+    private final Handler progressBarHandler = new Handler();
     private ListView listView;
     @SuppressWarnings("rawtypes")
     private ArrayAdapter<RowObject> adapter;
-
     private int progressBarStatus;
     private ImportSettings importSettings;
     private ProgressDialog progressBar;
-    private final Handler progressBarHandler = new Handler();
 
     @SuppressWarnings("rawtypes")
     @Override
@@ -69,7 +70,7 @@ public class ImportExchangeRatesActivity extends ActionBarActivity{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> list, View lv, int position,
-                    long id) {
+                                    long id) {
                 updateViewState();
             }
         });
@@ -86,14 +87,13 @@ public class ImportExchangeRatesActivity extends ActionBarActivity{
     }
 
     private void updateViewState() {
-        final Set<Currency> currencSelection = getSelection();
-        updateCurrentSelectionDisplay(currencSelection);
-        udpateButtonState(currencSelection);
+        final Set<Currency> currentSelection = getSelection();
+        updateCurrentSelectionDisplay(currentSelection);
+        supportInvalidateOptionsMenu();
     }
 
-    private void udpateButtonState(Set<Currency> currencSelection) {
-        Button button = (Button) findViewById(R.id.importExchangeRatesListViewButtonDoImport);
-        button.setEnabled(currencSelection.size() >= 2);
+    private boolean atLeastTwoSelected() {
+        return getSelection().size() >= 2;
     }
 
     private void setIncomingSelection(List<Currency> allCurrenciesAlive) {
@@ -134,7 +134,7 @@ public class ImportExchangeRatesActivity extends ActionBarActivity{
         } else if (currencSelection.size() > 3) {
             builder.append(currencSelection.size());
         } else {
-            for (Iterator<Currency> it = currencSelection.iterator(); it.hasNext();) {
+            for (Iterator<Currency> it = currencSelection.iterator(); it.hasNext(); ) {
                 builder.append(it.next().getCurrencyCode());
                 if (it.hasNext()) {
                     builder.append(", ");
@@ -145,7 +145,7 @@ public class ImportExchangeRatesActivity extends ActionBarActivity{
 
     }
 
-    public void importExchangeRates(View view) {
+    public void importSelectedExchangeRates() {
 
         final Set<Currency> selectionResult = getSelection();
 
@@ -160,7 +160,7 @@ public class ImportExchangeRatesActivity extends ActionBarActivity{
         importer.setAsyncExchangeRateResolver(new AsyncExchangeRateHttpResolverGoogleImpl(this));
         importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorHttpGoogleImpl());
 
-        progressBar = new ProgressDialog(view.getContext());
+        progressBar = new ProgressDialog(this);
         progressBar.setMessage(getResources().getString(R.string.importExchangeRatesViewProgressBarMessage));
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressBar.setProgress(0);
@@ -196,13 +196,11 @@ public class ImportExchangeRatesActivity extends ActionBarActivity{
                                             getApp().getExchangeRateController().persitImportedExchangeRate(
                                                     parameterObject.exchangeRateResult,
                                                     !importSettings.isCreateNewRateOnValueChange());
-                                        }
-                                        catch (Throwable ex) {
+                                        } catch (Throwable ex) {
                                             Log.e(Rc.LT_IO, "An imported record could not be persisted.", ex);
                                         }
                                     }
-                                }
-                                finally {
+                                } finally {
                                     progressBarStatus++;
 
                                     progressBarHandler.post(new Runnable() {
@@ -218,8 +216,7 @@ public class ImportExchangeRatesActivity extends ActionBarActivity{
 
                     try {
                         Thread.sleep(1000);
-                    }
-                    catch (InterruptedException e) {
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
@@ -229,8 +226,7 @@ public class ImportExchangeRatesActivity extends ActionBarActivity{
                     /* sleep, so that you can see the 100% */
                     try {
                         Thread.sleep(1000);
-                    }
-                    catch (InterruptedException e) {
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     progressBar.dismiss();
@@ -261,30 +257,40 @@ public class ImportExchangeRatesActivity extends ActionBarActivity{
         return ((TrickyTripperApp) getApplication());
     }
 
-    /* ============== Options Shit [BGN] ============== */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraintsInflater().activity(getMenuInflater()).menu(menu)
-                        .options(new int[] {
+                        .options(new int[]{
+                                R.id.option_accept,
                                 R.id.option_help
                         }));
+    }
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean canImport = atLeastTwoSelected();
+        MenuItem item = menu.findItem(R.id.option_accept);
+        item.setTitle(R.string.option_accept_execute_import);
+        item.setEnabled(canImport);
+        item.getIcon().setAlpha((canImport) ? 255 : 64);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.option_help:
-            getApp().getViewController().openHelp(getSupportFragmentManager());
-            return true;
-        case android.R.id.home:
-            onBackPressed();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.option_accept:
+                importSelectedExchangeRates();
+                return true;
+            case R.id.option_help:
+                getApp().getViewController().openHelp(getSupportFragmentManager());
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
-    /* ============== Options Shit [END] ============== */
 }

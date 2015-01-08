@@ -194,6 +194,7 @@ public class DeleteExchangeRatesActivity extends ActionBarActivity implements De
     public void doDelete(Bundle bundle) {
         getApp().getExchangeRateController().deleteExchangeRates(getSelectionFromBundle(bundle));
         updateList();
+        supportInvalidateOptionsMenu();
     }
 
 
@@ -210,7 +211,7 @@ public class DeleteExchangeRatesActivity extends ActionBarActivity implements De
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean canDelete = isSomethingSelected();
         MenuItem item = menu.findItem(R.id.option_accept);
-        item.setTitle(R.string.option_accept_exange_rate_delete);
+        item.setTitle(R.string.option_accept_exchange_rate_delete);
         item.setEnabled(canDelete);
         item.getIcon().setAlpha((canDelete) ? 255 : 64);
         return true;

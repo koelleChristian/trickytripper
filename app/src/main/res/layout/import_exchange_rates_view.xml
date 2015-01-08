@@ -19,23 +19,7 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray" />
 
-    <!-- This scolling shit only scales properly in conjunction with linear layout. -->
 
-    <ListView
-        android:id="@+id/importExchangeRatesViewListViewCurrenciesForImport"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
-    </ListView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="4dp" />
 
     <CheckBox
         android:id="@+id/importExchangeRatesViewCheckboxReplaceExisting"
@@ -57,19 +41,21 @@
         android:layout_width="fill_parent"
         android:layout_height="4dp" />
 
-    <LinearLayout
-        android:id="@+id/footer"
-        style="@android:style/ButtonBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
 
-        <Button
-            android:id="@+id/importExchangeRatesListViewButtonDoImport"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="importExchangeRates"
-            android:text="@string/importExchangeRatesViewButtonExecute" />
-    </LinearLayout>
+
+    <!-- This scolling shit only scales properly in conjunction with linear layout. -->
+
+    <ListView
+        android:id="@+id/importExchangeRatesViewListViewCurrenciesForImport"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </ListView>
+
+
 
 </LinearLayout>
