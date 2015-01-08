@@ -42,7 +42,6 @@ import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
 import de.koelle.christian.trickytripper.ui.utils.ExchangeRateDescriptionUtils;
-import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
 public class CurrencyCalculatorActivity extends ActionBarActivity {
@@ -143,7 +142,7 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
     private void initAndBindCheckbox() {
         CompoundButton.OnCheckedChangeListener checkBoxListener = new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView,
-                    boolean isChecked) {
+                                         boolean isChecked) {
                 checkboxSelectionSaveNewAmendedExchangeRate = isChecked;
             }
         };
@@ -216,7 +215,7 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
         updateExchangeRateSpinnerEnabled();
         updateCalculation();
         updateCheckboxState();
-        updateButtonState();
+        invalidateOptionsMenu();
     }
 
     private void updateEditFieldsFromModel(UpdateExclusion updateExclusion) {
@@ -262,11 +261,6 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
         getCheckbox().setEnabled(dirtyRate);
     }
 
-    private void updateButtonState() {
-        Button doneButton = (Button) findViewById(R.id.currencyCalculatorView_btn_useExchangedValue);
-        doneButton.setEnabled(canResultBeCalculated());
-    }
-
     private boolean canResultBeCalculated() {
         return resultAmount != null && exchangeRateInput > Double.valueOf(0.0d)
                 && resultAmount.getValue() > Double.valueOf(0.0d);
@@ -306,7 +300,7 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
 
             @SuppressWarnings("unchecked")
             public void onItemSelected(AdapterView<?> parentView,
-                    View selectedItemView, int position, long id) {
+                                       View selectedItemView, int position, long id) {
                 if (position >= 0) {
                     Object o = spinner.getSelectedItem();
                     ExchangeRate selectedRate = ((RowObject<ExchangeRate>) o)
@@ -434,7 +428,7 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
         return exchangeRateSelected != null
                 && exchangeRateSelected.getExchangeRate() != null
                 && !exchangeRateSelected.getExchangeRate().equals(
-                        exchangeRateInput) || exchangeRateSelected == null
+                exchangeRateInput) || exchangeRateSelected == null
                 && exchangeRateInput > 0.0d;
     }
 
@@ -442,14 +436,14 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
         return exchangeRateSelected != null;
     }
 
-    /* ============ btn actions ==================== */
-
     private void saveExchangeRateUsedLast(ExchangeRate exchangeRateSelectedHere) {
         if (exchangeRateSelectedHere != null) {
             getApp().getExchangeRateController().persistExchangeRateUsedLast(
                     exchangeRateSelectedHere);
         }
     }
+
+    /* ============ btn actions ==================== */
 
     private void createAndSaveNewExchangeRate() {
 
@@ -484,7 +478,7 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
         return (Button) findViewById(R.id.currencyCalculatorView_button_inputCurrencySelection);
     }
 
-    public void done(View view) {
+    public void done() {
         prepareResultAndFinish();
     }
 
@@ -492,7 +486,6 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
         return getApp().getMiscController().getDecimalNumberInputUtil();
     }
 
-    /* ============== Menu Shit [BGN] ============== */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp()
@@ -503,34 +496,45 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
                                 .activity(getMenuInflater())
                                 .menu(menu)
                                 .options(
-                                        new int[] { R.id.option_import,
+                                        new int[]{
+                                                R.id.option_accept,
+                                                R.id.option_import,
                                                 R.id.option_create_exchange_rate_for_source,
-                                                R.id.option_help }));
+                                                R.id.option_help}));
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean enableAccept = canResultBeCalculated();
+        MenuItem item = menu.findItem(R.id.option_accept);
+        item.setTitle(R.string.currencyCalculatorViewButtonUseResult);
+        item.setEnabled(enableAccept);
+        item.getIcon().setAlpha((enableAccept) ? 255 : 64);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.option_help:
-            getApp().getViewController().openHelp(getSupportFragmentManager());
-            return true;
-        case R.id.option_import:
-            return importOptionSupport.onOptionsItemSelected(this,
-                    new Currency[] { inputAmount.getUnit(), resultAmount.getUnit() });
-        case R.id.option_create_exchange_rate_for_source:
-            getApp().getViewController().openCreateExchangeRate(this, inputAmount.getUnit());
-            return true;
-        case android.R.id.home:
-            onBackPressed();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.option_accept:
+                done();
+                return true;
+            case R.id.option_help:
+                getApp().getViewController().openHelp(getSupportFragmentManager());
+                return true;
+            case R.id.option_import:
+                return importOptionSupport.onOptionsItemSelected(this,
+                        new Currency[]{inputAmount.getUnit(), resultAmount.getUnit()});
+            case R.id.option_create_exchange_rate_for_source:
+                getApp().getViewController().openCreateExchangeRate(this, inputAmount.getUnit());
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        PrepareOptionsSupport.reset(menu);
-        return super.onPrepareOptionsMenu(menu);
-    }
+
 }

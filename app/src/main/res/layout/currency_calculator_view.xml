@@ -91,7 +91,7 @@
                     android:height="50dip"
                     android:text="@string/defaultX"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main"
                     android:textStyle="bold" />
 
                 <TextView
@@ -102,7 +102,7 @@
                     android:height="50dip"
                     android:text="@string/defaultX"                    
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main"
                     android:textStyle="bold" />
             </LinearLayout>
         </TableRow>
@@ -144,25 +144,5 @@
         android:layout_height="wrap_content"
         android:text="@string/currencyCalculatorViewCheckboxSaveNewRate" >
     </CheckBox>
-
-    <!-- ============= Buttons ============= -->
-
-    <LinearLayout
-        android:id="@+id/footer"
-        style="@android:style/ButtonBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/currencyCalculatorView_btn_useExchangedValue"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="done"
-            android:text="@string/currencyCalculatorViewButtonUseResult" />
-
-    </LinearLayout>
 
 </LinearLayout>
