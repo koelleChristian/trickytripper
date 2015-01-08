@@ -2,8 +2,7 @@ package de.koelle.christian.trickytripper.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.support.v7.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,11 +35,14 @@ import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 public class ManageExchangeRatesActivity extends ActionBarActivity implements DeleteConfirmationCallback {
 
     private static final String DIALOG_PARAM_EXCHANGE_RATE = "dialogParamExchangeRate";
-
-    private ArrayAdapter<ExchangeRate> listAdapter;
     private final List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
+    private ArrayAdapter<ExchangeRate> listAdapter;
     private Comparator<ExchangeRate> comparator;
     private ImportOptionSupport importOptionSupport;
+    private ListView listView;
+
+    private MyActionModeCallback mActionModeCallback = new MyActionModeCallback();
+    private ActionMode mActionMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,25 +75,52 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
     }
 
     private void initListView(final ListView listView2) {
-        
+
         listView2.setEmptyView(findViewById(android.R.id.empty));
-        
+
         listAdapter = new ExchangeRateRowListAdapter(this,
                 android.R.layout.simple_list_item_1, exchangeRateList,
                 DisplayMode.SINGLE);
 
         listView2.setAdapter(listAdapter);
         listView2.setChoiceMode(ListView.CHOICE_MODE_NONE);
-        
+
         listView2.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TrickyTripperApp app = getApp();
-                ExchangeRate row =  (ExchangeRate) listView2.getItemAtPosition(position);
+                if (mActionMode != null) {
+                    return;
+                }
+                ExchangeRate row = (ExchangeRate) listView2.getItemAtPosition(position);
                 if (!row.isImported()) {
-                    app.getViewController().openEditExchangeRate(ManageExchangeRatesActivity.this, row);
+                    getApp().getViewController().openEditExchangeRate(ManageExchangeRatesActivity.this, row);
                 }
             }
         });
+        listView2.setLongClickable(true);
+        listView2.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mActionMode != null) {
+                    return false;
+                }
+                ExchangeRate selectionUninverted = getUninverted(listAdapter.getItem(position));
+                mActionModeCallback.setSelection(selectionUninverted);
+                mActionMode = ManageExchangeRatesActivity.this.startSupportActionMode(mActionModeCallback);
+                StringBuilder builder = new StringBuilder()
+                        .append(selectionUninverted.getCurrencyFrom().getCurrencyCode())
+                        .append(" > ")
+                        .append(selectionUninverted.getCurrencyTo().getCurrencyCode())
+                        .append(" | ")
+                        .append(selectionUninverted.getCurrencyTo().getCurrencyCode())
+                        .append(" > ")
+                        .append(selectionUninverted.getCurrencyFrom().getCurrencyCode());
+                mActionMode.setTitle(builder);
+                view.setSelected(true);
+                return true;
+            }
+        });
+
 
         updateList();
     }
@@ -115,7 +144,6 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
         supportInvalidateOptionsMenu();
     }
 
-    /* ============== Options Shit [BGN] ============== */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -126,11 +154,11 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
                 .populateOptionsMenu(
                         new OptionContraintsInflater()
                                 .activity(getMenuInflater()).menu(menu)
-                                .options(new int[] {
+                                .options(new int[]{
                                         R.id.option_help,
                                         R.id.option_import,
                                         R.id.option_delete,
-                                        R.id.option_create_exchange_rate }));
+                                        R.id.option_create_exchange_rate}));
     }
 
     @Override
@@ -145,27 +173,27 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.option_delete:
-            openDeleteActivity();
-            return true;
-        case R.id.option_import:
-            return importOptionSupport.onOptionsItemSelected(this);
-        case R.id.option_help:
-            getApp().getViewController().openHelp(getSupportFragmentManager());
-            return true;
-        case R.id.option_create_exchange_rate:
-            openCreateActivity();
-            return true;
-        case android.R.id.home:
-            onBackPressed();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.option_delete:
+                openDeleteActivity();
+                return true;
+            case R.id.option_import:
+                return importOptionSupport.onOptionsItemSelected(this);
+            case R.id.option_help:
+                getApp().getViewController().openHelp(getSupportFragmentManager());
+                return true;
+            case R.id.option_create_exchange_rate:
+                openCreateActivity();
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
     public String getDeleteConfirmationMsg(Bundle bundle) {
-        final ExchangeRate row = makeUninverted(getRowFromBundle(bundle));
+        final ExchangeRate row = getRowFromBundle(bundle);
         return new StringBuilder()
                 .append(getResources().getString(R.string.manageExchangeRatesViewDeleteConfirmation))
                 .append("\n")
@@ -174,37 +202,11 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
     }
 
     public void doDelete(Bundle bundle) {
-        final ExchangeRate row = makeUninverted(getRowFromBundle(bundle));
+        final ExchangeRate row = getRowFromBundle(bundle);
         deleteRowAndUpdateList(row);
     }
 
-    /* ========= Context menu [BGN] =========== */
-    private static final int CTX_MENU_GROUP_ID_EDIT = 1;
-    private static int CTX_MENU_GROUP_ID_DELETE = 2;
-    private static final int CTX_MENU_ID_EDIT = 20;
-    private static final int CTX_MENU_ID_DELETE = 21;
-
-    private ListView listView;
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        ExchangeRate row = makeUninverted(getRateByInfo(info));
-
-        menu.setHeaderTitle(getStringOfExchangeRate(row));
-
-        menu.add(CTX_MENU_GROUP_ID_EDIT, CTX_MENU_ID_EDIT, Menu.NONE,
-                getResources().getString(R.string.common_button_edit));
-
-        menu.add(CTX_MENU_GROUP_ID_DELETE, CTX_MENU_ID_DELETE, Menu.NONE,
-                getResources().getString(R.string.common_button_delete));
-
-        menu.setGroupEnabled(CTX_MENU_GROUP_ID_EDIT, !row.isImported());
-
-    }
-
-    private ExchangeRate makeUninverted(ExchangeRate rate) {
+    private ExchangeRate getUninverted(ExchangeRate rate) {
         if (!rate.isInversion()) {
             return rate;
         }
@@ -221,29 +223,6 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
         return result;
     }
 
-    @Override
-    public boolean onContextItemSelected(android.view.MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
-                .getMenuInfo();
-        TrickyTripperApp app = getApp();
-        ExchangeRate row = getRateByInfo(info);
-        switch (item.getItemId()) {
-
-        case CTX_MENU_ID_DELETE: {
-            getApp().getViewController().openDeleteConfirmationOnActivity(
-                    getSupportFragmentManager(),
-                    wrapRowInBundle(row));
-            return true;
-        }
-        case CTX_MENU_ID_EDIT: {
-            app.getViewController().openEditExchangeRate(this, row);
-            return true;
-        }
-        default:
-            break;
-        }
-        return false;
-    }
 
     private StringBuilder getStringOfExchangeRate(ExchangeRate row) {
         ExchangeRate inversion = row.cloneToInversion();
@@ -262,7 +241,6 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
         return AmountViewUtils.getDoubleString(getResources().getConfiguration().locale, input);
     }
 
-    /* ========= Context menu [END] =========== */
     public Bundle wrapRowInBundle(ExchangeRate row) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(DIALOG_PARAM_EXCHANGE_RATE, row);
@@ -278,7 +256,7 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
 
     private void deleteRowAndUpdateList(ExchangeRate row) {
         getApp().getExchangeRateController().deleteExchangeRates(
-                Arrays.asList(new ExchangeRate[] { row }));
+                Arrays.asList(new ExchangeRate[]{row}));
         updateList();
     }
 
@@ -300,4 +278,63 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
         return ((TrickyTripperApp) getApplication());
     }
 
+    private class MyActionModeCallback implements ActionMode.Callback {
+
+        private ExchangeRate selectionUninverted;
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            boolean canEdit = !selectionUninverted.isImported();
+            int[] optionIds;
+            if (canEdit) {
+                optionIds = new int[]{
+                        R.id.option_delete,
+                        R.id.option_edit
+                };
+            } else {
+                optionIds = new int[]{
+                        R.id.option_delete
+                };
+            }
+
+            return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
+                    new OptionContraintsInflater()
+                            .activity(mode.getMenuInflater())
+                            .menu(menu)
+                            .options(optionIds));
+        }
+
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.option_delete:
+                    getApp().getViewController().openDeleteConfirmationOnActivity(
+                            getSupportFragmentManager(),
+                            wrapRowInBundle(selectionUninverted));
+                    mode.finish();
+                    return true;
+                case R.id.option_edit:
+                    getApp().getViewController().openEditExchangeRate(ManageExchangeRatesActivity.this, selectionUninverted);
+                    mode.finish();
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mActionMode = null;
+        }
+
+        public void setSelection(ExchangeRate selection) {
+            this.selectionUninverted = selection;
+        }
+    }
 }
