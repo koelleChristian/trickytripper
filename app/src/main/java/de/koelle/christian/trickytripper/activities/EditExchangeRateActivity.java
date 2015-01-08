@@ -47,7 +47,7 @@ public class EditExchangeRateActivity extends ActionBarActivity {
 
         initAndBindStateDependingWidget(sourceCurrencyForCreation);
         initAndBindEditText();
-        updateButtonState();
+        supportInvalidateOptionsMenu();
 
         ActionBarSupport.addBackButton(this);
     }
@@ -57,32 +57,25 @@ public class EditExchangeRateActivity extends ActionBarActivity {
         Button buttonRight = getCurrencySelectionButtonRight();
         TextView labelLeft = (TextView) findViewById(R.id.editExchangeRateViewLabelCurrencyLeft);
         TextView labelRight = (TextView) findViewById(R.id.editExchangeRateViewLabelCurrencyRight);
-        Button saveButton = getSaveButton();
 
         boolean editMode = viewMode == ViewMode.EDIT;
-
-
-        if (editMode) {
-            setTitle(getResources().getString(
-                    R.string.editExchangeRateViewHeadingEdit));
-            saveButton.setText(R.string.common_button_save);
-        } else{
-            setTitle(getResources().getString(
-                    R.string.editExchangeRateViewHeadingCreate));
-            saveButton.setText(R.string.common_button_create);
-        }
-        
         boolean form2BeEditable = !(editMode || sourceCurrencyForCreation);
-            
+
+        int titleId = (editMode)?
+                R.string.editExchangeRateViewHeadingEdit:
+                R.string.editExchangeRateViewHeadingCreate;
+        setTitle(getResources().getString(titleId));
+        
+
         UiUtils.setViewVisibility(buttonLeft, form2BeEditable);
         UiUtils.setViewVisibility(buttonRight, form2BeEditable);
         UiUtils.setViewVisibility(labelLeft, !form2BeEditable);
         UiUtils.setViewVisibility(labelRight, !form2BeEditable);
-        
-        if(form2BeEditable) {            
+
+        if (form2BeEditable) {
             buttonLeft.setText(exchangeRate.getCurrencyFrom().getCurrencyCode());
             buttonRight.setText(exchangeRate.getCurrencyTo().getCurrencyCode());
-        } else{
+        } else {
             labelLeft.setText(exchangeRate.getCurrencyFrom().getCurrencyCode());
             labelRight.setText(exchangeRate.getCurrencyTo().getCurrencyCode());
         }
@@ -96,9 +89,6 @@ public class EditExchangeRateActivity extends ActionBarActivity {
         return (Button) findViewById(R.id.editExchangeRateViewButtonCurrencyLeft);
     }
 
-    private Button getSaveButton() {
-        return (Button) findViewById(R.id.editExchangeRateViewButtonSave);
-    }
 
     private boolean readAndSetInput(Intent intent) {
         Currency sourceCurrencyForCreation = null;
@@ -109,16 +99,15 @@ public class EditExchangeRateActivity extends ActionBarActivity {
             Long technicalId = intent.getLongExtra(
                     Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_RATE_TECH_ID,
                     Long.valueOf(-1L));
-                this.exchangeRate = loadExchangeRate(technicalId);
-        }
-        else {
+            this.exchangeRate = loadExchangeRate(technicalId);
+        } else {
             sourceCurrencyForCreation = (Currency) intent
                     .getSerializableExtra(Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_SOURCE_CURRENCY);
             this.exchangeRate = createFreshExchangeRate(sourceCurrencyForCreation);
         }
         exchangeRateValueInverted = NumberUtils
                 .invertExchangeRateDouble(exchangeRate.getExchangeRate());
-        
+
         return sourceCurrencyForCreation != null;
     }
 
@@ -163,7 +152,7 @@ public class EditExchangeRateActivity extends ActionBarActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 exchangeRate.setDescription(s.toString());
-                updateButtonState();
+                supportInvalidateOptionsMenu();
             }
 
         });
@@ -174,7 +163,7 @@ public class EditExchangeRateActivity extends ActionBarActivity {
                 Double valueInput = getWidgetDoubleInput(s);
                 exchangeRate.setExchangeRate(valueInput);
                 recalculateAndUpdateOtherSide(true);
-                updateButtonState();
+                supportInvalidateOptionsMenu();
             }
         };
         editTextListenerRight = new BlankTextWatcher() {
@@ -183,7 +172,7 @@ public class EditExchangeRateActivity extends ActionBarActivity {
                 Double valueInput = getWidgetDoubleInput(s);
                 exchangeRateValueInverted = valueInput;
                 recalculateAndUpdateOtherSide(false);
-                updateButtonState();
+                supportInvalidateOptionsMenu();
             }
 
         };
@@ -205,31 +194,58 @@ public class EditExchangeRateActivity extends ActionBarActivity {
         return valueInput;
     }
 
-    /* ============== Menu Shit [BGN] ============== */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        int[] optionIds;
+
+        if (viewMode == ViewMode.EDIT) {
+            optionIds = new int[]{
+                    R.id.option_save_edit,
+                    R.id.option_help
+            };
+        } else {
+            optionIds = new int[]{
+                    R.id.option_save_create,
+                    R.id.option_help
+            };
+        }
         return getApp()
                 .getMiscController()
                 .getOptionSupport()
                 .populateOptionsMenu(
                         new OptionContraintsInflater()
                                 .activity(getMenuInflater()).menu(menu)
-                                .options(new int[] {
-                                        R.id.option_help
-                                }));
+                                .options(optionIds));
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean saveEnabled = canBeSaved();
+        int itemId = (ViewMode.CREATE.equals(viewMode)) ? R.id.option_save_create : R.id.option_save_edit;
+        MenuItem item = menu.findItem(itemId);
+        item.setEnabled(saveEnabled);
+        item.getIcon().setAlpha((saveEnabled) ? 255 : 64);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.option_help:
-            getApp().getViewController().openHelp(getSupportFragmentManager());
-            return true;
-        case android.R.id.home:
-            onBackPressed();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.option_save_edit:
+                done();
+                return true;
+            case R.id.option_save_create:
+                done();
+                return true;
+            case R.id.option_help:
+                getApp().getViewController().openHelp(getSupportFragmentManager());
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -241,8 +257,7 @@ public class EditExchangeRateActivity extends ActionBarActivity {
                     .invertExchangeRateDouble(exchangeRate.getExchangeRate());
             updatInputWidget(getInputWidgetR2L(), getLocale(),
                     exchangeRateValueInverted, editTextListenerRight);
-        }
-        else {
+        } else {
             exchangeRate.setExchangeRate(NumberUtils
                     .invertExchangeRateDouble(exchangeRateValueInverted));
             updatInputWidget(getInputWidgetL2R(), getLocale(),
@@ -259,16 +274,12 @@ public class EditExchangeRateActivity extends ActionBarActivity {
     }
 
     private void updatInputWidget(EditText editTextField, Locale locale,
-            Double value,
-            TextWatcher watcher) {
+                                  Double value,
+                                  TextWatcher watcher) {
         editTextField.removeTextChangedListener(watcher);
         UiAmountViewUtils.writeDoubleToEditText(value, editTextField, locale,
                 getDecimalNumberInputUtil());
         editTextField.addTextChangedListener(watcher);
-    }
-
-    protected void updateButtonState() {
-        getSaveButton().setEnabled(canBeSaved());
     }
 
     private boolean canBeSaved() {
@@ -279,7 +290,7 @@ public class EditExchangeRateActivity extends ActionBarActivity {
                 && exchangeRate.getCurrencyFrom() != null
                 && exchangeRate.getCurrencyTo() != null
                 && !exchangeRate.getCurrencyFrom().equals(
-                        exchangeRate.getCurrencyTo());
+                exchangeRate.getCurrencyTo());
     }
 
     private Locale getLocale() {
@@ -318,22 +329,20 @@ public class EditExchangeRateActivity extends ActionBarActivity {
                             true);
             if (isLeftNotRight) {
                 exchangeRate.setCurrencyFrom(result);
-            }
-            else {
+            } else {
                 exchangeRate.setCurrencyTo(result);
             }
-            updateButtonState();
+            supportInvalidateOptionsMenu();
         }
     }
 
-    public void done(View view) {
+    public void done() {
         if (getApp().getExchangeRateController().doesExchangeRateAlreadyExist(
                 exchangeRate)) {
             Toast.makeText(getApplicationContext(),
                     R.string.editExchangeRateViewMsgSaveDenialDuplicate,
                     Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             String inputLeft = getDecimalNumberInputUtil().fixInputStringWidgetToParser(
                     getInputWidgetL2R().getText().toString());
             String inputRight = getDecimalNumberInputUtil().fixInputStringWidgetToParser(

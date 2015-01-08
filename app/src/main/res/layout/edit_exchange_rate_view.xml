@@ -170,24 +170,5 @@
         android:layout_width="fill_parent"
         android:layout_height="20dp" />
 
-    <!-- ============= Buttons ============= -->
-
-    <LinearLayout
-        android:id="@+id/footer"
-        style="@android:style/ButtonBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/editExchangeRateViewButtonSave"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="done"
-            android:text="@string/defaultX" />
-
-    </LinearLayout>
 
 </LinearLayout>
