@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -43,7 +42,7 @@ public class DeleteExchangeRatesActivity extends ActionBarActivity implements De
         initList();
         updateList();
         initInvisibleSpinner();
-        updateButtonState();
+        supportInvalidateOptionsMenu();
 
         ActionBarSupport.addBackButton(this);
 
@@ -61,10 +60,10 @@ public class DeleteExchangeRatesActivity extends ActionBarActivity implements De
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> list, View lv, int position,
-                    long id) {
+                                    long id) {
                 ExchangeRate rate = adapter.getItem(position);
                 rate.setSelected(!rate.isSelected());
-                updateButtonState();
+                supportInvalidateOptionsMenu();
             }
         });
 
@@ -76,7 +75,7 @@ public class DeleteExchangeRatesActivity extends ActionBarActivity implements De
         };
     }
 
-    public void deleteExchangeRates(View view) {
+    public void deleteSelectedExchangeRates() {
         getApp().getViewController().openDeleteConfirmationOnActivity(
                 getSupportFragmentManager(),
                 wrapSelectionInBundle(getSelection()));
@@ -104,8 +103,7 @@ public class DeleteExchangeRatesActivity extends ActionBarActivity implements De
         List<ExchangeRate> allRates = getApp().getExchangeRateController().getAllExchangeRatesWithoutInversion();
         if (allRates.isEmpty()) {
             finish();
-        }
-        else {
+        } else {
             adapter.clear();
             for (ExchangeRate rate : allRates) {
                 adapter.add(rate);
@@ -174,15 +172,10 @@ public class DeleteExchangeRatesActivity extends ActionBarActivity implements De
             rate.setSelected(selectionToBe);
             listView.setItemChecked(i, selectionToBe);
         }
-        updateButtonState();
+        supportInvalidateOptionsMenu();
     }
 
-    private void updateButtonState() {
-
-        ((Button) findViewById(R.id.deleteExchangeRatesViewButtonDeleteSelection)).setEnabled(isButtonEnabled());
-    }
-
-    private boolean isButtonEnabled() {
+    private boolean isSomethingSelected() {
         for (int i = 0; i < adapter.getCount(); i++) {
             ExchangeRate rate = adapter.getItem(i);
             if (rate.isSelected()) {
@@ -203,30 +196,40 @@ public class DeleteExchangeRatesActivity extends ActionBarActivity implements De
         updateList();
     }
 
-    /* ============== Options Shit [BGN] ============== */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
                 new OptionContraintsInflater().activity(getMenuInflater()).menu(menu)
-                        .options(new int[] {
+                        .options(new int[]{
+                                R.id.option_accept,
                                 R.id.option_help
                         }));
+    }
+
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean canDelete = isSomethingSelected();
+        MenuItem item = menu.findItem(R.id.option_accept);
+        item.setTitle(R.string.option_accept_exange_rate_delete);
+        item.setEnabled(canDelete);
+        item.getIcon().setAlpha((canDelete) ? 255 : 64);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.option_help:
-            getApp().getViewController().openHelp(getSupportFragmentManager());
-            return true;
-        case android.R.id.home:
-            onBackPressed();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.option_accept:
+                deleteSelectedExchangeRates();
+                return true;
+            case R.id.option_help:
+                getApp().getViewController().openHelp(getSupportFragmentManager());
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
-
-    /* ============== Options Shit [END] ============== */
 }

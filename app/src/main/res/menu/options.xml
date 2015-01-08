@@ -52,10 +52,10 @@
         android:title="@string/option_save_edit"/>
 
     <item
-        android:id="@+id/option_save_add"
+        android:id="@+id/option_accept"
         android:icon="@drawable/ic_action_accept"
         tt:showAsAction="ifRoom"
-        android:title="@string/option_save_add"/>
+        android:title="@string/default_blank"/>
 
     <item
         android:id="@+id/option_import"

@@ -57,7 +57,7 @@ public class MiscControllerImpl implements MiscController {
                 R.id.option_delete,
                 R.id.option_save_create,
                 R.id.option_save_edit,
-                R.id.option_save_add,
+                R.id.option_accept,
                 R.id.option_export,
                 R.id.option_help,
                 R.id.option_import,

@@ -106,7 +106,7 @@
     <string name="importExchangeRatesViewPreconToastNotAlive2">Enter a rate by hand or create a new exchange rate by choosing \'Create matching rate\' from the menu. </string>               
     <!-- ===============================  Delete exchange rates view =============================== -->
     <string name="deleteExchangeRatesViewTextViewHeading">Delete Exchange Rates</string>
-    <string name="deleteExchangeRatesViewButtonLabelPositive">Delete selectedTrip</string>
+    <string name="option_accept_exange_rate_delete">Delete selectedTrip</string>
     <string name="deleteExchangeRatesViewSpinnerPrompt">Select &#8230;</string>
     <string name="deleteExchangeRatesViewLabelSelectionOptions">Change selectedTrip &#8230;</string>
     <string name="deleteExchangeRatesViewLabelSelectionOptionsDesc">Opens selectedTrip options</string>

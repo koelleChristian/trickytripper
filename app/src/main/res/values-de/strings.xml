@@ -105,7 +105,7 @@
     <string name="importExchangeRatesViewPreconToastNotAlive2">Gebe einen Kurs per Hand ein oder erstelle einen Wechselkurs durch \'Erstelle passenden Wechselkurs\' aus dem Menü.</string>               
     <!-- ===============================  Delete exchange rates view =============================== -->
     <string name="deleteExchangeRatesViewTextViewHeading">Wechselkurse löschen</string>
-    <string name="deleteExchangeRatesViewButtonLabelPositive">Auswahl löschen</string>
+    <string name="option_accept_exange_rate_delete">Auswahl löschen</string>
     <string name="deleteExchangeRatesViewSpinnerPrompt">Auswähl ändern &#8230;</string>
     <string name="deleteExchangeRatesViewLabelSelectionOptions">Auswähl ändern  &#8230;</string>
     <string name="deleteExchangeRatesViewLabelSelectionOptionsDesc">Öffnet Selektionsoptionen</string>

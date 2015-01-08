@@ -190,7 +190,7 @@ public class ParticipantEditActivity extends ActionBarActivity {
         int[] optionIds;
         if(ViewMode.CREATE.equals(viewMode)){
             optionIds = new int[]{
-                    R.id.option_save_add,
+                    R.id.option_accept,
                     R.id.option_help
             };
         } else{
@@ -206,15 +206,18 @@ public class ParticipantEditActivity extends ActionBarActivity {
                         new OptionContraintsInflater()
                                 .activity(getMenuInflater()).menu(menu)
                                 .options(optionIds));
+
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         //TODO(ckoelle) The button could be disabled in edit mode when nothing has changed.
         boolean inputNotBlank = !StringUtils.isBlank(getAutoCompleteTextView().getEditableText().toString());
-        MenuItem item = menu.findItem(R.id.option_save_add);
+        MenuItem item = menu.findItem(R.id.option_accept);
         if(item == null){
             item = menu.findItem(R.id.option_save_edit);
+        } else{
+            item.setTitle(R.string.option_save_add);
         }
         item.setEnabled(inputNotBlank);
         item.getIcon().setAlpha((inputNotBlank) ? 255 : 64);
@@ -225,7 +228,7 @@ public class ParticipantEditActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.option_save_add:
+            case R.id.option_accept:
                 createAndCreateAnother();
                 return true;
             case R.id.option_save_edit:

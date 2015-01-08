@@ -65,7 +65,7 @@ public class EditExchangeRateActivity extends ActionBarActivity {
                 R.string.editExchangeRateViewHeadingEdit:
                 R.string.editExchangeRateViewHeadingCreate;
         setTitle(getResources().getString(titleId));
-        
+
 
         UiUtils.setViewVisibility(buttonLeft, form2BeEditable);
         UiUtils.setViewVisibility(buttonRight, form2BeEditable);
