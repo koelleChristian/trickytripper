@@ -48,10 +48,11 @@ public class ParticipantRowListAdapter extends ArrayAdapter<ParticipantRow> {
 
             viewId = R.id.participantTabRowView_output_participantName;
             label = null;
+
             value = row.getParticipant().getName();
             textView = UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
             if (textView != null) {
-                UiUtils.setFontAndStyle(this.getContext(), textView, inactive, android.R.style.TextAppearance_Large);
+                UiUtils.setFontAndStyle(this.getContext(), textView, inactive, android.R.style.TextAppearance_Medium);
             }
 
             viewId = R.id.participantTabRowView_output_Balance;
@@ -59,7 +60,7 @@ public class ParticipantRowListAdapter extends ArrayAdapter<ParticipantRow> {
             value = AmountViewUtils.getAmountString(locale, row.getBalance(), true, false, true);
             textView = UiUtils.setLabelAndValueOnTextView(result, viewId, label, value);
             if (textView != null) {
-                UiUtils.setFontAndStyle(this.getContext(), textView, inactive, android.R.style.TextAppearance_Large);
+                UiUtils.setFontAndStyle(this.getContext(), textView, inactive, android.R.style.TextAppearance_Medium);
                 if (!inactive) {
                     textView.setTextColor(AmountViewUtils.getColor(context, row.getBalance()));
                 }

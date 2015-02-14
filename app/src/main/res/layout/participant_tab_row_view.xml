@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp">
 
     <LinearLayout
         android:id="@+id/participantTabRowView_upperLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/participantTabRowView_output_participantName"
-            style="@style/LargeFont"
+            style="@style/tabText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -19,7 +23,7 @@
 
         <TextView
             android:id="@+id/participantTabRowView_output_Balance"
-            style="@style/LargeFont"
+            style="@style/tabText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -29,21 +33,24 @@
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/participantTabRowView_upperLayout" >
+        android:layout_below="@id/participantTabRowView_upperLayout"
+        android:paddingTop="8dp">
 
         <TableRow>
 
             <TextView
                 android:id="@+id/participant_tab_row_view_label_paid"
+                style="@style/subTabText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:width="100dp"
                 android:gravity="right"
                 android:paddingLeft="20dp"
-                android:text="@string/participant_tab_row_view_label_paid"
-                android:width="100dp" />
+                android:text="@string/participant_tab_row_view_label_paid" />
 
             <TextView
                 android:id="@+id/participant_tab_row_view_output_paid"
+                style="@style/subTabText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -54,6 +61,7 @@
 
             <TextView
                 android:id="@+id/participant_tab_row_view_label_spent"
+                style="@style/subTabText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -62,6 +70,7 @@
 
             <TextView
                 android:id="@+id/participant_tab_row_view_output_spent"
+                style="@style/subTabText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
