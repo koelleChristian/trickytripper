@@ -2,10 +2,15 @@
 <resources>
 
     <style name="SmallFont" parent="@android:style/TextAppearance.Small" />
-
     <style name="MediumFont" parent="@android:style/TextAppearance.Medium" />
-
     <style name="LargeFont" parent="@android:style/TextAppearance.Large" />
+
+    <style name="subTabText" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@android:color/secondary_text_light</item>
+    </style>
+    <style name="tabText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@android:color/primary_text_light</item>
+    </style>
 
     <style name="AutoCompleteTextViewLight" parent="@android:style/Widget.AutoCompleteTextView">
         <item name="android:textColor">@android:color/primary_text_light</item>
