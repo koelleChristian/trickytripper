@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp">
 
     <LinearLayout
         android:id="@+id/paymentTabRowView_upperLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/paymentTabRowView_output_payment_name"
-            style="@style/LargeFont"
+            style="@style/tabText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -19,7 +23,7 @@
 
         <TextView
             android:id="@+id/paymentTabRowView_output_payment_amount"
-            style="@style/LargeFont"
+            style="@style/tabText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -29,40 +33,45 @@
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/paymentTabRowView_upperLayout" >
+        android:layout_below="@id/paymentTabRowView_upperLayout"
+        android:paddingTop="8dp">
 
         <TableRow>
 
             <TextView
-                    android:id="@+id/paymentTabRowView_date_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:paddingLeft="5dp"
-                    android:text="@string/payment_view_label_date_time"
-                    android:width="90dp" />
+                android:id="@+id/paymentTabRowView_date_label"
+                style="@style/subTabText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="90dp"
+                android:gravity="right"
+                android:paddingLeft="5dp"
+                android:text="@string/payment_view_label_date_time" />
 
             <TextView
-                    android:id="@+id/paymentTabRowView_output_date_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="10dp" />
+                android:id="@+id/paymentTabRowView_output_date_time"
+                style="@style/subTabText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingLeft="10dp" />
         </TableRow>
 
         <TableRow>
 
             <TextView
                 android:id="@+id/paymentTabRowView_category_label"
+                style="@style/subTabText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:width="90dp"
                 android:gravity="right"
                 android:paddingLeft="5dp"
-                android:text="@string/payment_view_label_category"
-                android:width="90dp" />
+                android:text="@string/payment_view_label_category" />
 
             <TextView
                 android:id="@+id/paymentTabRowView_output_category"
+                style="@style/subTabText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -73,16 +82,18 @@
 
             <TextView
                 android:id="@+id/paymentTabRowView_label_payed_by"
-                style="@style/SmallFont"
+                style="@style/subTabText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:paddingLeft="5dp"
-                android:text="@string/payment_view_label_payed_by" />
+                android:text="@string/payment_view_label_payed_by"
+
+                />
 
             <TextView
                 android:id="@+id/paymentTabRowView_output_payed_by"
-                style="@style/SmallFont"
+                style="@style/subTabText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -95,7 +106,7 @@
 
             <TextView
                 android:id="@+id/paymentTabRowView_label_debited_to"
-                style="@style/SmallFont"
+                style="@style/subTabText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -104,7 +115,7 @@
 
             <TextView
                 android:id="@+id/paymentTabRowView_output_debited_to"
-                style="@style/SmallFont"
+                style="@style/subTabText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -117,17 +128,17 @@
 
             <TextView
                 android:id="@+id/paymentTabRowView_label_transfer_from"
-                style="@style/SmallFont"
+                style="@style/subTabText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:width="90dp"
                 android:gravity="right"
                 android:paddingLeft="5dp"
-                android:text="@string/payment_view_label_transfer_from"
-                android:width="90dp" />
+                android:text="@string/payment_view_label_transfer_from" />
 
             <TextView
                 android:id="@+id/paymentTabRowView_output_transfer_from"
-                style="@style/SmallFont"
+                style="@style/subTabText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -140,7 +151,7 @@
 
             <TextView
                 android:id="@+id/paymentTabRowView_label_transfer_to"
-                style="@style/SmallFont"
+                style="@style/subTabText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -149,14 +160,13 @@
 
             <TextView
                 android:id="@+id/paymentTabRowView_output_transfer_to"
-                style="@style/SmallFont"
+                style="@style/subTabText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left"
                 android:paddingLeft="10dp"
-                android:singleLine="false"
-                />
+                android:singleLine="false" />
         </TableRow>
     </TableLayout>
 
