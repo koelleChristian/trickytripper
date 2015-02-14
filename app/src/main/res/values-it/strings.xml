@@ -187,7 +187,7 @@
     <string name="report_view_subheading_owing_debts_by_traveller">Debiti dovuti</string>
     <string name="report_view_entry_report_spinner_null_value">Tutti i viaggiatori</string>
     <string name="report_view_label_report_spinner_prompt">Scegli viaggiatore per resoconto</string>
-    <string name="report_view_label_report_spinner">Resoconto per:</string>
+    <string name="report_view_label_report_spinner">Per:</string>
     <string name="report_view_label_payment_count">Numero totale di pagamenti:</string>
     <string name="report_view_label_total_spent">Totale speso:</string>
     <string name="report_view_label_no_spendings">Nessuna spesa</string>

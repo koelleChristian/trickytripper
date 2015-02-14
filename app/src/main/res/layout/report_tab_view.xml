@@ -1,185 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <TextView
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/reportViewTopLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp">
+
+        
+        <TextView
             android:id="@+id/reportViewSpinnerLabel"
-            android:layout_width="fill_parent"
+            style="@style/tabText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
-            android:text="@string/report_view_label_report_spinner"/>
+            android:layout_alignTop="@+id/reportViewBaseSpinner"
+            android:layout_alignBottom="@+id/reportViewBaseSpinner"
+            android:text="@string/report_view_label_report_spinner" />
 
-    <Spinner
+        <Spinner
             android:id="@+id/reportViewBaseSpinner"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            style="@style/Widget.AppCompat.DropDownItem.Spinner"
-            android:layout_below="@+id/reportViewSpinnerLabel"
-            android:prompt="@string/report_view_label_report_spinner_prompt"/>
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/reportViewSpinnerLabel"
+            android:prompt="@string/report_view_label_report_spinner_prompt" />
+    </RelativeLayout>
+
+
+    <View
+        android:id="@+id/reportViewSpacerTop"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/reportViewTopLayout"
+        android:background="?android:attr/listDivider" />
 
     <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@+id/reportViewBaseSpinner"
-            android:scrollbars="vertical">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/reportViewSpacerTop"
+        android:paddingBottom="8dp"
+
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:scrollbars="vertical">
 
         <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
 
             <TableLayout
-                    android:id="@+id/reportViewTableLayout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:shrinkColumns="0"
-                    android:layout_marginLeft="5dip"
-                    android:layout_marginRight="5dip"
-                    android:stretchColumns="0">
+                android:id="@+id/reportViewTableLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:shrinkColumns="0"
+                android:stretchColumns="0">
 
                 <TableRow
-                        android:paddingTop="15dip"
-                        android:paddingBottom="5dip">
+                    android:paddingBottom="5dip"
+                    android:paddingTop="15dip">
 
                     <TextView
-                            android:layout_span="2"
-                            android:text="@string/report_view_subheading_spendings"
-                            android:textColor="@color/abc_primary_text_material_light"
-                            android:textStyle="bold"/>
+                        android:layout_span="2"
+                        android:text="@string/report_view_subheading_spendings"
+                        android:textColor="@color/abc_primary_text_material_light"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow>
 
                     <TextView
-                            android:paddingLeft="10dip"
-                            android:text="@string/report_view_label_total_spent"/>
+                        android:paddingLeft="10dip"
+                        android:text="@string/report_view_label_total_spent" />
 
                     <TextView
-                            android:id="@+id/reportViewOutputTotalSpent"
-                            android:layout_column="3"
-                            android:gravity="right"
-                            android:padding="0dip"/>
+                        android:id="@+id/reportViewOutputTotalSpent"
+                        android:layout_column="3"
+                        android:gravity="right"
+                        android:padding="0dip" />
                 </TableRow>
 
                 <TableRow>
 
                     <TextView
-                            android:paddingLeft="10dip"
-                            android:text="@string/report_view_label_payment_count"/>
+                        android:paddingLeft="10dip"
+                        android:text="@string/report_view_label_payment_count" />
 
                     <TextView
-                            android:id="@+id/reportViewOutputPaymentCount"
-                            android:layout_column="3"
-                            android:gravity="right"
-                            android:padding="0dip"/>
+                        android:id="@+id/reportViewOutputPaymentCount"
+                        android:layout_column="3"
+                        android:gravity="right"
+                        android:padding="0dip" />
                 </TableRow>
 
                 <TableRow
-                        android:paddingTop="15dip"
-                        android:paddingBottom="5dip">
+                    android:paddingBottom="5dip"
+                    android:paddingTop="15dip">
 
                     <TextView
-                            android:layout_span="2"
-                            android:text="@string/report_view_subheading_spendings_by_category"
-                            android:textColor="@color/abc_primary_text_material_light"
-                            android:textStyle="bold"/>
+                        android:layout_span="2"
+                        android:text="@string/report_view_subheading_spendings_by_category"
+                        android:textColor="@color/abc_primary_text_material_light"
+                        android:textStyle="bold" />
                 </TableRow>
 
             </TableLayout>
 
             <TableLayout
-                    android:id="@+id/reportViewTableLayoutDebts"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginLeft="5dip"
-                    android:layout_marginRight="5dip"
+                android:id="@+id/reportViewTableLayoutDebts"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@id/reportViewTableLayout"
+                android:layout_marginLeft="5dip"
 
-                    android:layout_below="@id/reportViewTableLayout"
-                    >
+                android:layout_marginRight="5dip">
 
                 <TableRow
-                        android:paddingTop="15dip"
-                        android:paddingBottom="5dip"
-                        android:id="@+id/reportViewTableLayoutDebtsHeading">
+                    android:id="@+id/reportViewTableLayoutDebtsHeading"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="15dip">
 
                     <TextView
-                            android:textColor="@color/abc_primary_text_material_light"
-                            android:textStyle="bold"
-                            android:layout_width="0dip"
-                            android:layout_weight="0.35"
-                            android:text="@string/exportViewCheckboxContentOwingDebts"/>
-                    <TextView
-
-                            android:layout_width="0dip"
-                            android:textColor="@color/abc_primary_text_material_light"
-                            android:textStyle="bold"
-                            android:layout_weight="0.35"
-                            android:text="@string/default_blank"/>
-                    <TextView
-
-                            android:layout_width="0dip"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:layout_weight="0.30"
-                            android:text="@string/default_blank"/>
-
-
-                </TableRow>
-                <TableRow
-                        android:paddingBottom="5dip"
-                        android:id="@+id/reportViewTableLayoutDebtsHeadingNoDebts">
+                        android:layout_width="0dip"
+                        android:layout_weight="0.35"
+                        android:text="@string/exportViewCheckboxContentOwingDebts"
+                        android:textColor="@color/abc_primary_text_material_light"
+                        android:textStyle="bold" />
 
                     <TextView
 
-                            android:layout_width="0dip"
-                            android:textColor="@color/abc_primary_text_material_light"
-                            android:textStyle="bold"
-                            android:layout_weight="0.35"
-                            android:text="@string/default_blank"/>
+                        android:layout_width="0dip"
+                        android:layout_weight="0.35"
+                        android:text="@string/default_blank"
+                        android:textColor="@color/abc_primary_text_material_light"
+                        android:textStyle="bold" />
 
                     <TextView
-                            android:layout_width="0dip"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:layout_weight="0.35"
-                            android:text="@string/default_blank"/>
 
-                    <TextView
-                            android:gravity="right"
-                            android:layout_width="0dip"
-                            android:layout_weight="0.30"
-                            android:text="@string/report_view_label_no_debts"/>
+                        android:layout_width="0dip"
+                        android:layout_weight="0.30"
+                        android:text="@string/default_blank"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
 
                 </TableRow>
 
                 <TableRow
-                        android:paddingBottom="5dip"
-                        android:id="@+id/reportViewTableLayoutDebtsHeading2">
+                    android:id="@+id/reportViewTableLayoutDebtsHeadingNoDebts"
+                    android:paddingBottom="5dip">
 
                     <TextView
-                            android:textColor="@color/abc_primary_text_material_light"
-                            android:textStyle="bold"
-                            android:paddingLeft="10dip"
-                            android:layout_width="0dip"
-                            android:layout_weight="0.35"
-                            android:text="@string/fileExportOwingDebtsHeadingDebtor"/>
+
+                        android:layout_width="0dip"
+                        android:layout_weight="0.35"
+                        android:text="@string/default_blank"
+                        android:textColor="@color/abc_primary_text_material_light"
+                        android:textStyle="bold" />
 
                     <TextView
-                            android:textColor="@color/abc_primary_text_material_light"
-                            android:textStyle="bold"
-                            android:layout_width="0dip"
-                            android:layout_weight="0.35"
-                            android:text="@string/fileExportOwingDebtsHeadingCreditor"/>
+                        android:layout_width="0dip"
+                        android:layout_weight="0.35"
+                        android:text="@string/default_blank"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
 
                     <TextView
-                            android:gravity="right"
+                        android:layout_width="0dip"
+                        android:layout_weight="0.30"
+                        android:gravity="right"
+                        android:text="@string/report_view_label_no_debts" />
 
-                            android:paddingRight="0dip"
-                            android:layout_width="0dip"
-                            android:layout_weight="0.30"
-                            android:text="@string/default_blank"/>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/reportViewTableLayoutDebtsHeading2"
+                    android:paddingBottom="5dip">
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_weight="0.35"
+                        android:paddingLeft="10dip"
+                        android:text="@string/fileExportOwingDebtsHeadingDebtor"
+                        android:textColor="@color/abc_primary_text_material_light"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_weight="0.35"
+                        android:text="@string/fileExportOwingDebtsHeadingCreditor"
+                        android:textColor="@color/abc_primary_text_material_light"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dip"
+
+                        android:layout_weight="0.30"
+                        android:gravity="right"
+                        android:paddingRight="0dip"
+                        android:text="@string/default_blank" />
                 </TableRow>
 
 

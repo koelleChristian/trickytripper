@@ -190,7 +190,7 @@
     <string name="report_view_subheading_owing_debts_by_traveller">Schulden</string>
     <string name="report_view_entry_report_spinner_null_value">Alle Reisenden</string>
     <string name="report_view_label_report_spinner_prompt">Wähle Reisenden für Bericht</string>
-    <string name="report_view_label_report_spinner">Bericht für:</string>
+    <string name="report_view_label_report_spinner">Für:</string>
     <string name="report_view_label_payment_count">Gesamtanzahl:</string>
     <string name="report_view_label_total_spent">Gesamtsumme:</string>
     <string name="report_view_label_no_spendings">Keine Ausgaben</string>
