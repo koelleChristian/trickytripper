@@ -2,7 +2,9 @@
 <resources>
 
     <style name="SmallFont" parent="@android:style/TextAppearance.Small" />
-    <style name="MediumFont" parent="@android:style/TextAppearance.Medium" />
+    <style name="MediumFont" parent="@android:style/TextAppearance.Medium" >
+        <item name="android:textColor">@android:color/secondary_text_light</item>
+    </style>
     <style name="LargeFont" parent="@android:style/TextAppearance.Large" />
 
     <style name="subTabText" parent="@android:style/TextAppearance.Small">
