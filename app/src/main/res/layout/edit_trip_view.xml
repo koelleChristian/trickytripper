@@ -2,21 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/create_trip_view_tableLayout"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp">
 
     <TextView
         android:id="@+id/edit_trip_view_label_name_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/edit_trip_view_label_name_input" />
+        android:text="@string/edit_trip_view_label_name_input"/>
 
     <EditText
         android:id="@+id/edit_trip_view_editText_tripName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_trip_view_label_name_input"
-        android:inputType="text" >
-
+        android:inputType="text"
+        android:layout_marginBottom="16dp">
         <requestFocus />
     </EditText>
 
@@ -25,19 +29,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_trip_view_editText_tripName"
-        android:text="@string/edit_trip_view_label_base_currency" />
+        android:text="@string/edit_trip_view_label_base_currency"/>
 
     <Spinner
         android:id="@+id/edit_trip_view_spinner_base_currency"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/edit_trip_view_label_base_currency" />
+        android:minHeight="30dp"
+        android:layout_below="@id/edit_trip_view_label_base_currency"
+        android:layout_marginBottom="16dp"/>
 
-    <View
-        android:id="@+id/edit_trip_view_button_spacer"
-        android:layout_width="fill_parent"
-        android:layout_height="20dp"
-        android:layout_below="@id/edit_trip_view_spinner_base_currency" />
+
 
 </RelativeLayout>
