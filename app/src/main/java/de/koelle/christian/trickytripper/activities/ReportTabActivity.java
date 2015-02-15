@@ -283,7 +283,7 @@ public class ReportTabActivity extends Fragment {
             addOrderedDynamicRowsToView(newRows, tableLayoutDebts, 3, dynamicDividerRowsOwingDebtsRows, true);
         }
 
-        UiUtils.setViewVisibility(subheadingDividerTop, true);
+        UiUtils.setViewVisibility(subheadingDividerTop, areThereDebtsToBeDisplayed);
         UiUtils.setViewVisibility(headingDebtsSubheading, areThereDebtsToBeDisplayed);
         UiUtils.setViewVisibility(headingNoDebts, !areThereDebtsToBeDisplayed);
     }
