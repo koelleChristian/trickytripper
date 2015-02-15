@@ -38,17 +38,23 @@ public class ReportTabActivity extends Fragment {
 
     private final List<View> dynamicSpendingRows = new ArrayList<View>();
     private final List<View> dynamicOwingDebtsRows = new ArrayList<View>();
+    private final List<View> dynamicDividerRowsSpending = new ArrayList<View>();
+    private final List<View> dynamicDividerRowsOwingDebtsRows = new ArrayList<View>();
 
     private List<Participant> participantsInSpinner;
     private View view;
 
     private int padding8;
+    private int onePixel;
 
     @Override
     public void onResume() {
         super.onResume();
-        if(padding8 == 0){
+        if (padding8 == 0) {
             padding8 = UiUtils.dpi2px(getResources(), 8);
+        }
+        if (onePixel == 0) {
+            onePixel = UiUtils.dpi2px(getResources(), 1);
         }
         createPanel(view);
         getActivity().supportInvalidateOptionsMenu();
@@ -210,7 +216,7 @@ public class ReportTabActivity extends Fragment {
                     newRows.put(categoryDisplayName, newRow);
                 }
             }
-            addDynamicRows(newRows, tableLayout);
+            addOrderedDynamicRowsToView(newRows, tableLayout, 4, dynamicDividerRowsSpending, false);
         }
 
     }
@@ -218,6 +224,7 @@ public class ReportTabActivity extends Fragment {
     private void addDynamicDebtRows(TrickyTripperApp app, Participant participantSelected, Locale locale, TableLayout tableLayoutDebts) {
 
         TableRow headingDebtsSubheading = (TableRow) view.findViewById(R.id.reportViewTableLayoutDebtsHeading2);
+        TableRow subheadingDividerTop =  (TableRow) view.findViewById(R.id.reportViewSpacerDebtsTop);
         TableRow headingNoDebts = (TableRow) view.findViewById(R.id.reportViewTableLayoutDebtsHeadingNoDebts);
 
         Collection<Participant> involvedParticipants = new ArrayList<Participant>();
@@ -229,7 +236,6 @@ public class ReportTabActivity extends Fragment {
         boolean areThereDebtsToBeDisplayed = false;
         TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getMiscController()
                 .getDefaultStringCollator());
-
 
 
         for (Iterator<Entry<Participant, Debts>> it = getTripLoaded(app).getDebts().entrySet().iterator(); it.hasNext(); ) {
@@ -273,22 +279,35 @@ public class ReportTabActivity extends Fragment {
                 }
             }
         }
-        addDynamicRows(newRows, tableLayoutDebts);
+        if(areThereDebtsToBeDisplayed){
+            addOrderedDynamicRowsToView(newRows, tableLayoutDebts, 3, dynamicDividerRowsOwingDebtsRows, true);
+        }
+
+        UiUtils.setViewVisibility(subheadingDividerTop, true);
         UiUtils.setViewVisibility(headingDebtsSubheading, areThereDebtsToBeDisplayed);
         UiUtils.setViewVisibility(headingNoDebts, !areThereDebtsToBeDisplayed);
     }
 
-    private void addDynamicRows(TreeMap<String, View> newRows, TableLayout tableLayout) {
-        int counter = 0;
+    private void addOrderedDynamicRowsToView(TreeMap<String, View> newRows, TableLayout tableLayout, int dividerLineRowSpan, List<View> dynamicDividerRowHolder, boolean isDebts) {
+
+        tableLayout.addView(createAndSaveNewDividerRow(dividerLineRowSpan, dynamicDividerRowHolder, isDebts));
+
         for (Entry<String, View> entry : newRows.entrySet()) {
             View row = entry.getValue();
-            counter = counter + 1;
-            if(counter % 2 != 0){
-                row.setBackgroundColor(getResources().getColor(R.color.mainLight));
-            }
-            row.setPadding(padding8, padding8, 0, padding8);
+            row.setPadding(0, padding8, 0, padding8);
             tableLayout.addView(row);
+            tableLayout.addView(createAndSaveNewDividerRow(dividerLineRowSpan, dynamicDividerRowHolder, isDebts));
         }
+    }
+
+    private TableRow createAndSaveNewDividerRow(int dividerLineRowSpan, List<View> dynamicDividerRowHolder, boolean isDebts) {
+        TableRow dividerLineRow = new TableRow(getActivity());
+        int column = 0;
+        TextView textView = addNewTextViewToRwo(dividerLineRow, null, column, new TableRow.LayoutParams(), dividerLineRowSpan, isDebts);
+        textView.setHeight(onePixel);
+        textView.setBackgroundColor(getResources().getColor(R.color.listDividerGrey));
+        dynamicDividerRowHolder.add(dividerLineRow);
+        return dividerLineRow;
     }
 
     private boolean isInScope(Collection<Participant> participants, Entry<Participant, Debts> entry,
@@ -312,16 +331,35 @@ public class ReportTabActivity extends Fragment {
 
     private TextView addNewTextViewToRow(TableRow target, String valueForDisplay, int column,
                                          TableRow.LayoutParams columnRowParams) {
+        int span = 1;
+        return addNewTextViewToRwo(target, valueForDisplay, column, columnRowParams, span, false);
+    }
+
+    private TextView addNewTextViewToRwo(TableRow target, String valueForDisplay, int column, TableRow.LayoutParams columnRowParams, int span, boolean isDebts) {
         TableRow.LayoutParams columnRowParamsHere = columnRowParams;
         TextView textView;
         textView = new TextView(getActivity());
         textView.setText(valueForDisplay);
         columnRowParamsHere.column = column;
+        columnRowParamsHere.span = span;
+        if(isDebts){
+            columnRowParamsHere.weight = 1;
+        }
         target.addView(textView, columnRowParams);
         return textView;
     }
 
     private void removeDynamicRows(TableLayout tableLayoutDebts, TableLayout tableLayoutSpending) {
+        if (!dynamicDividerRowsOwingDebtsRows.isEmpty()) {
+            for (View dynamicRow : dynamicDividerRowsOwingDebtsRows) {
+                tableLayoutDebts.removeView(dynamicRow);
+            }
+        }
+        if (!dynamicDividerRowsSpending.isEmpty()) {
+            for (View dynamicRow : dynamicDividerRowsSpending) {
+                tableLayoutSpending.removeView(dynamicRow);
+            }
+        }
         if (!dynamicOwingDebtsRows.isEmpty()) {
             for (View dynamicRow : dynamicOwingDebtsRows) {
                 tableLayoutDebts.removeView(dynamicRow);
