@@ -6,16 +6,20 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
         android:shrinkColumns="2"
         android:stretchColumns="2">
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:layout_span="3"
-                android:padding="3dip"
                 android:text="@string/exportViewTextViewSubHeadingChannel"
                 android:textColor="@color/abc_primary_text_material_light"
                 android:textStyle="bold" />
@@ -23,23 +27,25 @@
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
 
             <Spinner
                 android:id="@+id/exportViewSpinnerChannel"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
+                android:minHeight="30dp"
                 android:prompt="@string/exportViewSpinnerPromptChannel" />
         </TableRow>
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:layout_span="3"
-                android:padding="3dip"
                 android:text="@string/exportViewTextViewSubHeadingFormat"
                 android:textColor="@color/abc_primary_text_material_light"
                 android:textStyle="bold" />
@@ -47,7 +53,8 @@
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
 
             <CheckBox
                 android:id="@+id/exportViewCheckboxFormatCsv"
@@ -59,7 +66,8 @@
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
 
             <CheckBox
                 android:id="@+id/exportViewCheckboxFormatHtml"
@@ -71,7 +79,8 @@
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
 
             <CheckBox
                 android:id="@+id/exportViewCheckboxFormatTxt"
@@ -84,11 +93,11 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:layout_span="3"
-                android:padding="3dip"
                 android:text="@string/exportViewTextViewSubHeadingContent"
                 android:textColor="@color/abc_primary_text_material_light"
                 android:textStyle="bold" />
@@ -96,10 +105,11 @@
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
 
             <TextView
-                android:padding="15dip"
+                android:paddingLeft="15dip"
                 android:text="@string/default_space"
                 android:textColor="@color/abc_primary_text_material_light"
                 android:textStyle="bold" />
@@ -117,10 +127,11 @@
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
 
             <TextView
-                android:padding="15dip"
+                android:paddingLeft="15dip"
                 android:text="@string/default_space"
                 android:textColor="@color/abc_primary_text_material_light"
                 android:textStyle="bold" />
@@ -138,10 +149,11 @@
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
 
             <TextView
-                android:padding="15dip"
+                android:paddingLeft="15dip"
                 android:text="@string/default_space"
                 android:textColor="@color/abc_primary_text_material_light"
                 android:textStyle="bold" />
@@ -159,7 +171,8 @@
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
 
             <CheckBox
                 android:id="@+id/exportViewCheckboxContentOwingDebts"
@@ -171,11 +184,11 @@
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:layout_span="3"
-                android:padding="3dip"
                 android:text="@string/exportViewTextViewSubHeadingScope"
                 android:textColor="@color/abc_primary_text_material_light"
                 android:textStyle="bold" />
@@ -183,19 +196,22 @@
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
 
             <Spinner
                 android:id="@+id/reportViewBaseSpinner"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
+                android:minHeight="30dp"
                 android:prompt="@string/exportViewSpinnerPromptScope" />
         </TableRow>
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
 
             <CheckBox
                 android:id="@+id/exportViewCheckboxSeparateFilesForIndividuals"
@@ -207,7 +223,8 @@
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
 
             <CheckBox
                 android:id="@+id/exportViewCheckboxShowTripSumOnIndividualSpendingReport"
@@ -216,9 +233,6 @@
                 android:layout_column="2"
                 android:text="@string/exportViewCheckboxShowTripSumOnIndividualSpendingReport" />
         </TableRow>
-
-
-
 
 
     </TableLayout>
