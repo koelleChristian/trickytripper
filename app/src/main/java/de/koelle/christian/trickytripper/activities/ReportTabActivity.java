@@ -36,18 +36,20 @@ import de.koelle.christian.trickytripper.strategies.SumReport;
 
 public class ReportTabActivity extends Fragment {
 
-    private final static int PADDING = 3;
-
     private final List<View> dynamicSpendingRows = new ArrayList<View>();
     private final List<View> dynamicOwingDebtsRows = new ArrayList<View>();
 
     private List<Participant> participantsInSpinner;
-
     private View view;
+
+    private int padding8;
 
     @Override
     public void onResume() {
         super.onResume();
+        if(padding8 == 0){
+            padding8 = UiUtils.dpi2px(getResources(), 8);
+        }
         createPanel(view);
         getActivity().supportInvalidateOptionsMenu();
     }
@@ -181,7 +183,6 @@ public class ReportTabActivity extends Fragment {
 
             TextView textView = addNewTextViewToRow(newRow, value, column);
             textView.setGravity(Gravity.RIGHT);
-            textView.setPadding(PADDING, PADDING, 0, PADDING);
 
             this.dynamicSpendingRows.add(newRow);
             tableLayout.addView(newRow);
@@ -204,17 +205,12 @@ public class ReportTabActivity extends Fragment {
                     column = 3;
                     TextView textView = addNewTextViewToRow(newRow, value, column);
                     textView.setGravity(Gravity.RIGHT);
-                    textView.setPadding(PADDING, PADDING, 0, PADDING);
 
                     this.dynamicSpendingRows.add(newRow);
                     newRows.put(categoryDisplayName, newRow);
                 }
-
             }
-            for (Entry<String, View> entry : newRows.entrySet()) {
-                tableLayout.addView(entry.getValue());
-
-            }
+            addDynamicRows(newRows, tableLayout);
         }
 
     }
@@ -234,9 +230,10 @@ public class ReportTabActivity extends Fragment {
         TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getMiscController()
                 .getDefaultStringCollator());
 
-        int tenDpi = UiUtils.dpi2px(getResources(), 10);
+
 
         for (Iterator<Entry<Participant, Debts>> it = getTripLoaded(app).getDebts().entrySet().iterator(); it.hasNext(); ) {
+
             Entry<Participant, Debts> entry = it.next();
             Debts debts = entry.getValue();
             if (debts != null && debts.getLoanerToDepts() != null) {
@@ -249,6 +246,7 @@ public class ReportTabActivity extends Fragment {
                     Entry<Participant, Amount> debt = itInternal.next();
 
                     if (isInScope(involvedParticipants, entry, debt)) {
+
                         areThereDebtsToBeDisplayed = true;
 
                         newRow = new TableRow(getActivity());
@@ -256,25 +254,18 @@ public class ReportTabActivity extends Fragment {
                         value = entry.getKey().getName();
                         column = 0;
                         textView = addNewTextViewToRow(newRow, value, column, 0.35f);
-                        textView.setPadding(tenDpi, PADDING, PADDING, PADDING);
                         textView.setWidth(0);
-
 
                         value = debt.getKey().getName();
                         column = 1;
                         textView = addNewTextViewToRow(newRow, value, column, 0.35f);
-                        textView.setPadding(PADDING, PADDING, PADDING, PADDING);
                         textView.setWidth(0);
-
 
                         value = AmountViewUtils.getAmountString(locale, debt.getValue(), true, true, true);
                         column = 2;
                         textView = addNewTextViewToRow(newRow, value, column, 0.30f);
                         textView.setGravity(Gravity.RIGHT);
-
-                        textView.setPadding(0, 0, 0, 0);
                         textView.setWidth(0);
-
 
                         this.dynamicOwingDebtsRows.add(newRow);
                         newRows.put(entry.getKey().getName() + debt.getKey().getName(), newRow);
@@ -282,13 +273,22 @@ public class ReportTabActivity extends Fragment {
                 }
             }
         }
-        for (Entry<String, View> entry : newRows.entrySet()) {
-            View value = entry.getValue();
-            value.setPadding(0, 0, 0, tenDpi);
-            tableLayoutDebts.addView(value);
-        }
+        addDynamicRows(newRows, tableLayoutDebts);
         UiUtils.setViewVisibility(headingDebtsSubheading, areThereDebtsToBeDisplayed);
         UiUtils.setViewVisibility(headingNoDebts, !areThereDebtsToBeDisplayed);
+    }
+
+    private void addDynamicRows(TreeMap<String, View> newRows, TableLayout tableLayout) {
+        int counter = 0;
+        for (Entry<String, View> entry : newRows.entrySet()) {
+            View row = entry.getValue();
+            counter = counter + 1;
+            if(counter % 2 != 0){
+                row.setBackgroundColor(getResources().getColor(R.color.mainLight));
+            }
+            row.setPadding(padding8, padding8, 0, padding8);
+            tableLayout.addView(row);
+        }
     }
 
     private boolean isInScope(Collection<Participant> participants, Entry<Participant, Debts> entry,
@@ -316,9 +316,7 @@ public class ReportTabActivity extends Fragment {
         TextView textView;
         textView = new TextView(getActivity());
         textView.setText(valueForDisplay);
-        textView.setPadding(UiUtils.dpi2px(getResources(), 10), PADDING, PADDING, PADDING);
         columnRowParamsHere.column = column;
-
         target.addView(textView, columnRowParams);
         return textView;
     }
