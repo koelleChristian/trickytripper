@@ -24,6 +24,10 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="even_darker_grey">#040404</color>
+
+    <!-- Mimics ?android:attr/listDivider based on dim_foreground_dark_disabled-->
+    <color name="listDividerGrey">#80bebebe</color>
+
     <!-- Main color deep purple-->
     <color name="main">#673ab7</color> <!-- 500 -->
     <color name="mainLight">#d1c4e9</color> <!-- 100-->
