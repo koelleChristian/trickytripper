@@ -21,7 +21,7 @@
             android:paddingLeft="3dip"
             android:text="@string/common_label_total_amount"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main"
+            android:textColor="@color/mainDark"
             android:textStyle="bold" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_alignParentRight="true"
             android:paddingRight="3dip"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main"
+            android:textColor="@color/mainDark"
             android:textStyle="bold" />
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_toLeftOf="@id/paymentView_payee_createPaymentPayerTableLayout_total_sum_value"
             android:paddingRight="3dip"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main"
+            android:textColor="@color/mainDark"
             android:textStyle="bold" />
 
         <TextView
@@ -51,7 +51,7 @@
             android:layout_toLeftOf="@id/paymentView_total_sum_value_divider"
             android:paddingRight="3dip"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main"
+            android:textColor="@color/mainDark"
             android:textStyle="bold" />
 
 
@@ -98,7 +98,7 @@
                             android:layout_gravity="bottom"
                             android:layout_weight="1"
                             android:paddingLeft="10dp"
-                            android:textColor="@color/main"
+                            android:textColor="@color/mainDark"
                             android:textStyle="bold"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="@string/payment_edit_view_label_payed_by" />
@@ -117,10 +117,15 @@
 
                 <View
                     android:id="@+id/paymentViewSpacerTopTop"
-                    android:layout_width="fill_parent"
+                    android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:background="?android:attr/listDivider" />
-                />
+                    android:layout_span="3"
+                    android:background="@color/listDividerGrey"
+                    android:layout_weight="1" />
+
+                <View
+                    android:layout_height="5dp" />
+
             </TableLayout>
 
 
@@ -242,7 +247,7 @@
                             android:layout_gravity="bottom"
                             android:layout_weight="1"
                             android:paddingLeft="10dp"
-                            android:textColor="@color/main"
+                            android:textColor="@color/mainDark"
                             android:textStyle="bold"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="@string/payment_edit_view_textView_payee_label_spent_by" />
@@ -260,12 +265,16 @@
                 </TableRow>
 
                 <View
-                    android:layout_height="2dip"
-                    android:background="#FF909090" />
+                    android:id="@+id/paymentViewSpacerBottomTop"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_span="3"
+                    android:background="@color/listDividerGrey"
+                    android:layout_weight="1" />
 
                 <View
-                    android:layout_height="5dp"
-                    android:background="@android:color/black" />
+                    android:layout_height="5dp" />
+
             </TableLayout>
 
             <RelativeLayout

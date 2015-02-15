@@ -3,18 +3,21 @@
     android:id="@+id/exchangeRateRowView_upperLayout2"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:paddingBottom="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="8dp">
 
     <TableLayout
         android:id="@+id/exchangeRateRowView_upperLayoutNested"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
-        android:layout_weight=".88"
-        android:paddingRight="10pt" >
+        android:layout_weight=".88" >
         
 
-        <TableRow>
+        <TableRow android:paddingBottom="8dp">
 
             <TextView
                 android:id="@+id/exchangeRateRowView_output_from"
@@ -24,7 +27,7 @@
                 android:focusable="false"
                 android:gravity="left"
                 android:text="@string/defaultX"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                style="@style/MediumFont" />
 
             <TextView
                 android:id="@+id/exchangeRateRowView_output_direction_indicator"
@@ -33,7 +36,7 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:gravity="center_horizontal"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                style="@style/MediumFont" />
 
             <TextView
                 android:id="@+id/exchangeRateRowView_output_to"
@@ -43,7 +46,7 @@
                 android:focusable="false"
                 android:gravity="left"
                 android:text="@string/defaultX"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                style="@style/MediumFont" />
 
             <TextView
                 android:id="@+id/exchangeRateRowView_output_main_rate"
@@ -54,10 +57,10 @@
                 android:focusable="false"
                 android:gravity="right"
                 android:text="@string/defaultX"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                style="@style/MediumFont" />
         </TableRow>
 
-        <TableRow>
+        <TableRow android:paddingBottom="8dp">
 
             <TextView
                 android:id="@+id/exchangeRateRowView_output_from2"
@@ -67,7 +70,7 @@
                 android:focusable="false"
                 android:gravity="left"
                 android:text="@string/defaultX"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                style="@style/MediumFont" />
 
             <TextView
                 android:id="@+id/exchangeRateRowView_output_direction_indicator2"
@@ -76,7 +79,7 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:gravity="center_horizontal"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                style="@style/MediumFont" />
 
             <TextView
                 android:id="@+id/exchangeRateRowView_output_to2"
@@ -86,7 +89,7 @@
                 android:focusable="false"
                 android:gravity="left"
                 android:text="@string/defaultX"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                style="@style/MediumFont" />
 
             <TextView
                 android:id="@+id/exchangeRateRowView_output_main_rate2"
@@ -97,7 +100,7 @@
                 android:focusable="false"
                 android:gravity="right"
                 android:text="@string/defaultX"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                style="@style/MediumFont" />
         </TableRow>
 
         <TableRow>
@@ -111,7 +114,7 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:gravity="left"
-                android:paddingLeft="10dp"
+                android:paddingLeft="16dp"
                 android:text="@string/defaultX" />
         </TableRow>
     </TableLayout>
@@ -123,7 +126,10 @@
         android:layout_weight=".12"
         android:checkMark="?android:attr/listChoiceIndicatorMultiple"
         android:clickable="false"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="0dp"
+        android:paddingRight="0dp"
         android:focusable="false"
-        android:gravity="center" />
+        android:gravity="center_vertical|right" />
 
 </de.koelle.christian.trickytripper.ui.view.CheckableLinearLayout>

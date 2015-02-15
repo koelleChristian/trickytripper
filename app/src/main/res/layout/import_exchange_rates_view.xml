@@ -2,49 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingBottom="16dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="16dp">
 
     <TextView
         android:id="@+id/importExchangeRatesListViewLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
         android:text="@string/importExchangeRatesViewListViewLabel" />
 
     <View
-        android:layout_width="fill_parent"
-        android:layout_height="4dp" />
-
-    <View
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
-
+        android:background="@color/listDividerGrey"
+        android:paddingBottom="8dp" />
 
 
     <CheckBox
         android:id="@+id/importExchangeRatesViewCheckboxReplaceExisting"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
         android:text="@string/importExchangeRatesViewCheckboxLabelNewRateOnValueChange" />
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="4dp" />
 
     <TextView
         android:id="@+id/importExchangeRatesListViewLabelSelection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="4dp" />
 
     <View
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@color/listDividerGrey"
+        android:paddingBottom="8dp" />
 
 
     <!-- This scolling shit only scales properly in conjunction with linear layout. -->
@@ -53,9 +52,7 @@
         android:id="@+id/importExchangeRatesViewListViewCurrenciesForImport"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" >
-    </ListView>
-
+        android:layout_weight="1"></ListView>
 
 
 </LinearLayout>

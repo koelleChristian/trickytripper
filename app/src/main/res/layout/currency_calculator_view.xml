@@ -2,17 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp">
 
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:weightSum="1.0" >
+        android:weightSum="1.0">
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
             <!-- ============  Column 01 40% ============ -->
 
@@ -20,7 +24,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".40"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/currencyCalculatorView_headingSource"
@@ -32,8 +36,8 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dip"
-                    android:layout_marginBottom="5dip"
-                    android:background="@android:color/darker_gray" />
+                    android:layout_marginBottom="8dip"
+                    android:background="@color/listDividerGrey" />
 
                 <Button
                     android:id="@+id/currencyCalculatorView_button_inputCurrencySelection"
@@ -46,7 +50,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:height="50dip"
-                    android:inputType="numberDecimal" >
+                    android:inputType="numberDecimal">
 
                     <requestFocus />
                 </EditText>
@@ -68,7 +72,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".40"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/currencyCalculatorView_headingTarget"
@@ -80,29 +84,29 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dip"
-                    android:layout_marginBottom="5dip"
-                    android:background="@android:color/darker_gray" />
+                    android:layout_marginBottom="8dip"
+                    android:background="@color/listDividerGrey" />
 
                 <TextView
                     android:id="@+id/currencyCalculatorView_txt_outputCurrency"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right|center_vertical"
                     android:height="50dip"
+                    android:gravity="right|center_vertical"
                     android:text="@string/defaultX"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/main"
+                    style="@style/LargeFont"
+                    android:textColor="@color/mainDark"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/currencyCalculatorView_txt_resultValue"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:height="50dip"
-                    android:text="@string/defaultX"                    
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/main"
+                    android:gravity="right"
+                    android:text="@string/defaultX"
+                    style="@style/LargeFont"
+                    android:textColor="@color/mainDark"
                     android:textStyle="bold" />
             </LinearLayout>
         </TableRow>
@@ -110,7 +114,7 @@
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="15dp" />
+        android:layout_height="16dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -126,23 +130,27 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
         android:text="@string/currencyCalculatorViewTextViewHeadLabelRateSetting" />
 
     <Spinner
         android:id="@+id/currencyCalculatorView_spinner_exchangeRateSelection"
         android:layout_width="fill_parent"
+        android:minHeight="30dp"
         android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
         android:text="@string/currencyCalculatorViewTextViewHeadLabelOptions" />
 
     <CheckBox
         android:id="@+id/currencyCalculatorView_checkbox_saveNewValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/currencyCalculatorViewCheckboxSaveNewRate" >
-    </CheckBox>
+        android:text="@string/currencyCalculatorViewCheckboxSaveNewRate"></CheckBox>
 
 </LinearLayout>
