@@ -650,7 +650,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
                 LayoutParams.WRAP_CONTENT);
         lpHeader.bottomMargin = 10;
 
-        textView.setTextColor(res.getColor(android.R.color.white));
+        
         layout.addView(textView, lpHeader);
 
         LinearLayout.LayoutParams lpListShit = new LinearLayout.LayoutParams(
@@ -842,7 +842,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
                         && amountTotalDebits != null &&
                         amountTotalPayments.getValue().doubleValue() == Math.abs(amountTotalDebits.getValue().doubleValue()));
         TextView textView = (TextView) findViewById(R.id.paymentView_payee_createPaymentPayerTableLayout_total_sum_value);
-        int colorId = (markRed) ? R.color.red : R.color.main;
+        int colorId = (markRed) ? R.color.red : R.color.mainDark;
         textView.setTextColor(getResources().getColor(colorId));
     }
 
