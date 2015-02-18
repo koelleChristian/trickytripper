@@ -21,7 +21,7 @@
             <TextView
                 android:layout_span="3"
                 android:text="@string/exportViewTextViewSubHeadingChannel"
-                android:textColor="@color/abc_primary_text_material_light"
+                android:textColor="@color/mainDark"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -47,7 +47,7 @@
             <TextView
                 android:layout_span="3"
                 android:text="@string/exportViewTextViewSubHeadingFormat"
-                android:textColor="@color/abc_primary_text_material_light"
+                android:textColor="@color/mainDark"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -99,8 +99,8 @@
             <TextView
                 android:layout_span="3"
                 android:text="@string/exportViewTextViewSubHeadingContent"
-                android:textColor="@color/abc_primary_text_material_light"
-                android:textStyle="bold" />
+                android:textColor="@color/mainDark"
+                android:textStyle="bold"/>
         </TableRow>
 
         <TableRow
@@ -110,9 +110,7 @@
 
             <TextView
                 android:paddingLeft="15dip"
-                android:text="@string/default_space"
-                android:textColor="@color/abc_primary_text_material_light"
-                android:textStyle="bold" />
+                android:text="@string/default_space" />
 
             <CheckBox
                 android:id="@+id/exportViewCheckboxContentPayments"
@@ -132,9 +130,7 @@
 
             <TextView
                 android:paddingLeft="15dip"
-                android:text="@string/default_space"
-                android:textColor="@color/abc_primary_text_material_light"
-                android:textStyle="bold" />
+                android:text="@string/default_space" />
 
             <CheckBox
                 android:id="@+id/exportViewCheckboxContentTransfers"
@@ -154,9 +150,7 @@
 
             <TextView
                 android:paddingLeft="15dip"
-                android:text="@string/default_space"
-                android:textColor="@color/abc_primary_text_material_light"
-                android:textStyle="bold" />
+                android:text="@string/default_space" />
 
             <CheckBox
                 android:id="@+id/exportViewCheckboxContentSpendingReport"
@@ -190,7 +184,7 @@
             <TextView
                 android:layout_span="3"
                 android:text="@string/exportViewTextViewSubHeadingScope"
-                android:textColor="@color/abc_primary_text_material_light"
+                android:textColor="@color/mainDark"
                 android:textStyle="bold" />
         </TableRow>
 
