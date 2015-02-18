@@ -105,13 +105,15 @@
 
                         <ImageButton
                             android:id="@+id/paymentView_button_add_further_payees"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_expand_more"
                             android:layout_gravity="bottom|right"
                             android:layout_marginRight="4dip"
                             android:background="@drawable/btn_circle"
                             android:contentDescription="@string/deleteExchangeRatesViewLabelSelectionOptionsDesc"
-                            android:src="@drawable/ic_btn_round_more" />
+
+                             />
                     </LinearLayout>
                 </TableRow>
 
@@ -254,13 +256,14 @@
 
                         <ImageButton
                             android:id="@+id/paymentView_button_payee_add_further_payees"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_expand_more"
                             android:layout_gravity="bottom|right"
                             android:layout_marginRight="4dip"
                             android:background="@drawable/btn_circle"
                             android:contentDescription="@string/deleteExchangeRatesViewLabelSelectionOptionsDesc"
-                            android:src="@drawable/ic_btn_round_more" />
+                             />
                     </LinearLayout>
                 </TableRow>
 

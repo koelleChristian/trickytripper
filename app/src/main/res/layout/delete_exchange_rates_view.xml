@@ -23,14 +23,14 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="4dip"
             android:background="@drawable/btn_circle"
             android:contentDescription="@string/deleteExchangeRatesViewLabelSelectionOptionsDesc"
             android:onClick="select"
-            android:src="@drawable/ic_btn_round_more" />
+            android:src="@drawable/ic_expand_more" />
 
         <Spinner
             android:id="@+id/deleteExchangeRatesViewSpinner"

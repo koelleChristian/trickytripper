@@ -21,6 +21,10 @@
         <item name="android:textColor">@android:color/primary_text_light</item>
     </style>
 
+    <!-- Copied from the material keyboard-->
+    <color name="petrolLight">#ff80cbc4</color>
+    <color name="petrolMain">#ff4db6ac</color>
+
     <color name="red">#ff0000</color>
     <color name="green">#008000</color>
     <color name="white">#ffffff</color>
