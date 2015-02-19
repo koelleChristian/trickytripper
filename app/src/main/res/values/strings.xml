@@ -3,7 +3,6 @@
 
     <string name="app_name">Tricky Tripper</string>
     <string name="spinner_null_value_default"></string>
-    <string name="symbol_arrow_down">∨</string>
     <string name="defaultX">XX</string>
     <string name="default_blank"></string>
     <string name="default_space"> </string>
@@ -12,19 +11,12 @@
     <string name="common_button_yes">Yes</string>
     <string name="common_button_no">No</string>
     <string name="common_button_ok">OK</string>
-    <string name="common_button_create">Create</string>
-    <string name="common_button_save">Save</string>
-    <string name="common_button_delete">Delete</string>
-    <string name="common_button_edit">Edit</string>
     <string name="common_label_total_amount">Total:</string>
-    <string name="common_label_total_amounts">Totals:</string> <!-- add -->
+    <string name="common_label_total_amounts">Totals:</string>
     <string name="common_label_inactive_addon">[Inactive]</string>
-    <string name="progress_dialog_text_loading">Loading …</string>
     <string name="activity_label_participants">Travelers</string>
     <string name="activity_label_report">Report</string>
     <string name="activity_label_payments">Payments</string>
-    <string name="activity_label_create_payment">Create payment</string>
-    <string name="activity_label_edit_payment">Edit payment</string>
     <string name="label_enum_payment_category_housing">Housing</string>
     <string name="label_enum_payment_category_food">Food</string>
     <string name="label_enum_payment_category_beverages">Beverages</string>
@@ -80,8 +72,7 @@
     <string name="currency_selection_view_instruction_new_exchange_rate">Select a currency for your new exchange rate:</string>
     <string name="currency_selection_view_instruction_new_exchange_rate_label_left">Left side:</string>
     <string name="currency_selection_view_instruction_new_exchange_rate_label_right">Right side:</string> 
-    <string name="currency_selection_view_instruction_new_exchange_rate_label_to_be_selected">to be selected</string>    
-    <string name="currency_selection_view_instruction_heading">Currencies (ordered by usage)</string>
+    <string name="currency_selection_view_instruction_new_exchange_rate_label_to_be_selected">to be selected</string>
     <string name="currency_selection_view_instruction_group_label_used_and_matching">&#8230; matching, in rates used</string>
     <string name="currency_selection_view_instruction_group_label_used_in_rates_matching">&#8230; matching, in rates</string>
     <string name="currency_selection_view_instruction_group_label_used_unmatched">&#8230; in rates used</string>
@@ -94,7 +85,6 @@
     <string name="manageExchangeRatesViewBlankListNotification">No exchange rates yet. \n\n\n\nImport or create exchange rates with the equivalent functions from the action bar or menu.</string>
     <!-- ===============================  Import exchange rates view =============================== -->
     <string name="importExchangeRatesViewTextViewHeading">Import Exchange Rates</string>
-    <string name="importExchangeRatesViewOptions">Options</string>
     <string name="importExchangeRatesViewCheckboxLabelNewRateOnValueChange">Create new rate on value change</string>
     <string name="importExchangeRatesViewListViewLabel">Select all exchange relevant currencies</string>
     <string name="option_accept_execute_import">Do import</string>
@@ -110,7 +100,6 @@
     <string name="deleteExchangeRatesViewSpinnerPrompt">Select &#8230;</string>
     <string name="deleteExchangeRatesViewLabelSelectionOptions">Change selectedTrip &#8230;</string>
     <string name="deleteExchangeRatesViewLabelSelectionOptionsDesc">Opens selectedTrip options</string>
-    <string name="deleteExchangeRatesViewListViewLabel">Select all rates to be deleted</string>
     <string name="deleteExchangeRatesViewDeleteConfirmation">Are you sure you want to delete the @@1@@ selected exchange rate(s)?</string>
     <!-- ===============================  Edit Exchange Rate =============================== -->
     <string name="editExchangeRateViewHeadingEdit">Edit Exchange Rate</string>
@@ -188,7 +177,6 @@
     <!-- ===============================  Report view =============================== -->
     <string name="report_view_subheading_spendings_by_category">Spending by category</string>
     <string name="report_view_subheading_spendings">Expenditure</string>
-    <string name="report_view_subheading_owing_debts_by_traveller">Owing debts</string>
     <string name="report_view_entry_report_spinner_null_value">All travelers</string>
     <string name="report_view_label_report_spinner_prompt">Choose traveler for report</string>
     <string name="report_view_label_report_spinner">For:</string>
@@ -206,7 +194,6 @@
     <!-- ===============================  Money transfer view =============================== -->
     <string name="money_transfer_view_heading">Money transfer</string>
     <string name="money_transfer_view_label_from">from:</string>
-    <string name="money_transfer_view_output_participant_from">Select a payment category</string>
     <string name="option_money_transfer_execute">Transfer</string>
     <string name="money_transfer_list_view_label_name">to:</string>
     <string name="money_transfer_list_view_label_amount">Amount</string>
@@ -223,7 +210,7 @@
     <string name="payment_view_blank_list_notification">No payments yet. \n\n\n\nCreate new payments by tapping on a traveler who pays the money.</string>
     <!-- ===============================  Payment edit =============================== --> 
     <string name="payment_edit_view_label_category">Category</string>
-    <string name="payment_edit_view_label_desciption">Description</string>
+    <string name="payment_edit_view_label_description">Description</string>
     <string name="payment_edit_view_label_date_time">Date &amp; Time</string>
     <string name="payment_edit_view_label_date_time_now">Now</string>
     <string name="payment_edit_view_date_picker_title">Pick the date and time of your payment</string>
@@ -235,8 +222,6 @@
     <string name="payment_edit_view_label_payed_by">Paid by</string>
     <string name="payment_edit_view_textView_label_amount">Amount</string>
     <string name="payment_edit_view_button_divide_rest">Divide rest among blanks</string>
-    <string name="payment_edit_view_image_button_select_travellers_descr_top">Allows the selectedTrip of the travelers who will spend the money.</string>
-    <string name="payment_edit_view_image_button_select_travellers_descr_bottom">Allows the selectedTrip of the travelers who will be charged.</string>
     <!-- ==================== Context menu participants ====================== -->
     <string name="fktn_participant_create_payment">Create payment</string>
     <string name="fktn_participant_transfer_money">Transfer money</string>
@@ -245,8 +230,6 @@
     <string name="fktn_participant_activate">Activate (for costs)</string>
     <!-- ==================== Context menu Payment List ====================== -->
     <string name="manageTripsView_heading">Manage trips</string>
-    <string name="manage_trips_view_label_long_click_to_edit">Tap to load, long-tap to edit</string>
-    <string name="manage_trips_view_button_create_new_trip">Create new trip</string>
     <string name="manage_trips_view_delete_confirmation">Are  you sure you want to delete the selected trip including all its travelers, payments and statistics?</string>
     <!-- ==================== Context menu participant edit====================== -->
     <string name="edit_participant_view_label_name">Name:</string>
@@ -260,13 +243,7 @@
     <string name="edit_trip_view_label_base_currency_spinner_prompt">Select a base currency for the trip</string>    
     <string name="edit_trip_view_edit_heading">Edit trip</string>
     <string name="edit_trip_view_create_heading">Create new trip</string>
-    <string name="edit_trip_view_create_negative_button">Cancel</string>
     <string name="edit_trip_view_msg">A trip with the name entered already exists. Please modify your input.</string>
-    <!-- ==================== Context menu Payment List ====================== -->
-    <string name="fktn_payment_list_edit_payment">Edit payment</string>
-    <string name="fktn_payment_list_delete_payment">Delete payment</string> <!-- TO be deleted -->
-    <string name="fktn_payment_list_edit_transfer">Edit money transfer</string> <!-- TO be deleted -->
-    <string name="fktn_payment_list_delete_transfer">Delete money transfer</string> <!-- TO be deleted -->
     <!-- ==================== Messages ====================== -->
     <string name="msg_delete_not_possible_inbalance">The user cannot be deleted as his/her account is not balanced.</string>
     <!-- ==================== Preferences ====================== -->

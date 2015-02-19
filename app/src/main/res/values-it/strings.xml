@@ -1,28 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Tricky Tripper</string>
-    <string name="spinner_null_value_default"></string>
-    <string name="symbol_arrow_down">∨</string>
-    <string name="defaultX">XX</string>
-    <string name="default_blank"></string>
+
     <!-- To be translated ff -->
     <string name="common_button_cancel">Annulla</string>
     <string name="common_button_yes">Si</string>
     <string name="common_button_no">No</string>
     <string name="common_button_ok">OK</string>
-    <string name="common_button_create">Crea</string>
-    <string name="common_button_save">Salva</string>
-    <string name="common_button_delete">Elimina</string>
-    <string name="common_button_edit">Modifica</string>
     <string name="common_label_total_amount">Totale:</string>
+    <string name="common_label_total_amounts">Totale:</string>
     <string name="common_label_inactive_addon">[Inattivo]</string>
-    <string name="progress_dialog_text_loading">Caricamento …</string>
     <string name="activity_label_participants">Viaggiatori</string>
     <string name="activity_label_report">Resoconto</string>
     <string name="activity_label_payments">Pagamenti</string>
-    <string name="activity_label_create_payment">Crea pagamento</string>
-    <string name="activity_label_edit_payment">Modifica pagamento</string>
     <string name="label_enum_payment_category_housing">Alloggio</string>
     <string name="label_enum_payment_category_food">Cibo</string>
     <string name="label_enum_payment_category_beverages">Bevande</string>
@@ -77,7 +67,6 @@
     <string name="currency_selection_view_instruction_new_exchange_rate_label_left">Lato sinistro:</string>
     <string name="currency_selection_view_instruction_new_exchange_rate_label_right">Lato destro:</string>
     <string name="currency_selection_view_instruction_new_exchange_rate_label_to_be_selected">da selezionare</string>
-    <string name="currency_selection_view_instruction_heading">Valute (in ordine di utilizzo)</string>
     <string name="currency_selection_view_instruction_group_label_used_and_matching">&#8230; corrispondente, nei tassi usati</string>
     <string name="currency_selection_view_instruction_group_label_used_in_rates_matching">&#8230; corrispondente, nei tassi</string>
     <string name="currency_selection_view_instruction_group_label_used_unmatched">&#8230; nei tassi usati</string>
@@ -90,7 +79,6 @@
     <string name="manageExchangeRatesViewBlankListNotification">Nessun tasso di cambio. \n\n\n\nImporta o crea tassi di cambio con le funzioni equivalenti dalla barra delle operazioni o dal menu.</string>
     <!-- =============================== Import exchange rates view =============================== -->
     <string name="importExchangeRatesViewTextViewHeading">Importa tasso di cambio</string>
-    <string name="importExchangeRatesViewOptions">Opzioni</string>
     <string name="importExchangeRatesViewCheckboxLabelNewRateOnValueChange">Crea nuovo tasso dal cambio valore</string>
     <string name="importExchangeRatesViewListViewLabel">Selezionare tutti i tassi di valute rilevanti</string>
     <string name="option_accept_execute_import">Inizia importazione</string>
@@ -106,7 +94,6 @@
     <string name="deleteExchangeRatesViewSpinnerPrompt">Seleziona &#8230;</string>
     <string name="deleteExchangeRatesViewLabelSelectionOptions">Modifica selezione &#8230;</string>
     <string name="deleteExchangeRatesViewLabelSelectionOptionsDesc">Apri opzioni di selezione</string>
-    <string name="deleteExchangeRatesViewListViewLabel">Seleziona tutti i tassi da eliminare</string>
     <string name="deleteExchangeRatesViewDeleteConfirmation">Sei sicuro di voler cancellare i @@1@@ tasso(i) di cambio selezionato(i)?</string>
     <!-- =============================== Edit Exchange Rate =============================== -->
     <string name="editExchangeRateViewHeadingEdit">Modifica tasso di cambio</string>
@@ -184,7 +171,6 @@
     <!-- =============================== Report view =============================== -->
     <string name="report_view_subheading_spendings_by_category">Spese per categoria</string>
     <string name="report_view_subheading_spendings">Spese</string>
-    <string name="report_view_subheading_owing_debts_by_traveller">Debiti dovuti</string>
     <string name="report_view_entry_report_spinner_null_value">Tutti i viaggiatori</string>
     <string name="report_view_label_report_spinner_prompt">Scegli viaggiatore per resoconto</string>
     <string name="report_view_label_report_spinner">Per:</string>
@@ -202,7 +188,6 @@
     <!-- =============================== Money transfer view =============================== -->
     <string name="money_transfer_view_heading">Trasferimento di denaro</string>
     <string name="money_transfer_view_label_from">da:</string>
-    <string name="money_transfer_view_output_participant_from">Seleziona una categoria di pagamento</string>
     <string name="option_money_transfer_execute">Trasferimento</string>
     <string name="money_transfer_list_view_label_name">a:</string>
     <string name="money_transfer_list_view_label_amount">Importo</string>
@@ -219,7 +204,7 @@
     <string name="payment_view_blank_list_notification">Nessun pagamento. \n\n\n\nCreare nuovi pagamenti toccando il viaggiatore che ha pagato.</string>
     <!-- =============================== Payment edit =============================== -->
     <string name="payment_edit_view_label_category">Categoria</string>
-    <string name="payment_edit_view_label_desciption">Descrizione</string>
+    <string name="payment_edit_view_label_description">Descrizione</string>
     <string name="payment_edit_view_label_date_time">Data &amp; Ora</string>
     <string name="payment_edit_view_label_date_time_now">Adesso</string>
     <string name="payment_edit_view_date_picker_title">Scegli data e ora del tuo pagamento</string>
@@ -231,8 +216,6 @@
     <string name="payment_edit_view_label_payed_by">Pagato da</string>
     <string name="payment_edit_view_textView_label_amount">Importo</string>
     <string name="payment_edit_view_button_divide_rest">Dividi resto</string>
-    <string name="payment_edit_view_image_button_select_travellers_descr_top">Consente la selezione dei viaggiatori che spenderanno il denaro.</string>
-    <string name="payment_edit_view_image_button_select_travellers_descr_bottom">Consente la selezione dei viaggiatori che verranno addebitati.</string>
     <!-- ==================== Context menu participants ====================== -->
     <string name="fktn_participant_create_payment">Crea pagamento</string>
     <string name="fktn_participant_transfer_money">Trasferisci denaro</string>
@@ -241,8 +224,6 @@
     <string name="fktn_participant_activate">Attiva (per i costi)</string>
     <!-- ==================== Context menu Payment List ====================== -->
     <string name="manageTripsView_heading">Gestione viaggi</string>
-    <string name="manage_trips_view_label_long_click_to_edit">Tocca per caricare, tocco lungo per modificare</string>
-    <string name="manage_trips_view_button_create_new_trip">Crea nuovo viaggio</string>
     <string name="manage_trips_view_delete_confirmation">Sei sicuro di voler cancellare il viaggio selezionato con tutti i suoi viaggiatori, i pagamenti e le statistiche?</string>
     <!-- ==================== Context menu participant edit====================== -->
     <string name="edit_participant_view_label_name">Nome:</string>
@@ -256,13 +237,7 @@
     <string name="edit_trip_view_label_base_currency_spinner_prompt">Selezionare una valuta di base per il viaggio</string>
     <string name="edit_trip_view_edit_heading">Modifica viaggio</string>
     <string name="edit_trip_view_create_heading">Crea nuovo viaggio</string>
-    <string name="edit_trip_view_create_negative_button">Annulla</string>
     <string name="edit_trip_view_msg">Un viaggio con il nome immesso esiste già. Si prega di modificare l\'inserimento.</string>
-    <!-- ==================== Context menu Payment List ====================== -->
-    <string name="fktn_payment_list_edit_payment">Modifica pagamento</string>
-    <string name="fktn_payment_list_delete_payment">Elimina pagamento</string>
-    <string name="fktn_payment_list_edit_transfer">Modifica trasferimento di denaro</string>
-    <string name="fktn_payment_list_delete_transfer">Elimina trasferimento di denaro</string>
     <!-- ==================== Messages ====================== -->
     <string name="msg_delete_not_possible_inbalance">L\'utente non può essere eliminato perchè il suo conto non è equilibrato.</string>
     <!-- ==================== Preferences ====================== -->
