@@ -151,6 +151,6 @@
         android:id="@+id/currencyCalculatorView_checkbox_saveNewValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/currencyCalculatorViewCheckboxSaveNewRate"></CheckBox>
+        android:text="@string/currencyCalculatorViewCheckboxSaveNewRate"/>
 
 </LinearLayout>

@@ -138,7 +138,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_below="@id/paymentView_createPaymentPayerTableLayout"
                 android:layout_marginTop="16dp"
-                android:text="@string/payment_edit_view_label_desciption" />
+                android:text="@string/payment_edit_view_label_description" />
 
             <EditText
                 android:id="@+id/paymentView_editTextPaymentDescription"
@@ -147,7 +147,7 @@
                 android:layout_below="@id/paymentView_textView_label_description"
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="15dp"
-                android:inputType="text"></EditText>
+                android:inputType="text"/>
 
             <TextView
                 android:id="@+id/paymentView_textView_label_category"
@@ -197,7 +197,7 @@
                 android:text="@string/payment_edit_view_label_travellers_charged" />
 
             <RadioGroup
-                android:id="@+id/paymentView_radioGroupTravelllersCharged"
+                android:id="@+id/paymentView_radioGroupTravellersCharged"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/paymentView_textViewLabelTravellersCharged"
@@ -222,7 +222,7 @@
                 android:id="@+id/paymentView_createSpendingTableLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/paymentView_radioGroupTravelllersCharged"
+                android:layout_below="@id/paymentView_radioGroupTravellersCharged"
                 android:stretchColumns="2">
 
                 <TableRow>
@@ -294,7 +294,7 @@
                     android:onClick="divideRest"
                     android:text="@string/payment_edit_view_button_divide_rest" />
 
-                />
+
             </RelativeLayout>
 
         </RelativeLayout>
