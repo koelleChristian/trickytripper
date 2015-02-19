@@ -12,7 +12,7 @@ public interface ExchangeRateController {
 
     List<ExchangeRate> getAllExchangeRatesWithoutInversion();
 
-    void persitImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported);
+    void persistImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported);
 
     ExchangeRate persistExchangeRate(ExchangeRate rate);
 

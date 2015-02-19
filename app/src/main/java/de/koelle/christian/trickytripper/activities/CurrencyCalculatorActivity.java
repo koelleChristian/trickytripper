@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Locale;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsInflater;
+import de.koelle.christian.common.options.OptionConstraintsInflater;
 import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.NumberUtils;
@@ -50,7 +50,7 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
     private Amount resultAmount;
     private boolean checkboxSelectionSaveNewAmendedExchangeRate;
     private int resultViewId;
-    private Double exchangeRateInput = Double.valueOf(0.0);
+    private Double exchangeRateInput = 0.0;
     private ExchangeRate exchangeRateSelected;
     private ImportOptionSupport importOptionSupport;
     private ExchangeRateDescriptionUtils exchangeRateDescriptionUtils;
@@ -122,7 +122,7 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
             public void afterTextChanged(Editable s) {
                 String widgetInput = getDecimalNumberInputUtil()
                         .fixInputStringWidgetToParser(s.toString());
-                Double valueInput = NumberUtils.getStringToDoubleUnrounded(
+                Double valueInput = NumberUtils.getStringToDoubleNonRounded(
                         getLocale(), widgetInput);
                 exchangeRateInput = valueInput;
                 updateViewsState(UpdateExclusion.RATE_VALUE);
@@ -179,7 +179,7 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
     private void readAndSetInput(Intent intent) {
         Double inputValue = intent.getDoubleExtra(
                 Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_VALUE,
-                Double.valueOf(0.0d));
+                0.0d);
         inputAmount = createAmount(inputValue, null);
 
         Bundle extras = getIntent().getExtras();
@@ -193,7 +193,7 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
         resultViewId = intent.getIntExtra(
                 Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_RESULT_VIEW_ID, -1);
 
-        resultAmount = createAmount(Double.valueOf(0.0d), resultCurrency);
+        resultAmount = createAmount(0.0d, resultCurrency);
 
         Currency sourceCurrencyToBeUsed = getApp().getMiscController()
                 .getCurrencyFavorite(resultCurrency);
@@ -262,20 +262,19 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
     }
 
     private boolean canResultBeCalculated() {
-        return resultAmount != null && exchangeRateInput > Double.valueOf(0.0d)
-                && resultAmount.getValue() > Double.valueOf(0.0d);
+        return resultAmount != null && exchangeRateInput > 0.0d
+                && resultAmount.getValue() > 0.0d;
     }
 
     private Locale getLocale() {
-        Locale locale = getResources().getConfiguration().locale;
-        return locale;
+        return getResources().getConfiguration().locale;
     }
 
     @SuppressWarnings("rawtypes")
     private void initExchangeRateSpinner() {
 
         spinner = getExchangeRateSpinner();
-        List<RowObject> spinnerObjects = new ArrayList<RowObject>();
+        List<RowObject> spinnerObjects = new ArrayList<>();
 
         adapter = new ArrayAdapter<RowObject>(this,
                 android.R.layout.simple_spinner_item, spinnerObjects) {
@@ -362,10 +361,10 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
     @SuppressWarnings("rawtypes")
     private List<RowObject> wrapExchangeRatesInRowObject(
             List<ExchangeRate> values) {
-        List<RowObject> result = new ArrayList<RowObject>();
+        List<RowObject> result = new ArrayList<>();
 
         for (final ExchangeRate value : values) {
-            result.add(new RowObject<ExchangeRate>(
+            result.add(new RowObject<>(
                     new RowObjectCallback<ExchangeRate>() {
                         public String getStringToDisplay(ExchangeRate c) {
                             return exchangeRateDescriptionUtils
@@ -374,7 +373,7 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
                     }, value));
         }
         if (values.isEmpty()) {
-            result.add(new RowObject<ExchangeRate>(
+            result.add(new RowObject<>(
                     new RowObjectCallback<ExchangeRate>() {
                         public String getStringToDisplay(ExchangeRate c) {
                             return getResources()
@@ -393,7 +392,7 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
 
     private void nullRateModel() {
         exchangeRateSelected = null;
-        exchangeRateInput = Double.valueOf(0.0);
+        exchangeRateInput = 0.0;
     }
 
     private TrickyTripperApp getApp() {
@@ -492,7 +491,7 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
                 .getMiscController()
                 .getOptionSupport()
                 .populateOptionsMenu(
-                        new OptionContraintsInflater()
+                        new OptionConstraintsInflater()
                                 .activity(getMenuInflater())
                                 .menu(menu)
                                 .options(

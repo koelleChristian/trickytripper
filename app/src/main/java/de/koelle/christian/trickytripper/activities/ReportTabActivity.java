@@ -127,8 +127,7 @@ public class ReportTabActivity extends Fragment {
     }
 
     private TrickyTripperApp getApp() {
-        final TrickyTripperApp app = ((TrickyTripperApp) getActivity().getApplication());
-        return app;
+        return ((TrickyTripperApp) getActivity().getApplication());
     }
 
     private void updateStaticRows(TrickyTripperApp app, Participant participantSelected, Locale locale, View view) {
@@ -146,7 +145,7 @@ public class ReportTabActivity extends Fragment {
         } else {
             valueTotalSpent = AmountViewUtils.getAmountString(locale, getTripLoaded(app)
                     .getSumReport()
-                    .getTotalSpendings(), true, true, true);
+                    .getTotalSpending(), true, true, true);
             valueCount = getTripLoaded(app).getSumReport().getTotalSpendingCount();
         }
         viewId = R.id.reportViewOutputTotalSpent;
@@ -238,17 +237,16 @@ public class ReportTabActivity extends Fragment {
                 .getDefaultStringCollator());
 
 
-        for (Iterator<Entry<Participant, Debts>> it = getTripLoaded(app).getDebts().entrySet().iterator(); it.hasNext(); ) {
+        for (Entry<Participant, Debts> entry : getTripLoaded(app).getDebts().entrySet()) {
 
-            Entry<Participant, Debts> entry = it.next();
             Debts debts = entry.getValue();
-            if (debts != null && debts.getLoanerToDepts() != null) {
+            if (debts != null && debts.getLoanerToDebts() != null) {
                 TableRow newRow;
                 TextView textView;
                 String value;
                 int column;
 
-                for (Iterator<Entry<Participant, Amount>> itInternal = debts.getLoanerToDepts().entrySet().iterator(); itInternal.hasNext(); ) {
+                for (Iterator<Entry<Participant, Amount>> itInternal = debts.getLoanerToDebts().entrySet().iterator(); itInternal.hasNext(); ) {
                     Entry<Participant, Amount> debt = itInternal.next();
 
                     if (isInScope(involvedParticipants, entry, debt)) {

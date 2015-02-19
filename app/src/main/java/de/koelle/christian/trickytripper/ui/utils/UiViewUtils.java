@@ -14,7 +14,7 @@ import de.koelle.christian.trickytripper.ui.model.RowObject;
 
 public class UiViewUtils {
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static <T> Set<T> getListSelection(ListView listView2, ArrayAdapter<RowObject> adapter2, T type) {
+    public static <T> Set<T> getListSelection(ListView listView2, ArrayAdapter<RowObject> adapter2) {
 
         final Set<T> selectionResult = new LinkedHashSet<T>();
 

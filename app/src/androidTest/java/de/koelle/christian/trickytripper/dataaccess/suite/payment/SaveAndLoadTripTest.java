@@ -73,7 +73,7 @@ public class SaveAndLoadTripTest extends ApplicationTestCase<TrickyTripperApp> {
 
         /* Update trip 2 */
 
-        trip2In.setName(TRIP_2_NAME_CHRISTIAN + " Upate");
+        trip2In.setName(TRIP_2_NAME_CHRISTIAN + " Update");
         trip2Out = dataManager.persistTrip(trip2In);
         AssertionUtil.assertTripEquality(trip2Out, id2Exp, trip2In);
         trip2Out = dataManager.loadTripById(id2Exp);

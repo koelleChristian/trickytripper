@@ -23,8 +23,8 @@ public class SpinnerViewUtils {
             Currency currencyToBeSelected,
             final Spinner spinner, Context context) {
 
-        List<Currency> suportedCurrencies = CurrencyUtil.getSupportedCurrencies(context.getResources());
-        final List<RowObject> spinnerObjects = wrapCurrenciesInRowObject(suportedCurrencies, currencyToBeExcluded,
+        List<Currency> supportedCurrencies = CurrencyUtil.getSupportedCurrencies(context.getResources());
+        final List<RowObject> spinnerObjects = wrapCurrenciesInRowObject(supportedCurrencies, currencyToBeExcluded,
                 context);
 
         ArrayAdapter<RowObject> adapterInUse = (ArrayAdapter<RowObject>) spinner.getAdapter();

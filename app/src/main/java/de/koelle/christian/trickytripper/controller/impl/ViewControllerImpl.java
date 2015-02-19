@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Currency;
 import java.util.HashMap;
 import java.util.Map;
@@ -77,9 +78,7 @@ public class ViewControllerImpl implements ViewController {
         HashMap<String, Serializable> extras = new HashMap<String, Serializable>();
         if (currencies != null && currencies.length > 0) {
             ArrayList<Currency> currencyList = new ArrayList<Currency>();
-            for (Currency cur : currencies) {
-                currencyList.add(cur);
-            }
+            Collections.addAll(currencyList, currencies);
             extras.put(Rc.ACTIVITY_PARAM_IMPORT_EXCHANGE_RATES_IN_CURRENCY_LIST, currencyList);
         }
         startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
@@ -105,9 +104,7 @@ public class ViewControllerImpl implements ViewController {
         HashMap<String, Serializable> extras = new HashMap<String, Serializable>();
         if (currencies != null && currencies.length > 0) {
             ArrayList<Currency> currencyList = new ArrayList<Currency>();
-            for (Currency cur : currencies) {
-                currencyList.add(cur);
-            }
+            Collections.addAll(currencyList, currencies);
             extras.put(Rc.ACTIVITY_PARAM_DELETE_EXCHANGE_RATES_IN_CURRENCY_LIST, currencyList);
         }
         startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
@@ -176,7 +173,7 @@ public class ViewControllerImpl implements ViewController {
     public void openCurrencySelection(Activity caller, Currency targetCurrency, int viewIdForResult,
                                       CurrencySelectionMode mode) {
         Class<? extends Activity> activity = CurrencySelectionActivity.class;
-        Map<String, Serializable> extras = new HashMap<String, Serializable>();
+        Map<String, Serializable> extras = new HashMap<>();
         extras.put(Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_IN_CURRENCY, targetCurrency);
         extras.put(Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_IN_VIEW_ID, viewIdForResult);
         extras.put(Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_IN_MODE, mode);
@@ -187,7 +184,7 @@ public class ViewControllerImpl implements ViewController {
 
     public void openEditPayment(Payment p) {
         Class<? extends Activity> activity = PaymentEditActivity.class;
-        Map<String, Serializable> extras = new HashMap<String, Serializable>();
+        Map<String, Serializable> extras = new HashMap<>();
         extras.put(Rc.ACTIVITY_PARAM_KEY_PAYMENT_ID, p.getId());
         startActivityWithParams(extras, activity, ViewMode.EDIT);
     }

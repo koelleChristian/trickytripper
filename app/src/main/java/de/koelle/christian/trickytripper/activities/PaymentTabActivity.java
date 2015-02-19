@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map.Entry;
 
-import de.koelle.christian.common.options.OptionContraintsInflater;
+import de.koelle.christian.common.options.OptionConstraintsInflater;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperActivity;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -40,10 +40,10 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
 
     private static final String DELIMITER = ": ";
 
-    private final List<Payment> paymentRows = new ArrayList<Payment>();
+    private final List<Payment> paymentRows = new ArrayList<>();
     private ArrayAdapter<Payment> adapter;
     private ListView listView;
-    private Comparator<Payment> comparator = new PaymentComparator();
+    private final Comparator<Payment> comparator = new PaymentComparator();
 
     private MyActionModeCallback mActionModeCallback = new MyActionModeCallback();
 
@@ -209,7 +209,7 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
             }
 
             return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                    new OptionContraintsInflater()
+                    new OptionConstraintsInflater()
                             .activity(mode.getMenuInflater())
                             .menu(menu)
                             .options(optionIds));

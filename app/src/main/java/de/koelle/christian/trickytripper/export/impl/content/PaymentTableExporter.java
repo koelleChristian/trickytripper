@@ -144,12 +144,11 @@ public class PaymentTableExporter {
         final Collator collator = Collator.getInstance(resourceResolver.getLocale());
         collator.setStrength(Rc.DEFAULT_COLLATOR_STRENGTH);
 
-        Comparator<Participant> comparator = new Comparator<Participant>() {
+        return new Comparator<Participant>() {
             public int compare(Participant lhs, Participant rhs) {
                 return collator.compare(lhs.getName(), rhs.getName());
             }
         };
-        return comparator;
     }
 
     private List<Payment> deriveRelevantPayments(Trip trip, Collection<Participant> participants) {

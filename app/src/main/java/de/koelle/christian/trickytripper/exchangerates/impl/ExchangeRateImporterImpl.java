@@ -28,13 +28,13 @@ public class ExchangeRateImporterImpl implements ExchangeRateImporter {
 
     public void importExchangeRates(Set<Currency> currencies, ExchangeRateImporterResultCallback callback) {
         stopped = false;
-        List<FromToCurrencyPair> permutations = new ArrayList<FromToCurrencyPair>();
+        List<FromToCurrencyPair> permutations = new ArrayList<>();
         if (currencies.size() >= 2) {
             Currency[] currencyArray = new Currency[currencies.size()];
             currencies.toArray(currencyArray);
 
-            Currency from = null;
-            Currency to = null;
+            Currency from;
+            Currency to;
 
             for (int i = 0; i < currencyArray.length - 1; i++) {
                 from = currencyArray[i];
@@ -123,7 +123,7 @@ public class ExchangeRateImporterImpl implements ExchangeRateImporter {
                         + " to=" + to + " exchangeRate retrieved >" +
                         result + "<";
                 exchangeRateImporterCallback.deliverResult(new ExchangeRateImporterResultContainer(null, from, to,
-                        ExchangeRateImporterResultState.UNPARSABLE_JSON_RESULT, msg));
+                        ExchangeRateImporterResultState.NON_PARSABLE_JSON_RESULT, msg));
             }
             else {
                 ExchangeRate resultRecord = assembleResult(from, to, rate);

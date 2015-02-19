@@ -20,9 +20,9 @@ public class ConversionUtils {
     private ConversionUtils() {
     }
 
-    public static Date getDateByLong(long timeInMilisecs) {
+    public static Date getDateByLong(long timeInMillis) {
         GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTimeInMillis(timeInMilisecs);
+        calendar.setTimeInMillis(timeInMillis);
         return calendar.getTime();
     }
 

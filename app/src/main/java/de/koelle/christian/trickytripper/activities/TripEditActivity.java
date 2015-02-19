@@ -15,7 +15,7 @@ import java.util.Currency;
 import java.util.List;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsInflater;
+import de.koelle.christian.common.options.OptionConstraintsInflater;
 import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.common.utils.StringUtils;
@@ -154,7 +154,7 @@ public class TripEditActivity extends ActionBarActivity {
                 .getMiscController()
                 .getOptionSupport()
                 .populateOptionsMenu(
-                        new OptionContraintsInflater()
+                        new OptionConstraintsInflater()
                                 .activity(getMenuInflater()).menu(menu)
                                 .options(optionIds));
     }

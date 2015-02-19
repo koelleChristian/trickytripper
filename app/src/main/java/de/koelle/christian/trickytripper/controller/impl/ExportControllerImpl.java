@@ -12,7 +12,7 @@ import android.content.pm.ResolveInfo;
 import android.os.Environment;
 import android.util.Log;
 import de.koelle.christian.common.io.impl.AppFileWriter;
-import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
+import de.koelle.christian.trickytripper.apputils.PrefWriterReaderUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.controller.ExportController;
 import de.koelle.christian.trickytripper.controller.TripResolver;
@@ -40,11 +40,11 @@ public class ExportControllerImpl implements ExportController {
     }
 
     public ExportSettings getDefaultExportSettings() {
-        return PrefWritrerReaderUtils.loadExportSettings(prefsResolver.getPrefs());
+        return PrefWriterReaderUtils.loadExportSettings(prefsResolver.getPrefs());
     }
 
     public List<ExportOutputChannel> getEnabledExportOutputChannel() {
-        List<ExportOutputChannel> result = new ArrayList<ExportSettings.ExportOutputChannel>();
+        List<ExportOutputChannel> result = new ArrayList<>();
         boolean testExport = false;
         if (testExport) {
             result.add(ExportOutputChannel.SD_CARD);
@@ -76,14 +76,14 @@ public class ExportControllerImpl implements ExportController {
         if (Rc.debugOn) {
             Log.d(Rc.LT_INPUT, "exportReport() settings=" + settings + " selected=" + selectedParticipant);
         }
-        List<Participant> participantsForReport = new ArrayList<Participant>();
+        List<Participant> participantsForReport = new ArrayList<>();
         if (selectedParticipant != null) {
             participantsForReport.add(selectedParticipant);
         }
         else {
             participantsForReport.addAll(tripResolver.getTripInEditing().getParticipant());
         }
-        PrefWritrerReaderUtils.saveExportSettings(prefsResolver.getEditingPrefsEditor(), settings);
+        PrefWriterReaderUtils.saveExportSettings(prefsResolver.getEditingPrefsEditor(), settings);
         return exporter.exportReport(settings,
                 participantsForReport,
                 tripResolver.getTripInEditing(),

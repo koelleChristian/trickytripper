@@ -52,7 +52,7 @@ public class FileUtils {
                  * with short names of files existing in the application's data
                  * directory. It does not work with absolute paths.
                  */
-                f.delete();
+                f.delete(); // TODO(ckoelle) result ignored
             }
         }
     }

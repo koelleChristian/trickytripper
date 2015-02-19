@@ -6,7 +6,7 @@ import java.util.Date;
 
 import de.koelle.christian.common.utils.NumberUtils;
 
-public class ExchangeRate implements Serializable, Cloneable {
+public class ExchangeRate implements Serializable {
 
     private static final long serialVersionUID = 2017174474860551532L;
 
@@ -116,8 +116,7 @@ public class ExchangeRate implements Serializable, Cloneable {
         return cloneInternal(true);
     }
 
-    @Override
-    public ExchangeRate clone() {
+    public ExchangeRate doClone() {
         return cloneInternal(false);
     }
 

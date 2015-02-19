@@ -15,7 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsInflater;
+import de.koelle.christian.common.options.OptionConstraintsInflater;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
@@ -96,7 +96,7 @@ public class DeleteExchangeRatesActivity extends ActionBarActivity implements De
     }
 
     public void select(View view) {
-        ((Spinner) findViewById(R.id.deleteExchangeRatesViewSpinner)).performClick();
+        findViewById(R.id.deleteExchangeRatesViewSpinner).performClick();
     }
 
     void updateList() {
@@ -201,7 +201,7 @@ public class DeleteExchangeRatesActivity extends ActionBarActivity implements De
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsInflater().activity(getMenuInflater()).menu(menu)
+                new OptionConstraintsInflater().activity(getMenuInflater()).menu(menu)
                         .options(new int[]{
                                 R.id.option_accept,
                                 R.id.option_help

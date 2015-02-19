@@ -47,7 +47,7 @@ public class TripReportLogic {
         categoryCountMap = initCategoryCountMap(participants);
         result.setPaymentByUserByCategoryCount(categoryCountMap);
 
-        result.setTotalSpendings(amountFactory.createAmount());
+        result.setTotalSpending(amountFactory.createAmount());
         result.setTotalSpendingCount(0);
         result.setTotalSpendingByCategory(new HashMap<PaymentCategory, Amount>());
         result.setTotalSpendingByCategoryCount(new HashMap<PaymentCategory, Integer>());
@@ -82,7 +82,7 @@ public class TripReportLogic {
         Map<Participant, Debts> result = new HashMap<Participant, Debts>();
         Map<Participant, Amount> balanceClone = new HashMap<Participant, Amount>();
         for (Entry<Participant, Amount> entry : balanceByUser.entrySet()) {
-            balanceClone.put(entry.getKey(), entry.getValue().clone());
+            balanceClone.put(entry.getKey(), entry.getValue().doClone());
         }
         refreshDebts2(participants, balanceClone, result);
         return result;
@@ -117,13 +117,13 @@ public class TripReportLogic {
                 .abs(NumberUtils.round(biggestDueA.getValue() - Math.abs(biggestDebtA.getValue())));
 
         if (Math.abs(biggestDueA.getValue()) > Math.abs(biggestDebtA.getValue())) {
-            result.get(biggestDebt.getKey()).getLoanerToDepts()
+            result.get(biggestDebt.getKey()).getLoanerToDebts()
                     .put(biggestDue.getKey(), amountFactory.createAmount(Math.abs(biggestDebtA.getValue()))); // 110
             biggestDueA.setValue(newAmountDouble); // 80
             biggestDebtA.setValue(0d); // 0
         }
         else {
-            result.get(biggestDebt.getKey()).getLoanerToDepts()
+            result.get(biggestDebt.getKey()).getLoanerToDebts()
                     .put(biggestDue.getKey(), amountFactory.createAmount(biggestDueA.getValue())); // 110
                                                                                                    // |
             Double valueToBeUsed = (newAmountDouble != 0.0d) ? NumberUtils.neg(newAmountDouble) : 0.0d; // 5
@@ -176,7 +176,7 @@ public class TripReportLogic {
                 Debts debts = result.get(receiverToAmount.getKey());
                 Amount amountForResult = getNullsafeAmountEntryForParticipant(debts, transfererToAmount.getKey());
                 amountForResult.addValue(transfererToAmount.getValue().getValue());
-                debts.getLoanerToDepts().put(transfererToAmount.getKey(), amountForResult);
+                debts.getLoanerToDebts().put(transfererToAmount.getKey(), amountForResult);
             }
             balanceDebts(result, participants);
         }
@@ -198,8 +198,8 @@ public class TripReportLogic {
                     continue;
                 }
 
-                Amount amountP1 = result.get(p1).getLoanerToDepts().get(p2);
-                Amount amountP2 = result.get(p2).getLoanerToDepts().get(p1);
+                Amount amountP1 = result.get(p1).getLoanerToDebts().get(p2);
+                Amount amountP2 = result.get(p2).getLoanerToDebts().get(p1);
 
                 if (amountP1 == null) {
                     amountP1 = amountFactory.createAmount();
@@ -213,16 +213,16 @@ public class TripReportLogic {
                 Amount newAmountAmount = amountFactory.createAmount(newAmountDouble);
 
                 if (newAmountDouble.equals(Double.valueOf(0f))) {
-                    result.get(p1).getLoanerToDepts().remove(p2);
-                    result.get(p2).getLoanerToDepts().remove(p1);
+                    result.get(p1).getLoanerToDebts().remove(p2);
+                    result.get(p2).getLoanerToDebts().remove(p1);
                 }
                 else if (amountP1.getValue() > amountP2.getValue()) {
-                    result.get(p1).getLoanerToDepts().put(p2, newAmountAmount);
-                    result.get(p2).getLoanerToDepts().remove(p1);
+                    result.get(p1).getLoanerToDebts().put(p2, newAmountAmount);
+                    result.get(p2).getLoanerToDebts().remove(p1);
                 }
                 else {
-                    result.get(p1).getLoanerToDepts().remove(p2);
-                    result.get(p2).getLoanerToDepts().put(p1, newAmountAmount);
+                    result.get(p1).getLoanerToDebts().remove(p2);
+                    result.get(p2).getLoanerToDebts().put(p1, newAmountAmount);
                 }
 
             }
@@ -267,7 +267,7 @@ public class TripReportLogic {
 
                     amountForResult.addValue(dueForResult);
 
-                    debts.getLoanerToDepts().put(payEntry.getKey(), amountForResult);
+                    debts.getLoanerToDebts().put(payEntry.getKey(), amountForResult);
 
                 }
             }
@@ -276,8 +276,8 @@ public class TripReportLogic {
     }
 
     private Amount getNullsafeAmountEntryForParticipant(Debts debts, Participant payEntryParticipant) {
-        Amount amountForResult = (debts.getLoanerToDepts().get(payEntryParticipant) == null) ? amountFactory
-                .createAmount() : debts.getLoanerToDepts().get(payEntryParticipant);
+        Amount amountForResult = (debts.getLoanerToDebts().get(payEntryParticipant) == null) ? amountFactory
+                .createAmount() : debts.getLoanerToDebts().get(payEntryParticipant);
         return amountForResult;
     }
 
@@ -319,7 +319,7 @@ public class TripReportLogic {
     private Amount cloneAmount(Amount value) {
         Amount result = new Amount();
         result.setUnit(value.getUnit());
-        result.setValue(Double.valueOf(value.getValue()));
+        result.setValue(value.getValue());
         return result;
     }
 

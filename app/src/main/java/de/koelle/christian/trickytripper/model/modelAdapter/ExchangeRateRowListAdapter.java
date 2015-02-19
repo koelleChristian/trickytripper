@@ -38,7 +38,7 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View result = convertView;
+        View result;
 
         boolean isDouble = DisplayMode.DOUBLE_WITH_SELECTION.equals(mode);
 

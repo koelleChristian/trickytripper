@@ -58,7 +58,7 @@ public class TestDataFactory {
         Payment payment;
         Amount amount;
         Map<Participant, Amount> payerToPayment;
-        Map<Participant, Amount> deptorToAmount;
+        Map<Participant, Amount> debitorToAmount;
 
         if (TestDataSet.DEFAULT.equals(testDataSet)) {
 
@@ -68,46 +68,46 @@ public class TestDataFactory {
 
             /**/
 
-            deptorToAmount = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<Participant, Amount>();
             payerToPayment = new HashMap<Participant, Amount>();
 
             amount = amountFactory.createAmount(30.00d);
             payerToPayment.put(chris, amount);
 
             amount = amountFactory.createAmount(-10.00d);
-            deptorToAmount.put(chris, amount);
+            debitorToAmount.put(chris, amount);
             amount = amountFactory.createAmount(-10.00d);
-            deptorToAmount.put(niko, amount);
+            debitorToAmount.put(niko, amount);
             amount = amountFactory.createAmount(-10.00d);
-            deptorToAmount.put(wolfram, amount);
+            debitorToAmount.put(wolfram, amount);
 
             payment = new Payment();
             payment.setCategory(PaymentCategory.FOOD);
             payment.setDescription("Essen in Mykonos");
             payment.setPayerToPayment(payerToPayment);
-            payment.setDebitorToAmount(deptorToAmount);
+            payment.setDebitorToAmount(debitorToAmount);
             payment.setPaymentDateTime(new GregorianCalendar(1996, 5, 22, 18, 40, 50).getTime());
 
             payments.add(payment);
 
             /**/
 
-            deptorToAmount = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<Participant, Amount>();
             payerToPayment = new HashMap<Participant, Amount>();
 
             amount = amountFactory.createAmount(10.00d);
             payerToPayment.put(chris, amount);
 
             amount = amountFactory.createAmount(-5.00d);
-            deptorToAmount.put(chris, amount);
+            debitorToAmount.put(chris, amount);
             amount = amountFactory.createAmount(-5.00d);
-            deptorToAmount.put(niko, amount);
+            debitorToAmount.put(niko, amount);
 
             payment = new Payment();
             payment.setCategory(PaymentCategory.OTHER);
             payment.setDescription("Kippen");
             payment.setPayerToPayment(payerToPayment);
-            payment.setDebitorToAmount(deptorToAmount);
+            payment.setDebitorToAmount(debitorToAmount);
             payment.setPaymentDateTime(new GregorianCalendar(1997, 6, 23, 19, 41, 51).getTime());
 
             payments.add(payment);
@@ -123,88 +123,88 @@ public class TestDataFactory {
 
             /**/
 
-            deptorToAmount = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<Participant, Amount>();
             payerToPayment = new HashMap<Participant, Amount>();
 
             amount = amountFactory.createAmount(10.00d);
             payerToPayment.put(wolfram, amount);
 
             amount = amountFactory.createAmount(-5.00d);
-            deptorToAmount.put(wolfram, amount);
+            debitorToAmount.put(wolfram, amount);
             amount = amountFactory.createAmount(-5.00d);
-            deptorToAmount.put(niko, amount);
+            debitorToAmount.put(niko, amount);
 
             payment = new Payment();
             payment.setCategory(PaymentCategory.OTHER);
             payment.setDescription("Kippen");
             payment.setPayerToPayment(payerToPayment);
-            payment.setDebitorToAmount(deptorToAmount);
+            payment.setDebitorToAmount(debitorToAmount);
 
             payments.add(payment);
 
             /**/
             /**/
 
-            deptorToAmount = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<Participant, Amount>();
             payerToPayment = new HashMap<Participant, Amount>();
 
             amount = amountFactory.createAmount(30.00d);
             payerToPayment.put(chris, amount);
 
             amount = amountFactory.createAmount(-10.00d);
-            deptorToAmount.put(chris, amount);
+            debitorToAmount.put(chris, amount);
             amount = amountFactory.createAmount(-10.00d);
-            deptorToAmount.put(niko, amount);
+            debitorToAmount.put(niko, amount);
             amount = amountFactory.createAmount(-10.00d);
-            deptorToAmount.put(wolfram, amount);
+            debitorToAmount.put(wolfram, amount);
 
             payment = new Payment();
             payment.setCategory(PaymentCategory.FOOD);
             payment.setDescription("Essen in Mykonos");
             payment.setPayerToPayment(payerToPayment);
-            payment.setDebitorToAmount(deptorToAmount);
+            payment.setDebitorToAmount(debitorToAmount);
 
             payments.add(payment);
 
             /**/
 
-            deptorToAmount = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<Participant, Amount>();
             payerToPayment = new HashMap<Participant, Amount>();
 
             amount = amountFactory.createAmount(30.00d);
             payerToPayment.put(chris, amount);
 
             amount = amountFactory.createAmount(-15.00d);
-            deptorToAmount.put(niko, amount);
+            debitorToAmount.put(niko, amount);
             amount = amountFactory.createAmount(-15.00d);
-            deptorToAmount.put(wolfram, amount);
+            debitorToAmount.put(wolfram, amount);
 
             payment = new Payment();
             payment.setCategory(PaymentCategory.FOOD);
             payment.setDescription("Essen in Mykonos2");
             payment.setPayerToPayment(payerToPayment);
-            payment.setDebitorToAmount(deptorToAmount);
+            payment.setDebitorToAmount(debitorToAmount);
 
             payments.add(payment);
 
             /**/
 
-            deptorToAmount = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<Participant, Amount>();
             payerToPayment = new HashMap<Participant, Amount>();
 
             amount = amountFactory.createAmount(30.00d);
             payerToPayment.put(niko, amount);
 
             amount = amountFactory.createAmount(-15.00d);
-            deptorToAmount.put(chris, amount);
+            debitorToAmount.put(chris, amount);
             amount = amountFactory.createAmount(-15.00d);
-            deptorToAmount.put(wolfram, amount);
+            debitorToAmount.put(wolfram, amount);
 
             payment = new Payment();
             payment.setCategory(PaymentCategory.FOOD);
             payment.setDescription("Essen in Mykonos3");
             payment.setPayerToPayment(payerToPayment);
-            payment.setDebitorToAmount(deptorToAmount);
+            payment.setDebitorToAmount(debitorToAmount);
 
             payments.add(payment);
 
@@ -217,44 +217,44 @@ public class TestDataFactory {
 
             /**/
 
-            deptorToAmount = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<Participant, Amount>();
             payerToPayment = new HashMap<Participant, Amount>();
 
             amount = amountFactory.createAmount(00.00d);
             payerToPayment.put(chris, amount);
 
             amount = amountFactory.createAmount(00.00d);
-            deptorToAmount.put(chris, amount);
+            debitorToAmount.put(chris, amount);
             amount = amountFactory.createAmount(00.00d);
-            deptorToAmount.put(niko, amount);
+            debitorToAmount.put(niko, amount);
 
             payment = new Payment();
             payment.setCategory(PaymentCategory.FOOD);
             payment.setDescription("Null entry");
             payment.setPayerToPayment(payerToPayment);
-            payment.setDebitorToAmount(deptorToAmount);
+            payment.setDebitorToAmount(debitorToAmount);
 
             payments.add(payment);
 
             /**/
-            deptorToAmount = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<Participant, Amount>();
             payerToPayment = new HashMap<Participant, Amount>();
 
             amount = amountFactory.createAmount(00.00d);
             payerToPayment.put(chris, amount);
 
             amount = amountFactory.createAmount(00.00d);
-            deptorToAmount.put(chris, amount);
+            debitorToAmount.put(chris, amount);
             amount = amountFactory.createAmount(00.00d);
-            deptorToAmount.put(niko, amount);
+            debitorToAmount.put(niko, amount);
             amount = amountFactory.createAmount(00.00d);
-            deptorToAmount.put(wolfram, amount);
+            debitorToAmount.put(wolfram, amount);
 
             payment = new Payment();
             payment.setCategory(PaymentCategory.GAS);
             payment.setDescription("Null entry 2");
             payment.setPayerToPayment(payerToPayment);
-            payment.setDebitorToAmount(deptorToAmount);
+            payment.setDebitorToAmount(debitorToAmount);
 
             payments.add(payment);
 
@@ -267,7 +267,7 @@ public class TestDataFactory {
 
             /**/
 
-            deptorToAmount = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<Participant, Amount>();
             payerToPayment = new HashMap<Participant, Amount>();
 
             amount = amountFactory.createAmount(80.00d);
@@ -276,17 +276,17 @@ public class TestDataFactory {
             payerToPayment.put(niko, amount);
 
             amount = amountFactory.createAmount(-5.00d);
-            deptorToAmount.put(chris, amount);
+            debitorToAmount.put(chris, amount);
             amount = amountFactory.createAmount(-10.00d);
-            deptorToAmount.put(niko, amount);
+            debitorToAmount.put(niko, amount);
             amount = amountFactory.createAmount(-85.00d);
-            deptorToAmount.put(wolfram, amount);
+            debitorToAmount.put(wolfram, amount);
 
             payment = new Payment();
             payment.setCategory(PaymentCategory.FOOD);
             payment.setDescription("FIRST_PAYMENT_HIGHER_THAN_FIRST_DEBITOR");
             payment.setPayerToPayment(payerToPayment);
-            payment.setDebitorToAmount(deptorToAmount);
+            payment.setDebitorToAmount(debitorToAmount);
 
             payments.add(payment);
 
@@ -299,7 +299,7 @@ public class TestDataFactory {
 
             /**/
 
-            deptorToAmount = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<Participant, Amount>();
             payerToPayment = new HashMap<Participant, Amount>();
 
             amount = amountFactory.createAmount(5.00d);
@@ -310,15 +310,15 @@ public class TestDataFactory {
             payerToPayment.put(wolfram, amount);
 
             amount = amountFactory.createAmount(-85.00d);
-            deptorToAmount.put(chris, amount);
+            debitorToAmount.put(chris, amount);
             amount = amountFactory.createAmount(-15.00d);
-            deptorToAmount.put(niko, amount);
+            debitorToAmount.put(niko, amount);
 
             payment = new Payment();
             payment.setCategory(PaymentCategory.FOOD);
             payment.setDescription("FIRST_PAYMENT_LOWER_THAN_FIRST_DEBITOR");
             payment.setPayerToPayment(payerToPayment);
-            payment.setDebitorToAmount(deptorToAmount);
+            payment.setDebitorToAmount(debitorToAmount);
 
             payments.add(payment);
 

@@ -9,6 +9,6 @@ import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChanne
 public interface StreamSender {
 
     void sendStream(Activity activity, String subject, String content, List<Uri> attachments,
-            ExportOutputChannel channelSelectiont);
+            ExportOutputChannel channelSelection);
 
 }

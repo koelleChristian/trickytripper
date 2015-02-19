@@ -14,13 +14,11 @@ import android.widget.TextView;
 
 import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Currency;
 import java.util.List;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsInflater;
+import de.koelle.christian.common.options.OptionConstraintsInflater;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -104,17 +102,17 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
                 if (mActionMode != null) {
                     return false;
                 }
-                ExchangeRate selectionUninverted = getUninverted(listAdapter.getItem(position));
-                mActionModeCallback.setSelection(selectionUninverted);
+                ExchangeRate selectionNonInverted = getNonInverted(listAdapter.getItem(position));
+                mActionModeCallback.setSelection(selectionNonInverted);
                 mActionMode = ManageExchangeRatesActivity.this.startSupportActionMode(mActionModeCallback);
                 StringBuilder builder = new StringBuilder()
-                        .append(selectionUninverted.getCurrencyFrom().getCurrencyCode())
+                        .append(selectionNonInverted.getCurrencyFrom().getCurrencyCode())
                         .append(" > ")
-                        .append(selectionUninverted.getCurrencyTo().getCurrencyCode())
+                        .append(selectionNonInverted.getCurrencyTo().getCurrencyCode())
                         .append(" | ")
-                        .append(selectionUninverted.getCurrencyTo().getCurrencyCode())
+                        .append(selectionNonInverted.getCurrencyTo().getCurrencyCode())
                         .append(" > ")
-                        .append(selectionUninverted.getCurrencyFrom().getCurrencyCode());
+                        .append(selectionNonInverted.getCurrencyFrom().getCurrencyCode());
                 mActionMode.setTitle(builder);
                 view.setSelected(true);
                 return true;
@@ -152,7 +150,7 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
                 .getMiscController()
                 .getOptionSupport()
                 .populateOptionsMenu(
-                        new OptionContraintsInflater()
+                        new OptionConstraintsInflater()
                                 .activity(getMenuInflater()).menu(menu)
                                 .options(new int[]{
                                         R.id.option_help,
@@ -206,7 +204,7 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
         deleteRowAndUpdateList(row);
     }
 
-    private ExchangeRate getUninverted(ExchangeRate rate) {
+    private ExchangeRate getNonInverted(ExchangeRate rate) {
         if (!rate.isInversion()) {
             return rate;
         }
@@ -255,14 +253,15 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
     }
 
     private void deleteRowAndUpdateList(ExchangeRate row) {
-        getApp().getExchangeRateController().deleteExchangeRates(
-                Arrays.asList(new ExchangeRate[]{row}));
+        ArrayList<ExchangeRate> rates = new ArrayList<ExchangeRate>();
+        rates.add(row);
+
+        getApp().getExchangeRateController().deleteExchangeRates(rates);
         updateList();
     }
 
     private void openDeleteActivity() {
-        getApp().getViewController().openDeleteExchangeRates(this,
-                new Currency[0]);
+        getApp().getViewController().openDeleteExchangeRates(this);
     }
 
     private void openCreateActivity() {
@@ -298,7 +297,7 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
             }
 
             return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                    new OptionContraintsInflater()
+                    new OptionConstraintsInflater()
                             .activity(mode.getMenuInflater())
                             .menu(menu)
                             .options(optionIds));

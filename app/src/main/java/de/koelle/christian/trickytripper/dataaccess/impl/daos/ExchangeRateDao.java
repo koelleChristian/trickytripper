@@ -325,7 +325,7 @@ public class ExchangeRateDao {
     }
 
     private List<Long> queryExchangeRatePrefs(Currency currencyFrom, Currency currencyTo) {
-        List<Long> resultList = new ArrayList<Long>();
+        List<Long> resultList = new ArrayList<>();
         Cursor c =
                 db.query(
                         ExchangeRatePrefTable.TABLE_NAME,
@@ -369,7 +369,7 @@ public class ExchangeRateDao {
 
     private List<ExchangeRate> queryExchangeRates(String selectionCriteria, String[] selectionArgs,
             String orderArguments) {
-        List<ExchangeRate> resultList = new ArrayList<ExchangeRate>();
+        List<ExchangeRate> resultList = new ArrayList<>();
         Cursor c =
                 db.query(
                         ExchangeRateTable.TABLE_NAME,
@@ -406,7 +406,7 @@ public class ExchangeRateDao {
 
         Cursor c =
                 db.rawQuery(
-                        ERP_RAW_QUERY_FIND.toString(),
+                        ERP_RAW_QUERY_FIND,
                         new String[] {
                                 currencyFrom.getCurrencyCode(),
                                 currencyTo.getCurrencyCode(),
@@ -448,8 +448,8 @@ public class ExchangeRateDao {
     }
 
     public Map<List<Currency>, List<Currency>> findUsedCurrencies(Currency targetCurrency) {
-        List<Currency> currenciesMatchingInOrderOfUsage = new ArrayList<Currency>();
-        List<Currency> currenciesUsedByDate = new ArrayList<Currency>();
+        List<Currency> currenciesMatchingInOrderOfUsage = new ArrayList<>();
+        List<Currency> currenciesUsedByDate = new ArrayList<>();
         Cursor c =
                 db.query(
                         ExchangeRatePrefTable.TABLE_NAME,
@@ -490,14 +490,14 @@ public class ExchangeRateDao {
         if (!c.isClosed()) {
             c.close();
         }
-        Map<List<Currency>, List<Currency>> result = new LinkedHashMap<List<Currency>, List<Currency>>();
+        Map<List<Currency>, List<Currency>> result = new LinkedHashMap<>();
         result.put(currenciesMatchingInOrderOfUsage, currenciesUsedByDate);
         return result;
     }
 
     public Map<List<Currency>, List<Currency>> findCurrenciesInExchangeRates(Currency targetCurrency) {
-        List<Currency> currenciesMatchingByDateOfUpdate = new ArrayList<Currency>();
-        List<Currency> currenciesElseByDateOfUpdate = new ArrayList<Currency>();
+        List<Currency> currenciesMatchingByDateOfUpdate = new ArrayList<>();
+        List<Currency> currenciesElseByDateOfUpdate = new ArrayList<>();
 
         Cursor c =
                 db.query(
@@ -540,7 +540,7 @@ public class ExchangeRateDao {
         if (!c.isClosed()) {
             c.close();
         }
-        Map<List<Currency>, List<Currency>> result = new LinkedHashMap<List<Currency>, List<Currency>>();
+        Map<List<Currency>, List<Currency>> result = new LinkedHashMap<>();
         result.put(currenciesMatchingByDateOfUpdate, currenciesElseByDateOfUpdate);
         return result;
     }

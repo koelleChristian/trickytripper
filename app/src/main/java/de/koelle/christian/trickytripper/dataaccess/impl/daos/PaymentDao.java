@@ -184,6 +184,7 @@ public class PaymentDao {
 
     public List<PaymentReference> getAllPaymentsInTrip(long tripId) {
         List<PaymentReference> list = new ArrayList<PaymentReference>();
+        // TODO(ckoelle) Use LongSparseArray
         Map<Long, PaymentReference> resultMap = new HashMap<Long, PaymentReference>();
         Cursor c =
                 db.rawQuery(PAYMENT_QUERY,
@@ -199,15 +200,15 @@ public class PaymentDao {
                     ref.setCategory(PaymentCategory.getValueByOrdinal((int) c.getLong(2)));
                     ref.setPaymentDateTime(ConversionUtils.getDateByLong(c.getLong(3)));
                 }
-                long partipantId = c.getLong(4);
+                long participantId = c.getLong(4);
                 boolean isPayer = ConversionUtils.int2bool((int) c.getLong(5));
                 Amount amount = new Amount();
                 amount.setUnit(Currency.getInstance(c.getString(6)));
-                amount.setValue(NumberUtils.round(Double.valueOf(c.getDouble(7)).doubleValue()));
+                amount.setValue(NumberUtils.round(Double.valueOf(c.getDouble(7))));
                 if (Rc.debugOn) {
                     Log.d(Rc.LT, amount + "");
                 }
-                PaymentParticipantRelationKey position = new PaymentParticipantRelationKey(paymentId, partipantId,
+                PaymentParticipantRelationKey position = new PaymentParticipantRelationKey(paymentId, participantId,
                         isPayer, amount);
                 ref.getPaymentRelationKeys().add(position);
                 resultMap.put(paymentId, ref);

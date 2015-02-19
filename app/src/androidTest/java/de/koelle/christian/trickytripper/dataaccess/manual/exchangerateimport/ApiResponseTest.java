@@ -38,7 +38,7 @@ public class ApiResponseTest extends ApplicationTestCase<TrickyTripperApp> {
 
 
     public void testCurrencyApiAvailabilityTest() {
-        Set<Currency> currencies = new LinkedHashSet<Currency>();
+        Set<Currency> currencies = new LinkedHashSet<>();
         currencies.add(Currency.getInstance("EUR"));
         currencies.add(Currency.getInstance("USD"));
         importer.importExchangeRates(currencies, new ExchangeRateImporterResultCallback() {
@@ -62,7 +62,7 @@ public class ApiResponseTest extends ApplicationTestCase<TrickyTripperApp> {
         Assert.assertNotNull(resultContainerHere);
         Assert.assertTrue(ExchangeRateImporterResultCallback.ExchangeRateImporterResultState.SUCCESS == resultContainerHere.getResultState());
         Assert.assertNotNull(resultContainerHere.getExchangeRateResult().getExchangeRate());
-        Assert.assertTrue(Double.valueOf(0.0001) < resultContainerHere.getExchangeRateResult().getExchangeRate());
+        Assert.assertTrue(0.0001 < resultContainerHere.getExchangeRateResult().getExchangeRate());
     }
 
     /*public void testThreadedDesign() {

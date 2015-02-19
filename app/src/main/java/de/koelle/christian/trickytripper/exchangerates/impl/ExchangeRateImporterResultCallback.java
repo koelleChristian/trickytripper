@@ -16,7 +16,7 @@ public interface ExchangeRateImporterResultCallback {
         /**
          * 
          */
-        UNPARSABLE_JSON_RESULT,
+        NON_PARSABLE_JSON_RESULT,
         /**
          * 
          */

@@ -216,7 +216,7 @@ public class ExporterImpl implements Exporter {
             }
         }
 
-        if (settings.isExportSpendings()) {
+        if (settings.isExportSpending()) {
 
             SpendingTableExporter spendingExporter = new SpendingTableExporter();
 

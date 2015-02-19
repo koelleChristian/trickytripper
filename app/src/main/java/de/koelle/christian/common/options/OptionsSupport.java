@@ -11,34 +11,34 @@ public class OptionsSupport {
         this.allOptions = allOptionsAvailable;
     }
 
-    public boolean populateOptionsMenu(OptionContraints optionContraints) {
-        MenuInflater inflater = optionContraints.getActivity().getMenuInflater();
-        inflater.inflate(R.menu.options, optionContraints.getMenu());
-        for (int i = 0; i < allOptions.length; i++) {
+    public boolean populateOptionsMenu(OptionConstraints optionConstraints) {
+        MenuInflater inflater = optionConstraints.getActivity().getMenuInflater();
+        inflater.inflate(R.menu.options, optionConstraints.getMenu());
+        for (int allOption : allOptions) {
             boolean contained = false;
-            for (int j = 0; j < optionContraints.getOptionIds().length; j++) {
-                if (optionContraints.getOptionIds()[j] == allOptions[i]) {
+            for (int j = 0; j < optionConstraints.getOptionIds().length; j++) {
+                if (optionConstraints.getOptionIds()[j] == allOption) {
                     contained = true;
                 }
             }
             if (!contained) {
-                optionContraints.getMenu().removeItem(allOptions[i]);
+                optionConstraints.getMenu().removeItem(allOption);
             }
         }
         return true;
     }
-    public boolean populateOptionsMenu(OptionContraintsInflater optionContraints) {
-        MenuInflater inflater = optionContraints.getMenuInflater();
-        inflater.inflate(R.menu.options, optionContraints.getMenu());
-        for (int i = 0; i < allOptions.length; i++) {
+    public boolean populateOptionsMenu(OptionConstraintsInflater optionConstraints) {
+        MenuInflater inflater = optionConstraints.getMenuInflater();
+        inflater.inflate(R.menu.options, optionConstraints.getMenu());
+        for (int allOption : allOptions) {
             boolean contained = false;
-            for (int j = 0; j < optionContraints.getOptionIds().length; j++) {
-                if (optionContraints.getOptionIds()[j] == allOptions[i]) {
+            for (int j = 0; j < optionConstraints.getOptionIds().length; j++) {
+                if (optionConstraints.getOptionIds()[j] == allOption) {
                     contained = true;
                 }
             }
             if (!contained) {
-                optionContraints.getMenu().removeItem(allOptions[i]);
+                optionConstraints.getMenu().removeItem(allOption);
             }
         }
         return true;

@@ -20,9 +20,9 @@ public abstract class AbstractSumAmountStrategy implements SumAmountStrategy {
     public static void initParticipants(SumReport sumReport, List<Participant> participants, AmountFactory amountFactory) {
         for (Participant participant : participants) {
             Amount paymentByUserAmount = amountFactory.createAmount();
-            Integer paymentCount = Integer.valueOf(0);
+            Integer paymentCount = 0;
             Amount spendingByUserAmount = amountFactory.createAmount();
-            Integer spendingCount = Integer.valueOf(0);
+            Integer spendingCount = 0;
             Amount balanceByUser = amountFactory.createAmount();
 
             sumReport.getPaymentByUser().put(participant, paymentByUserAmount);

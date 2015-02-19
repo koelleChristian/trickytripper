@@ -11,7 +11,7 @@ import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
 import de.koelle.christian.trickytripper.model.ImportSettings;
 
-public class PrefWritrerReaderUtils {
+public class PrefWriterReaderUtils {
 
     private static final String NULL_VALUE_CURRENCY = "@nothing@";
 
@@ -35,7 +35,7 @@ public class PrefWritrerReaderUtils {
     public static void saveExportSettings(Editor prefsEditor, ExportSettings settings) {
         prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS, settings.isExportPayments());
         prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_TRANSFERS, settings.isExportTransfers());
-        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_SPENDINGS, settings.isExportSpendings());
+        prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_SPENDINGS, settings.isExportSpending());
         prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_DEBTS, settings.isExportDebts());
         prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_HTML, settings.isFormatHtml());
         prefsEditor.putBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_CSV, settings.isFormatCsv());
@@ -54,7 +54,7 @@ public class PrefWritrerReaderUtils {
         ExportSettings settings = new ExportSettings();
         settings.setExportPayments(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_PAYMENTS, Boolean.TRUE));
         settings.setExportTransfers(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_TRANSFERS, Boolean.TRUE));
-        settings.setExportSpendings(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_SPENDINGS, Boolean.TRUE));
+        settings.setExportSpending(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_SPENDINGS, Boolean.TRUE));
         settings.setExportDebts(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_DEBTS, Boolean.TRUE));
         settings.setFormatHtml(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_HTML, Boolean.TRUE));
         settings.setFormatCsv(prefs.getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_CSV, Boolean.FALSE));

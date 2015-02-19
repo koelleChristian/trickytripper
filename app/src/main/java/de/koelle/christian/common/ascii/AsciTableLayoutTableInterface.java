@@ -22,7 +22,7 @@ package de.koelle.christian.common.ascii;
  * 
  * @author Heiner Kcker
  */
-public interface AsciTableLayoutableInterface
+public interface AsciTableLayoutTableInterface
 {
     /**
      * Names of Columns.

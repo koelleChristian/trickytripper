@@ -19,7 +19,7 @@ import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.common.utils.SystemUtil;
 import de.koelle.christian.trickytripper.R;
-import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
+import de.koelle.christian.trickytripper.apputils.PrefWriterReaderUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.controller.MiscController;
 import de.koelle.christian.trickytripper.dataaccess.DataManager;
@@ -71,7 +71,7 @@ public class MiscControllerImpl implements MiscController {
     }
 
     public Currency getDefaultBaseCurrency() {
-        return PrefWritrerReaderUtils.loadDefaultCurrency(prefsResolver.getPrefs(), context.getResources());
+        return PrefWriterReaderUtils.loadDefaultCurrency(prefsResolver.getPrefs(), context.getResources());
     }
 
     public Collator getDefaultStringCollator() {
@@ -82,7 +82,7 @@ public class MiscControllerImpl implements MiscController {
         if (allAssetsList == null) {
             AssetManager am = context.getAssets();
             try {
-                allAssetsList = Arrays.asList(am.list(""));
+                allAssetsList = Arrays.asList(am.list("")); //TODO(ckoelle) Empty Catch
             } catch (IOException e) {
             }
         }
@@ -123,7 +123,7 @@ public class MiscControllerImpl implements MiscController {
                 CurrencyUtil.convertToCurrencyWithName(currenciesUsed
                         .getCurrenciesInTrips()
                         , null));
-        Set<Currency> currenciesToBeExcludedFromElseList = new HashSet<Currency>();
+        Set<Currency> currenciesToBeExcludedFromElseList = new HashSet<>();
         if (currency != null) {
             currenciesToBeExcludedFromElseList.add(currency);
         }

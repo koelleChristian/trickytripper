@@ -81,16 +81,12 @@ public class AppFileWriter implements FileWriter {
             fos.flush();
             os.close();
             fos.close();
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public File write(String filenName, StringBuilder contents) {
+    public File write(String fileName, StringBuilder contents) {
 
         FileOutputStream fos = null;
         File newFile = null;
@@ -100,11 +96,11 @@ public class AppFileWriter implements FileWriter {
                         (isCacheDirNotFileDir) ?
                                 context.getCacheDir() :
                                 context.getFilesDir();
-                newFile = new File(directory, filenName);
+                newFile = new File(directory, fileName);
                 fos = new FileOutputStream(newFile);
             }
             else {
-                fos = context.openFileOutput(filenName, mode);
+                fos = context.openFileOutput(fileName, mode);
             }
             fos.write(contents.toString().getBytes());
         }
@@ -125,7 +121,7 @@ public class AppFileWriter implements FileWriter {
                 // ignored intentionally
             }
         }
-        return (newFile == null) ? new File(context.getFilesDir(), filenName) : newFile;
+        return (newFile == null) ? new File(context.getFilesDir(), fileName) : newFile;
     }
 
     /* -------------- below only setters -------------- */

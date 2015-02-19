@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsInflater;
+import de.koelle.christian.common.options.OptionConstraintsInflater;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 
@@ -125,7 +125,7 @@ public class DirectoryPickerActivity extends ActionBarActivity {
 
         final ArrayList<File> files = filter(dir.listFiles(), onlyDirs, showHidden);
         String[] names = names(files);
-        lv.setAdapter(new ArrayAdapter<String>(this, R.layout.picker_list_item, names));
+        lv.setAdapter(new ArrayAdapter<>(this, R.layout.picker_list_item, names));
 
         lv.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -162,7 +162,7 @@ public class DirectoryPickerActivity extends ActionBarActivity {
     }
 
     public ArrayList<File> filter(File[] file_list, boolean onlyDirs, boolean showHidden) {
-        ArrayList<File> files = new ArrayList<File>();
+        ArrayList<File> files = new ArrayList<>();
         for (File file : file_list) {
             if (onlyDirs && !file.isDirectory())
                 continue;
@@ -193,7 +193,7 @@ public class DirectoryPickerActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsInflater().activity(getMenuInflater()).menu(menu)
+                new OptionConstraintsInflater().activity(getMenuInflater()).menu(menu)
                         .options(new int[] {
                                 R.id.option_help
                         }));

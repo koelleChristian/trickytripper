@@ -12,21 +12,21 @@ import de.koelle.christian.common.primitives.DivisionResult;
 public class NumberUtils {
 
     private static final int DEFAULT_SCALE = 2;
-    private static final Double EXCHANGE_RATE_MAX = Double.valueOf(9999999999.999);
-    private static final Double EXCHANGE_RATE_MIN = Double.valueOf(0.0000000001);
+    private static final Double EXCHANGE_RATE_MAX = 9999999999.999;
+    private static final Double EXCHANGE_RATE_MIN = 0.0000000001;
 
-    private static final Double AMOUNT_MAX = Double.valueOf(9999999999.99);
-    private static final Double AMOUNT_MIN = Double.valueOf(0.01);
+    private static final Double AMOUNT_MAX = 9999999999.99;
+    private static final Double AMOUNT_MIN = 0.01;
 
     public static Double neg(Double value) {
         if (value == null) {
             return null;
         }
-        return Double.valueOf(value * -1);
+        return value * -1;
     }
 
-    public static Double getStringToDoubleUnrounded(Locale locale,
-            String stringToBeParsed) {
+    public static Double getStringToDoubleNonRounded(Locale locale,
+                                                     String stringToBeParsed) {
         boolean doRound = false;
         return getStringToDouble(locale, stringToBeParsed, doRound);
     }
@@ -40,7 +40,7 @@ public class NumberUtils {
     private static Double getStringToDouble(Locale locale,
             String stringToBeParsed, boolean doRound) {
         if (stringToBeParsed == null || stringToBeParsed.length() < 1) {
-            return Double.valueOf(0);
+            return (double) 0;
         }
         String input = stringToBeParsed;
 
@@ -54,21 +54,21 @@ public class NumberUtils {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        double unrounded = number.doubleValue();
-        return Double.valueOf((doRound) ? round(unrounded) : unrounded);
+        double nonRounded = number.doubleValue();
+        return (doRound) ? round(nonRounded) : nonRounded;
     }
 
-    public static Double divide(Double divident, Integer divisor) {
-        return divide(divident, Double.valueOf(divisor + ""));
+    public static Double divide(Double dividend, Integer divisor) {
+        return divide(dividend, Double.valueOf(divisor + ""));
     }
 
-    public static DivisionResult divideWithLoss(Double divident,
+    public static DivisionResult divideWithLoss(Double dividend,
             Integer divisor, boolean resultToBeNegative) {
         DivisionResult result = new DivisionResult();
-        Double dividentHere = Math.abs(divident);
-        Double divisionResult = NumberUtils.divide(dividentHere,
+        Double dividendHere = Math.abs(dividend);
+        Double divisionResult = NumberUtils.divide(dividendHere,
                 Integer.valueOf(divisor));
-        Double loss = NumberUtils.round(dividentHere
+        Double loss = NumberUtils.round(dividendHere
                 - NumberUtils.multiply(divisionResult, divisor));
         if (resultToBeNegative) {
             divisionResult = NumberUtils.neg(divisionResult);
@@ -85,7 +85,7 @@ public class NumberUtils {
 
     public static Double multiply(Double factorA, Double factorB) {
         if (factorA == 0 || factorB == 0) {
-            return Double.valueOf(0);
+            return (double) 0;
         }
         BigDecimal result;
         BigDecimal a = new BigDecimal(factorA, MathContext.DECIMAL128);
@@ -95,15 +95,15 @@ public class NumberUtils {
         return round(result.doubleValue());
     }
 
-    public static Double divide(Double divident, Double divisor) {
-        return divide(divident, divisor, DEFAULT_SCALE);
+    public static Double divide(Double dividend, Double divisor) {
+        return divide(dividend, divisor, DEFAULT_SCALE);
     }
 
-    public static Double divideForExchangeRates(Double divident, Double divisor) {
+    public static Double divideForExchangeRates(Double dividend, Double divisor) {
         Double double1 =
                 (Double.valueOf(0d).equals(divisor)) ?
                         Double.valueOf(0d) :
-                        divide(divident, divisor, 10);
+                        divide(dividend, divisor, 10);
         return ensureExchangeRateMinMax(double1);
     }
 
@@ -114,7 +114,7 @@ public class NumberUtils {
     }
 
     public static Double ensureAmountMinMax(Double double1) {
-        return Double.valueOf(Math.max(Math.min(EXCHANGE_RATE_MAX, double1), EXCHANGE_RATE_MIN));
+        return Math.max(Math.min(EXCHANGE_RATE_MAX, double1), EXCHANGE_RATE_MIN);
     }
 
     public static boolean isExceedingAmountLimit(Double double1) {
@@ -123,27 +123,27 @@ public class NumberUtils {
 
     public static Double invertExchangeRateDouble(Double exchangeRate) {
         return (exchangeRate == null) ? null : divideForExchangeRates(
-                Double.valueOf(1.0), exchangeRate);
+                1.0, exchangeRate);
     }
 
-    public static Double divide(Double divident, Double divisor, int scale) {
-        if (divident == null) {
+    public static Double divide(Double dividend, Double divisor, int scale) {
+        if (dividend == null) {
             return null;
         }
-        else if (divident == 0) {
-            return Double.valueOf(0);
+        else if (dividend == 0) {
+            return (double) 0;
         }
-        BigDecimal result = null;
-        BigDecimal dividentBd = new BigDecimal(divident, MathContext.DECIMAL128);
-        dividentBd.setScale(scale, RoundingMode.HALF_EVEN);
+        BigDecimal result;
+        BigDecimal dividendBd = new BigDecimal(dividend, MathContext.DECIMAL128);
+        dividendBd.setScale(scale, RoundingMode.HALF_EVEN); // TODO(ckoelle)
         BigDecimal divisorBd = new BigDecimal(divisor, MathContext.DECIMAL128);
-        divisorBd.setScale(scale, RoundingMode.HALF_EVEN);
-        result = dividentBd.divide(divisorBd, scale, RoundingMode.HALF_EVEN);
+        divisorBd.setScale(scale, RoundingMode.HALF_EVEN); // TODO(ckoelle)
+        result = dividendBd.divide(divisorBd, scale, RoundingMode.HALF_EVEN);
         return Double.valueOf(result.toString());
     }
 
-    public static double round(double unrounded) {
-        return ((double) (Math.round(unrounded * 100))) / 100;
+    public static double round(double nonRounded) {
+        return ((double) (Math.round(nonRounded * 100))) / 100;
     }
 
 }

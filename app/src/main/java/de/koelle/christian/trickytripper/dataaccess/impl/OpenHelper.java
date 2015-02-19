@@ -11,7 +11,7 @@ import android.util.Log;
 import java.util.Currency;
 
 import de.koelle.christian.trickytripper.R;
-import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
+import de.koelle.christian.trickytripper.apputils.PrefWriterReaderUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRatePrefTable;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRateTable;
@@ -86,7 +86,7 @@ public class OpenHelper extends SQLiteOpenHelper {
         TripDao tripDao = new TripDao(db);
         Resources resources = context.getResources();
         SharedPreferences sharedPreferences = context.getSharedPreferences(Rc.PREFS_NAME_ID, Rc.PREFS_MODE);
-        Currency baseCurrency = PrefWritrerReaderUtils.loadDefaultCurrency(
+        Currency baseCurrency = PrefWriterReaderUtils.loadDefaultCurrency(
                 sharedPreferences, resources);
         Trip initialTrip = ModelFactory.createTrip(baseCurrency,
                 resources.getString(R.string.initial_data_trip_name));

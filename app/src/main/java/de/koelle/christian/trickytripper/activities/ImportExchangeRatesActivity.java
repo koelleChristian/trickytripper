@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsInflater;
+import de.koelle.christian.common.options.OptionConstraintsInflater;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -122,19 +122,19 @@ public class ImportExchangeRatesActivity extends ActionBarActivity {
 
     }
 
-    private void updateCurrentSelectionDisplay(Set<Currency> currencSelection) {
+    private void updateCurrentSelectionDisplay(Set<Currency> currencySelection) {
 
         final TextView textView = (TextView) findViewById(R.id.importExchangeRatesListViewLabelSelection);
         final StringBuilder builder = new StringBuilder()
                 .append(getResources().getString(R.string.importExchangeRatesViewSelectionPrefix))
                 .append(" ");
 
-        if (currencSelection.size() == 0) {
+        if (currencySelection.size() == 0) {
             builder.append(0);
-        } else if (currencSelection.size() > 3) {
-            builder.append(currencSelection.size());
+        } else if (currencySelection.size() > 3) {
+            builder.append(currencySelection.size());
         } else {
-            for (Iterator<Currency> it = currencSelection.iterator(); it.hasNext(); ) {
+            for (Iterator<Currency> it = currencySelection.iterator(); it.hasNext(); ) {
                 builder.append(it.next().getCurrencyCode());
                 if (it.hasNext()) {
                     builder.append(", ");
@@ -149,12 +149,12 @@ public class ImportExchangeRatesActivity extends ActionBarActivity {
 
         final Set<Currency> selectionResult = getSelection();
 
-        int amoutOfCurrenciesSelected = selectionResult.size();
-        if (amoutOfCurrenciesSelected <= 0) {
+        int amountOfCurrenciesSelected = selectionResult.size();
+        if (amountOfCurrenciesSelected <= 0) {
             return;
         }
 
-        final int progressCeiling = CurrencyUtil.calcExpectedAmountOfExchangeRates(amoutOfCurrenciesSelected);
+        final int progressCeiling = CurrencyUtil.calcExpectedAmountOfExchangeRates(amountOfCurrenciesSelected);
 
         final ExchangeRateImporterImpl importer = new ExchangeRateImporterImpl();
         importer.setAsyncExchangeRateResolver(new AsyncExchangeRateHttpResolverGoogleImpl(this));
@@ -193,7 +193,7 @@ public class ImportExchangeRatesActivity extends ActionBarActivity {
                                 try {
                                     if (parameterObject.requestWasSuccess()) {
                                         try {
-                                            getApp().getExchangeRateController().persitImportedExchangeRate(
+                                            getApp().getExchangeRateController().persistImportedExchangeRate(
                                                     parameterObject.exchangeRateResult,
                                                     !importSettings.isCreateNewRateOnValueChange());
                                         } catch (Throwable ex) {
@@ -243,8 +243,8 @@ public class ImportExchangeRatesActivity extends ActionBarActivity {
     }
 
     private Set<Currency> getSelection() {
-        final Set<Currency> selectionResult = UiViewUtils.getListSelection(listView, adapter,
-                Currency.getInstance("EUR"));
+        final Set<Currency> selectionResult = UiViewUtils.getListSelection(listView, adapter
+        );
         return selectionResult;
     }
 
@@ -261,7 +261,7 @@ public class ImportExchangeRatesActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsInflater().activity(getMenuInflater()).menu(menu)
+                new OptionConstraintsInflater().activity(getMenuInflater()).menu(menu)
                         .options(new int[]{
                                 R.id.option_accept,
                                 R.id.option_help

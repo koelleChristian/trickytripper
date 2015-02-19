@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
-import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
+import de.koelle.christian.trickytripper.apputils.PrefWriterReaderUtils;
 import de.koelle.christian.trickytripper.controller.ExchangeRateController;
 import de.koelle.christian.trickytripper.dataaccess.DataManager;
 import de.koelle.christian.trickytripper.decoupling.PrefsResolver;
@@ -22,7 +22,7 @@ public class ExchangeRateControllerImpl implements ExchangeRateController {
     }
 
     public List<ExchangeRate> findSuitableRates(Currency currencyFrom, Currency currencyTo) {
-        List<ExchangeRate> result = new ArrayList<ExchangeRate>();
+        List<ExchangeRate> result = new ArrayList<>();
         for (ExchangeRate rate : dataManager.findSuitableRates(currencyFrom, currencyTo)) {
             if (currencyFrom.equals(rate.getCurrencyFrom())) {
                 result.add(rate);
@@ -54,7 +54,7 @@ public class ExchangeRateControllerImpl implements ExchangeRateController {
         return dataManager.doesExchangeRateAlreadyExist(exchangeRate);
     }
 
-    public void persitImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported) {
+    public void persistImportedExchangeRate(ExchangeRate rate, boolean replaceWhenAlreadyImported) {
         dataManager.persistImportedExchangeRate(rate, replaceWhenAlreadyImported);
     }
 
@@ -63,17 +63,17 @@ public class ExchangeRateControllerImpl implements ExchangeRateController {
     }
 
     public ImportSettings getImportSettingsUsedLast() {
-        return PrefWritrerReaderUtils.loadImportSettings(prefsResolver.getPrefs());
+        return PrefWriterReaderUtils.loadImportSettings(prefsResolver.getPrefs());
     }
 
     public long getNextExchangeRateAutoSaveSeqNumber() {
-        long nextNumber = PrefWritrerReaderUtils.loadExchangeRateAutoSaveSeq(prefsResolver.getPrefs());
-        PrefWritrerReaderUtils.saveExchangeRateAutoSaveSeq(prefsResolver.getEditingPrefsEditor(), nextNumber + 1);
+        long nextNumber = PrefWriterReaderUtils.loadExchangeRateAutoSaveSeq(prefsResolver.getPrefs());
+        PrefWriterReaderUtils.saveExchangeRateAutoSaveSeq(prefsResolver.getEditingPrefsEditor(), nextNumber + 1);
         return nextNumber;
     }
 
     public void saveImportSettingsUsedLast(ImportSettings importSettings) {
-        PrefWritrerReaderUtils
+        PrefWriterReaderUtils
                 .saveImportSettings(prefsResolver.getEditingPrefsEditor(), importSettings);
     }
 

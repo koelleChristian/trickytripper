@@ -50,7 +50,7 @@ public class AsyncExchangeRateHttpResolverGoogleImpl implements AsyncExchangeRat
                 e.printStackTrace();
             }
         }
-        return callback.getResultinMillis();
+        return callback.getResultInMillis();
     }
 
     private String provideUrl(Currency from, Currency to) {
@@ -86,7 +86,7 @@ public class AsyncExchangeRateHttpResolverGoogleImpl implements AsyncExchangeRat
             return hasResult;
         }
 
-        public long getResultinMillis() {
+        public long getResultInMillis() {
             return result;
         }
 

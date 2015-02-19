@@ -6,11 +6,11 @@ import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporter
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 
 public class ExchangeRateImporterResultContainer {
-    public ExchangeRate exchangeRateResult;
-    public Currency from;
-    public Currency to;
-    public ExchangeRateImporterResultState resultState;
-    public String stateComment;
+    public final ExchangeRate exchangeRateResult;
+    public final Currency from;
+    public final Currency to;
+    public final ExchangeRateImporterResultState resultState;
+    public final String stateComment;
 
     public ExchangeRateImporterResultContainer(ExchangeRate exchangeRateResult, Currency from, Currency to,
             ExchangeRateImporterResultState resultState, String stateComment) {

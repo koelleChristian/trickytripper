@@ -4,6 +4,6 @@ import java.io.File;
 
 public interface FileWriter {
 
-    File write(String filenName, StringBuilder contents);
+    File write(String fileName, StringBuilder contents);
 
 }

@@ -5,11 +5,11 @@ import java.util.Currency;
 
 import de.koelle.christian.common.utils.NumberUtils;
 
-public class Amount implements Serializable, Cloneable {
+public class Amount implements Serializable {
 
     private static final long serialVersionUID = 7992193936275624979L;
 
-    private Double value = Double.valueOf(0);
+    private Double value = (double) 0;
     private Currency unit = Currency.getInstance("EUR");
 
     public void addAmount(Amount amountToBeAdded) {
@@ -22,12 +22,11 @@ public class Amount implements Serializable, Cloneable {
         value = NumberUtils.round(value + floatValueToBeAdded);
     }
 
-    @Override
-    public Amount clone() {
+    public Amount doClone() {
         Amount clone;
         clone = new Amount();
         clone.setUnit(this.getUnit());
-        clone.setValue(Double.valueOf(this.getValue().doubleValue()));
+        clone.setValue((double) this.getValue());
         return clone;
     }
 

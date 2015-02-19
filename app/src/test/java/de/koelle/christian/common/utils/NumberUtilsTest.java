@@ -7,7 +7,6 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import de.koelle.christian.common.primitives.DivisionResult;
-import de.koelle.christian.common.utils.NumberUtils;
 
 public class NumberUtilsTest {
 
@@ -44,13 +43,13 @@ public class NumberUtilsTest {
 
     @Test
     public void testRoundingStringToDoubleUnrounded() {
-        Assert.assertEquals(14.3333333d, NumberUtils.getStringToDoubleUnrounded(Locale.UK, "14.3333333"));
-        Assert.assertEquals(14.335d, NumberUtils.getStringToDoubleUnrounded(Locale.UK, "14.335"));
-        Assert.assertEquals(14.3333333d, NumberUtils.getStringToDoubleUnrounded(Locale.GERMANY, "14,3333333"));
-        Assert.assertEquals(14.335d, NumberUtils.getStringToDoubleUnrounded(Locale.GERMANY, "14,335"));
-        Assert.assertEquals(0d, NumberUtils.getStringToDoubleUnrounded(Locale.GERMANY, ","));
-        Assert.assertEquals(0d, NumberUtils.getStringToDoubleUnrounded(Locale.GERMANY, ""));
-        Assert.assertEquals(0d, NumberUtils.getStringToDoubleUnrounded(Locale.GERMANY, null));
+        Assert.assertEquals(14.3333333d, NumberUtils.getStringToDoubleNonRounded(Locale.UK, "14.3333333"));
+        Assert.assertEquals(14.335d, NumberUtils.getStringToDoubleNonRounded(Locale.UK, "14.335"));
+        Assert.assertEquals(14.3333333d, NumberUtils.getStringToDoubleNonRounded(Locale.GERMANY, "14,3333333"));
+        Assert.assertEquals(14.335d, NumberUtils.getStringToDoubleNonRounded(Locale.GERMANY, "14,335"));
+        Assert.assertEquals(0d, NumberUtils.getStringToDoubleNonRounded(Locale.GERMANY, ","));
+        Assert.assertEquals(0d, NumberUtils.getStringToDoubleNonRounded(Locale.GERMANY, ""));
+        Assert.assertEquals(0d, NumberUtils.getStringToDoubleNonRounded(Locale.GERMANY, null));
     }
 
     @Test

@@ -9,10 +9,10 @@ public class PaymentParticipantRelationKey {
     private final boolean isPayer;
     private final Amount amount;
 
-    public PaymentParticipantRelationKey(long paymentId, long partipantId, boolean isPayer, Amount amount) {
+    public PaymentParticipantRelationKey(long paymentId, long participantId, boolean isPayer, Amount amount) {
         super();
         this.paymentId = paymentId;
-        this.participantId = partipantId;
+        this.participantId = participantId;
         this.isPayer = isPayer;
         this.amount = amount;
     }

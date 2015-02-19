@@ -38,7 +38,7 @@ public class MathUtils {
     private static List<Integer> getRandomizedIndices(int participantCount) {
         List<Integer> participantIndices = new ArrayList<Integer>();
         for (int i = 0; i < participantCount; i++) {
-            participantIndices.add(Integer.valueOf(i));
+            participantIndices.add(i);
         }
         Collections.shuffle(participantIndices);
         return participantIndices;

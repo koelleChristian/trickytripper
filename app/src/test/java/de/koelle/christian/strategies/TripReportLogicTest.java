@@ -60,13 +60,13 @@ public class TripReportLogicTest {
         Assert.assertEquals(-15.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(niko).getValue());
         Assert.assertEquals(-10.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(wolfram).getValue());
 
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().isEmpty());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().isEmpty());
 
-        Assert.assertEquals(1, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().size());
-        Assert.assertEquals(15.00d, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().get(chris).getValue());
+        Assert.assertEquals(1, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().size());
+        Assert.assertEquals(15.00d, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().get(chris).getValue());
 
-        Assert.assertEquals(1, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().size());
-        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().get(chris).getValue());
+        Assert.assertEquals(1, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().size());
+        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().get(chris).getValue());
 
     }
 
@@ -99,11 +99,11 @@ public class TripReportLogicTest {
         Assert.assertEquals(-15.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(niko).getValue());
         Assert.assertEquals(-10.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(wolfram).getValue());
 
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().isEmpty());
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().isEmpty());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().isEmpty());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().isEmpty());
 
-        Assert.assertEquals(1, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().size());
-        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().get(chris).getValue());
+        Assert.assertEquals(1, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().size());
+        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().get(chris).getValue());
 
         /**/
 
@@ -126,9 +126,9 @@ public class TripReportLogicTest {
         Assert.assertEquals(-15.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(niko).getValue());
         Assert.assertEquals(-10.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(wolfram).getValue());
 
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().isEmpty());
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().isEmpty());
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().isEmpty());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().isEmpty());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().isEmpty());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().isEmpty());
 
     }
 
@@ -160,12 +160,12 @@ public class TripReportLogicTest {
         Assert.assertEquals(-15.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(niko).getValue());
         Assert.assertEquals(-10.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(wolfram).getValue());
 
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().isEmpty());
-        Assert.assertEquals(1, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().size());
-        Assert.assertEquals(13.00d, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().get(chris).getValue());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().isEmpty());
+        Assert.assertEquals(1, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().size());
+        Assert.assertEquals(13.00d, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().get(chris).getValue());
 
-        Assert.assertEquals(1, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().size());
-        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().get(chris).getValue());
+        Assert.assertEquals(1, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().size());
+        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().get(chris).getValue());
 
         /**/
 
@@ -188,12 +188,12 @@ public class TripReportLogicTest {
         Assert.assertEquals(-15.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(niko).getValue());
         Assert.assertEquals(-10.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(wolfram).getValue());
 
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().isEmpty());
-        Assert.assertEquals(1, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().size());
-        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().get(chris).getValue());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().isEmpty());
+        Assert.assertEquals(1, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().size());
+        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().get(chris).getValue());
 
-        Assert.assertEquals(1, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().size());
-        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().get(chris).getValue());
+        Assert.assertEquals(1, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().size());
+        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().get(chris).getValue());
 
         moneyTransfer = ModelFactory.createNewPayment("Transfer 03", PaymentCategory.MONEY_TRANSFER);
         moneyTransfer.getParticipantToPayment().put(chris, amountFactory.createAmount(-0.01d));
@@ -214,12 +214,12 @@ public class TripReportLogicTest {
         Assert.assertEquals(-15.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(niko).getValue());
         Assert.assertEquals(-10.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(wolfram).getValue());
 
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().isEmpty());
-        Assert.assertEquals(1, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().size());
-        Assert.assertEquals(9.99d, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().get(chris).getValue());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().isEmpty());
+        Assert.assertEquals(1, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().size());
+        Assert.assertEquals(9.99d, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().get(chris).getValue());
 
-        Assert.assertEquals(1, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().size());
-        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().get(chris).getValue());
+        Assert.assertEquals(1, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().size());
+        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().get(chris).getValue());
 
     }
 
@@ -240,9 +240,9 @@ public class TripReportLogicTest {
         Assert.assertEquals(0.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(niko).getValue());
         Assert.assertEquals(0.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(wolfram).getValue());
 
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().isEmpty());
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().isEmpty());
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().isEmpty());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().isEmpty());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().isEmpty());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().isEmpty());
 
     }
 
@@ -263,12 +263,12 @@ public class TripReportLogicTest {
         Assert.assertEquals(-10.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(niko).getValue());
         Assert.assertEquals(-85.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(wolfram).getValue());
 
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().isEmpty());
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().isEmpty());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().isEmpty());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().isEmpty());
 
-        Assert.assertEquals(2, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().size());
-        Assert.assertEquals(75.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().get(chris).getValue());
-        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().get(niko).getValue());
+        Assert.assertEquals(2, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().size());
+        Assert.assertEquals(75.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().get(chris).getValue());
+        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().get(niko).getValue());
 
     }
 
@@ -289,12 +289,12 @@ public class TripReportLogicTest {
         Assert.assertEquals(-15.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(niko).getValue());
         Assert.assertEquals(0.00d, tripToBeEdited.getSumReport().getSpendingByUser().get(wolfram).getValue());
 
-        Assert.assertEquals(2, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().size());
-        Assert.assertEquals(60.00d, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().get(niko).getValue());
-        Assert.assertEquals(20.00d, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().get(wolfram).getValue());
+        Assert.assertEquals(2, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().size());
+        Assert.assertEquals(60.00d, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().get(niko).getValue());
+        Assert.assertEquals(20.00d, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().get(wolfram).getValue());
 
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().isEmpty());
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().isEmpty());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().isEmpty());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().isEmpty());
 
     }
 
@@ -303,13 +303,13 @@ public class TripReportLogicTest {
         tripToBeEdited = testDatafactory.createTestData(TestDataSet.DEFAULT);
         TransientDataHelper.updateAllTransientData(tripToBeEdited, tripReportLogic, amountFactory);
 
-        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().isEmpty());
+        Assert.assertEquals(true, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().isEmpty());
 
-        Assert.assertEquals(1, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().size());
-        Assert.assertEquals(15.00d, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().get(chris).getValue());
+        Assert.assertEquals(1, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().size());
+        Assert.assertEquals(15.00d, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().get(chris).getValue());
 
-        Assert.assertEquals(1, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().size());
-        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().get(chris).getValue());
+        Assert.assertEquals(1, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().size());
+        Assert.assertEquals(10.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().get(chris).getValue());
 
         Assert.assertEquals(25.00d, tripToBeEdited.getSumReport().getBalanceByUser().get(chris).getValue());
         Assert.assertEquals(-15.00d, tripToBeEdited.getSumReport().getBalanceByUser().get(niko).getValue());
@@ -324,13 +324,13 @@ public class TripReportLogicTest {
         Assert.assertEquals(25.00d, tripToBeEdited.getSumReport().getBalanceByUser().get(niko).getValue());
         Assert.assertEquals(-30.00d, tripToBeEdited.getSumReport().getBalanceByUser().get(wolfram).getValue());
 
-        Assert.assertEquals(0, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().size());
+        Assert.assertEquals(0, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().size());
 
-        Assert.assertEquals(0, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().size());
+        Assert.assertEquals(0, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().size());
 
-        Assert.assertEquals(2, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().size());
-        Assert.assertEquals(5.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().get(chris).getValue());
-        Assert.assertEquals(25.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().get(niko).getValue());
+        Assert.assertEquals(2, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().size());
+        Assert.assertEquals(5.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().get(chris).getValue());
+        Assert.assertEquals(25.00d, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().get(niko).getValue());
 
         /* ========== */
         addNewSplitPayment(wolfram, 90.00d);
@@ -341,13 +341,13 @@ public class TripReportLogicTest {
         Assert.assertEquals(-5.00d, tripToBeEdited.getSumReport().getBalanceByUser().get(niko).getValue());
         Assert.assertEquals(30.00d, tripToBeEdited.getSumReport().getBalanceByUser().get(wolfram).getValue());
 
-        Assert.assertEquals(1, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().size());
-        Assert.assertEquals(25.00d, tripToBeEdited.getDebts().get(chris).getLoanerToDepts().get(wolfram).getValue());
+        Assert.assertEquals(1, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().size());
+        Assert.assertEquals(25.00d, tripToBeEdited.getDebts().get(chris).getLoanerToDebts().get(wolfram).getValue());
 
-        Assert.assertEquals(1, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().size());
-        Assert.assertEquals(5.00d, tripToBeEdited.getDebts().get(niko).getLoanerToDepts().get(wolfram).getValue());
+        Assert.assertEquals(1, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().size());
+        Assert.assertEquals(5.00d, tripToBeEdited.getDebts().get(niko).getLoanerToDebts().get(wolfram).getValue());
 
-        Assert.assertEquals(0, tripToBeEdited.getDebts().get(wolfram).getLoanerToDepts().size());
+        Assert.assertEquals(0, tripToBeEdited.getDebts().get(wolfram).getLoanerToDebts().size());
     }
 
     private void addNewSplitPayment(Participant payer, double newPaymentValue) {

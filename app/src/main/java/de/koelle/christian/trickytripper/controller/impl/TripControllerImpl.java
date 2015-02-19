@@ -16,7 +16,7 @@ import java.util.Map.Entry;
 
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.common.utils.CurrencyUtil;
-import de.koelle.christian.trickytripper.apputils.PrefWritrerReaderUtils;
+import de.koelle.christian.trickytripper.apputils.PrefWriterReaderUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.controller.MiscController;
 import de.koelle.christian.trickytripper.controller.TripController;
@@ -57,7 +57,7 @@ public class TripControllerImpl implements TripController, TripResolver {
         this.miscController = miscController;
 
         SharedPreferences prefs = prefsResolver.getPrefs();
-        long tripId = PrefWritrerReaderUtils.loadIdOfTripLastEdited(prefs);
+        long tripId = PrefWriterReaderUtils.loadIdOfTripLastEdited(prefs);
 
         if (Rc.debugOn) {
             Log.d(Rc.LT, "init() id of last trip=" + tripId);
@@ -102,7 +102,7 @@ public class TripControllerImpl implements TripController, TripResolver {
                         "safeLoadedTripIdToPrefs() id of last trip="
                                 + tripToBeEdited.getId());
             }
-            PrefWritrerReaderUtils
+            PrefWriterReaderUtils
                     .saveIdOfTripLastEdited(prefsResolver.getEditingPrefsEditor(), tripToBeEdited.getId());
         }
     }
@@ -147,7 +147,7 @@ public class TripControllerImpl implements TripController, TripResolver {
     }
 
     public boolean deleteParticipant(Participant participant) {
-        if (!isParticipantDeleteable(participant)) {
+        if (!isParticipantDeletable(participant)) {
             return false;
         }
         dataManager.deleteParticipant(participant.getId());
@@ -157,7 +157,7 @@ public class TripControllerImpl implements TripController, TripResolver {
         return true;
     }
 
-    public boolean isParticipantDeleteable(Participant participant) {
+    public boolean isParticipantDeletable(Participant participant) {
         return !tripToBeEdited.partOfPayments(participant);
     }
 
@@ -263,7 +263,7 @@ public class TripControllerImpl implements TripController, TripResolver {
         if (dataManager.doesTripAlreadyExist(summary.getName(), summary.getId())) {
             return false;
         }
-        Trip trip = null;
+        Trip trip;
         if (isNew) {
             trip = ModelFactory.createTrip(summary.getBaseCurrency(), summary.getName());
         } else {
@@ -310,11 +310,11 @@ public class TripControllerImpl implements TripController, TripResolver {
         long incomingId = payment.getId();
         boolean isNew = (1 > incomingId);
 
-        Payment persistendPayment = dataManager.persistPaymentInTrip(tripToBeEdited.getId(), payment);
+        Payment persistedPayment = dataManager.persistPaymentInTrip(tripToBeEdited.getId(), payment);
         if (!isNew) {
             removePaymentFromList(incomingId, this.tripToBeEdited.getPayments());
         }
-        this.tripToBeEdited.getPayments().add(persistendPayment);
+        this.tripToBeEdited.getPayments().add(persistedPayment);
         updateAllTransientData(tripToBeEdited, tripReportLogic);
     }
 
@@ -369,7 +369,7 @@ public class TripControllerImpl implements TripController, TripResolver {
         return amountFactory;
     }
 
-    public String getLodadedTripCurrencySymbol(boolean wrapInBrackets) {
+    public String getLoadedTripCurrencySymbol(boolean wrapInBrackets) {
         return CurrencyUtil.getSymbolToCurrency(context.getResources(), tripToBeEdited.getBaseCurrency(),
                 wrapInBrackets);
     }

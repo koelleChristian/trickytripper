@@ -32,7 +32,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
 
     BitSet occuranceFlags = new BitSet(4);
 
-    private final Map<Long, ExchangeRate> initalRetrievalResults = new HashMap<Long, ExchangeRate>();
+    private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<Long, ExchangeRate>();
 
     private DataManagerImpl dataManager;
 
@@ -57,7 +57,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
 
     /**
      * Tests that the create() works, the persisted data can be obtained, the
-     * delete works and the retrieval resprects the deletion.
+     * delete works and the retrieval respects the deletion.
      */
     public void testImportWithoutReplace() {
 
@@ -72,32 +72,28 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
         /* ============ create ============ */
 
         input = REC_01;
-        expectedId = ID_1;
         dataManager.persistImportedExchangeRate(input, replace);
         clone = REC_01.clone();
         clone.setId(ID_1);
-        initalRetrievalResults.put(ID_1, clone);
+        initialRetrievalResults.put(ID_1, clone);
 
         input = REC_02;
-        expectedId = ID_2;
         dataManager.persistImportedExchangeRate(input, replace);
         clone = REC_02.clone();
         clone.setId(ID_2);
-        initalRetrievalResults.put(ID_2, clone);
+        initialRetrievalResults.put(ID_2, clone);
 
         input = REC_03;
-        expectedId = ID_3;
         dataManager.persistImportedExchangeRate(input, replace);
         clone = REC_03.clone();
         clone.setId(ID_3);
-        initalRetrievalResults.put(ID_3, clone);
+        initialRetrievalResults.put(ID_3, clone);
 
         input = REC_04;
-        expectedId = ID_4;
         dataManager.persistImportedExchangeRate(input, replace);
         clone = REC_04.clone();
         clone.setId(ID_4);
-        initalRetrievalResults.put(ID_4, clone);
+        initialRetrievalResults.put(ID_4, clone);
 
         /* ============ load ============ */
         ExchangeRate record;
@@ -112,7 +108,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
             record = resultList.get(i);
             idReturned = record.getId();
             occuranceFlags.set((int) idReturned);
-            initalRetrievalResults.put(idReturned, record);
+            initialRetrievalResults.put(idReturned, record);
         }
         Assert.assertTrue("Record 1 was not part of the resultset.",
                 occuranceFlags.get((int) ExchangeRateTestSupport.ID_1));
@@ -129,7 +125,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
         expectedId = ID_1;
-        assertEquality(initalRetrievalResults.get(expectedId), record, expectedId, false);
+        assertEquality(initialRetrievalResults.get(expectedId), record, expectedId, false);
 
         exchangeRateResult = dataManager.findSuitableRates(USD, EUR);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
@@ -137,7 +133,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
         expectedId = ID_1;
-        assertEquality(initalRetrievalResults.get(expectedId), record, expectedId, false);
+        assertEquality(initialRetrievalResults.get(expectedId), record, expectedId, false);
 
         /* Record 2 */
         exchangeRateResult = dataManager.findSuitableRates(EUR, TRY);
@@ -146,7 +142,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
         expectedId = ID_2;
-        assertEquality(initalRetrievalResults.get(expectedId), record, expectedId, false);
+        assertEquality(initialRetrievalResults.get(expectedId), record, expectedId, false);
 
         exchangeRateResult = dataManager.findSuitableRates(TRY, EUR);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
@@ -154,7 +150,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
         expectedId = ID_2;
-        assertEquality(initalRetrievalResults.get(expectedId), record, expectedId, false);
+        assertEquality(initialRetrievalResults.get(expectedId), record, expectedId, false);
 
         /* Record 3 & 4 */
         exchangeRateResult = dataManager.findSuitableRates(TRY, GBP);
@@ -166,7 +162,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
             record = resultList.get(i);
             idReturned = record.getId();
             occuranceFlags.set((int) idReturned);
-            assertEquality(initalRetrievalResults.get(idReturned), record, idReturned, false);
+            assertEquality(initialRetrievalResults.get(idReturned), record, idReturned, false);
 
         }
         Assert.assertTrue("Record 1 should not be part of the resultset.", !occuranceFlags.get((int) ID_1));
@@ -183,7 +179,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
             record = resultList.get(i);
             idReturned = record.getId();
             occuranceFlags.set((int) idReturned);
-            assertEquality(initalRetrievalResults.get(idReturned), record, idReturned, false);
+            assertEquality(initialRetrievalResults.get(idReturned), record, idReturned, false);
         }
         Assert.assertTrue("Record 1 should not be part of the resultset.", !occuranceFlags.get((int) ID_1));
         Assert.assertTrue("Record 2 should not be part of the resultset.", !occuranceFlags.get((int) ID_2));
@@ -215,7 +211,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
         for (int i = 0; i < resultList.size(); i++) {
             record = resultList.get(i);
             if (record.getId() == ID_1) {
-                ExchangeRate initialRetrievalResult = initalRetrievalResults.get(ID_1);
+                ExchangeRate initialRetrievalResult = initialRetrievalResults.get(ID_1);
                 assertEquality(initialRetrievalResult, record, ID_1, false);
                 Assert.assertTrue(
                         "A equal record was found and was expected to be updated. Failure as updateTime was not bigger than before.",
@@ -260,7 +256,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
 
     /**
      * Tests that the create() works, the persisted data can be obtained, the
-     * delete works and the retrieval resprects the deletion.
+     * delete works and the retrieval respects the deletion.
      */
     public void testImportWithReplace() {
 
@@ -275,33 +271,29 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
         /* ============ create ============ */
 
         input = REC_01;
-        expectedId = ID_1;
         dataManager.persistImportedExchangeRate(input, replace);
         clone = REC_01.clone();
         clone.setId(ID_1);
-        initalRetrievalResults.put(ID_1, clone);
+        initialRetrievalResults.put(ID_1, clone);
 
         input = REC_02;
-        expectedId = ID_2;
         dataManager.persistImportedExchangeRate(input, replace);
         clone = REC_02.clone();
         clone.setId(ID_2);
-        initalRetrievalResults.put(ID_2, clone);
+        initialRetrievalResults.put(ID_2, clone);
 
         input = REC_03;
-        expectedId = ID_3;
         dataManager.persistImportedExchangeRate(input, replace);
         clone = REC_03.clone();
         clone.setId(ID_3);
-        initalRetrievalResults.put(ID_3, clone);
+        initialRetrievalResults.put(ID_3, clone);
 
         input = REC_04;
-        expectedId = ID_4;
         /* We intentionally add this. */
         dataManager.persistImportedExchangeRate(input, false);
         clone = REC_04.clone();
         clone.setId(ID_4);
-        initalRetrievalResults.put(ID_4, clone);
+        initialRetrievalResults.put(ID_4, clone);
 
         /* ============ load ============ */
         ExchangeRate record;
@@ -316,7 +308,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
             record = resultList.get(i);
             idReturned = record.getId();
             occuranceFlags.set((int) idReturned);
-            initalRetrievalResults.put(idReturned, record);
+            initialRetrievalResults.put(idReturned, record);
         }
         Assert.assertTrue("Record 1 was not part of the resultset.",
                 occuranceFlags.get((int) ExchangeRateTestSupport.ID_1));
@@ -333,7 +325,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
         expectedId = ID_1;
-        assertEquality(initalRetrievalResults.get(expectedId), record, expectedId, false);
+        assertEquality(initialRetrievalResults.get(expectedId), record, expectedId, false);
 
         exchangeRateResult = dataManager.findSuitableRates(USD, EUR);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
@@ -341,7 +333,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
         expectedId = ID_1;
-        assertEquality(initalRetrievalResults.get(expectedId), record, expectedId, false);
+        assertEquality(initialRetrievalResults.get(expectedId), record, expectedId, false);
 
         /* Record 2 */
         exchangeRateResult = dataManager.findSuitableRates(EUR, TRY);
@@ -350,7 +342,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
         expectedId = ID_2;
-        assertEquality(initalRetrievalResults.get(expectedId), record, expectedId, false);
+        assertEquality(initialRetrievalResults.get(expectedId), record, expectedId, false);
 
         exchangeRateResult = dataManager.findSuitableRates(TRY, EUR);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
@@ -358,7 +350,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
         expectedId = ID_2;
-        assertEquality(initalRetrievalResults.get(expectedId), record, expectedId, false);
+        assertEquality(initialRetrievalResults.get(expectedId), record, expectedId, false);
 
         /* Record 3 & 4 */
         exchangeRateResult = dataManager.findSuitableRates(TRY, GBP);
@@ -370,7 +362,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
             record = resultList.get(i);
             idReturned = record.getId();
             occuranceFlags.set((int) idReturned);
-            assertEquality(initalRetrievalResults.get(idReturned), record, idReturned, false);
+            assertEquality(initialRetrievalResults.get(idReturned), record, idReturned, false);
 
         }
         Assert.assertTrue("Record 1 should not be part of the resultset.", !occuranceFlags.get((int) ID_1));
@@ -387,7 +379,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
             record = resultList.get(i);
             idReturned = record.getId();
             occuranceFlags.set((int) idReturned);
-            assertEquality(initalRetrievalResults.get(idReturned), record, idReturned, false);
+            assertEquality(initialRetrievalResults.get(idReturned), record, idReturned, false);
         }
         Assert.assertTrue("Record 1 should not be part of the resultset.", !occuranceFlags.get((int) ID_1));
         Assert.assertTrue("Record 2 should not be part of the resultset.", !occuranceFlags.get((int) ID_2));
@@ -425,7 +417,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
                 Assert.assertEquals(input.getExchangeRate(), record.getExchangeRate());
                 Assert.assertEquals(input.getCurrencyFrom(), record.getCurrencyFrom());
                 Assert.assertEquals(input.getCurrencyTo(), record.getCurrencyTo());
-                ExchangeRate initialRetrievalResult = initalRetrievalResults.get(ID_3);
+                ExchangeRate initialRetrievalResult = initialRetrievalResults.get(ID_3);
                 Assert.assertTrue(
                         "A equal record was found and was expected to be updated. Failure as updateTime was not bigger than before.",
                         record.getUpdateDate().getTime() > initialRetrievalResult.getUpdateDate().getTime());
@@ -442,7 +434,6 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
         }
 
         input = REC_04;
-        expectedId = ID_4;
         /* We intentionally add this. */
         dataManager.persistImportedExchangeRate(input, false);
         resultList = dataManager.getAllExchangeRatesWithoutInversion();

@@ -30,7 +30,7 @@ public class ExchangeRateMultiDeleteTest extends ApplicationTestCase<TrickyTripp
 
     BitSet occuranceFlags = new BitSet(4);
 
-    private final Map<Long, ExchangeRate> initalRetrievalResults = new HashMap<Long, ExchangeRate>();
+    private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<Long, ExchangeRate>();
     private DataManagerImpl dataManager;
 
     public ExchangeRateMultiDeleteTest() {
@@ -54,7 +54,7 @@ public class ExchangeRateMultiDeleteTest extends ApplicationTestCase<TrickyTripp
 
     /**
      * Tests that the create() works, the persisted data can be obtained, the
-     * delete works and the retrieval resprects the deletion.
+     * delete works and the retrieval respects the deletion.
      */
     public void testDeleteMoreThanOne() {
 
@@ -69,19 +69,19 @@ public class ExchangeRateMultiDeleteTest extends ApplicationTestCase<TrickyTripp
 
         input = REC_01;
         expectedId = ID_1;
-        initalRetrievalResults.put(expectedId, dataManager.persistExchangeRate(input));
+        initialRetrievalResults.put(expectedId, dataManager.persistExchangeRate(input));
 
         input = REC_02;
         expectedId = ID_2;
-        initalRetrievalResults.put(expectedId, dataManager.persistExchangeRate(input));
+        initialRetrievalResults.put(expectedId, dataManager.persistExchangeRate(input));
 
         input = REC_03;
         expectedId = ID_3;
-        initalRetrievalResults.put(expectedId, dataManager.persistExchangeRate(input));
+        initialRetrievalResults.put(expectedId, dataManager.persistExchangeRate(input));
 
         input = REC_04;
         expectedId = ID_4;
-        initalRetrievalResults.put(expectedId, dataManager.persistExchangeRate(input));
+        initialRetrievalResults.put(expectedId, dataManager.persistExchangeRate(input));
 
         /* ============ delete ============ */
 

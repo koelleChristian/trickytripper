@@ -28,7 +28,7 @@ import de.koelle.christian.trickytripper.model.ExchangeRate;
 
 public class ExchangeRatePrefsSaveLoadTest extends ApplicationTestCase<TrickyTripperApp> {
 
-    private final Map<Long, ExchangeRate> initalRetrievalResults = new HashMap<Long, ExchangeRate>();
+    private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<Long, ExchangeRate>();
     private DataManagerImpl dataManager;
     private ExchangeRateControllerImpl controller;
 
@@ -67,33 +67,33 @@ public class ExchangeRatePrefsSaveLoadTest extends ApplicationTestCase<TrickyTri
         /* ============ create ============ */
 
         output = dataManager.persistExchangeRate(REC_EUR_USD_01);
-        initalRetrievalResults.put(output.getId(), output);
+        initialRetrievalResults.put(output.getId(), output);
         output = dataManager.persistExchangeRate(REC_EUR_USD_02);
-        initalRetrievalResults.put(output.getId(), output);
+        initialRetrievalResults.put(output.getId(), output);
         output = dataManager.persistExchangeRate(REC_EUR_USD_03);
-        initalRetrievalResults.put(output.getId(), output);
+        initialRetrievalResults.put(output.getId(), output);
         output = dataManager.persistExchangeRate(REC_EUR_USD_04);
-        initalRetrievalResults.put(output.getId(), output);
+        initialRetrievalResults.put(output.getId(), output);
 
         /* ============ load ============ */
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
         assertOrder(exchangeRateResult, new Long[] { ID_4, ID_3, ID_2, ID_1 });
 
-        controller.persistExchangeRateUsedLast(initalRetrievalResults.get(ID_1));
+        controller.persistExchangeRateUsedLast(initialRetrievalResults.get(ID_1));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
         assertOrder(exchangeRateResult, new Long[] { ID_1, ID_4, ID_3, ID_2 });
 
-        controller.persistExchangeRateUsedLast(initalRetrievalResults.get(ID_3));
+        controller.persistExchangeRateUsedLast(initialRetrievalResults.get(ID_3));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
         assertOrder(exchangeRateResult, new Long[] { ID_3, ID_1, ID_4, ID_2 });
 
         /* Update */
-        controller.persistExchangeRateUsedLast(initalRetrievalResults.get(ID_1));
+        controller.persistExchangeRateUsedLast(initialRetrievalResults.get(ID_1));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
@@ -103,19 +103,19 @@ public class ExchangeRatePrefsSaveLoadTest extends ApplicationTestCase<TrickyTri
          * This one would be inverted in real life, but the initial retrieval
          * results do not hold potential inversions.
          */
-        controller.persistExchangeRateUsedLast(initalRetrievalResults.get(ID_4).cloneToInversion());
+        controller.persistExchangeRateUsedLast(initialRetrievalResults.get(ID_4).cloneToInversion());
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
         assertOrder(exchangeRateResult, new Long[] { ID_4, ID_1, ID_3, ID_2 });
 
-        controller.persistExchangeRateUsedLast(initalRetrievalResults.get(ID_2));
+        controller.persistExchangeRateUsedLast(initialRetrievalResults.get(ID_2));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
         assertOrder(exchangeRateResult, new Long[] { ID_2, ID_4, ID_1, ID_3 });
 
-        controller.persistExchangeRateUsedLast(initalRetrievalResults.get(ID_2));
+        controller.persistExchangeRateUsedLast(initialRetrievalResults.get(ID_2));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
@@ -123,28 +123,28 @@ public class ExchangeRatePrefsSaveLoadTest extends ApplicationTestCase<TrickyTri
 
         /* ============== Delete ================= */
 
-        controller.deleteExchangeRates(Arrays.asList(new ExchangeRate[] { initalRetrievalResults.get(ID_2) }));
+        controller.deleteExchangeRates(Arrays.asList(initialRetrievalResults.get(ID_2) ));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
         Assert.assertEquals(3, exchangeRateResult.size());
         assertOrder(exchangeRateResult, new Long[] { ID_4, ID_1, ID_3 });
 
-        controller.deleteExchangeRates(Arrays.asList(new ExchangeRate[] { initalRetrievalResults.get(ID_1) }));
+        controller.deleteExchangeRates(Arrays.asList(initialRetrievalResults.get(ID_1) ));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
         Assert.assertEquals(2, exchangeRateResult.size());
         assertOrder(exchangeRateResult, new Long[] { ID_4, ID_3 });
 
-        controller.deleteExchangeRates(Arrays.asList(new ExchangeRate[] { initalRetrievalResults.get(ID_4) }));
+        controller.deleteExchangeRates(Arrays.asList( initialRetrievalResults.get(ID_4) ));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
         Assert.assertEquals(1, exchangeRateResult.size());
         assertOrder(exchangeRateResult, new Long[] { ID_3 });
 
-        controller.deleteExchangeRates(Arrays.asList(new ExchangeRate[] { initalRetrievalResults.get(ID_3) }));
+        controller.deleteExchangeRates(Arrays.asList(initialRetrievalResults.get(ID_3)));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
         Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);

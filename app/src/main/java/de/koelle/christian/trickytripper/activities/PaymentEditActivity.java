@@ -50,7 +50,7 @@ import java.util.Random;
 import java.util.Set;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsInflater;
+import de.koelle.christian.common.options.OptionConstraintsInflater;
 import de.koelle.christian.common.primitives.DivisionResult;
 import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
@@ -109,11 +109,6 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     private final Map<Participant, EditText> amountDebitorParticipantToWidget = new HashMap<Participant, EditText>();
 
     private DateUtils dateUtils;
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -212,13 +207,13 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
             };
         }
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsInflater().activity(getMenuInflater()).menu(menu)
+                new OptionConstraintsInflater().activity(getMenuInflater()).menu(menu)
                         .options(optionIds));
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        boolean saveEnabled = isPaymentSaveable();
+        boolean saveEnabled = isPaymentSavable();
         int itemId = (ViewMode.CREATE.equals(viewMode)) ? R.id.option_save_create : R.id.option_save_edit;
         MenuItem item = menu.findItem(itemId);
         item.setEnabled(saveEnabled);
@@ -364,7 +359,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
             TextView textView = (TextView) row.findViewById(R.id.payment_edit_payer_row_view_output_name);
 
             Button buttonCurrency = (Button) row.findViewById(R.id.payment_edit_payer_row_view_button_currency);
-            buttonCurrency.setText(getFktnController().getLodadedTripCurrencySymbol(false));
+            buttonCurrency.setText(getFktnController().getLoadedTripCurrencySymbol(false));
 
             UiUtils.makeProperNumberInput(editText, getDecimalNumberInputUtil().getInputPatternMatcher());
             UiAmountViewUtils.writeAmountToEditText(amount, editText, getLocale(), getDecimalNumberInputUtil());
@@ -402,8 +397,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
 
     private View inflate(int layoutId) {
         LayoutInflater inflater = getLayoutInflater();
-        final View viewInf = inflater.inflate(layoutId, null);
-        return viewInf;
+        return inflater.inflate(layoutId, null);
     }
 
     private void addRadioListener() {
@@ -411,7 +405,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
                 R.id.paymentView_radioTravellersChargedSplitEvenly :
                 R.id.paymentView_radioTravellersChargedCustom;
 
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.paymentView_radioGroupTravelllersCharged);
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.paymentView_radioGroupTravellersCharged);
         RadioButton radioButton = (RadioButton) findViewById(idToEnable);
         radioButton.setChecked(true);
 
@@ -544,7 +538,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
         int countBlanks = 0;
         List<Participant> participantsWithBlanks = new ArrayList<Participant>();
         for (Entry<Participant, Amount> entry : payment.getParticipantToSpending().entrySet()) {
-            if (entry.getValue().getValue() == null || entry.getValue().getValue().doubleValue() == 0) {
+            if (entry.getValue().getValue() == null || entry.getValue().getValue() == 0) {
                 countBlanks = countBlanks + 1;
                 participantsWithBlanks.add(entry.getKey());
             }
@@ -716,7 +710,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
         /**
          * Workaround for bug: Button cannot be retrieved unless shown API 8 + 
          */
-        /*TODO(ckoelle) Kickout and reduce minimum api requirement.*/
+        /*TODO(ckoelle) Kick out and reduce minimum api requirement.*/
         alert.setOnShowListener(new OnShowListener() {
 
             public void onShow(DialogInterface dialog) {
@@ -748,7 +742,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
         Map<Participant, Amount> oldValues = new HashMap<Participant, Amount>();
         oldValues.putAll(target);
         target.clear();
-        List<Amount> newValues = new ArrayList<Amount>();
+        List<Amount> newValues = new ArrayList<Amount>(); // TODO(ckoelle) Filled but never used.
 
         if (divideAmountResult) {
             List<Participant> participants = selectionResult;
@@ -840,7 +834,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
         boolean markRed = !(
                 amountTotalPayments != null
                         && amountTotalDebits != null &&
-                        amountTotalPayments.getValue().doubleValue() == Math.abs(amountTotalDebits.getValue().doubleValue()));
+                        amountTotalPayments.getValue() == Math.abs(amountTotalDebits.getValue()));
         TextView textView = (TextView) findViewById(R.id.paymentView_payee_createPaymentPayerTableLayout_total_sum_value);
         int colorId = (markRed) ? R.color.red : R.color.mainDark;
         textView.setTextColor(getResources().getColor(colorId));
@@ -852,7 +846,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
         button.setEnabled(areBlankDebitors());
     }
 
-    private boolean isPaymentSaveable() {
+    private boolean isPaymentSavable() {
         return isAmountBiggerZero(amountTotalPayments)
                 && (divideEqually || (amountTotalDebits != null && amountTotalPayments.getValue().doubleValue() == Math
                 .abs(amountTotalDebits
@@ -927,13 +921,11 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     }
 
     private TrickyTripperApp getApp() {
-        TrickyTripperApp app = ((TrickyTripperApp) getApplication());
-        return app;
+       return  ((TrickyTripperApp) getApplication());
     }
 
     private Locale getLocale() {
-        Locale locale = getResources().getConfiguration().locale;
-        return locale;
+        return getResources().getConfiguration().locale;
     }
 
     private DecimalNumberInputUtil getDecimalNumberInputUtil() {

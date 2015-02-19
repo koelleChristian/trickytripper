@@ -39,7 +39,6 @@ import de.koelle.christian.trickytripper.model.Trip;
 import de.koelle.christian.trickytripper.model.TripSummary;
 
 public class DataManagerImpl implements DataManager {
-    private final Context context;
 
     private final SQLiteDatabase db;
 
@@ -50,9 +49,9 @@ public class DataManagerImpl implements DataManager {
 
     public DataManagerImpl(Context context) {
 
-        this.context = context;
+        Context context1 = context;
 
-        SQLiteOpenHelper openHelper = new OpenHelper(this.context);
+        SQLiteOpenHelper openHelper = new OpenHelper(context1);
         db = openHelper.getWritableDatabase();
         if (Rc.debugOn) {
             Log.d(Rc.LT, "DataManagerImplBackup created, db open status: " + db.isOpen());
@@ -149,11 +148,11 @@ public class DataManagerImpl implements DataManager {
 
     private List<Payment> convertPaymentReferenceToPayment(List<PaymentReference> interimPaymentResult,
             List<Participant> participants) {
-        List<Payment> result = new ArrayList<Payment>();
+        List<Payment> result = new ArrayList<>();
         if (interimPaymentResult == null) {
             return result;
         }
-        Map<Long, Participant> participantById = new HashMap<Long, Participant>();
+        Map<Long, Participant> participantById = new HashMap<>();
         for (Participant p : participants) {
             participantById.put(p.getId(), p);
         }
@@ -185,7 +184,7 @@ public class DataManagerImpl implements DataManager {
 
     public Trip persistTripBySummary(TripSummary tripSummary) {
         boolean isNew = (1 > tripSummary.getId());
-        Trip trip = null;
+        Trip trip;
         if (isNew) {
             trip = ModelFactory.createTrip(tripSummary.getBaseCurrency(), tripSummary.getName());
         }
@@ -341,7 +340,7 @@ public class DataManagerImpl implements DataManager {
     }
 
     public boolean deleteExchangeRates(List<ExchangeRate> rows) {
-        List<Long> idsToBeDeleted = new ArrayList<Long>();
+        List<Long> idsToBeDeleted = new ArrayList<>();
         for (ExchangeRate rate : rows) {
             idsToBeDeleted.add(rate.getId());
         }
@@ -364,7 +363,7 @@ public class DataManagerImpl implements DataManager {
     }
 
     public ExchangeRate persistExchangeRate(ExchangeRate rate) {
-        ExchangeRate result = rate.clone();
+        ExchangeRate result = rate.doClone();
         boolean isNew = result.isNew();
         long rateId = 0L;
         /* TODO(ckoelle) Check for consistency how creating date is inserted. */
@@ -398,21 +397,21 @@ public class DataManagerImpl implements DataManager {
             }
             return;
         }
-        ExchangeRate thinggyToBePersisted = null;
+        ExchangeRate thingToBePersisted = null;
 
         List<ExchangeRate> existingRecords = exchangeRateDao.findExistingImportedRecords(rate);
         if (existingRecords.size() == 0) {
             rate.setId(0);
-            thinggyToBePersisted = rate;
+            thingToBePersisted = rate;
         }
         else {
             if (replaceWhenAlreadyImported) {
-                List<Long> recordsToBeDeleted = new ArrayList<Long>();
+                List<Long> recordsToBeDeleted = new ArrayList<>();
                 for (int i = 0; i < existingRecords.size(); i++) {
                     long idOfExistingRecord = existingRecords.get(i).getId();
-                    if (thinggyToBePersisted == null) {
+                    if (thingToBePersisted == null) {
                         rate.setId(idOfExistingRecord);
-                        thinggyToBePersisted = rate;
+                        thingToBePersisted = rate;
                     }
                     else {
                         recordsToBeDeleted.add(idOfExistingRecord);
@@ -429,19 +428,19 @@ public class DataManagerImpl implements DataManager {
                     ExchangeRate existingRate = existingRecords.get(i);
                     if (existingRate.equalsFromImportPointOfView(rate)) {
                         rate.setId(existingRate.getId());
-                        thinggyToBePersisted = rate;
+                        thingToBePersisted = rate;
                     }
-                    if (thinggyToBePersisted != null) {
+                    if (thingToBePersisted != null) {
                         break;
                     }
                 }
-                if (thinggyToBePersisted == null) {
+                if (thingToBePersisted == null) {
                     rate.setId(0);
-                    thinggyToBePersisted = rate;
+                    thingToBePersisted = rate;
                 }
             }
         }
-        persistExchangeRate(thinggyToBePersisted);
+        persistExchangeRate(thingToBePersisted);
     }
 
     /**

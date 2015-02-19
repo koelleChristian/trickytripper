@@ -3,22 +3,22 @@ package de.koelle.christian.common.options;
 import android.app.Activity;
 import android.view.Menu;
 
-public class OptionContraints {
+public class OptionConstraints {
     private Activity activity;
     private Menu menu;
     private int[] optionIds;
 
-    public OptionContraints menu(Menu menu) {
+    public OptionConstraints menu(Menu menu) {
         this.menu = menu;
         return this;
     }
 
-    public OptionContraints activity(Activity activity) {
+    public OptionConstraints activity(Activity activity) {
         this.activity = activity;
         return this;
     }
 
-    public OptionContraints options(int... optionIds) {
+    public OptionConstraints options(int... optionIds) {
         this.optionIds = optionIds;
         return this;
     }

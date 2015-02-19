@@ -13,9 +13,6 @@ public class DimensionSupport {
         this.context = context;
     }
 
-    public float getPreferredSmallItemHeight(){
-        return getDimension(android.R.attr.listPreferredItemHeightSmall);
-    }
    
     private float getDimension(int attribute) {
         TypedValue value = new TypedValue();        

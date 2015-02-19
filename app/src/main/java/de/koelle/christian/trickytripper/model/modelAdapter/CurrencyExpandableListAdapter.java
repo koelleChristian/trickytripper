@@ -39,11 +39,11 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
         this.callback = callback;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        List<Integer> listsMap = new ArrayList<Integer>();
+        List<Integer> listsMap = new ArrayList<>();
 
         for (int i = 0; i < currencies.size(); i++) {
             if (!currencies.get(i).isEmpty()) {
-                listsMap.add(Integer.valueOf(i));
+                listsMap.add(i);
             }
         }
         size = listsMap.size();
@@ -73,13 +73,13 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     public Object getGroup(int groupPosition) {
-        HashMap<String, Object> result = new HashMap<String, Object>();
+        HashMap<String, Object> result = new HashMap<>();
         result.put(NAME, getGroupValueByPosition(getVisualToModelIndex(groupPosition)));
         return result;
     }
 
     public Object getChild(int groupPosition, int childPosition) {
-        HashMap<String, Object> result = new HashMap<String, Object>();
+        HashMap<String, Object> result = new HashMap<>();
         result.put(NAME, getChildValueByPosition(groupPosition, childPosition));
         return result;
     }

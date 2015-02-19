@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsInflater;
+import de.koelle.christian.common.options.OptionConstraintsInflater;
 import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.utils.StringUtils;
 import de.koelle.christian.common.utils.UiUtils;
@@ -203,7 +203,7 @@ public class ParticipantEditActivity extends ActionBarActivity {
                 .getMiscController()
                 .getOptionSupport()
                 .populateOptionsMenu(
-                        new OptionContraintsInflater()
+                        new OptionConstraintsInflater()
                                 .activity(getMenuInflater()).menu(menu)
                                 .options(optionIds));
 

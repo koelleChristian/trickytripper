@@ -17,7 +17,7 @@ import java.util.Currency;
 import java.util.Locale;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsInflater;
+import de.koelle.christian.common.options.OptionConstraintsInflater;
 import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.NumberUtils;
@@ -180,16 +180,16 @@ public class EditExchangeRateActivity extends ActionBarActivity {
         editTextInputRateL2R.addTextChangedListener(editTextListenerLeft);
         editTextInputRateR2L.addTextChangedListener(editTextListenerRight);
 
-        updatInputWidget(editTextInputRateL2R, getLocale(),
+        updateInputWidget(editTextInputRateL2R, getLocale(),
                 exchangeRate.getExchangeRate(), editTextListenerLeft);
-        updatInputWidget(editTextInputRateR2L, getLocale(),
+        updateInputWidget(editTextInputRateR2L, getLocale(),
                 exchangeRateValueInverted, editTextListenerRight);
     }
 
     private Double getWidgetDoubleInput(Editable s) {
         String widgetInput = getDecimalNumberInputUtil()
                 .fixInputStringWidgetToParser(s.toString());
-        Double valueInput = NumberUtils.getStringToDoubleUnrounded(
+        Double valueInput = NumberUtils.getStringToDoubleNonRounded(
                 getLocale(), widgetInput);
         return valueInput;
     }
@@ -214,7 +214,7 @@ public class EditExchangeRateActivity extends ActionBarActivity {
                 .getMiscController()
                 .getOptionSupport()
                 .populateOptionsMenu(
-                        new OptionContraintsInflater()
+                        new OptionConstraintsInflater()
                                 .activity(getMenuInflater()).menu(menu)
                                 .options(optionIds));
     }
@@ -255,12 +255,12 @@ public class EditExchangeRateActivity extends ActionBarActivity {
         if (leftToRight) {
             exchangeRateValueInverted = NumberUtils
                     .invertExchangeRateDouble(exchangeRate.getExchangeRate());
-            updatInputWidget(getInputWidgetR2L(), getLocale(),
+            updateInputWidget(getInputWidgetR2L(), getLocale(),
                     exchangeRateValueInverted, editTextListenerRight);
         } else {
             exchangeRate.setExchangeRate(NumberUtils
                     .invertExchangeRateDouble(exchangeRateValueInverted));
-            updatInputWidget(getInputWidgetL2R(), getLocale(),
+            updateInputWidget(getInputWidgetL2R(), getLocale(),
                     exchangeRate.getExchangeRate(), editTextListenerLeft);
         }
     }
@@ -273,9 +273,9 @@ public class EditExchangeRateActivity extends ActionBarActivity {
         return (EditText) findViewById(R.id.editExchangeRateViewInputRateL2R);
     }
 
-    private void updatInputWidget(EditText editTextField, Locale locale,
-                                  Double value,
-                                  TextWatcher watcher) {
+    private void updateInputWidget(EditText editTextField, Locale locale,
+                                   Double value,
+                                   TextWatcher watcher) {
         editTextField.removeTextChangedListener(watcher);
         UiAmountViewUtils.writeDoubleToEditText(value, editTextField, locale,
                 getDecimalNumberInputUtil());
@@ -361,7 +361,7 @@ public class EditExchangeRateActivity extends ActionBarActivity {
         Currency interim = exchangeRate2.getCurrencyFrom();
         exchangeRate2.setCurrencyFrom(exchangeRate2.getCurrencyTo());
         exchangeRate2.setCurrencyTo(interim);
-        Double valueInput = NumberUtils.getStringToDoubleUnrounded(getLocale(), inputRight);
+        Double valueInput = NumberUtils.getStringToDoubleNonRounded(getLocale(), inputRight);
         exchangeRate2.setExchangeRate(valueInput);
 
     }

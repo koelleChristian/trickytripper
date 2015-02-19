@@ -57,8 +57,8 @@ public class SpendingSumAmountStrategy extends AbstractSumAmountStrategy {
         if (!category.isInternal()) {
             for (Entry<Participant, Amount> entry : payment.getParticipantToSpending().entrySet()) {
 
-                Amount amountTotal = (sumReport.getTotalSpendings() == null) ? getAmountFactory().createAmount()
-                        : sumReport.getTotalSpendings();
+                Amount amountTotal = (sumReport.getTotalSpending() == null) ? getAmountFactory().createAmount()
+                        : sumReport.getTotalSpending();
                 amountTotal.addAmount(entry.getValue());
 
                 Amount amountTotalForCategory = (sumReport.getTotalSpendingByCategory().get(category) == null) ? getAmountFactory()
@@ -66,7 +66,7 @@ public class SpendingSumAmountStrategy extends AbstractSumAmountStrategy {
                         : sumReport.getTotalSpendingByCategory().get(category);
                 amountTotalForCategory.addAmount(entry.getValue());
 
-                sumReport.setTotalSpendings(amountTotal);
+                sumReport.setTotalSpending(amountTotal);
                 sumReport.getTotalSpendingByCategory().put(category, amountTotalForCategory);
 
             }

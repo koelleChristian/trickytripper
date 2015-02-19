@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.util.Random;
 
 import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTable;
-import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTableRow;
+import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTableLayoutTableRow;
 import de.koelle.christian.trickytripper.export.impl.model.ReportAsciTableWrapper;
 
 public class Table2AsiiTest {
@@ -53,9 +53,9 @@ public class Table2AsiiTest {
     }
 
     private void addRows(ReportAsciTable table, int rows, int columns, Random randomContent) {
-        ReportAsciTableRow row;
+        ReportAsciTableLayoutTableRow row;
         for (int j = 0; j < rows; j++) {
-            row = new ReportAsciTableRow();
+            row = new ReportAsciTableLayoutTableRow();
             for (int i = 0; i < columns; i++) {
                 if (i % 3 == 2) {
                     row.addContent(randomContent.nextInt(10000) + ",00");

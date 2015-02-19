@@ -238,7 +238,7 @@ public class DetachedCurrencyImportTest {
         Assert.assertEquals(1, resultCollector.size());
         ExchangeRateImporterResultContainer result = resultCollector.iterator().next();
         Assert.assertEquals(true, result.requestFailed());
-        Assert.assertEquals(ExchangeRateImporterResultState.UNPARSABLE_JSON_RESULT, result.getResultState());
+        Assert.assertEquals(ExchangeRateImporterResultState.NON_PARSABLE_JSON_RESULT, result.getResultState());
     }
 
     private void resetResultFields() {

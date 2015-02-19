@@ -62,7 +62,7 @@ public class CurrencySelectionActivity extends ActionBarActivity {
                 lis.createListWithAllLists(), new CurrencyGroupNamingCallback() {
 
                     public String getGroupDescription(int groupPosition) {
-                        return groupLabels.get(Integer.valueOf(groupPosition));
+                        return groupLabels.get(groupPosition);
                     }
                 });
 
@@ -80,7 +80,7 @@ public class CurrencySelectionActivity extends ActionBarActivity {
     }
 
     private SparseArray<String> localizeGroupLabels() {
-        final SparseArray<String> groupLabels = new SparseArray<String>();
+        final SparseArray<String> groupLabels = new SparseArray<>();
 
         groupLabels.put(HierarchicalCurrencyList.GROUP_POS_ID_USED_MATCHING,
                 getResources().getString(R.string.currency_selection_view_instruction_group_label_used_and_matching));

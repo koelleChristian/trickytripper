@@ -3,9 +3,9 @@ package de.koelle.christian.trickytripper.export.impl.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.koelle.christian.common.ascii.AsciTableLayoutableInterface;
+import de.koelle.christian.common.ascii.AsciTableLayoutTableInterface;
 
-public class ReportAsciTableRow implements AsciTableLayoutableInterface {
+public class ReportAsciTableLayoutTableRow implements AsciTableLayoutTableInterface {
     private ReportAsciTableHeadingCallback callback;
     private final List<String> content = new ArrayList<String>();
 

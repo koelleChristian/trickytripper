@@ -22,8 +22,7 @@ public class PrefAccessor implements PrefsResolver {
     @SuppressLint("CommitPrefEdits")
     public Editor getEditingPrefsEditor() {
         SharedPreferences prefs = getPrefs();
-        Editor prefsEditor = prefs.edit();
-        return prefsEditor;
+        return  prefs.edit();
     }
 
 }

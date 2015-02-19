@@ -46,7 +46,7 @@ public class ExportSettings {
 
     private boolean exportPayments = true;
     private boolean exportTransfers = true;
-    private boolean exportSpendings = true;
+    private boolean exportSpending = true;
     private boolean exportDebts = true;
     private boolean formatHtml = true;
     private boolean formatCsv = false;
@@ -55,12 +55,12 @@ public class ExportSettings {
     private boolean showGlobalSumsOnIndividualSpendingReport = true;
     private ExportOutputChannel outputChannel = ExportOutputChannel.MAIL;
 
-    public boolean isExportSpendings() {
-        return exportSpendings;
+    public boolean isExportSpending() {
+        return exportSpending;
     }
 
-    public void setExportSpendings(boolean exportPayments) {
-        this.exportSpendings = exportPayments;
+    public void setExportSpending(boolean exportPayments) {
+        this.exportSpending = exportPayments;
     }
 
     public boolean isExportDebts() {
@@ -115,8 +115,8 @@ public class ExportSettings {
         return formatTxt;
     }
 
-    public void setFormatTxt(boolean formattxt) {
-        this.formatTxt = formattxt;
+    public void setFormatTxt(boolean formatTxt) {
+        this.formatTxt = formatTxt;
     }
 
     public ExportOutputChannel getOutputChannel() {
@@ -138,7 +138,7 @@ public class ExportSettings {
     @Override
     public String toString() {
         return "ExportSettings [exportPayments=" + exportPayments + ", exportTransfers=" + exportTransfers
-                + ", exportSpendings=" + exportSpendings + ", exportDebts=" + exportDebts + ", formatHtml="
+                + ", exportSpending=" + exportSpending + ", exportDebts=" + exportDebts + ", formatHtml="
                 + formatHtml + ", formatCsv=" + formatCsv + ", formatTxt=" + formatTxt
                 + ", separateFilesForIndividuals=" + separateFilesForIndividuals
                 + ", showGlobalSumsOnIndividualSpendingReport=" + showGlobalSumsOnIndividualSpendingReport

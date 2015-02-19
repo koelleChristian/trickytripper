@@ -40,7 +40,7 @@ public class DeleteTripTest extends ApplicationTestCase<TrickyTripperApp> {
                 .persistParticipantInTrip(tripId, ModelFactory.createNewParticipant("Bruce", false));
 
         /* Payment 01 */
-        Payment payment01In = ModelFactory.createNewPayment("MyDesciption01", PaymentCategory.BEVERAGES);
+        Payment payment01In = ModelFactory.createNewPayment("MyDescription01", PaymentCategory.BEVERAGES);
         ModelSetupUtil.addAmountToPayment(payment01In, 33.20d, "EUR", true, p1);
         ModelSetupUtil.addAmountToPayment(payment01In, 10.10d, "EUR", false, p1);
         ModelSetupUtil.addAmountToPayment(payment01In, 11.10d, "EUR", false, p2);
@@ -49,7 +49,7 @@ public class DeleteTripTest extends ApplicationTestCase<TrickyTripperApp> {
         dataManager.persistPaymentInTrip(tripId, payment01In);
 
         /* Payment 02 */
-        Payment payment02In = ModelFactory.createNewPayment("MyDesciption02", PaymentCategory.GAS);
+        Payment payment02In = ModelFactory.createNewPayment("MyDescription02", PaymentCategory.GAS);
         ModelSetupUtil.addAmountToPayment(payment02In, 10d, "USD", true, p1);
         ModelSetupUtil.addAmountToPayment(payment02In, 10d, "USD", false, p2);
 

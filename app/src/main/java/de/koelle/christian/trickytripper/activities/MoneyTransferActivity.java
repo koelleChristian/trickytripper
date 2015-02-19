@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsInflater;
+import de.koelle.christian.common.options.OptionConstraintsInflater;
 import de.koelle.christian.common.text.BlankTextWatcher;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.NumberUtils;
@@ -74,7 +74,7 @@ public class MoneyTransferActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsInflater().activity(getMenuInflater()).menu(menu)
+                new OptionConstraintsInflater().activity(getMenuInflater()).menu(menu)
                         .options(new int[]{
                                 R.id.option_save_edit,
                                 R.id.option_help
@@ -133,7 +133,7 @@ public class MoneyTransferActivity extends ActionBarActivity {
         for (Entry<Participant, Amount> entry : amountByParticipant.entrySet()) {
             Amount amountInput = entry.getValue();
             if (amountInput.getValue() > 0) {
-                Amount amountInputNeg = amountInput.clone();
+                Amount amountInputNeg = amountInput.doClone();
                 amountInputNeg.setValue(NumberUtils.neg(amountInputNeg.getValue()));
                 Payment newPayment = ModelFactory.createNewPayment(
                         getResources().getString(PaymentCategory.MONEY_TRANSFER.getResourceStringId()),
@@ -188,7 +188,7 @@ public class MoneyTransferActivity extends ActionBarActivity {
             nameTextView.setText(p.getName());
             UiUtils.setFontAndStyle(this, nameTextView, !p.isActive(), android.R.style.TextAppearance_Small);
 
-            buttonCurrency.setText(getApp().getTripController().getLodadedTripCurrencySymbol(false));
+            buttonCurrency.setText(getApp().getTripController().getLoadedTripCurrencySymbol(false));
             bindCurrencyCalculatorAction(buttonCurrency, inputValueModel, dynViewId);
 
             if (amountDue == null) {
@@ -252,11 +252,11 @@ public class MoneyTransferActivity extends ActionBarActivity {
     private Amount getNullSafeDebts(Debts debtsOfTransferer, Participant p) {
         final Amount a = (
                 debtsOfTransferer != null
-                        && debtsOfTransferer.getLoanerToDepts() != null
-                        && debtsOfTransferer.getLoanerToDepts().get(p) != null
-                        && debtsOfTransferer.getLoanerToDepts().get(p).getValue() > 0) ?
+                        && debtsOfTransferer.getLoanerToDebts() != null
+                        && debtsOfTransferer.getLoanerToDebts().get(p) != null
+                        && debtsOfTransferer.getLoanerToDebts().get(p).getValue() > 0) ?
 
-                debtsOfTransferer.getLoanerToDepts().get(p) :
+                debtsOfTransferer.getLoanerToDebts().get(p) :
                 null;
         return a;
     }

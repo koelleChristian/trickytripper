@@ -20,7 +20,7 @@ public class AmountFactory {
         Amount amount;
         amount = new Amount();
         amount.setUnit(value.getUnit());
-        amount.setValue(Double.valueOf((value.getValue().doubleValue())));
+        amount.setValue((double) (value.getValue()));
         return amount;
     }
 

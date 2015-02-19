@@ -6,24 +6,24 @@ import java.util.Map.Entry;
 
 public class Debts {
 
-	private Map<Participant, Amount> loanerToDepts = new HashMap<Participant, Amount>();
+	private final Map<Participant, Amount> loanerToDebts = new HashMap<>();
 
-	public Map<Participant, Amount> getLoanerToDepts() {
-		return loanerToDepts;
+	public Map<Participant, Amount> getLoanerToDebts() {
+		return loanerToDebts;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder();
 		result.append("[");
-		for (Entry<Participant, Amount> loaner : loanerToDepts.entrySet()) {
+		for (Entry<Participant, Amount> loaner : loanerToDebts.entrySet()) {
 			result.append("\n");
 			result.append(loaner.getKey());
 			result.append(" <=== ");
 			result.append(loaner.getValue());
 			result.append("\n");
 		}
-		if (loanerToDepts.entrySet().isEmpty()) {
+		if (loanerToDebts.entrySet().isEmpty()) {
 			result.append("blank");
 		}
 		result.append("]");

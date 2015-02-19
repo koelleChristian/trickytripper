@@ -20,7 +20,7 @@ public class StringUtils {
             return true;
         }
         String clone = textInput;
-        clone.trim();
+        clone.trim(); //TODO(ckoelle)
         return clone.length() < 1;
     }
 

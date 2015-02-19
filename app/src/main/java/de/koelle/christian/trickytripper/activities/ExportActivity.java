@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
-import de.koelle.christian.common.options.OptionContraintsInflater;
+import de.koelle.christian.common.options.OptionConstraintsInflater;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -51,7 +51,7 @@ public class ExportActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                new OptionContraintsInflater().activity(getMenuInflater()).menu(menu)
+                new OptionConstraintsInflater().activity(getMenuInflater()).menu(menu)
                         .options(new int[]{
                                 R.id.option_upload,
                                 R.id.option_help
@@ -192,7 +192,7 @@ public class ExportActivity extends ActionBarActivity {
 
         contentContentPayments.setChecked(exportSettings.isExportPayments());
         contentContentTransfers.setChecked(exportSettings.isExportTransfers());
-        contentContentSpendingReport.setChecked(exportSettings.isExportSpendings());
+        contentContentSpendingReport.setChecked(exportSettings.isExportSpending());
         contentContentOwingDebts.setChecked(exportSettings.isExportDebts());
         contentFormatCsv.setChecked(exportSettings.isFormatCsv());
         contentFormatHtml.setChecked(exportSettings.isFormatHtml());
@@ -216,9 +216,9 @@ public class ExportActivity extends ActionBarActivity {
 
         contentContentSpendingReport.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                exportSettings.setExportSpendings(isChecked);
+                exportSettings.setExportSpending(isChecked);
                 updateExportState();
-                updateCheckboxStateShowGlobalSumsOnIndivudiualSpendings();
+                updateCheckboxStateShowGlobalSumsOnIndividualSpending();
             }
         });
 
@@ -252,7 +252,7 @@ public class ExportActivity extends ActionBarActivity {
         contentSeparateFilesForIndividuals.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 exportSettings.setSeparateFilesForIndividuals(isChecked);
-                updateCheckboxStateShowGlobalSumsOnIndivudiualSpendings();
+                updateCheckboxStateShowGlobalSumsOnIndividualSpending();
             }
         });
 
@@ -272,7 +272,7 @@ public class ExportActivity extends ActionBarActivity {
 
     private void updateAllCheckboxStates() {
         updateCheckboxStateIndividualFiles();
-        updateCheckboxStateShowGlobalSumsOnIndivudiualSpendings();
+        updateCheckboxStateShowGlobalSumsOnIndividualSpending();
     }
 
     private void updateCheckboxStateIndividualFiles() {
@@ -281,7 +281,7 @@ public class ExportActivity extends ActionBarActivity {
         checkbox.setEnabled(enabledToBe);
     }
 
-    private void updateCheckboxStateShowGlobalSumsOnIndivudiualSpendings() {
+    private void updateCheckboxStateShowGlobalSumsOnIndividualSpending() {
         CheckBox checkbox = (CheckBox) findViewById(R.id.exportViewCheckboxShowTripSumOnIndividualSpendingReport);
         boolean enabledToBe = deriveEnabledCheckboxStateFromSettings(participantSelected, exportSettings, false);
         checkbox.setEnabled(enabledToBe);
@@ -293,7 +293,7 @@ public class ExportActivity extends ActionBarActivity {
         if (individualFilesNotHideSums) {
             return participantSelected2 == null;
         } else {
-            return exportSettings2.isExportSpendings() &&
+            return exportSettings2.isExportSpending() &&
                     (participantSelected2 != null
                             || (participantSelected2 == null && exportSettings2.isSeparateFilesForIndividuals()));
         }
@@ -305,7 +305,7 @@ public class ExportActivity extends ActionBarActivity {
                 exportSettings2.isExportDebts()
                         || exportSettings2.isExportPayments()
                         || exportSettings2.isExportTransfers()
-                        || exportSettings2.isExportSpendings()
+                        || exportSettings2.isExportSpending()
         ) && (
                 exportSettings2.isFormatTxt()
                         || exportSettings2.isFormatHtml()

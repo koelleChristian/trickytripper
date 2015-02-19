@@ -20,7 +20,7 @@ public interface TripController extends TripResolver {
 
     boolean deleteParticipant(Participant participant);
 
-    boolean isParticipantDeleteable(Participant participant);
+    boolean isParticipantDeletable(Participant participant);
 
     List<Participant> getAllParticipants(boolean onlyActive);
 
@@ -66,7 +66,7 @@ public interface TripController extends TripResolver {
 
     Currency getLoadedTripBaseCurrency();
 
-    String getLodadedTripCurrencySymbol(boolean wrapInBrackets);
+    String getLoadedTripCurrencySymbol(boolean wrapInBrackets);
 
     void reloadTrip();
 }

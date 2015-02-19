@@ -21,7 +21,7 @@ public class SumReport {
 
     private Map<Participant, Amount> balanceByUser;
 
-    private Amount totalSpendings;
+    private Amount totalSpending;
     private int totalSpendingCount;
     private Map<PaymentCategory, Amount> totalSpendingByCategory;
     private Map<PaymentCategory, Integer> totalSpendingByCategoryCount;
@@ -38,8 +38,8 @@ public class SumReport {
         return spendingByUserByCategory;
     }
 
-    public void setSpendingByUserByCategory(Map<Participant, Map<PaymentCategory, Amount>> spendingsByUserByCategory) {
-        this.spendingByUserByCategory = spendingsByUserByCategory;
+    public void setSpendingByUserByCategory(Map<Participant, Map<PaymentCategory, Amount>> spendingByUserByCategory) {
+        this.spendingByUserByCategory = spendingByUserByCategory;
     }
 
     public Map<Participant, Amount> getPaymentByUser() {
@@ -58,44 +58,44 @@ public class SumReport {
         this.paymentByUserByCategory = paymentsByUserByCategory;
     }
 
-    public Amount getTotalSpendings() {
-        return totalSpendings;
+    public Amount getTotalSpending() {
+        return totalSpending;
     }
 
-    public void setTotalSpendings(Amount totalSpendings) {
-        this.totalSpendings = totalSpendings;
+    public void setTotalSpending(Amount totalSpending) {
+        this.totalSpending = totalSpending;
     }
 
     public int getTotalSpendingCount() {
         return totalSpendingCount;
     }
 
-    public void setTotalSpendingCount(int totalSpendingstCount) {
-        this.totalSpendingCount = totalSpendingstCount;
+    public void setTotalSpendingCount(int totalSpendingCount) {
+        this.totalSpendingCount = totalSpendingCount;
     }
 
     public Map<PaymentCategory, Amount> getTotalSpendingByCategory() {
         return totalSpendingByCategory;
     }
 
-    public void setTotalSpendingByCategory(Map<PaymentCategory, Amount> spendingsByCategory) {
-        this.totalSpendingByCategory = spendingsByCategory;
+    public void setTotalSpendingByCategory(Map<PaymentCategory, Amount> spendingByCategory) {
+        this.totalSpendingByCategory = spendingByCategory;
     }
 
     public Map<PaymentCategory, Integer> getTotalSpendingByCategoryCount() {
         return totalSpendingByCategoryCount;
     }
 
-    public void setTotalSpendingByCategoryCount(Map<PaymentCategory, Integer> spendingsByCategoryCount) {
-        this.totalSpendingByCategoryCount = spendingsByCategoryCount;
+    public void setTotalSpendingByCategoryCount(Map<PaymentCategory, Integer> spendingByCategoryCount) {
+        this.totalSpendingByCategoryCount = spendingByCategoryCount;
     }
 
     public Map<Participant, Integer> getSpendingByUserCount() {
         return spendingByUserCount;
     }
 
-    public void setSpendingByUserCount(Map<Participant, Integer> spendingsByUserCount) {
-        this.spendingByUserCount = spendingsByUserCount;
+    public void setSpendingByUserCount(Map<Participant, Integer> spendingByUserCount) {
+        this.spendingByUserCount = spendingByUserCount;
     }
 
     public Map<Participant, Integer> getPaymentByUserCount() {
@@ -133,17 +133,17 @@ public class SumReport {
     }
 
     public void addNewParticipant(Participant participant, Amount freshBlankAmount) {
-        spendingByUser.put(participant, freshBlankAmount.clone());
-        spendingByUserCount.put(participant, Integer.valueOf(0));
+        spendingByUser.put(participant, freshBlankAmount.doClone());
+        spendingByUserCount.put(participant, 0);
         spendingByUserByCategory.put(participant, new HashMap<PaymentCategory, Amount>());
         spendingByUserByCategoryCount.put(participant, new HashMap<PaymentCategory, Integer>());
 
-        paymentByUser.put(participant, freshBlankAmount.clone());
-        paymentByUserCount.put(participant, Integer.valueOf(0));
+        paymentByUser.put(participant, freshBlankAmount.doClone());
+        paymentByUserCount.put(participant, 0);
         paymentByUserByCategory.put(participant, new HashMap<PaymentCategory, Amount>());
         paymentByUserByCategoryCount.put(participant, new HashMap<PaymentCategory, Integer>());
 
-        balanceByUser.put(participant, freshBlankAmount.clone());
+        balanceByUser.put(participant, freshBlankAmount.doClone());
 
     }
 

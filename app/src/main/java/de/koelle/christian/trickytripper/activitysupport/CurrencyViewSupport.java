@@ -13,10 +13,10 @@ public class CurrencyViewSupport {
     @SuppressWarnings("rawtypes")
     public static List<RowObject> wrapCurrenciesInRowObject(List<Currency> supportedCurrencies,
             final Resources resources) {
-        List<RowObject> result = new ArrayList<RowObject>();
+        List<RowObject> result = new ArrayList<>();
 
         for (final Currency c : supportedCurrencies) {
-            result.add(new RowObject<Currency>(new RowObjectCallback<Currency>() {
+            result.add(new RowObject<>(new RowObjectCallback<Currency>() {
                 public String getStringToDisplay(Currency c) {
                     return CurrencyUtil.getFullNameToCurrency(resources, c);
                 }

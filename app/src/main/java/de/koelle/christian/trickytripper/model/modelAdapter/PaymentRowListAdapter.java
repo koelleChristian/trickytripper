@@ -154,12 +154,10 @@ public class PaymentRowListAdapter extends ArrayAdapter<Payment> {
         TreeMap<String, Amount> payments = new TreeMap<String, Amount>(collator);
         TreeMap<String, Amount> debitedTo = new TreeMap<String, Amount>(collator);
 
-        for (Iterator<Entry<Participant, Amount>> i = row.getParticipantToPayment().entrySet().iterator(); i.hasNext();) {
-            Entry<Participant, Amount> entry = i.next();
+        for (Entry<Participant, Amount> entry : row.getParticipantToPayment().entrySet()) {
             payments.put(entry.getKey().getName(), entry.getValue());
         }
-        for (Iterator<Entry<Participant, Amount>> i = row.getParticipantToSpending().entrySet().iterator(); i.hasNext();) {
-            Entry<Participant, Amount> entry = i.next();
+        for (Entry<Participant, Amount> entry : row.getParticipantToSpending().entrySet()) {
             debitedTo.put(entry.getKey().getName(), entry.getValue());
         }
 

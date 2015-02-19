@@ -17,10 +17,10 @@ public class CurrencyUtil {
 
     private static String[] currencyCodes;
     private static String[] currencyFullName;
-    private static Map<Currency, String> currency2SymbolMap = new HashMap<Currency, String>();
-    private static Map<Currency, String> currency2DisplayNameMap = new HashMap<Currency, String>();
-    private static List<String> currenciesWithExpectedExchangeRate = new ArrayList<String>();
-    private static List<Currency> supportedCurrencies = new ArrayList<Currency>();
+    private static final Map<Currency, String> currency2SymbolMap = new HashMap<>();
+    private static Map<Currency, String> currency2DisplayNameMap = new HashMap<>();
+    private static List<String> currenciesWithExpectedExchangeRate = new ArrayList<>();
+    private static List<Currency> supportedCurrencies = new ArrayList<>();
 
     static {
 
@@ -117,7 +117,7 @@ public class CurrencyUtil {
         currenciesWithExpectedExchangeRate.add("UZS");
         currenciesWithExpectedExchangeRate.add("VEF");
         /*
-         * VND has been removed as it is to extreme. The webfrontend is only
+         * VND has been removed as it is to extreme. The web frontend is only
          * capable to do one direction.
          */
         // currenciesWithExpectedExchangeRate.add("VND");
@@ -133,7 +133,7 @@ public class CurrencyUtil {
     }
 
     public static List<Currency> getAllCurrenciesAlive() {
-        List<Currency> result = new ArrayList<Currency>();
+        List<Currency> result = new ArrayList<>();
         for (String code : currenciesWithExpectedExchangeRate) {
             result.add(Currency.getInstance(code));
         }
@@ -150,7 +150,7 @@ public class CurrencyUtil {
         return currencyFullName;
     }
 
-    public static Currency getSuportedCurrency(Resources resources, int index) {
+    public static Currency getSupportedCurrency(Resources resources, int index) {
         initIfRequired(resources);
         return supportedCurrencies.get(index);
     }
@@ -180,20 +180,17 @@ public class CurrencyUtil {
         if (currencyCodes == null) {
             String[] currencyArray = resources.getStringArray(R.array.currencies);
 
-            List<String> currencyCodes = new ArrayList<String>();
-            List<String> currencyFullName = new ArrayList<String>();
+            List<String> currencyCodes = new ArrayList<>();
+            List<String> currencyFullName = new ArrayList<>();
 
-            for (int i = 0; i < currencyArray.length; i++) {
-
-                String value = currencyArray[i];
+            for (String value : currencyArray) {
 
                 String currencyCode = value.substring(0, 3);
                 String currencyName = value.substring(4, value.length());
-                Currency instance = null;
+                Currency instance;
                 try {
                     instance = Currency.getInstance(currencyCode);
-                }
-                catch (IllegalArgumentException e) {
+                } catch (IllegalArgumentException e) {
                     continue;
                 }
 
@@ -254,7 +251,7 @@ public class CurrencyUtil {
     public static List<CurrencyWithName> convertToCurrencyWithName(List<Currency> currenciesMatchingInOrderOfUsage,
             Resources resources) {
         initIfRequired(resources);
-        List<CurrencyWithName> result = new ArrayList<CurrencyWithName>();
+        List<CurrencyWithName> result = new ArrayList<>();
         for (Currency c : currenciesMatchingInOrderOfUsage) {
             result.add(new CurrencyWithName(c, currency2DisplayNameMap.get(c)));
         }
@@ -264,7 +261,7 @@ public class CurrencyUtil {
     public static List<CurrencyWithName> convertOthersToCurrencyWithName(Set<Currency> currenciesToBeExcluded,
             Resources resources) {
         initIfRequired(resources);
-        List<CurrencyWithName> result = new ArrayList<CurrencyWithName>();
+        List<CurrencyWithName> result = new ArrayList<>();
         for (Currency c : supportedCurrencies) {
             if (!currenciesToBeExcluded.contains(c)) {
                 result.add(new CurrencyWithName(c, currency2DisplayNameMap.get(c)));

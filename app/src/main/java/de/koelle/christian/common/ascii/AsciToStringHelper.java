@@ -44,7 +44,7 @@ public class AsciToStringHelper {
     }
 
     public static String asciToString( // --
-            final AsciTableLayoutableInterface[] pObjArr)
+            final AsciTableLayoutTableInterface[] pObjArr)
     {
         if (pObjArr != null)
         {
@@ -58,7 +58,7 @@ public class AsciToStringHelper {
         {
             return " is empty ";
         }
-        AsciTableLayoutableInterface pObj = pObjArr[0];
+        AsciTableLayoutTableInterface pObj = pObjArr[0];
         if (pObj == null)
         {
             return " first entry is null ";
@@ -80,14 +80,14 @@ public class AsciToStringHelper {
                 {
                     final Object cellValue = pObj.asciTableColumnContent(k);
                     final String cellStr;
-                    if (cellValue instanceof AsciTableLayoutableInterface[]) {
+                    if (cellValue instanceof AsciTableLayoutTableInterface[]) {
                         cellStr =
                                 cutRight(
-                                        asciToString((AsciTableLayoutableInterface[]) cellValue),
+                                        asciToString((AsciTableLayoutTableInterface[]) cellValue),
                                         "\n");
                     }
                     else {
-                        cellStr = (cellValue != null) ? String.valueOf(cellValue).trim() : String.valueOf(cellValue);
+                        cellStr = String.valueOf(cellValue).trim();
                     }
                     table[j][k] = new AsciTable.Cell(cellStr);
                     if (isNumeric(cellStr)) {

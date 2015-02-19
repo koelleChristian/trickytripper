@@ -12,7 +12,7 @@ public class InitialDataAvailabilityTest extends ApplicationTestCase<TrickyTripp
         super(TrickyTripperApp.class);
     }
 
-    public void testTestDataAvailibility() {
+    public void testTestDataAvailability() {
         getContext().deleteDatabase(DataConstants.DATABASE_NAME);
 
         DataManagerImpl dataManager = new DataManagerImpl(getContext());

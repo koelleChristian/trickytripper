@@ -65,7 +65,7 @@ public abstract class AbstractCurrencyImportTest extends ApplicationTestCase<Tri
     }
 
     protected void resetResultFields() {
-        resultCollector = new LinkedHashSet<ExchangeRateImporterResultContainer>();
+        resultCollector = new LinkedHashSet<>();
     }
 
     protected final class ResultCollectingExchangeRateImporterResultCallback implements

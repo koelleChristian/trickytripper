@@ -1777,7 +1777,7 @@ public class ExporterImplTest {
             boolean formatTxt) {
         ExportSettings exportSettings = new ExportSettings();
         exportSettings.setExportDebts(exportDebts);
-        exportSettings.setExportSpendings(exportSpendings);
+        exportSettings.setExportSpending(exportSpendings);
         exportSettings.setExportPayments(exportPayments);
         exportSettings.setExportTransfers(exportTransfers);
         exportSettings.setFormatCsv(formatCsv);

@@ -28,8 +28,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import de.koelle.christian.common.changelog.ChangeLog;
-import de.koelle.christian.common.options.OptionContraints;
-import de.koelle.christian.common.options.OptionContraintsInflater;
+import de.koelle.christian.common.options.OptionConstraints;
+import de.koelle.christian.common.options.OptionConstraintsInflater;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.activitysupport.MainPagerAdapter;
 import de.koelle.christian.trickytripper.constants.Rc;
@@ -45,7 +45,6 @@ public class TrickyTripperActivity extends ActionBarActivity implements DeleteDi
     private static final String DIALOG_PARAM_TRIP_SUMMARY = "dialogParamTripSummary";
 
     private ViewPager mViewPager;
-    private FragmentStatePagerAdapter mPagerAdapter;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -105,13 +104,12 @@ public class TrickyTripperActivity extends ActionBarActivity implements DeleteDi
             }
         };
 
-        iniDrawertListView(mDrawerList, app);
+        iniDrawerListView(mDrawerList);
         addDrawerListClickListener(mDrawerList, app);
     }
 
 
-    private void iniDrawertListView(ListView listView, TrickyTripperApp app) {
-        final int mainColor = getResources().getColor(R.color.main);
+    private void iniDrawerListView(ListView listView) {
 
         mDrawerListAdapter = new ArrayAdapter<TripSummary>(
                 this,
@@ -146,7 +144,7 @@ public class TrickyTripperActivity extends ActionBarActivity implements DeleteDi
     }
 
     private void updatePagerAdapter() {
-        mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), this);
+        FragmentStatePagerAdapter mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(mPagerAdapter);
     }
 
@@ -222,7 +220,7 @@ public class TrickyTripperActivity extends ActionBarActivity implements DeleteDi
                 .getMiscController()
                 .getOptionSupport()
                 .populateOptionsMenu(
-                        new OptionContraints()
+                        new OptionConstraints()
                                 .activity(this)
                                 .menu(menu)
                                 .options(optionIds));
@@ -325,8 +323,7 @@ public class TrickyTripperActivity extends ActionBarActivity implements DeleteDi
     }
 
     private TripSummary getTripSummaryFromBundle(Bundle args) {
-        TripSummary selectedTripSummary = (TripSummary) args.get(DIALOG_PARAM_TRIP_SUMMARY);
-        return selectedTripSummary;
+        return  (TripSummary) args.get(DIALOG_PARAM_TRIP_SUMMARY);
     }
 
     public String getDeleteConfirmationMsg(Bundle bundle) {
@@ -346,7 +343,7 @@ public class TrickyTripperActivity extends ActionBarActivity implements DeleteDi
         invalidateOptionsMenu();
     }
 
-    //TODO(ckoelle) ABS The delgating TripSummary could be kicked out, as the Adapter is overridden.
+    //TODO(ckoelle) ABS The delegating TripSummary could be kicked out, as the Adapter is overridden.
 
     private class MyActionModeCallback implements ActionMode.Callback {
 
@@ -369,7 +366,7 @@ public class TrickyTripperActivity extends ActionBarActivity implements DeleteDi
             }
 
             return getApp().getMiscController().getOptionSupport().populateOptionsMenu(
-                    new OptionContraintsInflater()
+                    new OptionConstraintsInflater()
                             .activity(mode.getMenuInflater())
                             .menu(menu)
                             .options(optionIds));

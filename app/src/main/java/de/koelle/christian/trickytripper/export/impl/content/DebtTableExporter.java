@@ -41,8 +41,8 @@ public class DebtTableExporter {
 
         for (Entry<Participant, Debts> entry : trip.getDebts().entrySet()) {
             Debts debts = entry.getValue();
-            if (debts != null && debts.getLoanerToDepts() != null) {
-                for (Entry<Participant, Amount> debt : debts.getLoanerToDepts().entrySet()) {
+            if (debts != null && debts.getLoanerToDebts() != null) {
+                for (Entry<Participant, Amount> debt : debts.getLoanerToDebts().entrySet()) {
                     if (isInReportScope(participants, entry, debt)) {
                         resultBuilder.append(charResolver.getRowStartDelimiter());
                         resultBuilder.append(charResolver.translateValue(entry.getKey().getName()));

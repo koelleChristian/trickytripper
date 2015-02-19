@@ -125,14 +125,14 @@ public class SaveToSdCardActivity extends ActionBarActivity {
 
     private void finishHere(boolean successful) {
         StringBuilder toastMsg = new StringBuilder();
-        toastMsg.append((successful) ? getSuccessfullMsg(getResources(), fileUris.size()) : getResources()
+        toastMsg.append((successful) ? getSuccessfulMsg(getResources(), fileUris.size()) : getResources()
                 .getString(R.string.save2SdReceiverResultNothingSaved));
         Toast.makeText(getApplicationContext(), toastMsg.toString(), Toast.LENGTH_LONG).show();
         FileUtils.deleteAllFiles(this);
         finish();
     }
 
-    private StringBuilder getSuccessfullMsg(Resources resources, int size) {
+    private StringBuilder getSuccessfulMsg(Resources resources, int size) {
         return new StringBuilder()
                 .append(resources.getString(R.string.save2SdReceiverResultSavedPrefix))
                 .append(MSG_SPACE)

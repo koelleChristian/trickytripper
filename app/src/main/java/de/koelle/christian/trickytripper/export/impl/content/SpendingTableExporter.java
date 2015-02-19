@@ -63,7 +63,7 @@ public class SpendingTableExporter {
                 .resolve(R.string.fileExportSpendingsHeadingTotalSpent)));
         if (!hideColumnForEntireTrip) {
             writer.append(charResolver.getColumnDelimiter(StyleClass.NUMERIC_VALUE));
-            writer.append(TableExporterUtils.getAmount(locale, report.getTotalSpendings()));
+            writer.append(TableExporterUtils.getAmount(locale, report.getTotalSpending()));
         }
         for (Participant p : participants) {
             writer.append(charResolver.getColumnDelimiter(StyleClass.NUMERIC_VALUE));
@@ -156,7 +156,7 @@ public class SpendingTableExporter {
         return report.getSpendingByUserByCategory().get(participants.get(0))
                 .get(category).getValue() != null
                 && report.getSpendingByUserByCategory().get(participants.get(0))
-                        .get(category).getValue().doubleValue() < 0d;
+                .get(category).getValue() < 0d;
     }
 
     private Set<PaymentCategory> createSortedSet(final ResourceResolver resourceResolver, final Collator collator) {

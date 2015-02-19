@@ -54,7 +54,7 @@ public class CurrenciesUsed {
     }
 
     public Set<Currency> getCurrenciesAlreadyFilled() {
-        Set<Currency> result = new HashSet<Currency>();
+        Set<Currency> result = new HashSet<>();
         result.addAll(currenciesUsedMatching);
         result.addAll(currenciesUsedUnmatched);
         if (currenciesInExchangeRatesMatching != null) {

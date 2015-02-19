@@ -125,7 +125,7 @@ public class ParticipantTabActivity extends ListFragment {
 
             menu.setGroupEnabled(R.id.menu_group_participant_active_required, selectedParticipant.isActive());
             menu.setGroupEnabled(R.id.menu_group_participant_deletable_required,
-                    getApp().getTripController().isParticipantDeleteable(selectedParticipant));
+                    getApp().getTripController().isParticipantDeletable(selectedParticipant));
             menu.setGroupEnabled(R.id.menu_group_participant_at_least_another, getApp().getTripController().getAllParticipants(false).size() > 1);
 
             if (selectedParticipant.isActive()) {

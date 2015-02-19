@@ -9,9 +9,9 @@ public class ReportAsciTableUtils {
         String[] rows = contents.toString().split(TxtExportCharResolver.TXT_ROW_END_DELIMITER);
         for (int i = 0; i < rows.length; i++) {
             String[] rowValues = rows[i].split(TxtExportCharResolver.TXT_VALUE_DELIMITER);
-            ReportAsciTableRow rowObj = null;
+            ReportAsciTableLayoutTableRow rowObj = null;
             if (i != 0) {
-                rowObj = new ReportAsciTableRow();
+                rowObj = new ReportAsciTableLayoutTableRow();
             }
 
             for (String val : rowValues) {
