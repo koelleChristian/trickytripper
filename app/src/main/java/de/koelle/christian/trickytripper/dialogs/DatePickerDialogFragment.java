@@ -61,8 +61,10 @@ public class DatePickerDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.common_button_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         view.findViewById(R.id.datePicker_datePicker);
-                        resultDateTime = (resultDate.getTimeInMillis() == initialDate.getTimeInMillis()) ? null : resultDate.getTime();
-                        getCallBack().deliverDatePickerResult(resultDateTime);
+                        if(resultDate.getTimeInMillis() != initialDate.getTimeInMillis()){
+                            resultDateTime = resultDate.getTime();
+                            getCallBack().deliverDatePickerResult(resultDateTime);
+                        }
                         DatePickerDialogFragment.this.dismiss();
                     }
                 });
