@@ -27,6 +27,14 @@
   </head>  
   <body>
 
+$ 1.5.1
+% Version 1.5.1
+  _ 2015-02-25
+* Reiseauswahl und -verwaltung erfolgt via Drawer, zugänglich via Burger Button.
+* Kontextmenüs entfernt: Funktionen jetzt im kontextsensitiven Actionbar.
+* Auffrischung der Dialoge, Anpassung an die Material-Designvorgaben (Android 5).
+* Unterstützung von Android-5-Geräten.
+
 $ 1.4.3
 % Version 1.4.3
   _ 2013-12-09

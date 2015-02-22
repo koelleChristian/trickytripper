@@ -27,6 +27,14 @@
   </head>  
   <body>
 
+$ 1.5.1
+% Version 1.5.1
+  _ 2015-02-25
+* Moved trip selection and management into newly introduced drawer, accessible via burger button.
+* Removed context menus: Functionality now available via contextual action bar.
+* Refurbished dialogs and icons to suit Android 5's material design guideline.
+* Supports Android 5 devices.
+
 $ 1.4.3
 % Version 1.4.3
   _ 2013-12-09
