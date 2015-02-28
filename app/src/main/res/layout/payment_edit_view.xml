@@ -238,13 +238,13 @@
 
                     <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="46dp"
+                        android:layout_height="wrap_content"
                         android:layout_column="2"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/paymentView_textView_payee_label_payed_by"
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:layout_weight="1"
@@ -253,6 +253,7 @@
                             android:textStyle="bold"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="@string/payment_edit_view_textView_payee_label_spent_by" />
+
 
                         <ImageButton
                             android:id="@+id/paymentView_button_payee_add_further_payees"
