@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Tricky Tripper</string>
-    <string name="spinner_null_value_default"></string>
-    <string name="defaultX">XX</string>
-    <string name="default_blank"></string>
-    <string name="default_space"> </string>
+    <string name="app_name"  translatable="false">Tricky Tripper</string>
+    <string name="spinner_null_value_default"  translatable="false"></string>
+    <string name="defaultX"  translatable="false">XX</string>
+    <string name="default_blank"  translatable="false"></string>
+    <string name="default_space"  translatable="false"> </string>
     <!-- To be translated ff -->
     <string name="common_button_cancel">Cancel</string>
     <string name="common_button_yes">Yes</string>
