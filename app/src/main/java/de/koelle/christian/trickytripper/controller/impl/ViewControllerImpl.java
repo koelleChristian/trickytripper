@@ -24,6 +24,7 @@ import de.koelle.christian.trickytripper.activities.ExportActivity;
 import de.koelle.christian.trickytripper.activities.ImportExchangeRatesActivity;
 import de.koelle.christian.trickytripper.activities.MoneyTransferActivity;
 import de.koelle.christian.trickytripper.activities.ParticipantEditActivity;
+import de.koelle.christian.trickytripper.activities.ParticipantSelectionActivity;
 import de.koelle.christian.trickytripper.activities.PaymentEditActivity;
 import de.koelle.christian.trickytripper.activities.PreferencesActivity;
 import de.koelle.christian.trickytripper.activities.TripEditActivity;
@@ -82,7 +83,7 @@ public class ViewControllerImpl implements ViewController {
             extras.put(Rc.ACTIVITY_PARAM_IMPORT_EXCHANGE_RATES_IN_CURRENCY_LIST, currencyList);
         }
         startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
-                Rc.ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE, caller);
+                Rc.ACTIVITY_REQ_CODE_EXCHANGE_RATE_MANAGEMENT, caller);
     }
 
     public void openEditTrip(Activity caller, TripSummary tripSummary) {
@@ -95,7 +96,7 @@ public class ViewControllerImpl implements ViewController {
             viewMode = ViewMode.EDIT;
             extras.put(Rc.ACTIVITY_PARAM_TRIP_EDIT_IN_TRIP_SUMMARY, tripSummary);
         }
-        startActivityWithParamsForResult(extras, activity, viewMode, Rc.ACTIVITY_PARAM_EDIT_TRIP_REQUEST_CODE, caller);
+        startActivityWithParamsForResult(extras, activity, viewMode, Rc.ACTIVITY_REQ_CODE_EDIT_TRIP, caller);
 
     }
 
@@ -108,7 +109,7 @@ public class ViewControllerImpl implements ViewController {
             extras.put(Rc.ACTIVITY_PARAM_DELETE_EXCHANGE_RATES_IN_CURRENCY_LIST, currencyList);
         }
         startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
-                Rc.ACTIVITY_PARAM_EXCHANGE_RATE_MANAGEMENT_CODE, caller);
+                Rc.ACTIVITY_REQ_CODE_EXCHANGE_RATE_MANAGEMENT, caller);
 
     }
 
@@ -154,7 +155,22 @@ public class ViewControllerImpl implements ViewController {
         extras.put(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_VALUE, amount.getValue());
         extras.put(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_RESULT_VIEW_ID, resultViewId);
         startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
-                Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_REQUEST_CODE, caller);
+                Rc.ACTIVITY_REQ_CODE_CURRENCY_CALCULATOR, caller);
+    }
+
+    public void openParticipantSelection(Activity caller, ArrayList<Participant> participantsInUse,
+                                         Amount currentTotalAmount, boolean isPayerSelection, ArrayList<Participant> allRelevantParticipants) {
+        Class<? extends Activity> activity = ParticipantSelectionActivity.class;
+        Map<String, Serializable> extras = new HashMap<>();
+        extras.put(Rc.ACTIVITY_PARAM_PARTICIPANT_SEL_IN_PARTICIPANTS_IN_USE, participantsInUse);
+        extras.put(Rc.ACTIVITY_PARAM_PARTICIPANT_SEL_IN_TOTAL_PAYMENT_AMOUNT, currentTotalAmount);
+        extras.put(Rc.ACTIVITY_PARAM_PARTICIPANT_SEL_IN_IS_PAYMENT, isPayerSelection);
+        if(allRelevantParticipants != null){
+            extras.put(Rc.ACTIVITY_PARAM_PARTICIPANT_SEL_IN_ALL_RELEVANT_PARTICIPANTS, allRelevantParticipants);
+        }
+        startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
+                Rc.ACTIVITY_REQ_CODE_PARTICIPANT_SELECT, caller);
+
     }
 
     public void openCurrencySelectionForNewExchangeRate(Activity caller, Currency targetCurrency, int viewIdForResult,
@@ -178,8 +194,7 @@ public class ViewControllerImpl implements ViewController {
         extras.put(Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_IN_VIEW_ID, viewIdForResult);
         extras.put(Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_IN_MODE, mode);
         startActivityWithParamsForResult(extras, activity, ViewMode.NONE,
-                Rc.ACTIVITY_PARAM_CURRENCY_SELECTION_REQUEST_CODE, caller);
-
+                Rc.ACTIVITY_REQ_CODE_CURRENCY_SELECTION, caller);
     }
 
     public void openEditPayment(Payment p) {

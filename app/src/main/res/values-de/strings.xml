@@ -247,10 +247,10 @@
     <string name="prefs_view_title_currency">Standard Währung</string>    
     <string name="prefs_view_heading_chooser_currency">Wähle Deine Standardwährung</string>
     <!-- ==================== Context menu participant selectedTrip ====================== -->
-    <string name="participant_selection_popup_traveler_selection_title">Reisende auswählen</string>
-    <string name="participant_selection_popup_payer_selection_msg">Selektiere all die Reisenden, die das Geld ausgeben/ausgegeben haben und umgekehrt.</string>
-    <string name="participant_selection_popup_traveler_to_debit_msg">Selektiere all die Reisenden, die belastet werden sollen und umgekehrt.</string>
-    <string name="participant_selection_popup_traveler_divide_amount">Auf die Auswahl verteilen: </string>
+    <string name="participant_selection_title">Reisende auswählen</string>
+    <string name="participant_selection_payer_selection_msg">Selektiere all die Reisenden, die das Geld ausgeben/ausgegeben haben und umgekehrt.</string>
+    <string name="participant_selection_traveler_to_debit_msg">Selektiere all die Reisenden, die belastet werden sollen und umgekehrt.</string>
+    <string name="participant_selection_traveler_divide_amount">Auf die Auswahl verteilen: </string>
     <!-- ==================== Initial data ====================== -->
     <string name="initial_data_trip_name">Meine erste Reise</string>
     <!-- ==================== Change Log ======================== -->

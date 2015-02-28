@@ -1,32 +1,22 @@
 package de.koelle.christian.trickytripper.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.DialogInterface.OnShowListener;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -77,37 +67,21 @@ import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
-import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
 public class PaymentEditActivity extends ActionBarActivity implements DatePickerDialogFragment.DatePickerDialogCallback {
 
-    private static final int DIALOG_SELECT_PAYERS = 1;
-    private static final int DIALOG_SELECT_DEBITORS = 2;
-
-    private static final String DIALOG_PARAM_PARTICIPANTS_IN_USE = "dialogParamMapInUse";
-    private static final String DIALOG_PARAM_TOTAL_PAYMENT_AMOUNT = "dialogParamTotalPaymentAmount";
-    private static final String DIALOG_PARAM_IS_PAYMENT = "dialogParamIsPayment";
-
-    private ViewMode viewMode;
-
-    private Payment payment;
-    private boolean divideEqually;
-
-    private Amount amountTotalPayments;
-    private Amount amountTotalDebits;
-
-    private boolean selectParticipantMakesSense = false;
-    private final boolean spendingInputInitialized = false;
-
-    private List<Participant> allRelevantParticipants;
-
     private final List<View> paymentRows = new ArrayList<View>();
     private final List<View> debitRows = new ArrayList<View>();
-
     private final Map<Participant, EditText> amountPayedParticipantToWidget = new HashMap<Participant, EditText>();
     private final Map<Participant, EditText> amountDebitorParticipantToWidget = new HashMap<Participant, EditText>();
-
+    private ViewMode viewMode;
+    private Payment payment;
+    private boolean divideEqually;
+    private Amount amountTotalPayments;
+    private Amount amountTotalDebits;
+    private boolean selectParticipantMakesSense = false;
+    private List<Participant> allRelevantParticipants;
     private DateUtils dateUtils;
 
     @Override
@@ -151,7 +125,6 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
 
         initAndBindSpinner(payment.getCategory());
         bindPlainTextInput();
-        bindParticipantSelectionButtons();
         updateDatePickerButtonText();
         addRadioListener();
 
@@ -245,64 +218,23 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     }
 
     @Override
-    protected Dialog onCreateDialog(int id, Bundle args) {
-        Dialog dialog;
-        switch (id) {
-            case DIALOG_SELECT_PAYERS:
-                dialog = createDialogPayerSelection();
-                break;
-            case DIALOG_SELECT_DEBITORS:
-                dialog = createDialogDebitorSelection();
-                break;
-            default:
-                dialog = null;
-        }
-
-        return dialog;
-    }
-
-    @Override
-    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
-        switch (id) {
-            case DIALOG_SELECT_PAYERS:
-                updateParticipantSelectionDialog(dialog, args);
-                break;
-            case DIALOG_SELECT_DEBITORS:
-                updateParticipantSelectionDialog(dialog, args);
-                break;
-            default:
-                dialog = null;
-        }
-        super.onPrepareDialog(id, dialog, args);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        CurrencyCalculatorResultSupport.onActivityResult(requestCode, resultCode, data, this, getLocale(),
-                getDecimalNumberInputUtil());
-    }
-
-    private void updateParticipantSelectionDialog(Dialog dialog, Bundle args) {
-        ListView listView = (ListView) dialog.findViewById(R.id.payment_edit_selection_dialog_list_view);
-        CheckBox checkbox = (CheckBox) dialog.findViewById(R.id.payment_edit_selection_dialog_checkbox);
-
-        List<Participant> participantsInUse = getParamFromBundleParticipantsInUse(args);
-        Amount totalAmount = getParamFromBundleAmount(args);
-
-        if (isAmountBiggerZero(totalAmount)) {
-            checkbox.setVisibility(View.VISIBLE);
-            boolean isPayment = getParamFromBundleIsPayment(args);
-            checkbox.setText(getDivisionCheckboxOnParticipantSelectionText(totalAmount));
-            checkbox.setChecked(isPayment);
-        } else {
-            checkbox.setVisibility(View.GONE);
-        }
-        SparseBooleanArray selection = listView.getCheckedItemPositions();
-        for (int i = 0; i < allRelevantParticipants.size(); i++) {
-            boolean selected = participantsInUse.contains(allRelevantParticipants.get(i));
-            selection.put(i, selected);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == Rc.ACTIVITY_REQ_CODE_CURRENCY_CALCULATOR) {
+                CurrencyCalculatorResultSupport.onActivityResult(requestCode, resultCode, data, this, getLocale(),
+                        getDecimalNumberInputUtil());
+            } else if (requestCode == Rc.ACTIVITY_REQ_CODE_PARTICIPANT_SELECT) {
+                List<Participant> selectionResult = (List<Participant>) data.getSerializableExtra(
+                        Rc.ACTIVITY_PARAM_PARTICIPANT_SEL_OUT_SELECTED_PARTICIPANTS);
+                boolean divideAmountResult = data.getBooleanExtra(
+                        Rc.ACTIVITY_PARAM_PARTICIPANT_SEL_OUT_DIVIDE_AMOUNT, false);
+                boolean isPayment = data.getBooleanExtra(
+                        Rc.ACTIVITY_PARAM_PARTICIPANT_SEL_OUT_IS_PAYMENT, false);
+                updateParticipantsAfterSelection(selectionResult, divideAmountResult, isPayment);
+            }
         }
     }
+
 
     private void buildPaymentInput() {
         TableLayout tableLayout = (TableLayout) findViewById(R.id.paymentView_createPaymentPayerTableLayout);
@@ -468,29 +400,18 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
         button.setText(text);
     }
 
-    private void bindParticipantSelectionButtons() {
-        ImageButton button;
-
-        button = (ImageButton) findViewById(R.id.paymentView_button_add_further_payees);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                ArrayList<Participant> participantsInUse = new ArrayList<Participant>(payment
-                        .getParticipantToPayment().keySet());
-                showDialog(DIALOG_SELECT_PAYERS,
-                        createBundleForParticipantSelection(participantsInUse, amountTotalPayments, true));
-            }
-        });
-        button = (ImageButton) findViewById(R.id.paymentView_button_payee_add_further_payees);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                ArrayList<Participant> participantsInUse = new ArrayList<Participant>(payment
-                        .getParticipantToSpending().keySet());
-                showDialog(DIALOG_SELECT_DEBITORS,
-                        createBundleForParticipantSelection(participantsInUse, amountTotalPayments, false));
-            }
-        });
-
+    public void openParticipantSelectionPayer(View view) {
+        ArrayList<Participant> participantsInUse =
+                new ArrayList<Participant>(payment.getParticipantToPayment().keySet());
+        getApp().getViewController().openParticipantSelection(PaymentEditActivity.this, participantsInUse, amountTotalPayments, true, null);
     }
+
+    public void openParticipantSelectionCharged(View view) {
+        ArrayList<Participant> participantsInUse =
+                new ArrayList<Participant>(payment.getParticipantToSpending().keySet());
+        getApp().getViewController().openParticipantSelection(PaymentEditActivity.this, participantsInUse, amountTotalPayments, false, new ArrayList<Participant>(allRelevantParticipants));
+    }
+
 
     public void saveEdit() {
         Amount amountTotal = calculateTotalSumPayer();
@@ -522,7 +443,6 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
         List<Participant> participants = allRelevantParticipants;
         Map<Participant, Amount> targetMap = payment.getParticipantToSpending();
         MathUtils.divideAndSetOnMap(amountTotal, participants, targetMap, true, getAmountFac());
-
     }
 
 
@@ -566,170 +486,8 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
 
     }
 
-    private String getDivisionCheckboxOnParticipantSelectionText(Amount amount) {
-        String checkboxText;
-        checkboxText = getResources().getString(R.string.participant_selection_popup_traveler_divide_amount)
-                + " "
-                + AmountViewUtils.getAmountString(getLocale(), amount, false, false, false, true, true);
-        return checkboxText;
-    }
-
     private boolean isAmountBiggerZero(Amount amount) {
         return amount != null && amount.getValue() > 0;
-    }
-
-    private Bundle createBundleForParticipantSelection(ArrayList<Participant> participantsInUse,
-                                                       Amount currentTotalAmount, boolean isPayerSelection) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(DIALOG_PARAM_PARTICIPANTS_IN_USE, participantsInUse);
-        bundle.putSerializable(DIALOG_PARAM_TOTAL_PAYMENT_AMOUNT, currentTotalAmount);
-        bundle.putBoolean(DIALOG_PARAM_IS_PAYMENT, isPayerSelection);
-        return bundle;
-    }
-
-    private Amount getParamFromBundleAmount(Bundle args) {
-        if (args == null) {
-            return null;
-        }
-        return (Amount) args.get(DIALOG_PARAM_TOTAL_PAYMENT_AMOUNT);
-    }
-
-    private boolean getParamFromBundleIsPayment(Bundle args) {
-        return args == null || args.getBoolean(DIALOG_PARAM_IS_PAYMENT);
-    }
-
-    @SuppressWarnings({"unchecked"})
-    private List<Participant> getParamFromBundleParticipantsInUse(Bundle args) {
-        if (args == null) {
-            return null;
-        }
-        return (List<Participant>) args.get(DIALOG_PARAM_PARTICIPANTS_IN_USE);
-    }
-
-    private Dialog createDialogDebitorSelection() {
-        int idParticipantSelectorTitle = R.string.participant_selection_popup_traveler_selection_title;
-        int idParticipantSelectorMessage = R.string.participant_selection_popup_traveler_to_debit_msg;
-        return createParticipantSelectionPopup(allRelevantParticipants, idParticipantSelectorTitle,
-                idParticipantSelectorMessage,
-                false);
-    }
-
-    private Dialog createDialogPayerSelection() {
-        int idParticipantSelectorTitle = R.string.participant_selection_popup_traveler_selection_title;
-        int idParticipantSelectorMessage = R.string.participant_selection_popup_payer_selection_msg;
-        return createParticipantSelectionPopup(allRelevantParticipants, idParticipantSelectorTitle,
-                idParticipantSelectorMessage,
-                true);
-    }
-
-    private Dialog createParticipantSelectionPopup(List<Participant> participants, int idParticipantSelectorTitle,
-                                                   int idParticipantSelectorMessage, final boolean isPayment) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        // sss
-
-        final ListView participantSelectionListView = new ListView(PaymentEditActivity.this);
-        final LinearLayout layout = new LinearLayout(PaymentEditActivity.this);
-        final CheckBox checkbox = new CheckBox(PaymentEditActivity.this);
-
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-
-        Resources res = getResources();
-
-        TextView textView = new TextView(this);
-        textView.setText(res.getString(idParticipantSelectorMessage));
-
-        LayoutParams lpHeader = new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        lpHeader.bottomMargin = 10;
-
-        
-        layout.addView(textView, lpHeader);
-
-        LinearLayout.LayoutParams lpListShit = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT); // Verbose!
-        lpListShit.weight = 1.0f; // This is critical. Doesn't work without it.
-        layout.addView(participantSelectionListView, lpListShit);
-
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        checkbox.setId(R.id.payment_edit_selection_dialog_checkbox);
-        layout.addView(checkbox, lp);
-
-        RowObjectCallback<Participant> callback = new RowObjectCallback<Participant>() {
-            public String getStringToDisplay(Participant t) {
-                return t.getName()
-                        + ((t.isActive()) ? "" : " " + getResources().getString(R.string.common_label_inactive_addon));
-            }
-        };
-        List<RowObject<Participant>> participantsWrapped = new ArrayList<RowObject<Participant>>();
-        for (Participant p : participants) {
-            participantsWrapped.add(new RowObject<Participant>(callback, p));
-        }
-
-        final ArrayAdapter<RowObject<Participant>> arrayAdapterParticipantSelection = new ArrayAdapter<RowObject<Participant>>(
-                PaymentEditActivity.this,
-                // android.R.layout.simple_list_item_multiple_choice,
-                R.layout.general_checked_text_view,
-                participantsWrapped);
-
-        participantSelectionListView.setAdapter(arrayAdapterParticipantSelection);
-        participantSelectionListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        participantSelectionListView.setId(R.id.payment_edit_selection_dialog_list_view);
-
-        builder.setTitle(res.getString(idParticipantSelectorTitle)).setCancelable(true)
-
-                .setView(layout)/**/
-                .setPositiveButton(R.string.common_button_ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        boolean divideAmountResult = true;
-                        final List<Participant> selectionResult = new ArrayList<Participant>();
-
-                        SparseBooleanArray selection = participantSelectionListView.getCheckedItemPositions();
-                        for (int i = 0; i < participantSelectionListView.getCount(); i++)
-                            if (selection.get(i)) {
-                                Participant selectedParticipant = arrayAdapterParticipantSelection.getItem(i)
-                                        .getRowObject();
-                                selectionResult.add(selectedParticipant);
-                                divideAmountResult = checkbox.isChecked();
-                            }
-                        updateParticipantsAfterSelection(selectionResult, divideAmountResult, isPayment);
-
-                    }
-                })/**/
-                .setNegativeButton(R.string.common_button_cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alert = builder.create();
-
-        /**
-         * Workaround for bug: Button cannot be retrieved unless shown API 8 + 
-         */
-        /*TODO(ckoelle) Kick out and reduce minimum api requirement.*/
-        alert.setOnShowListener(new OnShowListener() {
-
-            public void onShow(DialogInterface dialog) {
-
-                final Button positiveButton = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                long[] selectedIds = participantSelectionListView.getCheckItemIds();
-                positiveButton.setEnabled(selectedIds.length > 0);
-                participantSelectionListView.setOnItemClickListener(new OnItemClickListener() {
-
-                    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                        long[] selectedIds = participantSelectionListView.getCheckItemIds();
-                        positiveButton.setEnabled(selectedIds.length > 0);
-                    }
-
-                });
-            }
-        });
-
-        return alert;
     }
 
     protected void updateParticipantsAfterSelection(List<Participant> selectionResult, boolean divideAmountResult,
@@ -921,7 +679,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     }
 
     private TrickyTripperApp getApp() {
-       return  ((TrickyTripperApp) getApplication());
+        return ((TrickyTripperApp) getApplication());
     }
 
     private Locale getLocale() {

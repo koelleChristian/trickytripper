@@ -288,7 +288,7 @@ public class TrickyTripperActivity extends ActionBarActivity implements DeleteDi
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent resultData) {
-        if (requestCode == Rc.ACTIVITY_PARAM_EDIT_TRIP_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == Rc.ACTIVITY_REQ_CODE_EDIT_TRIP && resultCode == Activity.RESULT_OK) {
             updateList(getApp().getTripController().getAllTrips());
         }
     }

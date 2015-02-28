@@ -7,7 +7,7 @@ buildscript {
             maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         }
 
-        classpath 'com.android.tools.build:gradle:1.0.0' // -rc4
+        classpath 'com.android.tools.build:gradle:1.1.2'
         classpath 'com.github.jcandksolutions.gradle:android-unit-test:2.1.1'
     }
 }

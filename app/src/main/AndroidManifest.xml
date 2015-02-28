@@ -87,6 +87,10 @@
             android:name=".activities.CurrencySelectionActivity"
             android:label="@string/currency_selection_view_heading" >
         </activity>
+        <activity
+            android:name=".activities.ParticipantSelectionActivity"
+            android:label="@string/participant_selection_title" >
+        </activity>
 
         <provider
             android:name=".provider.TrickyTripperFileProvider"

@@ -1,6 +1,8 @@
 package de.koelle.christian.trickytripper.controller;
 
+import java.util.ArrayList;
 import java.util.Currency;
+import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -32,6 +34,10 @@ public interface ViewController {
             boolean selectLeftNotRight);
 
     void openCurrencySelectionForCalculation(Activity caller, Currency targetCurrency, int viewIdForResult);
+
+    void openParticipantSelection(Activity caller, ArrayList<Participant> participantsInUse,
+                                  Amount currentTotalAmount, boolean isPayerSelection,
+                                  ArrayList<Participant> allRelevantParticipants);
 
     void openEditPayment(Payment payment);
 

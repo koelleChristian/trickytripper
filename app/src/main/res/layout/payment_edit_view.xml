@@ -111,6 +111,7 @@
                             android:layout_gravity="bottom|right"
                             android:layout_marginRight="4dip"
                             android:background="@drawable/btn_circle"
+                            android:onClick="openParticipantSelectionPayer"
                             android:contentDescription="@string/deleteExchangeRatesViewLabelSelectionOptionsDesc"
 
                              />
@@ -262,6 +263,7 @@
                             android:src="@drawable/ic_expand_more"
                             android:layout_gravity="bottom|right"
                             android:layout_marginRight="4dip"
+                            android:onClick="openParticipantSelectionCharged"
                             android:background="@drawable/btn_circle"
                             android:contentDescription="@string/deleteExchangeRatesViewLabelSelectionOptionsDesc"
                              />

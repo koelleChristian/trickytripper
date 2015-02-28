@@ -40,6 +40,8 @@
     <string name="option_save_edit">Salva</string>
     <string name="option_save_add">Aggiungi</string>
     <string name="option_option_create_exchange_rate_for_source">Crea tasso corrispondente</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
     <!-- =============================== Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Speso:</string>
     <string name="participant_tab_row_view_label_paid">Pagato:</string>
@@ -212,7 +214,7 @@
     <string name="payment_edit_view_label_radio_split_evenly">Divisione equa</string>
     <string name="payment_edit_view_label_radio_custom_split">Divisione personalizzata</string>
     <string name="payment_edit_view_textView_payee_label_amount">Importo</string>
-    <string name="payment_edit_view_textView_payee_label_spent_by">Addebitato a:</string>
+    <string name="payment_edit_view_textView_payee_label_spent_by">Addebitato a</string>
     <string name="payment_edit_view_label_payed_by">Pagato da</string>
     <string name="payment_edit_view_textView_label_amount">Importo</string>
     <string name="payment_edit_view_button_divide_rest">Dividi resto</string>
@@ -246,10 +248,10 @@
     <string name="prefs_view_title_currency">Valuta predefinita</string>
     <string name="prefs_view_heading_chooser_currency">Scegli la valuta predefinita</string>
     <!-- ==================== Context menu participant selectedTrip ====================== -->
-    <string name="participant_selection_popup_traveler_selection_title">Seleziona viaggiatori</string>
-    <string name="participant_selection_popup_payer_selection_msg">Seleziona tutti i viaggiatori che spendono/hanno speso i soldi e viceversa</string>
-    <string name="participant_selection_popup_traveler_to_debit_msg">Seleziona tutti i viaggiatori a cui addebitare il pagamento e viceversa.</string>
-    <string name="participant_selection_popup_traveler_divide_amount">Dividi tra i selezionati: </string>
+    <string name="participant_selection_title">Seleziona viaggiatori</string>
+    <string name="participant_selection_payer_selection_msg">Seleziona tutti i viaggiatori che spendono/hanno speso i soldi e viceversa</string>
+    <string name="participant_selection_traveler_to_debit_msg">Seleziona tutti i viaggiatori a cui addebitare il pagamento e viceversa.</string>
+    <string name="participant_selection_traveler_divide_amount">Dividi tra i selezionati: </string>
     <!-- ==================== Initial data ====================== -->
     <string name="initial_data_trip_name">Il mio primo viaggio</string>
     <!-- ==================== Change Log ======================== -->

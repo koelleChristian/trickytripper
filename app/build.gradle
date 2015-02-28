@@ -5,12 +5,16 @@ android {
     buildToolsVersion '21.1.2'
     defaultConfig {
         applicationId 'de.koelle.christian.trickytripper'
-        minSdkVersion 8
+        minSdkVersion 14
         targetSdkVersion 21
         versionCode 14
         versionName '1.5.1'
         // ------------> This used to be required for for com.github.jcandksolutions.gradle
         //packageName "de.koelle.christian.trickytripper"
+    }
+    lintOptions {
+        checkReleaseBuilds true
+        abortOnError true
     }
     File signFile = rootProject.file('sign/keystore.properties')
     if (signFile.exists()) {
@@ -28,9 +32,9 @@ android {
 
     buildTypes {
         release {
-            // This used to work before going to 1.0.0. RC of new build system.
-            //runProguard true
-            //zipAlign true
+            zipAlignEnabled true
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
@@ -40,7 +44,7 @@ android {
 }
 
 // ------------> This needs to be after the android block
-apply plugin: 'android-unit-test'
+//apply plugin: 'android-unit-test'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -48,7 +52,7 @@ dependencies {
     compile "com.android.support:support-v4:$comAndroidSupport_supportV4Version"
     compile "com.github.machinarius:preferencefragment:$comGithubMachinarius_preferenceFragmentVersion"
 
-    //compile 'com.loopj.android:android-async-http:1.4.2'  //--> Has api changes
+    //compile 'com.loopj.android:android-async-http:1.4.6'  //--> Has api changes, does not deliver results when implemented according to API.
     testCompile "junit:junit:$junitVersion"
     testCompile "org.robolectric:robolectric:$orgRobolectricRobolectricVersion"
     testCompile "org.mockito:mockito-core:$orgMockitoMockitoCoreVersion"

@@ -218,7 +218,7 @@
     <string name="payment_edit_view_label_radio_split_evenly">Split evenly</string>
     <string name="payment_edit_view_label_radio_custom_split">Custom split</string>
     <string name="payment_edit_view_textView_payee_label_amount">Amount</string>
-    <string name="payment_edit_view_textView_payee_label_spent_by">Debited to:</string>
+    <string name="payment_edit_view_textView_payee_label_spent_by">Debited to</string>
     <string name="payment_edit_view_label_payed_by">Paid by</string>
     <string name="payment_edit_view_textView_label_amount">Amount</string>
     <string name="payment_edit_view_button_divide_rest">Divide rest among blanks</string>
@@ -252,10 +252,10 @@
     <string name="prefs_view_title_currency">Default Currency</string>
     <string name="prefs_view_heading_chooser_currency">Choose your default currency</string>    
     <!-- ==================== Context menu participant selectedTrip ====================== -->
-    <string name="participant_selection_popup_traveler_selection_title">Select travelers</string>
-    <string name="participant_selection_popup_payer_selection_msg">Select all travelers who spend/spent the money and vice versa</string>
-    <string name="participant_selection_popup_traveler_to_debit_msg">Select all travelers to debit the payment to and vice versa.</string>
-    <string name="participant_selection_popup_traveler_divide_amount">Divide among selectedTrip: </string>
+    <string name="participant_selection_title">Select travelers</string>
+    <string name="participant_selection_payer_selection_msg">Select all travelers who spend/spent the money and vice versa</string>
+    <string name="participant_selection_traveler_to_debit_msg">Select all travelers to debit the payment to and vice versa.</string>
+    <string name="participant_selection_traveler_divide_amount">Divide among selectedTrip: </string>
     <!-- ==================== Initial data ====================== -->
     <string name="initial_data_trip_name">My first trip</string>
     <!-- ==================== Change Log ======================== -->
