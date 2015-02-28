@@ -76,33 +76,33 @@
     <string name="currency_selection_view_instruction_group_label_in_trips">&#8230; nei viaggi</string>
     <string name="currency_selection_view_instruction_group_label_else">Tutte le valute</string>
     <!-- =============================== Manage exchange rates view =============================== -->
-    <string name="manageExchangeRatesViewTextViewHeading">Tasso di cambio</string>
-    <string name="manageExchangeRatesViewDeleteConfirmation">Sei sicuro di voler eliminare il tasso di cambio selezionato?</string>
-    <string name="manageExchangeRatesViewBlankListNotification">Nessun tasso di cambio. \n\n\n\nImporta o crea tassi di cambio con le funzioni equivalenti dalla barra delle operazioni o dal menu.</string>
+    <string name="exchangeRateManageViewTextViewHeading">Tasso di cambio</string>
+    <string name="exchangeRateManageViewDeleteConfirmation">Sei sicuro di voler eliminare il tasso di cambio selezionato?</string>
+    <string name="exchangeRateManageViewBlankListNotification">Nessun tasso di cambio. \n\n\n\nImporta o crea tassi di cambio con le funzioni equivalenti dalla barra delle operazioni o dal menu.</string>
     <!-- =============================== Import exchange rates view =============================== -->
-    <string name="importExchangeRatesViewTextViewHeading">Importa tasso di cambio</string>
-    <string name="importExchangeRatesViewCheckboxLabelNewRateOnValueChange">Crea nuovo tasso dal cambio valore</string>
-    <string name="importExchangeRatesViewListViewLabel">Selezionare tutti i tassi di valute rilevanti</string>
+    <string name="exchangeRateImportViewTextViewHeading">Importa tasso di cambio</string>
+    <string name="exchangeRateImportViewCheckboxLabelNewRateOnValueChange">Crea nuovo tasso dal cambio valore</string>
+    <string name="exchangeRateImportViewListViewLabel">Selezionare tutti i tassi di valute rilevanti</string>
     <string name="option_accept_execute_import">Inizia importazione</string>
-    <string name="importExchangeRatesViewCancelImportToast">L\'importazione è stata annullata.</string>
-    <string name="importExchangeRatesViewProgressBarMessage">Importazione tassi di cambio &#8230;</string>
-    <string name="importExchangeRatesViewSelectionPrefix">Selezionato:</string>
-    <string name="importExchangeRatesViewPreconToastRequiresOnlineConnection">L\'importazione dei tassi di cambio richiede una connessione online.</string>
-    <string name="importExchangeRatesViewPreconToastNotAlive1">I tassi di cambio non possono essere ottenuti via internet per le seguenti valute:</string>
-    <string name="importExchangeRatesViewPreconToastNotAlive2">Inserisci un tasso a mano o crea un nuovo tasso di cambio, scegliendo \'Crea tasso corrispondente \' dal menu.</string>
+    <string name="exchangeRateImportViewCancelImportToast">L\'importazione è stata annullata.</string>
+    <string name="exchangeRateImportViewProgressBarMessage">Importazione tassi di cambio &#8230;</string>
+    <string name="exchangeRateImportViewSelectionPrefix">Selezionato:</string>
+    <string name="exchangeRateImportViewPreconToastRequiresOnlineConnection">L\'importazione dei tassi di cambio richiede una connessione online.</string>
+    <string name="exchangeRateImportViewPreconToastNotAlive1">I tassi di cambio non possono essere ottenuti via internet per le seguenti valute:</string>
+    <string name="exchangeRateImportViewPreconToastNotAlive2">Inserisci un tasso a mano o crea un nuovo tasso di cambio, scegliendo \'Crea tasso corrispondente \' dal menu.</string>
     <!-- =============================== Delete exchange rates view =============================== -->
-    <string name="deleteExchangeRatesViewTextViewHeading">Elimina tasso di cambio</string>
+    <string name="exchangeRateDeleteViewTextViewHeading">Elimina tasso di cambio</string>
     <string name="option_accept_exchange_rate_delete">Elimina selezione</string>
-    <string name="deleteExchangeRatesViewSpinnerPrompt">Seleziona &#8230;</string>
-    <string name="deleteExchangeRatesViewLabelSelectionOptions">Modifica selezione &#8230;</string>
-    <string name="deleteExchangeRatesViewLabelSelectionOptionsDesc">Apri opzioni di selezione</string>
-    <string name="deleteExchangeRatesViewDeleteConfirmation">Sei sicuro di voler cancellare i @@1@@ tasso(i) di cambio selezionato(i)?</string>
+    <string name="exchangeRateDeleteViewSpinnerPrompt">Seleziona &#8230;</string>
+    <string name="exchangeRateDeleteViewLabelSelectionOptions">Modifica selezione &#8230;</string>
+    <string name="exchangeRateDeleteViewLabelSelectionOptionsDesc">Apri opzioni di selezione</string>
+    <string name="exchangeRateDeleteViewDeleteConfirmation">Sei sicuro di voler cancellare i @@1@@ tasso(i) di cambio selezionato(i)?</string>
     <!-- =============================== Edit Exchange Rate =============================== -->
-    <string name="editExchangeRateViewHeadingEdit">Modifica tasso di cambio</string>
-    <string name="editExchangeRateViewHeadingCreate">Crea tasso di cambio</string>
-    <string name="editExchangeRateViewLabelRate">Tasso</string>
-    <string name="editExchangeRateViewLabelInputDescription">Descrizione</string>
-    <string name="editExchangeRateViewMsgSaveDenialDuplicate">Un tasso di cambio con la descrizione inserita esiste già. Si prega di modificare il vostro inserimento.</string>
+    <string name="exchangeRateEditViewHeadingEdit">Modifica tasso di cambio</string>
+    <string name="exchangeRateEditViewHeadingCreate">Crea tasso di cambio</string>
+    <string name="exchangeRateEditViewLabelRate">Tasso</string>
+    <string name="exchangeRateEditViewLabelInputDescription">Descrizione</string>
+    <string name="exchangeRateEditViewMsgSaveDenialDuplicate">Un tasso di cambio con la descrizione inserita esiste già. Si prega di modificare il vostro inserimento.</string>
     <!-- =============================== export view =============================== -->
     <string name="exportViewTextViewHeading">Esporta</string>
     <string name="exportViewTextViewSubHeadingContent">Che cosa?</string>
@@ -219,27 +219,27 @@
     <string name="payment_edit_view_textView_label_amount">Importo</string>
     <string name="payment_edit_view_button_divide_rest">Dividi resto</string>
     <!-- ==================== Context menu participants ====================== -->
-    <string name="fktn_participant_create_payment">Crea pagamento</string>
-    <string name="fktn_participant_transfer_money">Trasferisci denaro</string>
-    <string name="fktn_participant_show_report">Mostra resoconto</string>
-    <string name="fktn_participant_deactivate">Disattiva (per i costi)</string>
-    <string name="fktn_participant_activate">Attiva (per i costi)</string>
+    <string name="participant_fktn_create_payment">Crea pagamento</string>
+    <string name="participant_fktn_transfer_money">Trasferisci denaro</string>
+    <string name="participant_fktn_show_report">Mostra resoconto</string>
+    <string name="participant_fktn_deactivate">Disattiva (per i costi)</string>
+    <string name="participant_fktn_activate">Attiva (per i costi)</string>
     <!-- ==================== Context menu Payment List ====================== -->
-    <string name="manageTripsView_heading">Gestione viaggi</string>
-    <string name="manage_trips_view_delete_confirmation">Sei sicuro di voler cancellare il viaggio selezionato con tutti i suoi viaggiatori, i pagamenti e le statistiche?</string>
+    <string name="trip_manage_view_heading">Gestione viaggi</string>
+    <string name="trip_manage_view_delete_confirmation">Sei sicuro di voler cancellare il viaggio selezionato con tutti i suoi viaggiatori, i pagamenti e le statistiche?</string>
     <!-- ==================== Context menu participant edit====================== -->
-    <string name="edit_participant_view_label_name">Nome:</string>
-    <string name="edit_participant_view_heading_create">Aggiungi viaggiatore al viaggio</string>
-    <string name="edit_participant_view_heading_edit">Modifica viaggiatore</string>
-    <string name="edit_participant_view_msg_denial">Un partecipante con il nome immesso esiste già in questo viaggio. Si prega di modificare l\'inserimento.</string>
-    <string name="edit_participant_view_label_already_created">Già aggiunto:</string>
+    <string name="participant_edit_view_label_name">Nome:</string>
+    <string name="participant_edit_view_heading_create">Aggiungi viaggiatore al viaggio</string>
+    <string name="participant_edit__view_heading_edit">Modifica viaggiatore</string>
+    <string name="participant_edit_view_msg_denial">Un partecipante con il nome immesso esiste già in questo viaggio. Si prega di modificare l\'inserimento.</string>
+    <string name="participant_edit_view_label_already_created">Già aggiunto:</string>
     <!-- ==================== edit trip view ====================== -->
-    <string name="edit_trip_view_label_name_input">Nome:</string>
-    <string name="edit_trip_view_label_base_currency">Valuta base:</string>
-    <string name="edit_trip_view_label_base_currency_spinner_prompt">Selezionare una valuta di base per il viaggio</string>
-    <string name="edit_trip_view_edit_heading">Modifica viaggio</string>
-    <string name="edit_trip_view_create_heading">Crea nuovo viaggio</string>
-    <string name="edit_trip_view_msg">Un viaggio con il nome immesso esiste già. Si prega di modificare l\'inserimento.</string>
+    <string name="trip_edit_view_label_name_input">Nome:</string>
+    <string name="trip_edit_view_label_base_currency">Valuta base:</string>
+    <string name="trip_edit_view_label_base_currency_spinner_prompt">Selezionare una valuta di base per il viaggio</string>
+    <string name="trip_edit_view_edit_heading">Modifica viaggio</string>
+    <string name="trip_edit_view_create_heading">Crea nuovo viaggio</string>
+    <string name="trip_edit_view_msg">Un viaggio con il nome immesso esiste già. Si prega di modificare l\'inserimento.</string>
     <!-- ==================== Messages ====================== -->
     <string name="msg_delete_not_possible_inbalance">L\'utente non può essere eliminato perchè il suo conto non è equilibrato.</string>
     <!-- ==================== Preferences ====================== -->

@@ -33,7 +33,7 @@
         <activity android:name=".activities.TripEditActivity" />
         <activity
             android:name=".activities.ParticipantEditActivity"
-            android:label="@string/manageTripsView_heading" >
+            android:label="@string/trip_manage_view_heading" >
         </activity>
         <activity
             android:name=".activities.ExportActivity"
@@ -64,19 +64,19 @@
             android:label="@string/prefs_view_heading" >
         </activity>
         <activity
-            android:name=".activities.ManageExchangeRatesActivity"
-            android:label="@string/manageExchangeRatesViewTextViewHeading" >
+            android:name=".activities.ExchangeRateManageActivity"
+            android:label="@string/exchangeRateManageViewTextViewHeading" >
         </activity>
         <activity
-            android:name=".activities.ImportExchangeRatesActivity"
-            android:label="@string/importExchangeRatesViewTextViewHeading" >
+            android:name=".activities.ExchangeRateImportActivity"
+            android:label="@string/exchangeRateImportViewTextViewHeading" >
         </activity>
         <activity
-            android:name=".activities.DeleteExchangeRatesActivity"
-            android:label="@string/deleteExchangeRatesViewTextViewHeading" >
+            android:name=".activities.ExchangeRateDeleteActivity"
+            android:label="@string/exchangeRateDeleteViewTextViewHeading" >
         </activity>
         <activity
-            android:name=".activities.EditExchangeRateActivity"
+            android:name=".activities.ExchangeRateEditActivity"
             android:label="@string/defaultX" >
         </activity>
         <activity

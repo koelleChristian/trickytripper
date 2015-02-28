@@ -6,29 +6,29 @@
     <group android:id="@+id/menu_group_participant_active_required">
         <item
             android:id="@+id/option_participant_create_payment"
-            android:title="@string/fktn_participant_create_payment"
+            android:title="@string/participant_fktn_create_payment"
             tt:showAsAction="never" />
     </group>
     <group android:id="@+id/menu_group_participant_at_least_another">
         <item
             android:id="@+id/option_participant_create_money_transfer"
-            android:title="@string/fktn_participant_transfer_money"
+            android:title="@string/participant_fktn_transfer_money"
             tt:showAsAction="never" />
     </group>
 
     <item
         android:id="@+id/option_participant_show_report"
-        android:title="@string/fktn_participant_show_report"
+        android:title="@string/participant_fktn_show_report"
         tt:showAsAction="never" />
 
     <item
         android:id="@+id/option_participant_deactivate_for_costs"
-        android:title="@string/fktn_participant_deactivate"
+        android:title="@string/participant_fktn_deactivate"
         tt:showAsAction="never" />
 
     <item
         android:id="@+id/option_participant_activate_for_costs"
-        android:title="@string/fktn_participant_activate"
+        android:title="@string/participant_fktn_activate"
         tt:showAsAction="never" />
 
     <item

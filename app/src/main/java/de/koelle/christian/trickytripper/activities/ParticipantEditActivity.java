@@ -37,7 +37,7 @@ public class ParticipantEditActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_participant_view);
+        setContentView(R.layout.participant_edit_view);
 
         readAndSetInput(getIntent());
         initWidgets();
@@ -67,9 +67,9 @@ public class ParticipantEditActivity extends ActionBarActivity {
         final AutoCompleteTextView autoCompleteTextView = getAutoCompleteTextView();
 
         if (ViewMode.EDIT == viewMode) {
-            titleId = R.string.edit_participant_view_heading_edit;
+            titleId = R.string.participant_edit__view_heading_edit;
         } else {
-            titleId = R.string.edit_participant_view_heading_create;
+            titleId = R.string.participant_edit_view_heading_create;
         }
 
         setTitle(titleId);
@@ -123,7 +123,7 @@ public class ParticipantEditActivity extends ActionBarActivity {
         if (!participantPersisted) {
             Toast.makeText(
                     this.getApplicationContext(),
-                    R.string.edit_participant_view_msg_denial,
+                    R.string.participant_edit_view_msg_denial,
                     Toast.LENGTH_SHORT)
                     .show();
         }

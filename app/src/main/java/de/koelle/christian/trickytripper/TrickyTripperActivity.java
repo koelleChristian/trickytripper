@@ -69,7 +69,7 @@ public class TrickyTripperActivity extends ActionBarActivity implements DeleteDi
             changeLog.getLogDialog().show();
         }
 
-        mDrawerTitle = getResources().getString(R.string.manageTripsView_heading);
+        mDrawerTitle = getResources().getString(R.string.trip_manage_view_heading);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer_drawer_list_view_trips);
@@ -332,7 +332,7 @@ public class TrickyTripperActivity extends ActionBarActivity implements DeleteDi
                 .append(tripSummary.getName())
                 .append(": ")
                 .append(getResources().getString(
-                        R.string.manage_trips_view_delete_confirmation))
+                        R.string.trip_manage_view_delete_confirmation))
                 .toString();
     }
 

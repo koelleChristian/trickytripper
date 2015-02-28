@@ -26,7 +26,7 @@ import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListA
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter.DisplayMode;
 import de.koelle.christian.trickytripper.ui.model.SpinnerObject;
 
-public class DeleteExchangeRatesActivity extends ActionBarActivity implements DeleteConfirmationCallback {
+public class ExchangeRateDeleteActivity extends ActionBarActivity implements DeleteConfirmationCallback {
 
     private static final String DIALOG_PARAM_EXCHANGE_RATES = "dialogParamExchangeRates";
 
@@ -37,7 +37,7 @@ public class DeleteExchangeRatesActivity extends ActionBarActivity implements De
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.delete_exchange_rates_view);
+        setContentView(R.layout.exchange_rate_delete_view);
 
         initList();
         updateList();
@@ -187,7 +187,7 @@ public class DeleteExchangeRatesActivity extends ActionBarActivity implements De
 
     public String getDeleteConfirmationMsg(Bundle bundle) {
         return getResources()
-                .getString(R.string.deleteExchangeRatesViewDeleteConfirmation)
+                .getString(R.string.exchangeRateDeleteViewDeleteConfirmation)
                 .replace("@@1@@", getSelectionFromBundle(bundle).size() + "");
     }
 

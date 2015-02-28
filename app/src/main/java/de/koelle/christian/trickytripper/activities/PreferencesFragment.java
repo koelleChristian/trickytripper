@@ -62,7 +62,7 @@ public class PreferencesFragment extends com.github.machinarius.preferencefragme
          * =========== Launcher for the exchange rate management =============
          */
         PreferenceScreen intentPref = getPreferenceManager().createPreferenceScreen(getActivity());
-        intentPref.setIntent(new Intent().setClass(getActivity(), ManageExchangeRatesActivity.class)
+        intentPref.setIntent(new Intent().setClass(getActivity(), ExchangeRateManageActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         intentPref.setTitle(R.string.prefs_view_title_exchange_rate_management);
 

@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_weight=".85"
             android:gravity="center_vertical"
-            android:text="@string/deleteExchangeRatesViewLabelSelectionOptions"
+            android:text="@string/exchangeRateDeleteViewLabelSelectionOptions"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <ImageButton
@@ -28,7 +28,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="4dip"
             android:background="@drawable/btn_circle"
-            android:contentDescription="@string/deleteExchangeRatesViewLabelSelectionOptionsDesc"
+            android:contentDescription="@string/exchangeRateDeleteViewLabelSelectionOptionsDesc"
             android:onClick="select"
             android:src="@drawable/ic_expand_more" />
 
@@ -36,7 +36,7 @@
             android:id="@+id/deleteExchangeRatesViewSpinner"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:prompt="@string/deleteExchangeRatesViewSpinnerPrompt"
+            android:prompt="@string/exchangeRateDeleteViewSpinnerPrompt"
             android:visibility="invisible" />
     </LinearLayout>
 

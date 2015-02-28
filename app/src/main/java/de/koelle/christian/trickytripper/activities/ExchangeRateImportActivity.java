@@ -42,7 +42,7 @@ import de.koelle.christian.trickytripper.model.ImportSettings;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.utils.UiViewUtils;
 
-public class ImportExchangeRatesActivity extends ActionBarActivity {
+public class ExchangeRateImportActivity extends ActionBarActivity {
 
     private final Handler progressBarHandler = new Handler();
     private ListView listView;
@@ -56,7 +56,7 @@ public class ImportExchangeRatesActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.import_exchange_rates_view);
+        setContentView(R.layout.exchange_rate_import_view);
 
         listView = (ListView) findViewById(R.id.importExchangeRatesViewListViewCurrenciesForImport);
         List<Currency> allCurrenciesAlive = CurrencyUtil.getAllCurrenciesAlive();
@@ -126,7 +126,7 @@ public class ImportExchangeRatesActivity extends ActionBarActivity {
 
         final TextView textView = (TextView) findViewById(R.id.importExchangeRatesListViewLabelSelection);
         final StringBuilder builder = new StringBuilder()
-                .append(getResources().getString(R.string.importExchangeRatesViewSelectionPrefix))
+                .append(getResources().getString(R.string.exchangeRateImportViewSelectionPrefix))
                 .append(" ");
 
         if (currencySelection.size() == 0) {
@@ -161,7 +161,7 @@ public class ImportExchangeRatesActivity extends ActionBarActivity {
         importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorHttpGoogleImpl());
 
         progressBar = new ProgressDialog(this);
-        progressBar.setMessage(getResources().getString(R.string.importExchangeRatesViewProgressBarMessage));
+        progressBar.setMessage(getResources().getString(R.string.exchangeRateImportViewProgressBarMessage));
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressBar.setProgress(0);
         progressBar.setMax(progressCeiling);
@@ -172,7 +172,7 @@ public class ImportExchangeRatesActivity extends ActionBarActivity {
                 importer.cancelRunningRequests();
                 dialog.dismiss();
                 Toast.makeText(getApplicationContext(),
-                        getResources().getString(R.string.importExchangeRatesViewCancelImportToast), Toast.LENGTH_SHORT)
+                        getResources().getString(R.string.exchangeRateImportViewCancelImportToast), Toast.LENGTH_SHORT)
                         .show();
             }
         });
@@ -230,10 +230,10 @@ public class ImportExchangeRatesActivity extends ActionBarActivity {
                         e.printStackTrace();
                     }
                     progressBar.dismiss();
-                    ImportExchangeRatesActivity.this.runOnUiThread(new Runnable() {
+                    ExchangeRateImportActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
                             getApp().getExchangeRateController().saveImportSettingsUsedLast(importSettings);
-                            ImportExchangeRatesActivity.this.finishHere();
+                            ExchangeRateImportActivity.this.finishHere();
                         }
                     });
                 }

@@ -12,7 +12,7 @@
         android:id="@+id/editParticipantView_label_name_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/edit_participant_view_label_name" />
+        android:text="@string/participant_edit_view_label_name" />
 
     <AutoCompleteTextView
         android:id="@+id/editParticipantView_autocomplete_name"
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editParticipantView_button_spacer"
-        android:text="@string/edit_participant_view_label_already_created"
+        android:text="@string/participant_edit_view_label_already_created"
         android:visibility="invisible" />
 
     <ListView

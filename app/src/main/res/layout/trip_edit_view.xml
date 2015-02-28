@@ -12,7 +12,7 @@
         android:id="@+id/edit_trip_view_label_name_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/edit_trip_view_label_name_input"/>
+        android:text="@string/trip_edit_view_label_name_input"/>
 
     <EditText
         android:id="@+id/edit_trip_view_editText_tripName"
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_trip_view_editText_tripName"
-        android:text="@string/edit_trip_view_label_base_currency"/>
+        android:text="@string/trip_edit_view_label_base_currency"/>
 
     <Spinner
         android:id="@+id/edit_trip_view_spinner_base_currency"

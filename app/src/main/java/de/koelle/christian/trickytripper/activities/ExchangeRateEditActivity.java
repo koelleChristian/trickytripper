@@ -31,7 +31,7 @@ import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ImportOrigin;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
-public class EditExchangeRateActivity extends ActionBarActivity {
+public class ExchangeRateEditActivity extends ActionBarActivity {
 
     private ExchangeRate exchangeRate;
     private Double exchangeRateValueInverted;
@@ -42,7 +42,7 @@ public class EditExchangeRateActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_exchange_rate_view);
+        setContentView(R.layout.exchange_rate_edit_view);
         boolean sourceCurrencyForCreation = readAndSetInput(getIntent());
 
         initAndBindStateDependingWidget(sourceCurrencyForCreation);
@@ -62,8 +62,8 @@ public class EditExchangeRateActivity extends ActionBarActivity {
         boolean form2BeEditable = !(editMode || sourceCurrencyForCreation);
 
         int titleId = (editMode)?
-                R.string.editExchangeRateViewHeadingEdit:
-                R.string.editExchangeRateViewHeadingCreate;
+                R.string.exchangeRateEditViewHeadingEdit :
+                R.string.exchangeRateEditViewHeadingCreate;
         setTitle(getResources().getString(titleId));
 
 
@@ -340,7 +340,7 @@ public class EditExchangeRateActivity extends ActionBarActivity {
         if (getApp().getExchangeRateController().doesExchangeRateAlreadyExist(
                 exchangeRate)) {
             Toast.makeText(getApplicationContext(),
-                    R.string.editExchangeRateViewMsgSaveDenialDuplicate,
+                    R.string.exchangeRateEditViewMsgSaveDenialDuplicate,
                     Toast.LENGTH_SHORT).show();
         } else {
             String inputLeft = getDecimalNumberInputUtil().fixInputStringWidgetToParser(

@@ -75,33 +75,33 @@
     <string name="currency_selection_view_instruction_group_label_in_trips">&#8230; in Reisen</string>
     <string name="currency_selection_view_instruction_group_label_else">Alle Währungen</string>
     <!-- ===============================  Manage exchange rates view =============================== -->
-    <string name="manageExchangeRatesViewTextViewHeading">Wechselkurse</string>
-    <string name="manageExchangeRatesViewDeleteConfirmation">Soll der ausgewählte Wechselkurs wirklich gelöscht werden?</string>
-    <string name="manageExchangeRatesViewBlankListNotification">Noch keine Wechselkurse vorhanden. \n\n\n\nImportiere oder erzeuge Wechselkurse über die entsprechenden Funktionen aus der Actionbar bzw. dem Menü.</string>
+    <string name="exchangeRateManageViewTextViewHeading">Wechselkurse</string>
+    <string name="exchangeRateManageViewDeleteConfirmation">Soll der ausgewählte Wechselkurs wirklich gelöscht werden?</string>
+    <string name="exchangeRateManageViewBlankListNotification">Noch keine Wechselkurse vorhanden. \n\n\n\nImportiere oder erzeuge Wechselkurse über die entsprechenden Funktionen aus der Actionbar bzw. dem Menü.</string>
     <!-- ===============================  Import exchange rates view =============================== -->
-    <string name="importExchangeRatesViewTextViewHeading">Wechselkurse importieren</string>
-    <string name="importExchangeRatesViewCheckboxLabelNewRateOnValueChange">Bei Wertänderung neuen Kurs erstellen</string>
-    <string name="importExchangeRatesViewListViewLabel">Wähle alle wechselrelevanten Währungen</string>
+    <string name="exchangeRateImportViewTextViewHeading">Wechselkurse importieren</string>
+    <string name="exchangeRateImportViewCheckboxLabelNewRateOnValueChange">Bei Wertänderung neuen Kurs erstellen</string>
+    <string name="exchangeRateImportViewListViewLabel">Wähle alle wechselrelevanten Währungen</string>
     <string name="option_accept_execute_import">Importieren</string>
-    <string name="importExchangeRatesViewCancelImportToast">Der Import von Wechselkursen wurde abgebrochen.</string>    
-    <string name="importExchangeRatesViewProgressBarMessage">Importiere Wechselkurse &#8230;</string>        
-    <string name="importExchangeRatesViewSelectionPrefix">Auswahl:</string> 
-    <string name="importExchangeRatesViewPreconToastRequiresOnlineConnection">Der Import von Wechselkursen erfordert eine Onlineverbindung.</string>
-    <string name="importExchangeRatesViewPreconToastNotAlive1">Wechselkurse für folgende Währungen können nicht aus dem Internet geladen werden:</string>               
-    <string name="importExchangeRatesViewPreconToastNotAlive2">Gebe einen Kurs per Hand ein oder erstelle einen Wechselkurs durch \'Erstelle passenden Wechselkurs\' aus dem Menü.</string>               
+    <string name="exchangeRateImportViewCancelImportToast">Der Import von Wechselkursen wurde abgebrochen.</string>
+    <string name="exchangeRateImportViewProgressBarMessage">Importiere Wechselkurse &#8230;</string>
+    <string name="exchangeRateImportViewSelectionPrefix">Auswahl:</string>
+    <string name="exchangeRateImportViewPreconToastRequiresOnlineConnection">Der Import von Wechselkursen erfordert eine Onlineverbindung.</string>
+    <string name="exchangeRateImportViewPreconToastNotAlive1">Wechselkurse für folgende Währungen können nicht aus dem Internet geladen werden:</string>
+    <string name="exchangeRateImportViewPreconToastNotAlive2">Gebe einen Kurs per Hand ein oder erstelle einen Wechselkurs durch \'Erstelle passenden Wechselkurs\' aus dem Menü.</string>
     <!-- ===============================  Delete exchange rates view =============================== -->
-    <string name="deleteExchangeRatesViewTextViewHeading">Wechselkurse löschen</string>
+    <string name="exchangeRateDeleteViewTextViewHeading">Wechselkurse löschen</string>
     <string name="option_accept_exchange_rate_delete">Auswahl löschen</string>
-    <string name="deleteExchangeRatesViewSpinnerPrompt">Auswähl ändern &#8230;</string>
-    <string name="deleteExchangeRatesViewLabelSelectionOptions">Auswähl ändern  &#8230;</string>
-    <string name="deleteExchangeRatesViewLabelSelectionOptionsDesc">Öffnet Selektionsoptionen</string>
-    <string name="deleteExchangeRatesViewDeleteConfirmation">Soll(en) @@1@@ selektierte(r) Wechselkurs(e) gelöscht werden?</string>
+    <string name="exchangeRateDeleteViewSpinnerPrompt">Auswähl ändern &#8230;</string>
+    <string name="exchangeRateDeleteViewLabelSelectionOptions">Auswähl ändern  &#8230;</string>
+    <string name="exchangeRateDeleteViewLabelSelectionOptionsDesc">Öffnet Selektionsoptionen</string>
+    <string name="exchangeRateDeleteViewDeleteConfirmation">Soll(en) @@1@@ selektierte(r) Wechselkurs(e) gelöscht werden?</string>
     <!-- ===============================  Edit Exchange Rate =============================== -->
-    <string name="editExchangeRateViewHeadingEdit">Wechselkurs bearbeiten</string>
-    <string name="editExchangeRateViewHeadingCreate">Neuen Wechselkurs erstellen</string>
-    <string name="editExchangeRateViewLabelRate">Kurs</string>
-    <string name="editExchangeRateViewLabelInputDescription">Beschreibung</string>
-    <string name="editExchangeRateViewMsgSaveDenialDuplicate">Ein Wechselkurs mit der gewünschten Beschreibung existiert bereits. Bitte ändere Deine Eingabe.</string>
+    <string name="exchangeRateEditViewHeadingEdit">Wechselkurs bearbeiten</string>
+    <string name="exchangeRateEditViewHeadingCreate">Neuen Wechselkurs erstellen</string>
+    <string name="exchangeRateEditViewLabelRate">Kurs</string>
+    <string name="exchangeRateEditViewLabelInputDescription">Beschreibung</string>
+    <string name="exchangeRateEditViewMsgSaveDenialDuplicate">Ein Wechselkurs mit der gewünschten Beschreibung existiert bereits. Bitte ändere Deine Eingabe.</string>
     <!-- ===============================  export view =============================== -->
     <string name="exportViewTextViewHeading">Export</string>
     <string name="exportViewTextViewSubHeadingContent">Was?</string>
@@ -218,27 +218,27 @@
     <string name="payment_edit_view_textView_label_amount">Betrag</string>
     <string name="payment_edit_view_button_divide_rest">Rest auf leere Felder aufteilen</string>
     <!-- ==================== Context menu participants ====================== -->
-    <string name="fktn_participant_create_payment">Zahlung ertellen</string>
-    <string name="fktn_participant_transfer_money">Geldtransfer</string>
-    <string name="fktn_participant_show_report">Bericht</string>
-    <string name="fktn_participant_deactivate">Deaktivierung (für Kosten)</string>
-    <string name="fktn_participant_activate">Aktivieren (für Kosten)</string>
+    <string name="participant_fktn_create_payment">Zahlung ertellen</string>
+    <string name="participant_fktn_transfer_money">Geldtransfer</string>
+    <string name="participant_fktn_show_report">Bericht</string>
+    <string name="participant_fktn_deactivate">Deaktivierung (für Kosten)</string>
+    <string name="participant_fktn_activate">Aktivieren (für Kosten)</string>
     <!-- ==================== Context menu Payment List ====================== -->
-    <string name="manageTripsView_heading">Reisen verwalten</string>
-    <string name="manage_trips_view_delete_confirmation">Soll die ausgewählte Reise einschließlich aller Zahlungen wirklich gelöscht werden?</string>
+    <string name="trip_manage_view_heading">Reisen verwalten</string>
+    <string name="trip_manage_view_delete_confirmation">Soll die ausgewählte Reise einschließlich aller Zahlungen wirklich gelöscht werden?</string>
     <!-- ==================== Context menu participant edit====================== -->
-    <string name="edit_participant_view_label_name">Name:</string>
-    <string name="edit_participant_view_heading_create">Reisenden zur Reise hinzufügen</string>
-    <string name="edit_participant_view_heading_edit">Reisenden bearbeiten</string>
-    <string name="edit_participant_view_msg_denial">In der Reise existiert bereits ein Reisender mit dem gewünschten Namen. Bitte gib einen noch nicht vorhandenen Namen ein.</string>
-    <string name="edit_participant_view_label_already_created">Zuvor hinzugefügt:</string>
+    <string name="participant_edit_view_label_name">Name:</string>
+    <string name="participant_edit_view_heading_create">Reisenden zur Reise hinzufügen</string>
+    <string name="participant_edit__view_heading_edit">Reisenden bearbeiten</string>
+    <string name="participant_edit_view_msg_denial">In der Reise existiert bereits ein Reisender mit dem gewünschten Namen. Bitte gib einen noch nicht vorhandenen Namen ein.</string>
+    <string name="participant_edit_view_label_already_created">Zuvor hinzugefügt:</string>
     <!-- ==================== edit trip view ====================== -->
-    <string name="edit_trip_view_label_name_input">Name:</string>
-    <string name="edit_trip_view_label_base_currency">Stammwährung:</string>
-    <string name="edit_trip_view_label_base_currency_spinner_prompt">Wähle die Stammwährung für die Reise</string>    
-    <string name="edit_trip_view_edit_heading">Reise bearbeiten</string>
-    <string name="edit_trip_view_create_heading">Neue Reise erstellen</string>
-    <string name="edit_trip_view_msg">Eine Reise mit dem gewünschten Namen existiert bereits. Bitte gib einen noch nicht vorhandenen Reisenamen ein.</string>
+    <string name="trip_edit_view_label_name_input">Name:</string>
+    <string name="trip_edit_view_label_base_currency">Stammwährung:</string>
+    <string name="trip_edit_view_label_base_currency_spinner_prompt">Wähle die Stammwährung für die Reise</string>
+    <string name="trip_edit_view_edit_heading">Reise bearbeiten</string>
+    <string name="trip_edit_view_create_heading">Neue Reise erstellen</string>
+    <string name="trip_edit_view_msg">Eine Reise mit dem gewünschten Namen existiert bereits. Bitte gib einen noch nicht vorhandenen Reisenamen ein.</string>
     <!-- ==================== Messages ====================== -->
     <string name="msg_delete_not_possible_inbalance">Der Reisende kann nicht gelöscht werden, da sein Konto nicht ausgeglichen ist.</string>
     <!-- ==================== Preferences ====================== -->

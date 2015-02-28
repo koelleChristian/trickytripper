@@ -30,7 +30,7 @@ import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListA
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 
-public class ManageExchangeRatesActivity extends ActionBarActivity implements DeleteConfirmationCallback {
+public class ExchangeRateManageActivity extends ActionBarActivity implements DeleteConfirmationCallback {
 
     private static final String DIALOG_PARAM_EXCHANGE_RATE = "dialogParamExchangeRate";
     private final List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
@@ -67,7 +67,7 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
 
         TextView textView = (TextView) findViewById(android.R.id.empty);
         textView.setText(getResources().getString(
-                R.string.manageExchangeRatesViewBlankListNotification));
+                R.string.exchangeRateManageViewBlankListNotification));
 
         ActionBarSupport.addBackButton(this);
     }
@@ -90,7 +90,7 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
                 }
                 ExchangeRate row = (ExchangeRate) listView2.getItemAtPosition(position);
                 if (!row.isImported()) {
-                    getApp().getViewController().openEditExchangeRate(ManageExchangeRatesActivity.this, row);
+                    getApp().getViewController().openEditExchangeRate(ExchangeRateManageActivity.this, row);
                 }
             }
         });
@@ -104,7 +104,7 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
                 }
                 ExchangeRate selectionNonInverted = getNonInverted(listAdapter.getItem(position));
                 mActionModeCallback.setSelection(selectionNonInverted);
-                mActionMode = ManageExchangeRatesActivity.this.startSupportActionMode(mActionModeCallback);
+                mActionMode = ExchangeRateManageActivity.this.startSupportActionMode(mActionModeCallback);
                 StringBuilder builder = new StringBuilder()
                         .append(selectionNonInverted.getCurrencyFrom().getCurrencyCode())
                         .append(" > ")
@@ -193,7 +193,7 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
     public String getDeleteConfirmationMsg(Bundle bundle) {
         final ExchangeRate row = getRowFromBundle(bundle);
         return new StringBuilder()
-                .append(getResources().getString(R.string.manageExchangeRatesViewDeleteConfirmation))
+                .append(getResources().getString(R.string.exchangeRateManageViewDeleteConfirmation))
                 .append("\n")
                 .append(getStringOfExchangeRate(row))
                 .toString();
@@ -319,7 +319,7 @@ public class ManageExchangeRatesActivity extends ActionBarActivity implements De
                     mode.finish();
                     return true;
                 case R.id.option_edit:
-                    getApp().getViewController().openEditExchangeRate(ManageExchangeRatesActivity.this, selectionUninverted);
+                    getApp().getViewController().openEditExchangeRate(ExchangeRateManageActivity.this, selectionUninverted);
                     mode.finish();
                     return true;
                 default:

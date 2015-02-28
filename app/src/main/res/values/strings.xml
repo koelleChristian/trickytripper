@@ -80,33 +80,33 @@
     <string name="currency_selection_view_instruction_group_label_in_trips">&#8230; in trips</string>
     <string name="currency_selection_view_instruction_group_label_else">All currencies</string>
     <!-- ===============================  Manage exchange rates view =============================== -->
-    <string name="manageExchangeRatesViewTextViewHeading">Exchange Rates</string>
-    <string name="manageExchangeRatesViewDeleteConfirmation">Are you sure you want to delete the selected exchange rate?</string>
-    <string name="manageExchangeRatesViewBlankListNotification">No exchange rates yet. \n\n\n\nImport or create exchange rates with the equivalent functions from the action bar or menu.</string>
+    <string name="exchangeRateManageViewTextViewHeading">Exchange Rates</string>
+    <string name="exchangeRateManageViewDeleteConfirmation">Are you sure you want to delete the selected exchange rate?</string>
+    <string name="exchangeRateManageViewBlankListNotification">No exchange rates yet. \n\n\n\nImport or create exchange rates with the equivalent functions from the action bar or menu.</string>
     <!-- ===============================  Import exchange rates view =============================== -->
-    <string name="importExchangeRatesViewTextViewHeading">Import Exchange Rates</string>
-    <string name="importExchangeRatesViewCheckboxLabelNewRateOnValueChange">Create new rate on value change</string>
-    <string name="importExchangeRatesViewListViewLabel">Select all exchange relevant currencies</string>
+    <string name="exchangeRateImportViewTextViewHeading">Import Exchange Rates</string>
+    <string name="exchangeRateImportViewCheckboxLabelNewRateOnValueChange">Create new rate on value change</string>
+    <string name="exchangeRateImportViewListViewLabel">Select all exchange relevant currencies</string>
     <string name="option_accept_execute_import">Do import</string>
-    <string name="importExchangeRatesViewCancelImportToast">The import has been canceled.</string>  
-    <string name="importExchangeRatesViewProgressBarMessage">Importing exchange rates &#8230;</string>        
-    <string name="importExchangeRatesViewSelectionPrefix">Selected:</string> 
-    <string name="importExchangeRatesViewPreconToastRequiresOnlineConnection">The import of exchange rates requires an online connection.</string>
-    <string name="importExchangeRatesViewPreconToastNotAlive1">Exchange rates cannot be obtained via internet for the following currencies:</string>               
-    <string name="importExchangeRatesViewPreconToastNotAlive2">Enter a rate by hand or create a new exchange rate by choosing \'Create matching rate\' from the menu. </string>               
+    <string name="exchangeRateImportViewCancelImportToast">The import has been canceled.</string>
+    <string name="exchangeRateImportViewProgressBarMessage">Importing exchange rates &#8230;</string>
+    <string name="exchangeRateImportViewSelectionPrefix">Selected:</string>
+    <string name="exchangeRateImportViewPreconToastRequiresOnlineConnection">The import of exchange rates requires an online connection.</string>
+    <string name="exchangeRateImportViewPreconToastNotAlive1">Exchange rates cannot be obtained via internet for the following currencies:</string>
+    <string name="exchangeRateImportViewPreconToastNotAlive2">Enter a rate by hand or create a new exchange rate by choosing \'Create matching rate\' from the menu. </string>
     <!-- ===============================  Delete exchange rates view =============================== -->
-    <string name="deleteExchangeRatesViewTextViewHeading">Delete Exchange Rates</string>
+    <string name="exchangeRateDeleteViewTextViewHeading">Delete Exchange Rates</string>
     <string name="option_accept_exchange_rate_delete">Delete selectedTrip</string>
-    <string name="deleteExchangeRatesViewSpinnerPrompt">Select &#8230;</string>
-    <string name="deleteExchangeRatesViewLabelSelectionOptions">Change selectedTrip &#8230;</string>
-    <string name="deleteExchangeRatesViewLabelSelectionOptionsDesc">Opens selectedTrip options</string>
-    <string name="deleteExchangeRatesViewDeleteConfirmation">Are you sure you want to delete the @@1@@ selected exchange rate(s)?</string>
+    <string name="exchangeRateDeleteViewSpinnerPrompt">Select &#8230;</string>
+    <string name="exchangeRateDeleteViewLabelSelectionOptions">Change selectedTrip &#8230;</string>
+    <string name="exchangeRateDeleteViewLabelSelectionOptionsDesc">Opens selectedTrip options</string>
+    <string name="exchangeRateDeleteViewDeleteConfirmation">Are you sure you want to delete the @@1@@ selected exchange rate(s)?</string>
     <!-- ===============================  Edit Exchange Rate =============================== -->
-    <string name="editExchangeRateViewHeadingEdit">Edit Exchange Rate</string>
-    <string name="editExchangeRateViewHeadingCreate">Create Exchange Rate</string>
-    <string name="editExchangeRateViewLabelRate">Rate</string>
-    <string name="editExchangeRateViewLabelInputDescription">Description</string>
-    <string name="editExchangeRateViewMsgSaveDenialDuplicate">An exchange rate with the description entered already exists. Please modify your input.</string>
+    <string name="exchangeRateEditViewHeadingEdit">Edit Exchange Rate</string>
+    <string name="exchangeRateEditViewHeadingCreate">Create Exchange Rate</string>
+    <string name="exchangeRateEditViewLabelRate">Rate</string>
+    <string name="exchangeRateEditViewLabelInputDescription">Description</string>
+    <string name="exchangeRateEditViewMsgSaveDenialDuplicate">An exchange rate with the description entered already exists. Please modify your input.</string>
     <!-- ===============================  export view =============================== -->
     <string name="exportViewTextViewHeading">Export</string>
     <string name="exportViewTextViewSubHeadingContent">What?</string>
@@ -223,27 +223,27 @@
     <string name="payment_edit_view_textView_label_amount">Amount</string>
     <string name="payment_edit_view_button_divide_rest">Divide rest among blanks</string>
     <!-- ==================== Context menu participants ====================== -->
-    <string name="fktn_participant_create_payment">Create payment</string>
-    <string name="fktn_participant_transfer_money">Transfer money</string>
-    <string name="fktn_participant_show_report">Show report</string>
-    <string name="fktn_participant_deactivate">Deactivate (for costs)</string>
-    <string name="fktn_participant_activate">Activate (for costs)</string>
+    <string name="participant_fktn_create_payment">Create payment</string>
+    <string name="participant_fktn_transfer_money">Transfer money</string>
+    <string name="participant_fktn_show_report">Show report</string>
+    <string name="participant_fktn_deactivate">Deactivate (for costs)</string>
+    <string name="participant_fktn_activate">Activate (for costs)</string>
     <!-- ==================== Context menu Payment List ====================== -->
-    <string name="manageTripsView_heading">Manage trips</string>
-    <string name="manage_trips_view_delete_confirmation">Are  you sure you want to delete the selected trip including all its travelers, payments and statistics?</string>
+    <string name="trip_manage_view_heading">Manage trips</string>
+    <string name="trip_manage_view_delete_confirmation">Are  you sure you want to delete the selected trip including all its travelers, payments and statistics?</string>
     <!-- ==================== Context menu participant edit====================== -->
-    <string name="edit_participant_view_label_name">Name:</string>
-    <string name="edit_participant_view_heading_create">Add traveler to trip</string>
-    <string name="edit_participant_view_heading_edit">Edit traveler</string>
-    <string name="edit_participant_view_msg_denial">A participant with the name entered already exists in this trip. Please modify your input.</string>
-    <string name="edit_participant_view_label_already_created">Already added:</string>
+    <string name="participant_edit_view_label_name">Name:</string>
+    <string name="participant_edit_view_heading_create">Add traveler to trip</string>
+    <string name="participant_edit__view_heading_edit">Edit traveler</string>
+    <string name="participant_edit_view_msg_denial">A participant with the name entered already exists in this trip. Please modify your input.</string>
+    <string name="participant_edit_view_label_already_created">Already added:</string>
     <!-- ==================== edit trip view ====================== -->
-    <string name="edit_trip_view_label_name_input">Name:</string>
-    <string name="edit_trip_view_label_base_currency">Base currency:</string>
-    <string name="edit_trip_view_label_base_currency_spinner_prompt">Select a base currency for the trip</string>    
-    <string name="edit_trip_view_edit_heading">Edit trip</string>
-    <string name="edit_trip_view_create_heading">Create new trip</string>
-    <string name="edit_trip_view_msg">A trip with the name entered already exists. Please modify your input.</string>
+    <string name="trip_edit_view_label_name_input">Name:</string>
+    <string name="trip_edit_view_label_base_currency">Base currency:</string>
+    <string name="trip_edit_view_label_base_currency_spinner_prompt">Select a base currency for the trip</string>
+    <string name="trip_edit_view_edit_heading">Edit trip</string>
+    <string name="trip_edit_view_create_heading">Create new trip</string>
+    <string name="trip_edit_view_msg">A trip with the name entered already exists. Please modify your input.</string>
     <!-- ==================== Messages ====================== -->
     <string name="msg_delete_not_possible_inbalance">The user cannot be deleted as his/her account is not balanced.</string>
     <!-- ==================== Preferences ====================== -->

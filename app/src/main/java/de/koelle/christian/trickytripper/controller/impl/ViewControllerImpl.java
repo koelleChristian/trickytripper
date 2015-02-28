@@ -18,10 +18,10 @@ import java.util.Map.Entry;
 import de.koelle.christian.trickytripper.activities.CurrencyCalculatorActivity;
 import de.koelle.christian.trickytripper.activities.CurrencySelectionActivity;
 import de.koelle.christian.trickytripper.activities.CurrencySelectionActivity.CurrencySelectionMode;
-import de.koelle.christian.trickytripper.activities.DeleteExchangeRatesActivity;
-import de.koelle.christian.trickytripper.activities.EditExchangeRateActivity;
+import de.koelle.christian.trickytripper.activities.ExchangeRateDeleteActivity;
+import de.koelle.christian.trickytripper.activities.ExchangeRateEditActivity;
+import de.koelle.christian.trickytripper.activities.ExchangeRateImportActivity;
 import de.koelle.christian.trickytripper.activities.ExportActivity;
-import de.koelle.christian.trickytripper.activities.ImportExchangeRatesActivity;
 import de.koelle.christian.trickytripper.activities.MoneyTransferActivity;
 import de.koelle.christian.trickytripper.activities.ParticipantEditActivity;
 import de.koelle.christian.trickytripper.activities.ParticipantSelectionActivity;
@@ -75,7 +75,7 @@ public class ViewControllerImpl implements ViewController {
     }
 
     public void openImportExchangeRates(Activity caller, Currency... currencies) {
-        Class<? extends Activity> activity = ImportExchangeRatesActivity.class;
+        Class<? extends Activity> activity = ExchangeRateImportActivity.class;
         HashMap<String, Serializable> extras = new HashMap<String, Serializable>();
         if (currencies != null && currencies.length > 0) {
             ArrayList<Currency> currencyList = new ArrayList<Currency>();
@@ -101,7 +101,7 @@ public class ViewControllerImpl implements ViewController {
     }
 
     public void openDeleteExchangeRates(Activity caller, Currency... currencies) {
-        Class<? extends Activity> activity = DeleteExchangeRatesActivity.class;
+        Class<? extends Activity> activity = ExchangeRateDeleteActivity.class;
         HashMap<String, Serializable> extras = new HashMap<String, Serializable>();
         if (currencies != null && currencies.length > 0) {
             ArrayList<Currency> currencyList = new ArrayList<Currency>();
@@ -126,7 +126,7 @@ public class ViewControllerImpl implements ViewController {
     }
 
     public void openEditExchangeRate(Activity caller, ExchangeRate exchangeRate, Currency fromCurrency) {
-        Class<? extends Activity> activity = EditExchangeRateActivity.class;
+        Class<? extends Activity> activity = ExchangeRateEditActivity.class;
         ViewMode viewMode = ViewMode.CREATE;
         Map<String, Serializable> extras = new HashMap<String, Serializable>();
         if (exchangeRate != null) {

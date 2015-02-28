@@ -38,7 +38,7 @@ public class TripEditActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_trip_view);
+        setContentView(R.layout.trip_edit_view);
 
         readAndSetInput(getIntent());
         initWidgets();
@@ -69,9 +69,9 @@ public class TripEditActivity extends ActionBarActivity {
         boolean isEdit = ViewMode.EDIT == viewMode;
 
         if (isEdit) {
-            titleId = R.string.edit_trip_view_edit_heading;
+            titleId = R.string.trip_edit_view_edit_heading;
         } else {
-            titleId = R.string.edit_trip_view_create_heading;
+            titleId = R.string.trip_edit_view_create_heading;
         }
 
         setTitle(titleId);
@@ -85,7 +85,7 @@ public class TripEditActivity extends ActionBarActivity {
                 spinnerObjects);
 
         spinnerAdapter.setDropDownViewResource(R.layout.selection_list_medium);
-        spinner.setPromptId(R.string.edit_trip_view_label_base_currency_spinner_prompt);
+        spinner.setPromptId(R.string.trip_edit_view_label_base_currency_spinner_prompt);
         spinner.setAdapter(spinnerAdapter);
 
 
@@ -117,7 +117,7 @@ public class TripEditActivity extends ActionBarActivity {
 
         if (tryToSave()) {
             Toast.makeText(getApplicationContext(),
-                    R.string.edit_trip_view_msg, Toast.LENGTH_SHORT)
+                    R.string.trip_edit_view_msg, Toast.LENGTH_SHORT)
                     .show();
         } else {
             prepareResultAndFinish();

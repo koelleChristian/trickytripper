@@ -31,7 +31,7 @@ public class ImportOptionSupport {
             Toast.makeText(
                     context,
                     context.getResources().getString(
-                            R.string.importExchangeRatesViewPreconToastRequiresOnlineConnection),
+                            R.string.exchangeRateImportViewPreconToastRequiresOnlineConnection),
                     Toast.LENGTH_LONG).show();
             return true;
         }
@@ -44,7 +44,7 @@ public class ImportOptionSupport {
 
             if (aliveFlags.cardinality() < 2) {
                 StringBuilder builder = new StringBuilder()
-                        .append(context.getResources().getString(R.string.importExchangeRatesViewPreconToastNotAlive1))
+                        .append(context.getResources().getString(R.string.exchangeRateImportViewPreconToastNotAlive1))
                         .append(" ");
                 boolean oneAdded = false;
                 for (int i = 0; i < currenciesToBeSelected.length; i++) {
@@ -57,7 +57,7 @@ public class ImportOptionSupport {
                     }
                     builder.append("\n");
                 }
-                builder.append(context.getResources().getString(R.string.importExchangeRatesViewPreconToastNotAlive2));
+                builder.append(context.getResources().getString(R.string.exchangeRateImportViewPreconToastNotAlive2));
                 Toast.makeText(context, builder.toString(), Toast.LENGTH_LONG).show();
                 return true;
             }
