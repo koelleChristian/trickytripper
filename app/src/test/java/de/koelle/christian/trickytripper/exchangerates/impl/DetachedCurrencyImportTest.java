@@ -27,16 +27,6 @@ public class DetachedCurrencyImportTest {
     }
 
     @Test
-    public void testMisc() {
-
-        for (int i = 1; i < 11; i++) {
-            int y = 51 / i;
-            System.out.println(y);
-        }
-
-    }
-
-    @Test
     public void testImporterIgnoreUnsupportedCurrencies() {
         importer.setAsyncExchangeRateResolver(new DetachedTestAsyncExchangeRateResolver("0.9876 French Francs",
                 false));

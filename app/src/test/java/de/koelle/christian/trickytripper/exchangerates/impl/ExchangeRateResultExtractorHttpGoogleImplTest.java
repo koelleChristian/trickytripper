@@ -17,11 +17,12 @@ public class ExchangeRateResultExtractorHttpGoogleImplTest {
     @Before
     public void setup() {
         sample2Expected = new LinkedHashMap<String, Double>();
-        sample2Expected.put("C:\\trickytripper\\trickytripper-unittest\\src\\test\\resources\\de\\koelle\\christian\\trickytripper\\exchangerates\\impl\\sample_google_http_exchange_rate_response_1.txt", Double.valueOf(0.3593));
-        sample2Expected.put("C:\\trickytripper\\trickytripper-unittest\\src\\test\\resources\\de\\koelle\\christian\\trickytripper\\exchangerates\\impl\\sample_google_http_exchange_rate_response_2.txt", Double.valueOf(2.7832));
-        sample2Expected.put("C:\\trickytripper\\trickytripper-unittest\\src\\test\\resources\\de\\koelle\\christian\\trickytripper\\exchangerates\\impl\\sample_google_http_exchange_rate_response_3.txt", Double.valueOf(0.0011));
+        System.out.println(new File(".").getAbsolutePath());
+        sample2Expected.put(".\\app\\src\\test\\resources\\de\\koelle\\christian\\trickytripper\\sample_google_http_exchange_rate_response_1.txt", Double.valueOf(0.9308));
+        sample2Expected.put(".\\app\\src\\test\\resources\\de\\koelle\\christian\\trickytripper\\sample_google_http_exchange_rate_response_2.txt", Double.valueOf(0.0014));
+        sample2Expected.put(".\\app\\src\\test\\resources\\de\\koelle\\christian\\trickytripper\\sample_google_http_exchange_rate_response_3.txt", Double.valueOf(642.2531));
     }
-
+//    de/koelle/christian/trickytripper/sample_google_http_exchange_rate_response_1.txt
 
     @Test
     public void testStringParsing() {
