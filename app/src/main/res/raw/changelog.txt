@@ -27,9 +27,14 @@
   </head>  
   <body>
 
+$ 1.5.2
+% Version 1.5.2
+  _ 2015-03-08
+* Bugfix: Date- and timepicker have different behaviour in Android 5.
+
 $ 1.5.1
 % Version 1.5.1
-  _ 2015-02-25
+  _ 2015-03-07
 * Moved trip selection and management into newly introduced drawer, accessible via burger button.
 * Removed context menus: Functionality now available via contextual action bar.
 * Refurbished dialogs and icons to suit Android 5's material design guideline.

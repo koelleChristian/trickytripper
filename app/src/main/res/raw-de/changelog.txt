@@ -27,9 +27,14 @@
   </head>  
   <body>
 
+$ 1.5.2
+% Version 1.5.2
+  _ 2015-03-08
+* Bugfix: Datums- und Uhrzeitauswahl funktioniert unter Android 5 anders als bisher.
+
 $ 1.5.1
 % Version 1.5.1
-  _ 2015-02-25
+  _ 2015-03-07
 * Reiseauswahl und -verwaltung erfolgt via Drawer, zugänglich via Burger Button.
 * Kontextmenüs entfernt: Funktionen jetzt im kontextsensitiven Actionbar.
 * Auffrischung der Dialoge, Anpassung an die Material-Designvorgaben (Android 5).
