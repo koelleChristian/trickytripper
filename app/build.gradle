@@ -7,8 +7,8 @@ android {
         applicationId 'de.koelle.christian.trickytripper'
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 14
-        versionName '1.5.1'
+        versionCode 15
+        versionName '1.5.2'
         // ------------> This used to be required for for com.github.jcandksolutions.gradle
         //packageName "de.koelle.christian.trickytripper"
     }
