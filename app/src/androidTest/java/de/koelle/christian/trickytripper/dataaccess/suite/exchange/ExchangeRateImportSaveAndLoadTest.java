@@ -73,25 +73,25 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
 
         input = REC_01;
         dataManager.persistImportedExchangeRate(input, replace);
-        clone = REC_01.clone();
+        clone = REC_01.doClone();
         clone.setId(ID_1);
         initialRetrievalResults.put(ID_1, clone);
 
         input = REC_02;
         dataManager.persistImportedExchangeRate(input, replace);
-        clone = REC_02.clone();
+        clone = REC_02.doClone();
         clone.setId(ID_2);
         initialRetrievalResults.put(ID_2, clone);
 
         input = REC_03;
         dataManager.persistImportedExchangeRate(input, replace);
-        clone = REC_03.clone();
+        clone = REC_03.doClone();
         clone.setId(ID_3);
         initialRetrievalResults.put(ID_3, clone);
 
         input = REC_04;
         dataManager.persistImportedExchangeRate(input, replace);
-        clone = REC_04.clone();
+        clone = REC_04.doClone();
         clone.setId(ID_4);
         initialRetrievalResults.put(ID_4, clone);
 
@@ -203,7 +203,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
 
         boolean recordThere;
 
-        input = REC_01.clone();
+        input = REC_01.doClone();
         dataManager.persistImportedExchangeRate(input, replace);
         resultList = dataManager.getAllExchangeRatesWithoutInversion();
         Assert.assertEquals(4, resultList.size());
@@ -233,7 +233,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
          * record. --> Create
          */
 
-        input = REC_01.clone();
+        input = REC_01.doClone();
         input.setExchangeRate(input.getExchangeRate() + 0.5321);
         dataManager.persistImportedExchangeRate(input, replace);
         resultList = dataManager.getAllExchangeRatesWithoutInversion();
@@ -272,26 +272,26 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
 
         input = REC_01;
         dataManager.persistImportedExchangeRate(input, replace);
-        clone = REC_01.clone();
+        clone = REC_01.doClone();
         clone.setId(ID_1);
         initialRetrievalResults.put(ID_1, clone);
 
         input = REC_02;
         dataManager.persistImportedExchangeRate(input, replace);
-        clone = REC_02.clone();
+        clone = REC_02.doClone();
         clone.setId(ID_2);
         initialRetrievalResults.put(ID_2, clone);
 
         input = REC_03;
         dataManager.persistImportedExchangeRate(input, replace);
-        clone = REC_03.clone();
+        clone = REC_03.doClone();
         clone.setId(ID_3);
         initialRetrievalResults.put(ID_3, clone);
 
         input = REC_04;
         /* We intentionally add this. */
         dataManager.persistImportedExchangeRate(input, false);
-        clone = REC_04.clone();
+        clone = REC_04.doClone();
         clone.setId(ID_4);
         initialRetrievalResults.put(ID_4, clone);
 
@@ -403,7 +403,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
 
         boolean recordThere;
 
-        input = REC_03.clone();
+        input = REC_03.doClone();
         dataManager.persistImportedExchangeRate(input, replace);
         resultList = dataManager.getAllExchangeRatesWithoutInversion();
         /* Expected two have been replaced. */
@@ -445,7 +445,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
          * record. --> Update
          */
 
-        input = REC_03.clone();
+        input = REC_03.doClone();
         input.setExchangeRate(input.getExchangeRate() + 0.5321);
         dataManager.persistImportedExchangeRate(input, replace);
         resultList = dataManager.getAllExchangeRatesWithoutInversion();
