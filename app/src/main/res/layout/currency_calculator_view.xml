@@ -64,7 +64,7 @@
                 android:layout_gravity="center"
                 android:layout_weight=".20"
                 android:contentDescription="@string/currencyCalculatorViewImageViewDescription"
-                android:src="@android:drawable/ic_media_ff" />
+                android:src="@drawable/ic_fast_forward" />
 
             <!-- ============  Column 03 40% ============ -->
 
