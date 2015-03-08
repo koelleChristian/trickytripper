@@ -60,7 +60,17 @@ public class DatePickerDialogFragment extends DialogFragment {
                 })
                 .setPositiveButton(R.string.common_button_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        view.findViewById(R.id.datePicker_datePicker);
+                        /*As the onDateChanged() onTimeChanged() listeners are not called in Android 5 we take the time here from the widgets (again).*/
+
+                        DatePicker pickerDate = (DatePicker) view.findViewById(R.id.datePicker_datePicker);
+                        TimePicker pickerTime = (TimePicker) view.findViewById(R.id.datePicker_timePicker);
+
+                        resultDate.set(Calendar.YEAR, pickerDate.getYear());
+                        resultDate.set(Calendar.MONTH, pickerDate.getMonth());
+                        resultDate.set(Calendar.DAY_OF_MONTH, pickerDate.getDayOfMonth());
+                        resultDate.set(Calendar.HOUR_OF_DAY, pickerTime.getCurrentHour());
+                        resultDate.set(Calendar.MINUTE, pickerTime.getCurrentMinute());
+
                         if(resultDate.getTimeInMillis() != initialDate.getTimeInMillis()){
                             resultDateTime = resultDate.getTime();
                             getCallBack().deliverDatePickerResult(resultDateTime);
@@ -77,25 +87,19 @@ public class DatePickerDialogFragment extends DialogFragment {
                 initialDate.get(Calendar.YEAR),
                 initialDate.get(Calendar.MONTH),
                 initialDate.get(Calendar.DAY_OF_MONTH),
+                /*This listener does not work properly.*/
                 new DatePicker.OnDateChangedListener() {
-
-                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        resultDate.set(Calendar.YEAR, year);
-                        resultDate.set(Calendar.MONTH, monthOfYear);
-                        resultDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                    }
-                });
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                resultDate.set(Calendar.YEAR, year);
+                resultDate.set(Calendar.MONTH, monthOfYear);
+                resultDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            }
+        }
+        );
         TimePicker pickerTime = (TimePicker) view.findViewById(R.id.datePicker_timePicker);
         pickerTime.setIs24HourView(true);
         pickerTime.setCurrentHour(initialDate.get(Calendar.HOUR_OF_DAY));
         pickerTime.setCurrentMinute(initialDate.get(Calendar.MINUTE));
-        pickerTime.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker timePicker, int hourOfDay, int minute) {
-                resultDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                resultDate.set(Calendar.MINUTE, minute);
-            }
-        });
     }
 
     private DatePickerDialogCallback getCallBack() {
