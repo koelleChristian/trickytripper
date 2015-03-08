@@ -54,6 +54,6 @@ dependencies {
 
     //compile 'com.loopj.android:android-async-http:1.4.6'  //--> Has api changes, does not deliver results when implemented according to API.
     testCompile "junit:junit:$junitVersion"
-    testCompile "org.robolectric:robolectric:$orgRobolectricRobolectricVersion"
-    testCompile "org.mockito:mockito-core:$orgMockitoMockitoCoreVersion"
+    //testCompile "org.robolectric:robolectric:$orgRobolectricRobolectricVersion"
+    //testCompile "org.mockito:mockito-core:$orgMockitoMockitoCoreVersion"
 }
