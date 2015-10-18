@@ -259,5 +259,7 @@
     <string name="changelog_title">What\'s New</string>
     <string name="changelog_ok_button">OK</string>
     <string name="changelog_show_full">more…</string>
-
+    <!-- ==================== Permissions ======================== -->
+    <string name="permission_rationale_phone_book_access">On typing, TrickyTripper would like to auto suggest names from your phone book. However, the permission for that has not been granted. \n\nNote:\nTrickyTripper works without this permission.</string>
+    <string name="permission_write_ext_storage_permanently_revoked">No permission granted to save to device\'s SD card.</string>
 </resources>

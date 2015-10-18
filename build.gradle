@@ -18,8 +18,8 @@ allprojects {
         orgRobolectricRobolectricVersion = '2.4'
         orgMockitoMockitoCoreVersion = '1.9.5'
         comGithubMachinarius_preferenceFragmentVersion = '0.1.1'
-        comAndroidSupport_supportV4Version = '23.0.1'
-        comAndroidSupport_supportV7Version = '23.0.1'
+        comAndroidSupport_supportV4Version = '23.1.0'
+        comAndroidSupport_supportV7Version = '23.1.0'
 //        comGithubJcandksolutionsAndroidUnitTestVersion = '2.1.1'
 //        android_androidVersion = '4.1.2_r4' // V16
 //        comLoopjAndroidHttpAsyncHttpClientVersion = '1.4.2'
