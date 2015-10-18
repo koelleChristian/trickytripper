@@ -29,7 +29,7 @@
 
 $ 1.5.3
 % Version 1.5.3
-  _ 2015-10-08
+  _ 2015-10-18
 * Support for Android 6 (permissions).
 * Help texts for blank list dialogs now match UI conventions.
 
