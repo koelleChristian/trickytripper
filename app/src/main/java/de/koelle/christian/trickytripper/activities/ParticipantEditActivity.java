@@ -1,9 +1,15 @@
 package de.koelle.christian.trickytripper.activities;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,14 +31,18 @@ import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.constants.ViewMode;
 import de.koelle.christian.trickytripper.dataaccess.PhoneContactResolver;
+import de.koelle.christian.trickytripper.dialogs.PermissionRationaleDialog;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.PhoneContact;
 
-public class ParticipantEditActivity extends ActionBarActivity {
+public class ParticipantEditActivity extends ActionBarActivity implements PermissionRationaleDialog.PermissionRationaleDialogCallback {
+
+    private final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 99;
 
     private ViewMode viewMode;
     private Participant participant;
     private ArrayAdapter<String> adapter;
+    private AutoCompleteTextView autoCompleteTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +60,7 @@ public class ParticipantEditActivity extends ActionBarActivity {
         viewMode = (ViewMode) getIntent().getExtras().get(Rc.ACTIVITY_PARAM_KEY_VIEW_MODE);
         if (ViewMode.EDIT == viewMode) {
             participant = (Participant) intent.getSerializableExtra(Rc.ACTIVITY_PARAM_PARTICIPANT_EDIT_IN_PARTICIPANT);
-        }
-        else {
+        } else {
             participant = new Participant();
         }
     }
@@ -64,7 +73,7 @@ public class ParticipantEditActivity extends ActionBarActivity {
     private void initWidgets() {
         int titleId;
 
-        final AutoCompleteTextView autoCompleteTextView = getAutoCompleteTextView();
+        autoCompleteTextView = getAutoCompleteTextView();
 
         if (ViewMode.EDIT == viewMode) {
             titleId = R.string.participant_edit__view_heading_edit;
@@ -73,18 +82,59 @@ public class ParticipantEditActivity extends ActionBarActivity {
         }
 
         setTitle(titleId);
+        autoCompleteTextView.addTextChangedListener(new QueryTriggeringTextWatcher());
 
-        autoCompleteTextView.addTextChangedListener(new BlankTextWatcher() {
-            public void onTextChanged(CharSequence s, int start, int before,
-                    int count) {
-                if (s.length() == 2) {
-                    NameLookupTask task = new NameLookupTask(ParticipantEditActivity.this, autoCompleteTextView);
-                    task.execute(s.toString());
-                } else if(s.length() == 0 || s.length() == 1){
-                    supportInvalidateOptionsMenu();
+    }
+
+    private boolean isPhonebookAccessPermissionGranted() {
+        Activity thisActivity = this;
+        return ContextCompat.checkSelfPermission(thisActivity,
+                Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPhonebookPermissions() {
+        Activity thisActivity = this;
+        if (!isPhonebookAccessPermissionGranted()) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(thisActivity,
+                    Manifest.permission.READ_CONTACTS)) {
+                new PermissionRationaleDialog().show(getFragmentManager(), "Whatever");
+            } else {
+                doRequestPhonebookPermissions();
+            }
+        }
+    }
+
+
+    private void doRequestPhonebookPermissions() {
+        // The OS popup will show up, unless 'don't ask again' had been choosen.
+        Activity thisActivity = this;
+        ActivityCompat.requestPermissions(thisActivity,
+                new String[]{Manifest.permission.READ_CONTACTS},
+                MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
+                // If request is cancelled, the result arrays are empty.
+                // This will be called, even when 'don't ask again' has been choosen and no popup appears.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    autoSuggest();
                 }
             }
-        });
+        }
+    }
+    @Override
+    public void permissionCustomNotificationDone() {
+        doRequestPhonebookPermissions();
+    }
+
+    @Override
+    public int getPermissionNotificationTextId() {
+        return R.string.permission_rationale_phone_book_access;
     }
 
     public void createAndCreateAnother() {
@@ -139,6 +189,29 @@ public class ParticipantEditActivity extends ActionBarActivity {
         return (AutoCompleteTextView) findViewById(R.id.editParticipantView_autocomplete_name);
     }
 
+    private void autoSuggest() {
+        NameLookupTask task = new NameLookupTask(ParticipantEditActivity.this, autoCompleteTextView);
+        String currentInput = autoCompleteTextView.getText().toString();
+        task.execute(currentInput);
+    }
+
+
+
+    private class QueryTriggeringTextWatcher extends BlankTextWatcher {
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+            if (s.length() == 2) {
+                if (isPhonebookAccessPermissionGranted()) {
+                    autoSuggest();
+                } else {
+                    requestPhonebookPermissions();
+                }
+            } else if (s.length() == 0 || s.length() == 1) {
+                supportInvalidateOptionsMenu();
+            }
+        }
+    }
+
     private static class NameLookupTask extends AsyncTask<String, Void, ArrayList<PhoneContact>> {
 
         final Context context;
@@ -188,12 +261,12 @@ public class ParticipantEditActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         int[] optionIds;
-        if(ViewMode.CREATE.equals(viewMode)){
+        if (ViewMode.CREATE.equals(viewMode)) {
             optionIds = new int[]{
                     R.id.option_accept,
                     R.id.option_help
             };
-        } else{
+        } else {
             optionIds = new int[]{
                     R.id.option_save_edit,
                     R.id.option_help
@@ -214,9 +287,9 @@ public class ParticipantEditActivity extends ActionBarActivity {
         //TODO(ckoelle) The button could be disabled in edit mode when nothing has changed.
         boolean inputNotBlank = !StringUtils.isBlank(getAutoCompleteTextView().getEditableText().toString());
         MenuItem item = menu.findItem(R.id.option_accept);
-        if(item == null){
+        if (item == null) {
             item = menu.findItem(R.id.option_save_edit);
-        } else{
+        } else {
             item.setTitle(R.string.option_save_add);
         }
         item.setEnabled(inputNotBlank);
@@ -234,14 +307,16 @@ public class ParticipantEditActivity extends ActionBarActivity {
             case R.id.option_save_edit:
                 saveAndClose();
                 return true;
-        case R.id.option_help:
-            getApp().getViewController().openHelp(getSupportFragmentManager());
-            return true;
-        case android.R.id.home:
-            onBackPressed();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.option_help:
+                getApp().getViewController().openHelp(getSupportFragmentManager());
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
+
+
 }

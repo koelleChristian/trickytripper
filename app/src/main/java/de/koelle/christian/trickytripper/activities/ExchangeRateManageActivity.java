@@ -19,6 +19,7 @@ import java.util.List;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionConstraintsInflater;
+import de.koelle.christian.common.support.DimensionSupport;
 import de.koelle.christian.common.utils.Assert;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -68,6 +69,13 @@ public class ExchangeRateManageActivity extends ActionBarActivity implements Del
         TextView textView = (TextView) findViewById(android.R.id.empty);
         textView.setText(getResources().getString(
                 R.string.exchangeRateManageViewBlankListNotification));
+        
+        DimensionSupport dimensionSupport = getApp().getMiscController().getDimensionSupport();
+        int px16 = dimensionSupport.dp2Px(16);
+        int px08 = dimensionSupport.dp2Px(8);
+        textView.setPadding(px16, px08, px08, px16);
+
+
 
         ActionBarSupport.addBackButton(this);
     }

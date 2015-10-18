@@ -23,6 +23,7 @@ import java.util.Locale;
 import java.util.Map.Entry;
 
 import de.koelle.christian.common.options.OptionConstraintsInflater;
+import de.koelle.christian.common.support.DimensionSupport;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperActivity;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -107,6 +108,10 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
         sortAndUpdateView();
 
         textView.setText(getResources().getString(R.string.payment_view_blank_list_notification));
+        DimensionSupport dimensionSupport = getApp().getMiscController().getDimensionSupport();
+        int px16 = dimensionSupport.dp2Px(16);
+        int px08 = dimensionSupport.dp2Px(8);
+        textView.setPadding(px16, px08, px08, px16);
 
         return view;
     }

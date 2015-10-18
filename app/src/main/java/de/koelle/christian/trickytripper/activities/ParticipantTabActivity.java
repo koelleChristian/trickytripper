@@ -1,9 +1,13 @@
 package de.koelle.christian.trickytripper.activities;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import de.koelle.christian.common.support.DimensionSupport;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperActivity;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
@@ -71,6 +76,10 @@ public class ParticipantTabActivity extends ListFragment {
 
         updateRows();
         textView.setText(getResources().getString(R.string.participant_tab_blank_list_notification));
+        DimensionSupport dimensionSupport = getApp().getMiscController().getDimensionSupport();
+        int px16 = dimensionSupport.dp2Px(16);
+        int px08 = dimensionSupport.dp2Px(8);
+        textView.setPadding(px16, px08, px08, px16);
         return view;
     }
 
@@ -244,4 +253,5 @@ public class ParticipantTabActivity extends ListFragment {
             return true;
         }
     }
+
 }

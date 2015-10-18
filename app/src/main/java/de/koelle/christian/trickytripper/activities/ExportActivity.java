@@ -1,6 +1,11 @@
 package de.koelle.christian.trickytripper.activities;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +31,16 @@ import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
+import de.koelle.christian.trickytripper.dialogs.PermissionRationaleDialog;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 
 public class ExportActivity extends ActionBarActivity {
+
+    public static final String SYSTEM_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+    private final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 88;
 
     private List<Participant> participantsInSpinner;
     private Participant participantSelected;
@@ -316,12 +326,57 @@ public class ExportActivity extends ActionBarActivity {
     }
 
     public void doExport() {
+        if (ExportOutputChannel.SD_CARD.equals(exportSettings.getOutputChannel()) && !isSdCardPermissionGranted()) {
+            requestSdCardPermissions();
+        } else {
         /* participant selected is null, if nobody is selected. */
         /*
          * Files will be deleted on application's termination as usually files
          * have not be sent on resume here.
          */
-        getApp().getExportController().exportReport(exportSettings, participantSelected, this);
+            getApp().getExportController().exportReport(exportSettings, participantSelected, this);
+        }
+
     }
 
+    private boolean isSdCardPermissionGranted() {
+        Activity thisActivity = this;
+        return ContextCompat.checkSelfPermission(thisActivity, SYSTEM_PERMISSION
+        ) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    boolean permPopShown = false;
+
+    private void requestSdCardPermissions() {
+        Activity thisActivity = this;
+        if (!isSdCardPermissionGranted()) {
+            doRequestPhonebookPermissions();
+        }
+    }
+
+
+    private void doRequestPhonebookPermissions() {
+        // The OS popup will show up, unless 'don't ask again' had been choosen.
+        Activity thisActivity = this;
+        ActivityCompat.requestPermissions(thisActivity,
+                new String[]{SYSTEM_PERMISSION},
+                MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                // This will be called, even when 'don't ask again' has been choosen and no popup appears.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    doExport();
+                } else if (!permPopShown) {
+                    Toast.makeText(this, R.string.permission_write_ext_storage_permanently_revoked, Toast.LENGTH_LONG).show();
+                }
+                permPopShown = false;
+            }
+        }
+    }
 }

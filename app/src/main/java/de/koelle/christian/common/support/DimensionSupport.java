@@ -1,25 +1,40 @@
 package de.koelle.christian.common.support;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.WindowManager;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DimensionSupport {
 
+    private static Map<Float, Float> pxCache = new HashMap<>();
     private final Context context;
 
     public DimensionSupport(Context context) {
         this.context = context;
     }
 
-   
-    private float getDimension(int attribute) {
-        TypedValue value = new TypedValue();        
-        DisplayMetrics metrics = new DisplayMetrics();
-        context.getTheme().resolveAttribute(attribute, value, true);       
-        ((WindowManager) (context.getSystemService(Context.WINDOW_SERVICE))).getDefaultDisplay().getMetrics(metrics);
-        return TypedValue.complexToDimension(value.data, metrics);
+
+    public int dp2Px(float dp) {
+        Float f = pxCache.get(dp);
+        if (f == null) {
+            synchronized (pxCache) {
+                f = calculateDpToPixel(dp);
+                pxCache.put(dp, f);
+            }
+        }
+        return f.intValue();
     }
 
+    private float calculateDpToPixel(float dp) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * (metrics.densityDpi / 160f);
+        return px;
+
+    }
 }
