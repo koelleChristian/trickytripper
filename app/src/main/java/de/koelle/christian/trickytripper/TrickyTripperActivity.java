@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -129,7 +130,7 @@ public class TrickyTripperActivity extends ActionBarActivity implements DeleteDi
                     color = getResources().getColor(R.color.main);
                     typefaceStyle = Typeface.BOLD;
                 } else {
-                    color = getResources().getColor(R.color.abc_secondary_text_material_light);
+                    color = ContextCompat.getColor(getContext(), android.R.color.tertiary_text_light);
                     typefaceStyle = Typeface.NORMAL;
                 }
                 result.setText(row.toString());

@@ -1,6 +1,8 @@
 package de.koelle.christian.trickytripper.modelutils;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.widget.TextView;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -12,14 +14,15 @@ import de.koelle.christian.trickytripper.model.Amount;
 public class AmountViewUtils {
 
     public static int getColor(Context context, Amount amount) {
+
         if (amount == null || amount.getValue() == null || amount.getValue() == 0) {
-            return context.getResources().getColor(R.color.abc_primary_text_material_light);
+            return ContextCompat.getColor(context, android.R.color.primary_text_light);
         }
         else if (amount.getValue() < 0) {
-            return context.getResources().getColor(R.color.red);
+            return ContextCompat.getColor(context, R.color.red);
         }
 
-        return context.getResources().getColor(R.color.green);
+        return ContextCompat.getColor(context, R.color.green);
     }
 
     public static String getAmountString(Locale locale, Amount amount, boolean justTheNumber,

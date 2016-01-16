@@ -29,7 +29,7 @@
 
 $ 1.5.3
 % Version 1.5.3
-  _ 2015-10-08
+  _ 2015-10-18
 * Unterstützung von Android 6 (Berechtigungen).
 * Hilfetexte für leere Listenansichten jetzt gemäß UI-Konventionen.
 
