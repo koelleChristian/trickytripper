@@ -114,7 +114,7 @@
     <string name="exportViewCheckboxFormatCsv">CSV (für Excel, etc.)</string>
     <string name="exportViewCheckboxFormatHtml">HTML</string>
     <string name="exportViewCheckboxFormatTxt">TXT</string>
-    <string name="exportViewCheckboxSeparateFilesForIndividuals">Individualle Dateien für jeden Reisenden</string>
+    <string name="exportViewCheckboxSeparateFilesForIndividuals">Individuelle Dateien für jeden Reisenden</string>
     <string name="exportViewCheckboxShowTripSumOnIndividualSpendingReport">Ausgaben: Gesamtsummen der Reise in individuelle Dateien einfügen</string>
     <string name="exportViewSpinnerPromptScope">Wähle Reisenden für Export</string>
     <string name="exportViewIntentChooserHeader">Wähle Dienst für Export</string>
@@ -218,7 +218,7 @@
     <string name="payment_edit_view_textView_label_amount">Betrag</string>
     <string name="payment_edit_view_button_divide_rest">Rest auf leere Felder aufteilen</string>
     <!-- ==================== Context menu participants ====================== -->
-    <string name="participant_fktn_create_payment">Zahlung ertellen</string>
+    <string name="participant_fktn_create_payment">Zahlung erstellen</string>
     <string name="participant_fktn_transfer_money">Geldtransfer</string>
     <string name="participant_fktn_show_report">Bericht</string>
     <string name="participant_fktn_deactivate">Deaktivierung (für Kosten)</string>
