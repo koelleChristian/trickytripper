@@ -250,8 +250,8 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
     }
 
     protected void updateCalculation() {
-        resultAmount.setValue(NumberUtils.multiply(inputAmount.getValue(),
-                exchangeRateInput));
+        Double multiply = NumberUtils.multiply(inputAmount.getValue(),exchangeRateInput);
+        resultAmount.setValue(multiply);
         updateOutputFields();
     }
 
@@ -262,7 +262,10 @@ public class CurrencyCalculatorActivity extends ActionBarActivity {
     }
 
     private boolean canResultBeCalculated() {
-        return resultAmount != null && exchangeRateInput > 0.0d
+        return resultAmount != null
+                && resultAmount.getValue() != null
+                && exchangeRateInput != null
+                && exchangeRateInput > 0.0d
                 && resultAmount.getValue() > 0.0d;
     }
 

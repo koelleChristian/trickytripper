@@ -84,7 +84,7 @@ public class NumberUtils {
     }
 
     public static Double multiply(Double factorA, Double factorB) {
-        if (factorA == 0 || factorB == 0) {
+        if (factorA == null || factorB == null || factorA == 0 || factorB == 0) {
             return (double) 0;
         }
         BigDecimal result;
