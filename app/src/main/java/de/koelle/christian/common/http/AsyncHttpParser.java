@@ -1,44 +1,59 @@
 package de.koelle.christian.common.http;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import de.koelle.christian.trickytripper.constants.Rc;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class AsyncHttpParser {
-    private static final AsyncHttpClient httpClient = new AsyncHttpClient();
 
-    public static void getHttpFromUrl(Context context, String url, final AsyncHttpParserResultCallback callback) {
+    private OkHttpClient client = new OkHttpClient();
+    private List<Call> calls = Collections.synchronizedList(new ArrayList<Call>());
 
-        httpClient.post(context, url, null, new AsyncHttpResponseHandler() {
+    public void getHttpFromUrl(Context context, String url, final AsyncHttpParserResultCallback callback) {
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        Call call = client.newCall(request);
+        calls.add(call);
+        call.enqueue(new Callback() {
 
             @Override
-            protected void sendSuccessMessage(String arg0) {
-                super.sendSuccessMessage(arg0);
-                callback.deliverResult(arg0);
-            }
-
-            @Override
-            protected void sendFailureMessage(Throwable arg0, String arg1) {
-                Log.e(Rc.LT_IO, "HttpRequest resulted in error (sendFailureMassage()): ", arg0);
+            public void onFailure(Call call, IOException e) {
+                Log.e(Rc.LT_IO, "HttpRequest resulted in error (onFailure()): ", e);
                 callback.deliverResult(null);
-                super.sendFailureMessage(arg0, arg1);
             }
 
             @Override
-            public void onFailure(Throwable arg0, String arg1) {
-                Log.e(Rc.LT_IO, "HttpRequest resulted in error (onFailure()): ", arg0);
-                callback.deliverResult(null);
-                super.onFailure(arg0, arg1);
+            public void onResponse(Call call, Response response) throws IOException {
+                callback.deliverResult(getStringFromResponse(response));
             }
-
         });
     }
 
-    public static void cancelRunningRequests(Context context) {
-        httpClient.cancelRequests(context, true);
+
+    protected String getStringFromResponse(Response response) throws IOException {
+        return response.body().string();
+    }
+
+    public void cancelRunningRequests(Context context) {
+        for (Call call : calls) {
+            call.cancel();
+        }
+        calls.clear();
     }
 }
