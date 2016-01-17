@@ -27,6 +27,12 @@
   </head>  
   <body>
 
+$ 1.5.4
+% Version 1.5.4
+  _ 2016-01-17
+* Zeitauswahl für Zahlungen war auf Android 6 Geräten nicht sichtbar.
+* Auf einigen Geräten stürzte die App bei Verwendung des Geldwechselrechners ab.
+
 $ 1.5.3
 % Version 1.5.3
   _ 2015-10-18
