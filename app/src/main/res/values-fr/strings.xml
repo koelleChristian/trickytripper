@@ -139,14 +139,14 @@
     <string name="exportOutputChannelEvernote">Evernote</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Save to storage</string>
-    <string name="save2SdReceiverHeading">Export&#xA0;: Choose directory</string>
+    <string name="save2SdReceiverHeading">Export&#xA0;: choisissez le dossier de destination</string>
     <string name="save2SdReceiverSelect">Sélectionner</string>
     <string name="save2SdReceiverProgressHeading">Saving export to storage:</string>
     <string name="save2SdReceiverResultNothingSaved">Nothing exported to telephone</string>
-    <string name="save2SdReceiverResultSavedPrefix">Successfully exported</string>
-    <string name="save2SdReceiverResultSavedPostfix">to storage</string>
-    <string name="save2SdReceiverResultSavedFiles">files</string>
-    <string name="save2SdReceiverResultSavedFile">file</string>
+    <string name="save2SdReceiverResultSavedPrefix">Export réussi de</string>
+    <string name="save2SdReceiverResultSavedPostfix">vers le dossier de stockage</string>
+    <string name="save2SdReceiverResultSavedFiles">fichiers</string>
+    <string name="save2SdReceiverResultSavedFile">fichier</string>
     <!-- ===============================  file export =============================== -->
     <string name="fileExportPrefix">TTE</string>
     <string name="fileExportFileHeading">Tricky Tripper Rapport</string>
@@ -242,7 +242,7 @@
     <string name="participant_edit_view_label_name">Nom&#xA0;:</string>
     <string name="participant_edit_view_heading_create">Ajouter ce voyageur au voyage</string>
     <string name="participant_edit__view_heading_edit">Modifier ce voyageur</string>
-    <string name="participant_edit_view_msg_denial">A participant with the name entered already exists in this trip. Please modify your input.</string>
+    <string name="participant_edit_view_msg_denial">Un participant avec le meme nom éxiste déjà pour ce voyage. Merci de le modifier.</string>
     <string name="participant_edit_view_label_already_created">Précédemment ajoutés:</string>
     <!-- ==================== edit trip view ====================== -->
     <string name="trip_edit_view_label_name_input">Nom&#xA0;:</string>
@@ -272,5 +272,7 @@
     <string name="changelog_show_full">en voir plus…</string>
     <!-- ==================== Permissions ======================== -->
     <string name="permission_rationale_phone_book_access">On typing, TrickyTripper would like to auto suggest names from your phone book. However, the permission for that has not been granted. \n\nNote:\nTrickyTripper works without this permission.</string>
-    <string name="permission_write_ext_storage_permanently_revoked">No permission granted to save to device\'s SD card.</string>
+    <string name="permission_write_ext_storage_permanently_revoked">Vous avez refusé la permission de sauvegarder sur la carte SD.</string>
+    <!-- ==================== Directory picker activity ======================== -->
+    <string name="avirer">Impossible de lire le contenu de ce dossier.</string>
 </resources>
