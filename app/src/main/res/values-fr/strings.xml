@@ -274,5 +274,5 @@
     <string name="permission_rationale_phone_book_access">On typing, TrickyTripper would like to auto suggest names from your phone book. However, the permission for that has not been granted. \n\nNote:\nTrickyTripper works without this permission.</string>
     <string name="permission_write_ext_storage_permanently_revoked">Vous avez refusé la permission de sauvegarder sur la carte SD.</string>
     <!-- ==================== Directory picker activity ======================== -->
-    <string name="avirer">Impossible de lire le contenu de ce dossier.</string>
+    <string name="directory_picker_folder_unreadable">Impossible de lire le contenu de ce dossier.</string>
 </resources>

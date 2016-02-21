@@ -261,4 +261,6 @@
     <!-- ==================== Permissions ======================== -->
     <string name="permission_rationale_phone_book_access">Während der Eingabe würde TrickyTripper gerne Namen aus dem Telefonbuch vorschlagen. Die Berechtigung dafür wurde noch nicht erteilt. \n\nNote:\nTrickyTripper funktioniert ohne diese Rechte.</string>
     <string name="permission_write_ext_storage_permanently_revoked">Keine Berechtigung zum Speichern aufs Telefon erteilt.</string>
+    <!-- ==================== Directory picker activity ======================== -->
+    <string name="directory_picker_folder_unreadable">Ordner nicht lesbar.</string>
 </resources>
