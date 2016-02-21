@@ -117,7 +117,7 @@ public class DirectoryPickerActivity extends ActionBarActivity {
 
         if (!dir.canRead()) {
             Context context = getApplicationContext();
-            String msg = getString(R.string.avirer);
+            String msg = getString(R.string.directory_picker_folder_unreadable);
             Toast toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
             toast.show();
             return;
