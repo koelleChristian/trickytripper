@@ -117,7 +117,7 @@ public class DirectoryPickerActivity extends ActionBarActivity {
 
         if (!dir.canRead()) {
             Context context = getApplicationContext();
-            String msg = "Could not read folder contents.";
+            String msg = getString(R.string.avirer);
             Toast toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
             toast.show();
             return;
