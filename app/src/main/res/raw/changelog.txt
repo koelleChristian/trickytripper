@@ -27,6 +27,12 @@
   </head>  
   <body>
 
+$ 1.5.4
+% Version 1.5.4
+  _ 2016-01-17
+* Time picker was not visible on screen on Android 6 devices.
+* Fixed technical error making the app crash when using the currency calculator on some phones.
+
 $ 1.5.3
 % Version 1.5.3
   _ 2015-10-18
