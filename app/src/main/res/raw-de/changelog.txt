@@ -27,6 +27,12 @@
   </head>  
   <body>
 
+$ 1.5.5
+% Version 1.5.5
+  _ 2016-02-27
+* Französische Übersetzung ist jetzt verfügbar (Dank an Nicolas Bossard).
+* Das Framework für das Herunterladen von Wechselkursen wurde ersetzt.
+
 $ 1.5.4
 % Version 1.5.4
   _ 2016-01-17

@@ -27,6 +27,12 @@
   </head>  
   <body>
 
+$ 1.5.5
+% Version 1.5.5
+  _ 2016-02-27
+* French translation added (thanks to Nicolas Bossard).
+* Framework for the exchange rate download replaced.
+
 $ 1.5.4
 % Version 1.5.4
   _ 2016-01-17
