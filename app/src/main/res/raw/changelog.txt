@@ -31,6 +31,7 @@ $ 1.5.5
 % Version 1.5.5
   _ 2016-02-27
 * French translation added (thanks to Nicolas Bossard).
+* Italian translation extended(thanks to Andrea Zanella).
 * Framework for the exchange rate download has been replaced.
 
 $ 1.5.4

@@ -40,8 +40,8 @@
     <string name="option_save_edit">Salva</string>
     <string name="option_save_add">Aggiungi</string>
     <string name="option_option_create_exchange_rate_for_source">Crea tasso corrispondente</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
+    <string name="drawer_open">Apre il menu di navigazione</string>
+    <string name="drawer_close">Chiude il menu di navigazione</string>
     <!-- =============================== Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Speso:</string>
     <string name="participant_tab_row_view_label_paid">Pagato:</string>
@@ -260,8 +260,8 @@
     <string name="changelog_ok_button">OK</string>
     <string name="changelog_show_full">more…</string>
     <!-- ==================== Permissions ======================== -->
-    <string name="permission_rationale_phone_book_access">On typing, TrickyTripper would like to auto suggest names from your phone book. However, the permission for that has not been granted. \n\nNote:\nTrickyTripper works without this permission.</string>
-    <string name="permission_write_ext_storage_permanently_revoked">No permission granted to save to device\'s SD card.</string>
+    <string name="permission_rationale_phone_book_access">In fase di digitazione, TrickyTripper vorrebbe suggerire automaticamente i nomi dalla rubrica. Tuttavia, non è stata concessa l\'autorizzazione per fare questo. \n\nNota:\nTrickyTripper funziona senza questa autorizzazione.</string>
+    <string name="permission_write_ext_storage_permanently_revoked">Nessuna autorizzazione concessa per salvare sulla scheda SD.</string>
     <!-- ==================== Directory picker activity ======================== -->
-    <string name="directory_picker_folder_unreadable">Could not read folder contents.</string>
+    <string name="directory_picker_folder_unreadable">Impossibile leggere il contenuto della cartella.</string>
 </resources>
