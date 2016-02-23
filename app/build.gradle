@@ -40,6 +40,13 @@ android {
     }
     productFlavors {
     }
+
+    testOptions {
+        unitTests.all {
+            // All the usual Gradle options.
+            //jvmArgs '-XX:MaxPermSize=256m'
+        }
+    }
 }
 
 dependencies {
@@ -48,8 +55,7 @@ dependencies {
     compile "com.android.support:support-v4:$comAndroidSupport_supportV4Version"
     compile "com.github.machinarius:preferencefragment:$comGithubMachinarius_preferenceFragmentVersion"
 
-    //compile 'com.loopj.android:android-async-http:1.4.9'  //--> Has api changes, does not deliver results when implemented according to API.
+    compile 'com.squareup.okhttp3:okhttp:3.0.1'
     testCompile "junit:junit:$junitVersion"
-    //testCompile "org.robolectric:robolectric:$orgRobolectricRobolectricVersion"
     testCompile "org.mockito:mockito-core:$orgMockitoMockitoCoreVersion"
 }

@@ -238,7 +238,8 @@ public class ExchangeRateImportActivity extends ActionBarActivity {
                     });
                 }
             }
-        }).start();
+        })
+        .start();
 
     }
 

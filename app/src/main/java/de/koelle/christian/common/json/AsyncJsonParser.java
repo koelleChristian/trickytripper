@@ -1,54 +1,62 @@
 package de.koelle.christian.common.json;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.util.Log;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import de.koelle.christian.common.http.AsyncHttpParserResultCallback;
 import de.koelle.christian.trickytripper.constants.Rc;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class AsyncJsonParser {
-    private static final AsyncHttpClient httpClient = new AsyncHttpClient();
+    private OkHttpClient client = new OkHttpClient();
+    private List<Call> calls = Collections.synchronizedList(new ArrayList<Call>());
 
-    public static void getJSONFromUrl(Context context, String url, final AsyncJsonParserResultCallback callback) {
+    public void getJSONFromUrl(Context context, String url, final AsyncJsonParserResultCallback callback) {
 
-        httpClient.post(context, url, null, new AsyncHttpResponseHandler() {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        Call call = client.newCall(request);
+        calls.add(call);
+        call.enqueue(new Callback() {
 
             @Override
-            protected void sendSuccessMessage(String arg0) {
-                super.sendSuccessMessage(arg0);
+            public void onFailure(Call call, IOException e) {
+                Log.e(Rc.LT_IO, "HttpRequest resulted in error (onFailure()): ", e);
+                callback.deliverResult(null);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
                 JSONObject result = null;
                 try {
-                    result = new JSONObject(arg0);
-                }
-                catch (JSONException e) {
+                    result = new JSONObject(response.body().string());
+                } catch (JSONException e) {
                     Log.e(Rc.LT_IO, "Error on creating a JSON-Object: " + e.toString());
                 }
                 callback.deliverResult(result);
             }
-
-            @Override
-            protected void sendFailureMessage(Throwable arg0, String arg1) {
-                Log.e(Rc.LT_IO, "HttpRequest resulted in error (sendFailureMassage()): ", arg0);
-                callback.deliverResult(null);
-                super.sendFailureMessage(arg0, arg1);
-            }
-
-            @Override
-            public void onFailure(Throwable arg0, String arg1) {
-                Log.e(Rc.LT_IO, "HttpRequest resulted in error (onFailure()): ", arg0);
-                callback.deliverResult(null);
-                super.onFailure(arg0, arg1);
-            }
-
         });
     }
 
-    public static void cancelRunningRequests(Context context) {
-        httpClient.cancelRequests(context, true);
+    public void cancelRunningRequests(Context context) {
+        for (Call call : calls) {
+            call.cancel();
+        }
+        calls.clear();
     }
+
 }
