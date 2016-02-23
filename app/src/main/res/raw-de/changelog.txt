@@ -33,6 +33,7 @@ $ 1.5.5
 * Französische Übersetzung ist jetzt verfügbar (Dank an Nicolas Bossard).
 * Italienische Übersetzung erweitert (Dank an Andrea Zanella).
 * Das Framework für das Herunterladen von Wechselkursen wurde ersetzt.
+* K9-Mail wird für den Berichtsexport unterstützt.
 
 $ 1.5.4
 % Version 1.5.4

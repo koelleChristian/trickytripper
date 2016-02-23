@@ -33,6 +33,7 @@ $ 1.5.5
 * French translation added (thanks to Nicolas Bossard).
 * Italian translation extended(thanks to Andrea Zanella).
 * Framework for the exchange rate download has been replaced.
+* K9-Mail is now available for exporting reports.
 
 $ 1.5.4
 % Version 1.5.4
