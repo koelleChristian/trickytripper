@@ -123,8 +123,6 @@
     <string name="exportViewSpinnerNotAvailable">nicht verfügbar</string>
     <string name="exportOutputChannelEnumSave2Sd">Aufs Telefon speichern</string>
     <string name="exportOutputChannelMail">Mail</string>
-    <string name="exportOutputChannelDropbox">Dropbox</string>
-    <string name="exportOutputChannelEvernote">Evernote</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Aufs Telefon speichern</string>
     <string name="save2SdReceiverHeading">Export: Verzeichnisauswahl</string>

@@ -126,8 +126,6 @@
     <string name="exportViewSpinnerNotAvailable">non disponible</string>
     <string name="exportOutputChannelEnumSave2Sd">Sauvegarder sur la carte SD</string>
     <string name="exportOutputChannelMail">Courrier électronique</string>
-    <string name="exportOutputChannelDropbox">Dropbox</string>
-    <string name="exportOutputChannelEvernote">Evernote</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Save to storage</string>
     <string name="save2SdReceiverHeading">Export&#xA0;: choisissez le dossier de destination</string>
