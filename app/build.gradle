@@ -8,12 +8,13 @@ android {
         applicationId 'de.koelle.christian.trickytripper'
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 17
-        versionName '1.5.4'
+        versionCode 18
+        versionName '1.5.5'
     }
     lintOptions {
         checkReleaseBuilds true
         abortOnError true
+        warning 'InvalidPackage'
     }
     File signFile = rootProject.file('sign/keystore.properties')
     if (signFile.exists()) {
@@ -30,6 +31,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
             zipAlignEnabled true
             shrinkResources true
@@ -55,7 +61,7 @@ dependencies {
     compile "com.android.support:support-v4:$comAndroidSupport_supportV4Version"
     compile "com.github.machinarius:preferencefragment:$comGithubMachinarius_preferenceFragmentVersion"
 
-    compile 'com.squareup.okhttp3:okhttp:3.0.1'
+    compile 'com.squareup.okhttp3:okhttp:3.1.2'
     testCompile "junit:junit:$junitVersion"
     testCompile "org.mockito:mockito-core:$orgMockitoMockitoCoreVersion"
 }

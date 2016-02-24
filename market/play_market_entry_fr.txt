@@ -1,0 +1,23 @@
+Short description:
+##################
+... gérer les dépenses communes pendant vos voyages, même sans Internet.
+
+Long description:
+##################
+<b>Tricky Tripper</b> est un outil pour gérer les dépenses communes pendant vos voyages, il peut fonctionner même sans accès à Internet.
+Il est particulièrement destiné aux voyages à plusieurs avec des dépenses partagées, par exemple vous partez en voyage avec vos amis et de temps en temps l'un d'entre vous paye pour tout le monde.
+Dans ce cas <b>Tricky Tripper</b> divise cette dépense entre les participants que vous souhaitez.
+L'application calcule ensuite les dettes entre les voyageurs et permet ainsi de les régler aisément pendant ou après le voyage.
+
+
+<b>Fonctionnalités</b>
+-- Répartition des dépenses entre tous ou individuelles entre les participants. <br/>
+-- Gestion des dettes<br/>
+-- Permet de marquer les dettes réglées <br/>
+-- Fonctionne même sans Internet.<br/>
+-- Export des résumés (Dropbox, Evernote, Mail, SDCard)
+
+
+Visitez <u>http://trickytripper.blogspot.de/</u> pour consulter les dernières nouvelles et fonctionnalités à venir.
+
+N'hésitez pas à me contacter si vous souhaitez contribuer à la traduction du logiciel.
