@@ -16,7 +16,7 @@ public class ExchangeRateImporterImpl implements ExchangeRateImporter {
 
     private AsyncExchangeRateResolver asyncExchangeRateResolver;
     private ExchangeRateResultExtractor exchangeRateResultExtractor;
-    private int chunkSize = 20;
+    private int chunkSize = 500;
     private int chunkDelay = 2000;
     private boolean stopped;
     

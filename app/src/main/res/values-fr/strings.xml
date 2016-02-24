@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!-- French strings used in GUI. -->
-<!--  -->
-<!-- Reminder on constraints on text: -->
-<!-- - put a "I" to Internet except when in a list where others labels don't have (in french) -->
-<!-- - put a space (unbreakable, &#xA0;) before ":", "?", "!" (in french) -->
-<!-- - write Wi&#8208;Fi, QR&#8208;code, E&#8208;mail -->
-<!-- - do not write " but \" in sentences (the first version doesn't work on a few devices) -->
-<!--  -->
 <!-- Translation choices from english to french : -->
 <!-- Expenditure == > dépense -->
 <!-- Report == rapport -->
@@ -136,8 +127,6 @@
     <string name="exportViewSpinnerNotAvailable">non disponible</string>
     <string name="exportOutputChannelEnumSave2Sd">Sauvegarder sur la carte SD</string>
     <string name="exportOutputChannelMail">Courrier électronique</string>
-    <string name="exportOutputChannelDropbox">Dropbox</string>
-    <string name="exportOutputChannelEvernote">Evernote</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Save to storage</string>
     <string name="save2SdReceiverHeading">Export&#xA0;: choisissez le dossier de destination</string>
@@ -249,7 +238,7 @@
     <string name="trip_edit_view_label_name_input">Nom&#xA0;:</string>
     <string name="trip_edit_view_label_base_currency">Devise utilisée&#xA0;:</string>
     <string name="trip_edit_view_label_base_currency_spinner_prompt">Choisissez une device pour ce voyage</string>
-    <string name="trip__view_edit_heading">Modifier le voyage</string>
+    <string name="trip_edit_view_edit_heading">Modifier le voyage</string>
     <string name="trip_edit_view_create_heading">Créer un nouveau voyage</string>
     <string name="trip_edit_view_msg">Un voyage avec le meme nom éxiste déjà. Merci de le modifier.</string>
     <!-- ==================== Messages ====================== -->

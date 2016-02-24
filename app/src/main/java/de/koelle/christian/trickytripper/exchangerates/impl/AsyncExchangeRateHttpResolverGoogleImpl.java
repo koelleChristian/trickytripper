@@ -18,20 +18,23 @@ public class AsyncExchangeRateHttpResolverGoogleImpl implements AsyncExchangeRat
             + SOURCE_CURRENCY_CODE_PLACEHOLDER + "&to=" + TARGET_CURRENCY_CODE_PLACEHOLDER;
     private final Context context;
 
+    private AsyncHttpParser caller = new AsyncHttpParser();
+
+
     public AsyncExchangeRateHttpResolverGoogleImpl(Context context) {
         this.context = context;
     }
 
     public void cancelRunningRequests() {
-        AsyncHttpParser.cancelRunningRequests(context);
+        caller.cancelRunningRequests(context);
     }
 
     public void getExchangeRate(Currency from, Currency to, final AsyncExchangeRateResolverResultCallback callback) {
         String url = provideUrl(from, to);
-        AsyncHttpParser.getHttpFromUrl(context, url, new AsyncHttpParserResultCallback() {
+        caller.getHttpFromUrl(context, url, new AsyncHttpParserResultCallback() {
 
             public void deliverResult(String httpResponseString) {
-                System.out.println(httpResponseString);
+//                System.out.println(httpResponseString);//
                 callback.deliverResult(httpResponseString);
             }
 
@@ -42,7 +45,7 @@ public class AsyncExchangeRateHttpResolverGoogleImpl implements AsyncExchangeRat
     public long calculateResponseTime(Currency from, Currency to) {
 
         ResponseTimeDeterminationCallback callback = new ResponseTimeDeterminationCallback(System.nanoTime());
-        AsyncHttpParser.getHttpFromUrl(context, provideUrl(from, to), callback);
+        caller.getHttpFromUrl(context, provideUrl(from, to), callback);
         while (!callback.hasResult()) {
             try {
                 Thread.currentThread().sleep(1000);

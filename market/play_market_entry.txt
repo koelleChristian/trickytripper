@@ -1,0 +1,21 @@
+Short description:
+##################
+... an offline-compatible utility for managing shared expenses on trips.
+
+Long description:
+##################
+<b>Tricky Tripper</b> is an offline-compatible utility for managing travel expenses. It is especially intended for holidays with shared expenses, e.g. you go on a trip with your friends and from time to time one companion pays for all travelers. In such a situation <b>Tricky Tripper</b> splits the costs among the companions as you want it. The application calculates all debts among the travelers and offers means to get even, during or after the trip.
+
+
+<b>Features</b>
+-- Even or individual splitting of costs among travelers. <br/>
+-- Debt protocol<br/>
+-- Function to settle debts<br/>
+-- It's offline-compatible.<br/>
+-- Report export (Dropbox, Evernote, Mail, SDCard)
+
+
+Visit <u>http://trickytripper.blogspot.de/</u> for news and future plans.
+
+
+Contact me if you want to contribute a translation.

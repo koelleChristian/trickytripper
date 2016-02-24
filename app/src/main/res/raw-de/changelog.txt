@@ -27,6 +27,20 @@
   </head>  
   <body>
 
+$ 1.5.5
+% Version 1.5.5
+  _ 2016-02-27
+* Französische Übersetzung ist jetzt verfügbar (Dank an Nicolas Bossard).
+* Italienische Übersetzung erweitert (Dank an Andrea Zanella).
+* Das Framework für das Herunterladen von Wechselkursen wurde ersetzt.
+* K9-Mail wird für den Berichtsexport unterstützt.
+
+$ 1.5.4
+% Version 1.5.4
+  _ 2016-01-17
+* Zeitauswahl für Zahlungen war auf Android 6 Geräten nicht sichtbar.
+* Auf einigen Geräten stürzte die App bei Verwendung des Geldwechselrechners ab.
+
 $ 1.5.3
 % Version 1.5.3
   _ 2015-10-18

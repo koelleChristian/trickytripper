@@ -16,6 +16,8 @@ public class ExportSettings {
         DROPBOX(R.string.exportOutputChannelDropbox, "com.dropbox.android"),
         /***/
         EVERNOTE(R.string.exportOutputChannelEvernote, "com.evernote"),
+        /***/
+        K9(R.string.exportOutputChannelK9, "com.fsck.k9"),
         /**/
         ;
         // com.android.bluetooth
