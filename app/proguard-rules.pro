@@ -22,6 +22,12 @@
 -keep public class * extends android.preference.Preference
 -keep public class com.android.vending.licensing.ILicensingService
 
+-keep public class org.codehaus.**
+-keep public class java.nio.**
+-keep class okio.**
+-keep class com.squareup.okhttp.** { *; }
+-keep interface com.squareup.okhttp.** { *; }
+
 -keep class android.support.v4.app.** { *; }
 -keep interface android.support.v4.app.** { *; }
 #-keep class org.apache.http.** { *; }
@@ -57,6 +63,8 @@
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
 }
+
+-dontwarn okio.**
 #-dontwarn java.nio.file.Files
 #-dontwarn java.nio.file.Path
 #-dontwarn java.nio.file.OpenOption
