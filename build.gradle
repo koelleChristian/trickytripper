@@ -17,7 +17,7 @@ allprojects {
         junitVersion = '4.10'
         orgMockitoMockitoCoreVersion = '1.9.5'
         comGithubMachinarius_preferenceFragmentVersion = '0.1.1'
-        comAndroidSupport_supportV4Version = '23.2.1'
-        comAndroidSupport_supportV7Version = '23.2.1'
+        comAndroidSupport_supportV4Version = '24.0.0'
+        comAndroidSupport_supportV7Version = '24.0.0'
     }
 }
