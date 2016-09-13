@@ -166,11 +166,11 @@
     <string name="fileExportPaymentsHeadingAmount">Cantidad</string>
     <string name="fileExportPaymentsHeadingPaidBy">Pagado por</string>
     <string name="fileExportPaymentsHeadingDebitedTo">Adeudado a</string>
-    <string name="fileExportSpendingsHeadingSpendingGlobal">Expenditure</string>
+    <string name="fileExportSpendingsHeadingSpendingGlobal">Gasto</string>
     <string name="fileExportSpendingsHeadingSpendingByCategory">Gastos por categoría</string>
     <string name="fileExportSpendingsHeadingAll">Todos los viajeros</string>
     <string name="fileExportSpendingsHeadingTotalSpent">Gasto total</string>
-    <string name="fileExportSpendingsHeadingTotalCount">Total payment count</string>
+    <string name="fileExportSpendingsHeadingTotalCount">Número total de pagos</string>
     <string name="fileExportOwingDebtsHeadingDebtor">Viajero</string>
     <string name="fileExportOwingDebtsHeadingCreditor">adeuda</string>
     <string name="fileExportOwingDebtsHeadingAmount">la cantidad</string>
@@ -179,7 +179,7 @@
     <string name="fileExportTransferHeadingAmount">la cantidad de</string>
     <!-- ===============================  Report view =============================== -->
     <string name="report_view_subheading_spendings_by_category">Gasto por categoría</string>
-    <string name="report_view_subheading_spendings">Expenditure</string>
+    <string name="report_view_subheading_spendings">Gastos</string>
     <string name="report_view_entry_report_spinner_null_value">Todos los viajeros</string>
     <string name="report_view_label_report_spinner_prompt">Escoja viajero para el informe</string>
     <string name="report_view_label_report_spinner">Para:</string>
@@ -217,7 +217,7 @@
     <string name="payment_edit_view_label_date_time">Fecha &amp; hora</string>
     <string name="payment_edit_view_label_date_time_now">Ahora</string>
     <string name="payment_edit_view_date_picker_title">Seleccione la fecha y hora de su pago</string>
-    <string name="payment_edit_view_label_travellers_charged">Travelers charged:</string>
+    <string name="payment_edit_view_label_travellers_charged">Viajeros gravados:</string>
     <string name="payment_edit_view_label_radio_split_evenly">División a partes iguales</string>
     <string name="payment_edit_view_label_radio_custom_split">División personalizada</string>
     <string name="payment_edit_view_textView_payee_label_amount">Cantidad</string>
