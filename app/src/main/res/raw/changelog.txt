@@ -27,6 +27,12 @@
   </head>  
   <body>
 
+$ 1.5.6
+% Version 1.5.6
+  _ 2016-09-27
+* Spanish translation added (thanks to Igor Sosa Mayor).
+* Boxer is now available for exporting reports.
+
 $ 1.5.5
 % Version 1.5.5
   _ 2016-02-27
