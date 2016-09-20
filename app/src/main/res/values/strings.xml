@@ -132,7 +132,7 @@
     <string name="exportOutputChannelMail">Mail</string>
     <string name="exportOutputChannelDropbox" translatable="false">Dropbox</string>
     <string name="exportOutputChannelEvernote" translatable="false">Evernote</string>
-    <string name="exportOutputChannelK9" translatable="false">K9</string>
+    <string name="exportOutputChannelBoxer" translatable="false">Boxer</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Save to storage</string>
     <string name="save2SdReceiverHeading">Export: Choose directory</string>
@@ -271,4 +271,5 @@
     <string name="permission_write_ext_storage_permanently_revoked">No permission granted to save to device\'s SD card.</string>
     <!-- ==================== Directory picker activity ======================== -->
     <string name="directory_picker_folder_unreadable">Could not read folder contents.</string>
+    <string name="exportOutputChannelK9" translatable="false">K9</string>
 </resources>

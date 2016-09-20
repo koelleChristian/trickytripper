@@ -18,6 +18,8 @@ public class ExportSettings {
         EVERNOTE(R.string.exportOutputChannelEvernote, "com.evernote"),
         /***/
         K9(R.string.exportOutputChannelK9, "com.fsck.k9"),
+        /***/
+        BOXER(R.string.exportOutputChannelBoxer, "com.boxer.email"),
         /**/
         ;
         // com.android.bluetooth
