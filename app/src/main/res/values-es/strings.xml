@@ -81,7 +81,7 @@
     <string name="currency_selection_view_instruction_group_label_else">Todas las divisas</string>
     <!-- ===============================  Manage exchange rates view =============================== -->
     <string name="exchangeRateManageViewTextViewHeading">Tasas de cambio</string>
-    <string name="exchangeRateManageViewDeleteConfirmation">Está seguro de que quiere borrar la tasa de cambio seleccionada?</string>
+    <string name="exchangeRateManageViewDeleteConfirmation">¿Está seguro de que quiere borrar la tasa de cambio seleccionada?</string>
     <string name="exchangeRateManageViewBlankListNotification">Aún no hay tasas de cambio. \n\n\n\nImporte o cree tasas de cambio con las funciones equivalentes desde la barra de acciones o el menú.</string>
     <!-- ===============================  Import exchange rates view =============================== -->
     <string name="exchangeRateImportViewTextViewHeading">Importar casos de cambios</string>
@@ -100,7 +100,7 @@
     <string name="exchangeRateDeleteViewSpinnerPrompt">Escoja &#8230;</string>
     <string name="exchangeRateDeleteViewLabelSelectionOptions">Cambie el viaje seleccionado &#8230;</string>
     <string name="exchangeRateDeleteViewLabelSelectionOptionsDesc">Abre las opciones del viaje seleccionado</string>
-    <string name="exchangeRateDeleteViewDeleteConfirmation">Está Vd. seguro de que quiere borrar el/los @@1@@ tasa(s) de cambio seleccionadas(?)</string>
+    <string name="exchangeRateDeleteViewDeleteConfirmation">¿Está Vd. seguro de que quiere borrar el/los @@1@@ tasa(s) de cambio seleccionadas?</string>
     <!-- ===============================  Edit Exchange Rate =============================== -->
     <string name="exchangeRateEditViewHeadingEdit">Editar tasa de cambio</string>
     <string name="exchangeRateEditViewHeadingCreate">Crear tasa de cambio</string>
@@ -109,13 +109,13 @@
     <string name="exchangeRateEditViewMsgSaveDenialDuplicate">Una tasa de cambio con esa descripción ya existe. Por favor modifique los datos introducidos.</string>
     <!-- ===============================  export view =============================== -->
     <string name="exportViewTextViewHeading">Exportar</string>
-    <string name="exportViewTextViewSubHeadingContent">Qué?</string>
+    <string name="exportViewTextViewSubHeadingContent">¿Qué?</string>
     <string name="exportViewCheckboxContentPayments">Pagos</string>
     <string name="exportViewCheckboxContentTransfers">Transferencias de dinero</string>
     <string name="exportViewCheckboxContentSpendingReport">Gastos</string>
     <string name="exportViewCheckboxContentOwingDebts">Deudas</string>
-    <string name="exportViewTextViewSubHeadingScope">Viajeros concernidos</string>
-    <string name="exportViewTextViewSubHeadingFormat">ƒFormato?</string>
+    <string name="exportViewTextViewSubHeadingScope">¿Viajeros concernidos?</string>
+    <string name="exportViewTextViewSubHeadingFormat">¿Formato?</string>
     <string name="exportViewCheckboxFormatCsv">CSV (para Excel, etc.)</string>
     <string name="exportViewCheckboxFormatHtml">HTML</string>
     <string name="exportViewCheckboxFormatTxt">TXT</string>
@@ -123,7 +123,7 @@
     <string name="exportViewCheckboxShowTripSumOnIndividualSpendingReport">Gastos: mostrar sumas totales del viaje en ficheros individuales</string>
     <string name="exportViewSpinnerPromptScope">Escoja viajero para exportar</string>
     <string name="exportViewIntentChooserHeader">Escoja servicio para exportar a</string>
-    <string name="exportViewTextViewSubHeadingChannel">Destino de la salida</string>
+    <string name="exportViewTextViewSubHeadingChannel">¿Destino de la salida?</string>
     <string name="exportViewSpinnerPromptChannel">Escoja el destino de la salida</string>
     <string name="exportViewSpinnerNotAvailable">no disponible</string>
     <string name="exportOutputChannelEnumSave2Sd">Grabar en la tarjeta SD</string>
@@ -203,8 +203,8 @@
     <string name="payment_view_label_transfer_from">De:</string>
     <string name="payment_view_label_transfer_to">A:</string>
     <string name="payment_view_label_date_time">Cuándo:</string>
-    <string name="payment_view_delete_confirmation_payment">Está seguro de que quiere borrar el pago seleccionado?</string>
-    <string name="payment_view_delete_confirmation_transfer">Está seguro de que quiere borrar la transferencia seleccionada?</string>
+    <string name="payment_view_delete_confirmation_payment">¿Está seguro de que quiere borrar el pago seleccionado?</string>
+    <string name="payment_view_delete_confirmation_transfer">¿Está seguro de que quiere borrar la transferencia seleccionada?</string>
     <string name="payment_view_blank_list_notification">Aún no hay pagos. \n\n\n\nCree nuevos pagos haciendo click en el viajero que realiza el pago.</string>
     <!-- ===============================  Payment edit =============================== --> 
     <string name="payment_edit_view_label_category">Categoría</string>
