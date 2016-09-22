@@ -2,11 +2,6 @@
 <resources>
 <!-- - write Wi&#8208;Fi, QR&#8208;code, E&#8208;mail -->
 <!-- - unbreakable, &#xA0;-->
-
-    <string name="app_name"  translatable="false">Tricky Tripper</string>
-    <string name="spinner_null_value_default"  translatable="false"></string>
-    <string name="default_blank"  translatable="false"></string>
-    <!-- To be translated ff -->
     <string name="common_button_cancel">Cancelar</string>
     <string name="common_button_yes">Sí</string>
     <string name="common_button_no">No</string>
