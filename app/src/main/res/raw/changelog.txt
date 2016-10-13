@@ -29,7 +29,7 @@
 
 $ 1.5.6
 % Version 1.5.6
-  _ 2016-09-27
+  _ 2016-10-10
 * Spanish translation added (thanks to Igor Sosa Mayor).
 * Boxer is now available for exporting reports.
 
