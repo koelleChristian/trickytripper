@@ -19,6 +19,8 @@ public class ExportSettings {
         /***/
         K9(R.string.exportOutputChannelK9, "com.fsck.k9"),
         /***/
+        OWNCLOUD(R.string.exportOutputChannelOwncloud, "com.owncloud.android"),
+        /***/
         BOXER(R.string.exportOutputChannelBoxer, "com.boxer.email"),
         /**/
         ;
