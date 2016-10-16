@@ -122,6 +122,10 @@ public class TripControllerImpl implements TripController, TripResolver {
         return dataManager.hasTripPayments(tripSummary.getId());
     }
 
+    public ArrayList<String> getDescriptions() {
+        return dataManager.getAllPaymentDescriptionsInTrip(getTripLoaded().getId());
+    }
+
     public boolean persistParticipant(Participant participant) {
 
         boolean isNew = (1 > participant.getId());

@@ -86,7 +86,18 @@ public class PaymentDao {
                     + PAYMENT_TABLE_SHORTY + "." + PaymentColumns.TRIP_ID
                     + " and "
                     + TRIP_TABLE_SHORTY + "." + BaseColumns._ID + " = ?";
-    // p._id = rel.payment_id and t._id = p.trip_id and t._id = 1"
+
+    private static final String PAYMENT_DESCRIPTION_QUERY =
+            "select distinct "
+                    + PAYMENT_TABLE_SHORTY + "." + PaymentColumns.DESCRIPTION
+                    + " from " +
+                    PaymentTable.TABLE_NAME + " " + PAYMENT_TABLE_SHORTY + ", " +
+                    TripTable.TABLE_NAME + " " + TRIP_TABLE_SHORTY
+                    + " where "
+                    + TRIP_TABLE_SHORTY + "." + BaseColumns._ID + " = "
+                    + PAYMENT_TABLE_SHORTY + "." + PaymentColumns.TRIP_ID
+                    + " and "
+                    + TRIP_TABLE_SHORTY + "." + BaseColumns._ID + " = ?";
 
     private final SQLiteDatabase db;
     private final SQLiteStatement stmtInsert;
@@ -219,6 +230,21 @@ public class PaymentDao {
             c.close();
         }
         list.addAll(resultMap.values());
+        return list;
+    }
+
+    public ArrayList<String> getAllPaymentDescriptionsInTrip(long tripId) {
+        ArrayList<String> list = new ArrayList<>();
+        Cursor c = db.rawQuery(PAYMENT_DESCRIPTION_QUERY, new String[] { String.valueOf(tripId) });
+        if (c.moveToFirst()) {
+            do {
+                String paymentDescription = c.getString(0);
+                list.add(paymentDescription);
+            } while (c.moveToNext());
+        }
+        if (!c.isClosed()) {
+            c.close();
+        }
         return list;
     }
 
