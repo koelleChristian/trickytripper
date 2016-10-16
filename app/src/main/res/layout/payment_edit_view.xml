@@ -141,13 +141,14 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/payment_edit_view_label_description" />
 
-            <EditText
-                android:id="@+id/paymentView_editTextPaymentDescription"
+            <AutoCompleteTextView
+                android:id="@+id/paymentView_autoCompleteTextViewPaymentDescription"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/paymentView_textView_label_description"
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="15dp"
+                android:completionThreshold="1"
                 android:inputType="text"/>
 
             <TextView
@@ -155,7 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@id/paymentView_editTextPaymentDescription"
+                android:layout_below="@id/paymentView_autoCompleteTextViewPaymentDescription"
                 android:text="@string/payment_edit_view_label_category" />
 
             <Spinner

@@ -1,5 +1,6 @@
 package de.koelle.christian.trickytripper.controller;
 
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +60,8 @@ public interface TripController extends TripResolver {
     Map<Participant, Debts> getDebts();
 
     boolean hasTripPayments(TripSummary selectedTripSummary);
+
+    ArrayList<String> getDescriptions();
 
     void safeLoadedTripIdToPrefs();
 

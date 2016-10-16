@@ -182,6 +182,10 @@ public class DataManagerImpl implements DataManager {
         return (paymentDao.countPaymentsInTrip(tripId) > 0);
     }
 
+    public ArrayList<String> getAllPaymentDescriptionsInTrip(long tripId) {
+        return paymentDao.getAllPaymentDescriptionsInTrip(tripId);
+    }
+
     public Trip persistTripBySummary(TripSummary tripSummary) {
         boolean isNew = (1 > tripSummary.getId());
         Trip trip;

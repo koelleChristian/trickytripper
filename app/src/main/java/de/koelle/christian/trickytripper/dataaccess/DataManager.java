@@ -1,5 +1,6 @@
 package de.koelle.christian.trickytripper.dataaccess;
 
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
@@ -37,6 +38,8 @@ public interface DataManager {
     boolean deleteParticipant(long participantId);
 
     boolean hasTripPayments(long tripId);
+
+    ArrayList<String> getAllPaymentDescriptionsInTrip(long tripId);
 
     /* ========= Exchange Rates ============ */
 

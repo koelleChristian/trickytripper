@@ -2,9 +2,11 @@ package de.koelle.christian.trickytripper.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -83,6 +86,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
     private boolean selectParticipantMakesSense = false;
     private List<Participant> allRelevantParticipants;
     private DateUtils dateUtils;
+    private AutoCompleteTextView autoCompleteTextView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -124,7 +128,7 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
         setViewVisibility(R.id.paymentView_button_add_further_payees, selectParticipantMakesSense);
 
         initAndBindSpinner(payment.getCategory());
-        bindPlainTextInput();
+        bindDescriptionInput();
         updateDatePickerButtonText();
         addRadioListener();
 
@@ -529,20 +533,70 @@ public class PaymentEditActivity extends ActionBarActivity implements DatePicker
         }
     }
 
-    private void bindPlainTextInput() {
-
+    private void bindDescriptionInput() {
         final Payment paymentFinal = this.payment;
-
-        EditText editText = (EditText) findViewById(R.id.paymentView_editTextPaymentDescription);
-        editText.setText(payment.getDescription());
-
-        editText.addTextChangedListener(new BlankTextWatcher() {
+        autoCompleteTextView = (AutoCompleteTextView) findViewById(
+                R.id.paymentView_autoCompleteTextViewPaymentDescription);
+        autoCompleteTextView.setText(payment.getDescription());
+        autoCompleteTextView.addTextChangedListener(new BlankTextWatcher() {
             public void afterTextChanged(Editable s) {
                 String input = StringUtils.clearInput(s);
                 paymentFinal.setDescription(input);
             }
         });
+        autoSuggestDescriptions();
     }
+
+    private void autoSuggestDescriptions() {
+        DescriptionLookupTask task = new DescriptionLookupTask(PaymentEditActivity.this,
+                                                               getFktnController(),
+                                                               autoCompleteTextView);
+        String currentInput = autoCompleteTextView.getText().toString();
+        task.execute(currentInput);
+    }
+
+    private static class DescriptionLookupTask extends AsyncTask<String, Void, ArrayList<String>> {
+
+        final Context context;
+        final TripController fktnController;
+        private ArrayAdapter<String> adapter;
+
+        private DescriptionLookupTask(Context context,
+                                      TripController tripController,
+                                      AutoCompleteTextView textView) {
+            super();
+            this.context = context;
+            this.fktnController = tripController;
+            adapter = new ArrayAdapter<>(context,
+                                         R.layout.selection_list_medium,
+                                         new ArrayList<String>());
+            textView.setAdapter(adapter);
+        }
+
+        @Override
+        protected ArrayList<String> doInBackground(String... args) {
+            return fktnController.getDescriptions();
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> result) {
+            final List<String> descriptionList = new ArrayList<>(result.size());
+            for (int i = 0; i < result.size(); i++) {
+                String oc = result.get(i);
+                if (oc == null) {
+                    continue;
+                }
+                String descriptionTrimmed = oc.trim();
+                descriptionList.add(descriptionTrimmed);
+            }
+            adapter.clear();
+            for (int i = 0; i < descriptionList.size(); i++) {
+                adapter.add(descriptionList.get(i));
+            }
+            adapter.notifyDataSetChanged();
+        }
+    }
+
 
     private void bindAmountInput(final EditText widget, final Amount amount, final boolean isPayment) {
 
