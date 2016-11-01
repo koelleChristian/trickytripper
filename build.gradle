@@ -5,7 +5,7 @@ buildscript {
             jcenter()
             mavenLocal()
         }
-        classpath 'com.android.tools.build:gradle:2.2.1'
+        classpath 'com.android.tools.build:gradle:2.2.2'
     }
 }
 allprojects {
