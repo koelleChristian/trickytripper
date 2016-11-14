@@ -11,8 +11,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,7 +40,7 @@ import de.koelle.christian.trickytripper.model.Trip;
 import de.koelle.christian.trickytripper.model.TripSummary;
 import de.koelle.christian.trickytripper.model.modelAdapter.TripSummarySymbolResolvingDelegator;
 
-public class TrickyTripperActivity extends ActionBarActivity implements DeleteDialogFragment.DeleteConfirmationCallback {
+public class TrickyTripperActivity extends AppCompatActivity implements DeleteDialogFragment.DeleteConfirmationCallback {
 
     private static final String SELECTED_TAB_INDEX = "tabIndex";
     private static final String DIALOG_PARAM_TRIP_SUMMARY = "dialogParamTripSummary";
@@ -342,6 +342,8 @@ public class TrickyTripperActivity extends ActionBarActivity implements DeleteDi
         getApp().getTripController().deleteTrip(tripSummary);
         updateList(getApp().getTripController().getAllTrips());
         invalidateOptionsMenu();
+        setTripNameToHeader();
+        updatePagerAdapter();
     }
 
     //TODO(ckoelle) ABS The delegating TripSummary could be kicked out, as the Adapter is overridden.

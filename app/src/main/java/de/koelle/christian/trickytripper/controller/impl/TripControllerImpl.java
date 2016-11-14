@@ -174,6 +174,8 @@ public class TripControllerImpl implements TripController, TripResolver {
         dataManager.deleteTrip(tripSummary);
         if (tripToBeEdited != null && id == tripToBeEdited.getId()) {
             tripToBeEdited = null;
+            TripSummary firstRemainingTrip = getAllTrips().get(0);// There has to be at least one.
+            loadTrip(firstRemainingTrip);
         }
     }
 
