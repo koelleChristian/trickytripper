@@ -8,8 +8,8 @@ android {
         applicationId 'de.koelle.christian.trickytripper'
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 19
-        versionName '1.5.6'
+        versionCode 20
+        versionName '1.5.7'
     }
     lintOptions {
         checkReleaseBuilds true

@@ -27,6 +27,12 @@
   </head>  
   <body>
 
+$ 1.5.7
+% Version 1.5.7
+  _ 2016-11-16
+* Fix: You could not delete the currently selected trip without crashing.
+* Improvement: The app now auto-suggests previous payment descriptions (thx mbrgm).
+
 $ 1.5.6
 % Version 1.5.6
   _ 2016-10-10

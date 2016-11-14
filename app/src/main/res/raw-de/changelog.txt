@@ -27,6 +27,12 @@
   </head>  
   <body>
 
+$ 1.5.7
+% Version 1.5.7
+  _ 2016-11-16
+* Fix: Die ausgewählte Reise war nicht ohne Absturz löschbar.
+* Verbesserung: Zahlungsbeschreibung jetzt mit Vorschlagsliste verhandener Beschreibungen (Dank an mbrgm).
+
 $ 1.5.6
 % Version 1.5.6
   _ 2016-10-10
