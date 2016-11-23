@@ -6,7 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,13 +31,12 @@ import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
-import de.koelle.christian.trickytripper.dialogs.PermissionRationaleDialog;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 
-public class ExportActivity extends ActionBarActivity {
+public class ExportActivity extends AppCompatActivity {
 
     public static final String SYSTEM_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     private final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 88;

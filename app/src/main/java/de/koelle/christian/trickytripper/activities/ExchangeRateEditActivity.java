@@ -2,7 +2,7 @@ package de.koelle.christian.trickytripper.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -31,7 +31,7 @@ import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ImportOrigin;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
-public class ExchangeRateEditActivity extends ActionBarActivity {
+public class ExchangeRateEditActivity extends AppCompatActivity {
 
     private ExchangeRate exchangeRate;
     private Double exchangeRateValueInverted;

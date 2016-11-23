@@ -3,7 +3,7 @@ package de.koelle.christian.trickytripper.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -74,7 +74,7 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
                 // Start the CAB using the ActionMode.Callback defined above
                 Payment selection = adapter.getItem(position);
                 mActionModeCallback.setSelectedPayment(selection);
-                ActionBarActivity activity = ((ActionBarActivity) PaymentTabActivity.this.getActivity());
+                AppCompatActivity activity = ((AppCompatActivity) PaymentTabActivity.this.getActivity());
 
                 ActionMode actionMode = activity.startSupportActionMode(mActionModeCallback);
                 actionMode.setTitle(selection.getDescription());

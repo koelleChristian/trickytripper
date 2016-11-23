@@ -1,14 +1,10 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +16,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.common.options.OptionConstraintsInflater;
@@ -60,7 +58,7 @@ import de.koelle.christian.trickytripper.TrickyTripperApp;
  * SOFTWARE.
  */
 
-public class DirectoryPickerActivity extends ActionBarActivity {
+public class DirectoryPickerActivity extends AppCompatActivity {
 
     public static final String EXTRA_START_DIR = "startDir";
     public static final String EXTRA_ONLY_DIRS = "onlyDirs";

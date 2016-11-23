@@ -1,12 +1,12 @@
 package de.koelle.christian.common.abs;
 
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 
 public class ActionBarSupport {
 
-    public static void addBackButton(ActionBarActivity activity) {
+    public static void addBackButton(AppCompatActivity activity) {
         addBackButton(activity.getSupportActionBar());
     }
 

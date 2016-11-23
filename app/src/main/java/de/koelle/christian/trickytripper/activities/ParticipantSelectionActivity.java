@@ -3,7 +3,7 @@ package de.koelle.christian.trickytripper.activities;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +31,7 @@ import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
 
 
-public class ParticipantSelectionActivity extends ActionBarActivity {
+public class ParticipantSelectionActivity extends AppCompatActivity {
 
     private ArrayList<Participant> participantsInUse;
     private List<Participant> allRelevantParticipants;

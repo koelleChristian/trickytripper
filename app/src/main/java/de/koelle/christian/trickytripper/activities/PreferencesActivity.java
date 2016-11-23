@@ -1,13 +1,13 @@
 package de.koelle.christian.trickytripper.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.trickytripper.R;
 
-public class PreferencesActivity extends ActionBarActivity {
+public class PreferencesActivity extends AppCompatActivity {
 
     /*
       The PreferencesActivity does not have ActionBarCompat support.

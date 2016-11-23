@@ -2,7 +2,7 @@ package de.koelle.christian.trickytripper.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +29,7 @@ import de.koelle.christian.trickytripper.model.TripSummary;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 
 
-public class TripEditActivity extends ActionBarActivity {
+public class TripEditActivity extends AppCompatActivity {
 
     private ViewMode viewMode;
     private TripSummary trip;

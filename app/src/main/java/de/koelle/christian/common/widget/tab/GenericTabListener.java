@@ -3,17 +3,17 @@ package de.koelle.christian.common.widget.tab;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 
 public class GenericTabListener implements ActionBar.TabListener {
     private Fragment fragment;
-    private final ActionBarActivity host;
+    private final AppCompatActivity host;
     private final Class<? extends Fragment> type;
     private final int targetContainerViewId;
     private String tag;
 
-    public GenericTabListener(ActionBarActivity parent, String tag, Class<? extends Fragment> type,
+    public GenericTabListener(AppCompatActivity parent, String tag, Class<? extends Fragment> type,
             int targetContainerViewId) {
         this.host = parent;
         this.tag = tag;
@@ -21,7 +21,7 @@ public class GenericTabListener implements ActionBar.TabListener {
         this.targetContainerViewId = targetContainerViewId;
     }
 
-    public GenericTabListener(ActionBarActivity parent, String tag, Class<? extends Fragment> type) {
+    public GenericTabListener(AppCompatActivity parent, String tag, Class<? extends Fragment> type) {
         this(parent, tag, type, android.R.id.content);
     }
 

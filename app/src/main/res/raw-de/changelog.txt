@@ -27,11 +27,17 @@
   </head>  
   <body>
 
+$ 1.5.8
+% Version 1.5.8
+  _ 2016-11-23
+* Abstürze beim Auswählen auf den Hauptdialogen behoben.
+
+
 $ 1.5.7
 % Version 1.5.7
   _ 2016-11-16
 * Fix: Die ausgewählte Reise war nicht ohne Absturz löschbar.
-* Verbesserung: Zahlungsbeschreibung jetzt mit Vorschlagsliste verhandener Beschreibungen (Dank an mbrgm).
+* Verbesserung: Zahlungsbeschreibung jetzt mit Vorschlagsliste vorhandener Beschreibungen (Dank an mbrgm).
 
 $ 1.5.6
 % Version 1.5.6

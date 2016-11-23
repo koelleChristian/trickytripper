@@ -27,6 +27,11 @@
   </head>  
   <body>
 
+$ 1.5.8
+% Version 1.5.8
+  _ 2016-11-23
+* Fixed various crashes on selection on main screens.
+
 $ 1.5.7
 % Version 1.5.7
   _ 2016-11-16

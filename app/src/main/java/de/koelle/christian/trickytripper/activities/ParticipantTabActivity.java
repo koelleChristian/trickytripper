@@ -1,13 +1,9 @@
 package de.koelle.christian.trickytripper.activities;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -243,7 +239,7 @@ public class ParticipantTabActivity extends ListFragment {
             }
             Participant selection = adapter.getItem(position).getParticipant();
             mActionModeCallback.setSelectedParticipant(selection);
-            ActionBarActivity activity = ((ActionBarActivity) ParticipantTabActivity.this.getActivity());
+            AppCompatActivity activity = ((AppCompatActivity) ParticipantTabActivity.this.getActivity());
 
 
             ActionMode actionMode = activity.startSupportActionMode(mActionModeCallback);

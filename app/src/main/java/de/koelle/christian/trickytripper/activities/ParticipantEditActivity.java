@@ -8,9 +8,8 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -35,7 +34,7 @@ import de.koelle.christian.trickytripper.dialogs.PermissionRationaleDialog;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.PhoneContact;
 
-public class ParticipantEditActivity extends ActionBarActivity implements PermissionRationaleDialog.PermissionRationaleDialogCallback {
+public class ParticipantEditActivity extends AppCompatActivity implements PermissionRationaleDialog.PermissionRationaleDialogCallback {
 
     private final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 99;
 

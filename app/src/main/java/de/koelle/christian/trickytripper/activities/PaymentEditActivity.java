@@ -8,7 +8,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -72,7 +72,7 @@ import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
-public class PaymentEditActivity extends ActionBarActivity implements DatePickerDialogFragment.DatePickerDialogCallback {
+public class PaymentEditActivity extends AppCompatActivity implements DatePickerDialogFragment.DatePickerDialogCallback {
 
     private final List<View> paymentRows = new ArrayList<View>();
     private final List<View> debitRows = new ArrayList<View>();

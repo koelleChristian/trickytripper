@@ -2,7 +2,7 @@ package de.koelle.christian.trickytripper.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,7 +44,7 @@ import de.koelle.christian.trickytripper.ui.model.RowObjectCallback;
 import de.koelle.christian.trickytripper.ui.utils.ExchangeRateDescriptionUtils;
 import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
-public class CurrencyCalculatorActivity extends ActionBarActivity {
+public class CurrencyCalculatorActivity extends AppCompatActivity {
 
     private Amount inputAmount;
     private Amount resultAmount;

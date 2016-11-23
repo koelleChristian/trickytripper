@@ -5,7 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
@@ -42,7 +42,7 @@ import de.koelle.christian.trickytripper.model.ImportSettings;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.utils.UiViewUtils;
 
-public class ExchangeRateImportActivity extends ActionBarActivity {
+public class ExchangeRateImportActivity extends AppCompatActivity {
 
     private final Handler progressBarHandler = new Handler();
     private ListView listView;

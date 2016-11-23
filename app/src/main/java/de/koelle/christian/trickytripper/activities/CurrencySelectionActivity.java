@@ -2,7 +2,7 @@ package de.koelle.christian.trickytripper.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -19,7 +19,7 @@ import de.koelle.christian.trickytripper.model.HierarchicalCurrencyList;
 import de.koelle.christian.trickytripper.model.modelAdapter.CurrencyExpandableListAdapter;
 import de.koelle.christian.trickytripper.model.modelAdapter.CurrencyGroupNamingCallback;
 
-public class CurrencySelectionActivity extends ActionBarActivity {
+public class CurrencySelectionActivity extends AppCompatActivity {
 
     private Currency currencyProvided;
     private int resultViewId;

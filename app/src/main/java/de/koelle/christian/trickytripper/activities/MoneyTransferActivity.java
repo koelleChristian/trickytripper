@@ -2,7 +2,7 @@ package de.koelle.christian.trickytripper.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -47,7 +47,7 @@ import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 
-public class MoneyTransferActivity extends ActionBarActivity {
+public class MoneyTransferActivity extends AppCompatActivity {
 
     private final Map<Participant, Amount> amountByParticipant = new HashMap<Participant, Amount>();
     private Participant transferer;

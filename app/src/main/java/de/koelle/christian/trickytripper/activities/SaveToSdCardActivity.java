@@ -1,8 +1,5 @@
 package de.koelle.christian.trickytripper.activities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -10,17 +7,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import android.support.v7.app.ActionBarActivity;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.koelle.christian.common.io.impl.AppFileWriter;
 import de.koelle.christian.common.utils.FileUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.constants.Rc;
 
-public class SaveToSdCardActivity extends ActionBarActivity {
+public class SaveToSdCardActivity extends AppCompatActivity {
 
     private static final String MSG_SPACE = " ";
     private List<Uri> fileUris;

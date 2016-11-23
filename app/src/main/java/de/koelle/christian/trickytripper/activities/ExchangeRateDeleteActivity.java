@@ -1,7 +1,7 @@
 package de.koelle.christian.trickytripper.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +26,7 @@ import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListA
 import de.koelle.christian.trickytripper.model.modelAdapter.ExchangeRateRowListAdapter.DisplayMode;
 import de.koelle.christian.trickytripper.ui.model.SpinnerObject;
 
-public class ExchangeRateDeleteActivity extends ActionBarActivity implements DeleteConfirmationCallback {
+public class ExchangeRateDeleteActivity extends AppCompatActivity implements DeleteConfirmationCallback {
 
     private static final String DIALOG_PARAM_EXCHANGE_RATES = "dialogParamExchangeRates";
 
