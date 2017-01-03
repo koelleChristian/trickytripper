@@ -1,307 +1,259 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+<?xml version='1.0' encoding='utf-8'?>
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:paddingBottom="8dp"
+  android:paddingLeft="16dp"
+  android:paddingRight="16dp"
+  android:paddingTop="8dp">
+
+  <RelativeLayout android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="8dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="8dp">
+    android:paddingBottom="8dp">
 
+    <TextView android:id="@+id/paymentView_createPaymentPayerTableLayout_total_sum_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingLeft="3dip"
+      android:text="@string/common_label_total_amount"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:textColor="@color/mainDark"
+      android:textStyle="bold"/>
 
-    <RelativeLayout
+    <TextView android:id="@+id/paymentView_payee_createPaymentPayerTableLayout_total_sum_value"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:paddingRight="3dip"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:textColor="@color/mainDark"
+      android:textStyle="bold"/>
+
+    <TextView android:id="@+id/paymentView_total_sum_value_divider"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_toLeftOf="@id/paymentView_payee_createPaymentPayerTableLayout_total_sum_value"
+      android:paddingRight="3dip"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:textColor="@color/mainDark"
+      android:textStyle="bold"/>
+
+    <TextView android:id="@+id/paymentView_createPaymentPayerTableLayout_total_sum_value"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_toLeftOf="@id/paymentView_total_sum_value_divider"
+      android:paddingRight="3dip"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:textColor="@color/mainDark"
+      android:textStyle="bold"/>
+  </RelativeLayout>
+
+  <ScrollView android:layout_width="fill_parent"
+    android:layout_height="0dip"
+    android:layout_weight="1"
+    android:fillViewport="false"
+    android:scrollbars="vertical">
+
+    <RelativeLayout android:layout_width="fill_parent"
+      android:layout_height="wrap_content">
+
+      <TableLayout android:id="@+id/paymentView_createPaymentPayerTableLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp">
+        android:stretchColumns="2">
 
-        <TextView
-            android:id="@+id/paymentView_createPaymentPayerTableLayout_total_sum_label"
+        <TableRow>
+
+          <TextView android:id="@+id/paymentView_textView_label_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="3dip"
-            android:text="@string/common_label_total_amount"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/mainDark"
-            android:textStyle="bold" />
+            android:layout_column="0"
+            android:layout_gravity="bottom"
+            android:paddingLeft="5dp"
+            android:text="@string/payment_edit_view_textView_label_amount"/>
 
-        <TextView
-            android:id="@+id/paymentView_payee_createPaymentPayerTableLayout_total_sum_value"
-            android:layout_width="wrap_content"
+          <LinearLayout android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:paddingRight="3dip"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/mainDark"
-            android:textStyle="bold" />
+            android:layout_column="2"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/paymentView_total_sum_value_divider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/paymentView_payee_createPaymentPayerTableLayout_total_sum_value"
-            android:paddingRight="3dip"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/mainDark"
-            android:textStyle="bold" />
+            <TextView android:id="@+id/paymentView_textView_label_payed_by"
+              android:layout_width="100dp"
+              android:layout_height="wrap_content"
+              android:layout_gravity="bottom"
+              android:layout_weight="1"
+              android:paddingLeft="10dp"
+              android:textColor="@color/mainDark"
+              android:textStyle="bold"
+              android:textAppearance="?android:attr/textAppearanceMedium"
+              android:text="@string/payment_edit_view_label_payed_by"/>
 
-        <TextView
-            android:id="@+id/paymentView_createPaymentPayerTableLayout_total_sum_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/paymentView_total_sum_value_divider"
-            android:paddingRight="3dip"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/mainDark"
-            android:textStyle="bold" />
+            <ImageButton android:id="@+id/paymentView_button_add_further_payees"
+              android:layout_width="36dp"
+              android:layout_height="36dp"
+              android:src="@drawable/ic_expand_more"
+              android:layout_gravity="bottom|right"
+              android:layout_marginRight="4dip"
+              android:background="@drawable/btn_circle"
+              android:onClick="openParticipantSelectionPayer"
+              android:contentDescription="@string/exchangeRateDeleteViewLabelSelectionOptionsDesc"/>
+          </LinearLayout>
+        </TableRow>
 
+        <View android:id="@+id/paymentViewSpacerTopTop"
+          android:layout_width="0dp"
+          android:layout_height="1dp"
+          android:background="@color/listDividerGrey"
+          android:layout_weight="1">
+          <!--Removed ObsoleteLayoutParam: layout_span-->
+        </View>
 
-    </RelativeLayout>
+        <View android:layout_height="5dp"/>
+      </TableLayout>
 
-    <ScrollView
+      <TextView android:id="@+id/paymentView_textView_label_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/paymentView_createPaymentPayerTableLayout"
+        android:layout_marginTop="16dp"
+        android:text="@string/payment_edit_view_label_description"/>
+
+      <AutoCompleteTextView android:id="@+id/paymentView_autoCompleteTextViewPaymentDescription"
         android:layout_width="fill_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
-        android:fillViewport="false"
-        android:scrollbars="vertical">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/paymentView_textView_label_description"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="15dp"
+        android:completionThreshold="1"
+        android:inputType="text"/>
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+      <TextView android:id="@+id/paymentView_textView_label_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/paymentView_autoCompleteTextViewPaymentDescription"
+        android:text="@string/payment_edit_view_label_category"/>
 
-            <TableLayout
-                android:id="@+id/paymentView_createPaymentPayerTableLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="2">
+      <Spinner android:id="@+id/paymentView_spinnerPaymentCategory"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/paymentView_textView_label_category"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="15dp"
+        android:minHeight="30dp"/>
 
-                <TableRow>
+      <TextView android:id="@+id/paymentView_textViewLabelPaymentTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/paymentView_spinnerPaymentCategory"
+        android:text="@string/payment_edit_view_label_date_time"/>
 
-                    <TextView
-                        android:id="@+id/paymentView_textView_label_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="0"
-                        android:layout_gravity="bottom"
-                        android:paddingLeft="5dp"
-                        android:text="@string/payment_edit_view_textView_label_amount" />
+      <Button android:id="@+id/paymentView_button_payment_time_selection"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/paymentView_textViewLabelPaymentTime"
+        android:layout_marginBottom="17dp"
+        android:layout_marginLeft="15dp"
+        android:onClick="selectPaymentTime"
+        android:text="@string/payment_edit_view_button_divide_rest"/>
 
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_column="2"
-                        android:orientation="horizontal">
+      <TextView android:id="@+id/paymentView_textViewLabelTravellersCharged"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/paymentView_button_payment_time_selection"
+        android:text="@string/payment_edit_view_label_travellers_charged"/>
 
-                        <TextView
-                            android:id="@+id/paymentView_textView_label_payed_by"
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_weight="1"
-                            android:paddingLeft="10dp"
-                            android:textColor="@color/mainDark"
-                            android:textStyle="bold"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/payment_edit_view_label_payed_by"
-                            />
-                        <ImageButton
-                            android:id="@+id/paymentView_button_add_further_payees"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_expand_more"
-                            android:layout_gravity="bottom|right"
-                            android:layout_marginRight="4dip"
-                            android:background="@drawable/btn_circle"
-                            android:onClick="openParticipantSelectionPayer"
-                            android:contentDescription="@string/exchangeRateDeleteViewLabelSelectionOptionsDesc"
+      <RadioGroup android:id="@+id/paymentView_radioGroupTravellersCharged"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/paymentView_textViewLabelTravellersCharged"
+        android:orientation="vertical"
+        android:paddingLeft="15dp">
 
-                             />
-                    </LinearLayout>
-                </TableRow>
+        <RadioButton android:id="@+id/paymentView_radioTravellersChargedSplitEvenly"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/payment_edit_view_label_radio_split_evenly"/>
 
-                <View
-                    android:id="@+id/paymentViewSpacerTopTop"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_span="3"
-                    android:background="@color/listDividerGrey"
-                    android:layout_weight="1" />
+        <RadioButton android:id="@+id/paymentView_radioTravellersChargedCustom"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/payment_edit_view_label_radio_custom_split"/>
+      </RadioGroup>
 
-                <View
-                    android:layout_height="5dp" />
+      <TableLayout android:id="@+id/paymentView_createSpendingTableLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/paymentView_radioGroupTravellersCharged"
+        android:stretchColumns="2">
 
-            </TableLayout>
+        <TableRow>
 
+          <TextView android:id="@+id/paymentView_textView_payee_label_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="bottom"
+            android:paddingLeft="5dp"
+            android:text="@string/payment_edit_view_textView_payee_label_amount"/>
 
-            <TextView
-                android:id="@+id/paymentView_textView_label_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/paymentView_createPaymentPayerTableLayout"
-                android:layout_marginTop="16dp"
-                android:text="@string/payment_edit_view_label_description" />
+          <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:orientation="horizontal">
 
-            <AutoCompleteTextView
-                android:id="@+id/paymentView_autoCompleteTextViewPaymentDescription"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/paymentView_textView_label_description"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="15dp"
-                android:completionThreshold="1"
-                android:inputType="text"/>
+            <TextView android:id="@+id/paymentView_textView_payee_label_payed_by"
+              android:layout_width="100dp"
+              android:layout_height="wrap_content"
+              android:layout_gravity="bottom"
+              android:layout_weight="1"
+              android:paddingLeft="10dp"
+              android:textColor="@color/mainDark"
+              android:textStyle="bold"
+              android:textAppearance="?android:attr/textAppearanceMedium"
+              android:text="@string/payment_edit_view_textView_payee_label_spent_by"/>
 
-            <TextView
-                android:id="@+id/paymentView_textView_label_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/paymentView_autoCompleteTextViewPaymentDescription"
-                android:text="@string/payment_edit_view_label_category" />
+            <ImageButton android:id="@+id/paymentView_button_payee_add_further_payees"
+              android:layout_width="36dp"
+              android:layout_height="36dp"
+              android:src="@drawable/ic_expand_more"
+              android:layout_gravity="bottom|right"
+              android:layout_marginRight="4dip"
+              android:onClick="openParticipantSelectionCharged"
+              android:background="@drawable/btn_circle"
+              android:contentDescription="@string/exchangeRateDeleteViewLabelSelectionOptionsDesc"/>
+          </LinearLayout>
+        </TableRow>
 
-            <Spinner
-                android:id="@+id/paymentView_spinnerPaymentCategory"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/paymentView_textView_label_category"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="15dp"
-                android:minHeight="30dp" />
+        <View android:id="@+id/paymentViewSpacerBottomTop"
+          android:layout_width="0dp"
+          android:layout_height="1dp"
+          android:background="@color/listDividerGrey"
+          android:layout_weight="1">
+          <!--Removed ObsoleteLayoutParam: layout_span-->
+        </View>
 
-            <TextView
-                android:id="@+id/paymentView_textViewLabelPaymentTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/paymentView_spinnerPaymentCategory"
-                android:text="@string/payment_edit_view_label_date_time" />
+        <View android:layout_height="5dp"/>
+      </TableLayout>
 
+      <RelativeLayout android:id="@+id/payment_edit_view_total_spending_sum_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/paymentView_createSpendingTableLayout">
 
-            <Button
-                android:id="@+id/paymentView_button_payment_time_selection"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/paymentView_textViewLabelPaymentTime"
-                android:layout_marginBottom="17dp"
-                android:layout_marginLeft="15dp"
-                android:onClick="selectPaymentTime"
-                android:text="@string/payment_edit_view_button_divide_rest" />
-
-
-            <TextView
-                android:id="@+id/paymentView_textViewLabelTravellersCharged"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/paymentView_button_payment_time_selection"
-                android:text="@string/payment_edit_view_label_travellers_charged" />
-
-            <RadioGroup
-                android:id="@+id/paymentView_radioGroupTravellersCharged"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/paymentView_textViewLabelTravellersCharged"
-                android:orientation="vertical"
-                android:paddingLeft="15dp">
-
-                <RadioButton
-                    android:id="@+id/paymentView_radioTravellersChargedSplitEvenly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/payment_edit_view_label_radio_split_evenly" />
-
-                <RadioButton
-                    android:id="@+id/paymentView_radioTravellersChargedCustom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/payment_edit_view_label_radio_custom_split" />
-            </RadioGroup>
-
-
-            <TableLayout
-                android:id="@+id/paymentView_createSpendingTableLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/paymentView_radioGroupTravellersCharged"
-                android:stretchColumns="2">
-
-                <TableRow>
-
-                    <TextView
-                        android:id="@+id/paymentView_textView_payee_label_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="0"
-                        android:layout_gravity="bottom"
-                        android:paddingLeft="5dp"
-                        android:text="@string/payment_edit_view_textView_payee_label_amount" />
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_column="2"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/paymentView_textView_payee_label_payed_by"
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_weight="1"
-                            android:paddingLeft="10dp"
-                            android:textColor="@color/mainDark"
-                            android:textStyle="bold"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/payment_edit_view_textView_payee_label_spent_by" />
-
-
-                        <ImageButton
-                            android:id="@+id/paymentView_button_payee_add_further_payees"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_expand_more"
-                            android:layout_gravity="bottom|right"
-                            android:layout_marginRight="4dip"
-                            android:onClick="openParticipantSelectionCharged"
-                            android:background="@drawable/btn_circle"
-                            android:contentDescription="@string/exchangeRateDeleteViewLabelSelectionOptionsDesc"
-                             />
-                    </LinearLayout>
-                </TableRow>
-
-                <View
-                    android:id="@+id/paymentViewSpacerBottomTop"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_span="3"
-                    android:background="@color/listDividerGrey"
-                    android:layout_weight="1" />
-
-                <View
-                    android:layout_height="5dp" />
-
-            </TableLayout>
-
-            <RelativeLayout
-                android:id="@+id/payment_edit_view_total_spending_sum_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/paymentView_createSpendingTableLayout">
-
-                <Button
-                    android:id="@+id/paymentView_button_divide_remaining_spending"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:width="40dp"
-                    android:onClick="divideRest"
-                    android:text="@string/payment_edit_view_button_divide_rest" />
-
-
-            </RelativeLayout>
-
-        </RelativeLayout>
-    </ScrollView>
-
+        <Button android:id="@+id/paymentView_button_divide_remaining_spending"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:width="40dp"
+          android:onClick="divideRest"
+          android:text="@string/payment_edit_view_button_divide_rest"/>
+      </RelativeLayout>
+    </RelativeLayout>
+  </ScrollView>
 </LinearLayout>
