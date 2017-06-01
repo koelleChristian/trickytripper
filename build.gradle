@@ -5,7 +5,7 @@ buildscript {
             jcenter()
             mavenLocal()
         }
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.3.2'
     }
 }
 allprojects {
@@ -17,7 +17,7 @@ allprojects {
         junitVersion = '4.10'
         orgMockitoMockitoCoreVersion = '1.9.5'
         comGithubMachinarius_preferenceFragmentVersion = '0.1.1'
-        comAndroidSupport_supportV4Version = '25.0.1'
-        comAndroidSupport_supportV7Version = '25.0.1'
+        comAndroidSupport_supportV4Version = '25.0.0'
+        comAndroidSupport_supportV7Version = '25.0.0'
     }
 }
