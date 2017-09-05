@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,8 +39,6 @@ import de.koelle.christian.trickytripper.ui.model.RowObject;
 
 public class ExportActivity extends AppCompatActivity {
 
-    public static final String SYSTEM_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE;
-    private final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 88;
 
     private List<Participant> participantsInSpinner;
     private Participant participantSelected;
@@ -133,11 +132,24 @@ public class ExportActivity extends AppCompatActivity {
     }
 
     @SuppressWarnings("rawtypes")
-    private void initAndBindOutputChannelSpinner(ExportOutputChannel selection,
+    private void initAndBindOutputChannelSpinner(ExportOutputChannel previousSelection,
                                                  final List<ExportOutputChannel> enabledOnes) {
         final Spinner spinner = (Spinner) findViewById(R.id.exportViewSpinnerChannel);
 
-        List<RowObject> spinnerObjects = SpinnerViewSupport.createSpinnerObjects(selection, false,
+        int visibility = View.VISIBLE;
+        if (enabledOnes.size() == 1) {
+            visibility = View.GONE;
+            ExportActivity.this.exportSettings.setOutputChannel(enabledOnes.get(0));
+        }
+        findViewById(R.id.exportViewSpinnerChannelHeadingTableRow).setVisibility(visibility);
+        findViewById(R.id.exportViewSpinnerChannelTableRow).setVisibility(visibility);
+
+        if (visibility == View.GONE) {
+            return;
+        }
+
+        previousSelection = (previousSelection == null) ? enabledOnes.get(0) : previousSelection;
+        List<RowObject> spinnerObjects = SpinnerViewSupport.createSpinnerObjects(previousSelection, false,
                 null, getResources(), getApp().getMiscController().getDefaultStringCollator());
         ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this, android.R.layout.simple_spinner_item,
                 spinnerObjects) {
@@ -167,7 +179,7 @@ public class ExportActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.selection_list_medium);
         spinner.setPromptId(R.string.exportViewSpinnerPromptChannel);
         spinner.setAdapter(adapter);
-        SpinnerViewSupport.setSelection(spinner, selection, adapter);
+        SpinnerViewSupport.setSelection(spinner, previousSelection, adapter);
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -275,7 +287,7 @@ public class ExportActivity extends AppCompatActivity {
     }
 
     private void updateExportState() {
-        exportEnabled = deriveEnableButtonStateFromSettings(exportSettings, supportedOutputChannels);
+        exportEnabled = deriveEnableButtonStateFromSettings(exportSettings);
         supportInvalidateOptionsMenu();
     }
 
@@ -308,8 +320,7 @@ public class ExportActivity extends AppCompatActivity {
         }
     }
 
-    private boolean deriveEnableButtonStateFromSettings(ExportSettings exportSettings2,
-                                                        List<ExportOutputChannel> supportedOutputChannels2) {
+    private boolean deriveEnableButtonStateFromSettings(ExportSettings exportSettings2) {
         return (
                 exportSettings2.isExportDebts()
                         || exportSettings2.isExportPayments()
@@ -319,63 +330,11 @@ public class ExportActivity extends AppCompatActivity {
                 exportSettings2.isFormatTxt()
                         || exportSettings2.isFormatHtml()
                         || exportSettings2.isFormatCsv()
-        ) && (
-                supportedOutputChannels2.contains(exportSettings2.getOutputChannel())
         );
     }
 
     public void doExport() {
-        if (ExportOutputChannel.SD_CARD.equals(exportSettings.getOutputChannel()) && !isSdCardPermissionGranted()) {
-            requestSdCardPermissions();
-        } else {
-        /* participant selected is null, if nobody is selected. */
-        /*
-         * Files will be deleted on application's termination as usually files
-         * have not be sent on resume here.
-         */
-            getApp().getExportController().exportReport(exportSettings, participantSelected, this);
-        }
-
+        getApp().getExportController().exportReport(exportSettings, participantSelected, this);
     }
 
-    private boolean isSdCardPermissionGranted() {
-        Activity thisActivity = this;
-        return ContextCompat.checkSelfPermission(thisActivity, SYSTEM_PERMISSION
-        ) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    boolean permPopShown = false;
-
-    private void requestSdCardPermissions() {
-        Activity thisActivity = this;
-        if (!isSdCardPermissionGranted()) {
-            doRequestPhonebookPermissions();
-        }
-    }
-
-
-    private void doRequestPhonebookPermissions() {
-        // The OS popup will show up, unless 'don't ask again' had been choosen.
-        Activity thisActivity = this;
-        ActivityCompat.requestPermissions(thisActivity,
-                new String[]{SYSTEM_PERMISSION},
-                MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
-                // If request is cancelled, the result arrays are empty.
-                // This will be called, even when 'don't ask again' has been choosen and no popup appears.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    doExport();
-                } else if (!permPopShown) {
-                    Toast.makeText(this, R.string.permission_write_ext_storage_permanently_revoked, Toast.LENGTH_LONG).show();
-                }
-                permPopShown = false;
-            }
-        }
-    }
 }

@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -44,12 +45,11 @@
             android:label="@string/save2SdReceiverLabel" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND_MULTIPLE" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="*/*" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.DirectoryPickerActivity"
             android:label="@string/save2SdReceiverLabel" >
@@ -92,6 +92,19 @@
             android:authorities="de.koelle.christian.trickytripperfileprovider"
             android:grantUriPermissions="true">
         </provider>
+
+        <provider
+            android:name="de.koelle.christian.trickytripper.provider.TrickyTripperDocumentProvider"
+            android:authorities="de.koelle.christian.trickytripper"
+            android:enabled="@bool/v19AndAbove"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
+
     </application>
 
 </manifest>

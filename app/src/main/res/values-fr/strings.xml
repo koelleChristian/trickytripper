@@ -126,8 +126,8 @@
     <string name="exportViewTextViewSubHeadingChannel">Canal de communication&#xA0;?</string>
     <string name="exportViewSpinnerPromptChannel">Choisissez votre canal de communication</string>
     <string name="exportViewSpinnerNotAvailable">non disponible</string>
-    <string name="exportOutputChannelEnumSave2Sd">Sauvegarder sur la carte SD</string>
-    <string name="exportOutputChannelMail">Courrier électronique</string>
+    <string name="exportOutputSaf">Sauvegarder sur la carte SD</string>
+    <string name="exportOutputStreamSending">Courrier électronique</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Sauvegarder sur la mémoire</string>
     <string name="save2SdReceiverHeading">Export&#xA0;: choisissez le dossier de destination</string>

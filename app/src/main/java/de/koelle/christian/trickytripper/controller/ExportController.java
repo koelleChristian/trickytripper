@@ -15,4 +15,6 @@ public interface ExportController {
     List<File> exportReport(ExportSettings settings, Participant selectedParticipant, Activity activity);
 
     List<ExportOutputChannel> getEnabledExportOutputChannel();
+
+    boolean hasEnabledOutputChannel();
 }

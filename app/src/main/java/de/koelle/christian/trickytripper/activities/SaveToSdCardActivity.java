@@ -1,12 +1,17 @@
 package de.koelle.christian.trickytripper.activities;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,6 +25,12 @@ import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.constants.Rc;
 
 public class SaveToSdCardActivity extends AppCompatActivity {
+
+    private static String[] SYSTEM_PERMISSION = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+    private final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 88;
 
     private static final String MSG_SPACE = " ";
     private List<Uri> fileUris;
@@ -35,12 +46,6 @@ public class SaveToSdCardActivity extends AppCompatActivity {
             progressDialog.dismiss();
         }
     }
-
-    //TODO(ckoelle) ABS
-//    @Override
- //   public Object onRetainNonConfigurationInstance() {
-  //      return directoryPickedPath;
-   // };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +92,35 @@ public class SaveToSdCardActivity extends AppCompatActivity {
     }
 
     private void writeFiles() {
+        if (!isSdCardPermissionGranted()) {
+            requestSdCardPermissions();
+        } else {
+            writeFilesActually();
+        }
+
+    }
+
+    private void writeFilesActually() {
         progressDialog = ProgressDialog.show(this, getResources()
                 .getString(R.string.save2SdReceiverProgressHeading), directoryPickedPath, true, false);
         Runnable runnable = new Runnable() {
             public void run() {
+                if (Rc.debugOn) {
+                    Log.d(Rc.LT_IO, "Run: Write to disk=" + directoryPickedPath);
+                }
                 AppFileWriter.writeContentsToDisc(directoryPickedPath, getContentResolver(), fileUris);
+                if (Rc.debugOn) {
+                    Log.d(Rc.LT_IO, "Run: Write to disk=" + directoryPickedPath+". Done.");
+                }
                 progressResultHandler.sendEmptyMessage(0);
+                for(Uri uri : fileUris){
+                    if(uri.toString().endsWith(".html")){
+                        Intent intentNew = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                        intentNew.setDataAndType(Uri.parse(directoryPickedPath+"/"+uri.getLastPathSegment()), "text/html" );
+                        startActivity(Intent.createChooser(intentNew, "Open folder"));
+                    }
+
+                }
             }
         };
         Thread thread = new Thread(runnable);
@@ -155,5 +183,47 @@ public class SaveToSdCardActivity extends AppCompatActivity {
             result.addAll(fileUris);
         }
         return result;
+    }
+
+    private boolean isSdCardPermissionGranted() {
+        Activity thisActivity = this;
+        return ContextCompat.checkSelfPermission(thisActivity, Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED;
+    }
+
+
+    private void requestSdCardPermissions() {
+        Activity thisActivity = this;
+        if (!isSdCardPermissionGranted()) {
+            doRequestSdCardpermissions();
+        }
+    }
+
+
+    private void doRequestSdCardpermissions() {
+        // The OS popup will show up, unless 'don't ask again' had been choosen.
+        Activity thisActivity = this;
+        ActivityCompat.requestPermissions(thisActivity,
+                SYSTEM_PERMISSION,
+                MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+    }
+
+    boolean permPopShown = false;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                // This will be called, even when 'don't ask again' has been choosen and no popup appears.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    writeFiles();
+                } else if (!permPopShown) {
+                    Toast.makeText(this, R.string.permission_write_ext_storage_permanently_revoked, Toast.LENGTH_LONG).show();
+                }
+                permPopShown = false;
+            }
+        }
     }
 }

@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import de.koelle.christian.common.io.impl.AppFileWriter;
+import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.apputils.PrefWriterReaderUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.controller.ExportController;
@@ -46,29 +47,29 @@ public class ExportControllerImpl implements ExportController {
 
     public List<ExportOutputChannel> getEnabledExportOutputChannel() {
         List<ExportOutputChannel> result = new ArrayList<>();
-        boolean testExport = false;
-        if (testExport) {
-            result.add(ExportOutputChannel.SD_CARD);
-        } else {
-            Intent tweetIntent = new Intent(Rc.STREAM_SENDING_INTENT);
-            tweetIntent.setType(Rc.STREAM_SENDING_MIME);
-            final PackageManager packageManager = context.getPackageManager();
-            List<ResolveInfo> list = packageManager.queryIntentActivities(
-                    tweetIntent, PackageManager.MATCH_DEFAULT_ONLY);
-            for (ExportOutputChannel channel : ExportOutputChannel.values()) {
-                for (ResolveInfo info : list) {
-                    if (channel.getPackageName().startsWith(info.activityInfo.packageName)) {
-                        result.add(channel);
-                    }
-                }
-            }
+        if (context.getResources().getBoolean(R.bool.v19AndAbove)) {
+            result.add(ExportOutputChannel.SAF);
         }
-        File externalStorageDirectory = Environment.getExternalStorageDirectory();
-        // Permissions will be checked in ExportActivity
-        if (result.contains(ExportOutputChannel.SD_CARD) && (externalStorageDirectory == null) && !externalStorageDirectory.exists()) {
-            result.remove(ExportOutputChannel.SD_CARD);
+        Intent tweetIntent = new Intent(Rc.STREAM_SENDING_INTENT);
+        tweetIntent.setType(Rc.STREAM_SENDING_MIME);
+        final PackageManager packageManager = context.getPackageManager();
+        List<ResolveInfo> list = packageManager.queryIntentActivities(
+                tweetIntent, PackageManager.MATCH_DEFAULT_ONLY);
+        if (!list.isEmpty()) {
+            result.add(ExportOutputChannel.STREAM_SENDING);
         }
+
+//        File externalStorageDirectory = Environment.getExternalStorageDirectory();
+//        // Permissions will be checked in ExportActivity
+//        if (result.contains(ExportOutputChannel.SAF) && (externalStorageDirectory == null) && !externalStorageDirectory.exists()) {
+//            result.remove(ExportOutputChannel.SAF);
+//        }
         return result;
+    }
+
+    @Override
+    public boolean hasEnabledOutputChannel() {
+        return !getEnabledExportOutputChannel().isEmpty();
     }
 
     public List<File> exportReport(ExportSettings settings, Participant selectedParticipant, Activity activity) {

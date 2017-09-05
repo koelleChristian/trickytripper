@@ -128,13 +128,8 @@
     <string name="exportViewTextViewSubHeadingChannel">Output trail?</string>
     <string name="exportViewSpinnerPromptChannel">Choose your output trail</string>
     <string name="exportViewSpinnerNotAvailable">not available</string>
-    <string name="exportOutputChannelEnumSave2Sd">Save to SD card</string>
-    <string name="exportOutputChannelMail">Mail</string>
-    <string name="exportOutputChannelDropbox" translatable="false">Dropbox</string>
-    <string name="exportOutputChannelOwncloud" translatable="false">ownCloud</string>
-    <string name="exportOutputChannelEvernote" translatable="false">Evernote</string>
-    <string name="exportOutputChannelBoxer" translatable="false">Boxer</string>
-    <string name="exportOutputChannelK9" translatable="false">K9</string>
+    <string name="exportOutputSaf">Open</string>
+    <string name="exportOutputStreamSending">Send</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Save to storage</string>
     <string name="save2SdReceiverHeading">Export: Choose directory</string>

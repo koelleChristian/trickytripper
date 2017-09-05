@@ -14,6 +14,7 @@
         android:stretchColumns="2">
 
         <TableRow
+            android:id="@+id/exportViewSpinnerChannelHeadingTableRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="8dp">
@@ -26,6 +27,7 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/exportViewSpinnerChannelTableRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp">

@@ -8,32 +8,14 @@ import de.koelle.christian.trickytripper.R;
 public class ExportSettings {
 
     public enum ExportOutputChannel implements ResourceLabelAwareEnumeration {
-        /***/
-        SD_CARD(R.string.exportOutputChannelEnumSave2Sd, "de.koelle.christian.trickytripper"),
-        /***/
-        MAIL(R.string.exportOutputChannelMail, "com.google.android.gm"),
-        /***/
-        DROPBOX(R.string.exportOutputChannelDropbox, "com.dropbox.android"),
-        /***/
-        EVERNOTE(R.string.exportOutputChannelEvernote, "com.evernote"),
-        /***/
-        K9(R.string.exportOutputChannelK9, "com.fsck.k9"),
-        /***/
-        OWNCLOUD(R.string.exportOutputChannelOwncloud, "com.owncloud.android"),
-        /***/
-        BOXER(R.string.exportOutputChannelBoxer, "com.boxer.email"),
-        /**/
+        SAF(R.string.exportOutputSaf),
+        STREAM_SENDING(R.string.exportOutputStreamSending),
         ;
-        // com.android.bluetooth
-        // com.google.android.apps.uploader
-        // com.google.android.apps.uploader
 
         private final int resourceId;
-        private final String packageName;
 
-        private ExportOutputChannel(int resourceId, String packageName) {
+        private ExportOutputChannel(int resourceId) {
             this.resourceId = resourceId;
-            this.packageName = packageName;
         }
 
         public int getResourceStringId() {
@@ -44,10 +26,15 @@ public class ExportSettings {
             return Arrays.asList((ResourceLabelAwareEnumeration[]) values());
         }
 
-        public String getPackageName() {
-            return packageName;
-        }
 
+        public static ExportOutputChannel valueOfNull(String string) {
+            for(ExportOutputChannel value : values()){
+                if(value.toString().equals(string)){
+                    return value;
+                }
+            }
+            return null;
+        }
     }
 
     private boolean exportPayments = true;
@@ -59,7 +46,7 @@ public class ExportSettings {
     private boolean formatTxt = false;
     private boolean separateFilesForIndividuals = false;
     private boolean showGlobalSumsOnIndividualSpendingReport = true;
-    private ExportOutputChannel outputChannel = ExportOutputChannel.MAIL;
+    private ExportOutputChannel outputChannel = ExportOutputChannel.STREAM_SENDING;
 
     public boolean isExportSpending() {
         return exportSpending;

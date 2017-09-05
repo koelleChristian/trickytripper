@@ -1,6 +1,7 @@
 package de.koelle.christian.trickytripper.export.impl;
 
 import android.app.Activity;
+import android.content.Intent;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -107,12 +108,20 @@ public class ExporterImpl implements Exporter {
                 .append(timestamp);
 
         if (activityResolver.getActivity() != null) {
-            streamSender.sendStream(
-                    (Activity) activityResolver.getActivity(),
-                    exportSubject.toString(),
-                    resourceResolver.resolve(R.string.fileExportEmailContent),
-                    FileUtils.getContentUrisFromFiles(filesCreated, TrickyTripperFileProvider.AUTHORITY),
-                    settings.getOutputChannel());
+            if(settings.getOutputChannel() == ExportSettings.ExportOutputChannel.STREAM_SENDING) {
+                streamSender.sendStream(
+                        (Activity) activityResolver.getActivity(),
+                        exportSubject.toString(),
+                        resourceResolver.resolve(R.string.fileExportEmailContent),
+                        FileUtils.getContentUrisFromFiles(filesCreated, TrickyTripperFileProvider.AUTHORITY),
+                        settings.getOutputChannel()); // TODO nullable
+            } else{
+
+                Intent intentNew = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intentNew.setType("*/*");
+                ((Activity)activityResolver.getActivity()).startActivity(intentNew);
+            }
+
         }
 
         return filesCreated;

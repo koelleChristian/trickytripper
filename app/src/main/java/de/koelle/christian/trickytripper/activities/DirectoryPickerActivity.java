@@ -1,9 +1,14 @@
 package de.koelle.christian.trickytripper.activities;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -60,6 +65,9 @@ import de.koelle.christian.trickytripper.TrickyTripperApp;
 
 public class DirectoryPickerActivity extends AppCompatActivity {
 
+    public static final String SYSTEM_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+    private final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 88;
+
     public static final String EXTRA_START_DIR = "startDir";
     public static final String EXTRA_ONLY_DIRS = "onlyDirs";
     public static final String EXTRA_SHOW_HIDDEN = "showHidden";
@@ -74,10 +82,12 @@ public class DirectoryPickerActivity extends AppCompatActivity {
     private boolean onlyDirs = true;
     private String title;
 
+    //TODO Check if permissions need to be checked here or in Save2SdCardActivity or before.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Bundle extras = getIntent().getExtras();
+        requestSdCardPermissions();
         dir = Environment.getExternalStorageDirectory();
         if (extras != null) {
             String preferredStartDir = extras.getString(EXTRA_START_DIR);
@@ -141,7 +151,9 @@ public class DirectoryPickerActivity extends AppCompatActivity {
             }
         });
         ActionBarSupport.addBackButton(this);
+
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -213,6 +225,46 @@ public class DirectoryPickerActivity extends AppCompatActivity {
         }
     }
     /* ============== Options Shit [END] ============== */
-    
 
+    private boolean isSdCardPermissionGranted() {
+        Activity thisActivity = this;
+        return ContextCompat.checkSelfPermission(thisActivity, SYSTEM_PERMISSION
+        ) == PackageManager.PERMISSION_GRANTED;
+    }
+
+
+    private void requestSdCardPermissions() {
+        Activity thisActivity = this;
+        if (!isSdCardPermissionGranted()) {
+            doRequestSdCardpermissions();
+        }
+    }
+
+
+    private void doRequestSdCardpermissions() {
+        // The OS popup will show up, unless 'don't ask again' had been choosen.
+        Activity thisActivity = this;
+        ActivityCompat.requestPermissions(thisActivity,
+                new String[]{SYSTEM_PERMISSION},
+                MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+    }
+
+    boolean permPopShown = false;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                // This will be called, even when 'don't ask again' has been choosen and no popup appears.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    writeFiles();
+                } else if (!permPopShown) {
+                    Toast.makeText(this, R.string.permission_write_ext_storage_permanently_revoked, Toast.LENGTH_LONG).show();
+                }
+                permPopShown = false;
+            }
+        }
+    }
 }
