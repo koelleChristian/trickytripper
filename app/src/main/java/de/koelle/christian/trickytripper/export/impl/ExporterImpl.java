@@ -117,8 +117,12 @@ public class ExporterImpl implements Exporter {
                         settings.getOutputChannel()); // TODO nullable
             } else{
 
-                Intent intentNew = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                Intent intentNew = new Intent(Intent.ACTION_VIEW);
+//                intentNew.sype("*/*");
                 intentNew.setType("*/*");
+                intentNew.addCategory(Intent.CATEGORY_OPENABLE);
+                String[] mimeTypes = { "*/*", "*/comma-separated-values" ,"*/txt", "*/html","*/xhtml"};
+                intentNew.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
                 ((Activity)activityResolver.getActivity()).startActivity(intentNew);
             }
 

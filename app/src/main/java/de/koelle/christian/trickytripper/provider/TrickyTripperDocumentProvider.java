@@ -82,7 +82,11 @@ public class TrickyTripperDocumentProvider extends android.provider.DocumentsPro
         // Create a cursor with the requested projection, or the default projection.
         final MatrixCursor result = new
                 MatrixCursor(resolveDocumentProjection(projection));
+        if (Rc.debugOn) {
+            Log.d(Rc.LT_PROV, "queryDocument, documentId: " + documentId);
+        }
         includeFile(result, documentId, null);
+
         return result;
     }
 
@@ -95,6 +99,9 @@ public class TrickyTripperDocumentProvider extends android.provider.DocumentsPro
         for (File file : parent.listFiles()) {
             // Adds the file's display name, MIME type, size, and so on.
             includeFile(result, null, file);
+            if (Rc.debugOn) {
+                Log.d(Rc.LT_PROV, "queryChildDocuments, file: " + file);
+            }
         }
         return result;
     }
@@ -105,7 +112,7 @@ public class TrickyTripperDocumentProvider extends android.provider.DocumentsPro
                                              CancellationSignal signal) throws
             FileNotFoundException {
         if (Rc.debugOn) {
-            Log.d(Rc.LT_PROV, "openDocument, mode: " + mode);
+            Log.d(Rc.LT_PROV, "openDocument, mode:" + mode + "documentId: "+documentId);
         }
         // It's OK to do network operations in this method to download the document,
         // as long as you periodically check the CancellationSignal. If you have an
@@ -113,12 +120,16 @@ public class TrickyTripperDocumentProvider extends android.provider.DocumentsPro
         // be pipes or sockets (see ParcelFileDescriptor for helper methods).
 
         final File file = getFileForDocId(documentId);
+        if (Rc.debugOn) {
+            Log.d(Rc.LT_PROV, "openDocument file:" + file);
+        }
         final int accessMode = ParcelFileDescriptor.parseMode(mode);
 
         final boolean isWrite = (mode.indexOf('w') != -1);
         if (isWrite) {
             throw new IllegalArgumentException("Do not support write operations.");
         } else {
+
             return ParcelFileDescriptor.open(file, accessMode);
         }
     }
@@ -181,6 +192,9 @@ public class TrickyTripperDocumentProvider extends android.provider.DocumentsPro
             throw new FileNotFoundException("Missing root for " + docId);
         } else {
             final String path = docId.substring(splitIndex + 1);
+            if (Rc.debugOn) {
+                Log.d(Rc.LT_PROV, "getFileForDocId() " + path);
+            }
             target = new File(target, path);
             if (!target.exists()) {
                 throw new FileNotFoundException("Missing file for " + docId + " at " + target);
@@ -239,8 +253,13 @@ public class TrickyTripperDocumentProvider extends android.provider.DocumentsPro
         row.add(DocumentsContract.Document.COLUMN_LAST_MODIFIED, file.lastModified());
         row.add(DocumentsContract.Document.COLUMN_FLAGS, flags);
 
-        // Add a custom icon
-        row.add(DocumentsContract.Document.COLUMN_ICON, R.drawable.ic_launcher);
+
+//        // Add a custom icon
+//        row.add(DocumentsContract.Document.COLUMN_ICON, R.drawable.ic_launcher);
+
+        if (Rc.debugOn) {
+            Log.d(Rc.LT_PROV, "includeFile, docId: " + docId +", name:"+ displayName + ", mime:"+mimeType);
+        }
     }
 
     /**
