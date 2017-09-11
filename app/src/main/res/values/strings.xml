@@ -128,7 +128,7 @@
     <string name="exportViewTextViewSubHeadingChannel">Output trail?</string>
     <string name="exportViewSpinnerPromptChannel">Choose your output trail</string>
     <string name="exportViewSpinnerNotAvailable">not available</string>
-    <string name="exportOutputSaf">Open</string>
+    <string name="exportOutputOpen">Open</string>
     <string name="exportOutputStreamSending">Send</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Save to storage</string>

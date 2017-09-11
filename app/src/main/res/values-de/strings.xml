@@ -121,7 +121,7 @@
     <string name="exportViewTextViewSubHeadingChannel">Ausgabeweg?</string>
     <string name="exportViewSpinnerPromptChannel">Wähle Ausgabeweg</string>
     <string name="exportViewSpinnerNotAvailable">nicht verfügbar</string>
-    <string name="exportOutputSaf">Öffnen</string>
+    <string name="exportOutputOpen">Öffnen</string>
     <string name="exportOutputStreamSending">Senden</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Aufs Telefon speichern</string>

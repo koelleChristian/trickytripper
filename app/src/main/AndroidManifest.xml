@@ -21,7 +21,6 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -91,18 +90,6 @@
             android:name=".provider.TrickyTripperFileProvider"
             android:authorities="de.koelle.christian.trickytripperfileprovider"
             android:grantUriPermissions="true">
-        </provider>
-
-        <provider
-            android:name="de.koelle.christian.trickytripper.provider.TrickyTripperDocumentProvider"
-            android:authorities="de.koelle.christian.trickytripper"
-            android:enabled="@bool/v19AndAbove"
-            android:exported="true"
-            android:grantUriPermissions="true"
-            android:permission="android.permission.MANAGE_DOCUMENTS">
-            <intent-filter>
-                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
-            </intent-filter>
         </provider>
 
     </application>

@@ -2,6 +2,8 @@ package de.koelle.christian.trickytripper.export.impl;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.webkit.MimeTypeMap;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -108,24 +110,15 @@ public class ExporterImpl implements Exporter {
                 .append(timestamp);
 
         if (activityResolver.getActivity() != null) {
-            if(settings.getOutputChannel() == ExportSettings.ExportOutputChannel.STREAM_SENDING) {
+            List<Uri> contentUrisFromFiles = FileUtils.getContentUrisFromFiles(filesCreated, TrickyTripperFileProvider.AUTHORITY);
+            if (settings.getOutputChannel() != null) {
                 streamSender.sendStream(
                         (Activity) activityResolver.getActivity(),
                         exportSubject.toString(),
                         resourceResolver.resolve(R.string.fileExportEmailContent),
-                        FileUtils.getContentUrisFromFiles(filesCreated, TrickyTripperFileProvider.AUTHORITY),
-                        settings.getOutputChannel()); // TODO nullable
-            } else{
-
-                Intent intentNew = new Intent(Intent.ACTION_VIEW);
-//                intentNew.sype("*/*");
-                intentNew.setType("*/*");
-                intentNew.addCategory(Intent.CATEGORY_OPENABLE);
-                String[] mimeTypes = { "*/*", "*/comma-separated-values" ,"*/txt", "*/html","*/xhtml"};
-                intentNew.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-                ((Activity)activityResolver.getActivity()).startActivity(intentNew);
+                        contentUrisFromFiles, settings.getOutputChannel());
             }
-
+            // TODO still nullable?
         }
 
         return filesCreated;

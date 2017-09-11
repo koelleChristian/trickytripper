@@ -8,7 +8,7 @@ import de.koelle.christian.trickytripper.R;
 public class ExportSettings {
 
     public enum ExportOutputChannel implements ResourceLabelAwareEnumeration {
-        SAF(R.string.exportOutputSaf),
+        OPEN(R.string.exportOutputOpen),
         STREAM_SENDING(R.string.exportOutputStreamSending),
         ;
 

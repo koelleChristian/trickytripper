@@ -64,6 +64,13 @@
                 android:layout_height="wrap_content"
                 android:layout_column="2"
                 android:text="@string/exportViewCheckboxFormatCsv" />
+
+            <RadioButton
+                android:id="@+id/exportViewRadioButtonFormatCsv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/exportViewCheckboxFormatCsv" />
         </TableRow>
 
         <TableRow
@@ -73,6 +80,13 @@
 
             <CheckBox
                 android:id="@+id/exportViewCheckboxFormatHtml"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/exportViewCheckboxFormatHtml" />
+
+            <RadioButton
+                android:id="@+id/exportViewRadioButtonFormatHtml"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
@@ -90,8 +104,14 @@
                 android:layout_height="wrap_content"
                 android:layout_column="2"
                 android:text="@string/exportViewCheckboxFormatTxt" />
-        </TableRow>
 
+            <RadioButton
+                android:id="@+id/exportViewRadioButtonFormatTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/exportViewCheckboxFormatTxt" />
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"

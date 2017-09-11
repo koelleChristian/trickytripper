@@ -86,7 +86,11 @@ public class Rc {
     public static final String CSV_EXTENSION = ".csv";
     public static final String TXT_EXTENSION = ".txt";
     public static final String STREAM_SENDING_MIME = "*/*";
+    public static final String CSV_MIME = "text/comma-separated-values";
+    public static final String TXT_MIME = "text/plain";
+    public static final String HTML_MIME = "text/html";
     public static final String STREAM_SENDING_INTENT = Intent.ACTION_SEND_MULTIPLE;
+    public static final String OPEN_FILE_INTENT = Intent.ACTION_VIEW;
     public static final String PREFS_NAME_ID = "PREFS_NAME_ID";
     public static final int PREFS_MODE = Context.MODE_PRIVATE;
     public static final String PREFS_VALUE_ID_BASE_CURRENCY = "PREFS_VALUE_ID_BASE_CURRENCY";

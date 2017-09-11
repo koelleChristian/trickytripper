@@ -121,7 +121,7 @@
     <string name="exportViewTextViewSubHeadingChannel">¿Destino de la salida?</string>
     <string name="exportViewSpinnerPromptChannel">Escoja el destino de la salida</string>
     <string name="exportViewSpinnerNotAvailable">no disponible</string>
-    <string name="exportOutputSaf">Grabar en la tarjeta SD</string>
+    <string name="exportOutputOpen">Grabar en la tarjeta SD</string>
     <string name="exportOutputStreamSending">Email</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Grabar en la memoria</string>

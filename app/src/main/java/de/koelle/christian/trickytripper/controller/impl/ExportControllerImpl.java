@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.os.Environment;
 import android.util.Log;
 
 import de.koelle.christian.common.io.impl.AppFileWriter;
@@ -47,23 +46,23 @@ public class ExportControllerImpl implements ExportController {
 
     public List<ExportOutputChannel> getEnabledExportOutputChannel() {
         List<ExportOutputChannel> result = new ArrayList<>();
-        if (context.getResources().getBoolean(R.bool.v19AndAbove)) {
-            result.add(ExportOutputChannel.SAF);
-        }
-        Intent tweetIntent = new Intent(Rc.STREAM_SENDING_INTENT);
-        tweetIntent.setType(Rc.STREAM_SENDING_MIME);
+//        if (context.getResources().getBoolean(R.bool.v19AndAbove)) {
+           // TODO Check for action view
+            result.add(ExportOutputChannel.OPEN);
+//        }
+        Intent intent;
+//        intent = new Intent(Rc.STREAM_SENDING_INTENT);
+
+        intent = new Intent(Rc.STREAM_SENDING_INTENT);
+        intent.setType(Rc.STREAM_SENDING_MIME);
         final PackageManager packageManager = context.getPackageManager();
         List<ResolveInfo> list = packageManager.queryIntentActivities(
-                tweetIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                intent, PackageManager.MATCH_DEFAULT_ONLY);
         if (!list.isEmpty()) {
             result.add(ExportOutputChannel.STREAM_SENDING);
         }
 
-//        File externalStorageDirectory = Environment.getExternalStorageDirectory();
-//        // Permissions will be checked in ExportActivity
-//        if (result.contains(ExportOutputChannel.SAF) && (externalStorageDirectory == null) && !externalStorageDirectory.exists()) {
-//            result.remove(ExportOutputChannel.SAF);
-//        }
+
         return result;
     }
 

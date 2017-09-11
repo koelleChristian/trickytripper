@@ -64,8 +64,11 @@ public class PrefWriterReaderUtils {
         settings.setShowGlobalSumsOnIndividualSpendingReport(prefs
                 .getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_SHOW_GLOBAL_SUMS_ON_INDIVIDUAL_SPENDING_REPORT,
                         Boolean.TRUE));
-        settings.setOutputChannel(ExportOutputChannel.valueOfNull(prefs.getString(
-                PREFS_VALUE_EXPORT_SETTINGS_OUTPUT_CHANNEL, ExportOutputChannel.STREAM_SENDING.toString())));
+
+        ExportOutputChannel defaultExportOutputChannel = ExportOutputChannel.STREAM_SENDING;
+        ExportOutputChannel exportOutputChannelFromPrefs = ExportOutputChannel.valueOfNull(prefs.getString(
+                PREFS_VALUE_EXPORT_SETTINGS_OUTPUT_CHANNEL, defaultExportOutputChannel.toString()));
+        settings.setOutputChannel(exportOutputChannelFromPrefs == null ? defaultExportOutputChannel : exportOutputChannelFromPrefs);
 
         return settings;
     }
