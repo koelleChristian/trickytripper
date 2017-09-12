@@ -1,11 +1,6 @@
 package de.koelle.christian.trickytripper.activities;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -17,10 +12,9 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +26,7 @@ import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
+import de.koelle.christian.trickytripper.controller.ExportController;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -45,6 +40,12 @@ public class ExportActivity extends AppCompatActivity {
     private ExportSettings exportSettings;
     private List<ExportOutputChannel> supportedOutputChannels;
     private boolean exportEnabled;
+    private CheckBox checkboxFormatCsv;
+    private CheckBox checkboxFormatHtml;
+    private CheckBox checkboxFormatTxt;
+    private RadioButton radioFormatCsv;
+    private RadioButton radioFormatHtml;
+    private RadioButton radioFormatTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,6 +190,7 @@ public class ExportActivity extends AppCompatActivity {
                     Object o = spinner.getSelectedItem();
                     ExportOutputChannel spinnerSelection = ((RowObject<ExportOutputChannel>) o).getRowObject();
                     ExportActivity.this.exportSettings.setOutputChannel(spinnerSelection);
+                    updateFormatDependingVisibilityAndState();
                     updateExportState();
                 }
             }
@@ -201,13 +203,19 @@ public class ExportActivity extends AppCompatActivity {
     }
 
     private void bindCheckBoxes() {
+        checkboxFormatCsv = (CheckBox) findViewById(R.id.exportViewCheckboxFormatCsv);
+        checkboxFormatHtml = (CheckBox) findViewById(R.id.exportViewCheckboxFormatHtml);
+        checkboxFormatTxt = (CheckBox) findViewById(R.id.exportViewCheckboxFormatTxt);
+        radioFormatCsv = (RadioButton) findViewById(R.id.exportViewRadioButtonFormatCsv);
+        radioFormatHtml = (RadioButton) findViewById(R.id.exportViewRadioButtonFormatHtml);
+        radioFormatTxt = (RadioButton) findViewById(R.id.exportViewRadioButtonFormatTxt);
+
+        updateFormatDependingVisibilityAndState();
+
         CheckBox contentContentPayments = (CheckBox) findViewById(R.id.exportViewCheckboxContentPayments);
         CheckBox contentContentTransfers = (CheckBox) findViewById(R.id.exportViewCheckboxContentTransfers);
         CheckBox contentContentSpendingReport = (CheckBox) findViewById(R.id.exportViewCheckboxContentSpendingReport);
         CheckBox contentContentOwingDebts = (CheckBox) findViewById(R.id.exportViewCheckboxContentOwingDebts);
-        CheckBox contentFormatCsv = (CheckBox) findViewById(R.id.exportViewCheckboxFormatCsv);
-        CheckBox contentFormatHtml = (CheckBox) findViewById(R.id.exportViewCheckboxFormatHtml);
-        CheckBox contentFormatTxt = (CheckBox) findViewById(R.id.exportViewCheckboxFormatTxt);
         CheckBox contentSeparateFilesForIndividuals = (CheckBox) findViewById(R.id.exportViewCheckboxSeparateFilesForIndividuals);
         CheckBox contentShowGlobalSumsOnIndividualSpendingReports = (CheckBox) findViewById(R.id.exportViewCheckboxShowTripSumOnIndividualSpendingReport);
 
@@ -215,12 +223,66 @@ public class ExportActivity extends AppCompatActivity {
         contentContentTransfers.setChecked(exportSettings.isExportTransfers());
         contentContentSpendingReport.setChecked(exportSettings.isExportSpending());
         contentContentOwingDebts.setChecked(exportSettings.isExportDebts());
-        contentFormatCsv.setChecked(exportSettings.isFormatCsv());
-        contentFormatHtml.setChecked(exportSettings.isFormatHtml());
-        contentFormatTxt.setChecked(exportSettings.isFormatTxt());
+
         contentSeparateFilesForIndividuals.setChecked(exportSettings.isSeparateFilesForIndividuals());
         contentShowGlobalSumsOnIndividualSpendingReports.setChecked(exportSettings
                 .isShowGlobalSumsOnIndividualSpendingReport());
+
+        checkboxFormatCsv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                exportSettings.setFormatCsv(isChecked);
+                updateExportState();
+            }
+        });
+
+        checkboxFormatHtml.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                exportSettings.setFormatHtml(isChecked);
+                updateExportState();
+            }
+        });
+
+        checkboxFormatTxt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                exportSettings.setFormatTxt(isChecked);
+                updateExportState();
+            }
+        });
+        radioFormatCsv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                exportSettings.setFormatCsv(isChecked);
+                if (isChecked) {
+                    radioFormatHtml.setChecked(false);
+                    radioFormatTxt.setChecked(false);
+                }
+                updateExportState();
+            }
+        });
+
+        radioFormatHtml.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                exportSettings.setFormatHtml(isChecked);
+                if (isChecked) {
+                    radioFormatCsv.setChecked(false);
+                    radioFormatTxt.setChecked(false);
+                }
+                updateExportState();
+            }
+        });
+
+        radioFormatTxt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                exportSettings.setFormatTxt(isChecked);
+                if (isChecked) {
+                    radioFormatCsv.setChecked(false);
+                    radioFormatHtml.setChecked(false);
+                }
+                updateExportState();
+            }
+        });
+
+
+        /*-------------------*/
 
         contentContentPayments.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -250,26 +312,6 @@ public class ExportActivity extends AppCompatActivity {
             }
         });
 
-        contentFormatCsv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                exportSettings.setFormatCsv(isChecked);
-                updateExportState();
-            }
-        });
-
-        contentFormatHtml.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                exportSettings.setFormatHtml(isChecked);
-                updateExportState();
-            }
-        });
-
-        contentFormatTxt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                exportSettings.setFormatTxt(isChecked);
-                updateExportState();
-            }
-        });
         contentSeparateFilesForIndividuals.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 exportSettings.setSeparateFilesForIndividuals(isChecked);
@@ -283,6 +325,62 @@ public class ExportActivity extends AppCompatActivity {
                         exportSettings.setShowGlobalSumsOnIndividualSpendingReport(isChecked);
                     }
                 });
+
+    }
+
+    private void updateFormatDependingVisibilityAndState() {
+        boolean supportingMultipleFiles = exportSettings.getOutputChannel().isSupportingMultipleFiles();
+
+        int visibilityCheckbox;
+        int visibilityRadio;
+
+        if (supportingMultipleFiles) {
+            visibilityCheckbox = View.VISIBLE;
+            visibilityRadio = View.GONE;
+
+            checkboxFormatCsv.setChecked(exportSettings.isFormatCsv());
+            checkboxFormatHtml.setChecked(exportSettings.isFormatHtml());
+            checkboxFormatTxt.setChecked(exportSettings.isFormatTxt());
+        } else {
+            visibilityCheckbox = View.GONE;
+            visibilityRadio = View.VISIBLE;
+
+            ExportController exportController = getApp().getExportController();
+
+            boolean osSupportsOpenCsv = exportController.osSupportsOpenCsv();
+            boolean osSupportsOpenHtml = exportController.ossSupportsOpenHtml();
+            boolean osSupportsOpenTxt = exportController.osSupportsOpenTxt();
+
+
+            if(exportSettings.isFormatHtml() && osSupportsOpenHtml ){
+                exportSettings.setFormatCsv(false);
+                exportSettings.setFormatTxt(false);
+            } else if(exportSettings.isFormatCsv() && osSupportsOpenCsv){
+                exportSettings.setFormatHtml(false);
+                exportSettings.setFormatTxt(false);
+            } else if(exportSettings.isFormatTxt() && osSupportsOpenTxt){
+                exportSettings.setFormatCsv(false);
+                exportSettings.setFormatHtml(false);
+            } else {
+                exportSettings.setFormatCsv(false);
+                exportSettings.setFormatHtml(false);
+                exportSettings.setFormatTxt(false);
+
+            }
+            radioFormatCsv.setChecked(exportSettings.isFormatCsv());
+            radioFormatHtml.setChecked(exportSettings.isFormatHtml());
+            radioFormatTxt.setChecked(exportSettings.isFormatTxt());
+            radioFormatCsv.setEnabled(osSupportsOpenCsv);
+            radioFormatHtml.setEnabled(osSupportsOpenHtml);
+            radioFormatTxt.setEnabled(osSupportsOpenTxt);
+        }
+
+        checkboxFormatCsv.setVisibility(visibilityCheckbox);
+        checkboxFormatHtml.setVisibility(visibilityCheckbox);
+        checkboxFormatTxt.setVisibility(visibilityCheckbox);
+        radioFormatCsv.setVisibility(visibilityRadio);
+        radioFormatHtml.setVisibility(visibilityRadio);
+        radioFormatTxt.setVisibility(visibilityRadio);
 
     }
 

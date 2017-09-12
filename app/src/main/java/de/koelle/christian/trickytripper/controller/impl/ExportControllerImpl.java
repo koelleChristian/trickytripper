@@ -12,7 +12,6 @@ import android.content.pm.ResolveInfo;
 import android.util.Log;
 
 import de.koelle.christian.common.io.impl.AppFileWriter;
-import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.apputils.PrefWriterReaderUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.controller.ExportController;
@@ -32,6 +31,9 @@ public class ExportControllerImpl implements ExportController {
     private final Context context;
     private final Exporter exporter;
     private final TripResolver tripResolver;
+    private boolean osSupportsOpenCsv;
+    private boolean osSupportsOpenTxt;
+    private boolean osSupportsOpenHtml;
 
     public ExportControllerImpl(Context context, PrefsResolver prefsResolver, TripResolver tripResolver) {
         this.context = context;
@@ -46,24 +48,33 @@ public class ExportControllerImpl implements ExportController {
 
     public List<ExportOutputChannel> getEnabledExportOutputChannel() {
         List<ExportOutputChannel> result = new ArrayList<>();
-//        if (context.getResources().getBoolean(R.bool.v19AndAbove)) {
-           // TODO Check for action view
-            result.add(ExportOutputChannel.OPEN);
-//        }
-        Intent intent;
-//        intent = new Intent(Rc.STREAM_SENDING_INTENT);
 
-        intent = new Intent(Rc.STREAM_SENDING_INTENT);
-        intent.setType(Rc.STREAM_SENDING_MIME);
-        final PackageManager packageManager = context.getPackageManager();
-        List<ResolveInfo> list = packageManager.queryIntentActivities(
-                intent, PackageManager.MATCH_DEFAULT_ONLY);
-        if (!list.isEmpty()) {
+        Intent intent;
+        intent = new Intent(Rc.INTENT_OPEN_FILE);
+        intent.setType(Rc.INTENT_OPEN_FILE_CSV_MIME);
+        osSupportsOpenCsv = osSupportsIntent(intent, PackageManager.MATCH_ALL);
+        intent.setType(Rc.INTENT_OPEN_FILE_TXT_MIME);
+        osSupportsOpenTxt = osSupportsIntent(intent, PackageManager.MATCH_ALL);
+        intent.setType(Rc.INTENT_OPEN_FILE_HTML_MIME);
+        osSupportsOpenHtml = osSupportsIntent(intent, PackageManager.MATCH_ALL);
+        if (osSupportsOpenCsv || osSupportsOpenHtml || osSupportsOpenTxt) {
+            result.add(ExportOutputChannel.OPEN);
+        }
+
+        intent = new Intent(Rc.INTENT_SEND_STREAM);
+        intent.setType(Rc.INTENT_SEND_STREAM_MIME);
+        if (osSupportsIntent(intent, PackageManager.MATCH_ALL)) {
             result.add(ExportOutputChannel.STREAM_SENDING);
         }
 
 
         return result;
+    }
+
+    private boolean osSupportsIntent(Intent intent, int matchMode) {
+        final PackageManager packageManager = context.getPackageManager();
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent, matchMode);
+        return !list.isEmpty();
     }
 
     @Override
@@ -88,5 +99,17 @@ public class ExportControllerImpl implements ExportController {
                 new ResourceResolverImpl(context.getResources()), new ActivityResolverImpl(activity),
                 tripResolver.getAmountFactory());
 
+    }
+
+    public boolean osSupportsOpenCsv() {
+        return osSupportsOpenCsv;
+    }
+
+    public boolean osSupportsOpenTxt() {
+        return osSupportsOpenTxt;
+    }
+
+    public boolean ossSupportsOpenHtml() {
+        return osSupportsOpenHtml;
     }
 }

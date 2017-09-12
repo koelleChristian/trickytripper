@@ -17,4 +17,8 @@ public interface ExportController {
     List<ExportOutputChannel> getEnabledExportOutputChannel();
 
     boolean hasEnabledOutputChannel();
+
+    boolean osSupportsOpenCsv() ;
+    boolean osSupportsOpenTxt() ;
+    boolean ossSupportsOpenHtml();
 }

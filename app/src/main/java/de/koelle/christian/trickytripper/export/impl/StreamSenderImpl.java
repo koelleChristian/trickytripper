@@ -27,12 +27,12 @@ public class StreamSenderImpl implements StreamSender {
             int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
 
             if (channelSelection == ExportSettings.ExportOutputChannel.STREAM_SENDING) {
-                Intent sendIntent = new Intent(Rc.STREAM_SENDING_INTENT);
+                Intent sendIntent = new Intent(Rc.INTENT_SEND_STREAM);
                 if (subject != null) {
                     sendIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
                 }
                 sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, new ArrayList<Parcelable>(externalAttachmentUris));
-                sendIntent.setType(Rc.STREAM_SENDING_MIME);
+                sendIntent.setType(Rc.INTENT_SEND_STREAM_MIME);
                 intent = Intent.createChooser(sendIntent, activity.getResources().getText(R.string.exportViewIntentChooserHeader));
             }
             /**/
@@ -42,7 +42,7 @@ public class StreamSenderImpl implements StreamSender {
                     String fileName = contentUri.toString();
                     final String extension = fileName.substring(fileName.lastIndexOf('.') + 1);
                     final String mime = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-                    intent = new Intent(Rc.OPEN_FILE_INTENT).setDataAndType(contentUri, mime);
+                    intent = new Intent(Rc.INTENT_OPEN_FILE).setDataAndType(contentUri, mime);
                 }
             }
             /**/

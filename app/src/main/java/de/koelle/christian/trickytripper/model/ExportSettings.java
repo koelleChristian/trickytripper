@@ -8,18 +8,24 @@ import de.koelle.christian.trickytripper.R;
 public class ExportSettings {
 
     public enum ExportOutputChannel implements ResourceLabelAwareEnumeration {
-        OPEN(R.string.exportOutputOpen),
-        STREAM_SENDING(R.string.exportOutputStreamSending),
+        OPEN(R.string.exportOutputOpen, false),
+        STREAM_SENDING(R.string.exportOutputStreamSending, true),
         ;
 
         private final int resourceId;
+        private final boolean supportsMultipleFiles;
 
-        private ExportOutputChannel(int resourceId) {
+        private ExportOutputChannel(int resourceId, boolean supportsMultipleFiles) {
             this.resourceId = resourceId;
+            this.supportsMultipleFiles = supportsMultipleFiles;
         }
 
         public int getResourceStringId() {
             return this.resourceId;
+        }
+
+        public boolean isSupportingMultipleFiles() {
+            return supportsMultipleFiles;
         }
 
         public List<ResourceLabelAwareEnumeration> getAllValues() {
