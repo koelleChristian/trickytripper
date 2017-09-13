@@ -41,6 +41,7 @@
     <string name="option_option_create_exchange_rate_for_source">Crear la tasa correspondiente</string>
     <string name="drawer_open">Abrir navegación</string>
     <string name="drawer_close">Cerrar navegación</string>
+    <string name="no_export_option">The phone supports neither opening nor sending one of the supported export file types (html, txt, csv).</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Gastado:</string>
     <string name="participant_tab_row_view_label_paid">Pagado:</string>
