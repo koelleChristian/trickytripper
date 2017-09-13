@@ -375,12 +375,12 @@ public class ExportActivity extends AppCompatActivity {
             radioFormatTxt.setEnabled(osSupportsOpenTxt);
         }
 
-        checkboxFormatCsv.setVisibility(visibilityCheckbox);
-        checkboxFormatHtml.setVisibility(visibilityCheckbox);
-        checkboxFormatTxt.setVisibility(visibilityCheckbox);
-        radioFormatCsv.setVisibility(visibilityRadio);
-        radioFormatHtml.setVisibility(visibilityRadio);
-        radioFormatTxt.setVisibility(visibilityRadio);
+        findViewById(R.id.exportViewCheckRow1).setVisibility(visibilityCheckbox);
+        findViewById(R.id.exportViewCheckRow2).setVisibility(visibilityCheckbox);
+        findViewById(R.id.exportViewCheckRow3).setVisibility(visibilityCheckbox);
+        findViewById(R.id.exportViewRadioRow1).setVisibility(visibilityRadio);
+        findViewById(R.id.exportViewRadioRow2).setVisibility(visibilityRadio);
+        findViewById(R.id.exportViewRadioRow3).setVisibility(visibilityRadio);
 
     }
 
