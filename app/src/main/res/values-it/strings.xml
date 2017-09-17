@@ -42,7 +42,7 @@
     <string name="option_option_create_exchange_rate_for_source">Crea tasso corrispondente</string>
     <string name="drawer_open">Apre il menu di navigazione</string>
     <string name="drawer_close">Chiude il menu di navigazione</string>
-    <string name="no_export_option">The phone supports neither opening nor sending one of the supported export file types (html, txt, csv).</string>
+    <string name="no_export_option">Il telefono non supporta né l\'apertura né l\'invio di nessuno dei tipi di file di esportazione supportati (HTML, TXT, CSV).</string>
     <!-- =============================== Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Speso:</string>
     <string name="participant_tab_row_view_label_paid">Pagato:</string>
