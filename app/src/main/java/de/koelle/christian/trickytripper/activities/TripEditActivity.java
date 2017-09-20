@@ -80,7 +80,7 @@ public class TripEditActivity extends AppCompatActivity {
                 .wrapCurrenciesInRowObject(CurrencyUtil
                         .getSupportedCurrencies(getResources()), getResources());
 
-        ArrayAdapter<RowObject> spinnerAdapter = new ArrayAdapter<RowObject>(this,
+        ArrayAdapter<RowObject> spinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 spinnerObjects);
 

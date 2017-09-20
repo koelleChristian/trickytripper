@@ -15,8 +15,8 @@ public class ModelFactory {
         Trip trip = new Trip();
         trip.setName(name);
 
-        List<Participant> participants = new ArrayList<Participant>();
-        List<Payment> payments = new ArrayList<Payment>();
+        List<Participant> participants = new ArrayList<>();
+        List<Payment> payments = new ArrayList<>();
 
         trip.setParticipant(participants);
         trip.setPayments(payments);

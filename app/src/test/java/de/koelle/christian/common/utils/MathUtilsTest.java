@@ -30,9 +30,9 @@ public class MathUtilsTest {
         Amount amountTotal;
         Map<Participant, Amount> targetMap;
 
-        targetMap = new HashMap<Participant, Amount>(8);
+        targetMap = new HashMap<>(8);
 
-        List<Participant> participants = new ArrayList<Participant>();
+        List<Participant> participants = new ArrayList<>();
         Participant p;
 
         for (int i = 0; i < 8; i++) {
@@ -63,9 +63,9 @@ public class MathUtilsTest {
         Amount amountTotal;
         Map<Participant, Amount> targetMap;
 
-        targetMap = new HashMap<Participant, Amount>();
+        targetMap = new HashMap<>();
 
-        List<Participant> participants = new ArrayList<Participant>();
+        List<Participant> participants = new ArrayList<>();
         Participant p;
 
         p = ModelFactory.createNewParticipant("Christian", true);

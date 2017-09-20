@@ -54,7 +54,7 @@ public class SaveAndLoadTripTest extends ApplicationTestCase<TrickyTripperApp> {
 
         List<TripSummary> tripSummaryResult = dataManager.getAllTripSummaries();
 
-        List<Trip> tripsExpectedInOrder = new ArrayList<Trip>();
+        List<Trip> tripsExpectedInOrder = new ArrayList<>();
         tripsExpectedInOrder.add(trip2In); // Order by name
         tripsExpectedInOrder.add(trip1In);
 

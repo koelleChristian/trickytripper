@@ -17,7 +17,7 @@ public class FileUtils {
     private static final String CONTENT_PREFIX = "content://";
 
     public static List<Uri> getUrisFromFiles(List<File> files) {
-        List<Uri> result = new ArrayList<Uri>();
+        List<Uri> result = new ArrayList<>();
         for (File f : files) {
             result.add(Uri.parse(Uri.fromFile(f).toString()));
         }
@@ -25,7 +25,7 @@ public class FileUtils {
     }
 
     public static List<Uri> getContentUrisFromFiles(List<File> files, String authority) {
-        List<Uri> result = new ArrayList<Uri>();
+        List<Uri> result = new ArrayList<>();
         for (File f : files) {
             result.add(getContentUrisFromFile(f, authority));
         }

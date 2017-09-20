@@ -36,10 +36,10 @@ import de.koelle.christian.trickytripper.strategies.SumReport;
 
 public class ReportTabActivity extends Fragment {
 
-    private final List<View> dynamicSpendingRows = new ArrayList<View>();
-    private final List<View> dynamicOwingDebtsRows = new ArrayList<View>();
-    private final List<View> dynamicDividerRowsSpending = new ArrayList<View>();
-    private final List<View> dynamicDividerRowsOwingDebtsRows = new ArrayList<View>();
+    private final List<View> dynamicSpendingRows = new ArrayList<>();
+    private final List<View> dynamicOwingDebtsRows = new ArrayList<>();
+    private final List<View> dynamicDividerRowsSpending = new ArrayList<>();
+    private final List<View> dynamicDividerRowsOwingDebtsRows = new ArrayList<>();
 
     private List<Participant> participantsInSpinner;
     private View view;
@@ -69,7 +69,7 @@ public class ReportTabActivity extends Fragment {
 
         final TrickyTripperApp app = getApp();
 
-        participantsInSpinner = new ArrayList<Participant>();
+        participantsInSpinner = new ArrayList<>();
         participantsInSpinner.add(null);
         participantsInSpinner.addAll(getAllParticipants(app));
 
@@ -192,7 +192,7 @@ public class ReportTabActivity extends Fragment {
             this.dynamicSpendingRows.add(newRow);
             tableLayout.addView(newRow);
         } else {
-            TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getMiscController()
+            TreeMap<String, View> newRows = new TreeMap<>(getApp().getMiscController()
                     .getDefaultStringCollator());
 
             for (Entry<PaymentCategory, Amount> catAmountMapEntry : categorySpending.entrySet()) {
@@ -226,14 +226,14 @@ public class ReportTabActivity extends Fragment {
         TableRow subheadingDividerTop =  (TableRow) view.findViewById(R.id.reportViewSpacerDebtsTop);
         TableRow headingNoDebts = (TableRow) view.findViewById(R.id.reportViewTableLayoutDebtsHeadingNoDebts);
 
-        Collection<Participant> involvedParticipants = new ArrayList<Participant>();
+        Collection<Participant> involvedParticipants = new ArrayList<>();
         if (participantSelected != null) {
             involvedParticipants.add(participantSelected);
         } else {
             involvedParticipants.addAll(getAllParticipants(app));
         }
         boolean areThereDebtsToBeDisplayed = false;
-        TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getMiscController()
+        TreeMap<String, View> newRows = new TreeMap<>(getApp().getMiscController()
                 .getDefaultStringCollator());
 
 

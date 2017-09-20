@@ -35,7 +35,7 @@ import de.koelle.christian.trickytripper.ui.model.ParticipantRow;
 
 public class ParticipantTabActivity extends ListFragment {
 
-    final List<ParticipantRow> participantRows = new ArrayList<ParticipantRow>();
+    final List<ParticipantRow> participantRows = new ArrayList<>();
 
     private ParticipantRowListAdapter adapter;
     private ListView listView;

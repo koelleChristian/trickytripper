@@ -60,7 +60,7 @@ public class TripReportLogic {
 
     private Map<Participant, Map<PaymentCategory, Integer>> initCategoryCountMap(List<Participant> participants) {
         Map<Participant, Map<PaymentCategory, Integer>> categoryMap;
-        categoryMap = new HashMap<Participant, Map<PaymentCategory, Integer>>();
+        categoryMap = new HashMap<>();
         for (Participant p : participants) {
             categoryMap.put(p, new HashMap<PaymentCategory, Integer>());
         }
@@ -69,7 +69,7 @@ public class TripReportLogic {
 
     private Map<Participant, Map<PaymentCategory, Amount>> initCategoryMap(List<Participant> participants) {
         Map<Participant, Map<PaymentCategory, Amount>> categoryMap;
-        categoryMap = new HashMap<Participant, Map<PaymentCategory, Amount>>();
+        categoryMap = new HashMap<>();
         for (Participant p : participants) {
             categoryMap.put(p, new HashMap<PaymentCategory, Amount>());
         }
@@ -79,8 +79,8 @@ public class TripReportLogic {
     /* ================= Debt logic ============================ */
 
     public Map<Participant, Debts> createDebts2(List<Participant> participants, Map<Participant, Amount> balanceByUser) {
-        Map<Participant, Debts> result = new HashMap<Participant, Debts>();
-        Map<Participant, Amount> balanceClone = new HashMap<Participant, Amount>();
+        Map<Participant, Debts> result = new HashMap<>();
+        Map<Participant, Amount> balanceClone = new HashMap<>();
         for (Entry<Participant, Amount> entry : balanceByUser.entrySet()) {
             balanceClone.put(entry.getKey(), entry.getValue().doClone());
         }
@@ -309,7 +309,7 @@ public class TripReportLogic {
     }
 
     private Map<Participant, Amount> createPaymentValueClone(Map<Participant, Amount> map) {
-        Map<Participant, Amount> result = new HashMap<Participant, Amount>();
+        Map<Participant, Amount> result = new HashMap<>();
         for (Entry<Participant, Amount> paymentEntry : map.entrySet()) {
             result.put(paymentEntry.getKey(), cloneAmount(paymentEntry.getValue()));
         }

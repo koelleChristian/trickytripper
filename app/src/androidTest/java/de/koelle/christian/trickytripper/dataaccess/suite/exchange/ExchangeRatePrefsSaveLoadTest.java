@@ -28,7 +28,7 @@ import de.koelle.christian.trickytripper.model.ExchangeRate;
 
 public class ExchangeRatePrefsSaveLoadTest extends ApplicationTestCase<TrickyTripperApp> {
 
-    private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<Long, ExchangeRate>();
+    private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<>();
     private DataManagerImpl dataManager;
     private ExchangeRateControllerImpl controller;
 

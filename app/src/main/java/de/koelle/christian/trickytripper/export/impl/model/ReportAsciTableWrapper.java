@@ -10,7 +10,7 @@ public class ReportAsciTableWrapper {
 
     private static final String UNDERLINE_CHAR = "#";
 
-    private final Map<String, ReportAsciTable> tables = new LinkedHashMap<String, ReportAsciTable>();
+    private final Map<String, ReportAsciTable> tables = new LinkedHashMap<>();
 
     private String reportMetaInfo;
 

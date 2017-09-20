@@ -126,7 +126,7 @@ public class ExchangeRateDeleteActivity extends AppCompatActivity implements Del
     }
 
     private ArrayList<ExchangeRate> getSelection() {
-        ArrayList<ExchangeRate> ratesSelected = new ArrayList<ExchangeRate>();
+        ArrayList<ExchangeRate> ratesSelected = new ArrayList<>();
 
         for (int i = 0; i < adapter.getCount(); i++) {
             ExchangeRate rate = adapter.getItem(i);

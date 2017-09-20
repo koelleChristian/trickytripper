@@ -7,7 +7,7 @@ import de.koelle.christian.common.ascii.AsciTableLayoutTableInterface;
 
 public class ReportAsciTableLayoutTableRow implements AsciTableLayoutTableInterface {
     private ReportAsciTableHeadingCallback callback;
-    private final List<String> content = new ArrayList<String>();
+    private final List<String> content = new ArrayList<>();
 
     public String[] asciTableColumnNames() {
         return callback.getHeadings();

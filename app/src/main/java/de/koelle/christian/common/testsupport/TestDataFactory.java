@@ -51,8 +51,8 @@ public class TestDataFactory {
         Trip trip = new Trip();
         trip.setName("Greece 2010 - Summer");
 
-        List<Participant> participants = new ArrayList<Participant>();
-        List<Payment> payments = new ArrayList<Payment>();
+        List<Participant> participants = new ArrayList<>();
+        List<Payment> payments = new ArrayList<>();
 
         /* For reuse. */
         Payment payment;
@@ -68,8 +68,8 @@ public class TestDataFactory {
 
             /**/
 
-            debitorToAmount = new HashMap<Participant, Amount>();
-            payerToPayment = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<>();
+            payerToPayment = new HashMap<>();
 
             amount = amountFactory.createAmount(30.00d);
             payerToPayment.put(chris, amount);
@@ -92,8 +92,8 @@ public class TestDataFactory {
 
             /**/
 
-            debitorToAmount = new HashMap<Participant, Amount>();
-            payerToPayment = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<>();
+            payerToPayment = new HashMap<>();
 
             amount = amountFactory.createAmount(10.00d);
             payerToPayment.put(chris, amount);
@@ -123,8 +123,8 @@ public class TestDataFactory {
 
             /**/
 
-            debitorToAmount = new HashMap<Participant, Amount>();
-            payerToPayment = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<>();
+            payerToPayment = new HashMap<>();
 
             amount = amountFactory.createAmount(10.00d);
             payerToPayment.put(wolfram, amount);
@@ -145,8 +145,8 @@ public class TestDataFactory {
             /**/
             /**/
 
-            debitorToAmount = new HashMap<Participant, Amount>();
-            payerToPayment = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<>();
+            payerToPayment = new HashMap<>();
 
             amount = amountFactory.createAmount(30.00d);
             payerToPayment.put(chris, amount);
@@ -168,8 +168,8 @@ public class TestDataFactory {
 
             /**/
 
-            debitorToAmount = new HashMap<Participant, Amount>();
-            payerToPayment = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<>();
+            payerToPayment = new HashMap<>();
 
             amount = amountFactory.createAmount(30.00d);
             payerToPayment.put(chris, amount);
@@ -189,8 +189,8 @@ public class TestDataFactory {
 
             /**/
 
-            debitorToAmount = new HashMap<Participant, Amount>();
-            payerToPayment = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<>();
+            payerToPayment = new HashMap<>();
 
             amount = amountFactory.createAmount(30.00d);
             payerToPayment.put(niko, amount);
@@ -217,8 +217,8 @@ public class TestDataFactory {
 
             /**/
 
-            debitorToAmount = new HashMap<Participant, Amount>();
-            payerToPayment = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<>();
+            payerToPayment = new HashMap<>();
 
             amount = amountFactory.createAmount(00.00d);
             payerToPayment.put(chris, amount);
@@ -237,8 +237,8 @@ public class TestDataFactory {
             payments.add(payment);
 
             /**/
-            debitorToAmount = new HashMap<Participant, Amount>();
-            payerToPayment = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<>();
+            payerToPayment = new HashMap<>();
 
             amount = amountFactory.createAmount(00.00d);
             payerToPayment.put(chris, amount);
@@ -267,8 +267,8 @@ public class TestDataFactory {
 
             /**/
 
-            debitorToAmount = new HashMap<Participant, Amount>();
-            payerToPayment = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<>();
+            payerToPayment = new HashMap<>();
 
             amount = amountFactory.createAmount(80.00d);
             payerToPayment.put(chris, amount);
@@ -299,8 +299,8 @@ public class TestDataFactory {
 
             /**/
 
-            debitorToAmount = new HashMap<Participant, Amount>();
-            payerToPayment = new HashMap<Participant, Amount>();
+            debitorToAmount = new HashMap<>();
+            payerToPayment = new HashMap<>();
 
             amount = amountFactory.createAmount(5.00d);
             payerToPayment.put(chris, amount);

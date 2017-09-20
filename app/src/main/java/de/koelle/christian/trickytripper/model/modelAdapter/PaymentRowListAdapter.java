@@ -152,8 +152,8 @@ public class PaymentRowListAdapter extends ArrayAdapter<Payment> {
         StringBuilder builderPayments = new StringBuilder();
         StringBuilder builderDebitedTo = new StringBuilder();
 
-        TreeMap<String, Amount> payments = new TreeMap<String, Amount>(collator);
-        TreeMap<String, Amount> debitedTo = new TreeMap<String, Amount>(collator);
+        TreeMap<String, Amount> payments = new TreeMap<>(collator);
+        TreeMap<String, Amount> debitedTo = new TreeMap<>(collator);
 
         for (Entry<Participant, Amount> entry : row.getParticipantToPayment().entrySet()) {
             payments.put(entry.getKey().getName(), entry.getValue());

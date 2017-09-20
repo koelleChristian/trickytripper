@@ -64,7 +64,7 @@ public class ExchangeRateImportActivity extends AppCompatActivity {
         List<RowObject> spinnerObjects = CurrencyViewSupport.wrapCurrenciesInRowObject(
                 allCurrenciesAlive, getResources());
 
-        adapter = new ArrayAdapter<RowObject>(this, R.layout.general_checked_text_view, spinnerObjects);
+        adapter = new ArrayAdapter<>(this, R.layout.general_checked_text_view, spinnerObjects);
         listView.setAdapter(adapter);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -180,7 +180,7 @@ public class ExchangeRateImportActivity extends AppCompatActivity {
 
         progressBarStatus = 0;
 
-        final Set<Currency> currenciesToBeLoaded = new LinkedHashSet<Currency>(selectionResult);
+        final Set<Currency> currenciesToBeLoaded = new LinkedHashSet<>(selectionResult);
 
         new Thread(new Runnable() {
             public void run() {

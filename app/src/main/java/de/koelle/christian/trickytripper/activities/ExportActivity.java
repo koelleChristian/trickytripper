@@ -107,7 +107,7 @@ public class ExportActivity extends AppCompatActivity {
     }
 
     private void initAndBindSpinner(final TrickyTripperApp app) {
-        participantsInSpinner = new ArrayList<Participant>();
+        participantsInSpinner = new ArrayList<>();
         participantsInSpinner.add(null);
         participantsInSpinner.addAll(app.getTripController().getAllParticipants(false, true));
 

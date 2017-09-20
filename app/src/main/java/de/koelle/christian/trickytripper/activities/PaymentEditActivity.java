@@ -74,10 +74,10 @@ import de.koelle.christian.trickytripper.ui.utils.UiAmountViewUtils;
 
 public class PaymentEditActivity extends AppCompatActivity implements DatePickerDialogFragment.DatePickerDialogCallback {
 
-    private final List<View> paymentRows = new ArrayList<View>();
-    private final List<View> debitRows = new ArrayList<View>();
-    private final Map<Participant, EditText> amountPayedParticipantToWidget = new HashMap<Participant, EditText>();
-    private final Map<Participant, EditText> amountDebitorParticipantToWidget = new HashMap<Participant, EditText>();
+    private final List<View> paymentRows = new ArrayList<>();
+    private final List<View> debitRows = new ArrayList<>();
+    private final Map<Participant, EditText> amountPayedParticipantToWidget = new HashMap<>();
+    private final Map<Participant, EditText> amountDebitorParticipantToWidget = new HashMap<>();
     private ViewMode viewMode;
     private Payment payment;
     private boolean divideEqually;
@@ -151,7 +151,7 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
     }
 
     private List<Participant> addAncientInactive(List<Participant> allParticipants, Payment payment2) {
-        List<Participant> result = new ArrayList<Participant>(allParticipants);
+        List<Participant> result = new ArrayList<>(allParticipants);
         Set<Entry<Participant, Amount>> entrySet;
         entrySet = payment2.getParticipantToPayment().entrySet();
         addInactiveOnes(result, entrySet);
@@ -406,14 +406,14 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
 
     public void openParticipantSelectionPayer(View view) {
         ArrayList<Participant> participantsInUse =
-                new ArrayList<Participant>(payment.getParticipantToPayment().keySet());
+                new ArrayList<>(payment.getParticipantToPayment().keySet());
         getApp().getViewController().openParticipantSelection(PaymentEditActivity.this, participantsInUse, amountTotalPayments, true, null);
     }
 
     public void openParticipantSelectionCharged(View view) {
         ArrayList<Participant> participantsInUse =
-                new ArrayList<Participant>(payment.getParticipantToSpending().keySet());
-        getApp().getViewController().openParticipantSelection(PaymentEditActivity.this, participantsInUse, amountTotalPayments, false, new ArrayList<Participant>(allRelevantParticipants));
+                new ArrayList<>(payment.getParticipantToSpending().keySet());
+        getApp().getViewController().openParticipantSelection(PaymentEditActivity.this, participantsInUse, amountTotalPayments, false, new ArrayList<>(allRelevantParticipants));
     }
 
 
@@ -460,7 +460,7 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
                 - Math.abs(amountTotalDebits.getValue()));
 
         int countBlanks = 0;
-        List<Participant> participantsWithBlanks = new ArrayList<Participant>();
+        List<Participant> participantsWithBlanks = new ArrayList<>();
         for (Entry<Participant, Amount> entry : payment.getParticipantToSpending().entrySet()) {
             if (entry.getValue().getValue() == null || entry.getValue().getValue() == 0) {
                 countBlanks = countBlanks + 1;
@@ -501,7 +501,7 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
                 payment.getParticipantToPayment() :
                 payment.getParticipantToSpending();
 
-        Map<Participant, Amount> oldValues = new HashMap<Participant, Amount>();
+        Map<Participant, Amount> oldValues = new HashMap<>();
         oldValues.putAll(target);
         target.clear();
 
@@ -705,7 +705,7 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
         List<RowObject> spinnerObjects = SpinnerViewSupport.createSpinnerObjects(PaymentCategory.BEVERAGES, false,
                 Arrays.asList(new Object[]{PaymentCategory.MONEY_TRANSFER}), getResources(), getApp()
                         .getMiscController().getDefaultStringCollator());
-        ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this, android.R.layout.simple_spinner_item,
+        ArrayAdapter<RowObject> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
                 spinnerObjects);
         adapter.setDropDownViewResource(R.layout.selection_list_medium);
         spinner.setPromptId(R.string.payment_view_spinner_prompt);

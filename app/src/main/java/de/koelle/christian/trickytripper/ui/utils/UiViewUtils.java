@@ -17,7 +17,7 @@ public class UiViewUtils {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public static <T> Set<T> getListSelection(ListView listView2, ArrayAdapter<RowObject> adapter2) {
 
-        final Set<T> selectionResult = new LinkedHashSet<T>();
+        final Set<T> selectionResult = new LinkedHashSet<>();
 
         SparseBooleanArray selection = listView2.getCheckedItemPositions();
         for (int i = 0; i < listView2.getCount(); i++) {

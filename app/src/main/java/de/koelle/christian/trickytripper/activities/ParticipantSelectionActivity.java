@@ -87,12 +87,12 @@ public class ParticipantSelectionActivity extends AppCompatActivity {
             }
         };
 
-        List<RowObject<Participant>> participantsWrapped = new ArrayList<RowObject<Participant>>();
+        List<RowObject<Participant>> participantsWrapped = new ArrayList<>();
         for (Participant p : allRelevantParticipants) {
-            participantsWrapped.add(new RowObject<Participant>(callback, p));
+            participantsWrapped.add(new RowObject<>(callback, p));
         }
 
-        adapter = new ArrayAdapter<RowObject<Participant>>(
+        adapter = new ArrayAdapter<>(
                 ParticipantSelectionActivity.this,
                 R.layout.general_checked_text_view,
                 participantsWrapped);

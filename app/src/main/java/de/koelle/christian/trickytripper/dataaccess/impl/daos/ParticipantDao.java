@@ -109,7 +109,7 @@ public class ParticipantDao {
     }
 
     public List<Participant> getAllParticipantsInTrip(long tripId) {
-        List<Participant> list = new ArrayList<Participant>();
+        List<Participant> list = new ArrayList<>();
         Cursor c =
                 db.query(
                         ParticipantTable.TABLE_NAME,

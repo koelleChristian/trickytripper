@@ -34,7 +34,7 @@ import de.koelle.christian.trickytripper.ui.utils.PrepareOptionsSupport;
 public class ExchangeRateManageActivity extends AppCompatActivity implements DeleteConfirmationCallback {
 
     private static final String DIALOG_PARAM_EXCHANGE_RATE = "dialogParamExchangeRate";
-    private final List<ExchangeRate> exchangeRateList = new ArrayList<ExchangeRate>();
+    private final List<ExchangeRate> exchangeRateList = new ArrayList<>();
     private ArrayAdapter<ExchangeRate> listAdapter;
     private Comparator<ExchangeRate> comparator;
     private ImportOptionSupport importOptionSupport;
@@ -261,7 +261,7 @@ public class ExchangeRateManageActivity extends AppCompatActivity implements Del
     }
 
     private void deleteRowAndUpdateList(ExchangeRate row) {
-        ArrayList<ExchangeRate> rates = new ArrayList<ExchangeRate>();
+        ArrayList<ExchangeRate> rates = new ArrayList<>();
         rates.add(row);
 
         getApp().getExchangeRateController().deleteExchangeRates(rates);

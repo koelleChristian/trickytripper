@@ -157,7 +157,7 @@ public class SaveToSdCardActivity extends AppCompatActivity {
     }
 
     private List<Uri> handleSendMultipleImages(Intent intent) {
-        List<Uri> result = new ArrayList<Uri>();
+        List<Uri> result = new ArrayList<>();
         ArrayList<Uri> fileUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
         if (fileUris != null) {
             if (Rc.debugOn) {

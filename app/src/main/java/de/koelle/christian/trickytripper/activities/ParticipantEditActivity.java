@@ -147,7 +147,7 @@ public class ParticipantEditActivity extends AppCompatActivity implements Permis
     private void updateAlreadyCreatedList() {
         if (adapter == null) {
             ListView listView = (ListView) findViewById(R.id.editParticipantViewListViewAlreadyCreated);
-            adapter = new ArrayAdapter<String>(this,
+            adapter = new ArrayAdapter<>(this,
                     android.R.layout.simple_list_item_1, new ArrayList<String>());
             listView.setAdapter(adapter);
             UiUtils.setViewVisibility(listView, true);
@@ -219,7 +219,7 @@ public class ParticipantEditActivity extends AppCompatActivity implements Permis
         private NameLookupTask(Context context, AutoCompleteTextView textView) {
             super();
             this.context = context;
-            adapter = new ArrayAdapter<String>(context,
+            adapter = new ArrayAdapter<>(context,
                     R.layout.selection_list_medium, new ArrayList<String>());
             textView.setAdapter(adapter);
         }
@@ -237,7 +237,7 @@ public class ParticipantEditActivity extends AppCompatActivity implements Permis
         protected void onPostExecute(ArrayList<PhoneContact> result) {
             // final HashMap<String, PhoneContact> contactMap = new
             // HashMap<String, PhoneContact>();
-            final List<String> contactList = new ArrayList<String>(result.size());
+            final List<String> contactList = new ArrayList<>(result.size());
             for (int i = 0; i < result.size(); i++) {
                 PhoneContact oc = result.get(i);
                 if (oc == null || oc.displayName == null) {

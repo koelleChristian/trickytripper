@@ -30,7 +30,7 @@ public class ExchangeRateMultiDeleteTest extends ApplicationTestCase<TrickyTripp
 
     BitSet occuranceFlags = new BitSet(4);
 
-    private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<Long, ExchangeRate>();
+    private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<>();
     private DataManagerImpl dataManager;
 
     public ExchangeRateMultiDeleteTest() {
@@ -86,7 +86,7 @@ public class ExchangeRateMultiDeleteTest extends ApplicationTestCase<TrickyTripp
         /* ============ delete ============ */
 
         /* Record 1, 3 & 4 */
-        deleteList = new ArrayList<ExchangeRate>();
+        deleteList = new ArrayList<>();
 
         input = new ExchangeRate();
         input.setId(ID_1);

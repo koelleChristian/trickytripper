@@ -16,7 +16,7 @@ public class ExchangeRateResultExtractorHttpGoogleImplTest {
 
     @Before
     public void setup() {
-        sample2Expected = new LinkedHashMap<String, Double>();
+        sample2Expected = new LinkedHashMap<>();
 //        System.out.println(new File(".").getAbsolutePath());
         if (System.getProperty("os.name").startsWith("Windows")) {
             sample2Expected.put(".\\src\\test\\resources\\de\\koelle\\christian\\trickytripper\\sample_google_http_exchange_rate_response_1.txt", Double.valueOf(0.9308));

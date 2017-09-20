@@ -49,7 +49,7 @@ import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 
 public class MoneyTransferActivity extends AppCompatActivity {
 
-    private final Map<Participant, Amount> amountByParticipant = new HashMap<Participant, Amount>();
+    private final Map<Participant, Amount> amountByParticipant = new HashMap<>();
     private Participant transferer;
     private Amount amountTotal;
 
@@ -263,7 +263,7 @@ public class MoneyTransferActivity extends AppCompatActivity {
 
     private List<Participant> getAllToBeListed(Participant transferer, List<Participant> allParticipants,
                                                Debts debtsOfTransferer, boolean onlyOwing) {
-        List<Participant> result = new ArrayList<Participant>();
+        List<Participant> result = new ArrayList<>();
         for (Participant p : allParticipants) {
             if (!p.equals(transferer)) {
                 Amount owingAmount = getNullSafeDebts(debtsOfTransferer, p);

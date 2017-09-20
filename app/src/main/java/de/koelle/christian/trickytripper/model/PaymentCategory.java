@@ -66,7 +66,7 @@ public enum PaymentCategory implements ResourceLabelAwareEnumeration {
     }
 
     public List<ResourceLabelAwareEnumeration> getAllValues() {
-        List<ResourceLabelAwareEnumeration> result = new ArrayList<ResourceLabelAwareEnumeration>();
+        List<ResourceLabelAwareEnumeration> result = new ArrayList<>();
         result.addAll(Arrays.asList(values()));
         return result;
     }

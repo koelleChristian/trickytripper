@@ -71,11 +71,11 @@ public class SpinnerViewUtils {
     @SuppressWarnings("rawtypes")
     private static List<RowObject> wrapCurrenciesInRowObject(List<Currency> supportedCurrencies, Currency exclusion,
             final Context context) {
-        List<RowObject> result = new ArrayList<RowObject>();
+        List<RowObject> result = new ArrayList<>();
 
         for (final Currency c : supportedCurrencies) {
             if (notExcluded(exclusion, c)) {
-                result.add(new RowObject<Currency>(new RowObjectCallback<Currency>() {
+                result.add(new RowObject<>(new RowObjectCallback<Currency>() {
                     public String getStringToDisplay(Currency c) {
                         /*
                          * This is the long description intended for the list

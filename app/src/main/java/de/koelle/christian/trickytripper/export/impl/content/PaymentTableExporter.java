@@ -39,8 +39,8 @@ public class PaymentTableExporter {
         resultBuilder.append(charResolver.getTablePrefix());
 
         List<Payment> relevantPayments = deriveRelevantPayments(trip, participants);
-        List<Participant> relevantPayers = new ArrayList<Participant>();
-        List<Participant> relevantPayees = new ArrayList<Participant>();
+        List<Participant> relevantPayers = new ArrayList<>();
+        List<Participant> relevantPayees = new ArrayList<>();
 
         fillAndSortRelevantParticipants(relevantPayers, relevantPayees, relevantPayments,
                 createComparator(resourceResolver));
@@ -152,7 +152,7 @@ public class PaymentTableExporter {
     }
 
     private List<Payment> deriveRelevantPayments(Trip trip, Collection<Participant> participants) {
-        List<Payment> result = new ArrayList<Payment>();
+        List<Payment> result = new ArrayList<>();
         if (participants.size() > 1) {
             for (Payment payment : trip.getPayments()) {
                 if (!payment.getCategory().isInternal()) {
@@ -186,8 +186,8 @@ public class PaymentTableExporter {
     private void fillAndSortRelevantParticipants(List<Participant> payerResult, List<Participant> payeeResult,
             List<Payment> relevantPayments,
             Comparator<Participant> comparator) {
-        Set<Participant> payerSet = new HashSet<Participant>();
-        Set<Participant> payeeSet = new HashSet<Participant>();
+        Set<Participant> payerSet = new HashSet<>();
+        Set<Participant> payeeSet = new HashSet<>();
         for (Payment p : relevantPayments) {
             payerSet.addAll(p.getParticipantToPayment().keySet());
             payeeSet.addAll(p.getParticipantToSpending().keySet());

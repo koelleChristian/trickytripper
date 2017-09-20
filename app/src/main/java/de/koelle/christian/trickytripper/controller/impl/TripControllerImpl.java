@@ -230,7 +230,7 @@ public class TripControllerImpl implements TripController, TripResolver {
     }
 
     public List<Participant> getAllParticipants(boolean onlyActive) {
-        List<Participant> result = new ArrayList<Participant>();
+        List<Participant> result = new ArrayList<>();
         for (Participant p : this.tripToBeEdited.getParticipant()) {
             if ((onlyActive && p.isActive()) || !onlyActive) {
                 result.add(p);

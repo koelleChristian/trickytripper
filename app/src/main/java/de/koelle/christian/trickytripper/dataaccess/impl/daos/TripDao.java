@@ -140,7 +140,7 @@ public class TripDao implements Dao<Trip> {
     }
 
     public List<TripSummary> getAllTripSummaries() {
-        List<TripSummary> result = new ArrayList<TripSummary>();
+        List<TripSummary> result = new ArrayList<>();
         List<Trip> interimResult = getAll();
         for (Trip t : interimResult) {
             TripSummary tripSummary = new TripSummary();
@@ -153,7 +153,7 @@ public class TripDao implements Dao<Trip> {
     }
 
     public List<Trip> getAll() {
-        List<Trip> list = new ArrayList<Trip>();
+        List<Trip> list = new ArrayList<>();
         Cursor c =
                 db.query(
                         TripTable.TABLE_NAME,
@@ -184,7 +184,7 @@ public class TripDao implements Dao<Trip> {
     }
 
     public List<Currency> findAllCurrenciesUsedInTrips() {
-        List<Currency> result = new ArrayList<Currency>();
+        List<Currency> result = new ArrayList<>();
         Cursor c =
                 db.query(
                         TripTable.TABLE_NAME,

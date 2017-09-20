@@ -356,8 +356,8 @@ public class TripReportLogicTest {
         Map<Participant, Amount> payerToPayment;
         Map<Participant, Amount> deptorToAmount;
 
-        deptorToAmount = new HashMap<Participant, Amount>();
-        payerToPayment = new HashMap<Participant, Amount>();
+        deptorToAmount = new HashMap<>();
+        payerToPayment = new HashMap<>();
 
         amount = amountFactory.createAmount(newPaymentValue);
         payerToPayment.put(payer, amount);

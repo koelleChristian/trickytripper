@@ -15,7 +15,7 @@ public class ImportResponseTimeTest extends AbstractCurrencyImportTest {
 
     public void testRealCurrencyImportTest() {
 
-        List<Long> responseTimesInMs = new ArrayList<Long>();
+        List<Long> responseTimesInMs = new ArrayList<>();
         AsyncExchangeRateResolver resolver = new AsyncExchangeRateJsonResolverGoogleImpl(getContext());
         for (int i = 0; i < 10; i++) {
             responseTimesInMs.add(resolver.calculateResponseTime(Currency.getInstance("EUR"),
