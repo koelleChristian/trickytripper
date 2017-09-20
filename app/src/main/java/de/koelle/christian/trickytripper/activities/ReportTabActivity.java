@@ -246,9 +246,7 @@ public class ReportTabActivity extends Fragment {
                 String value;
                 int column;
 
-                for (Iterator<Entry<Participant, Amount>> itInternal = debts.getLoanerToDebts().entrySet().iterator(); itInternal.hasNext(); ) {
-                    Entry<Participant, Amount> debt = itInternal.next();
-
+                for (Entry<Participant, Amount> debt : debts.getLoanerToDebts().entrySet()) {
                     if (isInScope(involvedParticipants, entry, debt)) {
 
                         areThereDebtsToBeDisplayed = true;

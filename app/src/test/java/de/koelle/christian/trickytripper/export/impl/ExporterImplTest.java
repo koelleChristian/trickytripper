@@ -72,11 +72,7 @@ public class ExporterImplTest {
                 try {
                     fos = new FileOutputStream(file);
                     fos.write(contents.toString().getBytes());
-                }
-                catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 finally {
