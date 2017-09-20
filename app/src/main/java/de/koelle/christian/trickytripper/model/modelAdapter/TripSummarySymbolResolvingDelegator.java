@@ -1,8 +1,9 @@
 package de.koelle.christian.trickytripper.model.modelAdapter;
 
+import android.content.res.Resources;
+
 import java.util.Currency;
 
-import android.content.res.Resources;
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.model.TripSummary;
 

@@ -1,9 +1,10 @@
 package de.koelle.christian.trickytripper.controller;
 
+import android.app.Activity;
+
 import java.io.File;
 import java.util.List;
 
-import android.app.Activity;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
 import de.koelle.christian.trickytripper.model.Participant;

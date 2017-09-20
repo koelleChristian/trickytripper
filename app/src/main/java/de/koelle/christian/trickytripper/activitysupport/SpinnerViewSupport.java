@@ -1,17 +1,18 @@
 package de.koelle.christian.trickytripper.activitysupport;
 
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.model.ExchangeRateSelection;
 import de.koelle.christian.trickytripper.model.Participant;

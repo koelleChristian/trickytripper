@@ -1,13 +1,13 @@
 package de.koelle.christian.trickytripper.export.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Parcelable;
 import android.webkit.MimeTypeMap;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.constants.Rc;

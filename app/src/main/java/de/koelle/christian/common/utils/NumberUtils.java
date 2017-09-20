@@ -135,9 +135,9 @@ public class NumberUtils {
         }
         BigDecimal result;
         BigDecimal dividendBd = new BigDecimal(dividend, MathContext.DECIMAL128);
-        dividendBd.setScale(scale, RoundingMode.HALF_EVEN); // TODO(ckoelle)
+        dividendBd.setScale(scale, RoundingMode.HALF_EVEN);
         BigDecimal divisorBd = new BigDecimal(divisor, MathContext.DECIMAL128);
-        divisorBd.setScale(scale, RoundingMode.HALF_EVEN); // TODO(ckoelle)
+        divisorBd.setScale(scale, RoundingMode.HALF_EVEN);
         result = dividendBd.divide(divisorBd, scale, RoundingMode.HALF_EVEN);
         return Double.valueOf(result.toString());
     }

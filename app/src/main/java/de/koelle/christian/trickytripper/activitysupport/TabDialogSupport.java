@@ -1,6 +1,7 @@
 package de.koelle.christian.trickytripper.activitysupport;
 
 import android.os.Bundle;
+
 import de.koelle.christian.trickytripper.constants.Rd;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;

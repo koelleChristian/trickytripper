@@ -3,8 +3,6 @@ package de.koelle.christian.common.support;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
-import android.view.WindowManager;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -3,6 +3,7 @@ package de.koelle.christian.common.ui.filter;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.util.Log;
+
 import de.koelle.christian.trickytripper.constants.Rc;
 
 /**

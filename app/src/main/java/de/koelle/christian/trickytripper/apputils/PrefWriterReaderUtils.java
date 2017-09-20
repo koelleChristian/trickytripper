@@ -1,10 +1,11 @@
 package de.koelle.christian.trickytripper.apputils;
 
-import java.util.Currency;
-
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
+
+import java.util.Currency;
+
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.model.ExportSettings;
@@ -46,7 +47,9 @@ public class PrefWriterReaderUtils {
                 .putBoolean(
                         PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_SHOW_GLOBAL_SUMS_ON_INDIVIDUAL_SPENDING_REPORT,
                         settings.isShowGlobalSumsOnIndividualSpendingReport());
-        prefsEditor.putString(PREFS_VALUE_EXPORT_SETTINGS_OUTPUT_CHANNEL, settings.getOutputChannel().toString()); // TODO nullable?
+        if(settings.getOutputChannel() != null){
+            prefsEditor.putString(PREFS_VALUE_EXPORT_SETTINGS_OUTPUT_CHANNEL, settings.getOutputChannel().toString());
+        }
         prefsEditor.commit();
     }
 

@@ -504,7 +504,6 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
         Map<Participant, Amount> oldValues = new HashMap<Participant, Amount>();
         oldValues.putAll(target);
         target.clear();
-        List<Amount> newValues = new ArrayList<Amount>(); // TODO(ckoelle) Filled but never used.
 
         if (divideAmountResult) {
             List<Participant> participants = selectionResult;
@@ -515,7 +514,6 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
             for (Participant pSelected : selectionResult) {
                 Amount amount = getAmountFac().createAmount();
                 target.put(pSelected, amount);
-                newValues.add(amount);
             }
             for (Entry<Participant, Amount> entry : target.entrySet()) {
                 if (oldValues.get(entry.getKey()) != null && oldValues.get(entry.getKey()).getValue() != 0) {

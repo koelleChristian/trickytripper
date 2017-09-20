@@ -1,8 +1,9 @@
 package de.koelle.christian.trickytripper.ui.utils;
 
+import android.content.res.Resources;
+
 import java.util.Locale;
 
-import android.content.res.Resources;
 import de.koelle.christian.common.utils.DateUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.model.ExchangeRate;

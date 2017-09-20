@@ -1,6 +1,7 @@
 package de.koelle.christian.common.options;
 
 import android.view.MenuInflater;
+
 import de.koelle.christian.trickytripper.R;
 
 public class OptionsSupport {

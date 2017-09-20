@@ -1,15 +1,16 @@
 package de.koelle.christian.common.currencyspinner;
 
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
+
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;

@@ -1,9 +1,9 @@
 package de.koelle.christian.trickytripper.exchangerates.impl;
 
-import de.koelle.christian.common.utils.NumberUtils;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import de.koelle.christian.common.utils.NumberUtils;
 
 public abstract class AbstractExchangeRateResultExtractor implements
         ExchangeRateResultExtractor {

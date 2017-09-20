@@ -1,5 +1,10 @@
 package de.koelle.christian.common.io.impl;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,10 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import android.content.ContentResolver;
-import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
 import de.koelle.christian.common.io.FileWriter;
 import de.koelle.christian.trickytripper.constants.Rc;
 

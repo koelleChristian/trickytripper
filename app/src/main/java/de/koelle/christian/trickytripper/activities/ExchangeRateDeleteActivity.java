@@ -110,7 +110,7 @@ public class ExchangeRateDeleteActivity extends AppCompatActivity implements Del
             }
             adapter.sort(comparator);
 
-            /**
+            /*
              * This selection shit is required, as the widget still has its
              * selection state when coming from deletion. The state does not
              * reset by calling adapter.notifyDataSetChanged(), as said on the

@@ -1,14 +1,16 @@
 package de.koelle.christian.trickytripper.exchangerates.impl;
 
 import android.content.Context;
-import de.koelle.christian.common.http.AsyncHttpParser;
-import de.koelle.christian.common.http.AsyncHttpParserResultCallback;
-import de.koelle.christian.common.json.AsyncJsonParserResultCallback;
-import de.koelle.christian.trickytripper.model.ImportOrigin;
+
 import org.json.JSONObject;
 
 import java.util.Currency;
 import java.util.concurrent.TimeUnit;
+
+import de.koelle.christian.common.http.AsyncHttpParser;
+import de.koelle.christian.common.http.AsyncHttpParserResultCallback;
+import de.koelle.christian.common.json.AsyncJsonParserResultCallback;
+import de.koelle.christian.trickytripper.model.ImportOrigin;
 
 public class AsyncExchangeRateHttpResolverGoogleImpl implements AsyncExchangeRateResolver {
 

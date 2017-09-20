@@ -351,9 +351,6 @@ public class TrickyTripperActivity extends AppCompatActivity implements DeleteDi
         setTripNameToHeader();
         updatePagerAdapter();
     }
-
-    //TODO(ckoelle) ABS The delegating TripSummary could be kicked out, as the Adapter is overridden.
-
     private class MyActionModeCallback implements ActionMode.Callback {
 
         private TripSummary selectedTrip;

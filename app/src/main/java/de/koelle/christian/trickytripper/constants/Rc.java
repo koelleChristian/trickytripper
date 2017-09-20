@@ -1,9 +1,9 @@
 package de.koelle.christian.trickytripper.constants;
 
-import java.text.Collator;
-
 import android.content.Context;
 import android.content.Intent;
+
+import java.text.Collator;
 
 public class Rc {
 
@@ -67,7 +67,6 @@ public class Rc {
     public static final int ACTIVITY_REQ_CODE_CURRENCY_CALCULATOR = 53214;
     public static final int ACTIVITY_REQ_CODE_CURRENCY_SELECTION = 62214;
     public static final int ACTIVITY_REQ_CODE_PARTICIPANT_SELECT = 3452;
-    /* TODO(ckoelle) I think this is not for result anymore. */
     public static final int ACTIVITY_REQ_CODE_EXCHANGE_RATE_MANAGEMENT = 49499;
     public static final int ACTIVITY_REQ_CODE_EDIT_TRIP = 36214;
 

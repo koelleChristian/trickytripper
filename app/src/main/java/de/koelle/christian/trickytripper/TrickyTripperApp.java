@@ -1,6 +1,7 @@
 package de.koelle.christian.trickytripper;
 
 import android.app.Application;
+
 import de.koelle.christian.common.utils.FileUtils;
 import de.koelle.christian.trickytripper.apputils.PrefAccessor;
 import de.koelle.christian.trickytripper.controller.ExchangeRateController;

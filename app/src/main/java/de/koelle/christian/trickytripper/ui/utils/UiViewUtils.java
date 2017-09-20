@@ -1,13 +1,14 @@
 package de.koelle.christian.trickytripper.ui.utils;
 
-import java.util.LinkedHashSet;
-import java.util.Locale;
-import java.util.Set;
-
 import android.util.SparseBooleanArray;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import java.util.LinkedHashSet;
+import java.util.Locale;
+import java.util.Set;
+
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.ui.model.RowObject;

@@ -1,9 +1,7 @@
 package de.koelle.christian.trickytripper.export.impl;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.net.Uri;
-import android.webkit.MimeTypeMap;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -118,7 +116,6 @@ public class ExporterImpl implements Exporter {
                         resourceResolver.resolve(R.string.fileExportEmailContent),
                         contentUrisFromFiles, settings.getOutputChannel());
             }
-            // TODO still nullable?
         }
 
         return filesCreated;

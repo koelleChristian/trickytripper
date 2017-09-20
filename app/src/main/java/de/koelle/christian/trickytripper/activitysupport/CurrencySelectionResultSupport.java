@@ -1,10 +1,11 @@
 package de.koelle.christian.trickytripper.activitysupport;
 
-import java.util.Currency;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.Button;
+
+import java.util.Currency;
+
 import de.koelle.christian.trickytripper.constants.Rc;
 
 public class CurrencySelectionResultSupport {

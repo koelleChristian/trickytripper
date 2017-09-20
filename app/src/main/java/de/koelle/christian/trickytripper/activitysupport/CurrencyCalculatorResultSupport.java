@@ -1,11 +1,12 @@
 package de.koelle.christian.trickytripper.activitysupport;
 
-import java.util.Locale;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.Locale;
+
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.trickytripper.R;
