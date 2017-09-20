@@ -123,7 +123,7 @@
     <string name="exportViewSpinnerPromptChannel">Wähle Ausgabeweg</string>
     <string name="exportViewSpinnerNotAvailable">nicht verfügbar</string>
     <string name="exportOutputOpen">Öffnen</string>
-    <string name="exportOutputStreamSending">Senden</string>
+    <string name="exportOutputStreamSending">Senden/Speichern</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Aufs Telefon speichern</string>
     <string name="save2SdReceiverHeading">Export: Verzeichnisauswahl</string>

@@ -87,7 +87,6 @@ public class DirectoryPickerActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Bundle extras = getIntent().getExtras();
-        requestSdCardPermissions();
         dir = Environment.getExternalStorageDirectory();
         if (extras != null) {
             String preferredStartDir = extras.getString(EXTRA_START_DIR);
@@ -226,45 +225,4 @@ public class DirectoryPickerActivity extends AppCompatActivity {
     }
     /* ============== Options Shit [END] ============== */
 
-    private boolean isSdCardPermissionGranted() {
-        Activity thisActivity = this;
-        return ContextCompat.checkSelfPermission(thisActivity, SYSTEM_PERMISSION
-        ) == PackageManager.PERMISSION_GRANTED;
-    }
-
-
-    private void requestSdCardPermissions() {
-        Activity thisActivity = this;
-        if (!isSdCardPermissionGranted()) {
-            doRequestSdCardpermissions();
-        }
-    }
-
-
-    private void doRequestSdCardpermissions() {
-        // The OS popup will show up, unless 'don't ask again' had been choosen.
-        Activity thisActivity = this;
-        ActivityCompat.requestPermissions(thisActivity,
-                new String[]{SYSTEM_PERMISSION},
-                MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-    }
-
-    boolean permPopShown = false;
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
-                // If request is cancelled, the result arrays are empty.
-                // This will be called, even when 'don't ask again' has been choosen and no popup appears.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    writeFiles();
-                } else if (!permPopShown) {
-                    Toast.makeText(this, R.string.permission_write_ext_storage_permanently_revoked, Toast.LENGTH_LONG).show();
-                }
-                permPopShown = false;
-            }
-        }
-    }
 }

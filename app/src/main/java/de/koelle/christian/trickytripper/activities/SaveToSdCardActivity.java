@@ -50,6 +50,15 @@ public class SaveToSdCardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!isSdCardPermissionGranted()) {
+            requestSdCardPermissions();
+        } else {
+           onCreateActually();
+        }
+    }
+
+    protected void onCreateActually() {
+
         Intent intent = getIntent();
         String action = intent.getAction();
         if (Intent.ACTION_SEND_MULTIPLE.equals(action)) {
@@ -88,39 +97,15 @@ public class SaveToSdCardActivity extends AppCompatActivity {
         else {
             finish();
         }
-
     }
 
     private void writeFiles() {
-        if (!isSdCardPermissionGranted()) {
-            requestSdCardPermissions();
-        } else {
-            writeFilesActually();
-        }
-
-    }
-
-    private void writeFilesActually() {
         progressDialog = ProgressDialog.show(this, getResources()
                 .getString(R.string.save2SdReceiverProgressHeading), directoryPickedPath, true, false);
         Runnable runnable = new Runnable() {
             public void run() {
-                if (Rc.debugOn) {
-                    Log.d(Rc.LT_IO, "Run: Write to disk=" + directoryPickedPath);
-                }
                 AppFileWriter.writeContentsToDisc(directoryPickedPath, getContentResolver(), fileUris);
-                if (Rc.debugOn) {
-                    Log.d(Rc.LT_IO, "Run: Write to disk=" + directoryPickedPath+". Done.");
-                }
                 progressResultHandler.sendEmptyMessage(0);
-                for(Uri uri : fileUris){
-                    if(uri.toString().endsWith(".html")){
-                        Intent intentNew = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                        intentNew.setDataAndType(Uri.parse(directoryPickedPath+"/"+uri.getLastPathSegment()), "text/html" );
-                        startActivity(Intent.createChooser(intentNew, "Open folder"));
-                    }
-
-                }
             }
         };
         Thread thread = new Thread(runnable);
@@ -218,9 +203,10 @@ public class SaveToSdCardActivity extends AppCompatActivity {
                 // This will be called, even when 'don't ask again' has been choosen and no popup appears.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    writeFiles();
+                    onCreateActually();
                 } else if (!permPopShown) {
                     Toast.makeText(this, R.string.permission_write_ext_storage_permanently_revoked, Toast.LENGTH_LONG).show();
+                    finish();
                 }
                 permPopShown = false;
             }

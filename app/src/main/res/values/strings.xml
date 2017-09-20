@@ -130,7 +130,7 @@
     <string name="exportViewSpinnerPromptChannel">Choose your output trail</string>
     <string name="exportViewSpinnerNotAvailable">not available</string>
     <string name="exportOutputOpen">Open</string>
-    <string name="exportOutputStreamSending">Send</string>
+    <string name="exportOutputStreamSending">Send/Save</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Save to storage</string>
     <string name="save2SdReceiverHeading">Export: Choose directory</string>
