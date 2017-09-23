@@ -13,7 +13,7 @@ public enum ExchangeRateSelection {
 
     private final int resourceId;
 
-    private ExchangeRateSelection(int resourceId) {
+    ExchangeRateSelection(int resourceId) {
         this.resourceId = resourceId;
     }
 

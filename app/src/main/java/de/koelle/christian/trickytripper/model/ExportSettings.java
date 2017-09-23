@@ -15,7 +15,7 @@ public class ExportSettings {
         private final int resourceId;
         private final boolean supportsMultipleFiles;
 
-        private ExportOutputChannel(int resourceId, boolean supportsMultipleFiles) {
+        ExportOutputChannel(int resourceId, boolean supportsMultipleFiles) {
             this.resourceId = resourceId;
             this.supportsMultipleFiles = supportsMultipleFiles;
         }

@@ -212,7 +212,7 @@ public class TripReportLogic {
                         - Math.abs(amountP2.getValue())));
                 Amount newAmountAmount = amountFactory.createAmount(newAmountDouble);
 
-                if (newAmountDouble.equals(Double.valueOf(0f))) {
+                if (newAmountDouble.equals((double) 0f)) {
                     result.get(p1).getLoanerToDebts().remove(p2);
                     result.get(p2).getLoanerToDebts().remove(p1);
                 }
@@ -276,9 +276,8 @@ public class TripReportLogic {
     }
 
     private Amount getNullsafeAmountEntryForParticipant(Debts debts, Participant payEntryParticipant) {
-        Amount amountForResult = (debts.getLoanerToDebts().get(payEntryParticipant) == null) ? amountFactory
+        return (debts.getLoanerToDebts().get(payEntryParticipant) == null) ? amountFactory
                 .createAmount() : debts.getLoanerToDebts().get(payEntryParticipant);
-        return amountForResult;
     }
 
     private void removeSelfDebts(Map<Participant, Amount> paymentsClone, Map<Participant, Amount> debitorsClone) {

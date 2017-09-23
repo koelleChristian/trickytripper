@@ -174,7 +174,7 @@ public class DetachedCurrencyImportTest {
         });
         Assert.assertEquals(0, failurecallbackResultAmountCounter);
         Assert.assertEquals(1, resultCollector.size());
-        Assert.assertEquals(Double.valueOf(1.0), resultCollector.iterator().next().getExchangeRateResult()
+        Assert.assertEquals(1.0, resultCollector.iterator().next().getExchangeRateResult()
                 .getExchangeRate());
     }
 
@@ -203,7 +203,7 @@ public class DetachedCurrencyImportTest {
         });
         Assert.assertEquals(0, failurecallbackResultAmountCounter);
         Assert.assertEquals(1, resultCollector.size());
-        Assert.assertEquals(Double.valueOf(1123.43), resultCollector.iterator().next().getExchangeRateResult()
+        Assert.assertEquals(1123.43, resultCollector.iterator().next().getExchangeRateResult()
                 .getExchangeRate());
     }
 

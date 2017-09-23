@@ -239,14 +239,12 @@ public class ExchangeRateImportActivity extends AppCompatActivity {
                 }
             }
         })
-        .start();
+                .start();
 
     }
 
     private Set<Currency> getSelection() {
-        final Set<Currency> selectionResult = UiViewUtils.getListSelection(listView, adapter
-        );
-        return selectionResult;
+        return UiViewUtils.getListSelection(listView, adapter);
     }
 
     protected void finishHere() {
@@ -268,6 +266,7 @@ public class ExchangeRateImportActivity extends AppCompatActivity {
                                 R.id.option_help
                         }));
     }
+
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean canImport = atLeastTwoSelected();
         MenuItem item = menu.findItem(R.id.option_accept);

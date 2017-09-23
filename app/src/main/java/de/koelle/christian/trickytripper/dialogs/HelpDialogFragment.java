@@ -53,8 +53,7 @@ public class HelpDialogFragment extends DialogFragment {
         Locale locale = activity.getResources().getConfiguration().locale;
         locale.getLanguage();
         String localizedHelpFileName = HELP_FILE_NAME_BASE + "_" + locale.getLanguage() + HELP_FILE_NAME_ENDING;
-        String urlToHelp = (miscController.checkIfInAssets(localizedHelpFileName)) ? HELP_ASSET_URL_BASE
+        return (miscController.checkIfInAssets(localizedHelpFileName)) ? HELP_ASSET_URL_BASE
                 + localizedHelpFileName : HELP_FILE_URL_EN;
-        return urlToHelp;
     }
 }

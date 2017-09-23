@@ -38,7 +38,6 @@ public class ExportActivity extends AppCompatActivity {
     private List<Participant> participantsInSpinner;
     private Participant participantSelected;
     private ExportSettings exportSettings;
-    private List<ExportOutputChannel> supportedOutputChannels;
     private boolean exportEnabled;
     private CheckBox checkboxFormatCsv;
     private CheckBox checkboxFormatHtml;
@@ -99,7 +98,7 @@ public class ExportActivity extends AppCompatActivity {
         final TrickyTripperApp app = getApp();
         exportSettings = app.getExportController().getDefaultExportSettings();
         initAndBindSpinner(app);
-        supportedOutputChannels = app.getExportController().getEnabledExportOutputChannel();
+        List<ExportOutputChannel> supportedOutputChannels = app.getExportController().getEnabledExportOutputChannel();
         initAndBindOutputChannelSpinner(exportSettings.getOutputChannel(), supportedOutputChannels);
         bindCheckBoxes();
         updateAllCheckboxStates();

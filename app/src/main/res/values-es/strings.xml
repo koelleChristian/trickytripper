@@ -256,7 +256,7 @@
     <string name="changelog_full_title">Registro de cambios</string>
     <string name="changelog_title">Qué hay de nuevo</string>
     <string name="changelog_ok_button">OK</string>
-    <string name="changelog_show_full">más...</string>
+    <string name="changelog_show_full">más…</string>
     <!-- ==================== Permissions ======================== -->
     <string name="permission_rationale_phone_book_access">Al teclear TrickyTripper puede ofrecer nombres extraídos de su listín telefónico. Sin embargo no tiene el permiso para hacerlo. \n\nNote:\nTrickyTripper funciona sin este permiso.</string>
     <string name="permission_write_ext_storage_permanently_revoked">No hay permiso para grabar en la tarjeta SD.</string>

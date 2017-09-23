@@ -90,13 +90,11 @@ public class PrefWriterReaderUtils {
     }
 
     public static long loadIdOfTripLastEdited(SharedPreferences prefs) {
-        long result = prefs.getLong(PREFS_VALUE_ID_TRIP_LAST_EDITED_ID, 1);
-        return result;
+        return prefs.getLong(PREFS_VALUE_ID_TRIP_LAST_EDITED_ID, 1);
     }
 
     public static long loadExchangeRateAutoSaveSeq(SharedPreferences prefs) {
-        long result = prefs.getLong(PREFS_VALUE_EXCHANGE_RATE_AUTO_SAVE_SEQ, 1);
-        return result;
+        return prefs.getLong(PREFS_VALUE_EXCHANGE_RATE_AUTO_SAVE_SEQ, 1);
     }
 
     public static void saveExchangeRateAutoSaveSeq(Editor prefsEditor, long id) {

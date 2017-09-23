@@ -277,8 +277,7 @@ public class ExchangeRateManageActivity extends AppCompatActivity implements Del
     }
 
     private ExchangeRate getRateByInfo(AdapterView.AdapterContextMenuInfo info) {
-        ExchangeRate rate = listAdapter.getItem(info.position);
-        return rate;
+        return listAdapter.getItem(info.position);
     }
 
     private TrickyTripperApp getApp() {

@@ -19,13 +19,13 @@ public class ExchangeRateResultExtractorHttpGoogleImplTest {
         sample2Expected = new LinkedHashMap<>();
 //        System.out.println(new File(".").getAbsolutePath());
         if (System.getProperty("os.name").startsWith("Windows")) {
-            sample2Expected.put(".\\src\\test\\resources\\de\\koelle\\christian\\trickytripper\\sample_google_http_exchange_rate_response_1.txt", Double.valueOf(0.9308));
-            sample2Expected.put(".\\src\\test\\resources\\de\\koelle\\christian\\trickytripper\\sample_google_http_exchange_rate_response_2.txt", Double.valueOf(0.0014));
-            sample2Expected.put(".\\src\\test\\resources\\de\\koelle\\christian\\trickytripper\\sample_google_http_exchange_rate_response_3.txt", Double.valueOf(642.2531));
+            sample2Expected.put(".\\src\\test\\resources\\de\\koelle\\christian\\trickytripper\\sample_google_http_exchange_rate_response_1.txt", 0.9308);
+            sample2Expected.put(".\\src\\test\\resources\\de\\koelle\\christian\\trickytripper\\sample_google_http_exchange_rate_response_2.txt", 0.0014);
+            sample2Expected.put(".\\src\\test\\resources\\de\\koelle\\christian\\trickytripper\\sample_google_http_exchange_rate_response_3.txt", 642.2531);
         } else {
-            sample2Expected.put("./src/test/resources/de/koelle/christian/trickytripper/sample_google_http_exchange_rate_response_1.txt", Double.valueOf(0.9308));
-            sample2Expected.put("./src/test/resources/de/koelle/christian/trickytripper/sample_google_http_exchange_rate_response_2.txt", Double.valueOf(0.0014));
-            sample2Expected.put("./src/test/resources/de/koelle/christian/trickytripper/sample_google_http_exchange_rate_response_3.txt", Double.valueOf(642.2531));
+            sample2Expected.put("./src/test/resources/de/koelle/christian/trickytripper/sample_google_http_exchange_rate_response_1.txt", 0.9308);
+            sample2Expected.put("./src/test/resources/de/koelle/christian/trickytripper/sample_google_http_exchange_rate_response_2.txt", 0.0014);
+            sample2Expected.put("./src/test/resources/de/koelle/christian/trickytripper/sample_google_http_exchange_rate_response_3.txt", 642.2531);
         }
 
     }

@@ -14,9 +14,9 @@ import de.koelle.christian.trickytripper.R;
 public class DeleteDialogFragment extends DialogFragment {
 
     public interface DeleteConfirmationCallback {
-        public String getDeleteConfirmationMsg(Bundle bundle);
+        String getDeleteConfirmationMsg(Bundle bundle);
 
-        public void doDelete(Bundle bundle);
+        void doDelete(Bundle bundle);
     }
     
     @Override

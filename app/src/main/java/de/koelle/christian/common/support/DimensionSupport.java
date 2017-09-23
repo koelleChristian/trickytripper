@@ -31,8 +31,7 @@ public class DimensionSupport {
     private float calculateDpToPixel(float dp) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * (metrics.densityDpi / 160f);
-        return px;
+        return dp * (metrics.densityDpi / 160f);
 
     }
 }

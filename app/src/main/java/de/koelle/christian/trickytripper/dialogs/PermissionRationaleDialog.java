@@ -12,8 +12,8 @@ import de.koelle.christian.trickytripper.R;
 public class PermissionRationaleDialog  extends DialogFragment {
 
     public interface PermissionRationaleDialogCallback {
-        public void permissionCustomNotificationDone();
-        public int getPermissionNotificationTextId();
+        void permissionCustomNotificationDone();
+        int getPermissionNotificationTextId();
     }
 
     PermissionRationaleDialogCallback callback;

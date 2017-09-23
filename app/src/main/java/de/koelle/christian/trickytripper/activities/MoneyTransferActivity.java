@@ -250,7 +250,7 @@ public class MoneyTransferActivity extends AppCompatActivity {
     }
 
     private Amount getNullSafeDebts(Debts debtsOfTransferer, Participant p) {
-        final Amount a = (
+        return (
                 debtsOfTransferer != null
                         && debtsOfTransferer.getLoanerToDebts() != null
                         && debtsOfTransferer.getLoanerToDebts().get(p) != null
@@ -258,7 +258,6 @@ public class MoneyTransferActivity extends AppCompatActivity {
 
                 debtsOfTransferer.getLoanerToDebts().get(p) :
                 null;
-        return a;
     }
 
     private List<Participant> getAllToBeListed(Participant transferer, List<Participant> allParticipants,
@@ -285,13 +284,11 @@ public class MoneyTransferActivity extends AppCompatActivity {
 
     private View inflate(int layoutId) {
         LayoutInflater inflater = getLayoutInflater();
-        final View viewInf = inflater.inflate(layoutId, null);
-        return viewInf;
+        return inflater.inflate(layoutId, null);
     }
 
     private TrickyTripperApp getApp() {
-        TrickyTripperApp app = ((TrickyTripperApp) getApplication());
-        return app;
+        return ((TrickyTripperApp) getApplication());
     }
 
     private DecimalNumberInputUtil getDecimalNumberInputUtil() {
@@ -299,8 +296,7 @@ public class MoneyTransferActivity extends AppCompatActivity {
     }
 
     private Locale getLocale() {
-        Locale locale = getResources().getConfiguration().locale;
-        return locale;
+        return getResources().getConfiguration().locale;
     }
 
     private AmountFactory getAmountFac() {

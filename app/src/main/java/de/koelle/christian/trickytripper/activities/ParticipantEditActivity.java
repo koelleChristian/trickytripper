@@ -284,7 +284,7 @@ public class ParticipantEditActivity extends AppCompatActivity implements Permis
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         //TODO(ckoelle) The button could be disabled in edit mode when nothing has changed.
-        boolean inputNotBlank = !StringUtils.isBlank(getAutoCompleteTextView().getEditableText().toString());
+        boolean inputNotBlank = StringUtils.isNotBlank(getAutoCompleteTextView().getEditableText().toString());
         MenuItem item = menu.findItem(R.id.option_accept);
         if (item == null) {
             item = menu.findItem(R.id.option_save_edit);

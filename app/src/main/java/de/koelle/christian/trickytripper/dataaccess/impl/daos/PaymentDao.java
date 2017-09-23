@@ -215,7 +215,7 @@ public class PaymentDao {
                 boolean isPayer = ConversionUtils.int2bool((int) c.getLong(5));
                 Amount amount = new Amount();
                 amount.setUnit(Currency.getInstance(c.getString(6)));
-                amount.setValue(NumberUtils.round(Double.valueOf(c.getDouble(7))));
+                amount.setValue(NumberUtils.round(c.getDouble(7)));
                 if (Rc.debugOn) {
                     Log.d(Rc.LT, amount + "");
                 }

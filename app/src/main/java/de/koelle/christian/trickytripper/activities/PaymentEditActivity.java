@@ -244,10 +244,8 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
         TableLayout tableLayout = (TableLayout) findViewById(R.id.paymentView_createPaymentPayerTableLayout);
 
         Map<Participant, Amount> amountMap = payment.getParticipantToPayment();
-        Map<Participant, EditText> widgetMap = amountPayedParticipantToWidget;
-        List<View> rowHolder = paymentRows;
 
-        refreshRows(tableLayout, amountMap, widgetMap, rowHolder, true);
+        refreshRows(tableLayout, amountMap, amountPayedParticipantToWidget, paymentRows, true);
 
         updatePayerSum();
     }
@@ -256,10 +254,8 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
         TableLayout tableLayout = (TableLayout) findViewById(R.id.paymentView_createSpendingTableLayout);
 
         Map<Participant, Amount> amountMap = payment.getParticipantToSpending();
-        Map<Participant, EditText> widgetMap = amountDebitorParticipantToWidget;
-        List<View> rowHolder = debitRows;
 
-        refreshRows(tableLayout, amountMap, widgetMap, rowHolder, false);
+        refreshRows(tableLayout, amountMap, amountDebitorParticipantToWidget, debitRows, false);
 
         setViewVisibility(R.id.paymentView_button_payee_add_further_payees, selectParticipantMakesSense);
 
@@ -506,10 +502,8 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
         target.clear();
 
         if (divideAmountResult) {
-            List<Participant> participants = selectionResult;
-            Map<Participant, Amount> targetMap = target;
             Amount amountTotal = (isPayment) ? calculateTotalSum(oldValues) : calculateTotalSumPayer();
-            MathUtils.divideAndSetOnMap(amountTotal, participants, targetMap, !isPayment, getAmountFac());
+            MathUtils.divideAndSetOnMap(amountTotal, selectionResult, target, !isPayment, getAmountFac());
         } else {
             for (Participant pSelected : selectionResult) {
                 Amount amount = getAmountFac().createAmount();
@@ -658,9 +652,9 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
 
     private boolean isPaymentSavable() {
         return isAmountBiggerZero(amountTotalPayments)
-                && (divideEqually || (amountTotalDebits != null && amountTotalPayments.getValue().doubleValue() == Math
+                && (divideEqually || (amountTotalDebits != null && amountTotalPayments.getValue() == Math
                 .abs(amountTotalDebits
-                        .getValue().doubleValue())));
+                        .getValue())));
     }
 
     private boolean areBlankDebitors() {

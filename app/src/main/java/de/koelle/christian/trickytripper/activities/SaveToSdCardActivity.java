@@ -50,7 +50,7 @@ public class SaveToSdCardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!isSdCardPermissionGranted()) {
+        if (isSdCardPermissionNotGranted()) {
             requestSdCardPermissions();
         } else {
            onCreateActually();
@@ -170,16 +170,15 @@ public class SaveToSdCardActivity extends AppCompatActivity {
         return result;
     }
 
-    private boolean isSdCardPermissionGranted() {
+    private boolean isSdCardPermissionNotGranted() {
         Activity thisActivity = this;
         return ContextCompat.checkSelfPermission(thisActivity, Manifest.permission.READ_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED;
+        ) != PackageManager.PERMISSION_GRANTED;
     }
 
 
     private void requestSdCardPermissions() {
-        Activity thisActivity = this;
-        if (!isSdCardPermissionGranted()) {
+        if (isSdCardPermissionNotGranted()) {
             doRequestSdCardpermissions();
         }
     }

@@ -362,7 +362,7 @@ public class TripReportLogicTest {
         amount = amountFactory.createAmount(newPaymentValue);
         payerToPayment.put(payer, amount);
 
-        Double splitValue = NumberUtils.divide(Double.valueOf(newPaymentValue), Integer.valueOf(3));
+        Double splitValue = NumberUtils.divide(newPaymentValue, 3);
         splitValue = splitValue * -1;
 
         amount = amountFactory.createAmount(splitValue);

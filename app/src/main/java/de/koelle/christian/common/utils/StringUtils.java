@@ -15,12 +15,12 @@ public class StringUtils {
         return result;
     }
 
-    public static boolean isBlank(String textInput) {
+    public static boolean isNotBlank(String textInput) {
         if (textInput == null) {
-            return true;
+            return false;
         }
         String trimmedClone = textInput.trim();
-        return trimmedClone.length() < 1;
+        return trimmedClone.length() >= 1;
     }
 
     public static StringBuilder generateString(int amount, String txtHeadingSymbol) {

@@ -48,9 +48,8 @@ public class TrickyTripperFileProvider extends ContentProvider {
                     .append(uri.getLastPathSegment());
 
             /* Note:they're only getting read only */
-            ParcelFileDescriptor pfd = ParcelFileDescriptor.open(new File(
+            return ParcelFileDescriptor.open(new File(
                     fileLocation.toString()), ParcelFileDescriptor.MODE_READ_ONLY);
-            return pfd;
 
         default:
             throw new FileNotFoundException("Unsupported uri: "

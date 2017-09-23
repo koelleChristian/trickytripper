@@ -51,7 +51,7 @@ public class AmountViewUtils {
         }
         Double valueInternal = (stripOffSign) ? Math.abs(value) : value;
 
-        if (blankIfZero && valueInternal.equals(Double.valueOf(0))) {
+        if (blankIfZero && valueInternal.equals(0d)) {
             return "";
         }
         NumberFormat nf = NumberFormat.getNumberInstance(locale);

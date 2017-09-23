@@ -25,15 +25,13 @@ public class TabDialogSupport {
             return null; // Create
         }
         // Edit
-        Participant participant = (Participant) args.get(Rd.DIALOG_PARAM_PARTICIPANT);
-        return participant;
+        return (Participant) args.get(Rd.DIALOG_PARAM_PARTICIPANT);
     }
 
     public static Payment getPaymentFromBundle(Bundle args) {
         if (args == null) {
             return null;
         }
-        Payment payment = (Payment) args.get(Rd.DIALOG_PARAM_PAYMENT);
-        return payment;
+        return (Payment) args.get(Rd.DIALOG_PARAM_PAYMENT);
     }
 }

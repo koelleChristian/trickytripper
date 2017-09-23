@@ -4,7 +4,7 @@ package de.koelle.christian.trickytripper.exchangerates.impl;
 
 public interface ExchangeRateImporterResultCallback {
 
-    public enum ExchangeRateImporterResultState {
+    enum ExchangeRateImporterResultState {
         /**
          * 
          */

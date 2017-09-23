@@ -71,22 +71,22 @@ public class AmountViewUtilsTest {
 
         locale = Locale.UK;
 
-        Assert.assertEquals("9", AmountViewUtils.getDoubleString(locale, Double.valueOf(9.00)));
-        Assert.assertEquals("12,345.6789", AmountViewUtils.getDoubleString(locale, Double.valueOf(12345.67890)));
+        Assert.assertEquals("9", AmountViewUtils.getDoubleString(locale, 9.00));
+        Assert.assertEquals("12,345.6789", AmountViewUtils.getDoubleString(locale, 12345.67890));
 
         /* ========= */
 
         locale = Locale.GERMANY;
 
-        Assert.assertEquals("9", AmountViewUtils.getDoubleString(locale, Double.valueOf(9.00)));
-        Assert.assertEquals("12.345,6789", AmountViewUtils.getDoubleString(locale, Double.valueOf(12345.67890)));
+        Assert.assertEquals("9", AmountViewUtils.getDoubleString(locale, 9.00));
+        Assert.assertEquals("12.345,6789", AmountViewUtils.getDoubleString(locale, 12345.67890));
 
     }
 
     private Amount createAmount(String currencyCode, double value) {
         Amount amount = new Amount();
         amount.setUnit(Currency.getInstance(currencyCode));
-        amount.setValue(Double.valueOf(value));
+        amount.setValue(value);
         return amount;
     }
 }

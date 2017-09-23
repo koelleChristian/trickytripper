@@ -27,7 +27,7 @@ public interface DataManager {
 
     Trip persistTripBySummary(TripSummary tripSummary);
 
-    public Participant persistParticipantInTrip(long tripId, Participant participant);
+    Participant persistParticipantInTrip(long tripId, Participant participant);
 
     Payment persistPaymentInTrip(long tripId, Payment payment);
 

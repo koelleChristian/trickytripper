@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -332,14 +331,13 @@ public class ReportTabActivity extends Fragment {
     }
 
     private TextView addNewTextViewToRwo(TableRow target, String valueForDisplay, int column, TableRow.LayoutParams columnRowParams, int span, boolean isDebts) {
-        TableRow.LayoutParams columnRowParamsHere = columnRowParams;
         TextView textView;
         textView = new TextView(getActivity());
         textView.setText(valueForDisplay);
-        columnRowParamsHere.column = column;
-        columnRowParamsHere.span = span;
+        columnRowParams.column = column;
+        columnRowParams.span = span;
         if(isDebts){
-            columnRowParamsHere.weight = 1;
+            columnRowParams.weight = 1;
         }
         target.addView(textView, columnRowParams);
         return textView;
