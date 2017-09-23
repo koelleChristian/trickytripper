@@ -27,6 +27,13 @@
   </head>  
   <body>
 
+$ 1.5.9
+% Version 1.5.9
+  _ 2017-09-23
+* Report export: The Android application chooser now lets you pick the destination application of your choice, like e.g. Google Drive. The limitation to only a few supported applications has been removed.
+* Report export: Choose to open the files instead of sending/saving them.
+* Support for Android O.
+
 $ 1.5.8
 % Version 1.5.8
   _ 2016-11-23

@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.1'
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId 'de.koelle.christian.trickytripper'
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 22
         versionName '1.5.9'
     }
