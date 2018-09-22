@@ -8,7 +8,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverGoogleImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverFccaImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
@@ -27,7 +27,7 @@ public abstract class AbstractCurrencyImportTest extends ApplicationTestCase<Tri
     protected void setUp() {
 
         importer = new ExchangeRateImporterImpl();
-        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverGoogleImpl(getContext()));
+        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverFccaImpl(getContext()));
         importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorJsonGoogleImpl());
         importer.setChunkDelay(2000);
         /* ================= Desire SIM-connection ========================= */

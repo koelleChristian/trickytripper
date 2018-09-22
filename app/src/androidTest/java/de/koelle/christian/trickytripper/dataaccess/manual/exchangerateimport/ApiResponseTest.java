@@ -4,16 +4,19 @@ import android.test.ApplicationTestCase;
 
 import junit.framework.Assert;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Currency;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateHttpResolverGoogleImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverFccaImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
-import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorHttpGoogleImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorJsonGoogleImpl;
 
 public class ApiResponseTest extends ApplicationTestCase<TrickyTripperApp> {
 
@@ -30,12 +33,18 @@ public class ApiResponseTest extends ApplicationTestCase<TrickyTripperApp> {
     @Override
     protected void setUp() {
         importer = new ExchangeRateImporterImpl();
-        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateHttpResolverGoogleImpl(getContext()));
-        importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorHttpGoogleImpl());
+        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverFccaImpl(getContext()));
+        importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorJsonGoogleImpl());
         importer.setChunkDelay(2000);
         importer.setChunkSize(50);
     }
 
+    public void testJSONShitTest() throws JSONException {
+        String JSON_STRING = "{\"EUR_USD\":{\"val\":1.174549}}";
+        JSONObject object = new JSONObject(JSON_STRING.replace("\"", "'"));
+        System.out.println(object.get("EUR_USD"));
+        Assert.assertEquals("1.174549", new JSONObject(object.get(object.keys().next()).toString()).getString("val"));
+    }
 
     public void testCurrencyApiAvailabilityTest() {
         Set<Currency> currencies = new LinkedHashSet<>();

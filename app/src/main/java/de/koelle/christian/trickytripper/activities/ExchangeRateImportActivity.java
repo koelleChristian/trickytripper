@@ -34,10 +34,12 @@ import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.CurrencyViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateHttpResolverGoogleImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverFccaImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorHttpGoogleImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorJsonGoogleImpl;
 import de.koelle.christian.trickytripper.model.ImportSettings;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
 import de.koelle.christian.trickytripper.ui.utils.UiViewUtils;
@@ -157,8 +159,8 @@ public class ExchangeRateImportActivity extends AppCompatActivity {
         final int progressCeiling = CurrencyUtil.calcExpectedAmountOfExchangeRates(amountOfCurrenciesSelected);
 
         final ExchangeRateImporterImpl importer = new ExchangeRateImporterImpl();
-        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateHttpResolverGoogleImpl(this));
-        importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorHttpGoogleImpl());
+        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverFccaImpl(this));
+        importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorJsonGoogleImpl());
 
         progressBar = new ProgressDialog(this);
         progressBar.setMessage(getResources().getString(R.string.exchangeRateImportViewProgressBarMessage));

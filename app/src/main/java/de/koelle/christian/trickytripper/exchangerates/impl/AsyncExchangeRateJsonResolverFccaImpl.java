@@ -11,17 +11,17 @@ import de.koelle.christian.common.json.AsyncJsonParser;
 import de.koelle.christian.common.json.AsyncJsonParserResultCallback;
 import de.koelle.christian.trickytripper.model.ImportOrigin;
 
-public class AsyncExchangeRateJsonResolverGoogleImpl implements AsyncExchangeRateResolver {
+public class AsyncExchangeRateJsonResolverFccaImpl implements AsyncExchangeRateResolver {
 
     private static final String SOURCE_CURRENCY_CODE_PLACEHOLDER = "%%CURR_A%%";
     private static final String TARGET_CURRENCY_CODE_PLACEHOLDER = "%%CURR_B%%";
-    public static final String EXCHANGE_RATE_SERVICE_URL = "https://www.google.com/finance/converter?a=1&from="
-            + SOURCE_CURRENCY_CODE_PLACEHOLDER + "&to=" + TARGET_CURRENCY_CODE_PLACEHOLDER;
+    public static final String EXCHANGE_RATE_SERVICE_URL = "https://free.currencyconverterapi.com/api/v6/convert?q="+
+            SOURCE_CURRENCY_CODE_PLACEHOLDER+"_"+TARGET_CURRENCY_CODE_PLACEHOLDER+"&compact=y";
     private final Context context;
 
     private AsyncJsonParser caller = new AsyncJsonParser();
 
-    public AsyncExchangeRateJsonResolverGoogleImpl(Context context) {
+    public AsyncExchangeRateJsonResolverFccaImpl(Context context) {
         this.context = context;
     }
 
@@ -32,11 +32,11 @@ public class AsyncExchangeRateJsonResolverGoogleImpl implements AsyncExchangeRat
     public void getExchangeRate(Currency from, Currency to, final AsyncExchangeRateResolverResultCallback callback) {
         caller.getJSONFromUrl(context, provideUrl(from, to), new AsyncJsonParserResultCallback() {
 
-            public void deliverResult(JSONObject jsonObject) {
+            public void deliverResult(JSONObject object) {
                 String result = null;
-                if (jsonObject != null) {
+                if (object != null) {
                     try {
-                        result = jsonObject.getString("rhs");
+                        result = new JSONObject(object.get(object.keys().next()).toString()).getString("val");
                     }
                     catch (JSONException e) {
                         e.printStackTrace();
