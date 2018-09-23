@@ -1,8 +1,9 @@
 package de.koelle.christian.trickytripper.dataaccess.suite.util;
 
+import org.junit.Assert;
+
 import java.util.List;
 
-import junit.framework.Assert;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.Trip;

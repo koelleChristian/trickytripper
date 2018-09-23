@@ -1,44 +1,45 @@
 package de.koelle.christian.trickytripper.dataaccess.manual.exchangerateimport;
 
-import android.test.ApplicationTestCase;
+import android.content.Context;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.SmallTest;
 
-import junit.framework.Assert;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Currency;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverFccaImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorJsonGoogleImpl;
 
-public class ApiResponseTest extends ApplicationTestCase<TrickyTripperApp> {
-
-    public static final int SLEEP_ITERATIONS = 10;
+@SmallTest
+public class ApiResponseTest {
 
     ExchangeRateImporterResultContainer resultContainerHere;
 
     private ExchangeRateImporterImpl importer;
+    private Context context;
 
-    public ApiResponseTest() {
-        super(TrickyTripperApp.class);
-    }
-
-    @Override
-    protected void setUp() {
+    @Before
+    public void setUp() {
+        context = InstrumentationRegistry.getContext();
         importer = new ExchangeRateImporterImpl();
-        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverFccaImpl(getContext()));
+        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverFccaImpl(context));
         importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorJsonGoogleImpl());
         importer.setChunkDelay(2000);
         importer.setChunkSize(50);
     }
 
+    @Test
     public void testJSONShitTest() throws JSONException {
         String JSON_STRING = "{\"EUR_USD\":{\"val\":1.174549}}";
         JSONObject object = new JSONObject(JSON_STRING.replace("\"", "'"));
@@ -46,6 +47,7 @@ public class ApiResponseTest extends ApplicationTestCase<TrickyTripperApp> {
         Assert.assertEquals("1.174549", new JSONObject(object.get(object.keys().next()).toString()).getString("val"));
     }
 
+    @Test
     public void testCurrencyApiAvailabilityTest() {
         Set<Currency> currencies = new LinkedHashSet<>();
         currencies.add(Currency.getInstance("EUR"));
@@ -73,51 +75,4 @@ public class ApiResponseTest extends ApplicationTestCase<TrickyTripperApp> {
         Assert.assertNotNull(resultContainerHere.getExchangeRateResult().getExchangeRate());
         Assert.assertTrue(0.0001 < resultContainerHere.getExchangeRateResult().getExchangeRate());
     }
-
-    /*public void testThreadedDesign() {
-        final CountDownLatch latch = new CountDownLatch(1);
-
-        HandlerThread testThread = new HandlerThread("testThreadedDesign thread");
-        testThread.start();
-
-        Set<Currency> currencies = new LinkedHashSet<Currency>();
-        currencies.add(Currency.getInstance("EUR"));
-        currencies.add(Currency.getInstance("USD"));
-        importer.importSelectedExchangeRates(currencies, new ExchangeRateImporterResultCallback() {
-            @Override
-            public void deliverResult(ExchangeRateImporterResultContainer resultContainer) {
-                resultContainerHere = resultContainer;
-            }
-        });
-
-        new ThingThatOperatesInTheBackground().doYourWorst(testThread.getLooper(),
-                new SomeListenerThatTotallyShouldExist() {
-                    public void onComplete() {
-                        result.success = true;
-                        finished();
-                    }
-
-                    public void onFizzBarError() {
-                        result.success = false;
-                        finished();
-                    }
-
-                    private void finished() {
-                        latch.countDown();
-                    }
-                });
-
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-           Assert.fail();
-        }
-
-        testThread.getLooper().quit();
-
-        Assert.assertNotNull(resultContainerHere);
-        Assert.assertTrue(ExchangeRateImporterResultCallback.ExchangeRateImporterResultState.SUCCESS == resultContainerHere.getResultState());
-        Assert.assertNotNull(resultContainerHere.getExchangeRateResult().getExchangeRate());
-        Assert.assertTrue(Double.valueOf(0.0001) < resultContainerHere.getExchangeRateResult().getExchangeRate());
-    }*/
 }

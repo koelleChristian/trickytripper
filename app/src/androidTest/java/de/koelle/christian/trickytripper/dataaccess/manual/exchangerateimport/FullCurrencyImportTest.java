@@ -1,21 +1,20 @@
 package de.koelle.christian.trickytripper.dataaccess.manual.exchangerateimport;
 
+import android.support.test.filters.SmallTest;
+
+import junit.framework.Assert;
+
 import java.util.Currency;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import junit.framework.Assert;
-
 import de.koelle.christian.common.utils.CurrencyUtil;
 
+@SmallTest
 public class FullCurrencyImportTest extends AbstractCurrencyImportTest {
     
     private static final int maxSleepIterations = 100;
-
-    public FullCurrencyImportTest() {
-        super();
-    }
 
     /**
      * Removed from automatic execution as this test runs for a very long time.

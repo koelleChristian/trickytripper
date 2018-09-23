@@ -1,12 +1,11 @@
 package de.koelle.christian.trickytripper.dataaccess.suite;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import android.test.suitebuilder.TestSuiteBuilder;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-public class AllPaymentPersistenceTestSuite extends TestSuite {
-    public static Test suite() {
-        return new TestSuiteBuilder(AllPaymentPersistenceTestSuite.class).
-                includePackages("de.koelle.christian.trickytripper.dataaccess.suite.payment").build();
-    }
+import de.koelle.christian.trickytripper.dataaccess.suite.payment.CheckTripExistenceTest;
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses(CheckTripExistenceTest.class)
+public class AllPaymentPersistenceTestSuite {
 }

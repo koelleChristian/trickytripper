@@ -1,33 +1,31 @@
 package de.koelle.christian.trickytripper.dataaccess.manual.exchangerateimport;
 
-import android.test.ApplicationTestCase;
+import android.content.Context;
+import android.support.test.InstrumentationRegistry;
 
-import junit.framework.Assert;
+import org.junit.Assert;
+import org.junit.Before;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverFccaImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorJsonGoogleImpl;
 
-public abstract class AbstractCurrencyImportTest extends ApplicationTestCase<TrickyTripperApp> {
+public abstract class AbstractCurrencyImportTest  {
 
     private Set<ExchangeRateImporterResultContainer> resultCollector;
     private ExchangeRateImporterImpl importer;
+    protected Context context;
 
-    public AbstractCurrencyImportTest() {
-        super(TrickyTripperApp.class);
-    }
-
-    @Override
-    protected void setUp() {
-
+    @Before
+    public void setUp() {
+        context = InstrumentationRegistry.getTargetContext();
         importer = new ExchangeRateImporterImpl();
-        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverFccaImpl(getContext()));
+        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverFccaImpl(context));
         importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorJsonGoogleImpl());
         importer.setChunkDelay(2000);
         /* ================= Desire SIM-connection ========================= */

@@ -1,27 +1,28 @@
 package de.koelle.christian.trickytripper.dataaccess.suite.payment;
 
+import android.support.test.filters.SmallTest;
+
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
-import junit.framework.Assert;
-import android.test.ApplicationTestCase;
-import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;
 import de.koelle.christian.trickytripper.dataaccess.suite.util.AssertionUtil;
 import de.koelle.christian.trickytripper.factories.ModelFactory;
 import de.koelle.christian.trickytripper.model.Trip;
 import de.koelle.christian.trickytripper.model.TripSummary;
 
+import static android.support.test.InstrumentationRegistry.getTargetContext;
 
-public class SaveAndLoadTripTest extends ApplicationTestCase<TrickyTripperApp> {
+@SmallTest
+public class SaveAndLoadTripTest {
 
-    public SaveAndLoadTripTest() {
-        super(TrickyTripperApp.class);
-    }
-
+    @Test
     public void testSaveAndLoadTrip() {
-        DataManagerImpl dataManager = new DataManagerImpl(getContext());
+        DataManagerImpl dataManager = new DataManagerImpl(getTargetContext());
 
         dataManager.removeAll();
 

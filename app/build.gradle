@@ -1,15 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '24'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.2'
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId 'de.koelle.christian.trickytripper'
         minSdkVersion 14
-        targetSdkVersion 24
-        versionCode 21
-        versionName '1.5.8'
+        targetSdkVersion 28
+        versionCode 22
+        versionName '1.5.9'
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
         checkReleaseBuilds true
@@ -56,11 +58,17 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs');
-    compile "com.android.support:appcompat-v7:$comAndroidSupport_supportV7Version";
-    compile "com.android.support:support-v4:$comAndroidSupport_supportV4Version"
-    compile "com.github.machinarius:preferencefragment:$comGithubMachinarius_preferenceFragmentVersion"
-    compile 'com.squareup.okhttp3:okhttp:3.1.2'
-    testCompile "junit:junit:$junitVersion"
-    testCompile "org.mockito:mockito-core:$orgMockitoMockitoCoreVersion"
+    api fileTree(include: ['*.jar'], dir: 'libs');
+    api "com.android.support:appcompat-v7:$comAndroidSupport_supportV7Version";
+    api "com.android.support:support-v4:$comAndroidSupport_supportV4Version"
+    api "com.github.machinarius:preferencefragment:$comGithubMachinarius_preferenceFragmentVersion"
+    api 'com.squareup.okhttp3:okhttp:3.1.2'
+
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.mockito:mockito-core:$orgMockitoMockitoCoreVersion"
+
+    androidTestImplementation "junit:junit:$junitVersion"
+    androidTestImplementation 'com.android.support:support-annotations:27.1.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+
 }

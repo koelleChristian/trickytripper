@@ -1,5 +1,24 @@
 package de.koelle.christian.trickytripper.dataaccess.suite.exchange;
 
+import android.content.Context;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.SmallTest;
+
+import junit.framework.Assert;
+
+import org.junit.After;
+import org.junit.Before;
+
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import de.koelle.christian.trickytripper.dataaccess.impl.DataConstants;
+import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;
+import de.koelle.christian.trickytripper.model.ExchangeRate;
+
 import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.ExchangeRateTestSupport.EUR;
 import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.ExchangeRateTestSupport.GBP;
 import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.ExchangeRateTestSupport.ID_1;
@@ -12,44 +31,30 @@ import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.Exchan
 import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.ExchangeRateTestSupport.REC_04;
 import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.ExchangeRateTestSupport.TRY;
 import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.ExchangeRateTestSupport.USD;
-
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import junit.framework.Assert;
-import android.test.ApplicationTestCase;
-import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.dataaccess.impl.DataConstants;
-import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;
-import de.koelle.christian.trickytripper.model.ExchangeRate;
-
-public class ExchangeRateMultiDeleteTest extends ApplicationTestCase<TrickyTripperApp> {
+@SmallTest
+public class ExchangeRateMultiDeleteTest {
 
     BitSet occuranceFlags = new BitSet(4);
 
     private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<Long, ExchangeRate>();
     private DataManagerImpl dataManager;
 
-    public ExchangeRateMultiDeleteTest() {
-        super(TrickyTripperApp.class);
-    }
+    private Context context;
 
-    @Override
-    protected void setUp() {
-        getContext().deleteDatabase(DataConstants.DATABASE_NAME);
-        dataManager = new DataManagerImpl(getContext());
+
+    @Before
+    public   void setUp() {
+        context = InstrumentationRegistry.getTargetContext();
+        context.deleteDatabase(DataConstants.DATABASE_NAME);
+        dataManager = new DataManagerImpl(context);
         dataManager.removeAll();
 
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         dataManager.close();
-        super.tearDown();
-        getContext().deleteDatabase(DataConstants.DATABASE_NAME);
+        context.deleteDatabase(DataConstants.DATABASE_NAME);
     }
 
     /**

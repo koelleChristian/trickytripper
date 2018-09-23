@@ -1,15 +1,19 @@
 package de.koelle.christian.trickytripper.dataaccess.suite.exchange;
 
-import android.test.ApplicationTestCase;
 
-import junit.framework.Assert;
+import android.content.Context;
+import android.support.test.InstrumentationRegistry;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.dataaccess.impl.DataConstants;
 import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
@@ -28,37 +32,36 @@ import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.Exchan
 import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.ExchangeRateTestSupport.USD;
 import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.ExchangeRateTestSupport.assertEquality;
 
-public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<TrickyTripperApp> {
+public class ExchangeRateImportSaveAndLoadTest  {
 
     BitSet occuranceFlags = new BitSet(4);
 
     private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<Long, ExchangeRate>();
 
     private DataManagerImpl dataManager;
+    private Context context;
 
-    public ExchangeRateImportSaveAndLoadTest() {
-        super(TrickyTripperApp.class);
-    }
 
-    @Override
-    protected void setUp() {
-        getContext().deleteDatabase(DataConstants.DATABASE_NAME);
-        dataManager = new DataManagerImpl(getContext());
+    @Before
+    public void setUp() {
+        context = InstrumentationRegistry.getTargetContext();
+        context.deleteDatabase(DataConstants.DATABASE_NAME);
+        dataManager = new DataManagerImpl(context);
         dataManager.removeAll();
 
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         dataManager.close();
-        super.tearDown();
-        getContext().deleteDatabase(DataConstants.DATABASE_NAME);
+        context.deleteDatabase(DataConstants.DATABASE_NAME);
     }
 
     /**
      * Tests that the create() works, the persisted data can be obtained, the
      * delete works and the retrieval respects the deletion.
      */
+    @Test
     public void testImportWithoutReplace() {
 
         ExchangeRate input;
@@ -258,6 +261,7 @@ public class ExchangeRateImportSaveAndLoadTest extends ApplicationTestCase<Trick
      * Tests that the create() works, the persisted data can be obtained, the
      * delete works and the retrieval respects the deletion.
      */
+    @Test
     public void testImportWithReplace() {
 
         ExchangeRate input;

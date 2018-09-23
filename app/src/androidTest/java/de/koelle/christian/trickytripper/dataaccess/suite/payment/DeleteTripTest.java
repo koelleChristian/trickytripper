@@ -1,10 +1,14 @@
 package de.koelle.christian.trickytripper.dataaccess.suite.payment;
 
-import java.util.Currency;
+import android.support.test.filters.SmallTest;
 
 import junit.framework.Assert;
-import android.test.ApplicationTestCase;
-import de.koelle.christian.trickytripper.TrickyTripperApp;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.Currency;
+
 import de.koelle.christian.trickytripper.dataaccess.impl.DataConstants;
 import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;
 import de.koelle.christian.trickytripper.dataaccess.suite.util.ModelSetupUtil;
@@ -14,20 +18,20 @@ import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.model.TripSummary;
 
+import static android.support.test.InstrumentationRegistry.getTargetContext;
 
-public class DeleteTripTest extends ApplicationTestCase<TrickyTripperApp> {
+@SmallTest
+public class DeleteTripTest {
 
-    public DeleteTripTest() {
-        super(TrickyTripperApp.class);
+
+    @Before
+    public void setUp() {
+        getTargetContext().deleteDatabase(DataConstants.DATABASE_NAME);
     }
 
-    @Override
-    protected void setUp() {
-        getContext().deleteDatabase(DataConstants.DATABASE_NAME);
-    }
-
+    @Test
     public void testDeleteTrip() {
-        DataManagerImpl dataManager = new DataManagerImpl(getContext());
+        DataManagerImpl dataManager = new DataManagerImpl(getTargetContext());
 
         dataManager.removeAll();
 

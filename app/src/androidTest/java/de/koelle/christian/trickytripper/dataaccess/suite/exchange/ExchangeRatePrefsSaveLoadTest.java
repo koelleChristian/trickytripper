@@ -1,5 +1,25 @@
 package de.koelle.christian.trickytripper.dataaccess.suite.exchange;
 
+import android.content.Context;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.SmallTest;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import de.koelle.christian.trickytripper.apputils.PrefAccessor;
+import de.koelle.christian.trickytripper.controller.impl.ExchangeRateControllerImpl;
+import de.koelle.christian.trickytripper.dataaccess.impl.DataConstants;
+import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;
+import de.koelle.christian.trickytripper.decoupling.PrefsResolver;
+import de.koelle.christian.trickytripper.model.ExchangeRate;
+
 import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.ExchangeRateTestSupport.EUR;
 import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.ExchangeRateTestSupport.ID_1;
 import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.ExchangeRateTestSupport.ID_2;
@@ -11,47 +31,32 @@ import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.Exchan
 import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.ExchangeRateTestSupport.REC_EUR_USD_04;
 import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.ExchangeRateTestSupport.USD;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import junit.framework.Assert;
-import android.test.ApplicationTestCase;
-import de.koelle.christian.trickytripper.TrickyTripperApp;
-import de.koelle.christian.trickytripper.apputils.PrefAccessor;
-import de.koelle.christian.trickytripper.controller.impl.ExchangeRateControllerImpl;
-import de.koelle.christian.trickytripper.dataaccess.impl.DataConstants;
-import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;
-import de.koelle.christian.trickytripper.decoupling.PrefsResolver;
-import de.koelle.christian.trickytripper.model.ExchangeRate;
-
-public class ExchangeRatePrefsSaveLoadTest extends ApplicationTestCase<TrickyTripperApp> {
+@SmallTest
+public class ExchangeRatePrefsSaveLoadTest {
 
     private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<Long, ExchangeRate>();
     private DataManagerImpl dataManager;
     private ExchangeRateControllerImpl controller;
 
-    public ExchangeRatePrefsSaveLoadTest() {
-        super(TrickyTripperApp.class);
-    }
+    private Context context;
 
-    @Override
-    protected void setUp() {
-        getContext().deleteDatabase(DataConstants.DATABASE_NAME);
-        dataManager = new DataManagerImpl(getContext());
+
+    @Before
+    public void setUp() {
+        context = InstrumentationRegistry.getTargetContext();
+        context.deleteDatabase(DataConstants.DATABASE_NAME);
+        dataManager = new DataManagerImpl(context);
         dataManager.removeAll();
-        PrefsResolver prefsResolver = new PrefAccessor(getContext());
+        PrefsResolver prefsResolver = new PrefAccessor(context);
 
         controller = new ExchangeRateControllerImpl(dataManager, prefsResolver);
 
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         dataManager.close();
-        super.tearDown();
-        getContext().deleteDatabase(DataConstants.DATABASE_NAME);
+        context.deleteDatabase(DataConstants.DATABASE_NAME);
     }
 
     /**

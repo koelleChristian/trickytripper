@@ -1,12 +1,12 @@
 package de.koelle.christian.trickytripper.dataaccess.suite;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import android.test.suitebuilder.TestSuiteBuilder;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-public class AllExchangeRatePersistenceTestSuite extends TestSuite {
-    public static Test suite() {
-        return new TestSuiteBuilder(AllExchangeRatePersistenceTestSuite.class).
-                includePackages("de.koelle.christian.trickytripper.dataaccess.suite.exchange").build();
-    }
+import de.koelle.christian.trickytripper.dataaccess.manual.exchangerateimport.ApiResponseTest;
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses(ApiResponseTest.class)
+public class AllExchangeRatePersistenceTestSuite{
+
 }

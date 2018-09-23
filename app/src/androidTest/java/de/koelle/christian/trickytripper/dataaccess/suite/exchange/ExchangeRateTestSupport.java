@@ -1,8 +1,9 @@
 package de.koelle.christian.trickytripper.dataaccess.suite.exchange;
 
+import org.junit.Assert;
+
 import java.util.Currency;
 
-import junit.framework.Assert;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.ImportOrigin;
 

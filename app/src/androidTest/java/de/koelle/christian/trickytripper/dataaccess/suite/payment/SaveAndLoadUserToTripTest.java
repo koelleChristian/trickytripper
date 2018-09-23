@@ -1,10 +1,13 @@
 package de.koelle.christian.trickytripper.dataaccess.suite.payment;
 
+import android.support.test.filters.SmallTest;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.Currency;
 
-import junit.framework.Assert;
-import android.test.ApplicationTestCase;
-import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.dataaccess.impl.DataConstants;
 import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;
 import de.koelle.christian.trickytripper.dataaccess.suite.util.AssertionUtil;
@@ -12,19 +15,20 @@ import de.koelle.christian.trickytripper.factories.ModelFactory;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Trip;
 
-public class SaveAndLoadUserToTripTest extends ApplicationTestCase<TrickyTripperApp> {
+import static android.support.test.InstrumentationRegistry.getTargetContext;
 
-    public SaveAndLoadUserToTripTest() {
-        super(TrickyTripperApp.class);
+@SmallTest
+public class SaveAndLoadUserToTripTest {
+
+
+    @Before
+    public void setUp() {
+        getTargetContext().deleteDatabase(DataConstants.DATABASE_NAME);
     }
 
-    @Override
-    protected void setUp() {
-        getContext().deleteDatabase(DataConstants.DATABASE_NAME);
-    }
-
+    @Test
     public void testSaveAndLoadUserToTrip() {
-        DataManagerImpl dataManager = new DataManagerImpl(getContext());
+        DataManagerImpl dataManager = new DataManagerImpl(getTargetContext());
 
         dataManager.removeAll();
 
@@ -74,11 +78,9 @@ public class SaveAndLoadUserToTripTest extends ApplicationTestCase<TrickyTripper
         for (Participant p : loadedTripFull.getParticipant()) {
             if (p.getId() == id1Exp) {
                 AssertionUtil.assertParticipantEquality(p, id1Exp, participant01In);
-            }
-            else if (p.getId() == id2Exp) {
+            } else if (p.getId() == id2Exp) {
                 AssertionUtil.assertParticipantEquality(p, id2Exp, participant02In);
-            }
-            else {
+            } else {
                 Assert.fail();
             }
         }

@@ -1,16 +1,17 @@
 package de.koelle.christian.trickytripper.dataaccess.manual.db;
 
-import android.test.ApplicationTestCase;
-import de.koelle.christian.trickytripper.TrickyTripperApp;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.SmallTest;
+
+import org.junit.Test;
+
 import de.koelle.christian.trickytripper.dataaccess.impl.DataConstants;
 
-public class DropDatabaseTest extends ApplicationTestCase<TrickyTripperApp> {
+@SmallTest
+public class DropDatabaseTest {
 
-    public DropDatabaseTest() {
-        super(TrickyTripperApp.class);
-    }
-
+    @Test
     public void testRemoveAll() {
-        getContext().deleteDatabase(DataConstants.DATABASE_NAME);
+        InstrumentationRegistry.getTargetContext().deleteDatabase(DataConstants.DATABASE_NAME);
     }
 }

@@ -1,17 +1,18 @@
 package de.koelle.christian.trickytripper.dataaccess.manual.db;
 
-import android.test.ApplicationTestCase;
-import de.koelle.christian.trickytripper.TrickyTripperApp;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.SmallTest;
+
+import org.junit.Test;
+
 import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;
 
-public class ClearDatabaseTest extends ApplicationTestCase<TrickyTripperApp> {
+@SmallTest
+public class ClearDatabaseTest {
 
-    public ClearDatabaseTest() {
-        super(TrickyTripperApp.class);
-    }
-
+    @Test
     public void testRemoveAll() {
-        DataManagerImpl dataManager = new DataManagerImpl(getContext());
+        DataManagerImpl dataManager = new DataManagerImpl(InstrumentationRegistry.getTargetContext());
         dataManager.removeAll();
     }
 }
