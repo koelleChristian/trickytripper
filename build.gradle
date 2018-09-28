@@ -6,7 +6,7 @@ buildscript {
             jcenter()
             mavenLocal()
         }
-        classpath 'com.android.tools.build:gradle:3.2.0-rc03'
+        classpath 'com.android.tools.build:gradle:3.2.0'
     }
     repositories {
         google()
