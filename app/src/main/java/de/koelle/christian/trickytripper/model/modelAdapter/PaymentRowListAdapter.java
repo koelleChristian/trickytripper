@@ -1,5 +1,11 @@
 package de.koelle.christian.trickytripper.model.modelAdapter;
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+
 import java.text.Collator;
 import java.util.Iterator;
 import java.util.List;
@@ -7,11 +13,6 @@ import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import de.koelle.christian.common.utils.DateUtils;
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
@@ -151,8 +152,8 @@ public class PaymentRowListAdapter extends ArrayAdapter<Payment> {
         StringBuilder builderPayments = new StringBuilder();
         StringBuilder builderDebitedTo = new StringBuilder();
 
-        TreeMap<String, Amount> payments = new TreeMap<String, Amount>(collator);
-        TreeMap<String, Amount> debitedTo = new TreeMap<String, Amount>(collator);
+        TreeMap<String, Amount> payments = new TreeMap<>(collator);
+        TreeMap<String, Amount> debitedTo = new TreeMap<>(collator);
 
         for (Entry<Participant, Amount> entry : row.getParticipantToPayment().entrySet()) {
             payments.put(entry.getKey().getName(), entry.getValue());

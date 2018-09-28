@@ -1,8 +1,9 @@
 package de.koelle.christian.trickytripper.ui.utils;
 
+import android.widget.EditText;
+
 import java.util.Locale;
 
-import android.widget.EditText;
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;

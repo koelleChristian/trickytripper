@@ -1,15 +1,16 @@
 package de.koelle.christian.common.currencyspinner;
 
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
+
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
@@ -70,11 +71,11 @@ public class SpinnerViewUtils {
     @SuppressWarnings("rawtypes")
     private static List<RowObject> wrapCurrenciesInRowObject(List<Currency> supportedCurrencies, Currency exclusion,
             final Context context) {
-        List<RowObject> result = new ArrayList<RowObject>();
+        List<RowObject> result = new ArrayList<>();
 
         for (final Currency c : supportedCurrencies) {
             if (notExcluded(exclusion, c)) {
-                result.add(new RowObject<Currency>(new RowObjectCallback<Currency>() {
+                result.add(new RowObject<>(new RowObjectCallback<Currency>() {
                     public String getStringToDisplay(Currency c) {
                         /*
                          * This is the long description intended for the list

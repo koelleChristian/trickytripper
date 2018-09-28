@@ -5,23 +5,22 @@ import android.text.Editable;
 public class StringUtils {
 
     public static String clearInput(Editable s) {
-        String input = s.toString();
-        if (input != null) {
-            input = input.trim();
-            if (input.length() <= 0) {
-                input = null;
+        String result = null;
+        if (s != null ) {
+            result = s.toString().trim();
+            if (result.length() <= 0) {
+                result = null;
             }
         }
-        return input;
+        return result;
     }
 
-    public static boolean isBlank(String textInput) {
+    public static boolean isNotBlank(String textInput) {
         if (textInput == null) {
-            return true;
+            return false;
         }
-        String clone = textInput;
-        clone.trim(); //TODO(ckoelle)
-        return clone.length() < 1;
+        String trimmedClone = textInput.trim();
+        return trimmedClone.length() >= 1;
     }
 
     public static StringBuilder generateString(int amount, String txtHeadingSymbol) {

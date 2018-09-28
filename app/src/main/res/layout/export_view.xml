@@ -14,6 +14,7 @@
         android:stretchColumns="2">
 
         <TableRow
+            android:id="@+id/exportViewSpinnerChannelHeadingTableRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="8dp">
@@ -26,6 +27,7 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/exportViewSpinnerChannelTableRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp">
@@ -52,10 +54,10 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/exportViewCheckRow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="8dp">
-
             <CheckBox
                 android:id="@+id/exportViewCheckboxFormatCsv"
                 android:layout_width="wrap_content"
@@ -65,10 +67,24 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/exportViewRadioRow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="8dp">
+            <RadioButton
+                android:id="@+id/exportViewRadioButtonFormatCsv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/exportViewCheckboxFormatCsv" />
+        </TableRow>
 
+
+        <TableRow
+            android:id="@+id/exportViewCheckRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
             <CheckBox
                 android:id="@+id/exportViewCheckboxFormatHtml"
                 android:layout_width="wrap_content"
@@ -78,10 +94,23 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/exportViewRadioRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
+            <RadioButton
+                android:id="@+id/exportViewRadioButtonFormatHtml"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/exportViewCheckboxFormatHtml" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/exportViewCheckRow3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp">
-
             <CheckBox
                 android:id="@+id/exportViewCheckboxFormatTxt"
                 android:layout_width="wrap_content"
@@ -90,6 +119,18 @@
                 android:text="@string/exportViewCheckboxFormatTxt" />
         </TableRow>
 
+        <TableRow
+            android:id="@+id/exportViewRadioRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
+            <RadioButton
+                android:id="@+id/exportViewRadioButtonFormatTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/exportViewCheckboxFormatTxt" />
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
@@ -100,7 +141,7 @@
                 android:layout_span="3"
                 android:text="@string/exportViewTextViewSubHeadingContent"
                 android:textColor="@color/mainDark"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow

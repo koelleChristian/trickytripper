@@ -52,7 +52,7 @@ public enum PaymentCategory implements ResourceLabelAwareEnumeration {
     private final int resourceId;
     private final boolean internal;
 
-    private PaymentCategory(int resourceId, boolean internal) {
+    PaymentCategory(int resourceId, boolean internal) {
         this.resourceId = resourceId;
         this.internal = internal;
     }
@@ -66,7 +66,7 @@ public enum PaymentCategory implements ResourceLabelAwareEnumeration {
     }
 
     public List<ResourceLabelAwareEnumeration> getAllValues() {
-        List<ResourceLabelAwareEnumeration> result = new ArrayList<ResourceLabelAwareEnumeration>();
+        List<ResourceLabelAwareEnumeration> result = new ArrayList<>();
         result.addAll(Arrays.asList(values()));
         return result;
     }

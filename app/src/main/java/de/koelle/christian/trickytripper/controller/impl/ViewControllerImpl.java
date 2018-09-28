@@ -50,7 +50,7 @@ public class ViewControllerImpl implements ViewController {
 
     public void openEditParticipant(Participant participant) {
         Class<? extends Activity> activity = ParticipantEditActivity.class;
-        Map<String, Serializable> extras = new HashMap<String, Serializable>();
+        Map<String, Serializable> extras = new HashMap<>();
         extras.put(Rc.ACTIVITY_PARAM_PARTICIPANT_EDIT_IN_PARTICIPANT, participant);
         startActivityWithParams(extras, activity, ViewMode.EDIT);
     }
@@ -62,23 +62,23 @@ public class ViewControllerImpl implements ViewController {
 
     public void openCreatePayment(Participant p) {
         Class<? extends Activity> activity = PaymentEditActivity.class;
-        Map<String, Serializable> extras = new HashMap<String, Serializable>();
+        Map<String, Serializable> extras = new HashMap<>();
         extras.put(Rc.ACTIVITY_PARAM_KEY_PARTICIPANT_ID, p.getId());
         startActivityWithParams(extras, activity, ViewMode.CREATE);
     }
 
     public void openTransferMoney(Participant participant) {
         Class<? extends Activity> activity = MoneyTransferActivity.class;
-        Map<String, Serializable> extras = new HashMap<String, Serializable>();
+        Map<String, Serializable> extras = new HashMap<>();
         extras.put(Rc.ACTIVITY_PARAM_KEY_PARTICIPANT, participant);
         startActivityWithParams(extras, activity, ViewMode.NONE);
     }
 
     public void openImportExchangeRates(Activity caller, Currency... currencies) {
         Class<? extends Activity> activity = ExchangeRateImportActivity.class;
-        HashMap<String, Serializable> extras = new HashMap<String, Serializable>();
+        HashMap<String, Serializable> extras = new HashMap<>();
         if (currencies != null && currencies.length > 0) {
-            ArrayList<Currency> currencyList = new ArrayList<Currency>();
+            ArrayList<Currency> currencyList = new ArrayList<>();
             Collections.addAll(currencyList, currencies);
             extras.put(Rc.ACTIVITY_PARAM_IMPORT_EXCHANGE_RATES_IN_CURRENCY_LIST, currencyList);
         }
@@ -88,7 +88,7 @@ public class ViewControllerImpl implements ViewController {
 
     public void openEditTrip(Activity caller, TripSummary tripSummary) {
         Class<? extends Activity> activity = TripEditActivity.class;
-        HashMap<String, Serializable> extras = new HashMap<String, Serializable>();
+        HashMap<String, Serializable> extras = new HashMap<>();
         ViewMode viewMode;
         if (tripSummary == null) {
             viewMode = ViewMode.CREATE;
@@ -102,9 +102,9 @@ public class ViewControllerImpl implements ViewController {
 
     public void openDeleteExchangeRates(Activity caller, Currency... currencies) {
         Class<? extends Activity> activity = ExchangeRateDeleteActivity.class;
-        HashMap<String, Serializable> extras = new HashMap<String, Serializable>();
+        HashMap<String, Serializable> extras = new HashMap<>();
         if (currencies != null && currencies.length > 0) {
-            ArrayList<Currency> currencyList = new ArrayList<Currency>();
+            ArrayList<Currency> currencyList = new ArrayList<>();
             Collections.addAll(currencyList, currencies);
             extras.put(Rc.ACTIVITY_PARAM_DELETE_EXCHANGE_RATES_IN_CURRENCY_LIST, currencyList);
         }
@@ -128,7 +128,7 @@ public class ViewControllerImpl implements ViewController {
     public void openEditExchangeRate(Activity caller, ExchangeRate exchangeRate, Currency fromCurrency) {
         Class<? extends Activity> activity = ExchangeRateEditActivity.class;
         ViewMode viewMode = ViewMode.CREATE;
-        Map<String, Serializable> extras = new HashMap<String, Serializable>();
+        Map<String, Serializable> extras = new HashMap<>();
         if (exchangeRate != null) {
             extras.put(Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_RATE_TECH_ID, exchangeRate.getId());
             viewMode = ViewMode.EDIT;
@@ -151,7 +151,7 @@ public class ViewControllerImpl implements ViewController {
 
     public void openMoneyCalculatorView(Amount amount, int resultViewId, Activity caller) {
         Class<? extends Activity> activity = CurrencyCalculatorActivity.class;
-        Map<String, Serializable> extras = new HashMap<String, Serializable>();
+        Map<String, Serializable> extras = new HashMap<>();
         extras.put(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_VALUE, amount.getValue());
         extras.put(Rc.ACTIVITY_PARAM_CURRENCY_CALCULATOR_IN_RESULT_VIEW_ID, resultViewId);
         startActivityWithParamsForResult(extras, activity, ViewMode.NONE,

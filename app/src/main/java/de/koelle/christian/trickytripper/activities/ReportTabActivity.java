@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -36,10 +35,10 @@ import de.koelle.christian.trickytripper.strategies.SumReport;
 
 public class ReportTabActivity extends Fragment {
 
-    private final List<View> dynamicSpendingRows = new ArrayList<View>();
-    private final List<View> dynamicOwingDebtsRows = new ArrayList<View>();
-    private final List<View> dynamicDividerRowsSpending = new ArrayList<View>();
-    private final List<View> dynamicDividerRowsOwingDebtsRows = new ArrayList<View>();
+    private final List<View> dynamicSpendingRows = new ArrayList<>();
+    private final List<View> dynamicOwingDebtsRows = new ArrayList<>();
+    private final List<View> dynamicDividerRowsSpending = new ArrayList<>();
+    private final List<View> dynamicDividerRowsOwingDebtsRows = new ArrayList<>();
 
     private List<Participant> participantsInSpinner;
     private View view;
@@ -69,7 +68,7 @@ public class ReportTabActivity extends Fragment {
 
         final TrickyTripperApp app = getApp();
 
-        participantsInSpinner = new ArrayList<Participant>();
+        participantsInSpinner = new ArrayList<>();
         participantsInSpinner.add(null);
         participantsInSpinner.addAll(getAllParticipants(app));
 
@@ -192,7 +191,7 @@ public class ReportTabActivity extends Fragment {
             this.dynamicSpendingRows.add(newRow);
             tableLayout.addView(newRow);
         } else {
-            TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getMiscController()
+            TreeMap<String, View> newRows = new TreeMap<>(getApp().getMiscController()
                     .getDefaultStringCollator());
 
             for (Entry<PaymentCategory, Amount> catAmountMapEntry : categorySpending.entrySet()) {
@@ -226,14 +225,14 @@ public class ReportTabActivity extends Fragment {
         TableRow subheadingDividerTop =  (TableRow) view.findViewById(R.id.reportViewSpacerDebtsTop);
         TableRow headingNoDebts = (TableRow) view.findViewById(R.id.reportViewTableLayoutDebtsHeadingNoDebts);
 
-        Collection<Participant> involvedParticipants = new ArrayList<Participant>();
+        Collection<Participant> involvedParticipants = new ArrayList<>();
         if (participantSelected != null) {
             involvedParticipants.add(participantSelected);
         } else {
             involvedParticipants.addAll(getAllParticipants(app));
         }
         boolean areThereDebtsToBeDisplayed = false;
-        TreeMap<String, View> newRows = new TreeMap<String, View>(getApp().getMiscController()
+        TreeMap<String, View> newRows = new TreeMap<>(getApp().getMiscController()
                 .getDefaultStringCollator());
 
 
@@ -246,9 +245,7 @@ public class ReportTabActivity extends Fragment {
                 String value;
                 int column;
 
-                for (Iterator<Entry<Participant, Amount>> itInternal = debts.getLoanerToDebts().entrySet().iterator(); itInternal.hasNext(); ) {
-                    Entry<Participant, Amount> debt = itInternal.next();
-
+                for (Entry<Participant, Amount> debt : debts.getLoanerToDebts().entrySet()) {
                     if (isInScope(involvedParticipants, entry, debt)) {
 
                         areThereDebtsToBeDisplayed = true;
@@ -334,14 +331,13 @@ public class ReportTabActivity extends Fragment {
     }
 
     private TextView addNewTextViewToRwo(TableRow target, String valueForDisplay, int column, TableRow.LayoutParams columnRowParams, int span, boolean isDebts) {
-        TableRow.LayoutParams columnRowParamsHere = columnRowParams;
         TextView textView;
         textView = new TextView(getActivity());
         textView.setText(valueForDisplay);
-        columnRowParamsHere.column = column;
-        columnRowParamsHere.span = span;
+        columnRowParams.column = column;
+        columnRowParams.span = span;
         if(isDebts){
-            columnRowParamsHere.weight = 1;
+            columnRowParams.weight = 1;
         }
         target.addView(textView, columnRowParams);
         return textView;

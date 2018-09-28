@@ -1,18 +1,17 @@
 package de.koelle.christian.trickytripper.controller.impl;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.os.Environment;
-import android.util.Log;
-
 import de.koelle.christian.common.io.impl.AppFileWriter;
+import de.koelle.christian.common.utils.FileUtils;
 import de.koelle.christian.trickytripper.apputils.PrefWriterReaderUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.controller.ExportController;
@@ -25,6 +24,7 @@ import de.koelle.christian.trickytripper.export.impl.ExporterImpl;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
 import de.koelle.christian.trickytripper.model.Participant;
+import de.koelle.christian.trickytripper.provider.TrickyTripperFileProvider;
 
 public class ExportControllerImpl implements ExportController {
 
@@ -32,6 +32,9 @@ public class ExportControllerImpl implements ExportController {
     private final Context context;
     private final Exporter exporter;
     private final TripResolver tripResolver;
+    private boolean osSupportsOpenCsv;
+    private boolean osSupportsOpenTxt;
+    private boolean osSupportsOpenHtml;
 
     public ExportControllerImpl(Context context, PrefsResolver prefsResolver, TripResolver tripResolver) {
         this.context = context;
@@ -46,29 +49,42 @@ public class ExportControllerImpl implements ExportController {
 
     public List<ExportOutputChannel> getEnabledExportOutputChannel() {
         List<ExportOutputChannel> result = new ArrayList<>();
-        boolean testExport = false;
-        if (testExport) {
-            result.add(ExportOutputChannel.SD_CARD);
-        } else {
-            Intent tweetIntent = new Intent(Rc.STREAM_SENDING_INTENT);
-            tweetIntent.setType(Rc.STREAM_SENDING_MIME);
-            final PackageManager packageManager = context.getPackageManager();
-            List<ResolveInfo> list = packageManager.queryIntentActivities(
-                    tweetIntent, PackageManager.MATCH_DEFAULT_ONLY);
-            for (ExportOutputChannel channel : ExportOutputChannel.values()) {
-                for (ResolveInfo info : list) {
-                    if (channel.getPackageName().startsWith(info.activityInfo.packageName)) {
-                        result.add(channel);
-                    }
-                }
-            }
+
+        Intent intent;
+        intent = new Intent(Rc.INTENT_OPEN_FILE);
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setDataAndType(getFakeFileAuthedUri("csv"), Rc.INTENT_OPEN_FILE_CSV_MIME);
+        osSupportsOpenCsv = osSupportsIntent(intent);
+        intent.setDataAndType(getFakeFileAuthedUri("html"), Rc.INTENT_OPEN_FILE_HTML_MIME);
+        osSupportsOpenTxt = osSupportsIntent(intent);
+        intent.setDataAndType(getFakeFileAuthedUri("txt"), Rc.INTENT_OPEN_FILE_TXT_MIME);
+        osSupportsOpenHtml = osSupportsIntent(intent);
+        if (osSupportsOpenCsv || osSupportsOpenHtml || osSupportsOpenTxt) {
+            result.add(ExportOutputChannel.OPEN);
         }
-        File externalStorageDirectory = Environment.getExternalStorageDirectory();
-        // Permissions will be checked in ExportActivity
-        if (result.contains(ExportOutputChannel.SD_CARD) && (externalStorageDirectory == null) && !externalStorageDirectory.exists()) {
-            result.remove(ExportOutputChannel.SD_CARD);
+
+        intent = new Intent(Rc.INTENT_SEND_STREAM);
+        intent.setType(Rc.INTENT_SEND_STREAM_MIME);
+        if (osSupportsIntent(intent)) {
+            result.add(ExportOutputChannel.STREAM_SENDING);
         }
+
+
         return result;
+    }
+
+    private Uri getFakeFileAuthedUri(String extension) {
+        return FileUtils.getContentUrisFromFile(new File("Whatever." + extension), TrickyTripperFileProvider.AUTHORITY);
+    }
+
+    private boolean osSupportsIntent(Intent intent) {
+        return intent.resolveActivity(context.getPackageManager()) != null;
+
+    }
+
+    @Override
+    public boolean hasEnabledOutputChannel() {
+        return !getEnabledExportOutputChannel().isEmpty();
     }
 
     public List<File> exportReport(ExportSettings settings, Participant selectedParticipant, Activity activity) {
@@ -88,5 +104,17 @@ public class ExportControllerImpl implements ExportController {
                 new ResourceResolverImpl(context.getResources()), new ActivityResolverImpl(activity),
                 tripResolver.getAmountFactory());
 
+    }
+
+    public boolean osSupportsOpenCsv() {
+        return osSupportsOpenCsv;
+    }
+
+    public boolean osSupportsOpenTxt() {
+        return osSupportsOpenTxt;
+    }
+
+    public boolean ossSupportsOpenHtml() {
+        return osSupportsOpenHtml;
     }
 }

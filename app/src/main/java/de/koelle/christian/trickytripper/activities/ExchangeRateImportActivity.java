@@ -66,7 +66,7 @@ public class ExchangeRateImportActivity extends AppCompatActivity {
         List<RowObject> spinnerObjects = CurrencyViewSupport.wrapCurrenciesInRowObject(
                 allCurrenciesAlive, getResources());
 
-        adapter = new ArrayAdapter<RowObject>(this, R.layout.general_checked_text_view, spinnerObjects);
+        adapter = new ArrayAdapter<>(this, R.layout.general_checked_text_view, spinnerObjects);
         listView.setAdapter(adapter);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -182,7 +182,7 @@ public class ExchangeRateImportActivity extends AppCompatActivity {
 
         progressBarStatus = 0;
 
-        final Set<Currency> currenciesToBeLoaded = new LinkedHashSet<Currency>(selectionResult);
+        final Set<Currency> currenciesToBeLoaded = new LinkedHashSet<>(selectionResult);
 
         new Thread(new Runnable() {
             public void run() {
@@ -241,14 +241,12 @@ public class ExchangeRateImportActivity extends AppCompatActivity {
                 }
             }
         })
-        .start();
+                .start();
 
     }
 
     private Set<Currency> getSelection() {
-        final Set<Currency> selectionResult = UiViewUtils.getListSelection(listView, adapter
-        );
-        return selectionResult;
+        return UiViewUtils.getListSelection(listView, adapter);
     }
 
     protected void finishHere() {
@@ -270,6 +268,7 @@ public class ExchangeRateImportActivity extends AppCompatActivity {
                                 R.id.option_help
                         }));
     }
+
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean canImport = atLeastTwoSelected();
         MenuItem item = menu.findItem(R.id.option_accept);

@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -145,6 +146,7 @@ public class TrickyTripperActivity extends AppCompatActivity implements DeleteDi
     }
 
     private void updatePagerAdapter() {
+        // MainPagerAdapter defines the tab activities and the tab order.
         FragmentStatePagerAdapter mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(mPagerAdapter);
     }
@@ -251,10 +253,14 @@ public class TrickyTripperActivity extends AppCompatActivity implements DeleteDi
                 getApp().getViewController().openCreateParticipant();
                 return true;
             case R.id.option_export:
-                getApp().getViewController().openExport();
+                if(getApp().getExportController().hasEnabledOutputChannel()){
+                    getApp().getViewController().openExport();
+                } else {
+                    Toast.makeText(TrickyTripperActivity.this, R.string.no_export_option, Toast.LENGTH_LONG).show();
+                }
                 return true;
             case R.id.option_preferences:
-                getApp().getViewController().openSettings();
+                    getApp().getViewController().openSettings();
                 return true;
             case R.id.option_help:
                 getApp().getViewController().openHelp(getSupportFragmentManager());
@@ -345,9 +351,6 @@ public class TrickyTripperActivity extends AppCompatActivity implements DeleteDi
         setTripNameToHeader();
         updatePagerAdapter();
     }
-
-    //TODO(ckoelle) ABS The delegating TripSummary could be kicked out, as the Adapter is overridden.
-
     private class MyActionModeCallback implements ActionMode.Callback {
 
         private TripSummary selectedTrip;

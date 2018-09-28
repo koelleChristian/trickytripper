@@ -1,5 +1,12 @@
 package de.koelle.christian.trickytripper.dataaccess.impl.daos;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
+import android.provider.BaseColumns;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Currency;
@@ -8,12 +15,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
-import android.provider.BaseColumns;
-import android.util.Log;
 import de.koelle.christian.common.utils.ConversionUtils;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.ExchangeRatePrefTable.ExchangeRatePrefColumns;
@@ -360,7 +361,6 @@ public class ExchangeRateDao {
         String[] selectionArgs = new String[] {
                 String.valueOf(technicalId)
         };
-        // TODO(ckoelle) Could be done more beautifully,i.e. without List
         List<ExchangeRate> resultList = queryExchangeRates(BaseColumns._ID + " = ?", selectionArgs, null);
         return (resultList.size() > 0) ? resultList.get(0) : null;
     }

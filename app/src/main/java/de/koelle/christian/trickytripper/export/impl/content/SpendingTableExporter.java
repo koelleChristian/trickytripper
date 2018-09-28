@@ -160,7 +160,7 @@ public class SpendingTableExporter {
     }
 
     private Set<PaymentCategory> createSortedSet(final ResourceResolver resourceResolver, final Collator collator) {
-        Set<PaymentCategory> sortedCategories = new TreeSet<PaymentCategory>(new Comparator<PaymentCategory>() {
+        return new TreeSet<>(new Comparator<PaymentCategory>() {
 
             public int compare(PaymentCategory object1, PaymentCategory object2) {
                 return collator.compare(resourceResolver.resolve(object1.getResourceStringId()),
@@ -168,7 +168,6 @@ public class SpendingTableExporter {
             }
 
         });
-        return sortedCategories;
     }
 
     /*--------------------- below only setter -------------------*/

@@ -194,9 +194,9 @@ public class PaymentDao {
     }
 
     public List<PaymentReference> getAllPaymentsInTrip(long tripId) {
-        List<PaymentReference> list = new ArrayList<PaymentReference>();
+        List<PaymentReference> list = new ArrayList<>();
         // TODO(ckoelle) Use LongSparseArray
-        Map<Long, PaymentReference> resultMap = new HashMap<Long, PaymentReference>();
+        Map<Long, PaymentReference> resultMap = new HashMap<>();
         Cursor c =
                 db.rawQuery(PAYMENT_QUERY,
                         new String[] { String.valueOf(tripId) });
@@ -215,7 +215,7 @@ public class PaymentDao {
                 boolean isPayer = ConversionUtils.int2bool((int) c.getLong(5));
                 Amount amount = new Amount();
                 amount.setUnit(Currency.getInstance(c.getString(6)));
-                amount.setValue(NumberUtils.round(Double.valueOf(c.getDouble(7))));
+                amount.setValue(NumberUtils.round(c.getDouble(7)));
                 if (Rc.debugOn) {
                     Log.d(Rc.LT, amount + "");
                 }

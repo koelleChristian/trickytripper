@@ -37,7 +37,7 @@ public class ExchangeRateSaveAndLoadTest  {
 
     BitSet occuranceFlags = new BitSet(4);
 
-    private final Map<Long, ExchangeRate> initalRetrievalResults = new HashMap<Long, ExchangeRate>();
+    private final Map<Long, ExchangeRate> initalRetrievalResults = new HashMap<>();
     private DataManagerImpl dataManager;
 
     private Context context;
@@ -208,7 +208,7 @@ public class ExchangeRateSaveAndLoadTest  {
         /* Record 1 */
         input = new ExchangeRate();
         input.setId(ID_1);
-        deleteList = new ArrayList<ExchangeRate>();
+        deleteList = new ArrayList<>();
         deleteList.add(input);
 
         dataManager.deleteExchangeRates(deleteList);
@@ -250,7 +250,7 @@ public class ExchangeRateSaveAndLoadTest  {
         /* Record 2 */
         input = new ExchangeRate();
         input.setId(ID_2);
-        deleteList = new ArrayList<ExchangeRate>();
+        deleteList = new ArrayList<>();
         deleteList.add(input);
 
         dataManager.deleteExchangeRates(deleteList);
@@ -284,7 +284,7 @@ public class ExchangeRateSaveAndLoadTest  {
         /* Record 3 */
         input = new ExchangeRate();
         input.setId(ID_3);
-        deleteList = new ArrayList<ExchangeRate>();
+        deleteList = new ArrayList<>();
         deleteList.add(input);
 
         dataManager.deleteExchangeRates(deleteList);
@@ -313,7 +313,7 @@ public class ExchangeRateSaveAndLoadTest  {
         /* ---------> find post delete */
         input = new ExchangeRate();
         input.setId(ID_4);
-        deleteList = new ArrayList<ExchangeRate>();
+        deleteList = new ArrayList<>();
         deleteList.add(input);
 
         dataManager.deleteExchangeRates(deleteList);

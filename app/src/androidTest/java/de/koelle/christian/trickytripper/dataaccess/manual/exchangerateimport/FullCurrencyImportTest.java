@@ -22,7 +22,7 @@ public class FullCurrencyImportTest extends AbstractCurrencyImportTest {
     public void exchangeRateAvailabilityAll() {
 
         Set<Currency> input;
-        input = new LinkedHashSet<Currency>(CurrencyUtil.getAllCurrenciesAlive());
+        input = new LinkedHashSet<>(CurrencyUtil.getAllCurrenciesAlive());
 
         int ceiling = CurrencyUtil.calcExpectedAmountOfExchangeRates(input.size());
 
@@ -60,7 +60,7 @@ public class FullCurrencyImportTest extends AbstractCurrencyImportTest {
                     continue;
                 }
 
-                input = new LinkedHashSet<Currency>();
+                input = new LinkedHashSet<>();
                 Currency to = allCurrenciesAlive.get(j);
 
                 input.add(from);

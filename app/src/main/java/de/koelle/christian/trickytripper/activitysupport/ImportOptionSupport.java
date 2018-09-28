@@ -1,11 +1,12 @@
 package de.koelle.christian.trickytripper.activitysupport;
 
-import java.util.BitSet;
-import java.util.Currency;
-
 import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
+
+import java.util.BitSet;
+import java.util.Currency;
+
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.controller.MiscController;

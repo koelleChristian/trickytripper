@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import de.koelle.christian.common.http.AsyncHttpParserResultCallback;
 import de.koelle.christian.trickytripper.constants.Rc;
 import okhttp3.Call;
 import okhttp3.Callback;

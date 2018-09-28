@@ -1,14 +1,15 @@
 package de.koelle.christian.trickytripper.model.modelAdapter;
 
-import java.util.List;
-import java.util.Locale;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import java.util.List;
+import java.util.Locale;
+
 import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;

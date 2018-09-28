@@ -1,10 +1,11 @@
 package de.koelle.christian.trickytripper.apputils;
 
-import java.util.Currency;
-
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
+
+import java.util.Currency;
+
 import de.koelle.christian.common.utils.CurrencyUtil;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.model.ExportSettings;
@@ -46,7 +47,9 @@ public class PrefWriterReaderUtils {
                 .putBoolean(
                         PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_SHOW_GLOBAL_SUMS_ON_INDIVIDUAL_SPENDING_REPORT,
                         settings.isShowGlobalSumsOnIndividualSpendingReport());
-        prefsEditor.putString(PREFS_VALUE_EXPORT_SETTINGS_OUTPUT_CHANNEL, settings.getOutputChannel().toString());
+        if(settings.getOutputChannel() != null){
+            prefsEditor.putString(PREFS_VALUE_EXPORT_SETTINGS_OUTPUT_CHANNEL, settings.getOutputChannel().toString());
+        }
         prefsEditor.commit();
     }
 
@@ -64,8 +67,11 @@ public class PrefWriterReaderUtils {
         settings.setShowGlobalSumsOnIndividualSpendingReport(prefs
                 .getBoolean(PREFS_VALUE_EXPORT_SETTINGS_EXPORT_FORMAT_SHOW_GLOBAL_SUMS_ON_INDIVIDUAL_SPENDING_REPORT,
                         Boolean.TRUE));
-        settings.setOutputChannel(ExportOutputChannel.valueOf(prefs.getString(
-                PREFS_VALUE_EXPORT_SETTINGS_OUTPUT_CHANNEL, ExportOutputChannel.MAIL.toString())));
+
+        ExportOutputChannel defaultExportOutputChannel = ExportOutputChannel.STREAM_SENDING;
+        ExportOutputChannel exportOutputChannelFromPrefs = ExportOutputChannel.valueOfNull(prefs.getString(
+                PREFS_VALUE_EXPORT_SETTINGS_OUTPUT_CHANNEL, defaultExportOutputChannel.toString()));
+        settings.setOutputChannel(exportOutputChannelFromPrefs == null ? defaultExportOutputChannel : exportOutputChannelFromPrefs);
 
         return settings;
     }
@@ -84,13 +90,11 @@ public class PrefWriterReaderUtils {
     }
 
     public static long loadIdOfTripLastEdited(SharedPreferences prefs) {
-        long result = prefs.getLong(PREFS_VALUE_ID_TRIP_LAST_EDITED_ID, 1);
-        return result;
+        return prefs.getLong(PREFS_VALUE_ID_TRIP_LAST_EDITED_ID, 1);
     }
 
     public static long loadExchangeRateAutoSaveSeq(SharedPreferences prefs) {
-        long result = prefs.getLong(PREFS_VALUE_EXCHANGE_RATE_AUTO_SAVE_SEQ, 1);
-        return result;
+        return prefs.getLong(PREFS_VALUE_EXCHANGE_RATE_AUTO_SAVE_SEQ, 1);
     }
 
     public static void saveExchangeRateAutoSaveSeq(Editor prefsEditor, long id) {

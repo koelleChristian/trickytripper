@@ -42,6 +42,7 @@
     <string name="option_option_create_exchange_rate_for_source">Crea tasso corrispondente</string>
     <string name="drawer_open">Apre il menu di navigazione</string>
     <string name="drawer_close">Chiude il menu di navigazione</string>
+    <string name="no_export_option">Il telefono non supporta né l\'apertura né l\'invio di nessuno dei tipi di file di esportazione supportati (HTML, TXT, CSV).</string>
     <!-- =============================== Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Speso:</string>
     <string name="participant_tab_row_view_label_paid">Pagato:</string>
@@ -122,8 +123,8 @@
     <string name="exportViewTextViewSubHeadingChannel">Destinazione dell\'output?</string>
     <string name="exportViewSpinnerPromptChannel">Scegli la destinazione dell\'output</string>
     <string name="exportViewSpinnerNotAvailable">non disponibile</string>
-    <string name="exportOutputChannelEnumSave2Sd">Salva su SD card</string>
-    <string name="exportOutputChannelMail">Posta</string>
+    <string name="exportOutputOpen">Apre</string>
+    <string name="exportOutputStreamSending">Invia/Salva</string>
     <!-- =============================== Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Salva su memoria</string>
     <string name="save2SdReceiverHeading">Esportazione: Selezione cartella</string>

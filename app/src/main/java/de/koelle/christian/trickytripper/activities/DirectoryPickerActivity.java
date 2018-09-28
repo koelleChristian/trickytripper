@@ -1,5 +1,6 @@
 package de.koelle.christian.trickytripper.activities;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -59,6 +60,9 @@ import de.koelle.christian.trickytripper.TrickyTripperApp;
  */
 
 public class DirectoryPickerActivity extends AppCompatActivity {
+
+    public static final String SYSTEM_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+    private final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 88;
 
     public static final String EXTRA_START_DIR = "startDir";
     public static final String EXTRA_ONLY_DIRS = "onlyDirs";
@@ -141,7 +145,9 @@ public class DirectoryPickerActivity extends AppCompatActivity {
             }
         });
         ActionBarSupport.addBackButton(this);
+
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -213,6 +219,5 @@ public class DirectoryPickerActivity extends AppCompatActivity {
         }
     }
     /* ============== Options Shit [END] ============== */
-    
 
 }

@@ -48,6 +48,7 @@
     <string name="option_option_create_exchange_rate_for_source">Create matching rate</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="no_export_option">The phone supports neither opening nor sending one of the supported export file types (html, txt, csv).</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Spent:</string>
     <string name="participant_tab_row_view_label_paid">Paid:</string>
@@ -128,13 +129,8 @@
     <string name="exportViewTextViewSubHeadingChannel">Output trail?</string>
     <string name="exportViewSpinnerPromptChannel">Choose your output trail</string>
     <string name="exportViewSpinnerNotAvailable">not available</string>
-    <string name="exportOutputChannelEnumSave2Sd">Save to SD card</string>
-    <string name="exportOutputChannelMail">Mail</string>
-    <string name="exportOutputChannelDropbox" translatable="false">Dropbox</string>
-    <string name="exportOutputChannelOwncloud" translatable="false">ownCloud</string>
-    <string name="exportOutputChannelEvernote" translatable="false">Evernote</string>
-    <string name="exportOutputChannelBoxer" translatable="false">Boxer</string>
-    <string name="exportOutputChannelK9" translatable="false">K9</string>
+    <string name="exportOutputOpen">Open</string>
+    <string name="exportOutputStreamSending">Send/Save</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Save to storage</string>
     <string name="save2SdReceiverHeading">Export: Choose directory</string>

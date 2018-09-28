@@ -2,7 +2,6 @@ package de.koelle.christian.trickytripper.modelutils;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.widget.TextView;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -52,7 +51,7 @@ public class AmountViewUtils {
         }
         Double valueInternal = (stripOffSign) ? Math.abs(value) : value;
 
-        if (blankIfZero && valueInternal.equals(Double.valueOf(0))) {
+        if (blankIfZero && valueInternal.equals(0d)) {
             return "";
         }
         NumberFormat nf = NumberFormat.getNumberInstance(locale);

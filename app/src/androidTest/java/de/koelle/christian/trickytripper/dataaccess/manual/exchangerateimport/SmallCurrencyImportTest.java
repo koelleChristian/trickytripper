@@ -55,7 +55,7 @@ public class SmallCurrencyImportTest extends AbstractCurrencyImportTest {
     private void conductBiggerTest(int from, int to) {
 
         Set<Currency> input;
-        input = new LinkedHashSet<Currency>();
+        input = new LinkedHashSet<>();
         for (int i = from; i < to; i++) {
             input.add(CurrencyUtil.getAllCurrenciesAlive().get(i));
         }
@@ -84,7 +84,7 @@ public class SmallCurrencyImportTest extends AbstractCurrencyImportTest {
 
         Set<Currency> input;
 
-        input = new LinkedHashSet<Currency>();
+        input = new LinkedHashSet<>();
         input.add(Currency.getInstance("BND"));
         input.add(Currency.getInstance("SGD"));
 
@@ -99,7 +99,7 @@ public class SmallCurrencyImportTest extends AbstractCurrencyImportTest {
 
         Set<Currency> input;
 
-        input = new LinkedHashSet<Currency>();
+        input = new LinkedHashSet<>();
         input.add(Currency.getInstance("EUR"));
         input.add(Currency.getInstance("USD"));
         input.add(Currency.getInstance("TRY"));
@@ -112,7 +112,7 @@ public class SmallCurrencyImportTest extends AbstractCurrencyImportTest {
         waitForResult(expectedAmountOfResults);
         resetResultFields();
 
-        input = new LinkedHashSet<Currency>();
+        input = new LinkedHashSet<>();
         input.add(Currency.getInstance("EUR"));
         input.add(Currency.getInstance("USD"));
         input.add(Currency.getInstance("TRY"));

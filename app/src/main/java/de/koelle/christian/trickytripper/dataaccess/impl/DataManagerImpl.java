@@ -49,9 +49,7 @@ public class DataManagerImpl implements DataManager {
 
     public DataManagerImpl(Context context) {
 
-        Context context1 = context;
-
-        SQLiteOpenHelper openHelper = new OpenHelper(context1);
+        SQLiteOpenHelper openHelper = new OpenHelper(context);
         db = openHelper.getWritableDatabase();
         if (Rc.debugOn) {
             Log.d(Rc.LT, "DataManagerImplBackup created, db open status: " + db.isOpen());
@@ -198,8 +196,7 @@ public class DataManagerImpl implements DataManager {
             trip.setBaseCurrency(tripSummary.getBaseCurrency());
         }
 
-        Trip persistedTrip = persistTrip(trip);
-        return persistedTrip;
+        return persistTrip(trip);
     }
 
     public Trip persistTrip(Trip trip) {

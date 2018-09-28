@@ -1,8 +1,9 @@
 package de.koelle.christian.trickytripper.decoupling.impl;
 
+import android.content.res.Resources;
+
 import java.util.Locale;
 
-import android.content.res.Resources;
 import de.koelle.christian.trickytripper.decoupling.ResourceResolver;
 
 public class ResourceResolverImpl implements ResourceResolver {

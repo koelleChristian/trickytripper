@@ -24,10 +24,10 @@ public class NumberUtilsTest {
 
     @Test
     public void testDegugging() {
-        Assert.assertEquals(Double.valueOf(46.67d), Double.valueOf(0d) + 46.67d);
-        Assert.assertEquals(Double.valueOf(46.67d), Math.abs(Double.valueOf(0d) + 46.67d));
-        Assert.assertEquals(Double.valueOf(46.67d), Math.abs(Double.valueOf(46.67d) + 0d));
-        Assert.assertEquals(Double.valueOf(25.32d), NumberUtils.round(Double.valueOf(46.67d) + Double.valueOf(-21.35d)));
+        Assert.assertEquals(46.67d, 0d + 46.67d);
+        Assert.assertEquals(46.67d, Math.abs(0d + 46.67d));
+        Assert.assertEquals(46.67d, Math.abs(46.67d + 0d));
+        Assert.assertEquals(25.32d, NumberUtils.round(46.67d + -21.35d));
     }
 
     @Test

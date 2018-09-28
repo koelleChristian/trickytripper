@@ -10,7 +10,7 @@ public enum StyleClass {
 
     private final String className;
 
-    private StyleClass(String className) {
+    StyleClass(String className) {
         this.className = className;
     }
 

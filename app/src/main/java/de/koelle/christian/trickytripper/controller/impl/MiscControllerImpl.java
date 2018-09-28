@@ -82,8 +82,9 @@ public class MiscControllerImpl implements MiscController {
         if (allAssetsList == null) {
             AssetManager am = context.getAssets();
             try {
-                allAssetsList = Arrays.asList(am.list("")); //TODO(ckoelle) Empty Catch
+                allAssetsList = Arrays.asList(am.list(""));
             } catch (IOException e) {
+                // Intentionally blank
             }
         }
         return allAssetsList.contains(assetName);

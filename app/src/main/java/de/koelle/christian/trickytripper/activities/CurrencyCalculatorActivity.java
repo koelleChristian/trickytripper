@@ -122,9 +122,8 @@ public class CurrencyCalculatorActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 String widgetInput = getDecimalNumberInputUtil()
                         .fixInputStringWidgetToParser(s.toString());
-                Double valueInput = NumberUtils.getStringToDoubleNonRounded(
+                exchangeRateInput = NumberUtils.getStringToDoubleNonRounded(
                         getLocale(), widgetInput);
-                exchangeRateInput = valueInput;
                 updateViewsState(UpdateExclusion.RATE_VALUE);
             }
         };

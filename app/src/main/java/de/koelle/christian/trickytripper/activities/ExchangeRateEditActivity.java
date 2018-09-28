@@ -98,7 +98,7 @@ public class ExchangeRateEditActivity extends AppCompatActivity {
         if (ViewMode.EDIT == viewMode) {
             Long technicalId = intent.getLongExtra(
                     Rc.ACTIVITY_PARAM_EDIT_EXCHANGE_RATE_IN_RATE_TECH_ID,
-                    Long.valueOf(-1L));
+                    -1L);
             this.exchangeRate = loadExchangeRate(technicalId);
         } else {
             sourceCurrencyForCreation = (Currency) intent
@@ -126,7 +126,7 @@ public class ExchangeRateEditActivity extends AppCompatActivity {
 
         ExchangeRate exchangeRate2 = new ExchangeRate();
         exchangeRate2.setImportOrigin(ImportOrigin.NONE);
-        exchangeRate2.setExchangeRate(Double.valueOf(0d));
+        exchangeRate2.setExchangeRate(0d);
         exchangeRate2.setCurrencyFrom(currencyFrom);
         exchangeRate2.setCurrencyTo(currencyTo);
         exchangeRate2.setInversion(false);
@@ -169,8 +169,7 @@ public class ExchangeRateEditActivity extends AppCompatActivity {
         editTextListenerRight = new BlankTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                Double valueInput = getWidgetDoubleInput(s);
-                exchangeRateValueInverted = valueInput;
+                exchangeRateValueInverted = getWidgetDoubleInput(s);
                 recalculateAndUpdateOtherSide(false);
                 supportInvalidateOptionsMenu();
             }
@@ -189,9 +188,8 @@ public class ExchangeRateEditActivity extends AppCompatActivity {
     private Double getWidgetDoubleInput(Editable s) {
         String widgetInput = getDecimalNumberInputUtil()
                 .fixInputStringWidgetToParser(s.toString());
-        Double valueInput = NumberUtils.getStringToDoubleNonRounded(
+        return NumberUtils.getStringToDoubleNonRounded(
                 getLocale(), widgetInput);
-        return valueInput;
     }
 
 
@@ -294,8 +292,7 @@ public class ExchangeRateEditActivity extends AppCompatActivity {
     }
 
     private Locale getLocale() {
-        Locale locale = getResources().getConfiguration().locale;
-        return locale;
+        return getResources().getConfiguration().locale;
     }
 
     private TrickyTripperApp getApp() {

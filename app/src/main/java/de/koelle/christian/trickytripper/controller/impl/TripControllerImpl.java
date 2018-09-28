@@ -230,9 +230,9 @@ public class TripControllerImpl implements TripController, TripResolver {
     }
 
     public List<Participant> getAllParticipants(boolean onlyActive) {
-        List<Participant> result = new ArrayList<Participant>();
+        List<Participant> result = new ArrayList<>();
         for (Participant p : this.tripToBeEdited.getParticipant()) {
-            if ((onlyActive && p.isActive()) || !onlyActive) {
+            if (!onlyActive || p.isActive()) {
                 result.add(p);
             }
         }
@@ -297,8 +297,7 @@ public class TripControllerImpl implements TripController, TripResolver {
         if (dataManager.doesTripAlreadyExist(summary.getName(), summary.getId())) {
             return false;
         }
-        Trip persistedTrip = dataManager.persistTripBySummary(summary);
-        tripToBeEdited = persistedTrip;
+        tripToBeEdited = dataManager.persistTripBySummary(summary);
         initPostTripLoad();
 
         return true;

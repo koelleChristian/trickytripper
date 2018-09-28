@@ -1,11 +1,6 @@
 package de.koelle.christian.trickytripper.activities;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -17,9 +12,9 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +26,7 @@ import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
+import de.koelle.christian.trickytripper.controller.ExportController;
 import de.koelle.christian.trickytripper.model.ExportSettings;
 import de.koelle.christian.trickytripper.model.ExportSettings.ExportOutputChannel;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -38,14 +34,17 @@ import de.koelle.christian.trickytripper.ui.model.RowObject;
 
 public class ExportActivity extends AppCompatActivity {
 
-    public static final String SYSTEM_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE;
-    private final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 88;
 
     private List<Participant> participantsInSpinner;
     private Participant participantSelected;
     private ExportSettings exportSettings;
-    private List<ExportOutputChannel> supportedOutputChannels;
     private boolean exportEnabled;
+    private CheckBox checkboxFormatCsv;
+    private CheckBox checkboxFormatHtml;
+    private CheckBox checkboxFormatTxt;
+    private RadioButton radioFormatCsv;
+    private RadioButton radioFormatHtml;
+    private RadioButton radioFormatTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +98,7 @@ public class ExportActivity extends AppCompatActivity {
         final TrickyTripperApp app = getApp();
         exportSettings = app.getExportController().getDefaultExportSettings();
         initAndBindSpinner(app);
-        supportedOutputChannels = app.getExportController().getEnabledExportOutputChannel();
+        List<ExportOutputChannel> supportedOutputChannels = app.getExportController().getEnabledExportOutputChannel();
         initAndBindOutputChannelSpinner(exportSettings.getOutputChannel(), supportedOutputChannels);
         bindCheckBoxes();
         updateAllCheckboxStates();
@@ -107,7 +106,7 @@ public class ExportActivity extends AppCompatActivity {
     }
 
     private void initAndBindSpinner(final TrickyTripperApp app) {
-        participantsInSpinner = new ArrayList<Participant>();
+        participantsInSpinner = new ArrayList<>();
         participantsInSpinner.add(null);
         participantsInSpinner.addAll(app.getTripController().getAllParticipants(false, true));
 
@@ -133,11 +132,24 @@ public class ExportActivity extends AppCompatActivity {
     }
 
     @SuppressWarnings("rawtypes")
-    private void initAndBindOutputChannelSpinner(ExportOutputChannel selection,
+    private void initAndBindOutputChannelSpinner(ExportOutputChannel previousSelection,
                                                  final List<ExportOutputChannel> enabledOnes) {
         final Spinner spinner = (Spinner) findViewById(R.id.exportViewSpinnerChannel);
 
-        List<RowObject> spinnerObjects = SpinnerViewSupport.createSpinnerObjects(selection, false,
+        int visibility = View.VISIBLE;
+        if (enabledOnes.size() == 1) {
+            visibility = View.GONE;
+            ExportActivity.this.exportSettings.setOutputChannel(enabledOnes.get(0));
+        }
+        findViewById(R.id.exportViewSpinnerChannelHeadingTableRow).setVisibility(visibility);
+        findViewById(R.id.exportViewSpinnerChannelTableRow).setVisibility(visibility);
+
+        if (visibility == View.GONE) {
+            return;
+        }
+
+        previousSelection = (previousSelection == null) ? enabledOnes.get(0) : previousSelection;
+        List<RowObject> spinnerObjects = SpinnerViewSupport.createSpinnerObjects(previousSelection, false,
                 null, getResources(), getApp().getMiscController().getDefaultStringCollator());
         ArrayAdapter<RowObject> adapter = new ArrayAdapter<RowObject>(this, android.R.layout.simple_spinner_item,
                 spinnerObjects) {
@@ -167,7 +179,7 @@ public class ExportActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.selection_list_medium);
         spinner.setPromptId(R.string.exportViewSpinnerPromptChannel);
         spinner.setAdapter(adapter);
-        SpinnerViewSupport.setSelection(spinner, selection, adapter);
+        SpinnerViewSupport.setSelection(spinner, previousSelection, adapter);
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -177,6 +189,7 @@ public class ExportActivity extends AppCompatActivity {
                     Object o = spinner.getSelectedItem();
                     ExportOutputChannel spinnerSelection = ((RowObject<ExportOutputChannel>) o).getRowObject();
                     ExportActivity.this.exportSettings.setOutputChannel(spinnerSelection);
+                    updateFormatDependingVisibilityAndState();
                     updateExportState();
                 }
             }
@@ -189,13 +202,19 @@ public class ExportActivity extends AppCompatActivity {
     }
 
     private void bindCheckBoxes() {
+        checkboxFormatCsv = (CheckBox) findViewById(R.id.exportViewCheckboxFormatCsv);
+        checkboxFormatHtml = (CheckBox) findViewById(R.id.exportViewCheckboxFormatHtml);
+        checkboxFormatTxt = (CheckBox) findViewById(R.id.exportViewCheckboxFormatTxt);
+        radioFormatCsv = (RadioButton) findViewById(R.id.exportViewRadioButtonFormatCsv);
+        radioFormatHtml = (RadioButton) findViewById(R.id.exportViewRadioButtonFormatHtml);
+        radioFormatTxt = (RadioButton) findViewById(R.id.exportViewRadioButtonFormatTxt);
+
+        updateFormatDependingVisibilityAndState();
+
         CheckBox contentContentPayments = (CheckBox) findViewById(R.id.exportViewCheckboxContentPayments);
         CheckBox contentContentTransfers = (CheckBox) findViewById(R.id.exportViewCheckboxContentTransfers);
         CheckBox contentContentSpendingReport = (CheckBox) findViewById(R.id.exportViewCheckboxContentSpendingReport);
         CheckBox contentContentOwingDebts = (CheckBox) findViewById(R.id.exportViewCheckboxContentOwingDebts);
-        CheckBox contentFormatCsv = (CheckBox) findViewById(R.id.exportViewCheckboxFormatCsv);
-        CheckBox contentFormatHtml = (CheckBox) findViewById(R.id.exportViewCheckboxFormatHtml);
-        CheckBox contentFormatTxt = (CheckBox) findViewById(R.id.exportViewCheckboxFormatTxt);
         CheckBox contentSeparateFilesForIndividuals = (CheckBox) findViewById(R.id.exportViewCheckboxSeparateFilesForIndividuals);
         CheckBox contentShowGlobalSumsOnIndividualSpendingReports = (CheckBox) findViewById(R.id.exportViewCheckboxShowTripSumOnIndividualSpendingReport);
 
@@ -203,12 +222,66 @@ public class ExportActivity extends AppCompatActivity {
         contentContentTransfers.setChecked(exportSettings.isExportTransfers());
         contentContentSpendingReport.setChecked(exportSettings.isExportSpending());
         contentContentOwingDebts.setChecked(exportSettings.isExportDebts());
-        contentFormatCsv.setChecked(exportSettings.isFormatCsv());
-        contentFormatHtml.setChecked(exportSettings.isFormatHtml());
-        contentFormatTxt.setChecked(exportSettings.isFormatTxt());
+
         contentSeparateFilesForIndividuals.setChecked(exportSettings.isSeparateFilesForIndividuals());
         contentShowGlobalSumsOnIndividualSpendingReports.setChecked(exportSettings
                 .isShowGlobalSumsOnIndividualSpendingReport());
+
+        checkboxFormatCsv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                exportSettings.setFormatCsv(isChecked);
+                updateExportState();
+            }
+        });
+
+        checkboxFormatHtml.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                exportSettings.setFormatHtml(isChecked);
+                updateExportState();
+            }
+        });
+
+        checkboxFormatTxt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                exportSettings.setFormatTxt(isChecked);
+                updateExportState();
+            }
+        });
+        radioFormatCsv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                exportSettings.setFormatCsv(isChecked);
+                if (isChecked) {
+                    radioFormatHtml.setChecked(false);
+                    radioFormatTxt.setChecked(false);
+                }
+                updateExportState();
+            }
+        });
+
+        radioFormatHtml.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                exportSettings.setFormatHtml(isChecked);
+                if (isChecked) {
+                    radioFormatCsv.setChecked(false);
+                    radioFormatTxt.setChecked(false);
+                }
+                updateExportState();
+            }
+        });
+
+        radioFormatTxt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                exportSettings.setFormatTxt(isChecked);
+                if (isChecked) {
+                    radioFormatCsv.setChecked(false);
+                    radioFormatHtml.setChecked(false);
+                }
+                updateExportState();
+            }
+        });
+
+
+        /*-------------------*/
 
         contentContentPayments.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -238,26 +311,6 @@ public class ExportActivity extends AppCompatActivity {
             }
         });
 
-        contentFormatCsv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                exportSettings.setFormatCsv(isChecked);
-                updateExportState();
-            }
-        });
-
-        contentFormatHtml.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                exportSettings.setFormatHtml(isChecked);
-                updateExportState();
-            }
-        });
-
-        contentFormatTxt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                exportSettings.setFormatTxt(isChecked);
-                updateExportState();
-            }
-        });
         contentSeparateFilesForIndividuals.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 exportSettings.setSeparateFilesForIndividuals(isChecked);
@@ -274,8 +327,64 @@ public class ExportActivity extends AppCompatActivity {
 
     }
 
+    private void updateFormatDependingVisibilityAndState() {
+        boolean supportingMultipleFiles = exportSettings.getOutputChannel().isSupportingMultipleFiles();
+
+        int visibilityCheckbox;
+        int visibilityRadio;
+
+        if (supportingMultipleFiles) {
+            visibilityCheckbox = View.VISIBLE;
+            visibilityRadio = View.GONE;
+
+            checkboxFormatCsv.setChecked(exportSettings.isFormatCsv());
+            checkboxFormatHtml.setChecked(exportSettings.isFormatHtml());
+            checkboxFormatTxt.setChecked(exportSettings.isFormatTxt());
+        } else {
+            visibilityCheckbox = View.GONE;
+            visibilityRadio = View.VISIBLE;
+
+            ExportController exportController = getApp().getExportController();
+
+            boolean osSupportsOpenCsv = exportController.osSupportsOpenCsv();
+            boolean osSupportsOpenHtml = exportController.ossSupportsOpenHtml();
+            boolean osSupportsOpenTxt = exportController.osSupportsOpenTxt();
+
+
+            if(exportSettings.isFormatHtml() && osSupportsOpenHtml ){
+                exportSettings.setFormatCsv(false);
+                exportSettings.setFormatTxt(false);
+            } else if(exportSettings.isFormatCsv() && osSupportsOpenCsv){
+                exportSettings.setFormatHtml(false);
+                exportSettings.setFormatTxt(false);
+            } else if(exportSettings.isFormatTxt() && osSupportsOpenTxt){
+                exportSettings.setFormatCsv(false);
+                exportSettings.setFormatHtml(false);
+            } else {
+                exportSettings.setFormatCsv(false);
+                exportSettings.setFormatHtml(false);
+                exportSettings.setFormatTxt(false);
+
+            }
+            radioFormatCsv.setChecked(exportSettings.isFormatCsv());
+            radioFormatHtml.setChecked(exportSettings.isFormatHtml());
+            radioFormatTxt.setChecked(exportSettings.isFormatTxt());
+            radioFormatCsv.setEnabled(osSupportsOpenCsv);
+            radioFormatHtml.setEnabled(osSupportsOpenHtml);
+            radioFormatTxt.setEnabled(osSupportsOpenTxt);
+        }
+
+        findViewById(R.id.exportViewCheckRow1).setVisibility(visibilityCheckbox);
+        findViewById(R.id.exportViewCheckRow2).setVisibility(visibilityCheckbox);
+        findViewById(R.id.exportViewCheckRow3).setVisibility(visibilityCheckbox);
+        findViewById(R.id.exportViewRadioRow1).setVisibility(visibilityRadio);
+        findViewById(R.id.exportViewRadioRow2).setVisibility(visibilityRadio);
+        findViewById(R.id.exportViewRadioRow3).setVisibility(visibilityRadio);
+
+    }
+
     private void updateExportState() {
-        exportEnabled = deriveEnableButtonStateFromSettings(exportSettings, supportedOutputChannels);
+        exportEnabled = deriveEnableButtonStateFromSettings(exportSettings);
         supportInvalidateOptionsMenu();
     }
 
@@ -308,8 +417,7 @@ public class ExportActivity extends AppCompatActivity {
         }
     }
 
-    private boolean deriveEnableButtonStateFromSettings(ExportSettings exportSettings2,
-                                                        List<ExportOutputChannel> supportedOutputChannels2) {
+    private boolean deriveEnableButtonStateFromSettings(ExportSettings exportSettings2) {
         return (
                 exportSettings2.isExportDebts()
                         || exportSettings2.isExportPayments()
@@ -319,63 +427,11 @@ public class ExportActivity extends AppCompatActivity {
                 exportSettings2.isFormatTxt()
                         || exportSettings2.isFormatHtml()
                         || exportSettings2.isFormatCsv()
-        ) && (
-                supportedOutputChannels2.contains(exportSettings2.getOutputChannel())
         );
     }
 
     public void doExport() {
-        if (ExportOutputChannel.SD_CARD.equals(exportSettings.getOutputChannel()) && !isSdCardPermissionGranted()) {
-            requestSdCardPermissions();
-        } else {
-        /* participant selected is null, if nobody is selected. */
-        /*
-         * Files will be deleted on application's termination as usually files
-         * have not be sent on resume here.
-         */
-            getApp().getExportController().exportReport(exportSettings, participantSelected, this);
-        }
-
+        getApp().getExportController().exportReport(exportSettings, participantSelected, this);
     }
 
-    private boolean isSdCardPermissionGranted() {
-        Activity thisActivity = this;
-        return ContextCompat.checkSelfPermission(thisActivity, SYSTEM_PERMISSION
-        ) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    boolean permPopShown = false;
-
-    private void requestSdCardPermissions() {
-        Activity thisActivity = this;
-        if (!isSdCardPermissionGranted()) {
-            doRequestPhonebookPermissions();
-        }
-    }
-
-
-    private void doRequestPhonebookPermissions() {
-        // The OS popup will show up, unless 'don't ask again' had been choosen.
-        Activity thisActivity = this;
-        ActivityCompat.requestPermissions(thisActivity,
-                new String[]{SYSTEM_PERMISSION},
-                MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
-                // If request is cancelled, the result arrays are empty.
-                // This will be called, even when 'don't ask again' has been choosen and no popup appears.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    doExport();
-                } else if (!permPopShown) {
-                    Toast.makeText(this, R.string.permission_write_ext_storage_permanently_revoked, Toast.LENGTH_LONG).show();
-                }
-                permPopShown = false;
-            }
-        }
-    }
 }

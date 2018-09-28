@@ -60,7 +60,7 @@ public class TripReportLogic {
 
     private Map<Participant, Map<PaymentCategory, Integer>> initCategoryCountMap(List<Participant> participants) {
         Map<Participant, Map<PaymentCategory, Integer>> categoryMap;
-        categoryMap = new HashMap<Participant, Map<PaymentCategory, Integer>>();
+        categoryMap = new HashMap<>();
         for (Participant p : participants) {
             categoryMap.put(p, new HashMap<PaymentCategory, Integer>());
         }
@@ -69,7 +69,7 @@ public class TripReportLogic {
 
     private Map<Participant, Map<PaymentCategory, Amount>> initCategoryMap(List<Participant> participants) {
         Map<Participant, Map<PaymentCategory, Amount>> categoryMap;
-        categoryMap = new HashMap<Participant, Map<PaymentCategory, Amount>>();
+        categoryMap = new HashMap<>();
         for (Participant p : participants) {
             categoryMap.put(p, new HashMap<PaymentCategory, Amount>());
         }
@@ -79,8 +79,8 @@ public class TripReportLogic {
     /* ================= Debt logic ============================ */
 
     public Map<Participant, Debts> createDebts2(List<Participant> participants, Map<Participant, Amount> balanceByUser) {
-        Map<Participant, Debts> result = new HashMap<Participant, Debts>();
-        Map<Participant, Amount> balanceClone = new HashMap<Participant, Amount>();
+        Map<Participant, Debts> result = new HashMap<>();
+        Map<Participant, Amount> balanceClone = new HashMap<>();
         for (Entry<Participant, Amount> entry : balanceByUser.entrySet()) {
             balanceClone.put(entry.getKey(), entry.getValue().doClone());
         }
@@ -212,7 +212,7 @@ public class TripReportLogic {
                         - Math.abs(amountP2.getValue())));
                 Amount newAmountAmount = amountFactory.createAmount(newAmountDouble);
 
-                if (newAmountDouble.equals(Double.valueOf(0f))) {
+                if (newAmountDouble.equals((double) 0f)) {
                     result.get(p1).getLoanerToDebts().remove(p2);
                     result.get(p2).getLoanerToDebts().remove(p1);
                 }
@@ -276,9 +276,8 @@ public class TripReportLogic {
     }
 
     private Amount getNullsafeAmountEntryForParticipant(Debts debts, Participant payEntryParticipant) {
-        Amount amountForResult = (debts.getLoanerToDebts().get(payEntryParticipant) == null) ? amountFactory
+        return (debts.getLoanerToDebts().get(payEntryParticipant) == null) ? amountFactory
                 .createAmount() : debts.getLoanerToDebts().get(payEntryParticipant);
-        return amountForResult;
     }
 
     private void removeSelfDebts(Map<Participant, Amount> paymentsClone, Map<Participant, Amount> debitorsClone) {
@@ -309,7 +308,7 @@ public class TripReportLogic {
     }
 
     private Map<Participant, Amount> createPaymentValueClone(Map<Participant, Amount> map) {
-        Map<Participant, Amount> result = new HashMap<Participant, Amount>();
+        Map<Participant, Amount> result = new HashMap<>();
         for (Entry<Participant, Amount> paymentEntry : map.entrySet()) {
             result.put(paymentEntry.getKey(), cloneAmount(paymentEntry.getValue()));
         }

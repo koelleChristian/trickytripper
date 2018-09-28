@@ -80,7 +80,7 @@ public class TripEditActivity extends AppCompatActivity {
                 .wrapCurrenciesInRowObject(CurrencyUtil
                         .getSupportedCurrencies(getResources()), getResources());
 
-        ArrayAdapter<RowObject> spinnerAdapter = new ArrayAdapter<RowObject>(this,
+        ArrayAdapter<RowObject> spinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 spinnerObjects);
 
@@ -162,7 +162,7 @@ public class TripEditActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         //TODO(ckoelle) The button could be disabled in edit mode when nothing has changed.
-        boolean inputNotBlank = !StringUtils.isBlank(getEditText().getEditableText().toString());
+        boolean inputNotBlank = StringUtils.isNotBlank(getEditText().getEditableText().toString());
         MenuItem item = menu.findItem(R.id.option_save_create);
         if (item == null) {
             item = menu.findItem(R.id.option_save_edit);

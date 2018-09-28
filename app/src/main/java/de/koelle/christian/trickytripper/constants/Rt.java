@@ -19,7 +19,7 @@ public enum Rt {
     private final int position;
     private final String id;
     
-    private Rt(int position, String id) {
+    Rt(int position, String id) {
         this.position = position;
         this.id = id;
     }

@@ -356,13 +356,13 @@ public class TripReportLogicTest {
         Map<Participant, Amount> payerToPayment;
         Map<Participant, Amount> deptorToAmount;
 
-        deptorToAmount = new HashMap<Participant, Amount>();
-        payerToPayment = new HashMap<Participant, Amount>();
+        deptorToAmount = new HashMap<>();
+        payerToPayment = new HashMap<>();
 
         amount = amountFactory.createAmount(newPaymentValue);
         payerToPayment.put(payer, amount);
 
-        Double splitValue = NumberUtils.divide(Double.valueOf(newPaymentValue), Integer.valueOf(3));
+        Double splitValue = NumberUtils.divide(newPaymentValue, 3);
         splitValue = splitValue * -1;
 
         amount = amountFactory.createAmount(splitValue);

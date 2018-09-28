@@ -33,7 +33,7 @@ public class DetachedCurrencyImportTest {
 
         Set<Currency> input;
 
-        input = new HashSet<Currency>();
+        input = new HashSet<>();
         input.add(Currency.getInstance("EUR"));
         input.add(Currency.getInstance("FRF"));
 
@@ -57,7 +57,7 @@ public class DetachedCurrencyImportTest {
 
         Set<Currency> input;
 
-        input = new HashSet<Currency>();
+        input = new HashSet<>();
         input.add(Currency.getInstance("EUR"));
         input.add(Currency.getInstance("USD"));
         input.add(Currency.getInstance("TRY"));
@@ -78,7 +78,7 @@ public class DetachedCurrencyImportTest {
 
         resetResultFields();
 
-        input = new HashSet<Currency>();
+        input = new HashSet<>();
         input.add(Currency.getInstance("EUR"));
         input.add(Currency.getInstance("USD"));
         input.add(Currency.getInstance("TRY"));
@@ -107,7 +107,7 @@ public class DetachedCurrencyImportTest {
 
         Set<Currency> input;
 
-        input = new HashSet<Currency>();
+        input = new HashSet<>();
         input.add(Currency.getInstance("EUR"));
         input.add(Currency.getInstance("USD"));
         input.add(Currency.getInstance("TRY"));
@@ -127,7 +127,7 @@ public class DetachedCurrencyImportTest {
         Assert.assertEquals(3, resultCollector.size());
         resetResultFields();
 
-        input = new HashSet<Currency>();
+        input = new HashSet<>();
         input.add(Currency.getInstance("EUR"));
         input.add(Currency.getInstance("USD"));
         input.add(Currency.getInstance("TRY"));
@@ -158,7 +158,7 @@ public class DetachedCurrencyImportTest {
 
         Set<Currency> input;
 
-        input = new HashSet<Currency>();
+        input = new HashSet<>();
         input.add(Currency.getInstance("BND"));
         input.add(Currency.getInstance("SGD"));
 
@@ -174,7 +174,7 @@ public class DetachedCurrencyImportTest {
         });
         Assert.assertEquals(0, failurecallbackResultAmountCounter);
         Assert.assertEquals(1, resultCollector.size());
-        Assert.assertEquals(Double.valueOf(1.0), resultCollector.iterator().next().getExchangeRateResult()
+        Assert.assertEquals(1.0, resultCollector.iterator().next().getExchangeRateResult()
                 .getExchangeRate());
     }
 
@@ -187,7 +187,7 @@ public class DetachedCurrencyImportTest {
 
         Set<Currency> input;
 
-        input = new HashSet<Currency>();
+        input = new HashSet<>();
         input.add(Currency.getInstance("BND"));
         input.add(Currency.getInstance("SGD"));
 
@@ -203,7 +203,7 @@ public class DetachedCurrencyImportTest {
         });
         Assert.assertEquals(0, failurecallbackResultAmountCounter);
         Assert.assertEquals(1, resultCollector.size());
-        Assert.assertEquals(Double.valueOf(1123.43), resultCollector.iterator().next().getExchangeRateResult()
+        Assert.assertEquals(1123.43, resultCollector.iterator().next().getExchangeRateResult()
                 .getExchangeRate());
     }
 
@@ -213,7 +213,7 @@ public class DetachedCurrencyImportTest {
 
         Set<Currency> input;
 
-        input = new HashSet<Currency>();
+        input = new HashSet<>();
         input.add(Currency.getInstance("EUR"));
         input.add(Currency.getInstance("USD"));
 
@@ -233,7 +233,7 @@ public class DetachedCurrencyImportTest {
 
     private void resetResultFields() {
         failurecallbackResultAmountCounter = 0;
-        resultCollector = new LinkedHashSet<ExchangeRateImporterResultContainer>();
+        resultCollector = new LinkedHashSet<>();
     }
 
     /**

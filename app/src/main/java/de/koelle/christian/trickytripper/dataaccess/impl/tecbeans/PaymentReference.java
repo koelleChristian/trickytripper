@@ -18,7 +18,7 @@ public class PaymentReference {
     private long id;
     private String description;
     private Date paymentDateTime;
-    private List<PaymentParticipantRelationKey> paymentRelationKeys = new ArrayList<PaymentParticipantRelationKey>();
+    private List<PaymentParticipantRelationKey> paymentRelationKeys = new ArrayList<>();
 
     public PaymentReference() {
 

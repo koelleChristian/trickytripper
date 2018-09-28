@@ -9,7 +9,6 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -72,11 +71,7 @@ public class ExporterImplTest {
                 try {
                     fos = new FileOutputStream(file);
                     fos.write(contents.toString().getBytes());
-                }
-                catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 finally {
@@ -1319,7 +1314,7 @@ public class ExporterImplTest {
     @Test
     public void testOutputEverythingForOneParticipant() {
         ExportSettings exportSettings = createExportSettings(true, true, true, true, true, true, false, false, true);
-        List<Participant> participants = new ArrayList<Participant>();
+        List<Participant> participants = new ArrayList<>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
                 new ActivityResolver() {
@@ -1358,7 +1353,7 @@ public class ExporterImplTest {
     @Test
     public void testOutputPaymentsForOneParticipant() {
         ExportSettings exportSettings = createExportSettings(false, false, false, true, true, true, false, false, true);
-        List<Participant> participants = new ArrayList<Participant>();
+        List<Participant> participants = new ArrayList<>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
                 new ActivityResolver() {
@@ -1396,7 +1391,7 @@ public class ExporterImplTest {
     @Test
     public void testOutputTransfersForOneParticipant() {
         ExportSettings exportSettings = createExportSettings(false, true, false, false, true, true, false, false, true);
-        List<Participant> participants = new ArrayList<Participant>();
+        List<Participant> participants = new ArrayList<>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
                 new ActivityResolver() {
@@ -1435,7 +1430,7 @@ public class ExporterImplTest {
     @Test
     public void testOutputSpendingsForOneParticipant() {
         ExportSettings exportSettings = createExportSettings(false, false, true, false, true, true, false, false, true);
-        List<Participant> participants = new ArrayList<Participant>();
+        List<Participant> participants = new ArrayList<>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
                 new ActivityResolver() {
@@ -1474,7 +1469,7 @@ public class ExporterImplTest {
     @Test
     public void testOutputDebtsForOneParticipant() {
         ExportSettings exportSettings = createExportSettings(true, false, false, false, true, true, false, false, true);
-        List<Participant> participants = new ArrayList<Participant>();
+        List<Participant> participants = new ArrayList<>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
                 new ActivityResolver() {
@@ -1512,7 +1507,7 @@ public class ExporterImplTest {
     @Test
     public void testOutputPaymentsAndDebtsForOneParticipant() {
         ExportSettings exportSettings = createExportSettings(true, false, false, true, true, true, false, false, true);
-        List<Participant> participants = new ArrayList<Participant>();
+        List<Participant> participants = new ArrayList<>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
                 new ActivityResolver() {
@@ -1551,7 +1546,7 @@ public class ExporterImplTest {
     @Test
     public void testOutputPaymentsAndDebtsOnlyHtmlForOneParticipant() {
         ExportSettings exportSettings = createExportSettings(true, false, false, true, false, true, false, false, false);
-        List<Participant> participants = new ArrayList<Participant>();
+        List<Participant> participants = new ArrayList<>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
                 new ActivityResolver() {
@@ -1583,7 +1578,7 @@ public class ExporterImplTest {
     @Test
     public void testOutputPaymentsAndDebtsOnlyCsvForOneParticipant() {
         ExportSettings exportSettings = createExportSettings(true, false, false, true, true, false, false, false, false);
-        List<Participant> participants = new ArrayList<Participant>();
+        List<Participant> participants = new ArrayList<>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
                 new ActivityResolver() {
@@ -1620,7 +1615,7 @@ public class ExporterImplTest {
     @Test
     public void testOutputPaymentsAndDebtsOnlyTxtForOneParticipant() {
         ExportSettings exportSettings = createExportSettings(true, false, false, true, false, false, false, false, true);
-        List<Participant> participants = new ArrayList<Participant>();
+        List<Participant> participants = new ArrayList<>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
                 new ActivityResolver() {
@@ -1654,7 +1649,7 @@ public class ExporterImplTest {
     @Test
     public void testOutputCsvForOneParticipant() {
         ExportSettings exportSettings = createExportSettings(true, true, true, true, true, false, false, false, false);
-        List<Participant> participants = new ArrayList<Participant>();
+        List<Participant> participants = new ArrayList<>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
                 new ActivityResolver() {
@@ -1691,7 +1686,7 @@ public class ExporterImplTest {
     @Test
     public void testOutputHtmlForOneParticipant() {
         ExportSettings exportSettings = createExportSettings(true, true, true, true, false, true, false, false, false);
-        List<Participant> participants = new ArrayList<Participant>();
+        List<Participant> participants = new ArrayList<>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
                 new ActivityResolver() {
@@ -1723,7 +1718,7 @@ public class ExporterImplTest {
     @Test
     public void testOutputTxtForOneParticipant() {
         ExportSettings exportSettings = createExportSettings(true, true, true, true, false, false, false, false, true);
-        List<Participant> participants = new ArrayList<Participant>();
+        List<Participant> participants = new ArrayList<>();
         participants.add(participant);
         List<File> result = exporter.exportReport(exportSettings, participants, tripToExport, resourceResolver,
                 new ActivityResolver() {

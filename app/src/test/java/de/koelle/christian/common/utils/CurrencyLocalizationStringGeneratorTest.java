@@ -1,11 +1,15 @@
 package de.koelle.christian.common.utils;
 
+import android.annotation.TargetApi;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.Currency;
 import java.util.Locale;
 import java.util.TreeSet;
 
+@TargetApi(19)
 public class CurrencyLocalizationStringGeneratorTest {
 
     @Test
@@ -13,16 +17,15 @@ public class CurrencyLocalizationStringGeneratorTest {
     public void generateCurrencyStringsForApplication() {
         Locale localeToBeUsed = Locale.UK;
 
-        TreeSet<String> result = new TreeSet<String>();
+        TreeSet<String> result = new TreeSet<>();
 
-        // This is new in Java 7 ...
-//        for (Currency c : Currency.getAvailableCurrencies()) {
-//            //result.add(c.getCurrencyCode() + "-" + c.getDisplayName(localeToBeUsed));
-//            //result.add(c.getCurrencyCode() + "-" + c.getDisplayName(localeToBeUsed));
-//        }
-//        for (String s : result) {
-//            System.out.println(s);
-//        }
+        for (Currency c : Currency.getAvailableCurrencies()) {
+            result.add(c.getCurrencyCode() + "-" + c.getDisplayName(localeToBeUsed));
+            result.add(c.getCurrencyCode() + "-" + c.getDisplayName(localeToBeUsed));
+        }
+        for (String s : result) {
+            System.out.println(s);
+        }
     }
 
 }

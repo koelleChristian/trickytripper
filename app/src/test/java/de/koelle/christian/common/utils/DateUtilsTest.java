@@ -31,7 +31,6 @@ public class DateUtilsTest {
     private long createrTestDate(int year, int month, int day, int hour, int minutes, int sec) {
         GregorianCalendar gregorianCalendar = new GregorianCalendar(Locale.GERMANY);
         gregorianCalendar.set(year, month + 1, day, hour, minutes, sec);
-        long timeInMillis = gregorianCalendar.getTimeInMillis();
-        return timeInMillis;
+        return gregorianCalendar.getTimeInMillis();
     }
 }

@@ -76,7 +76,7 @@ public class HierarchicalCurrencyList {
     }
 
     public List<List<CurrencyWithName>> createListWithAllLists() {
-        List<List<CurrencyWithName>> result = new ArrayList<List<CurrencyWithName>>();
+        List<List<CurrencyWithName>> result = new ArrayList<>();
         result.add(currenciesUsedMatching);
         result.add(currenciesInExchangeRatesMatching);
         result.add(currenciesUsedUnmatched);

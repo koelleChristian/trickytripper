@@ -1,12 +1,17 @@
 package de.koelle.christian.trickytripper.activities;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,6 +25,12 @@ import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.constants.Rc;
 
 public class SaveToSdCardActivity extends AppCompatActivity {
+
+    private static String[] SYSTEM_PERMISSION = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+    private final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 88;
 
     private static final String MSG_SPACE = " ";
     private List<Uri> fileUris;
@@ -36,15 +47,18 @@ public class SaveToSdCardActivity extends AppCompatActivity {
         }
     }
 
-    //TODO(ckoelle) ABS
-//    @Override
- //   public Object onRetainNonConfigurationInstance() {
-  //      return directoryPickedPath;
-   // };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (isSdCardPermissionNotGranted()) {
+            requestSdCardPermissions();
+        } else {
+           onCreateActually();
+        }
+    }
+
+    protected void onCreateActually() {
+
         Intent intent = getIntent();
         String action = intent.getAction();
         if (Intent.ACTION_SEND_MULTIPLE.equals(action)) {
@@ -83,7 +97,6 @@ public class SaveToSdCardActivity extends AppCompatActivity {
         else {
             finish();
         }
-
     }
 
     private void writeFiles() {
@@ -144,7 +157,7 @@ public class SaveToSdCardActivity extends AppCompatActivity {
     }
 
     private List<Uri> handleSendMultipleImages(Intent intent) {
-        List<Uri> result = new ArrayList<Uri>();
+        List<Uri> result = new ArrayList<>();
         ArrayList<Uri> fileUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
         if (fileUris != null) {
             if (Rc.debugOn) {
@@ -155,5 +168,47 @@ public class SaveToSdCardActivity extends AppCompatActivity {
             result.addAll(fileUris);
         }
         return result;
+    }
+
+    private boolean isSdCardPermissionNotGranted() {
+        Activity thisActivity = this;
+        return ContextCompat.checkSelfPermission(thisActivity, Manifest.permission.READ_EXTERNAL_STORAGE
+        ) != PackageManager.PERMISSION_GRANTED;
+    }
+
+
+    private void requestSdCardPermissions() {
+        if (isSdCardPermissionNotGranted()) {
+            doRequestSdCardpermissions();
+        }
+    }
+
+
+    private void doRequestSdCardpermissions() {
+        // The OS popup will show up, unless 'don't ask again' had been choosen.
+        Activity thisActivity = this;
+        ActivityCompat.requestPermissions(thisActivity,
+                SYSTEM_PERMISSION,
+                MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+    }
+
+    boolean permPopShown = false;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                // This will be called, even when 'don't ask again' has been choosen and no popup appears.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    onCreateActually();
+                } else if (!permPopShown) {
+                    Toast.makeText(this, R.string.permission_write_ext_storage_permanently_revoked, Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                permPopShown = false;
+            }
+        }
     }
 }

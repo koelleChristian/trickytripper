@@ -1,13 +1,14 @@
 package de.koelle.christian.trickytripper.dataaccess.impl.daos;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.provider.BaseColumns;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import de.koelle.christian.common.utils.ConversionUtils;
 import de.koelle.christian.trickytripper.dataaccess.impl.daos.ParticipantTable.ParticipantColumns;
 import de.koelle.christian.trickytripper.dataaccess.impl.tecbeans.ParticipantReference;
@@ -108,7 +109,7 @@ public class ParticipantDao {
     }
 
     public List<Participant> getAllParticipantsInTrip(long tripId) {
-        List<Participant> list = new ArrayList<Participant>();
+        List<Participant> list = new ArrayList<>();
         Cursor c =
                 db.query(
                         ParticipantTable.TABLE_NAME,

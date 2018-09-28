@@ -36,7 +36,7 @@ public class ExchangeRateImportSaveAndLoadTest  {
 
     BitSet occuranceFlags = new BitSet(4);
 
-    private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<Long, ExchangeRate>();
+    private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<>();
 
     private DataManagerImpl dataManager;
     private Context context;

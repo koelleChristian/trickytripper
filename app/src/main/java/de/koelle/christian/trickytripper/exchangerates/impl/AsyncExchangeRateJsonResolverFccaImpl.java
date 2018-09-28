@@ -1,12 +1,13 @@
 package de.koelle.christian.trickytripper.exchangerates.impl;
 
-import java.util.Currency;
-import java.util.concurrent.TimeUnit;
+import android.content.Context;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
+import java.util.Currency;
+import java.util.concurrent.TimeUnit;
+
 import de.koelle.christian.common.json.AsyncJsonParser;
 import de.koelle.christian.common.json.AsyncJsonParserResultCallback;
 import de.koelle.christian.trickytripper.model.ImportOrigin;

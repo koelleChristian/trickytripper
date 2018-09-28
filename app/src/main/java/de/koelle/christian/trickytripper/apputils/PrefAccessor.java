@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.decoupling.PrefsResolver;
 

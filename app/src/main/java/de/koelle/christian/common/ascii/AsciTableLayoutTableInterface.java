@@ -29,13 +29,13 @@ public interface AsciTableLayoutTableInterface
      * 
      * @return Names of Columns
      */
-    public String[] asciTableColumnNames();
+    String[] asciTableColumnNames();
 
     /**
      * content of cell for the given row number and column number.
      * 
      * @return number of cell
      */
-    public Object asciTableColumnContent(// --
-            final int pColIndex);
+    Object asciTableColumnContent(// --
+                                  final int pColIndex);
 }

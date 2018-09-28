@@ -1,9 +1,9 @@
 package de.koelle.christian.trickytripper.constants;
 
-import java.text.Collator;
-
 import android.content.Context;
 import android.content.Intent;
+
+import java.text.Collator;
 
 public class Rc {
 
@@ -24,7 +24,7 @@ public class Rc {
      * So that the compiler can remove the statements, instead of
      * Log.isLoggable(Rc.LT, Log.DEBUG)
      */
-    public static final boolean debugOn = false;
+    public static final boolean debugOn = true;
 
     public static final String TAB_SPEC_ID_PAYMENT = "payment";
     public static final String TAB_SPEC_ID_PARTICIPANTS = "participants";
@@ -67,7 +67,6 @@ public class Rc {
     public static final int ACTIVITY_REQ_CODE_CURRENCY_CALCULATOR = 53214;
     public static final int ACTIVITY_REQ_CODE_CURRENCY_SELECTION = 62214;
     public static final int ACTIVITY_REQ_CODE_PARTICIPANT_SELECT = 3452;
-    /* TODO(ckoelle) I think this is not for result anymore. */
     public static final int ACTIVITY_REQ_CODE_EXCHANGE_RATE_MANAGEMENT = 49499;
     public static final int ACTIVITY_REQ_CODE_EDIT_TRIP = 36214;
 
@@ -85,8 +84,12 @@ public class Rc {
     public static final String HTML_EXTENSION = ".html";
     public static final String CSV_EXTENSION = ".csv";
     public static final String TXT_EXTENSION = ".txt";
-    public static final String STREAM_SENDING_MIME = "*/*";
-    public static final String STREAM_SENDING_INTENT = Intent.ACTION_SEND_MULTIPLE;
+    public static final String INTENT_SEND_STREAM_MIME = "*/*";
+    public static final String INTENT_OPEN_FILE_CSV_MIME = "text/comma-separated-values";
+    public static final String INTENT_OPEN_FILE_TXT_MIME = "text/plain";
+    public static final String INTENT_OPEN_FILE_HTML_MIME = "text/html";
+    public static final String INTENT_SEND_STREAM = Intent.ACTION_SEND_MULTIPLE;
+    public static final String INTENT_OPEN_FILE = Intent.ACTION_VIEW;
     public static final String PREFS_NAME_ID = "PREFS_NAME_ID";
     public static final int PREFS_MODE = Context.MODE_PRIVATE;
     public static final String PREFS_VALUE_ID_BASE_CURRENCY = "PREFS_VALUE_ID_BASE_CURRENCY";

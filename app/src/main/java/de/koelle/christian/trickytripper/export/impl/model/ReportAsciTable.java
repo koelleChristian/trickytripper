@@ -8,8 +8,8 @@ import de.koelle.christian.common.ascii.AsciToStringHelper;
 
 public class ReportAsciTable implements ReportAsciTableHeadingCallback {
 
-    private final List<String> headings = new ArrayList<String>();
-    private final List<ReportAsciTableLayoutTableRow> rows = new ArrayList<ReportAsciTableLayoutTableRow>();
+    private final List<String> headings = new ArrayList<>();
+    private final List<ReportAsciTableLayoutTableRow> rows = new ArrayList<>();
 
     @Override
     public String toString() {

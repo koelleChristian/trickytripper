@@ -1,10 +1,11 @@
 package de.koelle.christian.trickytripper.dataaccess;
 
-import java.util.ArrayList;
-
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+
+import java.util.ArrayList;
+
 import de.koelle.christian.trickytripper.model.PhoneContact;
 
 public class PhoneContactResolver {
@@ -24,7 +25,7 @@ public class PhoneContactResolver {
             selectionArgs = new String []{ "%" + nameSubstr + "%" };
         } 
         Cursor phoneCursor = null;
-        ArrayList<PhoneContact> contacts = new ArrayList<PhoneContact>();
+        ArrayList<PhoneContact> contacts = new ArrayList<>();
         try {
             phoneCursor = mResolver.query(ContactsContract.Contacts.CONTENT_URI,
                     projection,

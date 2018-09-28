@@ -1,6 +1,7 @@
 package de.koelle.christian.trickytripper.export.impl;
 
 import android.app.Activity;
+import android.net.Uri;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class ExporterImpl implements Exporter {
     public List<File> exportReport(ExportSettings settings, List<Participant> participants, Trip trip,
                                    ResourceResolver resourceResolver, ActivityResolver activityResolver, AmountFactory amountFactory) {
 
-        List<File> filesCreated = new ArrayList<File>();
+        List<File> filesCreated = new ArrayList<>();
 
         StringBuilder fileNamePrefix = new StringBuilder(resourceResolver.resolve(R.string.fileExportPrefix))
                 .append(FILE_NAME_SEPARATOR)
@@ -68,7 +69,7 @@ public class ExporterImpl implements Exporter {
         if (participants.size() > 1 && settings.isSeparateFilesForIndividuals()) {
             ArrayList<Participant> participantsSubset;
             for (Participant p : participants) {
-                participantsSubset = new ArrayList<Participant>(1);
+                participantsSubset = new ArrayList<>(1);
                 participantsSubset.add(p);
                 createAndWriteFiles(settings,
                         participantsSubset,
@@ -107,12 +108,14 @@ public class ExporterImpl implements Exporter {
                 .append(timestamp);
 
         if (activityResolver.getActivity() != null) {
-            streamSender.sendStream(
-                    (Activity) activityResolver.getActivity(),
-                    exportSubject.toString(),
-                    resourceResolver.resolve(R.string.fileExportEmailContent),
-                    FileUtils.getContentUrisFromFiles(filesCreated, TrickyTripperFileProvider.AUTHORITY),
-                    settings.getOutputChannel());
+            List<Uri> contentUrisFromFiles = FileUtils.getContentUrisFromFiles(filesCreated, TrickyTripperFileProvider.AUTHORITY);
+            if (settings.getOutputChannel() != null) {
+                streamSender.sendStream(
+                        (Activity) activityResolver.getActivity(),
+                        exportSubject.toString(),
+                        resourceResolver.resolve(R.string.fileExportEmailContent),
+                        contentUrisFromFiles, settings.getOutputChannel());
+            }
         }
 
         return filesCreated;

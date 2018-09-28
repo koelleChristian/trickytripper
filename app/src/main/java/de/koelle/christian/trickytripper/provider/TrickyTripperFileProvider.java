@@ -1,8 +1,5 @@
 package de.koelle.christian.trickytripper.provider;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -10,6 +7,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import de.koelle.christian.trickytripper.constants.Rc;
 
 public class TrickyTripperFileProvider extends ContentProvider {
@@ -47,9 +48,8 @@ public class TrickyTripperFileProvider extends ContentProvider {
                     .append(uri.getLastPathSegment());
 
             /* Note:they're only getting read only */
-            ParcelFileDescriptor pfd = ParcelFileDescriptor.open(new File(
+            return ParcelFileDescriptor.open(new File(
                     fileLocation.toString()), ParcelFileDescriptor.MODE_READ_ONLY);
-            return pfd;
 
         default:
             throw new FileNotFoundException("Unsupported uri: "

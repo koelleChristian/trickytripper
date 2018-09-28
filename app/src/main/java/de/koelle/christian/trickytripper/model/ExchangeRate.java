@@ -129,7 +129,7 @@ public class ExchangeRate implements Serializable {
         result.setId(id);
         result.setImportOrigin(getImportOrigin());
         result.setUpdateDate(getUpdateDate());
-        result.setInversion((toInversion) ? !isInversion() : isInversion());
+        result.setInversion((toInversion) != isInversion());
         return result;
     }
 

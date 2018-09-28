@@ -41,6 +41,7 @@
     <string name="option_option_create_exchange_rate_for_source">Erstelle passenden Wechselkurs</string>
     <string name="drawer_open">Navigation öffnen</string>
     <string name="drawer_close">Navigation schließen</string>
+    <string name="no_export_option">Das Telefon unterstützt nicht das Öffnen oder Versenden zumindest eines Exportdateityps (html, txt, csv).</string>
     <!-- ===============================  Participant tab view =============================== -->
     <string name="participant_tab_row_view_label_spent">Ausgegeben:</string>
     <string name="participant_tab_row_view_label_paid">Bezahlt:</string>
@@ -121,8 +122,8 @@
     <string name="exportViewTextViewSubHeadingChannel">Ausgabeweg?</string>
     <string name="exportViewSpinnerPromptChannel">Wähle Ausgabeweg</string>
     <string name="exportViewSpinnerNotAvailable">nicht verfügbar</string>
-    <string name="exportOutputChannelEnumSave2Sd">Aufs Telefon speichern</string>
-    <string name="exportOutputChannelMail">Mail</string>
+    <string name="exportOutputOpen">Öffnen</string>
+    <string name="exportOutputStreamSending">Senden/Speichern</string>
     <!-- ===============================  Save 2 SD receiver =============================== -->
     <string name="save2SdReceiverLabel">Aufs Telefon speichern</string>
     <string name="save2SdReceiverHeading">Export: Verzeichnisauswahl</string>

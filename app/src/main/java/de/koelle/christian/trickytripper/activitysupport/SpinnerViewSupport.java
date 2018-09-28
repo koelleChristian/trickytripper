@@ -1,17 +1,18 @@
 package de.koelle.christian.trickytripper.activitysupport;
 
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.model.ExchangeRateSelection;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -22,7 +23,7 @@ import de.koelle.christian.trickytripper.ui.model.SpinnerObject;
 public class SpinnerViewSupport {
 
     public static List<SpinnerObject> createSpinnerObjects(List<Participant> participants, Resources resources) {
-        List<SpinnerObject> result = new ArrayList<SpinnerObject>();
+        List<SpinnerObject> result = new ArrayList<>();
         SpinnerObject spinnerObject;
         for (Participant participant : participants) {
             String name;
@@ -44,7 +45,7 @@ public class SpinnerViewSupport {
     }
 
     public static List<SpinnerObject> createSpinnerObjectsDeleteExchangeRateSelection(Resources resources) {
-        List<SpinnerObject> result = new ArrayList<SpinnerObject>();
+        List<SpinnerObject> result = new ArrayList<>();
         SpinnerObject spinnerObject;
         for (ExchangeRateSelection entry : ExchangeRateSelection.values()) {
             spinnerObject = new SpinnerObject();
@@ -72,7 +73,7 @@ public class SpinnerViewSupport {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public static List<RowObject> createSpinnerObjects(ResourceLabelAwareEnumeration enumeration, boolean addNullValue,
             List<Object> valuesToBeFiltered, Resources resources, final Collator collator) {
-        List<RowObject> result = new ArrayList<RowObject>();
+        List<RowObject> result = new ArrayList<>();
         RowObject spinnerObject;
         if (addNullValue) {
             spinnerObject = new RowObject();
@@ -107,7 +108,7 @@ public class SpinnerViewSupport {
 
     public static void configureReportSelectionSpinner(Context context, List<Participant> participants,
             Spinner spinner) {
-        ArrayAdapter<SpinnerObject> adapter = new ArrayAdapter<SpinnerObject>(
+        ArrayAdapter<SpinnerObject> adapter = new ArrayAdapter<>(
                 context,
                 android.R.layout.simple_spinner_item,
                 createSpinnerObjects(participants, context.getResources()
@@ -119,7 +120,7 @@ public class SpinnerViewSupport {
     public static Spinner configureDeleteExchangeRateSpinner(Activity activity, Context context, int spinnerViewId) {
 
         Spinner spinner = (Spinner) activity.findViewById(spinnerViewId);
-        ArrayAdapter<SpinnerObject> adapter = new ArrayAdapter<SpinnerObject>(
+        ArrayAdapter<SpinnerObject> adapter = new ArrayAdapter<>(
                 context,
                 android.R.layout.simple_spinner_item,
                 createSpinnerObjectsDeleteExchangeRateSelection(context.getResources()));

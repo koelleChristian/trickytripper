@@ -17,8 +17,8 @@ public class Payment implements Serializable {
     private Date paymentDateTime;
     private String description;
 
-    private Map<Participant, Amount> payerToPayment = new TreeMap<Participant, Amount>();
-    private Map<Participant, Amount> debitorToAmount = new TreeMap<Participant, Amount>();
+    private Map<Participant, Amount> payerToPayment = new TreeMap<>();
+    private Map<Participant, Amount> debitorToAmount = new TreeMap<>();
 
     public PaymentCategory getCategory() {
         return category;
@@ -102,7 +102,7 @@ public class Payment implements Serializable {
     }
 
     private void removeBlanksFromMap(Map<Participant, Amount> map) {
-        List<Participant> toBeRemoved = new ArrayList<Participant>();
+        List<Participant> toBeRemoved = new ArrayList<>();
         for (Entry<Participant, Amount> entry : map.entrySet()) {
             if (entry.getValue() != null && (0d == entry.getValue().getValue() || -0d == entry.getValue().getValue())) {
                 toBeRemoved.add(entry.getKey());

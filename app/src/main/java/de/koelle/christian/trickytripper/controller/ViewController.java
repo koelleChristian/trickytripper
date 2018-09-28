@@ -1,13 +1,13 @@
 package de.koelle.christian.trickytripper.controller;
 
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.List;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+
+import java.util.ArrayList;
+import java.util.Currency;
+
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.ExchangeRate;
 import de.koelle.christian.trickytripper.model.Participant;

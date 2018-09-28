@@ -36,7 +36,7 @@ public class ExchangeRateMultiDeleteTest {
 
     BitSet occuranceFlags = new BitSet(4);
 
-    private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<Long, ExchangeRate>();
+    private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<>();
     private DataManagerImpl dataManager;
 
     private Context context;
@@ -91,7 +91,7 @@ public class ExchangeRateMultiDeleteTest {
         /* ============ delete ============ */
 
         /* Record 1, 3 & 4 */
-        deleteList = new ArrayList<ExchangeRate>();
+        deleteList = new ArrayList<>();
 
         input = new ExchangeRate();
         input.setId(ID_1);

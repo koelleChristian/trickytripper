@@ -34,7 +34,7 @@ import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.Exchan
 @SmallTest
 public class ExchangeRatePrefsSaveLoadTest {
 
-    private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<Long, ExchangeRate>();
+    private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<>();
     private DataManagerImpl dataManager;
     private ExchangeRateControllerImpl controller;
 

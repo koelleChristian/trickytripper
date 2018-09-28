@@ -27,6 +27,13 @@
   </head>  
   <body>
 
+$ 1.5.9
+% Version 1.5.9
+  _ 2017-09-23
+* Berichtsexport: Wähle die Zielanwendung Deiner Wahl über einen Auswahldialog des Geräts, bspw. Google Drive. Bisher gab es nur eine feste Auswahl von unterstützten Zielanwendungen.
+* Berichtsexport: Dateien können auch direkt geöffnet werden.
+* Unterstützung für Android O.
+
 $ 1.5.8
 % Version 1.5.8
   _ 2016-11-23

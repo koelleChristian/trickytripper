@@ -1,14 +1,15 @@
 package de.koelle.christian.common.utils;
 
+import android.app.Activity;
+import android.app.Application;
+import android.net.Uri;
+import android.util.Log;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.app.Activity;
-import android.app.Application;
-import android.net.Uri;
-import android.util.Log;
 import de.koelle.christian.trickytripper.constants.Rc;
 
 public class FileUtils {
@@ -16,7 +17,7 @@ public class FileUtils {
     private static final String CONTENT_PREFIX = "content://";
 
     public static List<Uri> getUrisFromFiles(List<File> files) {
-        List<Uri> result = new ArrayList<Uri>();
+        List<Uri> result = new ArrayList<>();
         for (File f : files) {
             result.add(Uri.parse(Uri.fromFile(f).toString()));
         }
@@ -24,11 +25,14 @@ public class FileUtils {
     }
 
     public static List<Uri> getContentUrisFromFiles(List<File> files, String authority) {
-        List<Uri> result = new ArrayList<Uri>();
+        List<Uri> result = new ArrayList<>();
         for (File f : files) {
-            result.add(Uri.parse(CONTENT_PREFIX + authority + File.separator + f.getName()));
+            result.add(getContentUrisFromFile(f, authority));
         }
         return result;
+    }
+    public static Uri getContentUrisFromFile(File file, String authority) {
+        return Uri.parse(CONTENT_PREFIX + authority + File.separator + file.getName());
     }
 
     public static void deleteAllFiles(Activity callingActivity) {
@@ -52,7 +56,7 @@ public class FileUtils {
                  * with short names of files existing in the application's data
                  * directory. It does not work with absolute paths.
                  */
-                f.delete(); // TODO(ckoelle) result ignored
+                f.delete();
             }
         }
     }
