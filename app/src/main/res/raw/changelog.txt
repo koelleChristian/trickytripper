@@ -27,6 +27,11 @@
   </head>  
   <body>
 
+$ 1.6.0
+% Version 1.6.0
+  _ 2018-10-01
+* Fix online retrieval of currencies, but without support for El Salvador Colon and Sambian Kwacha.
+
 $ 1.5.9
 % Version 1.5.9
   _ 2017-09-23

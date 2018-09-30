@@ -27,6 +27,11 @@
   </head>  
   <body>
 
+$ 1.6.0
+% Version 1.6.0
+  _ 2018-10-01
+* Download von Wechselkursen jetzt wieder verfügbar (jedoch ohne die Währungen Colon und Kwacha).
+
 $ 1.5.9
 % Version 1.5.9
   _ 2017-09-23
