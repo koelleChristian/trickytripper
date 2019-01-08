@@ -3,6 +3,7 @@ package de.koelle.christian.trickytripper.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.view.LayoutInflater;
@@ -28,6 +29,8 @@ import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperActivity;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.TabDialogSupport;
+import de.koelle.christian.trickytripper.activitysupport.Updatable;
+import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.dialogs.DeleteDialogFragment.DeleteConfirmationCallback;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -37,7 +40,7 @@ import de.koelle.christian.trickytripper.model.modelAdapter.PaymentRowListAdapte
 import de.koelle.christian.trickytripper.model.utils.PaymentComparator;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 
-public class PaymentTabActivity extends ListFragment implements DeleteConfirmationCallback {
+public class PaymentTabActivity extends ListFragment implements DeleteConfirmationCallback, Updatable {
 
     private static final String DELIMITER = ": ";
 
@@ -89,15 +92,15 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
     public void onResume() {
         super.onResume();
         sortAndUpdateView();
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.list_view, container, false);
-        TextView textView = (TextView) view.findViewById(android.R.id.empty);
-        listView = (ListView) view.findViewById(android.R.id.list);
+        TextView textView = view.findViewById(android.R.id.empty);
+        listView = view.findViewById(android.R.id.list);
 
         adapter = new PaymentRowListAdapter(getActivity(), R.layout.payment_tab_row_view, paymentRows, getApp()
                 .getTripController()
@@ -150,7 +153,11 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
         Payment payment = TabDialogSupport.getPaymentFromBundle(bundle);
         ((TrickyTripperApp) getActivity().getApplication()).getTripController().deletePayment(payment);
         sortAndUpdateView();
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
+
+        ViewPager pager = getActivity().findViewById(R.id.drawer_content_pager);
+        pager.setCurrentItem(Rc.TAB_ID_PAYMENTS);
+        pager.getAdapter().notifyDataSetChanged();
     }
 
     private String getPrefixTextForTransferDeletion(Payment row) {
@@ -193,6 +200,11 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
 
         return builder.toString();
 
+    }
+
+    @Override
+    public void update() {
+        // Intentionally blank
     }
 
     private class MyActionModeCallback implements ActionMode.Callback {
@@ -249,7 +261,7 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
             setRunningActionMode(null);
         }
 
-        public void setSelectedPayment(Payment payment) {
+        void setSelectedPayment(Payment payment) {
             this.payment = payment;
         }
     }

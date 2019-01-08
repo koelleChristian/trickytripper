@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -73,14 +73,14 @@ public class TrickyTripperActivity extends AppCompatActivity implements DeleteDi
 
         mDrawerTitle = getResources().getString(R.string.trip_manage_view_heading);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.drawer_drawer_list_view_trips);
-        mViewPager = (ViewPager) findViewById(R.id.drawer_content_pager);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mDrawerList =  findViewById(R.id.drawer_drawer_list_view_trips);
+        mViewPager = findViewById(R.id.drawer_content_pager);
 
         updatePagerAdapter();
 
         mDrawerToggle = new MyActionBarDrawerToggle();
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
 
 
         final ActionBar actionBar = getSupportActionBar();
@@ -147,7 +147,7 @@ public class TrickyTripperActivity extends AppCompatActivity implements DeleteDi
 
     private void updatePagerAdapter() {
         // MainPagerAdapter defines the tab activities and the tab order.
-        FragmentStatePagerAdapter mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), this);
+        PagerAdapter mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(mPagerAdapter);
     }
 
@@ -413,7 +413,7 @@ public class TrickyTripperActivity extends AppCompatActivity implements DeleteDi
             mActionMode = null;
         }
 
-        public void setSelectedTrip(TripSummary selectedTrip) {
+        void setSelectedTrip(TripSummary selectedTrip) {
             this.selectedTrip = selectedTrip;
         }
     }
@@ -421,7 +421,7 @@ public class TrickyTripperActivity extends AppCompatActivity implements DeleteDi
 
     private class MyActionBarDrawerToggle extends ActionBarDrawerToggle {
 
-        public MyActionBarDrawerToggle() {
+        MyActionBarDrawerToggle() {
             super(TrickyTripperActivity.this, TrickyTripperActivity.this.mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
         }
 

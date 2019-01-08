@@ -26,6 +26,7 @@ import de.koelle.christian.common.support.DimensionSupport;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperActivity;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
+import de.koelle.christian.trickytripper.activitysupport.Updatable;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.controller.TripController;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -33,7 +34,7 @@ import de.koelle.christian.trickytripper.model.modelAdapter.ParticipantRowListAd
 import de.koelle.christian.trickytripper.strategies.SumReport;
 import de.koelle.christian.trickytripper.ui.model.ParticipantRow;
 
-public class ParticipantTabActivity extends ListFragment {
+public class ParticipantTabActivity extends ListFragment implements Updatable {
 
     final List<ParticipantRow> participantRows = new ArrayList<>();
 
@@ -55,8 +56,13 @@ public class ParticipantTabActivity extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
+        update();
+    }
+
+    @Override
+    public void update() {
         updateRows();
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     @Override
@@ -64,8 +70,8 @@ public class ParticipantTabActivity extends ListFragment {
 
         View view = inflater.inflate(R.layout.list_view, container, false);
         view.setTag(Rc.TAB_ID_PARTICIPANTS);
-        TextView textView = (TextView) view.findViewById(android.R.id.empty);
-        listView = (ListView) view.findViewById(android.R.id.list);
+        TextView textView = view.findViewById(android.R.id.empty);
+        listView = view.findViewById(android.R.id.list);
 
         adapter = new ParticipantRowListAdapter(getActivity(), R.layout.participant_tab_row_view, participantRows);
         setListAdapter(adapter);
@@ -160,7 +166,7 @@ public class ParticipantTabActivity extends ListFragment {
                     return true;
                 case R.id.option_participant_show_report:
                     getApp().getTripController().getDialogState().setParticipantReporting(selectedParticipant);
-                    ViewPager pager = (ViewPager) getActivity().findViewById(R.id.drawer_content_pager);
+                    ViewPager pager = getActivity().findViewById(R.id.drawer_content_pager);
                     pager.setCurrentItem(Rc.TAB_ID_REPORT);
                     mode.finish();
                     return true;
@@ -202,7 +208,7 @@ public class ParticipantTabActivity extends ListFragment {
             setRunningActionMode(null);
         }
 
-        public void setSelectedParticipant(Participant selectedParticipant) {
+        void setSelectedParticipant(Participant selectedParticipant) {
             this.selectedParticipant = selectedParticipant;
         }
     }

@@ -25,6 +25,7 @@ import de.koelle.christian.common.utils.UiUtils;
 import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.SpinnerViewSupport;
+import de.koelle.christian.trickytripper.activitysupport.Updatable;
 import de.koelle.christian.trickytripper.model.Amount;
 import de.koelle.christian.trickytripper.model.Debts;
 import de.koelle.christian.trickytripper.model.Participant;
@@ -33,7 +34,7 @@ import de.koelle.christian.trickytripper.model.Trip;
 import de.koelle.christian.trickytripper.modelutils.AmountViewUtils;
 import de.koelle.christian.trickytripper.strategies.SumReport;
 
-public class ReportTabActivity extends Fragment {
+public class ReportTabActivity extends Fragment implements Updatable {
 
     private final List<View> dynamicSpendingRows = new ArrayList<>();
     private final List<View> dynamicOwingDebtsRows = new ArrayList<>();
@@ -55,8 +56,7 @@ public class ReportTabActivity extends Fragment {
         if (onePixel == 0) {
             onePixel = UiUtils.dpi2px(getResources(), 1);
         }
-        createPanel(view);
-        getActivity().supportInvalidateOptionsMenu();
+        update();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -105,6 +105,12 @@ public class ReportTabActivity extends Fragment {
 
         });
 
+    }
+
+    @Override
+    public void update() {
+        createPanel(view);
+        getActivity().invalidateOptionsMenu();
     }
 
     private List<Participant> getAllParticipants(TrickyTripperApp app) {
@@ -221,9 +227,9 @@ public class ReportTabActivity extends Fragment {
 
     private void addDynamicDebtRows(TrickyTripperApp app, Participant participantSelected, Locale locale, TableLayout tableLayoutDebts) {
 
-        TableRow headingDebtsSubheading = (TableRow) view.findViewById(R.id.reportViewTableLayoutDebtsHeading2);
-        TableRow subheadingDividerTop =  (TableRow) view.findViewById(R.id.reportViewSpacerDebtsTop);
-        TableRow headingNoDebts = (TableRow) view.findViewById(R.id.reportViewTableLayoutDebtsHeadingNoDebts);
+        TableRow headingDebtsSubheading = view.findViewById(R.id.reportViewTableLayoutDebtsHeading2);
+        TableRow subheadingDividerTop = view.findViewById(R.id.reportViewSpacerDebtsTop);
+        TableRow headingNoDebts = view.findViewById(R.id.reportViewTableLayoutDebtsHeadingNoDebts);
 
         Collection<Participant> involvedParticipants = new ArrayList<>();
         if (participantSelected != null) {
@@ -274,7 +280,7 @@ public class ReportTabActivity extends Fragment {
                 }
             }
         }
-        if(areThereDebtsToBeDisplayed){
+        if (areThereDebtsToBeDisplayed) {
             addOrderedDynamicRowsToView(newRows, tableLayoutDebts, 3, dynamicDividerRowsOwingDebtsRows, true);
         }
 
@@ -336,7 +342,7 @@ public class ReportTabActivity extends Fragment {
         textView.setText(valueForDisplay);
         columnRowParams.column = column;
         columnRowParams.span = span;
-        if(isDebts){
+        if (isDebts) {
             columnRowParams.weight = 1;
         }
         target.addView(textView, columnRowParams);

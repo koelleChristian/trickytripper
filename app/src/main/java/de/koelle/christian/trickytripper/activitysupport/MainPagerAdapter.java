@@ -1,6 +1,7 @@
 package de.koelle.christian.trickytripper.activitysupport;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -51,5 +52,14 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
             default:
                 throw new UnsupportedOperationException("There is no tab with position " + i + " supported.");
         }
+    }
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        // Called upon PagerAdapter.notifyDataSetChanged()
+        Updatable f = (Updatable) object;
+        if (f != null) {
+            f.update();
+        }
+        return super.getItemPosition(object);
     }
 }
