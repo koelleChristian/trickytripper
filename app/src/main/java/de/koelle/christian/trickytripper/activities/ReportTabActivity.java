@@ -161,8 +161,8 @@ public class ReportTabActivity extends Fragment implements Updatable {
 
     private void updateDynamicRows(TrickyTripperApp app, Participant participantSelected, Locale locale, View view) {
 
-        TableLayout tableLayoutUpper = (TableLayout) view.findViewById(R.id.reportViewTableLayout);
-        TableLayout tableLayoutLower = (TableLayout) view.findViewById(R.id.reportViewTableLayoutDebts);
+        TableLayout tableLayoutUpper = view.findViewById(R.id.reportViewTableLayout);
+        TableLayout tableLayoutLower = view.findViewById(R.id.reportViewTableLayoutDebts);
 
         removeDynamicRows(tableLayoutLower, tableLayoutUpper);
 

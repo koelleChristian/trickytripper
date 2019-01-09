@@ -84,7 +84,7 @@ public class ExchangeRateRowListAdapter extends ArrayAdapter<ExchangeRate> {
             if (isDouble) {
                 viewId = R.id.exchangeRateRowView_checkbox;
 
-                CheckBox checkbox = (CheckBox) result.findViewById(viewId);
+                CheckBox checkbox = result.findViewById(viewId);
                 checkbox.setChecked(row.isSelected());
 
                 ExchangeRate rowInverted = row.cloneToInversion();

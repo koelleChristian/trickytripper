@@ -120,7 +120,7 @@ public class MoneyTransferActivity extends AppCompatActivity {
     }
 
     private void createDynamicTable(Participant transferer, List<Participant> allParticipants, Debts debtsOfTransferer) {
-        TableLayout listView = (TableLayout) findViewById(R.id.money_transfer_view_table_layout);
+        TableLayout listView = findViewById(R.id.money_transfer_view_table_layout);
         addDynamicRows(transferer, allParticipants, debtsOfTransferer, listView);
     }
 
@@ -148,7 +148,7 @@ public class MoneyTransferActivity extends AppCompatActivity {
     private void addDynamicRows(Participant transferer, List<Participant> allParticipants,
                                 Debts debtsOfTransferer, TableLayout tableLayout) {
 
-        TextView textView = ((TextView) findViewById(R.id.money_transfer_view_output_participant_from));
+        TextView textView = findViewById(R.id.money_transfer_view_output_participant_from);
         textView.setText(transferer.getName());
 
         List<Participant> allToBe;
@@ -176,10 +176,10 @@ public class MoneyTransferActivity extends AppCompatActivity {
             final Amount inputValueModel = getAmountFac().createAmount();
             newRow = (TableRow) inflate(R.layout.money_transfer_list_view);
 
-            final EditText editText = (EditText) newRow.findViewById(R.id.money_transfer_list_view_input_amount);
-            nameTextView = (TextView) newRow.findViewById(R.id.money_transfer_list_view_output_name);
-            buttonDueAmount = (Button) newRow.findViewById(R.id.money_transfer_list_view_button_due_amount);
-            buttonCurrency = (Button) newRow.findViewById(R.id.money_transfer_list_view_button_currency);
+            final EditText editText = newRow.findViewById(R.id.money_transfer_list_view_input_amount);
+            nameTextView = newRow.findViewById(R.id.money_transfer_list_view_output_name);
+            buttonDueAmount = newRow.findViewById(R.id.money_transfer_list_view_button_due_amount);
+            buttonCurrency = newRow.findViewById(R.id.money_transfer_list_view_button_currency);
 
             UiUtils.makeProperNumberInput(editText, getDecimalNumberInputUtil().getInputPatternMatcher());
             //noinspection ResourceType
@@ -236,7 +236,7 @@ public class MoneyTransferActivity extends AppCompatActivity {
     protected void updateSum() {
         Locale locale = getLocale();
         amountTotal = calculateTotalSum();
-        TextView textView = (TextView) findViewById(R.id.money_transfer_view_output_total_transfer_amount);
+        TextView textView = findViewById(R.id.money_transfer_view_output_total_transfer_amount);
         textView.setText(AmountViewUtils.getAmountString(locale, amountTotal, false, false, false, true, true));
     }
 

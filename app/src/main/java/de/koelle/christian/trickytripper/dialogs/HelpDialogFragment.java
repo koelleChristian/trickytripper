@@ -35,7 +35,7 @@ public class HelpDialogFragment extends DialogFragment {
         String urlToHelp = determineHelpFileUrl(activity,
                 ((TrickyTripperApp) activity.getApplication()).getMiscController());
 
-        final WebView webViewNested = (WebView) view.findViewById(R.id.help_view_web_view);
+        final WebView webViewNested = view.findViewById(R.id.help_view_web_view);
         builder
                 .setView(view)
                 .setCancelable(false)

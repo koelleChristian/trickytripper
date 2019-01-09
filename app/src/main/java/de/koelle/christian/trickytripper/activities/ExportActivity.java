@@ -110,7 +110,7 @@ public class ExportActivity extends AppCompatActivity {
         participantsInSpinner.add(null);
         participantsInSpinner.addAll(app.getTripController().getAllParticipants(false, true));
 
-        Spinner spinner = (Spinner) findViewById(R.id.reportViewBaseSpinner);
+        Spinner spinner = findViewById(R.id.reportViewBaseSpinner);
         SpinnerViewSupport.configureReportSelectionSpinner(this, participantsInSpinner, spinner);
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -134,7 +134,7 @@ public class ExportActivity extends AppCompatActivity {
     @SuppressWarnings("rawtypes")
     private void initAndBindOutputChannelSpinner(ExportOutputChannel previousSelection,
                                                  final List<ExportOutputChannel> enabledOnes) {
-        final Spinner spinner = (Spinner) findViewById(R.id.exportViewSpinnerChannel);
+        final Spinner spinner = findViewById(R.id.exportViewSpinnerChannel);
 
         int visibility = View.VISIBLE;
         if (enabledOnes.size() == 1) {
@@ -202,21 +202,21 @@ public class ExportActivity extends AppCompatActivity {
     }
 
     private void bindCheckBoxes() {
-        checkboxFormatCsv = (CheckBox) findViewById(R.id.exportViewCheckboxFormatCsv);
-        checkboxFormatHtml = (CheckBox) findViewById(R.id.exportViewCheckboxFormatHtml);
-        checkboxFormatTxt = (CheckBox) findViewById(R.id.exportViewCheckboxFormatTxt);
-        radioFormatCsv = (RadioButton) findViewById(R.id.exportViewRadioButtonFormatCsv);
-        radioFormatHtml = (RadioButton) findViewById(R.id.exportViewRadioButtonFormatHtml);
-        radioFormatTxt = (RadioButton) findViewById(R.id.exportViewRadioButtonFormatTxt);
+        checkboxFormatCsv = findViewById(R.id.exportViewCheckboxFormatCsv);
+        checkboxFormatHtml = findViewById(R.id.exportViewCheckboxFormatHtml);
+        checkboxFormatTxt = findViewById(R.id.exportViewCheckboxFormatTxt);
+        radioFormatCsv = findViewById(R.id.exportViewRadioButtonFormatCsv);
+        radioFormatHtml = findViewById(R.id.exportViewRadioButtonFormatHtml);
+        radioFormatTxt = findViewById(R.id.exportViewRadioButtonFormatTxt);
 
         updateFormatDependingVisibilityAndState();
 
-        CheckBox contentContentPayments = (CheckBox) findViewById(R.id.exportViewCheckboxContentPayments);
-        CheckBox contentContentTransfers = (CheckBox) findViewById(R.id.exportViewCheckboxContentTransfers);
-        CheckBox contentContentSpendingReport = (CheckBox) findViewById(R.id.exportViewCheckboxContentSpendingReport);
-        CheckBox contentContentOwingDebts = (CheckBox) findViewById(R.id.exportViewCheckboxContentOwingDebts);
-        CheckBox contentSeparateFilesForIndividuals = (CheckBox) findViewById(R.id.exportViewCheckboxSeparateFilesForIndividuals);
-        CheckBox contentShowGlobalSumsOnIndividualSpendingReports = (CheckBox) findViewById(R.id.exportViewCheckboxShowTripSumOnIndividualSpendingReport);
+        CheckBox contentContentPayments = findViewById(R.id.exportViewCheckboxContentPayments);
+        CheckBox contentContentTransfers = findViewById(R.id.exportViewCheckboxContentTransfers);
+        CheckBox contentContentSpendingReport = findViewById(R.id.exportViewCheckboxContentSpendingReport);
+        CheckBox contentContentOwingDebts = findViewById(R.id.exportViewCheckboxContentOwingDebts);
+        CheckBox contentSeparateFilesForIndividuals = findViewById(R.id.exportViewCheckboxSeparateFilesForIndividuals);
+        CheckBox contentShowGlobalSumsOnIndividualSpendingReports = findViewById(R.id.exportViewCheckboxShowTripSumOnIndividualSpendingReport);
 
         contentContentPayments.setChecked(exportSettings.isExportPayments());
         contentContentTransfers.setChecked(exportSettings.isExportTransfers());
@@ -394,13 +394,13 @@ public class ExportActivity extends AppCompatActivity {
     }
 
     private void updateCheckboxStateIndividualFiles() {
-        CheckBox checkbox = (CheckBox) findViewById(R.id.exportViewCheckboxSeparateFilesForIndividuals);
+        CheckBox checkbox = findViewById(R.id.exportViewCheckboxSeparateFilesForIndividuals);
         boolean enabledToBe = deriveEnabledCheckboxStateFromSettings(participantSelected, exportSettings, true);
         checkbox.setEnabled(enabledToBe);
     }
 
     private void updateCheckboxStateShowGlobalSumsOnIndividualSpending() {
-        CheckBox checkbox = (CheckBox) findViewById(R.id.exportViewCheckboxShowTripSumOnIndividualSpendingReport);
+        CheckBox checkbox = findViewById(R.id.exportViewCheckboxShowTripSumOnIndividualSpendingReport);
         boolean enabledToBe = deriveEnabledCheckboxStateFromSettings(participantSelected, exportSettings, false);
         checkbox.setEnabled(enabledToBe);
     }

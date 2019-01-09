@@ -49,7 +49,7 @@ public class ExchangeRateDeleteActivity extends AppCompatActivity implements Del
     }
 
     private void initList() {
-        listView = (ListView) findViewById(R.id.deleteExchangeRatesViewListViewToBeDeleted);
+        listView = findViewById(R.id.deleteExchangeRatesViewListViewToBeDeleted);
 
         adapter = new ExchangeRateRowListAdapter(this, android.R.layout.simple_list_item_1,
                 new ArrayList<ExchangeRate>(),

@@ -241,7 +241,7 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
 
 
     private void buildPaymentInput() {
-        TableLayout tableLayout = (TableLayout) findViewById(R.id.paymentView_createPaymentPayerTableLayout);
+        TableLayout tableLayout = findViewById(R.id.paymentView_createPaymentPayerTableLayout);
 
         Map<Participant, Amount> amountMap = payment.getParticipantToPayment();
 
@@ -251,7 +251,7 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
     }
 
     private void buildDebitorInput() {
-        TableLayout tableLayout = (TableLayout) findViewById(R.id.paymentView_createSpendingTableLayout);
+        TableLayout tableLayout = findViewById(R.id.paymentView_createSpendingTableLayout);
 
         Map<Participant, Amount> amountMap = payment.getParticipantToSpending();
 
@@ -284,13 +284,13 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
             row = (TableRow) inflate(R.layout.payment_edit_payer_row_view);
             amount = amountMap.get(p);
 
-            EditText editText = (EditText) row.findViewById(R.id.payment_edit_payer_row_view_input_amount);
+            EditText editText = row.findViewById(R.id.payment_edit_payer_row_view_input_amount);
             //noinspection ResourceType
             editText.setId(dynViewId);
 
-            TextView textView = (TextView) row.findViewById(R.id.payment_edit_payer_row_view_output_name);
+            TextView textView = row.findViewById(R.id.payment_edit_payer_row_view_output_name);
 
-            Button buttonCurrency = (Button) row.findViewById(R.id.payment_edit_payer_row_view_button_currency);
+            Button buttonCurrency = row.findViewById(R.id.payment_edit_payer_row_view_button_currency);
             buttonCurrency.setText(getFktnController().getLoadedTripCurrencySymbol(false));
 
             UiUtils.makeProperNumberInput(editText, getDecimalNumberInputUtil().getInputPatternMatcher());
@@ -337,8 +337,8 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
                 R.id.paymentView_radioTravellersChargedSplitEvenly :
                 R.id.paymentView_radioTravellersChargedCustom;
 
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.paymentView_radioGroupTravellersCharged);
-        RadioButton radioButton = (RadioButton) findViewById(idToEnable);
+        RadioGroup radioGroup = findViewById(R.id.paymentView_radioGroupTravellersCharged);
+        RadioButton radioButton = findViewById(idToEnable);
         radioButton.setChecked(true);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -362,8 +362,8 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
     }
 
     private void setVisibilitySpendingTable(boolean visible) {
-        TableLayout spendingTable = (TableLayout) findViewById(R.id.paymentView_createSpendingTableLayout);
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.payment_edit_view_total_spending_sum_layout);
+        TableLayout spendingTable = findViewById(R.id.paymentView_createSpendingTableLayout);
+        RelativeLayout relativeLayout = findViewById(R.id.payment_edit_view_total_spending_sum_layout);
         int visibility = (visible) ? View.VISIBLE : View.GONE;
         spendingTable.setVisibility(visibility);
         relativeLayout.setVisibility(visibility);
@@ -371,12 +371,12 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
         findViewById(R.id.paymentView_total_sum_value_divider).setVisibility(visibility);
         findViewById(R.id.paymentView_payee_createPaymentPayerTableLayout_total_sum_value).setVisibility(visibility);
 
-        TextView sumLabel = (TextView) findViewById(R.id.paymentView_createPaymentPayerTableLayout_total_sum_label);
+        TextView sumLabel = findViewById(R.id.paymentView_createPaymentPayerTableLayout_total_sum_label);
         sumLabel.setText((visible) ? R.string.common_label_total_amounts : R.string.common_label_total_amount);
 
 //        Well the following text view is to be aligned right. Achieved by ALIGN_PARENT_RIGHT, not allowed to be set
         // when the other components are visible.
-        TextView sumOutputPaid = (TextView) findViewById(R.id.paymentView_createPaymentPayerTableLayout_total_sum_value);
+        TextView sumOutputPaid = findViewById(R.id.paymentView_createPaymentPayerTableLayout_total_sum_value);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) sumOutputPaid.getLayoutParams();
         if (visible) {
             params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
@@ -392,7 +392,7 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
     }
 
     private void updateDatePickerButtonText() {
-        Button button = (Button) findViewById(R.id.paymentView_button_payment_time_selection);
+        Button button = findViewById(R.id.paymentView_button_payment_time_selection);
 
         String text = (payment.getPaymentDateTime() == null) ?
                 getResources().getString(R.string.payment_edit_view_label_date_time_now) :
@@ -527,7 +527,7 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
 
     private void bindDescriptionInput() {
         final Payment paymentFinal = this.payment;
-        autoCompleteTextView = (AutoCompleteTextView) findViewById(
+        autoCompleteTextView = findViewById(
                 R.id.paymentView_autoCompleteTextViewPaymentDescription);
         autoCompleteTextView.setText(payment.getDescription());
         autoCompleteTextView.addTextChangedListener(new BlankTextWatcher() {
@@ -630,7 +630,7 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
     }
 
     private void updateSumText(int viewId, Amount amount, boolean addCurrency) {
-        TextView textView = (TextView) findViewById(viewId);
+        TextView textView = findViewById(viewId);
         textView.setText(AmountViewUtils.getAmountString(getLocale(), amount, !addCurrency, false, false, true, true));
     }
 
@@ -639,14 +639,14 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
                 amountTotalPayments != null
                         && amountTotalDebits != null &&
                         amountTotalPayments.getValue() == Math.abs(amountTotalDebits.getValue()));
-        TextView textView = (TextView) findViewById(R.id.paymentView_payee_createPaymentPayerTableLayout_total_sum_value);
+        TextView textView = findViewById(R.id.paymentView_payee_createPaymentPayerTableLayout_total_sum_value);
         int colorId = (markRed) ? R.color.red : R.color.mainDark;
         textView.setTextColor(getResources().getColor(colorId));
     }
 
 
     private void updateDivideRestButtonState() {
-        Button button = (Button) findViewById(R.id.paymentView_button_divide_remaining_spending);
+        Button button = findViewById(R.id.paymentView_button_divide_remaining_spending);
         button.setEnabled(areBlankDebitors());
     }
 
@@ -695,7 +695,7 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
 
     @SuppressWarnings("rawtypes")
     private void initAndBindSpinner(PaymentCategory paymentCategory) {
-        final Spinner spinner = (Spinner) findViewById(R.id.paymentView_spinnerPaymentCategory);
+        final Spinner spinner = findViewById(R.id.paymentView_spinnerPaymentCategory);
         List<RowObject> spinnerObjects = SpinnerViewSupport.createSpinnerObjects(PaymentCategory.BEVERAGES, false,
                 Arrays.asList(new Object[]{PaymentCategory.MONEY_TRANSFER}), getResources(), getApp()
                         .getMiscController().getDefaultStringCollator());

@@ -67,9 +67,9 @@ public class ParticipantSelectionActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        final ListView listView = (ListView) findViewById(R.id.participantSelectionViewParticipantList);
-        TextView textViewInstruction = (TextView) findViewById(R.id.participantSelectionViewLabelInstructions);
-        CheckBox checkBox = (CheckBox) findViewById(R.id.participantSelectionViewCheckBox);
+        final ListView listView = findViewById(R.id.participantSelectionViewParticipantList);
+        TextView textViewInstruction = findViewById(R.id.participantSelectionViewLabelInstructions);
+        CheckBox checkBox = findViewById(R.id.participantSelectionViewCheckBox);
 
 
         Resources res = getResources();

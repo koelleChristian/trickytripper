@@ -26,7 +26,7 @@ public class CurrencyCalculatorResultSupport {
                 if(NumberUtils.isExceedingAmountLimit(resultAmount.getValue())){
                     Toast.makeText(activity, activity.getResources().getString(R.string.currencyCalculatorViewToastResultExceedsLimit), Toast.LENGTH_SHORT).show();
                 } else{                    
-                    EditText targetEditText = (EditText) activity.findViewById(targetViewId);
+                    EditText targetEditText = activity.findViewById(targetViewId);
                     UiAmountViewUtils.writeAmountToEditText(resultAmount, targetEditText, locale, decimalNumberInputUtil);
                 }
                 

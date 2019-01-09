@@ -201,10 +201,10 @@ public class CurrencyCalculatorActivity extends AppCompatActivity {
     }
 
     private void updateOutputFields() {
-        TextView outputTargetCurrency = (TextView) findViewById(R.id.currencyCalculatorView_txt_outputCurrency);
+        TextView outputTargetCurrency = findViewById(R.id.currencyCalculatorView_txt_outputCurrency);
         outputTargetCurrency.setText(resultAmount.getUnit().getCurrencyCode());
 
-        TextView outputTargetValue = (TextView) findViewById(R.id.currencyCalculatorView_txt_resultValue);
+        TextView outputTargetValue = findViewById(R.id.currencyCalculatorView_txt_resultValue);
         outputTargetValue.setText(AmountViewUtils.getAmountString(getLocale(),
                 resultAmount, true, false, false, true, true));
     }

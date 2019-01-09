@@ -101,7 +101,7 @@ public class TripEditActivity extends AppCompatActivity {
             }
         });
 
-        SpinnerViewSupport.setSelection(spinner, currency, (ArrayAdapter) spinnerAdapter);
+        SpinnerViewSupport.setSelection(spinner, currency, spinnerAdapter);
 
     }
 

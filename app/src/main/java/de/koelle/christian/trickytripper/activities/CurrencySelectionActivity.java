@@ -45,7 +45,7 @@ public class CurrencySelectionActivity extends AppCompatActivity {
 
     private void initList() {
 
-        ExpandableListView list = (ExpandableListView) findViewById(R.id.currencySelectionViewList);
+        ExpandableListView list = findViewById(R.id.currencySelectionViewList);
 
         HierarchicalCurrencyList lis;
 
@@ -108,9 +108,9 @@ public class CurrencySelectionActivity extends AppCompatActivity {
     }
 
     private void updateInstructionLabels() {
-        TextView instructionsMoneyExchangeCalculation = (TextView) findViewById(R.id.currencySelectionViewLabelInstrExchangeRateCalculation);
-        TextView instructionsNewExchangeRate = (TextView) findViewById(R.id.currencySelectionViewLabelInstrNewExchangeRate);
-        TableLayout instructionsNewExchangeRate2 = (TableLayout) findViewById(R.id.currencySelectionViewLabelInstrNewExchangeRateTableLayout);
+        TextView instructionsMoneyExchangeCalculation = findViewById(R.id.currencySelectionViewLabelInstrExchangeRateCalculation);
+        TextView instructionsNewExchangeRate = findViewById(R.id.currencySelectionViewLabelInstrNewExchangeRate);
+        TableLayout instructionsNewExchangeRate2 = findViewById(R.id.currencySelectionViewLabelInstrNewExchangeRateTableLayout);
 
         String currencyCodeProvided = currencyProvided.getCurrencyCode();
 
@@ -130,8 +130,8 @@ public class CurrencySelectionActivity extends AppCompatActivity {
             UiUtils.setViewVisibility(instructionsMoneyExchangeCalculation, false);
             UiUtils.setViewVisibility(instructionsNewExchangeRate, true);
             UiUtils.setViewVisibility(instructionsNewExchangeRate2, true);
-            TextView currencyLeftHand = (TextView) findViewById(R.id.currencySelectionViewLabelInstrNewExchangeRateValueLeft);
-            TextView currencyRightHand = (TextView) findViewById(R.id.currencySelectionViewLabelInstrNewExchangeRateValueRight);
+            TextView currencyLeftHand = findViewById(R.id.currencySelectionViewLabelInstrNewExchangeRateValueLeft);
+            TextView currencyRightHand = findViewById(R.id.currencySelectionViewLabelInstrNewExchangeRateValueRight);
 
             CharSequence toBeSelectedTxt = getResources().getText(
                     R.string.currency_selection_view_instruction_new_exchange_rate_label_to_be_selected);

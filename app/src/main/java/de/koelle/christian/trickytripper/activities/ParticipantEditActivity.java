@@ -146,7 +146,7 @@ public class ParticipantEditActivity extends AppCompatActivity implements Permis
 
     private void updateAlreadyCreatedList() {
         if (adapter == null) {
-            ListView listView = (ListView) findViewById(R.id.editParticipantViewListViewAlreadyCreated);
+            ListView listView = findViewById(R.id.editParticipantViewListViewAlreadyCreated);
             adapter = new ArrayAdapter<>(this,
                     android.R.layout.simple_list_item_1, new ArrayList<String>());
             listView.setAdapter(adapter);

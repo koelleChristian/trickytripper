@@ -55,8 +55,8 @@ public class ExchangeRateEditActivity extends AppCompatActivity {
     private void initAndBindStateDependingWidget(boolean sourceCurrencyForCreation) {
         Button buttonLeft = getCurrencySelectionButtonLeft();
         Button buttonRight = getCurrencySelectionButtonRight();
-        TextView labelLeft = (TextView) findViewById(R.id.editExchangeRateViewLabelCurrencyLeft);
-        TextView labelRight = (TextView) findViewById(R.id.editExchangeRateViewLabelCurrencyRight);
+        TextView labelLeft = findViewById(R.id.editExchangeRateViewLabelCurrencyLeft);
+        TextView labelRight = findViewById(R.id.editExchangeRateViewLabelCurrencyRight);
 
         boolean editMode = viewMode == ViewMode.EDIT;
         boolean form2BeEditable = !(editMode || sourceCurrencyForCreation);
@@ -135,7 +135,7 @@ public class ExchangeRateEditActivity extends AppCompatActivity {
 
 
     private void initAndBindEditText() {
-        EditText editTextInputDescription = (EditText) findViewById(R.id.editExchangeRateViewInputDescription);
+        EditText editTextInputDescription = findViewById(R.id.editExchangeRateViewInputDescription);
         EditText editTextInputRateL2R = getInputWidgetL2R();
         EditText editTextInputRateR2L = getInputWidgetR2L();
 

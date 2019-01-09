@@ -100,10 +100,10 @@ public class DirectoryPickerActivity extends AppCompatActivity {
         
         setTitle(title);
         
-        TextView textViewPath = (TextView) findViewById(R.id.dirPickerPath);
+        TextView textViewPath = findViewById(R.id.dirPickerPath);
         textViewPath.setText(dir.getAbsolutePath());
 
-        Button btnChoose = (Button) findViewById(R.id.dirPickerButtonChoose);
+        Button btnChoose = findViewById(R.id.dirPickerButtonChoose);
         String name = dir.getName();
         if (name.length() == 0)
             name = "/";
@@ -114,7 +114,7 @@ public class DirectoryPickerActivity extends AppCompatActivity {
             }
         });
 
-        ListView lv = (ListView) findViewById(android.R.id.list);
+        ListView lv = findViewById(android.R.id.list);
         lv.setTextFilterEnabled(true);
 
         if (!dir.canRead()) {

@@ -23,7 +23,7 @@ public class UiUtils {
     }
 
     public static TextView setLabelAndValueOnTextView(View result, int viewId, Object label, Object value) {
-        TextView textView = (TextView) result.findViewById(viewId);
+        TextView textView = result.findViewById(viewId);
         setValue(label, value, textView);
         return textView;
     }

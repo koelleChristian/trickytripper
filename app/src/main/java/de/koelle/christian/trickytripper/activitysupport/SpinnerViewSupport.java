@@ -101,7 +101,7 @@ public class SpinnerViewSupport {
     public static Spinner configureReportSelectionSpinner(View view, Context context, int spinnerViewId,
             List<Participant> participants) {
 
-        Spinner spinner = (Spinner) view.findViewById(spinnerViewId);
+        Spinner spinner = view.findViewById(spinnerViewId);
          configureReportSelectionSpinner(context, participants, spinner);
          return spinner;
     }
@@ -119,7 +119,7 @@ public class SpinnerViewSupport {
 
     public static Spinner configureDeleteExchangeRateSpinner(Activity activity, Context context, int spinnerViewId) {
 
-        Spinner spinner = (Spinner) activity.findViewById(spinnerViewId);
+        Spinner spinner = activity.findViewById(spinnerViewId);
         ArrayAdapter<SpinnerObject> adapter = new ArrayAdapter<>(
                 context,
                 android.R.layout.simple_spinner_item,

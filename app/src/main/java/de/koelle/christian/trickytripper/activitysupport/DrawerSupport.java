@@ -9,7 +9,7 @@ import de.koelle.christian.trickytripper.R;
 public class DrawerSupport {
 
     public static boolean drawerOpen(Fragment fragment) {
-        DrawerLayout mDrawerLayout = (DrawerLayout) fragment.getActivity().findViewById(R.id.drawer_layout);
+        DrawerLayout mDrawerLayout = fragment.getActivity().findViewById(R.id.drawer_layout);
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START);
     }
 

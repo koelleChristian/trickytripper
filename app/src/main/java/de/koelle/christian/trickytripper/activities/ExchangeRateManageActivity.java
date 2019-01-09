@@ -62,11 +62,11 @@ public class ExchangeRateManageActivity extends AppCompatActivity implements Del
             }
         };
 
-        listView = (ListView) findViewById(android.R.id.list);
+        listView = findViewById(android.R.id.list);
         initListView(listView);
         registerForContextMenu(listView);
 
-        TextView textView = (TextView) findViewById(android.R.id.empty);
+        TextView textView = findViewById(android.R.id.empty);
         textView.setText(getResources().getString(
                 R.string.exchangeRateManageViewBlankListNotification));
         

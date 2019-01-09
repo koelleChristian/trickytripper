@@ -33,12 +33,10 @@ import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.CurrencyViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
-import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateHttpResolverGoogleImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverFccaImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
-import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorHttpGoogleImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorJsonGoogleImpl;
 import de.koelle.christian.trickytripper.model.ImportSettings;
 import de.koelle.christian.trickytripper.ui.model.RowObject;
@@ -60,7 +58,7 @@ public class ExchangeRateImportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exchange_rate_import_view);
 
-        listView = (ListView) findViewById(R.id.importExchangeRatesViewListViewCurrenciesForImport);
+        listView = findViewById(R.id.importExchangeRatesViewListViewCurrenciesForImport);
         List<Currency> allCurrenciesAlive = CurrencyUtil.getAllCurrenciesAlive();
 
         List<RowObject> spinnerObjects = CurrencyViewSupport.wrapCurrenciesInRowObject(
@@ -114,7 +112,7 @@ public class ExchangeRateImportActivity extends AppCompatActivity {
     }
 
     private void bindWidgets() {
-        CheckBox checkboxReplaceExisting = (CheckBox) findViewById(R.id.importExchangeRatesViewCheckboxReplaceExisting);
+        CheckBox checkboxReplaceExisting = findViewById(R.id.importExchangeRatesViewCheckboxReplaceExisting);
         checkboxReplaceExisting.setChecked(importSettings.isCreateNewRateOnValueChange());
         checkboxReplaceExisting.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -126,7 +124,7 @@ public class ExchangeRateImportActivity extends AppCompatActivity {
 
     private void updateCurrentSelectionDisplay(Set<Currency> currencySelection) {
 
-        final TextView textView = (TextView) findViewById(R.id.importExchangeRatesListViewLabelSelection);
+        final TextView textView = findViewById(R.id.importExchangeRatesListViewLabelSelection);
         final StringBuilder builder = new StringBuilder()
                 .append(getResources().getString(R.string.exchangeRateImportViewSelectionPrefix))
                 .append(" ");

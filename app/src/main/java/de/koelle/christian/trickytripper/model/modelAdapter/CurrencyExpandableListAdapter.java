@@ -162,7 +162,7 @@ public class CurrencyExpandableListAdapter extends BaseExpandableListAdapter {
         int len = to.length;
 
         for (int i = 0; i < len; i++) {
-            TextView v = (TextView) view.findViewById(to[i]);
+            TextView v = view.findViewById(to[i]);
             if (v != null) {
                 v.setText(data.get(from[i]) + "");
             }

@@ -62,8 +62,8 @@ public class DatePickerDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         /*As the onDateChanged() onTimeChanged() listeners are not called in Android 5 we take the time here from the widgets (again).*/
 
-                        DatePicker pickerDate = (DatePicker) view.findViewById(R.id.datePicker_datePicker);
-                        TimePicker pickerTime = (TimePicker) view.findViewById(R.id.datePicker_timePicker);
+                        DatePicker pickerDate = view.findViewById(R.id.datePicker_datePicker);
+                        TimePicker pickerTime = view.findViewById(R.id.datePicker_timePicker);
 
                         resultDate.set(Calendar.YEAR, pickerDate.getYear());
                         resultDate.set(Calendar.MONTH, pickerDate.getMonth());
@@ -82,7 +82,7 @@ public class DatePickerDialogFragment extends DialogFragment {
     }
 
     private void bindWidgets(View view) {
-        DatePicker pickerDate = (DatePicker) view.findViewById(R.id.datePicker_datePicker);
+        DatePicker pickerDate = view.findViewById(R.id.datePicker_datePicker);
         pickerDate.init(
                 initialDate.get(Calendar.YEAR),
                 initialDate.get(Calendar.MONTH),
@@ -96,7 +96,7 @@ public class DatePickerDialogFragment extends DialogFragment {
             }
         }
         );
-        TimePicker pickerTime = (TimePicker) view.findViewById(R.id.datePicker_timePicker);
+        TimePicker pickerTime = view.findViewById(R.id.datePicker_timePicker);
         pickerTime.setIs24HourView(true);
         pickerTime.setCurrentHour(initialDate.get(Calendar.HOUR_OF_DAY));
         pickerTime.setCurrentMinute(initialDate.get(Calendar.MINUTE));
