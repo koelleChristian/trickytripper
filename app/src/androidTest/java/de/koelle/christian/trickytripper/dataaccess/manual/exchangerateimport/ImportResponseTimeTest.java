@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
-import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolver;
 import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverFccaImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolver;
 
 @SmallTest
 public class ImportResponseTimeTest extends AbstractCurrencyImportTest {
@@ -20,7 +20,7 @@ public class ImportResponseTimeTest extends AbstractCurrencyImportTest {
 
     @Test
     public void testRealCurrencyImportTest() {
-        List<Long> responseTimesInMs = new ArrayList<Long>();
+        List<Long> responseTimesInMs = new ArrayList<>();
         AsyncExchangeRateResolver resolver = new AsyncExchangeRateJsonResolverFccaImpl(context);
         for (int i = 0; i < 10; i++) {
             responseTimesInMs.add(resolver.calculateResponseTime(Currency.getInstance("EUR"),
