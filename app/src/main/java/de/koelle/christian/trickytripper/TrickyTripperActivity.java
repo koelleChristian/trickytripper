@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -33,6 +32,7 @@ import de.koelle.christian.common.changelog.ChangeLog;
 import de.koelle.christian.common.options.OptionConstraints;
 import de.koelle.christian.common.options.OptionConstraintsInflater;
 import de.koelle.christian.common.utils.CurrencyUtil;
+import de.koelle.christian.common.widget.tab.BlockableViewPager;
 import de.koelle.christian.trickytripper.activitysupport.MainPagerAdapter;
 import de.koelle.christian.trickytripper.constants.Rc;
 import de.koelle.christian.trickytripper.controller.TripController;
@@ -46,7 +46,7 @@ public class TrickyTripperActivity extends AppCompatActivity implements DeleteDi
     private static final String SELECTED_TAB_INDEX = "tabIndex";
     private static final String DIALOG_PARAM_TRIP_SUMMARY = "dialogParamTripSummary";
 
-    private ViewPager mViewPager;
+    private BlockableViewPager mViewPager;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -446,5 +446,6 @@ public class TrickyTripperActivity extends AppCompatActivity implements DeleteDi
 
     public void setRunningActionMode(ActionMode actionMode) {
         this.mActionMode = actionMode;
+        mViewPager.setSwipeEnabled(actionMode== null);
     }
 }
