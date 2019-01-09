@@ -27,6 +27,13 @@
   </head>  
   <body>
 
+
+$ 1.6.1
+% Version 1.6.1
+  _ 2019-XX-XX
+* Fix: Tab-Aktualisierung erfolgt wieder nach Löschung einer Zahlung.
+
+
 $ 1.6.0
 % Version 1.6.0
   _ 2018-10-01
