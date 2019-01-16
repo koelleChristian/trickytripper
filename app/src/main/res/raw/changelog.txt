@@ -29,7 +29,7 @@
 
 $ 1.6.1
 % Version 1.6.1
-  _ 2019-XX-XX
+  _ 2019-01-16
 * Fix tab refresh post payment deletion, e.g. balance and report.
 * Fix errors on tab-change while options menu is opened.
 

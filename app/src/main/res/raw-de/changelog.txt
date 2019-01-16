@@ -30,7 +30,7 @@
 
 $ 1.6.1
 % Version 1.6.1
-  _ 2019-XX-XX
+  _ 2019-01-16
 * Fix: Tab-Aktualisierung erfolgt wieder nach Löschung einer Zahlung.
 * Fix: Fehler beim Tab-Wechsel mit geöffnetem Optionsmenü.
 
