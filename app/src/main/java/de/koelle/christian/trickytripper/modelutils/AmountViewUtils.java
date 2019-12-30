@@ -1,7 +1,8 @@
 package de.koelle.christian.trickytripper.modelutils;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+
+import androidx.core.content.ContextCompat;
 
 import java.text.NumberFormat;
 import java.util.Locale;

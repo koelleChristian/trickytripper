@@ -28,8 +28,8 @@
 -keep class com.squareup.okhttp.** { *; }
 -keep interface com.squareup.okhttp.** { *; }
 
--keep class android.support.v4.app.** { *; }
--keep interface android.support.v4.app.** { *; }
+-keep class androidx.** { *; }
+-keep interface androidx.** { *; }
 #-keep class org.apache.http.** { *; }
 #-keep interface org.apache.http.** { *; }
 

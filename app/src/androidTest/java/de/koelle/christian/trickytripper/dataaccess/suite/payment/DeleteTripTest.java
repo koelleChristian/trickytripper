@@ -1,6 +1,6 @@
 package de.koelle.christian.trickytripper.dataaccess.suite.payment;
 
-import android.support.test.filters.SmallTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import junit.framework.Assert;
 
@@ -18,20 +18,17 @@ import de.koelle.christian.trickytripper.model.Payment;
 import de.koelle.christian.trickytripper.model.PaymentCategory;
 import de.koelle.christian.trickytripper.model.TripSummary;
 
-import static android.support.test.InstrumentationRegistry.getTargetContext;
-
-@SmallTest
 public class DeleteTripTest {
 
 
     @Before
     public void setUp() {
-        getTargetContext().deleteDatabase(DataConstants.DATABASE_NAME);
+        InstrumentationRegistry.getInstrumentation().getTargetContext().deleteDatabase(DataConstants.DATABASE_NAME);
     }
 
     @Test
     public void testDeleteTrip() {
-        DataManagerImpl dataManager = new DataManagerImpl(getTargetContext());
+        DataManagerImpl dataManager = new DataManagerImpl(InstrumentationRegistry.getInstrumentation().getTargetContext());
 
         dataManager.removeAll();
 

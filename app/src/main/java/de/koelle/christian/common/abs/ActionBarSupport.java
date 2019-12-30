@@ -1,7 +1,7 @@
 package de.koelle.christian.common.abs;
 
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class ActionBarSupport {

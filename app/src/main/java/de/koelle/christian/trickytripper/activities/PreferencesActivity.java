@@ -1,8 +1,9 @@
 package de.koelle.christian.trickytripper.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import de.koelle.christian.common.abs.ActionBarSupport;
 import de.koelle.christian.trickytripper.R;

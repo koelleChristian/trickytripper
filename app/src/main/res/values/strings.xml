@@ -268,5 +268,12 @@
     <string name="permission_rationale_phone_book_access">On typing, TrickyTripper would like to auto suggest names from your phone book. However, the permission for that has not been granted. \n\nNote:\nTrickyTripper works without this permission.</string>
     <string name="permission_write_ext_storage_permanently_revoked">No permission granted to save to device\'s SD card.</string>
     <!-- ==================== Directory picker activity ======================== -->
-    <string name="directory_picker_folder_unreadable">Could not read folder contents.</string>‹
+    <string name="directory_picker_folder_unreadable">Could not read folder contents.</string>
+    <!--  Strings for possible PreferenceActivity Back/Next buttons -->
+    <string name="back_button_label">Back</string>
+    <string name="next_button_label">Next</string>
+
+    <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="skip_button_label">Skip</string>
+
 </resources>

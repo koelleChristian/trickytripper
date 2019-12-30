@@ -1,8 +1,8 @@
 package de.koelle.christian.trickytripper.dataaccess.suite.payment;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.filters.SmallTest;
+
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,14 +15,13 @@ import de.koelle.christian.trickytripper.dataaccess.impl.DataManagerImpl;
 import de.koelle.christian.trickytripper.factories.ModelFactory;
 import de.koelle.christian.trickytripper.model.Trip;
 
-@SmallTest
 public class CheckTripExistenceTest {
 
     private Context context;
 
     @Before
     public void setUp() {
-        context = InstrumentationRegistry.getTargetContext();
+        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         context.deleteDatabase(DataConstants.DATABASE_NAME);
     }
 

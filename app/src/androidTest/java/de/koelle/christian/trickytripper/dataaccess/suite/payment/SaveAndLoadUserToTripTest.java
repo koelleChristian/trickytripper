@@ -1,7 +1,5 @@
 package de.koelle.christian.trickytripper.dataaccess.suite.payment;
 
-import android.support.test.filters.SmallTest;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,20 +13,19 @@ import de.koelle.christian.trickytripper.factories.ModelFactory;
 import de.koelle.christian.trickytripper.model.Participant;
 import de.koelle.christian.trickytripper.model.Trip;
 
-import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
-@SmallTest
 public class SaveAndLoadUserToTripTest {
 
 
     @Before
     public void setUp() {
-        getTargetContext().deleteDatabase(DataConstants.DATABASE_NAME);
+        getInstrumentation().getTargetContext().deleteDatabase(DataConstants.DATABASE_NAME);
     }
 
     @Test
     public void testSaveAndLoadUserToTrip() {
-        DataManagerImpl dataManager = new DataManagerImpl(getTargetContext());
+        DataManagerImpl dataManager = new DataManagerImpl(getInstrumentation().getTargetContext());
 
         dataManager.removeAll();
 
