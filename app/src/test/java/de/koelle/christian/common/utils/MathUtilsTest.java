@@ -1,5 +1,8 @@
 package de.koelle.christian.common.utils;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.HashMap;
@@ -7,11 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import junit.framework.Assert;
-
-import org.junit.Test;
-
-import de.koelle.christian.common.utils.NumberUtils;
 import de.koelle.christian.trickytripper.activitysupport.MathUtils;
 import de.koelle.christian.trickytripper.factories.AmountFactory;
 import de.koelle.christian.trickytripper.factories.ModelFactory;
@@ -51,7 +49,7 @@ public class MathUtilsTest {
             totalSumOnResult = NumberUtils.round(totalSumOnResult + entry.getValue().getValue());
         }
 
-        Assert.assertEquals(amountTotal.getValue(), Math.abs(totalSumOnResult));
+        Assert.assertEquals(amountTotal.getValue(), Double.valueOf(Math.abs(totalSumOnResult)));
 
     }
 
@@ -91,7 +89,7 @@ public class MathUtilsTest {
                     .getValue().getValue() == -33.33d || entry.getValue().getValue() == -33.34d);
             totalSumOnResult = NumberUtils.round(totalSumOnResult + entry.getValue().getValue());
         }
-        Assert.assertEquals(amountTotal.getValue(), Math.abs(totalSumOnResult));
+        Assert.assertEquals(amountTotal.getValue(), Double.valueOf(Math.abs(totalSumOnResult)));
 
         /* Round up */
 
@@ -105,7 +103,8 @@ public class MathUtilsTest {
                     .getValue().getValue() == -16.66d || entry.getValue().getValue() == -16.67d);
             totalSumOnResult = NumberUtils.round(totalSumOnResult + entry.getValue().getValue());
         }
-        Assert.assertEquals(amountTotal.getValue(), Math.abs(totalSumOnResult));
+        Assert.assertEquals(amountTotal.getValue(), Double.valueOf(Math.abs(totalSumOnResult)));
+        Assert.assertEquals(amountTotal.getValue(), Double.valueOf(Math.abs(totalSumOnResult)));
     }
 
 }

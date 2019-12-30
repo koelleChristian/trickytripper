@@ -1,10 +1,9 @@
 package de.koelle.christian.common.filter;
 
-import java.util.Locale;
-
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Locale;
 
 import de.koelle.christian.common.ui.filter.DecimalNumberInputUtil;
 

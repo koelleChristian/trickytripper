@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 14
-# pg_map_id: cd2d542
+# pg_map_id: 1a66c51
 android.support.v4.app.INotificationSideChannel -> android.support.v4.app.a:
 android.support.v4.app.INotificationSideChannel$Stub -> android.support.v4.app.a$a:
 android.support.v4.app.INotificationSideChannel$Stub$Proxy -> android.support.v4.app.a$a$a:
@@ -649,12 +649,12 @@ de.koelle.christian.common.utils.CurrencyUtil -> b.a.a.a.k.c:
     int calcExpectedAmountOfExchangeRates(int) -> a
     java.util.List convertOthersToCurrencyWithName(java.util.Set,android.content.res.Resources) -> a
     java.util.List convertToCurrencyWithName(java.util.List,android.content.res.Resources) -> a
-    java.util.List getAllCurrenciesAlive() -> a
+    java.util.List getAllCurrenciesWithRetrievableRate() -> a
     java.util.Currency getFirstOther(java.util.Currency,android.content.res.Resources) -> a
     java.lang.String getFullNameToCurrency(android.content.res.Resources,java.util.Currency) -> a
     java.util.List getSupportedCurrencies(android.content.res.Resources) -> a
     java.lang.String getSymbolToCurrency(android.content.res.Resources,java.util.Currency,boolean) -> a
-    boolean isAlive(java.lang.String) -> a
+    boolean isRateProvidedExternally(java.lang.String) -> a
     java.lang.String[] getSupportedCurrencyCodes(android.content.res.Resources) -> b
     java.lang.String getSymbolToCurrency(android.content.res.Resources,java.util.Currency) -> b
     java.lang.String[] getSupportedCurrencyFullNames(android.content.res.Resources) -> c
@@ -1968,14 +1968,15 @@ de.koelle.christian.trickytripper.exchangerates.impl.AbstractExchangeRateResultE
     java.lang.Double extractValue(java.lang.String) -> a
     java.util.regex.Pattern getPattern() -> a
     java.lang.String clean(java.lang.String) -> b
-de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverFccaImpl -> de.koelle.christian.trickytripper.h.b.b:
+de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverExchangeratesapiIoImpl -> de.koelle.christian.trickytripper.h.b.b:
     android.content.Context context -> a
     de.koelle.christian.common.json.AsyncJsonParser caller -> b
     void cancelRunningRequests() -> a
     void getExchangeRate(java.util.Currency,java.util.Currency,de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolverResultCallback) -> a
     java.lang.String provideUrl(java.util.Currency,java.util.Currency) -> a
-de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverFccaImpl$1 -> de.koelle.christian.trickytripper.h.b.b$a:
-    de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolverResultCallback val$callback -> a
+de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverExchangeratesapiIoImpl$1 -> de.koelle.christian.trickytripper.h.b.b$a:
+    de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolverResultCallback val$callback -> b
+    java.util.Currency val$to -> a
     void deliverResult(org.json.JSONObject) -> a
 de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolver -> de.koelle.christian.trickytripper.h.b.c:
     void cancelRunningRequests() -> a

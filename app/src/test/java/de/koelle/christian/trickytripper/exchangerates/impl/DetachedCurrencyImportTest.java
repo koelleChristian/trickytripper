@@ -1,14 +1,13 @@
 package de.koelle.christian.trickytripper.exchangerates.impl;
 
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.Currency;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
-import junit.framework.Assert;
-
-import org.junit.Before;
-import org.junit.Test;
 
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback.ExchangeRateImporterResultState;
 import de.koelle.christian.trickytripper.model.ImportOrigin;
@@ -159,8 +158,8 @@ public class DetachedCurrencyImportTest {
         Set<Currency> input;
 
         input = new HashSet<>();
-        input.add(Currency.getInstance("BND"));
-        input.add(Currency.getInstance("SGD"));
+        input.add(Currency.getInstance("AUD"));
+        input.add(Currency.getInstance("BGN"));
 
         importer.importExchangeRates(input, new ExchangeRateImporterResultCallback() {
 
@@ -174,7 +173,7 @@ public class DetachedCurrencyImportTest {
         });
         Assert.assertEquals(0, failurecallbackResultAmountCounter);
         Assert.assertEquals(1, resultCollector.size());
-        Assert.assertEquals(1.0, resultCollector.iterator().next().getExchangeRateResult()
+        Assert.assertEquals(Double.valueOf(1.0), resultCollector.iterator().next().getExchangeRateResult()
                 .getExchangeRate());
     }
 
@@ -188,8 +187,8 @@ public class DetachedCurrencyImportTest {
         Set<Currency> input;
 
         input = new HashSet<>();
-        input.add(Currency.getInstance("BND"));
-        input.add(Currency.getInstance("SGD"));
+        input.add(Currency.getInstance("AUD"));
+        input.add(Currency.getInstance("BGN"));
 
         importer.importExchangeRates(input, new ExchangeRateImporterResultCallback() {
 
@@ -203,7 +202,7 @@ public class DetachedCurrencyImportTest {
         });
         Assert.assertEquals(0, failurecallbackResultAmountCounter);
         Assert.assertEquals(1, resultCollector.size());
-        Assert.assertEquals(1123.43, resultCollector.iterator().next().getExchangeRateResult()
+        Assert.assertEquals(Double.valueOf(1123.43), resultCollector.iterator().next().getExchangeRateResult()
                 .getExchangeRate());
     }
 

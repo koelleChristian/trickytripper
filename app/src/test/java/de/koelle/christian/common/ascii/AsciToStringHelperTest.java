@@ -1,10 +1,7 @@
 package de.koelle.christian.common.ascii;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
-
-import de.koelle.christian.common.ascii.AsciToStringHelper;
 
 public class AsciToStringHelperTest {
 

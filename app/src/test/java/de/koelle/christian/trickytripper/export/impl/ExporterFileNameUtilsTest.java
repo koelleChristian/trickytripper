@@ -1,11 +1,10 @@
 package de.koelle.christian.trickytripper.export.impl;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.Date;
 import java.util.Locale;
-
-import junit.framework.Assert;
-
-import org.junit.Test;
 
 public class ExporterFileNameUtilsTest {
 

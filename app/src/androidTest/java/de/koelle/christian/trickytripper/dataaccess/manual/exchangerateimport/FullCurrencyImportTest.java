@@ -1,6 +1,6 @@
 package de.koelle.christian.trickytripper.dataaccess.manual.exchangerateimport;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import java.util.Currency;
 import java.util.LinkedHashSet;
@@ -19,7 +19,7 @@ public class FullCurrencyImportTest extends AbstractCurrencyImportTest {
     public void exchangeRateAvailabilityAll() {
 
         Set<Currency> input;
-        input = new LinkedHashSet<>(CurrencyUtil.getAllCurrenciesAlive());
+        input = new LinkedHashSet<>(CurrencyUtil.getAllCurrenciesWithRetrievableRate());
 
         int ceiling = CurrencyUtil.calcExpectedAmountOfExchangeRates(input.size());
 
@@ -49,7 +49,7 @@ public class FullCurrencyImportTest extends AbstractCurrencyImportTest {
 
         Set<Currency> input;
 
-        List<Currency> allCurrenciesAlive = CurrencyUtil.getAllCurrenciesAlive();
+        List<Currency> allCurrenciesAlive = CurrencyUtil.getAllCurrenciesWithRetrievableRate();
         for (int i = 0; i < allCurrenciesAlive.size() - 1; i++) {
             Currency from = allCurrenciesAlive.get(i);
             for (int j = 1; j < allCurrenciesAlive.size(); j++) {

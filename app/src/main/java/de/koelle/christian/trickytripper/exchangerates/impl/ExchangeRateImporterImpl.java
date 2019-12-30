@@ -40,7 +40,7 @@ public class ExchangeRateImporterImpl implements ExchangeRateImporter {
                 from = currencyArray[i];
                 for (int j = i + 1; j < currencyArray.length; j++) {
                     to = currencyArray[j];
-                    if (!CurrencyUtil.isAlive(to.getCurrencyCode()) || !CurrencyUtil.isAlive(from.getCurrencyCode())) {
+                    if (!CurrencyUtil.isRateProvidedExternally(to.getCurrencyCode()) || !CurrencyUtil.isRateProvidedExternally(from.getCurrencyCode())) {
                         callback.deliverResult(new ExchangeRateImporterResultContainer(null, from, to,
                                 ExchangeRateImporterResultState.CURRENCY_NOT_ALIVE, null));
                         continue;

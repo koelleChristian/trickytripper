@@ -1,11 +1,10 @@
 package de.koelle.christian.trickytripper.modelutils;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.Currency;
 import java.util.Locale;
-
-import junit.framework.Assert;
-
-import org.junit.Test;
 
 import de.koelle.christian.trickytripper.model.Amount;
 

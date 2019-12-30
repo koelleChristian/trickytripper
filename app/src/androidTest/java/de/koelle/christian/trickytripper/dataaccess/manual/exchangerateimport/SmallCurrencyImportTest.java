@@ -1,7 +1,11 @@
 package de.koelle.christian.trickytripper.dataaccess.manual.exchangerateimport;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.SmallTest;
+
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.Currency;
 import java.util.LinkedHashSet;
@@ -9,6 +13,8 @@ import java.util.Set;
 
 import de.koelle.christian.common.utils.CurrencyUtil;
 
+@RunWith(AndroidJUnit4.class)
+@SmallTest
 public class SmallCurrencyImportTest extends AbstractCurrencyImportTest {
 
     private static final int maxSleepIterations = 25;
@@ -19,7 +25,6 @@ public class SmallCurrencyImportTest extends AbstractCurrencyImportTest {
         conductBiggerTest(0, 20);
     }
 
-    @Test
     public void testExchangeRateAvailability20() {
         conductBiggerTest(10, 20);
     }
@@ -53,12 +58,12 @@ public class SmallCurrencyImportTest extends AbstractCurrencyImportTest {
         Set<Currency> input;
         input = new LinkedHashSet<>();
         for (int i = from; i < to; i++) {
-            input.add(CurrencyUtil.getAllCurrenciesAlive().get(i));
+            input.add(CurrencyUtil.getAllCurrenciesWithRetrievableRate().get(i));
         }
 
         int ceiling = CurrencyUtil.calcExpectedAmountOfExchangeRates(input.size());
 
-        getImporter().importExchangeRates(input, new ResultCollectingExchangeRateImporterResultCallback());
+        getImporter().importExchangeRates(input, new ResultCollectingAssertingExchangeRateImporterResultCallback());
 
         waitForResult(ceiling);
     }
@@ -86,11 +91,12 @@ public class SmallCurrencyImportTest extends AbstractCurrencyImportTest {
 
         int ceiling = CurrencyUtil.calcExpectedAmountOfExchangeRates(input.size());
 
-        getImporter().importExchangeRates(input, new ResultCollectingExchangeRateImporterResultCallback());
+        getImporter().importExchangeRates(input, new ResultCollectingAssertingExchangeRateImporterResultCallback());
         waitForResult(ceiling);
 
     }
 
+    @Test
     public void testRealCurrencyImportTest() {
 
         Set<Currency> input;
@@ -100,7 +106,7 @@ public class SmallCurrencyImportTest extends AbstractCurrencyImportTest {
         input.add(Currency.getInstance("USD"));
         input.add(Currency.getInstance("TRY"));
 
-        getImporter().importExchangeRates(input, new ResultCollectingExchangeRateImporterResultCallback());
+        getImporter().importExchangeRates(input, new ResultCollectingAssertingExchangeRateImporterResultCallback());
 
         int expectedAmountOfResults;
 
@@ -114,7 +120,7 @@ public class SmallCurrencyImportTest extends AbstractCurrencyImportTest {
         input.add(Currency.getInstance("TRY"));
         input.add(Currency.getInstance("GBP"));
 
-        getImporter().importExchangeRates(input, new ResultCollectingExchangeRateImporterResultCallback());
+        getImporter().importExchangeRates(input, new ResultCollectingAssertingExchangeRateImporterResultCallback());
         expectedAmountOfResults = 6;
         waitForResult(expectedAmountOfResults);
     }

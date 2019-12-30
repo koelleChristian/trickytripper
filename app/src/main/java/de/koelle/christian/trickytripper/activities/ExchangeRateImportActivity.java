@@ -34,7 +34,7 @@ import de.koelle.christian.trickytripper.R;
 import de.koelle.christian.trickytripper.TrickyTripperApp;
 import de.koelle.christian.trickytripper.activitysupport.CurrencyViewSupport;
 import de.koelle.christian.trickytripper.constants.Rc;
-import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverFccaImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverExchangeratesapiIoImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
@@ -60,7 +60,7 @@ public class ExchangeRateImportActivity extends AppCompatActivity {
         setContentView(R.layout.exchange_rate_import_view);
 
         listView = findViewById(R.id.importExchangeRatesViewListViewCurrenciesForImport);
-        List<Currency> allCurrenciesAlive = CurrencyUtil.getAllCurrenciesAlive();
+        List<Currency> allCurrenciesAlive = CurrencyUtil.getAllCurrenciesWithRetrievableRate();
 
         List<RowObject> spinnerObjects = CurrencyViewSupport.wrapCurrenciesInRowObject(
                 allCurrenciesAlive, getResources());
@@ -158,7 +158,7 @@ public class ExchangeRateImportActivity extends AppCompatActivity {
         final int progressCeiling = CurrencyUtil.calcExpectedAmountOfExchangeRates(amountOfCurrenciesSelected);
 
         final ExchangeRateImporterImpl importer = new ExchangeRateImporterImpl();
-        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverFccaImpl(this));
+        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverExchangeratesapiIoImpl(this));
         importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorJsonGoogleImpl());
 
         progressBar = new ProgressDialog(this);

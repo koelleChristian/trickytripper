@@ -40,7 +40,7 @@ public class ImportOptionSupport {
         if (currenciesToBeSelected.length > 0) {
             BitSet aliveFlags = new BitSet();
             for (int i = 0; i < currenciesToBeSelected.length; i++) {
-                aliveFlags.set(i, CurrencyUtil.isAlive(currenciesToBeSelected[i].getCurrencyCode()));
+                aliveFlags.set(i, CurrencyUtil.isRateProvidedExternally(currenciesToBeSelected[i].getCurrencyCode()));
             }
 
             if (aliveFlags.cardinality() < 2) {

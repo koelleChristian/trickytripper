@@ -4,9 +4,8 @@ import android.content.Context;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import junit.framework.Assert;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 
 import java.util.ArrayList;

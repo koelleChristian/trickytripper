@@ -10,13 +10,13 @@ import org.junit.Before;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverFccaImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverExchangeratesapiIoImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorJsonGoogleImpl;
 
-public abstract class AbstractCurrencyImportTest  {
+public abstract class AbstractCurrencyImportTest {
 
     private Set<ExchangeRateImporterResultContainer> resultCollector;
     private ExchangeRateImporterImpl importer;
@@ -26,7 +26,7 @@ public abstract class AbstractCurrencyImportTest  {
     public void setUp() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         importer = new ExchangeRateImporterImpl();
-        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverFccaImpl(context));
+        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverExchangeratesapiIoImpl(context));
         importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorJsonGoogleImpl());
         importer.setChunkDelay(2000);
         /* ================= Desire SIM-connection ========================= */
@@ -67,7 +67,7 @@ public abstract class AbstractCurrencyImportTest  {
         resultCollector = new LinkedHashSet<>();
     }
 
-    protected final class ResultCollectingExchangeRateImporterResultCallback implements
+    protected final class ResultCollectingAssertingExchangeRateImporterResultCallback implements
             ExchangeRateImporterResultCallback {
 
         public void deliverResult(ExchangeRateImporterResultContainer resultContainer) {
@@ -80,6 +80,18 @@ public abstract class AbstractCurrencyImportTest  {
 
             resultCollector.add(resultContainer);
         }
+    }
+
+    protected final class ResultCollectingExchangeRateImporterResultCallback implements
+            ExchangeRateImporterResultCallback {
+
+        public void deliverResult(ExchangeRateImporterResultContainer resultContainer) {
+            resultCollector.add(resultContainer);
+        }
+        public Set<ExchangeRateImporterResultContainer> getResultCollector(){
+            return resultCollector;
+        }
+
     }
 
 

@@ -14,7 +14,7 @@ import java.util.Currency;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverFccaImpl;
+import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverExchangeratesapiIoImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultCallback;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
@@ -31,7 +31,7 @@ public class ApiResponseTest {
     public void setUp() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         importer = new ExchangeRateImporterImpl();
-        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverFccaImpl(context));
+        importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverExchangeratesapiIoImpl(context));
         importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorJsonGoogleImpl());
         importer.setChunkDelay(2000);
         importer.setChunkSize(50);

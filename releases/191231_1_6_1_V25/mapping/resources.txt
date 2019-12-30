@@ -79,12 +79,9 @@ Referenced Strings:
   ACTION_UNKNOWN
   ACTVAutoSizeHelper
   ADD
-  AED
   ALL
   ALL_CUSTOM
   ALL_IMPORTED
-  ANG
-  ARS
   ATTACH
   AUD
   AccessibilityNodeInfo.roleDescription
@@ -124,13 +121,9 @@ Referenced Strings:
   BACKGROUND_SPENDER
   BEVERAGES
   BGN
-  BHD
   BITMAP
   BITMAP_MASKABLE
-  BND
-  BOB
   BRL
-  BWP
   BanParcelableUsage
   BanTargetApiAnnotation
   BundleCompatBaseImpl
@@ -142,7 +135,6 @@ Referenced Strings:
   CAPABILITY_CAN_REQUEST_TOUCH_EXPLORATION
   CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT
   CHF
-  CLP
   CNY
   COLOR
   COMPRESSED
@@ -154,7 +146,6 @@ Referenced Strings:
   CONNECT_STATE_DISCONNECTING
   CONNECT_STATE_SUSPENDED
   CONTINUATION
-  COP
   CRC
   CREATE
   CREATED
@@ -182,9 +173,7 @@ Referenced Strings:
   DESTROYED
   DETACH
   DKK
-  DOP
   DOUBLE_WITH_SELECTION
-  DZD
   Date
   DocumentFile
   Drawable
@@ -193,8 +182,6 @@ Referenced Strings:
   DrawableUtils
   DrawerLayout
   EDIT
-  EEK
-  EGP
   END_HEADERS
   END_OF_CHANGE_LOG
   END_STREAM
@@ -212,7 +199,6 @@ Referenced Strings:
   FEEDBACK_VISUAL
   FHCRC
   FINISHED
-  FJD
   FLAG_INCLUDE_NOT_IMPORTANT_VIEWS
   FLAG_REPORT_VIEW_IDS
   FLAG_REQUEST_ENHANCED_WEB_ACCESSIBILITY
@@ -240,7 +226,6 @@ Referenced Strings:
   HH:mm
   HIDE
   HKD
-  HNL
   HOUSING
   HRK
   HTTP/1.
@@ -281,25 +266,15 @@ Referenced Strings:
   IntentReader
   J
   JJ
-  JMD
-  JOD
   JPY
   JobIntentService
   JobServiceEngineImpl
-  KES
   KRW
-  KWD
-  KYD
-  KZT
-  LBP
   LEFT
   LIBRARY
   LIBRARY_GROUP
   LIBRARY_GROUP_PREFIX
-  LKR
   LOCK
-  LTL
-  LVL
   LayoutInflaterCompatHC
   ListMenuItemView
   ListMenuPresenter
@@ -309,18 +284,14 @@ Referenced Strings:
   LocalBroadcastManager
   Location
   M
-  MAD
   MBSCompatApi26
   MBServiceCompat
   MD5
-  MDL
   MISSING_SCHEME
   MKCOL
-  MKD
   MM
   MONEY_TRANSFER
   MOVE
-  MUR
   MXN
   MYR
   MediaBrowserCompat
@@ -338,15 +309,11 @@ Referenced Strings:
   MultiAutoCompleteTextView
   MultiDex
   MultiDex.lock
-  NAD
   NAME
-  NGN
-  NIO
   NOK
   NONE
   NON_PARSABLE_JSON_RESULT
   NO_ERROR
-  NPR
   NULL
   NUMERIC_VALUE
   NZD
@@ -357,7 +324,6 @@ Referenced Strings:
   NotificationCompat
   NotificationManagerCompat
   O:
-  OMR
   ON_ANY
   ON_CREATE
   ON_DESTROY
@@ -375,12 +341,9 @@ Referenced Strings:
   Operations:
   PADDED
   PATCH
-  PEN
   PENDING
-  PGK
   PHP
   PING
-  PKR
   PLN
   POST
   PREFS_NAME_ID
@@ -405,7 +368,6 @@ Referenced Strings:
   PUBLIC_TRANSPORT
   PUSH_PROMISE
   PUT
-  PYG
   PagerTabStrip
   PathParser
   PopupWindowCompatApi21
@@ -413,7 +375,6 @@ Referenced Strings:
   PrecomputedText
   PrintHelper
   Progress:
-  QAR
   RATE_VALUE
   REFUSED_STREAM
   REMOVE
@@ -426,7 +387,6 @@ Referenced Strings:
   RFC2253
   RIGHT
   RON
-  RSD
   RST_STREAM
   RUB
   RUNNING
@@ -442,8 +402,6 @@ Referenced Strings:
   RoundedBitmapDrawableFa
   S:
   S::
-  SAR
-  SCR
   SEK
   SELECT_EXCHANGE_RATE_LEFT
   SELECT_EXCHANGE_RATE_RIGHT
@@ -453,8 +411,6 @@ Referenced Strings:
   SGD
   SHOW
   SINGLE
-  SKK
-  SLL
   SPDY_3
   SPDY_HEADERS
   SPDY_REPLY
@@ -488,7 +444,6 @@ Referenced Strings:
   STREAM_SENDING
   SUBCLASSES
   SUCCESS
-  SVC
   ScrollingTabContainerView
   SearchView
   SeekBar
@@ -611,20 +566,16 @@ Referenced Strings:
   TLSv1
   TLSv1.1
   TLSv1.2
-  TND
   TRY
   TT
-  TTD
   TT_DB
   TT_INPUT
   TT_IO
   TT_PROV
-  TWD
   TYPE_ACCESSIBILITY_OVERLAY
   TYPE_APPLICATION
   TYPE_INPUT_METHOD
   TYPE_SYSTEM
-  TZS
   TaskStackBuilder
   TextView
   TextViewCompat
@@ -640,8 +591,6 @@ Referenced Strings:
   TypefaceCompatApi26Impl
   TypefaceCompatBaseImpl
   TypefaceCompatUtil
-  UAH
-  UGX
   UNKNOWN
   UNKNOWN/
   UNORDERED
@@ -666,13 +615,10 @@ Referenced Strings:
   USAGE_VOICE_COMMUNICATION
   USAGE_VOICE_COMMUNICATION_SIGNALLING
   USD
-  UYU
-  UZS
   UniqueConstants
   UnknownNullness
   Upgrade
   V:
-  VEF
   VdcInflateDelegate
   VectorDrawableCompat
   VersionedParcel
@@ -694,10 +640,8 @@ Referenced Strings:
   XA
   XB
   Y:
-  YER
   Z
   ZAR
-  ZMK
   ZZ
   _
   _LifecycleAdapter
@@ -1523,7 +1467,6 @@ Referenced Strings:
   usb
   user
   user_query
-  val
   value
   valueFrom
   valueNumeric
@@ -1556,10 +1499,28 @@ Referenced Strings:
   yyyy
   yyyyMMddHHmm
 Marking id:left:2131230909 used because its prefix matches string pool constant left
+Marking attr:closeIcon:2130903111 used because its prefix matches string pool constant close
+Marking attr:closeItemLayout:2130903112 used because its prefix matches string pool constant close
 Marking styleable:ActionMenuView:-1 used because its prefix matches string pool constant ActionMenuView
+Marking string:label_enum_payment_category_beverages:2131624087 used because its prefix matches string pool constant label
+Marking string:label_enum_payment_category_culture:2131624088 used because its prefix matches string pool constant label
+Marking string:label_enum_payment_category_entrance_fee:2131624089 used because its prefix matches string pool constant label
+Marking string:label_enum_payment_category_food:2131624090 used because its prefix matches string pool constant label
+Marking string:label_enum_payment_category_gas:2131624091 used because its prefix matches string pool constant label
+Marking string:label_enum_payment_category_housing:2131624092 used because its prefix matches string pool constant label
+Marking string:label_enum_payment_category_money_transfer:2131624093 used because its prefix matches string pool constant label
+Marking string:label_enum_payment_category_other:2131624094 used because its prefix matches string pool constant label
+Marking string:label_enum_payment_category_public_transport:2131624095 used because its prefix matches string pool constant label
+Marking string:label_enum_payment_category_rentals:2131624096 used because its prefix matches string pool constant label
+Marking string:label_enum_select_rates_all:2131624097 used because its prefix matches string pool constant label
+Marking string:label_enum_select_rates_all_custom:2131624098 used because its prefix matches string pool constant label
+Marking string:label_enum_select_rates_all_imported:2131624099 used because its prefix matches string pool constant label
+Marking string:label_enum_select_rates_none:2131624100 used because its prefix matches string pool constant label
 Marking styleable:SearchView:-1 used because its prefix matches string pool constant SearchView
 Marking id:top:2131231086 used because its prefix matches string pool constant top
 Marking id:topPanel:2131231087 used because its prefix matches string pool constant top
+Marking color:error_color_material_dark:2131034159 used because its prefix matches string pool constant err
+Marking color:error_color_material_light:2131034160 used because its prefix matches string pool constant err
 Marking id:accessibility_action_clickable_span:2131230726 used because its prefix matches string pool constant accessibility
 Marking id:accessibility_custom_action_0:2131230727 used because its prefix matches string pool constant accessibility
 Marking id:accessibility_custom_action_1:2131230728 used because its prefix matches string pool constant accessibility
@@ -1625,8 +1586,128 @@ Marking string:participant_selection_traveler_to_debit_msg:2131624138 used becau
 Marking string:participant_tab_blank_list_notification:2131624139 used because its prefix matches string pool constant participant
 Marking string:participant_tab_row_view_label_paid:2131624140 used because its prefix matches string pool constant participant
 Marking string:participant_tab_row_view_label_spent:2131624141 used because its prefix matches string pool constant participant
+Marking attr:viewInflaterClass:2130903315 used because its prefix matches string pool constant view
+Marking styleable:ActionMenuItemView:-1 used because its prefix matches string pool constant ActionMenuItemView
+Marking attr:android_textColorPrimary:-1 used because its prefix matches string pool constant android
+Marking attr:android_textColorHint:-1 used because its prefix matches string pool constant android
+Marking attr:android_textColorHighlight:-1 used because its prefix matches string pool constant android
+Marking attr:android_textColorLink:-1 used because its prefix matches string pool constant android
+Marking attr:android_textColorSecondary:-1 used because its prefix matches string pool constant android
+Marking attr:android_textColorPrimaryInverse:-1 used because its prefix matches string pool constant android
+Marking attr:android_layout_gravity:-1 used because its prefix matches string pool constant android
+Marking attr:android_minWidth:-1 used because its prefix matches string pool constant android
+Marking attr:android_layout:-1 used because its prefix matches string pool constant android
+Marking attr:android_visible:-1 used because its prefix matches string pool constant android
+Marking attr:android_variablePadding:-1 used because its prefix matches string pool constant android
+Marking attr:android_constantSize:-1 used because its prefix matches string pool constant android
+Marking attr:android_dither:-1 used because its prefix matches string pool constant android
+Marking attr:android_enterFadeDuration:-1 used because its prefix matches string pool constant android
+Marking attr:android_exitFadeDuration:-1 used because its prefix matches string pool constant android
+Marking attr:android_drawable:-1 used because its prefix matches string pool constant android
+Marking attr:android_id:-1 used because its prefix matches string pool constant android
+Marking attr:android_fromId:-1 used because its prefix matches string pool constant android
+Marking attr:android_toId:-1 used because its prefix matches string pool constant android
+Marking attr:android_reversible:-1 used because its prefix matches string pool constant android
+Marking attr:android_src:-1 used because its prefix matches string pool constant android
+Marking attr:android_thumb:-1 used because its prefix matches string pool constant android
+Marking attr:android_drawableLeft:-1 used because its prefix matches string pool constant android
+Marking attr:android_drawableTop:-1 used because its prefix matches string pool constant android
+Marking attr:android_drawableRight:-1 used because its prefix matches string pool constant android
+Marking attr:android_drawableBottom:-1 used because its prefix matches string pool constant android
+Marking attr:android_drawableStart:-1 used because its prefix matches string pool constant android
+Marking attr:android_drawableEnd:-1 used because its prefix matches string pool constant android
+Marking attr:android_textAppearance:-1 used because its prefix matches string pool constant android
+Marking attr:android_windowIsFloating:-1 used because its prefix matches string pool constant android
+Marking attr:android_windowAnimationStyle:-1 used because its prefix matches string pool constant android
+Marking attr:android_color:-1 used because its prefix matches string pool constant android
+Marking attr:android_alpha:-1 used because its prefix matches string pool constant android
+Marking attr:android_button:-1 used because its prefix matches string pool constant android
+Marking attr:android_fontStyle:-1 used because its prefix matches string pool constant android
+Marking attr:android_font:-1 used because its prefix matches string pool constant android
+Marking attr:android_fontWeight:-1 used because its prefix matches string pool constant android
+Marking attr:android_fontVariationSettings:-1 used because its prefix matches string pool constant android
+Marking attr:android_ttcIndex:-1 used because its prefix matches string pool constant android
+Marking attr:android_startColor:-1 used because its prefix matches string pool constant android
+Marking attr:android_centerColor:-1 used because its prefix matches string pool constant android
+Marking attr:android_endColor:-1 used because its prefix matches string pool constant android
+Marking attr:android_type:-1 used because its prefix matches string pool constant android
+Marking attr:android_gradientRadius:-1 used because its prefix matches string pool constant android
+Marking attr:android_centerX:-1 used because its prefix matches string pool constant android
+Marking attr:android_centerY:-1 used because its prefix matches string pool constant android
+Marking attr:android_startX:-1 used because its prefix matches string pool constant android
+Marking attr:android_startY:-1 used because its prefix matches string pool constant android
+Marking attr:android_endX:-1 used because its prefix matches string pool constant android
+Marking attr:android_endY:-1 used because its prefix matches string pool constant android
+Marking attr:android_tileMode:-1 used because its prefix matches string pool constant android
+Marking attr:android_offset:-1 used because its prefix matches string pool constant android
+Marking attr:android_orientation:-1 used because its prefix matches string pool constant android
+Marking attr:android_gravity:-1 used because its prefix matches string pool constant android
+Marking attr:android_baselineAligned:-1 used because its prefix matches string pool constant android
+Marking attr:android_baselineAlignedChildIndex:-1 used because its prefix matches string pool constant android
+Marking attr:android_weightSum:-1 used because its prefix matches string pool constant android
+Marking attr:android_layout_width:-1 used because its prefix matches string pool constant android
+Marking attr:android_layout_height:-1 used because its prefix matches string pool constant android
+Marking attr:android_layout_weight:-1 used because its prefix matches string pool constant android
+Marking attr:android_dropDownVerticalOffset:-1 used because its prefix matches string pool constant android
+Marking attr:android_dropDownHorizontalOffset:-1 used because its prefix matches string pool constant android
+Marking attr:android_menuCategory:-1 used because its prefix matches string pool constant android
+Marking attr:android_orderInCategory:-1 used because its prefix matches string pool constant android
+Marking attr:android_checkableBehavior:-1 used because its prefix matches string pool constant android
+Marking attr:android_enabled:-1 used because its prefix matches string pool constant android
+Marking attr:android_title:-1 used because its prefix matches string pool constant android
+Marking attr:android_titleCondensed:-1 used because its prefix matches string pool constant android
+Marking attr:android_icon:-1 used because its prefix matches string pool constant android
+Marking attr:android_alphabeticShortcut:-1 used because its prefix matches string pool constant android
+Marking attr:android_numericShortcut:-1 used because its prefix matches string pool constant android
+Marking attr:android_checkable:-1 used because its prefix matches string pool constant android
+Marking attr:android_checked:-1 used because its prefix matches string pool constant android
+Marking attr:android_onClick:-1 used because its prefix matches string pool constant android
+Marking attr:android_itemTextAppearance:-1 used because its prefix matches string pool constant android
+Marking attr:android_horizontalDivider:-1 used because its prefix matches string pool constant android
+Marking attr:android_verticalDivider:-1 used because its prefix matches string pool constant android
+Marking attr:android_headerBackground:-1 used because its prefix matches string pool constant android
+Marking attr:android_itemBackground:-1 used because its prefix matches string pool constant android
+Marking attr:android_itemIconDisabledAlpha:-1 used because its prefix matches string pool constant android
+Marking attr:android_popupBackground:-1 used because its prefix matches string pool constant android
+Marking attr:android_popupAnimationStyle:-1 used because its prefix matches string pool constant android
+Marking attr:android_maxWidth:-1 used because its prefix matches string pool constant android
+Marking attr:android_imeOptions:-1 used because its prefix matches string pool constant android
+Marking attr:android_inputType:-1 used because its prefix matches string pool constant android
+Marking attr:android_focusable:-1 used because its prefix matches string pool constant android
+Marking attr:android_prompt:-1 used because its prefix matches string pool constant android
+Marking attr:android_dropDownWidth:-1 used because its prefix matches string pool constant android
+Marking attr:android_entries:-1 used because its prefix matches string pool constant android
+Marking attr:android_textOn:-1 used because its prefix matches string pool constant android
+Marking attr:android_textOff:-1 used because its prefix matches string pool constant android
+Marking attr:android_textSize:-1 used because its prefix matches string pool constant android
+Marking attr:android_textColor:-1 used because its prefix matches string pool constant android
+Marking attr:android_textStyle:-1 used because its prefix matches string pool constant android
+Marking attr:android_textFontWeight:-1 used because its prefix matches string pool constant android
+Marking attr:android_typeface:-1 used because its prefix matches string pool constant android
+Marking attr:android_fontFamily:-1 used because its prefix matches string pool constant android
+Marking attr:android_shadowColor:-1 used because its prefix matches string pool constant android
+Marking attr:android_shadowDy:-1 used because its prefix matches string pool constant android
+Marking attr:android_shadowDx:-1 used because its prefix matches string pool constant android
+Marking attr:android_shadowRadius:-1 used because its prefix matches string pool constant android
+Marking attr:android_minHeight:-1 used because its prefix matches string pool constant android
+Marking attr:android_theme:-1 used because its prefix matches string pool constant android
+Marking attr:android_background:-1 used because its prefix matches string pool constant android
+Marking attr:android_inflatedId:-1 used because its prefix matches string pool constant android
+Marking attr:android_borderlessButtonStyle:-1 used because its prefix matches string pool constant android
+Marking styleable:StateListDrawable:-1 used because its prefix matches string pool constant StateListDrawable
+Marking styleable:StateListDrawableItem:-1 used because its prefix matches string pool constant StateListDrawable
 Marking attr:tint:2130903294 used because its prefix matches string pool constant tint
 Marking attr:tintMode:2130903295 used because its prefix matches string pool constant tint
+Marking attr:windowActionBar:2130903317 used because its prefix matches string pool constant window
+Marking attr:windowActionBarOverlay:2130903318 used because its prefix matches string pool constant window
+Marking attr:windowActionModeOverlay:2130903319 used because its prefix matches string pool constant window
+Marking attr:windowFixedHeightMajor:2130903320 used because its prefix matches string pool constant window
+Marking attr:windowFixedHeightMinor:2130903321 used because its prefix matches string pool constant window
+Marking attr:windowFixedWidthMajor:2130903322 used because its prefix matches string pool constant window
+Marking attr:windowFixedWidthMinor:2130903323 used because its prefix matches string pool constant window
+Marking attr:windowMinWidthMajor:2130903324 used because its prefix matches string pool constant window
+Marking attr:windowMinWidthMinor:2130903325 used because its prefix matches string pool constant window
+Marking attr:windowNoTitle:2130903326 used because its prefix matches string pool constant window
 Marking id:time:2131231082 used because its prefix matches string pool constant time
 Marking id:paymentTabRowView_category_label:2131230975 used because its prefix matches string pool constant payment
 Marking id:paymentTabRowView_date_label:2131230976 used because its prefix matches string pool constant payment
@@ -1706,6 +1787,55 @@ Marking string:payment_view_msg_cannot_save_msg:2131624166 used because its pref
 Marking string:payment_view_msg_cannot_save_title:2131624167 used because its prefix matches string pool constant payment
 Marking string:payment_view_popup:2131624168 used because its prefix matches string pool constant payment
 Marking string:payment_view_spinner_prompt:2131624169 used because its prefix matches string pool constant payment
+Marking attr:itemPadding:2130903189 used because its prefix matches string pool constant item
+Marking attr:displayOptions:2130903141 used because its prefix matches string pool constant display
+Marking color:notification_action_color_filter:2131034182 used because its prefix matches string pool constant notification
+Marking color:notification_icon_bg_color:2131034183 used because its prefix matches string pool constant notification
+Marking color:notification_material_background_media_default_color:2131034184 used because its prefix matches string pool constant notification
+Marking dimen:notification_action_icon_size:2131099742 used because its prefix matches string pool constant notification
+Marking dimen:notification_action_text_size:2131099743 used because its prefix matches string pool constant notification
+Marking dimen:notification_big_circle_margin:2131099744 used because its prefix matches string pool constant notification
+Marking dimen:notification_content_margin_start:2131099745 used because its prefix matches string pool constant notification
+Marking dimen:notification_large_icon_height:2131099746 used because its prefix matches string pool constant notification
+Marking dimen:notification_large_icon_width:2131099747 used because its prefix matches string pool constant notification
+Marking dimen:notification_main_column_padding_top:2131099748 used because its prefix matches string pool constant notification
+Marking dimen:notification_media_narrow_margin:2131099749 used because its prefix matches string pool constant notification
+Marking dimen:notification_right_icon_size:2131099750 used because its prefix matches string pool constant notification
+Marking dimen:notification_right_side_padding_top:2131099751 used because its prefix matches string pool constant notification
+Marking dimen:notification_small_icon_background_padding:2131099752 used because its prefix matches string pool constant notification
+Marking dimen:notification_small_icon_size_as_large:2131099753 used because its prefix matches string pool constant notification
+Marking dimen:notification_subtext_size:2131099754 used because its prefix matches string pool constant notification
+Marking dimen:notification_top_pad:2131099755 used because its prefix matches string pool constant notification
+Marking dimen:notification_top_pad_large_text:2131099756 used because its prefix matches string pool constant notification
+Marking drawable:notification_action_background:2131165294 used because its prefix matches string pool constant notification
+Marking drawable:notification_bg:2131165295 used because its prefix matches string pool constant notification
+Marking drawable:notification_bg_low:2131165296 used because its prefix matches string pool constant notification
+Marking drawable:notification_bg_low_normal:2131165297 used because its prefix matches string pool constant notification
+Marking drawable:notification_bg_low_pressed:2131165298 used because its prefix matches string pool constant notification
+Marking drawable:notification_bg_normal:2131165299 used because its prefix matches string pool constant notification
+Marking drawable:notification_bg_normal_pressed:2131165300 used because its prefix matches string pool constant notification
+Marking drawable:notification_icon_background:2131165301 used because its prefix matches string pool constant notification
+Marking drawable:notification_template_icon_bg:2131165302 used because its prefix matches string pool constant notification
+Marking drawable:notification_template_icon_low_bg:2131165303 used because its prefix matches string pool constant notification
+Marking drawable:notification_tile_bg:2131165304 used because its prefix matches string pool constant notification
+Marking id:notification_background:2131230938 used because its prefix matches string pool constant notification
+Marking id:notification_main_column:2131230939 used because its prefix matches string pool constant notification
+Marking id:notification_main_column_container:2131230940 used because its prefix matches string pool constant notification
+Marking layout:notification_action:2131427371 used because its prefix matches string pool constant notification
+Marking layout:notification_action_tombstone:2131427372 used because its prefix matches string pool constant notification
+Marking layout:notification_media_action:2131427373 used because its prefix matches string pool constant notification
+Marking layout:notification_media_cancel_action:2131427374 used because its prefix matches string pool constant notification
+Marking layout:notification_template_big_media:2131427375 used because its prefix matches string pool constant notification
+Marking layout:notification_template_big_media_custom:2131427376 used because its prefix matches string pool constant notification
+Marking layout:notification_template_big_media_narrow:2131427377 used because its prefix matches string pool constant notification
+Marking layout:notification_template_big_media_narrow_custom:2131427378 used because its prefix matches string pool constant notification
+Marking layout:notification_template_custom_big:2131427379 used because its prefix matches string pool constant notification
+Marking layout:notification_template_icon_group:2131427380 used because its prefix matches string pool constant notification
+Marking layout:notification_template_lines_media:2131427381 used because its prefix matches string pool constant notification
+Marking layout:notification_template_media:2131427382 used because its prefix matches string pool constant notification
+Marking layout:notification_template_media_custom:2131427383 used because its prefix matches string pool constant notification
+Marking layout:notification_template_part_chronometer:2131427384 used because its prefix matches string pool constant notification
+Marking layout:notification_template_part_time:2131427385 used because its prefix matches string pool constant notification
 Marking id:group_divider:2131230895 used because its prefix matches string pool constant group
 Marking layout:trip_edit_view:2131427405 used because its prefix matches string pool constant trip
 Marking string:trip_edit_view_create_heading:2131624198 used because its prefix matches string pool constant trip
@@ -1717,9 +1847,57 @@ Marking string:trip_edit_view_msg:2131624203 used because its prefix matches str
 Marking string:trip_manage_view_delete_confirmation:2131624204 used because its prefix matches string pool constant trip
 Marking string:trip_manage_view_heading:2131624205 used because its prefix matches string pool constant trip
 Marking styleable:ButtonBarLayout:-1 used because its prefix matches string pool constant Button
+Marking styleable:Toolbar:-1 used because its prefix matches string pool constant Toolbar
+Marking attr:alertDialogButtonGroupStyle:2130903074 used because its prefix matches string pool constant al
+Marking attr:alertDialogCenterButtons:2130903075 used because its prefix matches string pool constant al
+Marking attr:alertDialogStyle:2130903076 used because its prefix matches string pool constant al
+Marking attr:alertDialogTheme:2130903077 used because its prefix matches string pool constant al
+Marking attr:allowStacking:2130903078 used because its prefix matches string pool constant al
+Marking attr:alpha:2130903079 used because its prefix matches string pool constant al
+Marking attr:alphabeticModifiers:2130903080 used because its prefix matches string pool constant al
+Marking id:alertTitle:2131230780 used because its prefix matches string pool constant al
+Marking id:all:2131230781 used because its prefix matches string pool constant al
+Marking id:always:2131230782 used because its prefix matches string pool constant al
+Marking attr:arrowHeadLength:2130903081 used because its prefix matches string pool constant ar
+Marking attr:arrowShaftLength:2130903082 used because its prefix matches string pool constant ar
+Marking attr:icon:2130903181 used because its prefix matches string pool constant icon
+Marking attr:iconTint:2130903182 used because its prefix matches string pool constant icon
+Marking attr:iconTintMode:2130903183 used because its prefix matches string pool constant icon
+Marking attr:iconifiedByDefault:2130903184 used because its prefix matches string pool constant icon
+Marking id:icon:2131230899 used because its prefix matches string pool constant icon
+Marking id:icon_group:2131230900 used because its prefix matches string pool constant icon
+Marking attr:searchHintIcon:2130903245 used because its prefix matches string pool constant search
+Marking attr:searchIcon:2130903246 used because its prefix matches string pool constant search
+Marking attr:searchViewStyle:2130903247 used because its prefix matches string pool constant search
+Marking id:search_badge:2131231044 used because its prefix matches string pool constant search
+Marking id:search_bar:2131231045 used because its prefix matches string pool constant search
+Marking id:search_button:2131231046 used because its prefix matches string pool constant search
+Marking id:search_close_btn:2131231047 used because its prefix matches string pool constant search
+Marking id:search_edit_frame:2131231048 used because its prefix matches string pool constant search
+Marking id:search_go_btn:2131231049 used because its prefix matches string pool constant search
+Marking id:search_mag_icon:2131231050 used because its prefix matches string pool constant search
+Marking id:search_plate:2131231051 used because its prefix matches string pool constant search
+Marking id:search_src_text:2131231052 used because its prefix matches string pool constant search
+Marking id:search_voice_btn:2131231053 used because its prefix matches string pool constant search
+Marking string:search_menu_title:2131624194 used because its prefix matches string pool constant search
 Marking id:right:2131231037 used because its prefix matches string pool constant right
 Marking id:right_icon:2131231038 used because its prefix matches string pool constant right
 Marking id:right_side:2131231039 used because its prefix matches string pool constant right
+Marking styleable:CoordinatorLayout:-1 used because its prefix matches string pool constant CoordinatorLayout
+Marking styleable:CoordinatorLayout_Layout:-1 used because its prefix matches string pool constant CoordinatorLayout
+Marking attr:font:2130903164 used because its prefix matches string pool constant font
+Marking attr:fontFamily:2130903165 used because its prefix matches string pool constant font
+Marking attr:fontProviderAuthority:2130903166 used because its prefix matches string pool constant font
+Marking attr:fontProviderCerts:2130903167 used because its prefix matches string pool constant font
+Marking attr:fontProviderFetchStrategy:2130903168 used because its prefix matches string pool constant font
+Marking attr:fontProviderFetchTimeout:2130903169 used because its prefix matches string pool constant font
+Marking attr:fontProviderPackage:2130903170 used because its prefix matches string pool constant font
+Marking attr:fontProviderQuery:2130903171 used because its prefix matches string pool constant font
+Marking attr:fontStyle:2130903172 used because its prefix matches string pool constant font
+Marking attr:fontVariationSettings:2130903173 used because its prefix matches string pool constant font
+Marking attr:fontWeight:2130903174 used because its prefix matches string pool constant font
+Marking id:end:2131230853 used because its prefix matches string pool constant en
+Marking id:end_padder:2131230854 used because its prefix matches string pool constant en
 Marking attr:title:2130903296 used because its prefix matches string pool constant title
 Marking attr:titleMargin:2130903297 used because its prefix matches string pool constant title
 Marking attr:titleMarginBottom:2130903298 used because its prefix matches string pool constant title
@@ -1733,9 +1911,28 @@ Marking attr:titleTextStyle:2130903305 used because its prefix matches string po
 Marking id:title:2131231083 used because its prefix matches string pool constant title
 Marking id:titleDividerNoCustom:2131231084 used because its prefix matches string pool constant title
 Marking id:title_template:2131231085 used because its prefix matches string pool constant title
+Marking attr:contentDescription:2130903127 used because its prefix matches string pool constant content
+Marking attr:contentInsetEnd:2130903128 used because its prefix matches string pool constant content
+Marking attr:contentInsetEndWithActions:2130903129 used because its prefix matches string pool constant content
+Marking attr:contentInsetLeft:2130903130 used because its prefix matches string pool constant content
+Marking attr:contentInsetRight:2130903131 used because its prefix matches string pool constant content
+Marking attr:contentInsetStart:2130903132 used because its prefix matches string pool constant content
+Marking attr:contentInsetStartWithNavigation:2130903133 used because its prefix matches string pool constant content
+Marking id:content:2131230800 used because its prefix matches string pool constant content
+Marking id:contentPanel:2131230801 used because its prefix matches string pool constant content
+Marking id:content_frame:2131230802 used because its prefix matches string pool constant content
 Marking styleable:ListPopupWindow:-1 used because its prefix matches string pool constant ListPopupWindow
+Marking id:help_view_web_view:2131230896 used because its prefix matches string pool constant help_
+Marking layout:help_view:2131427367 used because its prefix matches string pool constant help_
 Marking attr:alpha:2130903079 used because its prefix matches string pool constant alpha
 Marking attr:alphabeticModifiers:2130903080 used because its prefix matches string pool constant alpha
+Marking attr:selectableItemBackground:2130903249 used because its prefix matches string pool constant select
+Marking attr:selectableItemBackgroundBorderless:2130903250 used because its prefix matches string pool constant select
+Marking id:select_dialog_listview:2131231054 used because its prefix matches string pool constant select
+Marking layout:select_dialog_item_material:2131427397 used because its prefix matches string pool constant select
+Marking layout:select_dialog_multichoice_material:2131427398 used because its prefix matches string pool constant select
+Marking layout:select_dialog_singlechoice_material:2131427399 used because its prefix matches string pool constant select
+Marking layout:selection_list_medium:2131427400 used because its prefix matches string pool constant select
 Marking attr:navigationContentDescription:2130903221 used because its prefix matches string pool constant navigation
 Marking attr:navigationIcon:2130903222 used because its prefix matches string pool constant navigation
 Marking attr:navigationMode:2130903223 used because its prefix matches string pool constant navigation
@@ -1848,6 +2045,7 @@ Marking attr:menu:2130903219 used because its prefix matches string pool constan
 Marking id:menu_group_participant_active_required:2131230915 used because its prefix matches string pool constant menu
 Marking id:menu_group_participant_at_least_another:2131230916 used because its prefix matches string pool constant menu
 Marking id:menu_group_participant_deletable_required:2131230917 used because its prefix matches string pool constant menu
+Marking attr:tintMode:2130903295 used because its prefix matches string pool constant tintMode
 Marking attr:background:2130903089 used because its prefix matches string pool constant background
 Marking attr:backgroundSplit:2130903090 used because its prefix matches string pool constant background
 Marking attr:backgroundStacked:2130903091 used because its prefix matches string pool constant background
@@ -1859,269 +2057,6 @@ Marking color:background_material_dark:2131034144 used because its prefix matche
 Marking color:background_material_light:2131034145 used because its prefix matches string pool constant background
 Marking id:deleteExchangeRatesViewListViewToBeDeleted:2131230826 used because its prefix matches string pool constant delete
 Marking id:deleteExchangeRatesViewSpinner:2131230827 used because its prefix matches string pool constant delete
-Marking attr:progressBarPadding:2130903237 used because its prefix matches string pool constant progress
-Marking attr:progressBarStyle:2130903238 used because its prefix matches string pool constant progress
-Marking id:progress_circular:2131231022 used because its prefix matches string pool constant progress
-Marking id:progress_horizontal:2131231023 used because its prefix matches string pool constant progress
-Marking attr:allowStacking:2130903078 used because its prefix matches string pool constant allow
-Marking string:msg_delete_not_possible_inbalance:2131624106 used because its prefix matches string pool constant msg
-Marking id:bottom:2131230787 used because its prefix matches string pool constant bottom
-Marking styleable:ActivityChooserView:-1 used because its prefix matches string pool constant ActivityChooserView
-Marking attr:closeIcon:2130903111 used because its prefix matches string pool constant close
-Marking attr:closeItemLayout:2130903112 used because its prefix matches string pool constant close
-Marking string:label_enum_payment_category_beverages:2131624087 used because its prefix matches string pool constant label
-Marking string:label_enum_payment_category_culture:2131624088 used because its prefix matches string pool constant label
-Marking string:label_enum_payment_category_entrance_fee:2131624089 used because its prefix matches string pool constant label
-Marking string:label_enum_payment_category_food:2131624090 used because its prefix matches string pool constant label
-Marking string:label_enum_payment_category_gas:2131624091 used because its prefix matches string pool constant label
-Marking string:label_enum_payment_category_housing:2131624092 used because its prefix matches string pool constant label
-Marking string:label_enum_payment_category_money_transfer:2131624093 used because its prefix matches string pool constant label
-Marking string:label_enum_payment_category_other:2131624094 used because its prefix matches string pool constant label
-Marking string:label_enum_payment_category_public_transport:2131624095 used because its prefix matches string pool constant label
-Marking string:label_enum_payment_category_rentals:2131624096 used because its prefix matches string pool constant label
-Marking string:label_enum_select_rates_all:2131624097 used because its prefix matches string pool constant label
-Marking string:label_enum_select_rates_all_custom:2131624098 used because its prefix matches string pool constant label
-Marking string:label_enum_select_rates_all_imported:2131624099 used because its prefix matches string pool constant label
-Marking string:label_enum_select_rates_none:2131624100 used because its prefix matches string pool constant label
-Marking color:error_color_material_dark:2131034159 used because its prefix matches string pool constant err
-Marking color:error_color_material_light:2131034160 used because its prefix matches string pool constant err
-Marking attr:viewInflaterClass:2130903315 used because its prefix matches string pool constant view
-Marking styleable:ActionMenuItemView:-1 used because its prefix matches string pool constant ActionMenuItemView
-Marking attr:android_textColorPrimary:-1 used because its prefix matches string pool constant android
-Marking attr:android_textColorHint:-1 used because its prefix matches string pool constant android
-Marking attr:android_textColorHighlight:-1 used because its prefix matches string pool constant android
-Marking attr:android_textColorLink:-1 used because its prefix matches string pool constant android
-Marking attr:android_textColorSecondary:-1 used because its prefix matches string pool constant android
-Marking attr:android_textColorPrimaryInverse:-1 used because its prefix matches string pool constant android
-Marking attr:android_layout_gravity:-1 used because its prefix matches string pool constant android
-Marking attr:android_minWidth:-1 used because its prefix matches string pool constant android
-Marking attr:android_layout:-1 used because its prefix matches string pool constant android
-Marking attr:android_visible:-1 used because its prefix matches string pool constant android
-Marking attr:android_variablePadding:-1 used because its prefix matches string pool constant android
-Marking attr:android_constantSize:-1 used because its prefix matches string pool constant android
-Marking attr:android_dither:-1 used because its prefix matches string pool constant android
-Marking attr:android_enterFadeDuration:-1 used because its prefix matches string pool constant android
-Marking attr:android_exitFadeDuration:-1 used because its prefix matches string pool constant android
-Marking attr:android_drawable:-1 used because its prefix matches string pool constant android
-Marking attr:android_id:-1 used because its prefix matches string pool constant android
-Marking attr:android_fromId:-1 used because its prefix matches string pool constant android
-Marking attr:android_toId:-1 used because its prefix matches string pool constant android
-Marking attr:android_reversible:-1 used because its prefix matches string pool constant android
-Marking attr:android_src:-1 used because its prefix matches string pool constant android
-Marking attr:android_thumb:-1 used because its prefix matches string pool constant android
-Marking attr:android_drawableLeft:-1 used because its prefix matches string pool constant android
-Marking attr:android_drawableTop:-1 used because its prefix matches string pool constant android
-Marking attr:android_drawableRight:-1 used because its prefix matches string pool constant android
-Marking attr:android_drawableBottom:-1 used because its prefix matches string pool constant android
-Marking attr:android_drawableStart:-1 used because its prefix matches string pool constant android
-Marking attr:android_drawableEnd:-1 used because its prefix matches string pool constant android
-Marking attr:android_textAppearance:-1 used because its prefix matches string pool constant android
-Marking attr:android_windowIsFloating:-1 used because its prefix matches string pool constant android
-Marking attr:android_windowAnimationStyle:-1 used because its prefix matches string pool constant android
-Marking attr:android_color:-1 used because its prefix matches string pool constant android
-Marking attr:android_alpha:-1 used because its prefix matches string pool constant android
-Marking attr:android_button:-1 used because its prefix matches string pool constant android
-Marking attr:android_fontStyle:-1 used because its prefix matches string pool constant android
-Marking attr:android_font:-1 used because its prefix matches string pool constant android
-Marking attr:android_fontWeight:-1 used because its prefix matches string pool constant android
-Marking attr:android_fontVariationSettings:-1 used because its prefix matches string pool constant android
-Marking attr:android_ttcIndex:-1 used because its prefix matches string pool constant android
-Marking attr:android_startColor:-1 used because its prefix matches string pool constant android
-Marking attr:android_centerColor:-1 used because its prefix matches string pool constant android
-Marking attr:android_endColor:-1 used because its prefix matches string pool constant android
-Marking attr:android_type:-1 used because its prefix matches string pool constant android
-Marking attr:android_gradientRadius:-1 used because its prefix matches string pool constant android
-Marking attr:android_centerX:-1 used because its prefix matches string pool constant android
-Marking attr:android_centerY:-1 used because its prefix matches string pool constant android
-Marking attr:android_startX:-1 used because its prefix matches string pool constant android
-Marking attr:android_startY:-1 used because its prefix matches string pool constant android
-Marking attr:android_endX:-1 used because its prefix matches string pool constant android
-Marking attr:android_endY:-1 used because its prefix matches string pool constant android
-Marking attr:android_tileMode:-1 used because its prefix matches string pool constant android
-Marking attr:android_offset:-1 used because its prefix matches string pool constant android
-Marking attr:android_orientation:-1 used because its prefix matches string pool constant android
-Marking attr:android_gravity:-1 used because its prefix matches string pool constant android
-Marking attr:android_baselineAligned:-1 used because its prefix matches string pool constant android
-Marking attr:android_baselineAlignedChildIndex:-1 used because its prefix matches string pool constant android
-Marking attr:android_weightSum:-1 used because its prefix matches string pool constant android
-Marking attr:android_layout_width:-1 used because its prefix matches string pool constant android
-Marking attr:android_layout_height:-1 used because its prefix matches string pool constant android
-Marking attr:android_layout_weight:-1 used because its prefix matches string pool constant android
-Marking attr:android_dropDownVerticalOffset:-1 used because its prefix matches string pool constant android
-Marking attr:android_dropDownHorizontalOffset:-1 used because its prefix matches string pool constant android
-Marking attr:android_menuCategory:-1 used because its prefix matches string pool constant android
-Marking attr:android_orderInCategory:-1 used because its prefix matches string pool constant android
-Marking attr:android_checkableBehavior:-1 used because its prefix matches string pool constant android
-Marking attr:android_enabled:-1 used because its prefix matches string pool constant android
-Marking attr:android_title:-1 used because its prefix matches string pool constant android
-Marking attr:android_titleCondensed:-1 used because its prefix matches string pool constant android
-Marking attr:android_icon:-1 used because its prefix matches string pool constant android
-Marking attr:android_alphabeticShortcut:-1 used because its prefix matches string pool constant android
-Marking attr:android_numericShortcut:-1 used because its prefix matches string pool constant android
-Marking attr:android_checkable:-1 used because its prefix matches string pool constant android
-Marking attr:android_checked:-1 used because its prefix matches string pool constant android
-Marking attr:android_onClick:-1 used because its prefix matches string pool constant android
-Marking attr:android_itemTextAppearance:-1 used because its prefix matches string pool constant android
-Marking attr:android_horizontalDivider:-1 used because its prefix matches string pool constant android
-Marking attr:android_verticalDivider:-1 used because its prefix matches string pool constant android
-Marking attr:android_headerBackground:-1 used because its prefix matches string pool constant android
-Marking attr:android_itemBackground:-1 used because its prefix matches string pool constant android
-Marking attr:android_itemIconDisabledAlpha:-1 used because its prefix matches string pool constant android
-Marking attr:android_popupBackground:-1 used because its prefix matches string pool constant android
-Marking attr:android_popupAnimationStyle:-1 used because its prefix matches string pool constant android
-Marking attr:android_maxWidth:-1 used because its prefix matches string pool constant android
-Marking attr:android_imeOptions:-1 used because its prefix matches string pool constant android
-Marking attr:android_inputType:-1 used because its prefix matches string pool constant android
-Marking attr:android_focusable:-1 used because its prefix matches string pool constant android
-Marking attr:android_prompt:-1 used because its prefix matches string pool constant android
-Marking attr:android_dropDownWidth:-1 used because its prefix matches string pool constant android
-Marking attr:android_entries:-1 used because its prefix matches string pool constant android
-Marking attr:android_textOn:-1 used because its prefix matches string pool constant android
-Marking attr:android_textOff:-1 used because its prefix matches string pool constant android
-Marking attr:android_textSize:-1 used because its prefix matches string pool constant android
-Marking attr:android_textColor:-1 used because its prefix matches string pool constant android
-Marking attr:android_textStyle:-1 used because its prefix matches string pool constant android
-Marking attr:android_textFontWeight:-1 used because its prefix matches string pool constant android
-Marking attr:android_typeface:-1 used because its prefix matches string pool constant android
-Marking attr:android_fontFamily:-1 used because its prefix matches string pool constant android
-Marking attr:android_shadowColor:-1 used because its prefix matches string pool constant android
-Marking attr:android_shadowDy:-1 used because its prefix matches string pool constant android
-Marking attr:android_shadowDx:-1 used because its prefix matches string pool constant android
-Marking attr:android_shadowRadius:-1 used because its prefix matches string pool constant android
-Marking attr:android_minHeight:-1 used because its prefix matches string pool constant android
-Marking attr:android_theme:-1 used because its prefix matches string pool constant android
-Marking attr:android_background:-1 used because its prefix matches string pool constant android
-Marking attr:android_inflatedId:-1 used because its prefix matches string pool constant android
-Marking attr:android_borderlessButtonStyle:-1 used because its prefix matches string pool constant android
-Marking styleable:StateListDrawable:-1 used because its prefix matches string pool constant StateListDrawable
-Marking styleable:StateListDrawableItem:-1 used because its prefix matches string pool constant StateListDrawable
-Marking attr:windowActionBar:2130903317 used because its prefix matches string pool constant window
-Marking attr:windowActionBarOverlay:2130903318 used because its prefix matches string pool constant window
-Marking attr:windowActionModeOverlay:2130903319 used because its prefix matches string pool constant window
-Marking attr:windowFixedHeightMajor:2130903320 used because its prefix matches string pool constant window
-Marking attr:windowFixedHeightMinor:2130903321 used because its prefix matches string pool constant window
-Marking attr:windowFixedWidthMajor:2130903322 used because its prefix matches string pool constant window
-Marking attr:windowFixedWidthMinor:2130903323 used because its prefix matches string pool constant window
-Marking attr:windowMinWidthMajor:2130903324 used because its prefix matches string pool constant window
-Marking attr:windowMinWidthMinor:2130903325 used because its prefix matches string pool constant window
-Marking attr:windowNoTitle:2130903326 used because its prefix matches string pool constant window
-Marking attr:itemPadding:2130903189 used because its prefix matches string pool constant item
-Marking attr:displayOptions:2130903141 used because its prefix matches string pool constant display
-Marking color:notification_action_color_filter:2131034182 used because its prefix matches string pool constant notification
-Marking color:notification_icon_bg_color:2131034183 used because its prefix matches string pool constant notification
-Marking color:notification_material_background_media_default_color:2131034184 used because its prefix matches string pool constant notification
-Marking dimen:notification_action_icon_size:2131099742 used because its prefix matches string pool constant notification
-Marking dimen:notification_action_text_size:2131099743 used because its prefix matches string pool constant notification
-Marking dimen:notification_big_circle_margin:2131099744 used because its prefix matches string pool constant notification
-Marking dimen:notification_content_margin_start:2131099745 used because its prefix matches string pool constant notification
-Marking dimen:notification_large_icon_height:2131099746 used because its prefix matches string pool constant notification
-Marking dimen:notification_large_icon_width:2131099747 used because its prefix matches string pool constant notification
-Marking dimen:notification_main_column_padding_top:2131099748 used because its prefix matches string pool constant notification
-Marking dimen:notification_media_narrow_margin:2131099749 used because its prefix matches string pool constant notification
-Marking dimen:notification_right_icon_size:2131099750 used because its prefix matches string pool constant notification
-Marking dimen:notification_right_side_padding_top:2131099751 used because its prefix matches string pool constant notification
-Marking dimen:notification_small_icon_background_padding:2131099752 used because its prefix matches string pool constant notification
-Marking dimen:notification_small_icon_size_as_large:2131099753 used because its prefix matches string pool constant notification
-Marking dimen:notification_subtext_size:2131099754 used because its prefix matches string pool constant notification
-Marking dimen:notification_top_pad:2131099755 used because its prefix matches string pool constant notification
-Marking dimen:notification_top_pad_large_text:2131099756 used because its prefix matches string pool constant notification
-Marking drawable:notification_action_background:2131165294 used because its prefix matches string pool constant notification
-Marking drawable:notification_bg:2131165295 used because its prefix matches string pool constant notification
-Marking drawable:notification_bg_low:2131165296 used because its prefix matches string pool constant notification
-Marking drawable:notification_bg_low_normal:2131165297 used because its prefix matches string pool constant notification
-Marking drawable:notification_bg_low_pressed:2131165298 used because its prefix matches string pool constant notification
-Marking drawable:notification_bg_normal:2131165299 used because its prefix matches string pool constant notification
-Marking drawable:notification_bg_normal_pressed:2131165300 used because its prefix matches string pool constant notification
-Marking drawable:notification_icon_background:2131165301 used because its prefix matches string pool constant notification
-Marking drawable:notification_template_icon_bg:2131165302 used because its prefix matches string pool constant notification
-Marking drawable:notification_template_icon_low_bg:2131165303 used because its prefix matches string pool constant notification
-Marking drawable:notification_tile_bg:2131165304 used because its prefix matches string pool constant notification
-Marking id:notification_background:2131230938 used because its prefix matches string pool constant notification
-Marking id:notification_main_column:2131230939 used because its prefix matches string pool constant notification
-Marking id:notification_main_column_container:2131230940 used because its prefix matches string pool constant notification
-Marking layout:notification_action:2131427371 used because its prefix matches string pool constant notification
-Marking layout:notification_action_tombstone:2131427372 used because its prefix matches string pool constant notification
-Marking layout:notification_media_action:2131427373 used because its prefix matches string pool constant notification
-Marking layout:notification_media_cancel_action:2131427374 used because its prefix matches string pool constant notification
-Marking layout:notification_template_big_media:2131427375 used because its prefix matches string pool constant notification
-Marking layout:notification_template_big_media_custom:2131427376 used because its prefix matches string pool constant notification
-Marking layout:notification_template_big_media_narrow:2131427377 used because its prefix matches string pool constant notification
-Marking layout:notification_template_big_media_narrow_custom:2131427378 used because its prefix matches string pool constant notification
-Marking layout:notification_template_custom_big:2131427379 used because its prefix matches string pool constant notification
-Marking layout:notification_template_icon_group:2131427380 used because its prefix matches string pool constant notification
-Marking layout:notification_template_lines_media:2131427381 used because its prefix matches string pool constant notification
-Marking layout:notification_template_media:2131427382 used because its prefix matches string pool constant notification
-Marking layout:notification_template_media_custom:2131427383 used because its prefix matches string pool constant notification
-Marking layout:notification_template_part_chronometer:2131427384 used because its prefix matches string pool constant notification
-Marking layout:notification_template_part_time:2131427385 used because its prefix matches string pool constant notification
-Marking styleable:Toolbar:-1 used because its prefix matches string pool constant Toolbar
-Marking attr:alertDialogButtonGroupStyle:2130903074 used because its prefix matches string pool constant al
-Marking attr:alertDialogCenterButtons:2130903075 used because its prefix matches string pool constant al
-Marking attr:alertDialogStyle:2130903076 used because its prefix matches string pool constant al
-Marking attr:alertDialogTheme:2130903077 used because its prefix matches string pool constant al
-Marking attr:allowStacking:2130903078 used because its prefix matches string pool constant al
-Marking attr:alpha:2130903079 used because its prefix matches string pool constant al
-Marking attr:alphabeticModifiers:2130903080 used because its prefix matches string pool constant al
-Marking id:alertTitle:2131230780 used because its prefix matches string pool constant al
-Marking id:all:2131230781 used because its prefix matches string pool constant al
-Marking id:always:2131230782 used because its prefix matches string pool constant al
-Marking attr:arrowHeadLength:2130903081 used because its prefix matches string pool constant ar
-Marking attr:arrowShaftLength:2130903082 used because its prefix matches string pool constant ar
-Marking attr:icon:2130903181 used because its prefix matches string pool constant icon
-Marking attr:iconTint:2130903182 used because its prefix matches string pool constant icon
-Marking attr:iconTintMode:2130903183 used because its prefix matches string pool constant icon
-Marking attr:iconifiedByDefault:2130903184 used because its prefix matches string pool constant icon
-Marking id:icon:2131230899 used because its prefix matches string pool constant icon
-Marking id:icon_group:2131230900 used because its prefix matches string pool constant icon
-Marking attr:searchHintIcon:2130903245 used because its prefix matches string pool constant search
-Marking attr:searchIcon:2130903246 used because its prefix matches string pool constant search
-Marking attr:searchViewStyle:2130903247 used because its prefix matches string pool constant search
-Marking id:search_badge:2131231044 used because its prefix matches string pool constant search
-Marking id:search_bar:2131231045 used because its prefix matches string pool constant search
-Marking id:search_button:2131231046 used because its prefix matches string pool constant search
-Marking id:search_close_btn:2131231047 used because its prefix matches string pool constant search
-Marking id:search_edit_frame:2131231048 used because its prefix matches string pool constant search
-Marking id:search_go_btn:2131231049 used because its prefix matches string pool constant search
-Marking id:search_mag_icon:2131231050 used because its prefix matches string pool constant search
-Marking id:search_plate:2131231051 used because its prefix matches string pool constant search
-Marking id:search_src_text:2131231052 used because its prefix matches string pool constant search
-Marking id:search_voice_btn:2131231053 used because its prefix matches string pool constant search
-Marking string:search_menu_title:2131624194 used because its prefix matches string pool constant search
-Marking styleable:CoordinatorLayout:-1 used because its prefix matches string pool constant CoordinatorLayout
-Marking styleable:CoordinatorLayout_Layout:-1 used because its prefix matches string pool constant CoordinatorLayout
-Marking attr:font:2130903164 used because its prefix matches string pool constant font
-Marking attr:fontFamily:2130903165 used because its prefix matches string pool constant font
-Marking attr:fontProviderAuthority:2130903166 used because its prefix matches string pool constant font
-Marking attr:fontProviderCerts:2130903167 used because its prefix matches string pool constant font
-Marking attr:fontProviderFetchStrategy:2130903168 used because its prefix matches string pool constant font
-Marking attr:fontProviderFetchTimeout:2130903169 used because its prefix matches string pool constant font
-Marking attr:fontProviderPackage:2130903170 used because its prefix matches string pool constant font
-Marking attr:fontProviderQuery:2130903171 used because its prefix matches string pool constant font
-Marking attr:fontStyle:2130903172 used because its prefix matches string pool constant font
-Marking attr:fontVariationSettings:2130903173 used because its prefix matches string pool constant font
-Marking attr:fontWeight:2130903174 used because its prefix matches string pool constant font
-Marking id:end:2131230853 used because its prefix matches string pool constant en
-Marking id:end_padder:2131230854 used because its prefix matches string pool constant en
-Marking attr:contentDescription:2130903127 used because its prefix matches string pool constant content
-Marking attr:contentInsetEnd:2130903128 used because its prefix matches string pool constant content
-Marking attr:contentInsetEndWithActions:2130903129 used because its prefix matches string pool constant content
-Marking attr:contentInsetLeft:2130903130 used because its prefix matches string pool constant content
-Marking attr:contentInsetRight:2130903131 used because its prefix matches string pool constant content
-Marking attr:contentInsetStart:2130903132 used because its prefix matches string pool constant content
-Marking attr:contentInsetStartWithNavigation:2130903133 used because its prefix matches string pool constant content
-Marking id:content:2131230800 used because its prefix matches string pool constant content
-Marking id:contentPanel:2131230801 used because its prefix matches string pool constant content
-Marking id:content_frame:2131230802 used because its prefix matches string pool constant content
-Marking id:help_view_web_view:2131230896 used because its prefix matches string pool constant help_
-Marking layout:help_view:2131427367 used because its prefix matches string pool constant help_
-Marking attr:selectableItemBackground:2130903249 used because its prefix matches string pool constant select
-Marking attr:selectableItemBackgroundBorderless:2130903250 used because its prefix matches string pool constant select
-Marking id:select_dialog_listview:2131231054 used because its prefix matches string pool constant select
-Marking layout:select_dialog_item_material:2131427397 used because its prefix matches string pool constant select
-Marking layout:select_dialog_multichoice_material:2131427398 used because its prefix matches string pool constant select
-Marking layout:select_dialog_singlechoice_material:2131427399 used because its prefix matches string pool constant select
-Marking layout:selection_list_medium:2131427400 used because its prefix matches string pool constant select
-Marking attr:tintMode:2130903295 used because its prefix matches string pool constant tintMode
 Marking style:AutoCompleteTextViewLight:2131689478 used because its prefix matches string pool constant AutoCompleteTextView
 Marking attr:drawableBottomCompat:2130903146 used because its prefix matches string pool constant drawable
 Marking attr:drawableEndCompat:2130903147 used because its prefix matches string pool constant drawable
@@ -2165,14 +2100,22 @@ Marking attr:thickness:2130903287 used because its prefix matches string pool co
 Marking attr:thumbTextPadding:2130903288 used because its prefix matches string pool constant th
 Marking attr:thumbTint:2130903289 used because its prefix matches string pool constant th
 Marking attr:thumbTintMode:2130903290 used because its prefix matches string pool constant th
+Marking attr:progressBarPadding:2130903237 used because its prefix matches string pool constant progress
+Marking attr:progressBarStyle:2130903238 used because its prefix matches string pool constant progress
+Marking id:progress_circular:2131231022 used because its prefix matches string pool constant progress
+Marking id:progress_horizontal:2131231023 used because its prefix matches string pool constant progress
 Marking attr:queryBackground:2130903239 used because its prefix matches string pool constant query
 Marking attr:queryHint:2130903240 used because its prefix matches string pool constant query
+Marking attr:allowStacking:2130903078 used because its prefix matches string pool constant allow
 Marking id:none:2131230936 used because its prefix matches string pool constant none
 Marking id:help_view_web_view:2131230896 used because its prefix matches string pool constant help
 Marking layout:help_view:2131427367 used because its prefix matches string pool constant help
+Marking string:msg_delete_not_possible_inbalance:2131624106 used because its prefix matches string pool constant msg
 Marking id:datePicker_datePicker:2131230822 used because its prefix matches string pool constant date
 Marking id:datePicker_timePicker:2131230823 used because its prefix matches string pool constant date
 Marking layout:date_picker_dialog_view:2131427359 used because its prefix matches string pool constant date
+Marking id:bottom:2131230787 used because its prefix matches string pool constant bottom
+Marking styleable:ActivityChooserView:-1 used because its prefix matches string pool constant ActivityChooserView
 Resource Reference Graph:
 anim:abc_grow_fade_in_from_bottom:2130771970 => [integer:abc_config_activityDefaultDur:2131296256, integer:abc_config_activityShortDur:2131296257]
 anim:abc_popup_enter:2130771971 => [integer:abc_config_activityShortDur:2131296257]

@@ -12,17 +12,16 @@ import de.koelle.christian.common.json.AsyncJsonParser;
 import de.koelle.christian.common.json.AsyncJsonParserResultCallback;
 import de.koelle.christian.trickytripper.model.ImportOrigin;
 
-public class AsyncExchangeRateJsonResolverFccaImpl implements AsyncExchangeRateResolver {
+public class AsyncExchangeRateJsonResolverExchangeratesapiIoImpl implements AsyncExchangeRateResolver {
 
     private static final String SOURCE_CURRENCY_CODE_PLACEHOLDER = "%%CURR_A%%";
     private static final String TARGET_CURRENCY_CODE_PLACEHOLDER = "%%CURR_B%%";
-    public static final String EXCHANGE_RATE_SERVICE_URL = "https://free.currencyconverterapi.com/api/v6/convert?q="+
-            SOURCE_CURRENCY_CODE_PLACEHOLDER+"_"+TARGET_CURRENCY_CODE_PLACEHOLDER+"&compact=y";
+    public static final String EXCHANGE_RATE_SERVICE_URL = "https://api.exchangeratesapi.io/latest?base="+SOURCE_CURRENCY_CODE_PLACEHOLDER+"&symbols="+TARGET_CURRENCY_CODE_PLACEHOLDER;
     private final Context context;
 
     private AsyncJsonParser caller = new AsyncJsonParser();
 
-    public AsyncExchangeRateJsonResolverFccaImpl(Context context) {
+    public AsyncExchangeRateJsonResolverExchangeratesapiIoImpl(Context context) {
         this.context = context;
     }
 
@@ -37,7 +36,7 @@ public class AsyncExchangeRateJsonResolverFccaImpl implements AsyncExchangeRateR
                 String result = null;
                 if (object != null) {
                     try {
-                        result = new JSONObject(object.get(object.keys().next()).toString()).getString("val");
+                        result = new JSONObject(object.get(object.keys().next()).toString()).getString(to.getCurrencyCode());
                     }
                     catch (JSONException e) {
                         e.printStackTrace();

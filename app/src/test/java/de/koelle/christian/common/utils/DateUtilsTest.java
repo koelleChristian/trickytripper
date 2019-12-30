@@ -1,14 +1,11 @@
 package de.koelle.christian.common.utils;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
-
-import junit.framework.Assert;
-
-import org.junit.Test;
-
-import de.koelle.christian.common.utils.DateUtils;
 
 public class DateUtilsTest {
 

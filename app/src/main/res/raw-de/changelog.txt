@@ -30,7 +30,8 @@
 $ 1.6.2
 % Version 1.6.2
   _ 2019-12-31
-* Unterstützung von Android 10
+* Unterstützung von Android 10.
+* Download von Wechselkursen jetzt wieder verfügbar.
 
 $ 1.6.1
 % Version 1.6.1

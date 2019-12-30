@@ -30,7 +30,8 @@
 $ 1.6.2
 % Version 1.6.2
   _ 2019-12-31
-* Android 10 support added
+* Android 10 support added.
+* Exchange rate import fixed.
 
 $ 1.6.1
 % Version 1.6.1
