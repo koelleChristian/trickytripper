@@ -1,7 +1,5 @@
 package de.koelle.christian.trickytripper.dataaccess.manual.exchangerateimport;
 
-import android.support.test.filters.SmallTest;
-
 import junit.framework.Assert;
 
 import java.util.Currency;
@@ -11,7 +9,6 @@ import java.util.Set;
 
 import de.koelle.christian.common.utils.CurrencyUtil;
 
-@SmallTest
 public class FullCurrencyImportTest extends AbstractCurrencyImportTest {
     
     private static final int maxSleepIterations = 100;

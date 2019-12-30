@@ -1,8 +1,8 @@
 package de.koelle.christian.trickytripper.dataaccess.suite.exchange;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.filters.SmallTest;
+
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -31,7 +31,7 @@ import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.Exchan
 import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.ExchangeRateTestSupport.REC_EUR_USD_04;
 import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.ExchangeRateTestSupport.USD;
 
-@SmallTest
+
 public class ExchangeRatePrefsSaveLoadTest {
 
     private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<>();
@@ -43,7 +43,7 @@ public class ExchangeRatePrefsSaveLoadTest {
 
     @Before
     public void setUp() {
-        context = InstrumentationRegistry.getTargetContext();
+        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         context.deleteDatabase(DataConstants.DATABASE_NAME);
         dataManager = new DataManagerImpl(context);
         dataManager.removeAll();

@@ -2,7 +2,8 @@ package de.koelle.christian.trickytripper.dataaccess.suite.exchange;
 
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
+
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -44,7 +45,7 @@ public class ExchangeRateImportSaveAndLoadTest  {
 
     @Before
     public void setUp() {
-        context = InstrumentationRegistry.getTargetContext();
+        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         context.deleteDatabase(DataConstants.DATABASE_NAME);
         dataManager = new DataManagerImpl(context);
         dataManager.removeAll();

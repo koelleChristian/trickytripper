@@ -1,9 +1,8 @@
 package de.koelle.christian.trickytripper.dataaccess.manual.exchangerateimport;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.filters.SmallTest;
 
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +20,6 @@ import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporter
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateImporterResultContainer;
 import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultExtractorJsonGoogleImpl;
 
-@SmallTest
 public class ApiResponseTest {
 
     ExchangeRateImporterResultContainer resultContainerHere;
@@ -31,7 +29,7 @@ public class ApiResponseTest {
 
     @Before
     public void setUp() {
-        context = InstrumentationRegistry.getContext();
+        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         importer = new ExchangeRateImporterImpl();
         importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverFccaImpl(context));
         importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorJsonGoogleImpl());

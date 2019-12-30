@@ -1,7 +1,5 @@
 package de.koelle.christian.trickytripper.dataaccess.manual.exchangerateimport;
 
-import android.support.test.filters.SmallTest;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,18 +9,16 @@ import java.util.Set;
 
 import de.koelle.christian.common.utils.CurrencyUtil;
 
-@SmallTest
 public class SmallCurrencyImportTest extends AbstractCurrencyImportTest {
 
     private static final int maxSleepIterations = 25;
     private int counter;
 
 
-
-
     public void testExchangeRateAvailability10() {
         conductBiggerTest(0, 20);
     }
+
     @Test
     public void testExchangeRateAvailability20() {
         conductBiggerTest(10, 20);
@@ -72,7 +68,7 @@ public class SmallCurrencyImportTest extends AbstractCurrencyImportTest {
             waitForResult(maxSleepIterations, counter);
             counter++;
         }
-        if(counter >= maxSleepIterations){
+        if (counter >= maxSleepIterations) {
             Assert.fail("No response from exchange rate resolution service.");
         }
     }

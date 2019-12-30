@@ -1,7 +1,5 @@
 package de.koelle.christian.trickytripper.dataaccess.manual.exchangerateimport;
 
-import android.support.test.filters.SmallTest;
-
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -11,7 +9,6 @@ import java.util.List;
 import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateJsonResolverFccaImpl;
 import de.koelle.christian.trickytripper.exchangerates.impl.AsyncExchangeRateResolver;
 
-@SmallTest
 public class ImportResponseTimeTest extends AbstractCurrencyImportTest {
 
     public ImportResponseTimeTest() {
