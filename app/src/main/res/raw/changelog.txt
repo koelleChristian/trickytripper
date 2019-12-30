@@ -27,6 +27,11 @@
   </head>  
   <body>
 
+$ 1.6.2
+% Version 1.6.2
+  _ 2019-12-31
+* Android 10 support added
+
 $ 1.6.1
 % Version 1.6.1
   _ 2019-01-16
