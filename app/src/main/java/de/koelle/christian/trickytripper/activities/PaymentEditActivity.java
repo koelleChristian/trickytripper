@@ -552,7 +552,7 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
 
         final Context context;
         final TripController fktnController;
-        private ArrayAdapter<String> adapter;
+        private final ArrayAdapter<String> adapter;
 
         private DescriptionLookupTask(Context context,
                                       TripController tripController,

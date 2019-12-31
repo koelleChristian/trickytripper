@@ -19,7 +19,7 @@ public class AsyncExchangeRateJsonResolverExchangeratesapiIoImpl implements Asyn
     public static final String EXCHANGE_RATE_SERVICE_URL = "https://api.exchangeratesapi.io/latest?base="+SOURCE_CURRENCY_CODE_PLACEHOLDER+"&symbols="+TARGET_CURRENCY_CODE_PLACEHOLDER;
     private final Context context;
 
-    private AsyncJsonParser caller = new AsyncJsonParser();
+    private final AsyncJsonParser caller = new AsyncJsonParser();
 
     public AsyncExchangeRateJsonResolverExchangeratesapiIoImpl(Context context) {
         this.context = context;

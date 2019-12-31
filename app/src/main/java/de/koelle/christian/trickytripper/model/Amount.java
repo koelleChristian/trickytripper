@@ -76,12 +76,9 @@ public class Amount implements Serializable {
         else if (!unit.equals(other.unit))
             return false;
         if (value == null) {
-            if (other.value != null)
-                return false;
+            return other.value == null;
         }
-        else if (!value.equals(other.value))
-            return false;
-        return true;
+        else return value.equals(other.value);
     }
 
 }

@@ -22,14 +22,13 @@ import de.koelle.christian.trickytripper.exchangerates.impl.ExchangeRateResultEx
 
 public class ApiResponseTest {
 
-    ExchangeRateImporterResultContainer resultContainerHere;
+    private ExchangeRateImporterResultContainer resultContainerHere;
 
     private ExchangeRateImporterImpl importer;
-    private Context context;
 
     @Before
     public void setUp() {
-        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         importer = new ExchangeRateImporterImpl();
         importer.setAsyncExchangeRateResolver(new AsyncExchangeRateJsonResolverExchangeratesapiIoImpl(context));
         importer.setExchangeRateResultExtractor(new ExchangeRateResultExtractorJsonGoogleImpl());

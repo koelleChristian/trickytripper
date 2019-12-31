@@ -11,7 +11,7 @@ public class GenericTabListener implements ActionBar.TabListener {
     private final AppCompatActivity host;
     private final Class<? extends Fragment> type;
     private final int targetContainerViewId;
-    private String tag;
+    private final String tag;
 
     public GenericTabListener(AppCompatActivity parent, String tag, Class<? extends Fragment> type,
             int targetContainerViewId) {

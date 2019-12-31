@@ -33,9 +33,7 @@ public class TrickyTripperFileProvider extends ContentProvider {
             Log.d(Rc.LT_PROV, "Called with uri: '" + uri + "'." + uri.getLastPathSegment());
         }
 
-        switch (uriMatcher.match(uri)) {
-
-        case 1: /* match */
+        if (uriMatcher.match(uri) == 1) { /* match */
 
             /*
              * e.g.
@@ -50,11 +48,9 @@ public class TrickyTripperFileProvider extends ContentProvider {
             /* Note:they're only getting read only */
             return ParcelFileDescriptor.open(new File(
                     fileLocation.toString()), ParcelFileDescriptor.MODE_READ_ONLY);
-
-        default:
-            throw new FileNotFoundException("Unsupported uri: "
-                    + uri.toString());
         }
+        throw new FileNotFoundException("Unsupported uri: "
+                + uri.toString());
     }
 
     /*------------------------- not supported or not implemented---------------------------------*/

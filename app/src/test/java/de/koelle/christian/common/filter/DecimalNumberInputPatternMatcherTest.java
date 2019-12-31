@@ -11,7 +11,7 @@ import de.koelle.christian.common.ui.filter.DecimalNumberInputPatternMatcher;
  */
 public class DecimalNumberInputPatternMatcherTest {
 
-    DecimalNumberInputPatternMatcher matcher;
+    private DecimalNumberInputPatternMatcher matcher;
 
     @Before
     public void init() {

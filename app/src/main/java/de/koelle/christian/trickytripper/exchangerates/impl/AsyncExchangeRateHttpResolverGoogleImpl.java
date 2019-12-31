@@ -20,7 +20,7 @@ public class AsyncExchangeRateHttpResolverGoogleImpl implements AsyncExchangeRat
             + SOURCE_CURRENCY_CODE_PLACEHOLDER + "&to=" + TARGET_CURRENCY_CODE_PLACEHOLDER;
     private final Context context;
 
-    private AsyncHttpParser caller = new AsyncHttpParser();
+    private final AsyncHttpParser caller = new AsyncHttpParser();
 
 
     public AsyncExchangeRateHttpResolverGoogleImpl(Context context) {

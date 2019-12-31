@@ -13,11 +13,9 @@ import de.koelle.christian.trickytripper.model.PhoneContact;
 
 public class PhoneContactResolutionTest {
 
-    private Context context;
-
     @Test
     public void testQuery() {
-        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         PhoneContactResolver resolver = new PhoneContactResolver(context.getContentResolver());
 
         ArrayList<PhoneContact> result = resolver.findContactByNameString2("ch");

@@ -116,14 +116,11 @@ public class ParticipantEditActivity extends AppCompatActivity implements Permis
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
-                // If request is cancelled, the result arrays are empty.
-                // This will be called, even when 'don't ask again' has been choosen and no popup appears.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    autoSuggest();
-                }
+        if (requestCode == MY_PERMISSIONS_REQUEST_READ_CONTACTS) {// If request is cancelled, the result arrays are empty.
+            // This will be called, even when 'don't ask again' has been choosen and no popup appears.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                autoSuggest();
             }
         }
     }
@@ -215,7 +212,7 @@ public class ParticipantEditActivity extends AppCompatActivity implements Permis
     private static class NameLookupTask extends AsyncTask<String, Void, ArrayList<PhoneContact>> {
 
         final Context context;
-        private ArrayAdapter<String> adapter;
+        private final ArrayAdapter<String> adapter;
 
         private NameLookupTask(Context context, AutoCompleteTextView textView) {
             super();

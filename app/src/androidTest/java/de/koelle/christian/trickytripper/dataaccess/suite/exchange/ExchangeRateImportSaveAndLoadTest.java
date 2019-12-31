@@ -35,7 +35,7 @@ import static de.koelle.christian.trickytripper.dataaccess.suite.exchange.Exchan
 
 public class ExchangeRateImportSaveAndLoadTest  {
 
-    BitSet occuranceFlags = new BitSet(4);
+    private final BitSet occuranceFlags = new BitSet(4);
 
     private final Map<Long, ExchangeRate> initialRetrievalResults = new HashMap<>();
 

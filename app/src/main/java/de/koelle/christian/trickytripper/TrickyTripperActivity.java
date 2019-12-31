@@ -56,7 +56,7 @@ public class TrickyTripperActivity extends AppCompatActivity implements DeleteDi
     private CharSequence mDrawerTitle;
     private long previouslySelectedTripId;
 
-    private MyActionModeCallback mActionModeCallback = new MyActionModeCallback();
+    private final MyActionModeCallback mActionModeCallback = new MyActionModeCallback();
     /*This action mode might also be set by the nested fragments.*/
     private ActionMode mActionMode;
 

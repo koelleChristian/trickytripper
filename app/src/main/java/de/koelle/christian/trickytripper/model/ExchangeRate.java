@@ -155,12 +155,9 @@ public class ExchangeRate implements Serializable {
         else if (!currencyTo.equals(other.currencyTo))
             return false;
         if (exchangeRate == null) {
-            if (other.exchangeRate != null)
-                return false;
+            return other.exchangeRate == null;
         }
-        else if (!exchangeRate.equals(other.exchangeRate))
-            return false;
-        return true;
+        else return exchangeRate.equals(other.exchangeRate);
     }
 
     public boolean isSelected() {

@@ -16,11 +16,11 @@ import de.koelle.christian.trickytripper.model.Trip;
 
 public class TestDataFactory {
 
-    public Participant chris;
-    public Participant niko;
-    public Participant wolfram;
+    public final Participant chris;
+    public final Participant niko;
+    public final Participant wolfram;
 
-    public AmountFactory amountFactory;
+    public final AmountFactory amountFactory;
 
     public TestDataFactory() {
         chris = new Participant();

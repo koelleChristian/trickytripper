@@ -18,9 +18,9 @@ public class CurrencyUtil {
     private static String[] currencyCodes;
     private static String[] currencyFullName;
     private static final Map<Currency, String> currency2SymbolMap = new HashMap<>();
-    private static Map<Currency, String> currency2DisplayNameMap = new HashMap<>();
-    private static List<String> currenciesWithExpectedExchangeRate = new ArrayList<>();
-    private static List<Currency> supportedCurrencies = new ArrayList<>();
+    private static final Map<Currency, String> currency2DisplayNameMap = new HashMap<>();
+    private static final List<String> currenciesWithExpectedExchangeRate = new ArrayList<>();
+    private static final List<Currency> supportedCurrencies = new ArrayList<>();
 
     static {
         currenciesWithExpectedExchangeRate.add("AUD");

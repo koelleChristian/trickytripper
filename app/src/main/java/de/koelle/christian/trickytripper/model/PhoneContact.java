@@ -2,9 +2,9 @@ package de.koelle.christian.trickytripper.model;
 
 public class PhoneContact {
 
-    public String phone = "";
+    public final String phone = "";
     public String displayName = "";
-    public String email = "";
+    public final String email = "";
     public String id = "";
 
     @Override

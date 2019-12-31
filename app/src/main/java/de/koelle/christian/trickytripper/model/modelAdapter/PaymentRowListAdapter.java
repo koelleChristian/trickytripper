@@ -29,7 +29,7 @@ public class PaymentRowListAdapter extends ArrayAdapter<Payment> {
     private final AmountFactory amountFactory;
     private final Locale locale;
     private final Collator collator;
-    private DateUtils dateUtils;
+    private final DateUtils dateUtils;
 
 
     public PaymentRowListAdapter(Context context, int textViewResourceId, List<Payment> objects,

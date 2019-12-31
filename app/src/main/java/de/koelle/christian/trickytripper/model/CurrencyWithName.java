@@ -46,12 +46,9 @@ public class CurrencyWithName {
             return false;
         CurrencyWithName other = (CurrencyWithName) obj;
         if (currency == null) {
-            if (other.currency != null)
-                return false;
+            return other.currency == null;
         }
-        else if (!currency.equals(other.currency))
-            return false;
-        return true;
+        else return currency.equals(other.currency);
     }
 
     @Override

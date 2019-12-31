@@ -19,8 +19,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class AsyncJsonParser {
-    private OkHttpClient client = new OkHttpClient();
-    private List<Call> calls = Collections.synchronizedList(new ArrayList<Call>());
+    private final OkHttpClient client = new OkHttpClient();
+    private final List<Call> calls = Collections.synchronizedList(new ArrayList<Call>());
 
     public void getJSONFromUrl(Context context, String url, final AsyncJsonParserResultCallback callback) {
 

@@ -50,7 +50,7 @@ public class PaymentTabActivity extends ListFragment implements DeleteConfirmati
     private ListView listView;
     private final Comparator<Payment> comparator = new PaymentComparator();
 
-    private MyActionModeCallback mActionModeCallback = new MyActionModeCallback();
+    private final MyActionModeCallback mActionModeCallback = new MyActionModeCallback();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

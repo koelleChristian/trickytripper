@@ -41,7 +41,7 @@ public class ExchangeRateManageActivity extends AppCompatActivity implements Del
     private ImportOptionSupport importOptionSupport;
     private ListView listView;
 
-    private MyActionModeCallback mActionModeCallback = new MyActionModeCallback();
+    private final MyActionModeCallback mActionModeCallback = new MyActionModeCallback();
     private ActionMode mActionMode;
 
     @Override

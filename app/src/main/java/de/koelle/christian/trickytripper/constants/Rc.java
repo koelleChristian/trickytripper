@@ -93,7 +93,7 @@ public class Rc {
     public static final String PREFS_NAME_ID = "PREFS_NAME_ID";
     public static final int PREFS_MODE = Context.MODE_PRIVATE;
     public static final String PREFS_VALUE_ID_BASE_CURRENCY = "PREFS_VALUE_ID_BASE_CURRENCY";
-    public static boolean USE_CACHE_DIR_NOT_FILE_DIR_FOR_REPORTS = true;
+    public static final boolean USE_CACHE_DIR_NOT_FILE_DIR_FOR_REPORTS = true;
 
 
 }

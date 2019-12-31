@@ -245,7 +245,7 @@ public class DetachedCurrencyImportTest {
         private final boolean returnPrefixOnly;
         private boolean stopped;
 
-        public DetachedTestAsyncExchangeRateResolver(String resultPrefix, boolean returnPrefixOnly) {
+        DetachedTestAsyncExchangeRateResolver(String resultPrefix, boolean returnPrefixOnly) {
             this.resultPrefix = resultPrefix;
             this.returnPrefixOnly = returnPrefixOnly;
         }

@@ -42,7 +42,7 @@ public class ParticipantTabActivity extends ListFragment implements Updatable {
     private ParticipantRowListAdapter adapter;
     private ListView listView;
 
-    private MyActionModeCallback mActionModeCallback = new MyActionModeCallback();
+    private final MyActionModeCallback mActionModeCallback = new MyActionModeCallback();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

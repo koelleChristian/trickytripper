@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class DimensionSupport {
 
-    private static Map<Float, Float> pxCache = new HashMap<>();
+    private static final Map<Float, Float> pxCache = new HashMap<>();
     private final Context context;
 
     public DimensionSupport(Context context) {

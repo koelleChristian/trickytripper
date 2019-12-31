@@ -27,7 +27,7 @@ import de.koelle.christian.trickytripper.constants.Rc;
 
 public class SaveToSdCardActivity extends AppCompatActivity {
 
-    private static String[] SYSTEM_PERMISSION = {
+    private static final String[] SYSTEM_PERMISSION = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
@@ -197,19 +197,16 @@ public class SaveToSdCardActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
-                // If request is cancelled, the result arrays are empty.
-                // This will be called, even when 'don't ask again' has been choosen and no popup appears.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    onCreateActually();
-                } else if (!permPopShown) {
-                    Toast.makeText(this, R.string.permission_write_ext_storage_permanently_revoked, Toast.LENGTH_LONG).show();
-                    finish();
-                }
-                permPopShown = false;
+        if (requestCode == MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE) {// If request is cancelled, the result arrays are empty.
+            // This will be called, even when 'don't ask again' has been choosen and no popup appears.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                onCreateActually();
+            } else if (!permPopShown) {
+                Toast.makeText(this, R.string.permission_write_ext_storage_permanently_revoked, Toast.LENGTH_LONG).show();
+                finish();
             }
+            permPopShown = false;
         }
     }
 }

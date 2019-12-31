@@ -20,7 +20,7 @@ public abstract class AbstractCurrencyImportTest {
 
     private Set<ExchangeRateImporterResultContainer> resultCollector;
     private ExchangeRateImporterImpl importer;
-    protected Context context;
+    Context context;
 
     @Before
     public void setUp() {
@@ -53,7 +53,7 @@ public abstract class AbstractCurrencyImportTest {
     }
 
     @SuppressWarnings("static-access")
-    protected void waitForResult(int maxIterations, int runIterations) {
+    void waitForResult(int maxIterations, int runIterations) {
         if (runIterations < maxIterations) {
             try {
                 Thread.currentThread().sleep(1000);
@@ -63,7 +63,7 @@ public abstract class AbstractCurrencyImportTest {
         }
     }
 
-    protected void resetResultFields() {
+    void resetResultFields() {
         resultCollector = new LinkedHashSet<>();
     }
 
@@ -87,18 +87,18 @@ public abstract class AbstractCurrencyImportTest {
         public void deliverResult(ExchangeRateImporterResultContainer resultContainer) {
             resultCollector.add(resultContainer);
         }
-        public Set<ExchangeRateImporterResultContainer> getResultCollector(){
+        Set<ExchangeRateImporterResultContainer> getResultCollector(){
             return resultCollector;
         }
 
     }
 
 
-    protected Set<ExchangeRateImporterResultContainer> getResultCollector() {
+    Set<ExchangeRateImporterResultContainer> getResultCollector() {
         return resultCollector;
     }
 
-    protected ExchangeRateImporterImpl getImporter() {
+    ExchangeRateImporterImpl getImporter() {
         return importer;
     }
 

@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class ExchangeRateResultExtractorHttpGoogleImplTest {
 
-    Map<String, Double> sample2Expected;
+    private Map<String, Double> sample2Expected;
 
     @Before
     public void setup() {
