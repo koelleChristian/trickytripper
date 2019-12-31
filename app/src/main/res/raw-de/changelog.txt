@@ -27,6 +27,13 @@
   </head>  
   <body>
 
+$ 1.6.3
+% Version 1.6.3
+  _ 2020-01-31
+* Reaktivierung des Features zum Speichern von Berichten auf der 'SD-Karte'.
+* Ermöglichen des Speicherns von Berichten auf der 'SD-Karte' unter Android 10.
+* Diverse Code-Bereinigungen
+
 $ 1.6.2
 % Version 1.6.2
   _ 2019-12-31
