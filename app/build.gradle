@@ -8,8 +8,8 @@ android {
         applicationId 'de.koelle.christian.trickytripper'
         minSdkVersion 14
         targetSdkVersion 29
-        versionCode 25
-        versionName '1.6.2'
+        versionCode 26
+        versionName '1.6.3'
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
@@ -67,7 +67,7 @@ dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api 'androidx.appcompat:appcompat:1.1.0'
     api 'androidx.legacy:legacy-support-v4:1.0.0'
-    api 'com.squareup.okhttp3:okhttp:3.1.2'
+    api 'com.squareup.okhttp3:okhttp:3.10.0'
 
     testImplementation "junit:junit:4.12"
     testImplementation "org.mockito:mockito-core:1.9.5"
