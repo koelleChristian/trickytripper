@@ -46,7 +46,7 @@ public class DetachedCurrencyImportTest {
 
         Assert.assertEquals(1, resultCollector.size());
         ExchangeRateImporterResultContainer result = resultCollector.iterator().next();
-        Assert.assertEquals(true, result.requestFailed());
+        Assert.assertTrue(result.requestFailed());
         Assert.assertEquals(ExchangeRateImporterResultState.CURRENCY_NOT_ALIVE, result.getResultState());
     }
 
@@ -226,7 +226,7 @@ public class DetachedCurrencyImportTest {
 
         Assert.assertEquals(1, resultCollector.size());
         ExchangeRateImporterResultContainer result = resultCollector.iterator().next();
-        Assert.assertEquals(true, result.requestFailed());
+        Assert.assertTrue(result.requestFailed());
         Assert.assertEquals(ExchangeRateImporterResultState.NON_PARSABLE_JSON_RESULT, result.getResultState());
     }
 

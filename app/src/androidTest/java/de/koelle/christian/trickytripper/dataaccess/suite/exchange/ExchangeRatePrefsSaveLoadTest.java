@@ -82,26 +82,26 @@ public class ExchangeRatePrefsSaveLoadTest {
 
         /* ============ load ============ */
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         assertOrder(exchangeRateResult, new Long[] { ID_4, ID_3, ID_2, ID_1 });
 
         controller.persistExchangeRateUsedLast(initialRetrievalResults.get(ID_1));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         assertOrder(exchangeRateResult, new Long[] { ID_1, ID_4, ID_3, ID_2 });
 
         controller.persistExchangeRateUsedLast(initialRetrievalResults.get(ID_3));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         assertOrder(exchangeRateResult, new Long[] { ID_3, ID_1, ID_4, ID_2 });
 
         /* Update */
         controller.persistExchangeRateUsedLast(initialRetrievalResults.get(ID_1));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         assertOrder(exchangeRateResult, new Long[] { ID_1, ID_3, ID_4, ID_2 });
 
         /*
@@ -111,19 +111,19 @@ public class ExchangeRatePrefsSaveLoadTest {
         controller.persistExchangeRateUsedLast(initialRetrievalResults.get(ID_4).cloneToInversion());
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         assertOrder(exchangeRateResult, new Long[] { ID_4, ID_1, ID_3, ID_2 });
 
         controller.persistExchangeRateUsedLast(initialRetrievalResults.get(ID_2));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         assertOrder(exchangeRateResult, new Long[] { ID_2, ID_4, ID_1, ID_3 });
 
         controller.persistExchangeRateUsedLast(initialRetrievalResults.get(ID_2));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         assertOrder(exchangeRateResult, new Long[] { ID_2, ID_4, ID_1, ID_3 });
 
         /* ============== Delete ================= */
@@ -131,28 +131,28 @@ public class ExchangeRatePrefsSaveLoadTest {
         controller.deleteExchangeRates(Arrays.asList(initialRetrievalResults.get(ID_2) ));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         Assert.assertEquals(3, exchangeRateResult.size());
         assertOrder(exchangeRateResult, new Long[] { ID_4, ID_1, ID_3 });
 
         controller.deleteExchangeRates(Arrays.asList(initialRetrievalResults.get(ID_1) ));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         Assert.assertEquals(2, exchangeRateResult.size());
         assertOrder(exchangeRateResult, new Long[] { ID_4, ID_3 });
 
         controller.deleteExchangeRates(Arrays.asList( initialRetrievalResults.get(ID_4) ));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         Assert.assertEquals(1, exchangeRateResult.size());
         assertOrder(exchangeRateResult, new Long[] { ID_3 });
 
         controller.deleteExchangeRates(Arrays.asList(initialRetrievalResults.get(ID_3)));
 
         exchangeRateResult = controller.findSuitableRates(EUR, USD);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         Assert.assertEquals(0, exchangeRateResult.size());
     }
 

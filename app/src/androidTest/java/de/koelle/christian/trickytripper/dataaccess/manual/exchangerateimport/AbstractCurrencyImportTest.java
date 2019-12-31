@@ -71,11 +71,10 @@ public abstract class AbstractCurrencyImportTest {
             ExchangeRateImporterResultCallback {
 
         public void deliverResult(ExchangeRateImporterResultContainer resultContainer) {
-            Assert.assertTrue("An exchange rate result returned from the importer was null result="
-                            + resultContainer,
-                    resultContainer.exchangeRateResult != null);
+            Assert.assertNotNull("An exchange rate result returned from the importer was null result="
+                    + resultContainer, resultContainer.exchangeRateResult);
             boolean requestWasSuccess = resultContainer.requestWasSuccess();
-            Assert.assertEquals(true, requestWasSuccess);
+            Assert.assertTrue(requestWasSuccess);
             System.out.println("success=" + requestWasSuccess);
 
             resultCollector.add(resultContainer);

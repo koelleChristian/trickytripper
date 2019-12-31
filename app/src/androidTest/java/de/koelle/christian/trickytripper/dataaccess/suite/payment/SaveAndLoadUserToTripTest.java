@@ -53,14 +53,13 @@ public class SaveAndLoadUserToTripTest {
         AssertionUtil.assertParticipantEquality(participant2Out, id2Exp, participant02In);
 
         /* Existence Check */
-        Assert.assertEquals(true, dataManager.doesParticipantAlreadyExist(PARTICIPANT_1_NAME_TONY, tripId, 0L));
-        Assert.assertEquals(true, dataManager.doesParticipantAlreadyExist(PARTICIPANT_2_NAME_CHRISTIAN, tripId, 0L));
-        Assert.assertEquals(false, dataManager.doesParticipantAlreadyExist(PARTICIPANT_1_NAME_TONY, tripId, id1Exp));
-        Assert.assertEquals(false,
-                dataManager.doesParticipantAlreadyExist(PARTICIPANT_2_NAME_CHRISTIAN, tripId, id2Exp));
-        Assert.assertEquals(false, dataManager.doesParticipantAlreadyExist(PARTICIPANT_1_NAME_TONY, 42L, 0L));
-        Assert.assertEquals(false, dataManager.doesParticipantAlreadyExist("Something not yet persisted", tripId, 0L));
-        Assert.assertEquals(false, dataManager.doesParticipantAlreadyExist(null, tripId, 0L));
+        Assert.assertTrue(dataManager.doesParticipantAlreadyExist(PARTICIPANT_1_NAME_TONY, tripId, 0L));
+        Assert.assertTrue(dataManager.doesParticipantAlreadyExist(PARTICIPANT_2_NAME_CHRISTIAN, tripId, 0L));
+        Assert.assertFalse(dataManager.doesParticipantAlreadyExist(PARTICIPANT_1_NAME_TONY, tripId, id1Exp));
+        Assert.assertFalse(dataManager.doesParticipantAlreadyExist(PARTICIPANT_2_NAME_CHRISTIAN, tripId, id2Exp));
+        Assert.assertFalse(dataManager.doesParticipantAlreadyExist(PARTICIPANT_1_NAME_TONY, 42L, 0L));
+        Assert.assertFalse(dataManager.doesParticipantAlreadyExist("Something not yet persisted", tripId, 0L));
+        Assert.assertFalse(dataManager.doesParticipantAlreadyExist(null, tripId, 0L));
 
         /* Update Participant 2 */
         participant02In.setActive(true);

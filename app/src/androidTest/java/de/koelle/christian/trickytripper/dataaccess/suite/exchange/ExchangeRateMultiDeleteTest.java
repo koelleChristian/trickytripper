@@ -136,15 +136,12 @@ public class ExchangeRateMultiDeleteTest {
         for (int i = 0; i < resultList.size(); i++) {
             occuranceFlags.set((int) resultList.get(i).getId());
         }
-        Assert.assertTrue("Record 1 should not be part of the resultset as it has been deleted.",
-                !occuranceFlags.get((int) ID_1));
+        Assert.assertFalse(occuranceFlags.get((int) ID_1));
 
         Assert.assertTrue("Record 2 was not part of the resultset as it has not yet been deleted.",
                 occuranceFlags.get((int) ID_2));
-        Assert.assertTrue("Record 3 should not be part of the resultset as it has been deleted.",
-                !occuranceFlags.get((int) ID_3));
-        Assert.assertTrue("Record 4 should not be part of the resultset as it has been deleted.",
-                !occuranceFlags.get((int) ID_4));
+        Assert.assertFalse(occuranceFlags.get((int) ID_3));
+        Assert.assertFalse(occuranceFlags.get((int) ID_4));
 
         dataManager.removeAll();
     }

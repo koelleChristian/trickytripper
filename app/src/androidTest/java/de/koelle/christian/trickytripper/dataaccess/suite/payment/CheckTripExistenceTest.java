@@ -34,21 +34,21 @@ public class CheckTripExistenceTest {
         String TRIP_1_NAME_ZZZ = "ZZZ";
         String TRIP_2_NAME_CHRISTIAN = "Christian";
 
-        Assert.assertEquals(true, dataManager.oneOrLessTripsLeft());
+        Assert.assertTrue(dataManager.oneOrLessTripsLeft());
 
         /* Save and load trip 1 */
 
         Trip trip1In = ModelFactory.createNewTrip(TRIP_1_NAME_ZZZ, Currency.getInstance("EUR"));
         dataManager.persistTrip(trip1In);
 
-        Assert.assertEquals(true, dataManager.oneOrLessTripsLeft());
+        Assert.assertTrue(dataManager.oneOrLessTripsLeft());
 
         /* Save and load trip 2 */
 
         Trip trip2In = ModelFactory.createNewTrip(TRIP_2_NAME_CHRISTIAN, Currency.getInstance("USD"));
         dataManager.persistTrip(trip2In);
 
-        Assert.assertEquals(false, dataManager.oneOrLessTripsLeft());
+        Assert.assertFalse(dataManager.oneOrLessTripsLeft());
 
         dataManager.removeAll();
     }

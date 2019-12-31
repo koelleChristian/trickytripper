@@ -27,8 +27,7 @@ public class AssertionUtil {
         Assert.assertEquals(expectedId, delivery.getId());
         Assert.assertEquals(expectedResult.getDescription(), delivery.getDescription());
         Assert.assertEquals(expectedResult.getCategory(), delivery.getCategory());
-        Assert.assertTrue("The persisted Payment does not come along with a payment date, i.e. date of creation.",
-                expectedResult.getPaymentDateTime() != null);
+        Assert.assertNotNull("The persisted Payment does not come along with a payment date, i.e. date of creation.", expectedResult.getPaymentDateTime());
     }
 
     public static void assertTripEquality(Trip delivery, Trip expectedResult) {

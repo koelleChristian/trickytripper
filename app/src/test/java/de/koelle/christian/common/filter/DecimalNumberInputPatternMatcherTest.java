@@ -21,39 +21,39 @@ public class DecimalNumberInputPatternMatcherTest {
     @Test
     public void testAmountStringMatching() {
 
-        Assert.assertEquals(true, matcher.matches(""));
-        Assert.assertEquals(true, matcher.matches("1"));
-        Assert.assertEquals(true, matcher.matches("12345"));
+        Assert.assertTrue(matcher.matches(""));
+        Assert.assertTrue(matcher.matches("1"));
+        Assert.assertTrue(matcher.matches("12345"));
 
-        Assert.assertEquals(true, matcher.matches("1."));
-        Assert.assertEquals(true, matcher.matches("."));
-        Assert.assertEquals(true, matcher.matches(".1"));
-        Assert.assertEquals(true, matcher.matches(".12"));
-        Assert.assertEquals(true, matcher.matches("123."));
+        Assert.assertTrue(matcher.matches("1."));
+        Assert.assertTrue(matcher.matches("."));
+        Assert.assertTrue(matcher.matches(".1"));
+        Assert.assertTrue(matcher.matches(".12"));
+        Assert.assertTrue(matcher.matches("123."));
 
-        Assert.assertEquals(false, matcher.matches(".123"));
+        Assert.assertFalse(matcher.matches(".123"));
 
-        Assert.assertEquals(true, matcher.matches("1,"));
-        Assert.assertEquals(true, matcher.matches(","));
-        Assert.assertEquals(true, matcher.matches(",1"));
-        Assert.assertEquals(true, matcher.matches(",12"));
-        Assert.assertEquals(true, matcher.matches("123,"));
-        Assert.assertEquals(false, matcher.matches(",123"));
+        Assert.assertTrue(matcher.matches("1,"));
+        Assert.assertTrue(matcher.matches(","));
+        Assert.assertTrue(matcher.matches(",1"));
+        Assert.assertTrue(matcher.matches(",12"));
+        Assert.assertTrue(matcher.matches("123,"));
+        Assert.assertFalse(matcher.matches(",123"));
 
-        Assert.assertEquals(false, matcher.matches(",."));
-        Assert.assertEquals(false, matcher.matches(",1."));
-        Assert.assertEquals(false, matcher.matches("1,1.2"));
+        Assert.assertFalse(matcher.matches(",."));
+        Assert.assertFalse(matcher.matches(",1."));
+        Assert.assertFalse(matcher.matches("1,1.2"));
 
-        Assert.assertEquals(true, matcher.matches("123456789"));
-        Assert.assertEquals(true, matcher.matches("123456789."));
-        Assert.assertEquals(true, matcher.matches("123456789.1"));
-        Assert.assertEquals(true, matcher.matches("123456789.12"));
-        Assert.assertEquals(false, matcher.matches("123456789.123"));
-        Assert.assertEquals(true, matcher.matches("123456789,1"));
-        Assert.assertEquals(true, matcher.matches("123456789,1"));
-        Assert.assertEquals(true, matcher.matches("123456789,12"));
-        Assert.assertEquals(false, matcher.matches("123456789,123"));
-        Assert.assertEquals(false, matcher.matches("1234567891"));
+        Assert.assertTrue(matcher.matches("123456789"));
+        Assert.assertTrue(matcher.matches("123456789."));
+        Assert.assertTrue(matcher.matches("123456789.1"));
+        Assert.assertTrue(matcher.matches("123456789.12"));
+        Assert.assertFalse(matcher.matches("123456789.123"));
+        Assert.assertTrue(matcher.matches("123456789,1"));
+        Assert.assertTrue(matcher.matches("123456789,1"));
+        Assert.assertTrue(matcher.matches("123456789,12"));
+        Assert.assertFalse(matcher.matches("123456789,123"));
+        Assert.assertFalse(matcher.matches("1234567891"));
 
     }
 

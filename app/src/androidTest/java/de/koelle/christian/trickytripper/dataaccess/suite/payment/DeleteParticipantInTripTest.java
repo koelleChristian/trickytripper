@@ -57,8 +57,8 @@ public class DeleteParticipantInTripTest {
         dataManager.persistPaymentInTrip(tripId, payment01In);
 
         Assert.assertEquals(4, dataManager.loadTripById(tripId).getParticipant().size());
-        Assert.assertEquals(true, dataManager.deleteParticipant(p4.getId()));
-        Assert.assertEquals(false, dataManager.deleteParticipant(p3.getId()));
+        Assert.assertTrue(dataManager.deleteParticipant(p4.getId()));
+        Assert.assertFalse(dataManager.deleteParticipant(p3.getId()));
         Assert.assertEquals(3, dataManager.loadTripById(tripId).getParticipant().size());
 
         dataManager.removeAll();

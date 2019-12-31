@@ -59,7 +59,7 @@ public class DeleteTripTest {
         tripSummary.setId(tripId);
         dataManager.deleteTrip(tripSummary);
 
-        Assert.assertEquals(null, dataManager.loadTripById(tripId));
+        Assert.assertNull(dataManager.loadTripById(tripId));
 
     }
 

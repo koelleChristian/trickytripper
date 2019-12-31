@@ -63,12 +63,12 @@ public class SaveAndLoadTripTest {
         AssertionUtil.assertTripEquality(tripSummaryResult, tripsExpectedInOrder);
 
         // /* Existence Check */
-        Assert.assertEquals(true, dataManager.doesTripAlreadyExist(TRIP_1_NAME_ZZZ, 0L));
-        Assert.assertEquals(true, dataManager.doesTripAlreadyExist(TRIP_2_NAME_CHRISTIAN, 0L));
-        Assert.assertEquals(false, dataManager.doesTripAlreadyExist(TRIP_1_NAME_ZZZ, id1Exp));
-        Assert.assertEquals(false, dataManager.doesTripAlreadyExist(TRIP_2_NAME_CHRISTIAN, id2Exp));
-        Assert.assertEquals(false, dataManager.doesTripAlreadyExist("Something not yet persisted", 0L));
-        Assert.assertEquals(false, dataManager.doesTripAlreadyExist(null, 0L));
+        Assert.assertTrue(dataManager.doesTripAlreadyExist(TRIP_1_NAME_ZZZ, 0L));
+        Assert.assertTrue(dataManager.doesTripAlreadyExist(TRIP_2_NAME_CHRISTIAN, 0L));
+        Assert.assertFalse(dataManager.doesTripAlreadyExist(TRIP_1_NAME_ZZZ, id1Exp));
+        Assert.assertFalse(dataManager.doesTripAlreadyExist(TRIP_2_NAME_CHRISTIAN, id2Exp));
+        Assert.assertFalse(dataManager.doesTripAlreadyExist("Something not yet persisted", 0L));
+        Assert.assertFalse(dataManager.doesTripAlreadyExist(null, 0L));
 
         /* Update trip 2 */
 

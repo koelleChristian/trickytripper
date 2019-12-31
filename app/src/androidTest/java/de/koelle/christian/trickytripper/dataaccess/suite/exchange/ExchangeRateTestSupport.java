@@ -127,10 +127,8 @@ public class ExchangeRateTestSupport {
             Assert.assertEquals(input.getUpdateDate(), output.getUpdateDate());
         }
         else {
-            Assert.assertTrue("A persisted exchange rate should come alone with a creation date.",
-                    output.getCreationDate() != null);
-            Assert.assertTrue("A persisted exchange rate should come alone with an update date.",
-                    output.getUpdateDate() != null);
+            Assert.assertNotNull("A persisted exchange rate should come alone with a creation date.", output.getCreationDate());
+            Assert.assertNotNull("A persisted exchange rate should come alone with an update date.", output.getUpdateDate());
         }
     }
 }

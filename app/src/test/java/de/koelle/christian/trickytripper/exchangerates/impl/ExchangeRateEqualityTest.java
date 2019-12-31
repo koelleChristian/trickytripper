@@ -19,19 +19,19 @@ public class ExchangeRateEqualityTest {
         ExchangeRate rate2;
 
         rate2 = createExchangeRateForThisTest(EUR, USD, 1.23456);
-        Assert.assertEquals(true, rate1.equalsFromImportPointOfView(rate2));
+        Assert.assertTrue(rate1.equalsFromImportPointOfView(rate2));
 
         rate2 = createExchangeRateForThisTest(TRY, USD, 1.23456);
-        Assert.assertEquals(false, rate1.equalsFromImportPointOfView(rate2));
+        Assert.assertFalse(rate1.equalsFromImportPointOfView(rate2));
 
         rate2 = createExchangeRateForThisTest(EUR, TRY, 1.23456);
-        Assert.assertEquals(false, rate1.equalsFromImportPointOfView(rate2));
+        Assert.assertFalse(rate1.equalsFromImportPointOfView(rate2));
 
         rate2 = createExchangeRateForThisTest(EUR, USD, 1.2222);
-        Assert.assertEquals(false, rate1.equalsFromImportPointOfView(rate2));
+        Assert.assertFalse(rate1.equalsFromImportPointOfView(rate2));
 
         rate2 = createExchangeRateForThisTest(USD, EUR, 1.23456);
-        Assert.assertEquals(false, rate1.equalsFromImportPointOfView(rate2));
+        Assert.assertFalse(rate1.equalsFromImportPointOfView(rate2));
 
     }
 

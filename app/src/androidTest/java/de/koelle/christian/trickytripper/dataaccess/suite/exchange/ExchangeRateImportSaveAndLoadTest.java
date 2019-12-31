@@ -104,7 +104,7 @@ public class ExchangeRateImportSaveAndLoadTest  {
         long idReturned;
 
         resultList = dataManager.getAllExchangeRatesWithoutInversion();
-        Assert.assertTrue("The exchangeRateRetrieval should not result in null.", resultList != null);
+        Assert.assertNotNull("The exchangeRateRetrieval should not result in null.", resultList);
         Assert.assertEquals(4, resultList.size());
 
         occuranceFlags.clear();
@@ -124,7 +124,7 @@ public class ExchangeRateImportSaveAndLoadTest  {
 
         /* Record 1 */
         exchangeRateResult = dataManager.findSuitableRates(EUR, USD);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
@@ -132,7 +132,7 @@ public class ExchangeRateImportSaveAndLoadTest  {
         assertEquality(initialRetrievalResults.get(expectedId), record, expectedId, false);
 
         exchangeRateResult = dataManager.findSuitableRates(USD, EUR);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
@@ -141,7 +141,7 @@ public class ExchangeRateImportSaveAndLoadTest  {
 
         /* Record 2 */
         exchangeRateResult = dataManager.findSuitableRates(EUR, TRY);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
@@ -149,7 +149,7 @@ public class ExchangeRateImportSaveAndLoadTest  {
         assertEquality(initialRetrievalResults.get(expectedId), record, expectedId, false);
 
         exchangeRateResult = dataManager.findSuitableRates(TRY, EUR);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
@@ -158,7 +158,7 @@ public class ExchangeRateImportSaveAndLoadTest  {
 
         /* Record 3 & 4 */
         exchangeRateResult = dataManager.findSuitableRates(TRY, GBP);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         occuranceFlags.clear();
         Assert.assertEquals(2, resultList.size());
@@ -169,13 +169,13 @@ public class ExchangeRateImportSaveAndLoadTest  {
             assertEquality(initialRetrievalResults.get(idReturned), record, idReturned, false);
 
         }
-        Assert.assertTrue("Record 1 should not be part of the resultset.", !occuranceFlags.get((int) ID_1));
-        Assert.assertTrue("Record 2 should not be part of the resultset.", !occuranceFlags.get((int) ID_2));
+        Assert.assertFalse(occuranceFlags.get((int) ID_1));
+        Assert.assertFalse(occuranceFlags.get((int) ID_2));
         Assert.assertTrue("Record 3 was not part of the resultset.", occuranceFlags.get((int) ID_3));
         Assert.assertTrue("Record 4 was not part of the resultset.", occuranceFlags.get((int) ID_4));
 
         exchangeRateResult = dataManager.findSuitableRates(GBP, TRY);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         occuranceFlags.clear();
         Assert.assertEquals(2, resultList.size());
@@ -185,18 +185,18 @@ public class ExchangeRateImportSaveAndLoadTest  {
             occuranceFlags.set((int) idReturned);
             assertEquality(initialRetrievalResults.get(idReturned), record, idReturned, false);
         }
-        Assert.assertTrue("Record 1 should not be part of the resultset.", !occuranceFlags.get((int) ID_1));
-        Assert.assertTrue("Record 2 should not be part of the resultset.", !occuranceFlags.get((int) ID_2));
+        Assert.assertFalse(occuranceFlags.get((int) ID_1));
+        Assert.assertFalse(occuranceFlags.get((int) ID_2));
         Assert.assertTrue("Record 3 was not part of the resultset.", occuranceFlags.get((int) ID_3));
         Assert.assertTrue("Record 4 was not part of the resultset.", occuranceFlags.get((int) ID_4));
 
         /* None */
         exchangeRateResult = dataManager.findSuitableRates(EUR, GBP);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
         exchangeRateResult = dataManager.findSuitableRates(GBP, EUR);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
 
@@ -221,9 +221,8 @@ public class ExchangeRateImportSaveAndLoadTest  {
                         "A equal record was found and was expected to be updated. Failure as updateTime was not bigger than before.",
                         record.getUpdateDate().getTime() > initialRetrievalResult.getUpdateDate().getTime());
 
-                Assert.assertTrue("A equals record was found. The creation date was expected to remain the same.",
-                        record
-                                .getCreationDate().getTime() == initialRetrievalResult.getCreationDate().getTime());
+                Assert.assertEquals("A equals record was found. The creation date was expected to remain the same.", record
+                        .getCreationDate().getTime(), initialRetrievalResult.getCreationDate().getTime());
                 recordThere = true;
                 break;
             }
@@ -305,7 +304,7 @@ public class ExchangeRateImportSaveAndLoadTest  {
         long idReturned;
 
         resultList = dataManager.getAllExchangeRatesWithoutInversion();
-        Assert.assertTrue("The exchangeRateRetrieval should not result in null.", resultList != null);
+        Assert.assertNotNull("The exchangeRateRetrieval should not result in null.", resultList);
         Assert.assertEquals(4, resultList.size());
 
         occuranceFlags.clear();
@@ -325,7 +324,7 @@ public class ExchangeRateImportSaveAndLoadTest  {
 
         /* Record 1 */
         exchangeRateResult = dataManager.findSuitableRates(EUR, USD);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
@@ -333,7 +332,7 @@ public class ExchangeRateImportSaveAndLoadTest  {
         assertEquality(initialRetrievalResults.get(expectedId), record, expectedId, false);
 
         exchangeRateResult = dataManager.findSuitableRates(USD, EUR);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
@@ -342,7 +341,7 @@ public class ExchangeRateImportSaveAndLoadTest  {
 
         /* Record 2 */
         exchangeRateResult = dataManager.findSuitableRates(EUR, TRY);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
@@ -350,7 +349,7 @@ public class ExchangeRateImportSaveAndLoadTest  {
         assertEquality(initialRetrievalResults.get(expectedId), record, expectedId, false);
 
         exchangeRateResult = dataManager.findSuitableRates(TRY, EUR);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
@@ -359,7 +358,7 @@ public class ExchangeRateImportSaveAndLoadTest  {
 
         /* Record 3 & 4 */
         exchangeRateResult = dataManager.findSuitableRates(TRY, GBP);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         occuranceFlags.clear();
         Assert.assertEquals(2, resultList.size());
@@ -370,13 +369,13 @@ public class ExchangeRateImportSaveAndLoadTest  {
             assertEquality(initialRetrievalResults.get(idReturned), record, idReturned, false);
 
         }
-        Assert.assertTrue("Record 1 should not be part of the resultset.", !occuranceFlags.get((int) ID_1));
-        Assert.assertTrue("Record 2 should not be part of the resultset.", !occuranceFlags.get((int) ID_2));
+        Assert.assertFalse(occuranceFlags.get((int) ID_1));
+        Assert.assertFalse(occuranceFlags.get((int) ID_2));
         Assert.assertTrue("Record 3 was not part of the resultset.", occuranceFlags.get((int) ID_3));
         Assert.assertTrue("Record 4 was not part of the resultset.", occuranceFlags.get((int) ID_4));
 
         exchangeRateResult = dataManager.findSuitableRates(GBP, TRY);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         occuranceFlags.clear();
         Assert.assertEquals(2, resultList.size());
@@ -386,18 +385,18 @@ public class ExchangeRateImportSaveAndLoadTest  {
             occuranceFlags.set((int) idReturned);
             assertEquality(initialRetrievalResults.get(idReturned), record, idReturned, false);
         }
-        Assert.assertTrue("Record 1 should not be part of the resultset.", !occuranceFlags.get((int) ID_1));
-        Assert.assertTrue("Record 2 should not be part of the resultset.", !occuranceFlags.get((int) ID_2));
+        Assert.assertFalse(occuranceFlags.get((int) ID_1));
+        Assert.assertFalse(occuranceFlags.get((int) ID_2));
         Assert.assertTrue("Record 3 was not part of the resultset.", occuranceFlags.get((int) ID_3));
         Assert.assertTrue("Record 4 was not part of the resultset.", occuranceFlags.get((int) ID_4));
 
         /* None */
         exchangeRateResult = dataManager.findSuitableRates(EUR, GBP);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
         exchangeRateResult = dataManager.findSuitableRates(GBP, EUR);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
 
@@ -427,9 +426,8 @@ public class ExchangeRateImportSaveAndLoadTest  {
                         "A equal record was found and was expected to be updated. Failure as updateTime was not bigger than before.",
                         record.getUpdateDate().getTime() > initialRetrievalResult.getUpdateDate().getTime());
 
-                Assert.assertTrue("A equals record was found. The creation date was expected to remain the same.",
-                        record
-                                .getCreationDate().getTime() == initialRetrievalResult.getCreationDate().getTime());
+                Assert.assertEquals("A equals record was found. The creation date was expected to remain the same.", record
+                        .getCreationDate().getTime(), initialRetrievalResult.getCreationDate().getTime());
                 recordThere = true;
                 break;
             }
@@ -467,9 +465,8 @@ public class ExchangeRateImportSaveAndLoadTest  {
                         "A equal record was found and was expected to be updated. Failure as updateTime was not bigger than before.",
                         record.getUpdateDate().getTime() > updatedRecord03.getUpdateDate().getTime());
 
-                Assert.assertTrue("A equals record was found. The creation date was expected to remain the same.",
-                        record
-                                .getCreationDate().getTime() == updatedRecord03.getCreationDate().getTime());
+                Assert.assertEquals("A equals record was found. The creation date was expected to remain the same.", record
+                        .getCreationDate().getTime(), updatedRecord03.getCreationDate().getTime());
                 recordThere = true;
                 break;
             }

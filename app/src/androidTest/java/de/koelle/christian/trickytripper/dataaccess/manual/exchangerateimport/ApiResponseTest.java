@@ -69,7 +69,7 @@ public class ApiResponseTest {
         System.out.println("Sleeping done.");
 
         Assert.assertNotNull(resultContainerHere);
-        Assert.assertTrue(ExchangeRateImporterResultCallback.ExchangeRateImporterResultState.SUCCESS == resultContainerHere.getResultState());
+        Assert.assertSame(ExchangeRateImporterResultCallback.ExchangeRateImporterResultState.SUCCESS, resultContainerHere.getResultState());
         Assert.assertNotNull(resultContainerHere.getExchangeRateResult().getExchangeRate());
         Assert.assertTrue(0.0001 < resultContainerHere.getExchangeRateResult().getExchangeRate());
     }

@@ -106,7 +106,7 @@ public class ExchangeRateSaveAndLoadTest  {
         long idReturned;
 
         resultList = dataManager.getAllExchangeRatesWithoutInversion();
-        Assert.assertTrue("The exchangeRateRetrieval should not result in null.", resultList != null);
+        Assert.assertNotNull("The exchangeRateRetrieval should not result in null.", resultList);
         Assert.assertEquals(4, resultList.size());
 
         occuranceFlags.clear();
@@ -126,7 +126,7 @@ public class ExchangeRateSaveAndLoadTest  {
 
         /* Record 1 */
         exchangeRateResult = dataManager.findSuitableRates(EUR, USD);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
@@ -134,7 +134,7 @@ public class ExchangeRateSaveAndLoadTest  {
         assertEquality(initalRetrievalResults.get(expectedId), record, expectedId, true);
 
         exchangeRateResult = dataManager.findSuitableRates(USD, EUR);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
@@ -143,7 +143,7 @@ public class ExchangeRateSaveAndLoadTest  {
 
         /* Record 2 */
         exchangeRateResult = dataManager.findSuitableRates(EUR, TRY);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
@@ -151,7 +151,7 @@ public class ExchangeRateSaveAndLoadTest  {
         assertEquality(initalRetrievalResults.get(expectedId), record, expectedId, true);
 
         exchangeRateResult = dataManager.findSuitableRates(TRY, EUR);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         record = resultList.get(0);
@@ -160,7 +160,7 @@ public class ExchangeRateSaveAndLoadTest  {
 
         /* Record 3 & 4 */
         exchangeRateResult = dataManager.findSuitableRates(TRY, GBP);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         occuranceFlags.clear();
         Assert.assertEquals(2, resultList.size());
@@ -171,13 +171,13 @@ public class ExchangeRateSaveAndLoadTest  {
             assertEquality(initalRetrievalResults.get(idReturned), record, idReturned, true);
 
         }
-        Assert.assertTrue("Record 1 should not be part of the resultset.", !occuranceFlags.get((int) ID_1));
-        Assert.assertTrue("Record 2 should not be part of the resultset.", !occuranceFlags.get((int) ID_2));
+        Assert.assertFalse(occuranceFlags.get((int) ID_1));
+        Assert.assertFalse(occuranceFlags.get((int) ID_2));
         Assert.assertTrue("Record 3 was not part of the resultset.", occuranceFlags.get((int) ID_3));
         Assert.assertTrue("Record 4 was not part of the resultset.", occuranceFlags.get((int) ID_4));
 
         exchangeRateResult = dataManager.findSuitableRates(GBP, TRY);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         occuranceFlags.clear();
         Assert.assertEquals(2, resultList.size());
@@ -187,18 +187,18 @@ public class ExchangeRateSaveAndLoadTest  {
             occuranceFlags.set((int) idReturned);
             assertEquality(initalRetrievalResults.get(idReturned), record, idReturned, true);
         }
-        Assert.assertTrue("Record 1 should not be part of the resultset.", !occuranceFlags.get((int) ID_1));
-        Assert.assertTrue("Record 2 should not be part of the resultset.", !occuranceFlags.get((int) ID_2));
+        Assert.assertFalse(occuranceFlags.get((int) ID_1));
+        Assert.assertFalse(occuranceFlags.get((int) ID_2));
         Assert.assertTrue("Record 3 was not part of the resultset.", occuranceFlags.get((int) ID_3));
         Assert.assertTrue("Record 4 was not part of the resultset.", occuranceFlags.get((int) ID_4));
 
         /* None */
         exchangeRateResult = dataManager.findSuitableRates(EUR, GBP);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
         exchangeRateResult = dataManager.findSuitableRates(GBP, EUR);
-        Assert.assertTrue("findSuitableRates should not result in null.", exchangeRateResult != null);
+        Assert.assertNotNull("findSuitableRates should not result in null.", exchangeRateResult);
         resultList = exchangeRateResult;
         Assert.assertEquals(0, resultList.size());
 
@@ -236,8 +236,7 @@ public class ExchangeRateSaveAndLoadTest  {
         for (int i = 0; i < resultList.size(); i++) {
             occuranceFlags.set((int) resultList.get(i).getId());
         }
-        Assert.assertTrue("Record 1 should not be part of the resultset as it has been deleted.",
-                !occuranceFlags.get((int) ID_1));
+        Assert.assertFalse(occuranceFlags.get((int) ID_1));
 
         Assert.assertTrue("Record 2 was not part of the resultset as it has not yet been deleted.",
                 occuranceFlags.get((int) ID_2));
@@ -270,10 +269,8 @@ public class ExchangeRateSaveAndLoadTest  {
         for (int i = 0; i < resultList.size(); i++) {
             occuranceFlags.set((int) resultList.get(i).getId());
         }
-        Assert.assertTrue("Record 1 should not be part of the resultset as it has been deleted.",
-                !occuranceFlags.get((int) ID_1));
-        Assert.assertTrue("Record 1 should not be part of the resultset as it has been deleted.",
-                !occuranceFlags.get((int) ID_2));
+        Assert.assertFalse(occuranceFlags.get((int) ID_1));
+        Assert.assertFalse(occuranceFlags.get((int) ID_2));
 
         Assert.assertTrue("Record 3 was not part of the resultset as it has not yet been deleted.",
                 occuranceFlags.get((int) ID_3));
@@ -293,21 +290,18 @@ public class ExchangeRateSaveAndLoadTest  {
         resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         idReturned = resultList.get(0).getId();
-        Assert.assertTrue("findSuitableRates should  deliver record 4 as record three has been it has been deleted.",
-                idReturned == ID_4);
+        Assert.assertEquals("findSuitableRates should  deliver record 4 as record three has been it has been deleted.", idReturned, ID_4);
 
         exchangeRateResult = dataManager.findSuitableRates(GBP, TRY);
         resultList = exchangeRateResult;
         Assert.assertEquals(1, resultList.size());
         idReturned = resultList.get(0).getId();
-        Assert.assertTrue("findSuitableRates should  deliver record 4 as record three has been it has been deleted.",
-                idReturned == ID_4);
+        Assert.assertEquals("findSuitableRates should  deliver record 4 as record three has been it has been deleted.", idReturned, ID_4);
 
         resultList = dataManager.getAllExchangeRatesWithoutInversion();
         Assert.assertEquals(1, resultList.size());
         idReturned = resultList.get(0).getId();
-        Assert.assertTrue("findSuitableRates should  deliver record 4 as record three has been it has been deleted.",
-                idReturned == ID_4);
+        Assert.assertEquals("findSuitableRates should  deliver record 4 as record three has been it has been deleted.", idReturned, ID_4);
 
         /* ---------> find post delete */
         input = new ExchangeRate();
