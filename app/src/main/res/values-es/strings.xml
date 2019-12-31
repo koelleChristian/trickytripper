@@ -262,4 +262,7 @@
     <string name="permission_write_ext_storage_permanently_revoked">No hay permiso para grabar en la tarjeta SD.</string>
     <!-- ==================== Directory picker activity ======================== -->
     <string name="directory_picker_folder_unreadable">No se ha podido leer el contenido del directorio.</string>
+    <string name="back_button_label">Atrás</string>
+    <string name="next_button_label">Siguiente</string>
+    <string name="skip_button_label">Saltar</string>
 </resources>

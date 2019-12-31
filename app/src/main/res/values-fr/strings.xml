@@ -267,4 +267,7 @@
     <string name="permission_write_ext_storage_permanently_revoked">Vous avez refusé la permission de sauvegarder sur la carte SD.</string>
     <!-- ==================== Directory picker activity ======================== -->
     <string name="directory_picker_folder_unreadable">Impossible de lire le contenu de ce dossier.</string>
+    <string name="back_button_label">Retour</string>
+    <string name="next_button_label">Suivant</string>
+    <string name="skip_button_label">Ignorer</string>
 </resources>
