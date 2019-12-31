@@ -115,6 +115,7 @@ public class SaveToSdCardActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == DirectoryPickerActivity.REQUEST_CODE && resultCode == RESULT_OK) {
 
             Bundle extras = data.getExtras();
@@ -130,8 +131,7 @@ public class SaveToSdCardActivity extends AppCompatActivity {
             };
             Thread thread = new Thread(runnable);
             thread.start();
-        }
-        else {
+        } else {
             finishHere(false);
         }
     }

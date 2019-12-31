@@ -296,6 +296,7 @@ public class TrickyTripperActivity extends AppCompatActivity implements DeleteDi
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        super.onActivityResult(requestCode, resultCode, resultData);
         if (requestCode == Rc.ACTIVITY_REQ_CODE_EDIT_TRIP && resultCode == Activity.RESULT_OK) {
             updateList(getApp().getTripController().getAllTrips());
         }

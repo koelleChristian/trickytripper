@@ -224,6 +224,7 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == Rc.ACTIVITY_REQ_CODE_CURRENCY_CALCULATOR) {
                 CurrencyCalculatorResultSupport.onActivityResult(requestCode, resultCode, data, this, getLocale(),

@@ -17,6 +17,7 @@ public class DecimalNumberInputPatternMatcher {
     }
 
 
+    @SuppressWarnings("Annotator")
     public DecimalNumberInputPatternMatcher(int amountOfLeftHandDigits, int amountOfDecimalDigits, int maxLength) {
         String patternString = "\\d{0," + amountOfLeftHandDigits + "}([" + Rglob.DECIMAL_DEL_DOT
                 + Rglob.DECIMAL_DEL_COMMA

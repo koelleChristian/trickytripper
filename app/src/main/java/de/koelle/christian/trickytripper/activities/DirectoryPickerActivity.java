@@ -152,6 +152,7 @@ public class DirectoryPickerActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             String path = (String) extras.get(DirectoryPickerActivity.EXTRA_RESULT_CHOSEN_DIRECTORY);
