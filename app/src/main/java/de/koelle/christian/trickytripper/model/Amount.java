@@ -25,7 +25,7 @@ public class Amount implements Serializable {
     public Amount doClone() {
         Amount clone;
         clone = new Amount();
-        clone.setUnit(this.getUnit());
+        this.unit = this.getUnit();
         clone.setValue(this.getValue());
         return clone;
     }
