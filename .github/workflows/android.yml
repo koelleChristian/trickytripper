@@ -15,5 +15,7 @@ jobs:
         java-version: 1.8
     - name: Make gradlew executable
       run: chmod +x ./gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
+    - name: assembleDebug
+      run: ./gradlew assembleDebug
+    - name: testDebugUnitTest
+      run: ./gradlew testDebugUnitTest
