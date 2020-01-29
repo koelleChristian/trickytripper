@@ -1,108 +1,92 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+<?xml version='1.0' encoding='UTF-8'?>
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical">
 
+  <RelativeLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="16dp">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="16dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="16dp">
+    <TextView android:id="@+id/money_transfer_view_label_total_transfer_amount"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:padding="3dip"
+      android:text="@string/common_label_total_amount"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:textColor="@color/mainDark"
+      android:textStyle="bold"/>
 
+    <TextView android:id="@+id/money_transfer_view_output_total_transfer_amount"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@id/money_transfer_view_label_total_transfer_amount"
+      android:gravity="end"
+      android:padding="3dip"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:textColor="@color/mainDark"
+      android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/money_transfer_view_label_total_transfer_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="3dip"
-            android:text="@string/common_label_total_amount"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/mainDark"
-            android:textStyle="bold" />
+    <TextView android:id="@+id/money_transfer_view_label_from"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/money_transfer_view_label_total_transfer_amount"
+      android:padding="3dip"
+      android:text="@string/money_transfer_view_label_from"/>
 
-        <TextView
-            android:id="@+id/money_transfer_view_output_total_transfer_amount"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/money_transfer_view_label_total_transfer_amount"
-            android:gravity="end"
-            android:padding="3dip"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/mainDark"
-            android:textStyle="bold" />
+    <TextView android:id="@+id/money_transfer_view_output_participant_from"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/money_transfer_view_label_from"
+      android:padding="10dip"
+      android:paddingBottom="20dp"/>
+  </RelativeLayout>
+  <!-- This scolling shit only scales properly in conjunction with linear layout when the bottom button bar is intended. -->
 
-        <TextView
-            android:id="@+id/money_transfer_view_label_from"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/money_transfer_view_label_total_transfer_amount"
-            android:padding="3dip"
-            android:text="@string/money_transfer_view_label_from" />
+  <ScrollView android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:scrollbars="vertical">
 
-        <TextView
-            android:id="@+id/money_transfer_view_output_participant_from"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/money_transfer_view_label_from"
-            android:padding="10dip"
-            android:paddingBottom="20dp" />
+    <TableLayout android:id="@+id/money_transfer_view_table_layout"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingBottom="16dp"
+      android:paddingLeft="8dp"
+      android:paddingRight="8dp"
+      android:paddingTop="16dp"
+      android:shrinkColumns="0"
+      android:stretchColumns="0">
 
-    </RelativeLayout>
+      <TableRow>
 
-    <!-- This scolling shit only scales properly in conjunction with linear layout when the bottom button bar is intended. -->
+        <TextView android:id="@+id/money_transfer_list_view_label_name"
+          android:gravity="left"
+          android:padding="3dip"
+          android:text="@string/money_transfer_list_view_label_name"/>
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scrollbars="vertical">
+        <TextView android:id="@+id/money_transfer_list_view_label_amount"
+          android:layout_column="2"
+          android:gravity="center"
+          android:text="@string/money_transfer_list_view_label_amount"/>
 
-        <TableLayout
-            android:id="@+id/money_transfer_view_table_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="16dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="16dp"
-            android:shrinkColumns="0"
-            android:stretchColumns="0">
+        <TextView android:id="@+id/money_transfer_list_view_label_due"
+          android:layout_column="3"
+          android:gravity="center"
+          android:text="@string/money_transfer_list_view_label_due"/>
+      </TableRow>
 
-            <TableRow>
+      <View android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/listDividerGrey"
+        android:layout_weight="1">
+        <!--Removed ObsoleteLayoutParam: layout_span-->
+      </View>
 
-                <TextView
-                    android:id="@+id/money_transfer_list_view_label_name"
-                    android:gravity="left"
-                    android:padding="3dip"
-                    android:text="@string/money_transfer_list_view_label_name" />
-
-                <TextView
-                    android:id="@+id/money_transfer_list_view_label_amount"
-                    android:layout_column="2"
-                    android:gravity="center"
-                    android:text="@string/money_transfer_list_view_label_amount" />
-
-                <TextView
-                    android:id="@+id/money_transfer_list_view_label_due"
-                    android:layout_column="3"
-                    android:gravity="center"
-                    android:text="@string/money_transfer_list_view_label_due" />
-            </TableRow>
-
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_span="3"
-                android:background="@color/listDividerGrey"
-                android:layout_weight="1" />
-
-            <View
-                android:layout_height="5dp" />
-        </TableLayout>
-    </ScrollView>
-
+      <View android:layout_height="5dp"/>
+    </TableLayout>
+  </ScrollView>
 </LinearLayout>
