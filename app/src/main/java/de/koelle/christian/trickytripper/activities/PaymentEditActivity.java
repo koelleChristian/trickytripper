@@ -459,7 +459,7 @@ public class PaymentEditActivity extends AppCompatActivity implements DatePicker
         int countBlanks = 0;
         List<Participant> participantsWithBlanks = new ArrayList<>();
         for (Entry<Participant, Amount> entry : payment.getParticipantToSpending().entrySet()) {
-            if (entry.getValue().getValue() == null || entry.getValue().getValue() == 0) {
+            if (entry.getValue().getValue() == null) {
                 countBlanks = countBlanks + 1;
                 participantsWithBlanks.add(entry.getKey());
             }
